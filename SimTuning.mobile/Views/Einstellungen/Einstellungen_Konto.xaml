@@ -1,0 +1,54 @@
+﻿<ContentPage x:Class="SimTuning.mobile.Views.Einstellungen.Einstellungen_Konto"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             BackgroundColor="{DynamicResource MaterialDesignPaper}">
+    <StackLayout>
+
+        <Frame Margin="10">
+            <StackLayout>
+                <material:MaterialLabel Text="Anmelden"
+                                        FontSize="Medium"
+                                        FontAttributes="Bold" />
+                <BoxView Color="Gray"
+                         HeightRequest="2"
+                         HorizontalOptions="Fill"
+                         Margin="0, 0, 0, 5" />
+
+                <material:MaterialTextField Placeholder="E-Mail"
+                                            InputType="Email"
+                                            Text="{Binding Mode=TwoWay, Path=Email}">
+                </material:MaterialTextField>
+
+                <material:MaterialTextField InputType="Password"
+                                            Placeholder="Passwort"
+                                            Text="{Binding Mode=OneWayToSource, Path=Password}">
+                </material:MaterialTextField>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.25*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <material:MaterialButton Grid.Column="0"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Center"
+                                             Text="Registrieren"
+                                             ImageSource="ic_account_plus_outline_black_18dp.png"
+                                             ButtonType="Outlined"
+                                             Command="{Binding RegisterSiteCommand}">
+                    </material:MaterialButton>
+
+                    <material:MaterialButton Grid.Column="1"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Center"
+                                             Text="Login"
+                                             ImageSource="ic_login_variant_black_18dp.png"
+                                             Command="{Binding ConnectUserCommand}">
+                    </material:MaterialButton>
+                </Grid>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

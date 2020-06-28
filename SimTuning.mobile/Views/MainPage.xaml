@@ -1,0 +1,465 @@
+﻿<MasterDetailPage x:Class="SimTuning.mobile.Views.MainPage"
+                  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                  xmlns:behaviors="clr-namespace:SimTuning.mobile.Behaviors"
+                  xmlns:local="clr-namespace:SimTuning.mobile.Views"
+                  xmlns:home="clr-namespace:SimTuning.mobile.Views.Home"
+                  material:MaterialNavigationPage.AppBarColor="{DynamicResource Primary300}"
+                  material:MaterialNavigationPage.StatusBarColor="{DynamicResource Primary500}"
+                  material:MaterialNavigationPage.AppBarTitleTextAlignment="Start">
+    <MasterDetailPage.Master>
+        <ContentPage xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                     xmlns:behaviors="clr-namespace:SimTuning.mobile.Behaviors"
+                     IconImageSource="ic_menu_black_18dp.png"
+                     Title="Master">
+            <ContentPage.Resources>
+                <!--CONVERTER-->
+                <behaviors:NegateBooleanConverter x:Key="Inverter" />
+            </ContentPage.Resources>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--USER-->
+                <Grid BackgroundColor="{DynamicResource Primary100}"
+                      Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--<material:MaterialLabel Grid.Row="0"
+                           Text="Tony"
+                           FontSize="Title"
+                           VerticalOptions="End"
+                           HorizontalOptions="Center" />-->
+
+                    <StackLayout Grid.Row="1"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Start"
+                                 Orientation="Horizontal">
+                        <!--USER-->
+                        <material:MaterialIcon Source="ic_card_account_details_outline_black_18dp.png"
+                                               TintColor="DarkRed"
+                                               WidthRequest="30"
+                                               HeightRequest="30"
+                                               BindingContext="{x:Reference Name=user}"
+                                               IsVisible="{Binding Path=IsVisible, Converter={StaticResource Inverter}}">
+                        </material:MaterialIcon>
+
+                        <material:MaterialIcon x:Name="user"
+                                               Source="ic_card_account_details_outline_black_18dp.png"
+                                               TintColor="DarkGreen"
+                                               WidthRequest="40"
+                                               HeightRequest="40"
+                                               IsVisible="{Binding Mode=OneWay, Path=USER_VALID}">
+                        </material:MaterialIcon>
+
+                        <!--LIZENZ-->
+                        <material:MaterialIcon Source="ic_account_key_outline_black_18dp.png"
+                                               TintColor="DarkRed"
+                                               WidthRequest="25"
+                                               HeightRequest="25"
+                                               BindingContext="{x:Reference Name=license}"
+                                               IsVisible="{Binding Path=IsVisible, Converter={StaticResource Inverter}}">
+                        </material:MaterialIcon>
+
+                        <material:MaterialIcon x:Name="license"
+                                               Source="ic_account_key_outline_black_18dp.png"
+                                               TintColor="DarkGreen"
+                                               WidthRequest="25"
+                                               HeightRequest="25"
+                                               IsVisible="{Binding Mode=OneWay, Path=LICENSE_VALID}">
+                        </material:MaterialIcon>
+                    </StackLayout>
+                    <StackLayout>
+                    </StackLayout>
+                </Grid>
+
+                <!--MENÜ-Items-->
+                <Grid Grid.Row="1"
+                      BackgroundColor="{DynamicResource MaterialDesignBackground}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <ListView Grid.Row="0"
+                              x:Name="menuList"
+                              SeparatorColor="{DynamicResource Accent500}"
+                              SelectedItem="{Binding CurrentTab}"
+                              ItemSelected="OnItemSelected">
+                        <ListView.Behaviors>
+                            <behaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                              Command="{Binding ChangeTabCommand}" />
+                        </ListView.Behaviors>
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type local:MasterPageItem}">
+                                <local:MasterPageItem Title="Home"
+                                                      Icon="ic_dashboard_black_18dp.png"
+                                                      TargetType="{x:Type local:Home.Home_screen}" />
+                                <local:MasterPageItem Title="Einlass"
+                                                      Icon="ic_arrow_forward_black_18dp.png"
+                                                      TargetType="{x:Type local:Einlass.Einlass_main}" />
+                                <local:MasterPageItem Title="Auslass"
+                                                      Icon="ic_arrow_back_black_18dp.png"
+                                                      TargetType="{x:Type local:Auslass.Auslass_main}" />
+                                <local:MasterPageItem Title="Motor"
+                                                      Icon="ic_engine_black_18dp.png"
+                                                      TargetType="{x:Type local:Motor.Motor_main}" />
+                                <local:MasterPageItem Title="Tuning"
+                                                      Icon="ic_tune_vertical_black_18dp.png"
+                                                      TargetType="{x:Type local:Tuning.TuningMainView}" />
+                                <local:MasterPageItem Title="Dyno"
+                                                      Icon="ic_chart_scatter_plot_black_18dp.png"
+                                                      TargetType="{x:Type local:Dyno.Dyno_main}" />
+                                <local:MasterPageItem Title="Einstellungen"
+                                                      Icon="ic_settings_black_18dp.png"
+                                                      TargetType="{x:Type local:Einstellungen.Einstellungen_main}" />
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="{Binding Icon}" />
+
+                                        <material:MaterialLabel Grid.Column="1"
+                                                                Text="{Binding Title}"
+                                                                VerticalOptions="Center"
+                                                                Margin="0, 2, 0, 0" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <!--<ListView x:Name="listPro"
+                              x:FieldModifier="public"
+                              Margin="0, 20, 0, 0"
+                              Grid.Row="1">
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type local:MasterPageItem}">
+                                <local:MasterPageItem Title="Tuning"
+                                                      Icon="arrow_expand_all.png"
+                                                      TargetType="{x:Type local:Tuning.Tuning_main}" />
+                                <local:MasterPageItem Title="Dyno"
+                                                      Icon="graphql.png"
+                                                      TargetType="{x:Type local:Dyno.Dyno_main}" />
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="{Binding Icon}" />
+
+                                        <material:MaterialLabel Grid.Column="1"
+                                               Text="{Binding Title}"
+                                               VerticalOptions="Center"
+                                               Margin="0, 2, 0, 0" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <ListView x:Name="listSettings"
+                              x:FieldModifier="public"
+                              Grid.Row="2"
+                              VerticalOptions="End">
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type local:MasterPageItem}">
+                                <local:MasterPageItem Title="Einstellungen"
+                                                      Icon="ic_settings_black_18dp.png"
+                                                      TargetType="{x:Type local:Einstellungen.Einstellungen_main}" />
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="{Binding Icon}" />
+
+                                        <material:MaterialLabel Grid.Column="1"
+                                               Text="{Binding Title}"
+                                               VerticalOptions="Center"
+                                               Margin="0, 2, 0, 0" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>-->
+                </Grid>
+            </Grid>
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+    <!--Seiten-->
+
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <home:Home_screen />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
+
+<!--<MasterDetailPage x:Class="SimTuning.mobile.Views.MainPage"
+                  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:home="clr-namespace:SimTuning.mobile.Views.Home"
+                  xmlns:local="clr-namespace:SimTuning.mobile.Views">
+
+    <MasterDetailPage.Master>
+        <ContentPage xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                     xmlns:behaviors="clr-namespace:SimTuning.mobile.Behaviors"
+                     IconImageSource="ic_menu_black_18dp.png"
+                     Title="Master">
+            <ContentPage.Resources>
+                -->
+<!--CONVERTER-->
+<!--
+                <behaviors:NegateBooleanConverter x:Key="Inverter" />
+            </ContentPage.Resources>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                -->
+<!--USER-->
+<!--
+                <Grid BackgroundColor="{DynamicResource Primary100}"
+                      Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    -->
+<!--<material:MaterialLabel Grid.Row="0"
+                           Text="Tony"
+                           FontSize="Title"
+                           VerticalOptions="End"
+                           HorizontalOptions="Center" />-->
+<!--
+
+                    <StackLayout Grid.Row="1"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Start"
+                                 Orientation="Horizontal">
+                        -->
+<!--USER-->
+<!--
+                        <material:MaterialIcon Source="ic_card_account_details_outline_black_18dp.png"
+                                               TintColor="DarkRed"
+                                               WidthRequest="30"
+                                               HeightRequest="30"
+                                               BindingContext="{x:Reference Name=user}"
+                                               IsVisible="{Binding Path=IsVisible, Converter={StaticResource Inverter}}">
+                        </material:MaterialIcon>
+
+                        <material:MaterialIcon x:Name="user"
+                                               Source="ic_card_account_details_outline_black_18dp.png"
+                                               TintColor="DarkGreen"
+                                               WidthRequest="40"
+                                               HeightRequest="40"
+                                               IsVisible="{Binding Mode=OneWay, Path=USER_VALID}">
+                        </material:MaterialIcon>
+
+                        -->
+<!--LIZENZ-->
+<!--
+                        <material:MaterialIcon Source="ic_account_key_outline_black_18dp.png"
+                                               TintColor="DarkRed"
+                                               WidthRequest="25"
+                                               HeightRequest="25"
+                                               BindingContext="{x:Reference Name=license}"
+                                               IsVisible="{Binding Path=IsVisible, Converter={StaticResource Inverter}}">
+                        </material:MaterialIcon>
+
+                        <material:MaterialIcon x:Name="license"
+                                               Source="ic_account_key_outline_black_18dp.png"
+                                               TintColor="DarkGreen"
+                                               WidthRequest="25"
+                                               HeightRequest="25"
+                                               IsVisible="{Binding Mode=OneWay, Path=LICENSE_VALID}">
+                        </material:MaterialIcon>
+                    </StackLayout>
+                    <StackLayout>
+                    </StackLayout>
+                </Grid>
+
+                -->
+<!--MENÜ-Items-->
+<!--
+                <Grid Grid.Row="1"
+                      BackgroundColor="{DynamicResource MaterialDesignBackground}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <ListView Grid.Row="0"
+                              SeparatorColor="{DynamicResource Accent500}"
+                              SelectedItem="{Binding CurrentTab}">
+                        <ListView.Behaviors>
+                            <behaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                              Command="{Binding ChangeTabCommand}" />
+                        </ListView.Behaviors>
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type local:MasterPageItem}">
+                                <local:MasterPageItem Title="Home"
+                                                      Icon="ic_dashboard_black_18dp.png"
+                                                      TargetType="{x:Type local:Home.Home_screen}" />
+                                <local:MasterPageItem Title="Einlass"
+                                                      Icon="ic_arrow_forward_black_18dp.png"
+                                                      TargetType="{x:Type local:Einlass.Einlass_main}" />
+                                <local:MasterPageItem Title="Auslass"
+                                                      Icon="ic_arrow_back_black_18dp.png"
+                                                      TargetType="{x:Type local:Auslass.Auslass_main}" />
+                                <local:MasterPageItem Title="Motor"
+                                                      Icon="ic_engine_black_18dp.png"
+                                                      TargetType="{x:Type local:Motor.Motor_main}" />
+                                <local:MasterPageItem Title="Tuning"
+                                                      Icon="ic_tune_vertical_black_18dp.png"
+                                                      TargetType="{x:Type local:Tuning.TuningMainView}" />
+                                <local:MasterPageItem Title="Dyno"
+                                                      Icon="ic_chart_scatter_plot_black_18dp.png"
+                                                      TargetType="{x:Type local:Dyno.Dyno_main}" />
+                                <local:MasterPageItem Title="Einstellungen"
+                                                      Icon="ic_settings_black_18dp.png"
+                                                      TargetType="{x:Type local:Einstellungen.Einstellungen_main}" />
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="{Binding Icon}" />
+
+                                        <material:MaterialLabel Grid.Column="1"
+                                                                Text="{Binding Title}"
+                                                                VerticalOptions="Center"
+                                                                Margin="0, 2, 0, 0" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    -->
+<!--<ListView x:Name="listPro"
+                              x:FieldModifier="public"
+                              Margin="0, 20, 0, 0"
+                              Grid.Row="1">
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type local:MasterPageItem}">
+                                <local:MasterPageItem Title="Tuning"
+                                                      Icon="arrow_expand_all.png"
+                                                      TargetType="{x:Type local:Tuning.Tuning_main}" />
+                                <local:MasterPageItem Title="Dyno"
+                                                      Icon="graphql.png"
+                                                      TargetType="{x:Type local:Dyno.Dyno_main}" />
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="{Binding Icon}" />
+
+                                        <material:MaterialLabel Grid.Column="1"
+                                               Text="{Binding Title}"
+                                               VerticalOptions="Center"
+                                               Margin="0, 2, 0, 0" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <ListView x:Name="listSettings"
+                              x:FieldModifier="public"
+                              Grid.Row="2"
+                              VerticalOptions="End">
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type local:MasterPageItem}">
+                                <local:MasterPageItem Title="Einstellungen"
+                                                      Icon="ic_settings_black_18dp.png"
+                                                      TargetType="{x:Type local:Einstellungen.Einstellungen_main}" />
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="{Binding Icon}" />
+
+                                        <material:MaterialLabel Grid.Column="1"
+                                               Text="{Binding Title}"
+                                               VerticalOptions="Center"
+                                               Margin="0, 2, 0, 0" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>-->
+<!--
+                </Grid>
+            </Grid>
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+    -->
+<!--Seiten-->
+<!--
+
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <home:Home_screen />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>-->

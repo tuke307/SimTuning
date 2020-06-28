@@ -1,0 +1,291 @@
+﻿<ContentPage x:Class="SimTuning.mobile.Views.Motor.Motor_Hubraum"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             BackgroundColor="{DynamicResource MaterialDesignPaper}">
+    <ScrollView>
+        <StackLayout>
+
+            <!--GRUNDLEGENDES-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Grundlegende Daten"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Hub"
+                                                    Text="{Binding Mode=TwoWay, Path=Hub}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitHub}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            cm
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Hubraum Volumen"
+                                                    Text="{Binding Mode=TwoWay, Path=HubraumV}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitHubraumV}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            cm³
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--BOHRUNG-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Bohrung"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Durchmesser"
+                                                    IsEnabled="False"
+                                                    Text="{Binding Mode=OneWay, Path=BohrungD}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitBohrungD}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            cm
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--KOLBEN-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Kolben"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField InputType="Choice"
+                                                    Placeholder="Einbauspiel"
+                                                    Choices="{Binding Einbauspiele}"
+                                                    SelectedChoice="{Binding Einbauspiel}"
+                                                    ChoicesBindingName="Name"
+                                                    WidthRequest="250">
+                        </material:MaterialTextField>
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitEinbauspiel}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            mm
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Durchmesser"
+                                                    IsEnabled="False"
+                                                    Text="{Binding Mode=OneWay, Path=KolbenD}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitKolbenD}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            cm
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--HILFE-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Hilfswerte"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <material:MaterialTextField InputType="Choice"
+                                                Placeholder="Fahrzeug"
+                                                Choices="{Binding Vehicles}"
+                                                SelectedChoice="{Binding Vehicle}"
+                                                ChoicesBindingName="Name">
+                    </material:MaterialTextField>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <material:MaterialLabel Text="Bohrung"
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="1. Schleifmaß"
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="2. Schleifmaß"
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="3. Schleifmaß"
+                                                Grid.Row="3"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="4. Schleifmaß"
+                                                Grid.Row="4"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="0"
+                                     Grid.Column="1">
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=Vehicle.Motor.Bohrung}"
+                                                          IsEnabled="False"
+                                                          Placeholder=" "
+                                                          FloatingPlaceholderEnabled="False"
+                                                          WidthRequest="100"
+                                                          Margin="10,0,0,0"
+                                                          InputType="Numeric" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="1"
+                                     Grid.Column="1">
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=GrindingDiameters.Diameter1}"
+                                                          IsEnabled="False"
+                                                          Placeholder=" "
+                                                          FloatingPlaceholderEnabled="False"
+                                                          WidthRequest="100"
+                                                          Margin="10,0,0,0"
+                                                          InputType="Numeric" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="2"
+                                     Grid.Column="1">
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=GrindingDiameters.Diameter2}"
+                                                          IsEnabled="False"
+                                                          Placeholder=" "
+                                                          FloatingPlaceholderEnabled="False"
+                                                          WidthRequest="100"
+                                                          Margin="10,0,0,0"
+                                                          InputType="Numeric" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="3"
+                                     Grid.Column="1">
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=GrindingDiameters.Diameter3}"
+                                                          IsEnabled="False"
+                                                          Placeholder=" "
+                                                          FloatingPlaceholderEnabled="False"
+                                                          WidthRequest="100"
+                                                          Margin="10,0,0,0"
+                                                          InputType="Numeric" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="4"
+                                     Grid.Column="1">
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=GrindingDiameters.Diameter4}"
+                                                          IsEnabled="False"
+                                                          Placeholder=" "
+                                                          FloatingPlaceholderEnabled="False"
+                                                          WidthRequest="100"
+                                                          Margin="10,0,0,0"
+                                                          InputType="Numeric" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm
+                            </material:MaterialLabel>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

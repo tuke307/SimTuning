@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <ApplicationIcon></ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>Current</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ExpandableView" Version="1.0.10" />
+    <PackageReference Include="OxyPlot.Xamarin.Forms" Version="1.0.0" />
+    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.968" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.41" />
+    <PackageReference Include="XF.Material" Version="1.6.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\API\API.csproj" />
+    <ProjectReference Include="..\SimTuning\SimTuning.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Dyno\DynoDiagnosisView.xaml.cs">
+      <DependentUpon>DynoDiagnosisView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Dyno\DynoAudioView.xaml.cs">
+      <DependentUpon>DynoAudioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Dyno\DynoSpectrogramView.xaml.cs">
+      <DependentUpon>DynoSpectrogramView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Tuning\TuningDataView.xaml.cs">
+      <DependentUpon>TuningDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Tuning\TuningInputView.xaml.cs">
+      <DependentUpon>TuningInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Tuning\TuningMainView.xaml.cs">
+      <DependentUpon>TuningMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Tuning\TuningDiagnosisView.xaml.cs">
+      <DependentUpon>TuningDiagnosisView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Views\Dyno\DynoDataView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
