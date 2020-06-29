@@ -1,14 +1,16 @@
 ﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimTuning.ViewModels.Dyno
 {
-    public class DataViewModel : BaseViewModel
+    public class DataViewModel : MvxViewModel
     {
         public DataViewModel()
         {
@@ -28,6 +30,20 @@ namespace SimTuning.ViewModels.Dyno
         public ICommand ShowSaveButtonCommand { get; set; }
         public ICommand NewDynoCommand { get; set; }
         public ICommand DeleteDynoCommand { get; set; }
+
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
+        #region Commands
 
         protected virtual void NewDyno()
         {
@@ -136,115 +152,20 @@ namespace SimTuning.ViewModels.Dyno
             SaveButton = false;
         }
 
-        public bool SaveButton
-        {
-            get => Get<bool>();
-            set => Set(value);
-        }
-
-        public bool CreateNewVehicle
-        {
-            get => Get<bool>();
-            set => Set(value);
-        }
-
-        public bool TakeExistingVehicle
-        {
-            get => Get<bool>();
-            set => Set(value);
-        }
-
-        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
-        {
-            get => Get<ObservableCollection<Data.Models.VehiclesModel>>();
-            set => Set(value);
-        }
-
-        public Data.Models.VehiclesModel Vehicle
-        {
-            get => Get<Data.Models.VehiclesModel>();
-            set { Set(value); SaveButton = true; }
-        }
-
-        public Data.Models.DynoModel Dyno
-        {
-            get => Get<Data.Models.DynoModel>();
-            set
-            {
-                //alten ausgewälten Dyno-Datensatz inaktiv setzen
-                SetInactiveDyno();
-
-                //fahrzeug zurücksetzen
-                Vehicle = null;
-
-                if (value != null)
-                {
-                    //Active setzen
-                    value = SetActiveDyno(value);
-
-                    //komplett laden
-                    value = LoadDyno(value);
-
-                    //Vehicle laden
-                    if (value.Vehicle != null)
-                    {
-                        CreateNewVehicle = false;
-                        TakeExistingVehicle = true;
-                        Vehicle = Vehicles.Where(v => v.Id == value.Vehicle.Id).First();
-                    }
-                    else
-                    {
-                        CreateNewVehicle = true;
-                        TakeExistingVehicle = false;
-                    }
-
-                    Set(value);
-                }
-                else
-                {
-                    CreateNewVehicle = false;
-                    TakeExistingVehicle = false;
-
-                    Set(value);
-
-                    ////gerade gelöscht => letztes, in Datenbank gespeichertes Vehicle neu laden
-                    //if (Dynos.Count != 0)
-                    //{
-                    //    //Dyno = Dynos.LastOrDefault();
-                    //}
-                    //else
-                    //{
-                    //    //wenn lsite leer ist
-
-                    //}
-                }
-
-                //Da werte in UI geändert wurden, wird save-button angezeigt, daher nach dem laden wieder disablen
-                SaveButton = false;
-            }
-        }
-
-        public ObservableCollection<Data.Models.DynoModel> Dynos
-        {
-            get => Get<ObservableCollection<Data.Models.DynoModel>>();
-            set => Set(value);
-        }
-
         protected Data.Models.DynoModel LoadDyno(Data.Models.DynoModel dyno)
         {
             try
             {
                 using (var Data = new Data.DatabaseContext())
                 {
-                        //Vehicle+Dyno laden
-                        return Data.Dyno
-                          .Where(v => v.Id == dyno.Id)
-                          .Include(v => v.Vehicle)
-                          .Include(v => v.Audio)
-                          .Include(v => v.DynoNm)
-                          .Include(v => v.DynoPS)
-                          .First();
-                   
+                    //Vehicle+Dyno laden
+                    return Data.Dyno
+                      .Where(v => v.Id == dyno.Id)
+                      .Include(v => v.Vehicle)
+                      .Include(v => v.Audio)
+                      .Include(v => v.DynoNm)
+                      .Include(v => v.DynoPS)
+                      .First();
                 }
             }
             catch (Exception)
@@ -309,5 +230,110 @@ namespace SimTuning.ViewModels.Dyno
                 //z.B. nicht in datenbank
             }
         }
+
+        #endregion Commands
+
+        #region Values
+
+        private bool _saveButton;
+
+        public bool SaveButton
+        {
+            get => _saveButton;
+            set { SetProperty(ref _saveButton, value); }
+        }
+
+        private bool _createNewVehicle;
+
+        public bool CreateNewVehicle
+        {
+            get => _createNewVehicle;
+            set { SetProperty(ref _createNewVehicle, value); }
+        }
+
+        private bool _takeExistingVehicle;
+
+        public bool TakeExistingVehicle
+        {
+            get => _takeExistingVehicle;
+            set { SetProperty(ref _takeExistingVehicle, value); }
+        }
+
+        private ObservableCollection<Data.Models.VehiclesModel> _vehicles;
+
+        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
+        {
+            get => _vehicles;
+            set { SetProperty(ref _vehicles, value); }
+        }
+
+        private Data.Models.VehiclesModel _vehicle;
+
+        public Data.Models.VehiclesModel Vehicle
+        {
+            get => _vehicle;
+            set
+            {
+                SetProperty(ref _vehicle, value);
+                SaveButton = true;
+            }
+        }
+
+        private Data.Models.DynoModel _dyno;
+
+        public Data.Models.DynoModel Dyno
+        {
+            get => _dyno;
+            set
+            {
+                //alten ausgewälten Dyno-Datensatz inaktiv setzen
+                SetInactiveDyno();
+
+                //fahrzeug zurücksetzen
+                Vehicle = null;
+
+                if (value != null)
+                {
+                    //Active setzen
+                    value = SetActiveDyno(value);
+
+                    //komplett laden
+                    value = LoadDyno(value);
+
+                    //Vehicle laden
+                    if (value.Vehicle != null)
+                    {
+                        CreateNewVehicle = false;
+                        TakeExistingVehicle = true;
+                        Vehicle = Vehicles.Where(v => v.Id == value.Vehicle.Id).First();
+                    }
+                    else
+                    {
+                        CreateNewVehicle = true;
+                        TakeExistingVehicle = false;
+                    }
+                }
+                else
+                {
+                    CreateNewVehicle = false;
+                    TakeExistingVehicle = false;
+                }
+
+                SetProperty(ref _dyno, value);
+
+                //Da werte in UI geändert wurden, wird save-button angezeigt, daher nach dem laden wieder disablen
+                SaveButton = false;
+            }
+        }
+
+        private ObservableCollection<Data.Models.DynoModel> _dynos;
+
+        public ObservableCollection<Data.Models.DynoModel> Dynos
+        {
+            get => _dynos;
+            set { SetProperty(ref _dynos, value); }
+        }
+
+        #endregion Values
     }
 }

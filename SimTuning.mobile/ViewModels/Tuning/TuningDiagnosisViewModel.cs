@@ -1,6 +1,4 @@
-﻿using OxyPlot;
-using SimTuning.ModuleLogic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace SimTuning.mobile.ViewModels

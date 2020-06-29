@@ -10,10 +10,12 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MvvmCross.ViewModels;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace SimTuning.ViewModels.Dyno
 {
-    public class SpectrogramViewModel : BaseViewModel
+    public class SpectrogramViewModel : MvxViewModel
     {
         protected readonly AudioLogic audioLogic;
 
@@ -55,11 +57,19 @@ namespace SimTuning.ViewModels.Dyno
         public ICommand FilterPlotCommand { get; set; }
         public ICommand SpecificGraphCommand { get; set; }
 
-        protected DynoModel Dyno
+        public override void Prepare()
         {
-            get => Get<DynoModel>();
-            set => Set(value);
+            // This is the first method to be called after construction
         }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
+        #region Commands
 
         protected virtual void Refresh_Plot()
         {
@@ -95,55 +105,6 @@ namespace SimTuning.ViewModels.Dyno
             return stream;
         }
 
-        public PlotModel PlotAudio
-        {
-            get { return dynoLogic.PlotAudio; }
-            set => Set(value);
-        }
-
-        //public PlotController Plot_Controller
-        //{
-        //    get => Get<PlotController>();
-        //    set => Set(value);
-        //}
-
-        public List<double> Intensitys
-        {
-            get => Get<List<double>>();
-            set => Set(value);
-        }
-
-        public double Intensity
-        {
-            get => Get<double>();
-            set => Set(value);
-        }
-
-        //0 schlecht, 1 mittel, 2 gut, 3 sehr gut
-        public List<string> Qualitys
-        {
-            get => Get<List<string>>();
-            set => Set(value);
-        }
-
-        public string Quality
-        {
-            get => Get<string>();
-            set => Set(value);
-        }
-
-        public List<string> Graphs
-        {
-            get => Get<List<string>>();
-            set => Set(value);
-        }
-
-        public string Graph
-        {
-            get => Get<string>();
-            set => Set(value);
-        }
-
         protected virtual void SpecificGraph()
         {
             if (Graphs == null || Graph == null)
@@ -160,13 +121,81 @@ namespace SimTuning.ViewModels.Dyno
             }
         }
 
+        #endregion Commands
+
+        #region Values
+
+        private DynoModel _dyno;
+
+        public DynoModel Dyno
+        {
+            get => _dyno;
+            set { SetProperty(ref _dyno, value); }
+        }
+
+        public PlotModel PlotAudio
+        {
+            get { return dynoLogic.PlotAudio; }
+        }
+
+        private List<double> _intensitys;
+
+        public List<double> Intensitys
+        {
+            get => _intensitys;
+            set { SetProperty(ref _intensitys, value); }
+        }
+
+        private double _intensity;
+
+        public double Intensity
+        {
+            get => _intensity;
+            set { SetProperty(ref _intensity, value); }
+        }
+
+        //0 schlecht, 1 mittel, 2 gut, 3 sehr gut
+        private List<string> _qualitys;
+
+        public List<string> Qualitys
+        {
+            get => _qualitys;
+            set { SetProperty(ref _qualitys, value); }
+        }
+
+        private string _quality;
+
+        public string Quality
+        {
+            get => _quality;
+            set { SetProperty(ref _quality, value); }
+        }
+
+        private List<string> _graphs;
+
+        public List<string> Graphs
+        {
+            get => _graphs;
+            set { SetProperty(ref _graphs, value); }
+        }
+
+        private string _graph;
+
+        public string Graph
+        {
+            get => _graph;
+            set { SetProperty(ref _graph, value); }
+        }
+
         //0 schwarz, 1 weiß, 2 blau, 3 grün, 4 lila
+        private Spectrogram.Colormap _colormap;
+
         public Spectrogram.Colormap Colormap
         {
-            get => Get<Spectrogram.Colormap>();
+            get => _colormap;
             set
             {
-                Set(value);
+                SetProperty(ref _colormap, value);
 
                 //Warnung setzen
                 Normal_Refresh = false;
@@ -174,34 +203,46 @@ namespace SimTuning.ViewModels.Dyno
             }
         }
 
+        private List<Spectrogram.Colormap> _colormaps;
+
         public List<Spectrogram.Colormap> Colormaps
         {
-            get => Get<List<Spectrogram.Colormap>>();
-            set => Set(value);
+            get => _colormaps;
+            set { SetProperty(ref _colormaps, value); }
         }
+
+        private bool _badge_Refresh;
 
         public bool Badge_Refresh
         {
-            get => Get<bool>();
-            set => Set(value);
+            get => _badge_Refresh;
+            set { SetProperty(ref _badge_Refresh, value); }
         }
+
+        private bool _normal_Refresh;
 
         public bool Normal_Refresh
         {
-            get => Get<bool>();
-            set => Set(value);
+            get => _normal_Refresh;
+            set { SetProperty(ref _normal_Refresh, value); }
         }
+
+        private int _frequenzbeginn;
 
         public int Frequenzbeginn
         {
-            get => Get<int>();
-            set => Set(value);
+            get => _frequenzbeginn;
+            set { SetProperty(ref _frequenzbeginn, value); }
         }
+
+        private int _frequenzende;
 
         public int Frequenzende
         {
-            get => Get<int>();
-            set => Set(value);
+            get => _frequenzende;
+            set { SetProperty(ref _frequenzende, value); }
         }
+
+        #endregion Values
     }
 }

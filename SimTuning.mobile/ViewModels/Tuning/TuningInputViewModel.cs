@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace SimTuning.mobile.ViewModels.Tuning
@@ -10,7 +7,6 @@ namespace SimTuning.mobile.ViewModels.Tuning
     {
         public TuningInputViewModel()
         {
-
         }
 
         private bool CheckTuningData()

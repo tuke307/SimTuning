@@ -24,7 +24,7 @@ namespace SimTuning.mobile.ViewModels.Einstellungen
             Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Kaufe die Pro Version um Presets zu ändern",
                                            msDuration: MaterialSnackbar.DurationLong));
 
-            return mainWindowViewModel.LICENSE_VALID;
+            return mainWindowViewModel.LicenseValid;
         }
 
         protected void NewVehicle(object obj)

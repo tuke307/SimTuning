@@ -1,10 +1,11 @@
-﻿using SimTuning.windows.Business;
+﻿using MvvmCross.ViewModels;
+using SimTuning.windows.Business;
 using SimTuning.windows.Views.Auslass;
 using System.Windows.Input;
 
 namespace SimTuning.ViewModels
 {
-    public class AuslassViewModel : BaseViewModel
+    public class AuslassViewModel : MvxViewModel
     {
         public AuslassViewModel()
         {
@@ -12,10 +13,12 @@ namespace SimTuning.ViewModels
             NewContent("Theorie");
         }
 
+        private object _auslassContent;
+
         public object AuslassContent
         {
-            get => Get<object>();
-            set => Set(value);
+            get => _auslassContent;
+            set => SetProperty(ref _auslassContent, value);
         }
 
         public ICommand NewContentCommand { get; set; }

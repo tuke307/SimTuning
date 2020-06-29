@@ -59,7 +59,7 @@ namespace SimTuning.windows.ViewModels.Dyno
 
             await Task.Run(() => base.Refresh_Plot());
 
-            OnPropertyChanged("PlotAudio");
+            RaisePropertyChanged("PlotAudio");
 
             mainWindowViewModel.LoadingAnimation = false;
         }
@@ -73,7 +73,7 @@ namespace SimTuning.windows.ViewModels.Dyno
 
             await Task.Run(() => base.FilterPlot());
 
-            OnPropertyChanged("PlotAudio");
+            RaisePropertyChanged("PlotAudio");
 
             mainWindowViewModel.LoadingAnimation = false;
         }
@@ -84,15 +84,17 @@ namespace SimTuning.windows.ViewModels.Dyno
 
             await Task.Run(() => base.SpecificGraph());
 
-            OnPropertyChanged("PlotAudio");
+            RaisePropertyChanged("PlotAudio");
 
             mainWindowViewModel.LoadingAnimation = false;
         }
 
+        private BitmapSource _displayedImage;
+
         public BitmapSource DisplayedImage
         {
-            get => Get<BitmapSource>();
-            set => Set(value);
+            get => _displayedImage;
+            set => SetProperty(ref _displayedImage, value);
         }
     }
 }

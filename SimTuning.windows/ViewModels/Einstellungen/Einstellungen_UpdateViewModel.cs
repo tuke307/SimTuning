@@ -6,10 +6,11 @@ using System.Net;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using MvvmCross.ViewModels;
 
 namespace SimTuning.ViewModels.Einstellungen
 {
-    public class Einstellungen_UpdateViewModel : BaseViewModel
+    public class Einstellungen_UpdateViewModel : MvxViewModel
     {
         private readonly MainWindowViewModel mainWindowViewModel;
 
@@ -21,32 +22,32 @@ namespace SimTuning.ViewModels.Einstellungen
             StartUpdateCommand = new ActionCommand(StartUpdate);
         }
 
-        public string version_now
+        public ICommand UpdateCheckCommand { get; set; }
+        public ICommand StartUpdateCommand { get; set; }
+
+        private string _version_now;
+
+        public string Version_now
         {
-            get => Get<string>();
-            set => Set(value);
+            get => _version_now;
+            set => SetProperty(ref _version_now, value);
         }
 
-        public string version_new
+        private string _version_new;
+
+        public string Version_new
         {
-            get => Get<string>();
-            set => Set(value);
+            get => _version_new;
+            set => SetProperty(ref _version_new, value);
         }
+
+        private bool _updateButton;
 
         public bool UpdateButton
         {
-            get => Get<bool>();
-            set => Set(value);
+            get => _updateButton;
+            set => SetProperty(ref _updateButton, value);
         }
-
-        public FlowDocument RTFtext
-        {
-            get => Get<FlowDocument>();
-            set => Set(value);
-        }
-
-        public ICommand UpdateCheckCommand { get; set; }
-        public ICommand StartUpdateCommand { get; set; }
 
         private void UpdateCheck(object parameter)
         {
@@ -70,8 +71,8 @@ namespace SimTuning.ViewModels.Einstellungen
         {
             if (args != null)
             {
-                version_new = args.CurrentVersion.ToString();
-                version_now = args.InstalledVersion.ToString();
+                Version_new = args.CurrentVersion.ToString();
+                Version_now = args.InstalledVersion.ToString();
 
                 if (args.IsUpdateAvailable)
                 {
@@ -108,13 +109,13 @@ namespace SimTuning.ViewModels.Einstellungen
             // lesen und einfügen
             if (File.Exists(fileName))
             {
-                var flowDocument = new FlowDocument();
-                var textRange = new TextRange(flowDocument.ContentStart, flowDocument.ContentEnd);
-                using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    textRange.Load(fileStream, DataFormats.Rtf);
-                }
-                RTFtext = flowDocument;
+                //var flowDocument = new FlowDocument();
+                //var textRange = new TextRange(flowDocument.ContentStart, flowDocument.ContentEnd);
+                //using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                //{
+                //    textRange.Load(fileStream, DataFormats.Rtf);
+                //}
+                //RTFtext = flowDocument;
             }
         }
     }

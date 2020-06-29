@@ -7,13 +7,19 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
+using MvvmCross.ViewModels;
+using System.Threading.Tasks;
 
 namespace SimTuning.ViewModels.Motor
 {
-    public class SteuerdiagrammViewModel : BaseViewModel
+    public class SteuerdiagrammViewModel : MvxViewModel
     {
+        protected EngineLogic steuerzeit;
+
         public SteuerdiagrammViewModel()
         {
+            steuerzeit = new EngineLogic();
+
             //Lokale liste kreieren
             MotorSteuerzeiten = new ObservableCollection<MotorModel>(){
                 new MotorModel()
@@ -62,35 +68,26 @@ namespace SimTuning.ViewModels.Motor
                     .Include(vehicles => vehicles.Motor.Ueberstroemer)
                     .ToList();
 
-                Vehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
         }
 
-        protected EngineLogic steuerzeit = new EngineLogic();
+        public ICommand InsertVehicleCommand { get; set; }
+        public ICommand InsertReferenceCommand { get; set; }
 
-        public ObservableCollection<VehiclesModel> Vehicles
+        public override void Prepare()
         {
-            get => Get<ObservableCollection<VehiclesModel>>();
-            set => Set(value);
+            // This is the first method to be called after construction
         }
 
-        public VehiclesModel Vehicle
+        public override Task Initialize()
         {
-            get => Get<VehiclesModel>();
-            set => Set(value);
+            // Async initialization
+
+            return base.Initialize();
         }
 
-        public Data.Models.MotorModel MotorSteuerzeit
-        {
-            get => Get<Data.Models.MotorModel>();
-            set => Set(value);
-        }
-
-        public ObservableCollection<Data.Models.MotorModel> MotorSteuerzeiten
-        {
-            get => Get<ObservableCollection<Data.Models.MotorModel>>();
-            set => Set(value);
-        }
+        #region Commands
 
         protected virtual Stream Refresh_Steuerzeit()
         {
@@ -121,81 +118,14 @@ namespace SimTuning.ViewModels.Motor
                 return stream;
             }
             else { return null; }
-            
         }
-
-        public virtual double? Einlass_Steuerzeit
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public virtual double? Auslass_Steuerzeit
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public virtual double? Ueberstroemer_Steuerzeit
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? Einlass_Steuerwinkel_oeffnen
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? Auslass_Steuerwinkel_oeffnen
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? Ueberstroemer_Steuerwinkel_oeffnen
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? Einlass_Steuerwinkel_schließen
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? Auslass_Steuerwinkel_schließen
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? Ueberstroemer_Steuerwinkel_schließen
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? Vorauslass_Steuerzeit
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        //group box 2
-        public ICommand InsertVehicleCommand { get; set; }
 
         protected void InsertVehicle(object parameter)
         {
-            Einlass_Steuerzeit = Vehicle.Motor.Einlass.SteuerzeitSZ;
-            Auslass_Steuerzeit = Vehicle.Motor.Auslass.SteuerzeitSZ;
-            Ueberstroemer_Steuerzeit = Vehicle.Motor.Ueberstroemer.SteuerzeitSZ;
+            Einlass_Steuerzeit = HelperVehicle.Motor.Einlass.SteuerzeitSZ;
+            Auslass_Steuerzeit = HelperVehicle.Motor.Auslass.SteuerzeitSZ;
+            Ueberstroemer_Steuerzeit = HelperVehicle.Motor.Ueberstroemer.SteuerzeitSZ;
         }
-
-        //Group box 3
-        public ICommand InsertReferenceCommand { get; set; }
 
         protected void InsertReference(object parameter)
         {
@@ -203,5 +133,123 @@ namespace SimTuning.ViewModels.Motor
             Auslass_Steuerzeit = MotorSteuerzeit.Auslass.SteuerzeitSZ;
             Ueberstroemer_Steuerzeit = MotorSteuerzeit.Ueberstroemer.SteuerzeitSZ;
         }
+
+        #endregion Commands
+
+        #region Values
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        public ObservableCollection<VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
+        }
+
+        private VehiclesModel _helperVehicle;
+
+        public VehiclesModel HelperVehicle
+        {
+            get => _helperVehicle;
+            set { SetProperty(ref _helperVehicle, value); }
+        }
+
+        private Data.Models.MotorModel _motorSteuerzeit;
+
+        public Data.Models.MotorModel MotorSteuerzeit
+        {
+            get => _motorSteuerzeit;
+            set { SetProperty(ref _motorSteuerzeit, value); }
+        }
+
+        private ObservableCollection<Data.Models.MotorModel> _motorSteuerzeiten;
+
+        public ObservableCollection<Data.Models.MotorModel> MotorSteuerzeiten
+        {
+            get => _motorSteuerzeiten;
+            set { SetProperty(ref _motorSteuerzeiten, value); }
+        }
+
+        private double? _einlass_Steuerzeit;
+
+        public virtual double? Einlass_Steuerzeit
+        {
+            get => _einlass_Steuerzeit;
+            set { SetProperty(ref _einlass_Steuerzeit, value); }
+        }
+
+        private double? _auslass_Steuerzeit;
+
+        public virtual double? Auslass_Steuerzeit
+        {
+            get => _auslass_Steuerzeit;
+            set { SetProperty(ref _auslass_Steuerzeit, value); }
+        }
+
+        private double? _ueberstroemer_Steuerzeit;
+
+        public virtual double? Ueberstroemer_Steuerzeit
+        {
+            get => _ueberstroemer_Steuerzeit;
+            set { SetProperty(ref _ueberstroemer_Steuerzeit, value); }
+        }
+
+        private double? _einlass_Steuerwinkel_oeffnen;
+
+        public double? Einlass_Steuerwinkel_oeffnen
+        {
+            get => _einlass_Steuerwinkel_oeffnen;
+            set { SetProperty(ref _einlass_Steuerwinkel_oeffnen, value); }
+        }
+
+        private double? _auslass_Steuerwinkel_oeffnen;
+
+        public double? Auslass_Steuerwinkel_oeffnen
+        {
+            get => _auslass_Steuerwinkel_oeffnen;
+            set { SetProperty(ref _auslass_Steuerwinkel_oeffnen, value); }
+        }
+
+        private double? _ueberstroemer_Steuerwinkel_oeffnen;
+
+        public double? Ueberstroemer_Steuerwinkel_oeffnen
+        {
+            get => _ueberstroemer_Steuerwinkel_oeffnen;
+            set { SetProperty(ref _ueberstroemer_Steuerwinkel_oeffnen, value); }
+        }
+
+        private double? _einlass_Steuerwinkel_schließen;
+
+        public double? Einlass_Steuerwinkel_schließen
+        {
+            get => _einlass_Steuerwinkel_schließen;
+            set { SetProperty(ref _einlass_Steuerwinkel_schließen, value); }
+        }
+
+        private double? _auslass_Steuerwinkel_schließen;
+
+        public double? Auslass_Steuerwinkel_schließen
+        {
+            get => _auslass_Steuerwinkel_schließen;
+            set { SetProperty(ref _auslass_Steuerwinkel_schließen, value); }
+        }
+
+        private double? _ueberstroemer_Steuerwinkel_schließen;
+
+        public double? Ueberstroemer_Steuerwinkel_schließen
+        {
+            get => _ueberstroemer_Steuerwinkel_schließen;
+            set { SetProperty(ref _ueberstroemer_Steuerwinkel_schließen, value); }
+        }
+
+        private double? _vorauslass_Steuerzeit;
+
+        public double? Vorauslass_Steuerzeit
+        {
+            get => _vorauslass_Steuerzeit;
+            set { SetProperty(ref _vorauslass_Steuerzeit, value); }
+        }
+
+        #endregion Values
     }
 }

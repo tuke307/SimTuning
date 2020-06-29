@@ -8,17 +8,20 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using UnitsNet.Units;
+using MvvmCross.ViewModels;
+using System.Threading.Tasks;
 
 namespace SimTuning.ViewModels.Motor
 {
-    public class UmrechnungViewModel : BaseViewModel
+    public class UmrechnungViewModel : MvxViewModel
     {
+        private readonly EngineLogic engineLogic;
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
         public UmrechnungViewModel()
         {
-            //InsertDataCommand = new ActionCommand(InsertData);
+            engineLogic = new EngineLogic();
 
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
@@ -38,91 +41,30 @@ namespace SimTuning.ViewModels.Motor
                     .Include(vehicles => vehicles.Motor.Ueberstroemer)
                     .ToList();
 
-                Vehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
         }
 
-        private EngineLogic steuerzeit = new EngineLogic();
+        public ICommand InsertDataCommand { get; set; }
 
-        public ObservableCollection<VehiclesModel> Vehicles
+        public override void Prepare()
         {
-            get => Get<ObservableCollection<VehiclesModel>>();
-            set => Set(value);
+            // This is the first method to be called after construction
         }
 
-        public VehiclesModel Vehicle
+        public override Task Initialize()
         {
-            get => Get<VehiclesModel>();
-            set => Set(value);
+            // Async initialization
+
+            return base.Initialize();
         }
 
-        protected void InsertData(object parameter)
-        {
-            if (Vehicle.Motor.HubL.HasValue)
-                Hub = Vehicle.Motor.HubL;
-
-            if (Vehicle.Motor.PleulL.HasValue)
-                PleulL = Vehicle.Motor.PleulL;
-
-            if (Vehicle.Motor.DeachsierungL.HasValue)
-                Deachsierung = Vehicle.Motor.DeachsierungL;
-        }
-
-        public UnitListItem UnitHub
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                Hub = Business.Functions.UpdateValue(Hub, UnitHub, value);
-
-                Set(value);
-            }
-        }
-
-        public double? Hub
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_hubradius(); }
-        }
-
-        public UnitListItem UnitPleulL
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                PleulL = Business.Functions.UpdateValue(PleulL, UnitPleulL, value);
-
-                Set(value);
-            }
-        }
-
-        public double? PleulL
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_hubradius(); }
-        }
-
-        public UnitListItem UnitDeachsierung
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                Deachsierung = Business.Functions.UpdateValue(Deachsierung, UnitDeachsierung, value);
-
-                Set(value);
-            }
-        }
-
-        public double? Deachsierung
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_hubradius(); }
-        }
+        #region Commands
 
         private void Refresh_hubradius()
         {
             if (Hub.HasValue && PleulL.HasValue && Deachsierung.HasValue)
-                HubR = steuerzeit.Get_hubradius(
+                HubR = engineLogic.Get_hubradius(
                      UnitsNet.UnitConverter.Convert(Hub.Value,
                      UnitHub.UnitEnumValue,
                      LengthUnit.Millimeter),
@@ -136,50 +78,22 @@ namespace SimTuning.ViewModels.Motor
                      LengthUnit.Millimeter));
         }
 
-        public UnitListItem UnitHubR
+        protected void InsertData(object parameter)
         {
-            get => Get<UnitListItem>();
-            set
-            {
-                HubR = Business.Functions.UpdateValue(HubR, UnitHubR, value);
+            if (HelperVehicle.Motor.HubL.HasValue)
+                Hub = HelperVehicle.Motor.HubL;
 
-                Set(value);
-            }
-        }
+            if (HelperVehicle.Motor.PleulL.HasValue)
+                PleulL = HelperVehicle.Motor.PleulL;
 
-        public double? HubR
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? Steuerzeit
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_kwgrad(); }
-        }
-
-        public UnitListItem UnitAbstandOTlength
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                AbstandOTlength = Business.Functions.UpdateValue(AbstandOTlength, UnitAbstandOTlength, value);
-
-                Set(value);
-            }
-        }
-
-        public double? AbstandOTlength
-        {
-            get => Get<double?>();
-            set => Set(value);
+            if (HelperVehicle.Motor.DeachsierungL.HasValue)
+                Deachsierung = HelperVehicle.Motor.DeachsierungL;
         }
 
         private void Refresh_kwgrad()
         {
             if (PleulL.HasValue && HubR.HasValue && Deachsierung.HasValue && Steuerzeit.HasValue)
-                AbstandOTlength = steuerzeit.Get_mmvorot(
+                AbstandOTlength = engineLogic.Get_mmvorot(
                       UnitsNet.UnitConverter.Convert(PleulL.Value,
                       UnitPleulL.UnitEnumValue,
                       LengthUnit.Millimeter),
@@ -195,87 +109,24 @@ namespace SimTuning.ViewModels.Motor
                       Steuerzeit.Value);
         }
 
-        public ICommand InsertDataCommand { get; set; }
-
-        //erhöhen
-        public double? vorher_steuerzeit
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_Unterschied(); }
-        }
-
-        public double? nachher_steuerzeit
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_Unterschied(); }
-        }
-
-        public double? vorher_steuerwinkel_oeffnet
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? nachher_steuerwinkel_oeffnet
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? vorher_steuerwinkel_schließt
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? nachher_steuerwinkel_schließt
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public bool kolbenunterkante_checked
-        {
-            get => Get<bool>();
-            set { Set(value); Refresh_Unterschied(); }
-        }
-
-        public bool kolbenoberkante_checked
-        {
-            get => Get<bool>();
-            set { Set(value); Refresh_Unterschied(); }
-        }
-
-        public double? unterschied_grad
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? unterschied_mm
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
         private void Refresh_Unterschied()
         {
-            if (vorher_steuerzeit.HasValue && nachher_steuerzeit.HasValue && PleulL.HasValue && HubR.HasValue && Deachsierung.HasValue && (kolbenoberkante_checked || kolbenunterkante_checked))
+            if (VorherSteuerzeit.HasValue && NachherSteuerzeit.HasValue && PleulL.HasValue && HubR.HasValue && Deachsierung.HasValue && (Kolbenoberkante_checked || Kolbenunterkante_checked))
             {
                 List<double> steuerwinkel = new List<double>();
-                steuerwinkel.AddRange(steuerzeit.Get_steuerwinkel(vorher_steuerzeit.Value, nachher_steuerzeit.Value, kolbenoberkante_checked, kolbenunterkante_checked));
+                steuerwinkel.AddRange(engineLogic.Get_steuerwinkel(VorherSteuerzeit.Value, NachherSteuerzeit.Value, Kolbenoberkante_checked, Kolbenunterkante_checked));
 
-                vorher_steuerwinkel_oeffnet = steuerwinkel[0];
-                vorher_steuerwinkel_schließt = steuerwinkel[1];
-                nachher_steuerwinkel_oeffnet = steuerwinkel[2];
-                nachher_steuerwinkel_schließt = steuerwinkel[3];
+                VorherSteuerwinkelOeffnet = steuerwinkel[0];
+                VorherSteuerwinkelSchließt = steuerwinkel[1];
+                NachherSteuerwinkelOeffnet = steuerwinkel[2];
+                NachherSteuerwinkelSchließt = steuerwinkel[3];
 
-                unterschied_grad = steuerzeit.Get_Unterschied_grad(vorher_steuerzeit.Value, nachher_steuerzeit.Value);
+                Unterschied_grad = engineLogic.Get_Unterschied_grad(VorherSteuerzeit.Value, NachherSteuerzeit.Value);
 
                 //verbessern und durschnitt aus öffnen und schließen bilden
-                unterschied_mm = steuerzeit.Get_Unterschied_mm(
-                    vorher_steuerwinkel_oeffnet.Value,
-                    nachher_steuerwinkel_oeffnet.Value,
+                Unterschied_mm = engineLogic.Get_Unterschied_mm(
+                    VorherSteuerwinkelOeffnet.Value,
+                    NachherSteuerwinkelOeffnet.Value,
 
                      UnitsNet.UnitConverter.Convert(PleulL.Value,
                     UnitPleulL.UnitEnumValue,
@@ -290,5 +141,252 @@ namespace SimTuning.ViewModels.Motor
                     LengthUnit.Millimeter));
             }
         }
+
+        #endregion Commands
+
+        #region Values
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        public ObservableCollection<VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
+        }
+
+        private VehiclesModel _helperVehicle;
+
+        public VehiclesModel HelperVehicle
+        {
+            get => _helperVehicle;
+            set { SetProperty(ref _helperVehicle, value); }
+        }
+
+        private UnitListItem _unitHub;
+
+        public UnitListItem UnitHub
+        {
+            get => _unitHub;
+            set
+            {
+                Hub = Business.Functions.UpdateValue(Hub, _unitHub, value);
+
+                SetProperty(ref _unitHub, value);
+            }
+        }
+
+        private double? _hub;
+
+        public double? Hub
+        {
+            get => _hub;
+            set
+            {
+                SetProperty(ref _hub, value);
+                Refresh_hubradius();
+            }
+        }
+
+        private UnitListItem _unitPleulL;
+
+        public UnitListItem UnitPleulL
+        {
+            get => _unitPleulL;
+            set
+            {
+                PleulL = Business.Functions.UpdateValue(PleulL, _unitPleulL, value);
+
+                SetProperty(ref _unitPleulL, value);
+            }
+        }
+
+        private double? _pleulL;
+
+        public double? PleulL
+        {
+            get => _pleulL;
+            set
+            {
+                SetProperty(ref _pleulL, value);
+                Refresh_hubradius();
+            }
+        }
+
+        private UnitListItem _unitDeachsierung;
+
+        public UnitListItem UnitDeachsierung
+        {
+            get => _unitDeachsierung;
+            set
+            {
+                Deachsierung = Business.Functions.UpdateValue(Deachsierung, _unitDeachsierung, value);
+
+                SetProperty(ref _unitDeachsierung, value);
+            }
+        }
+
+        private double? _deachsierung;
+
+        public double? Deachsierung
+        {
+            get => _deachsierung;
+            set
+            {
+                SetProperty(ref _deachsierung, value);
+                Refresh_hubradius();
+            }
+        }
+
+        private UnitListItem _unitHubR;
+
+        public UnitListItem UnitHubR
+        {
+            get => _unitHubR;
+            set
+            {
+                HubR = Business.Functions.UpdateValue(HubR, _unitHubR, value);
+
+                SetProperty(ref _unitHubR, value);
+            }
+        }
+
+        private double? _hubR;
+
+        public double? HubR
+        {
+            get => _hubR;
+            set { SetProperty(ref _hubR, value); }
+        }
+
+        private double? _steuerzeit;
+
+        public double? Steuerzeit
+        {
+            get => _steuerzeit;
+            set
+            {
+                SetProperty(ref _steuerzeit, value);
+                Refresh_kwgrad();
+            }
+        }
+
+        private UnitListItem _unitAbstandOTlength;
+
+        public UnitListItem UnitAbstandOTlength
+        {
+            get => _unitAbstandOTlength;
+            set
+            {
+                AbstandOTlength = Business.Functions.UpdateValue(AbstandOTlength, _unitAbstandOTlength, value);
+
+                SetProperty(ref _unitAbstandOTlength, value);
+            }
+        }
+
+        private double? _abstandOTlength;
+
+        public double? AbstandOTlength
+        {
+            get => _abstandOTlength;
+            set { SetProperty(ref _abstandOTlength, value); }
+        }
+
+        private double? _vorherSteuerzeit;
+
+        public double? VorherSteuerzeit
+        {
+            get => _vorherSteuerzeit;
+            set
+            {
+                SetProperty(ref _vorherSteuerzeit, value);
+                Refresh_Unterschied();
+            }
+        }
+
+        private double? _nachherSteuerzeit;
+
+        public double? NachherSteuerzeit
+        {
+            get => _nachherSteuerzeit;
+            set
+            {
+                SetProperty(ref _nachherSteuerzeit, value);
+                Refresh_Unterschied();
+            }
+        }
+
+        private double? _vorherSteuerwinkelOeffnet;
+
+        public double? VorherSteuerwinkelOeffnet
+        {
+            get => _vorherSteuerwinkelOeffnet;
+            set { SetProperty(ref _vorherSteuerwinkelOeffnet, value); }
+        }
+
+        private double? _nachherSteuerwinkelOeffnet;
+
+        public double? NachherSteuerwinkelOeffnet
+        {
+            get => _nachherSteuerwinkelOeffnet;
+            set { SetProperty(ref _nachherSteuerwinkelOeffnet, value); }
+        }
+
+        private double? _vorherSteuerwinkelSchließt;
+
+        public double? VorherSteuerwinkelSchließt
+        {
+            get => _vorherSteuerwinkelSchließt;
+            set { SetProperty(ref _vorherSteuerwinkelSchließt, value); }
+        }
+
+        private double? _nachherSteuerwinkelSchließt;
+
+        public double? NachherSteuerwinkelSchließt
+        {
+            get => _nachherSteuerwinkelSchließt;
+            set { SetProperty(ref _nachherSteuerwinkelSchließt, value); }
+        }
+
+        private bool _kolbenunterkante_checked;
+
+        public bool Kolbenunterkante_checked
+        {
+            get => _kolbenunterkante_checked;
+            set
+            {
+                SetProperty(ref _kolbenunterkante_checked, value);
+                Refresh_Unterschied();
+            }
+        }
+
+        private bool _kolbenoberkante_checked;
+
+        public bool Kolbenoberkante_checked
+        {
+            get => _kolbenoberkante_checked;
+            set
+            {
+                SetProperty(ref _kolbenoberkante_checked, value);
+                Refresh_Unterschied();
+            }
+        }
+
+        private double? _unterschied_grad;
+
+        public double? Unterschied_grad
+        {
+            get => _unterschied_grad;
+            set { SetProperty(ref _unterschied_grad, value); }
+        }
+
+        private double? _unterschied_mm;
+
+        public double? Unterschied_mm
+        {
+            get => _unterschied_mm;
+            set { SetProperty(ref _unterschied_mm, value); }
+        }
+
+        #endregion Values
     }
 }

@@ -56,7 +56,7 @@
                                                TintColor="DarkGreen"
                                                WidthRequest="40"
                                                HeightRequest="40"
-                                               IsVisible="{Binding Mode=OneWay, Path=USER_VALID}">
+                                               IsVisible="{Binding Mode=OneWay, Path=_userValid}">
                         </material:MaterialIcon>
 
                         <!--LIZENZ-->
@@ -73,7 +73,7 @@
                                                TintColor="DarkGreen"
                                                WidthRequest="25"
                                                HeightRequest="25"
-                                               IsVisible="{Binding Mode=OneWay, Path=LICENSE_VALID}">
+                                               IsVisible="{Binding Mode=OneWay, Path=LicenseValid}">
                         </material:MaterialIcon>
                     </StackLayout>
                     <StackLayout>
@@ -288,7 +288,7 @@
                                                TintColor="DarkGreen"
                                                WidthRequest="40"
                                                HeightRequest="40"
-                                               IsVisible="{Binding Mode=OneWay, Path=USER_VALID}">
+                                               IsVisible="{Binding Mode=OneWay, Path=_userValid}">
                         </material:MaterialIcon>
 
                         -->
@@ -307,7 +307,7 @@
                                                TintColor="DarkGreen"
                                                WidthRequest="25"
                                                HeightRequest="25"
-                                               IsVisible="{Binding Mode=OneWay, Path=LICENSE_VALID}">
+                                               IsVisible="{Binding Mode=OneWay, Path=_licenseValid}">
                         </material:MaterialIcon>
                     </StackLayout>
                     <StackLayout>

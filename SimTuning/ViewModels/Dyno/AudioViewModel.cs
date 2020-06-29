@@ -1,6 +1,7 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.ViewModels;
 using SimTuning.ModuleLogic;
 using SkiaSharp;
 using System;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 
 namespace SimTuning.ViewModels.Dyno
 {
-    public class AudioViewModel : BaseViewModel
+    public class AudioViewModel : MvxViewModel
     {
         protected AudioLogic audioLogic;
 
@@ -37,11 +38,19 @@ namespace SimTuning.ViewModels.Dyno
         public ICommand CutBeginnCommand { get; set; }
         public ICommand CutEndCommand { get; set; }
 
-        public DynoModel Dyno
+        public override void Prepare()
         {
-            get => Get<DynoModel>();
-            set => Set(value);
+            // This is the first method to be called after construction
         }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
+        #region Commands
 
         protected virtual void OpenFileDialog()
         {
@@ -59,20 +68,6 @@ namespace SimTuning.ViewModels.Dyno
         {
         }
 
-        protected bool BadgeFileOpen
-        {
-            get => Get<bool>();
-            set => Set(value);
-        }
-
-        protected Stream ReloadImageAudioSpectrogram()
-        {
-            SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Constants.AudioFilePath);
-            Stream stream = SimTuning.Business.Converts.SKBitmapToStream(spec);
-
-            return stream;
-        }
-
         protected virtual void OpenFile()
         {
         }
@@ -83,6 +78,14 @@ namespace SimTuning.ViewModels.Dyno
 
         protected virtual void CutEnd()
         {
+        }
+
+        protected Stream ReloadImageAudioSpectrogram()
+        {
+            SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Constants.AudioFilePath);
+            Stream stream = SimTuning.Business.Converts.SKBitmapToStream(spec);
+
+            return stream;
         }
 
         /// <summary>
@@ -114,5 +117,27 @@ namespace SimTuning.ViewModels.Dyno
                 cuttedFileStream.CopyTo(fileStream);
             }
         }
+
+        #endregion Commands
+
+        #region Values
+
+        private DynoModel _dyno;
+
+        public DynoModel Dyno
+        {
+            get => _dyno;
+            set { SetProperty(ref _dyno, value); }
+        }
+
+        private bool _badgeFileOpen;
+
+        public bool BadgeFileOpen
+        {
+            get => _badgeFileOpen;
+            set { SetProperty(ref _badgeFileOpen, value); }
+        }
+
+        #endregion Values
     }
 }

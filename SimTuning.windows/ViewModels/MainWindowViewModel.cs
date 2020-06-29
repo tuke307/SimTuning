@@ -20,58 +20,82 @@ namespace SimTuning.windows.ViewModels
         public MainWindowViewModel()
         {
             SelectedIndex = 0;
-            Visibility_ButtonCloseMenu = false;
             LoadingAnimation = false;
+            _closeMenuVis = false;
+            _openMenuVis = true;
 
             ButtonOpenMenu = new ActionCommand(ButtonOpenMenu_Click);
             ButtonCloseMenu = new ActionCommand(ButtonCloseMenu_Click);
-            Visibility_ButtonOpenMenu = true;
 
             ButtonClose = new ActionCommand(CloseApplication);
 
             NotificationSnackbar = new SnackbarMessageQueue();
-            //NotificationSnackbar.IgnoreDuplicate = true;
-            //Application_load();
         }
+
+        public ICommand ButtonOpenMenu { get; set; }
+        public ICommand ButtonCloseMenu { get; set; }
+        public ICommand ButtonClose { get; set; }
 
         protected override async void Application_load()
         {
             settings.LoadColors();
 
             var tuple = await API.API.UserLoginAsync();
-            USER_VALID = tuple.Item1;
-            LICENSE_VALID = tuple.Item2;
+            UserValid = tuple.Item1;
+            LicenseValid = tuple.Item2;
 
             for (int i = 0; i < tuple.Item3.Count; i++)
                 NotificationSnackbar.Enqueue(tuple.Item3[i]);
         }
 
+        private object _homeContent;
 
         public object HomeContent
         {
-            get => Get<object>();
-            set => Set(value);
+            get => _homeContent;
+            set => SetProperty(ref _homeContent, value);
         }
+
+        private bool _loadingAnimation;
 
         public bool LoadingAnimation
         {
-            get => Get<bool>();
-            set => Set(value);
+            get => _loadingAnimation;
+            set => SetProperty(ref _loadingAnimation, value);
         }
 
+        private bool _openMenuVis;
+
+        public bool OpenMenuVis
+        {
+            get => _openMenuVis;
+            set { SetProperty(ref _openMenuVis, value); }
+        }
+
+        private bool _closeMenuVis;
+
+        public bool CloseMenuVis
+        {
+            get => _closeMenuVis;
+            set { SetProperty(ref _closeMenuVis, value); }
+        }
+
+        private SnackbarMessageQueue _notificationSnackbar;
 
         public SnackbarMessageQueue NotificationSnackbar
         {
-            get => Get<SnackbarMessageQueue>();
-            set => Set(value);
+            get => _notificationSnackbar;
+            private set => SetProperty(ref _notificationSnackbar, value);
         }
+
+        private int _selectedIndex;
 
         public int SelectedIndex
         {
-            get => Get<int>();
+            get => _selectedIndex;
             set
             {
-                Set(value);
+                SetProperty(ref _selectedIndex, value);
 
                 switch (SelectedIndex)
                 {
@@ -100,14 +124,14 @@ namespace SimTuning.windows.ViewModels
                         break;
 
                     case 6:
-                        if (LICENSE_VALID)
+                        if (LicenseValid)
                             HomeContent = new TuningMainView(this);
                         else
                             HomeContent = new BuyProView();
                         break;
 
                     case 7:
-                        if (LICENSE_VALID)
+                        if (LicenseValid)
                             HomeContent = new DynoMainView(this);
                         else
                             HomeContent = new BuyProView();
@@ -127,20 +151,16 @@ namespace SimTuning.windows.ViewModels
             }
         }
 
-        public ICommand ButtonOpenMenu { get; set; }
-        public ICommand ButtonCloseMenu { get; set; }
-        public ICommand ButtonClose { get; set; }
-
         public void ButtonOpenMenu_Click(object parameter)
         {
-            Visibility_ButtonCloseMenu = true;
-            Visibility_ButtonOpenMenu = false;
+            CloseMenuVis = true;
+            OpenMenuVis = false;
         }
 
         public void ButtonCloseMenu_Click(object parameter)
         {
-            Visibility_ButtonCloseMenu = false;
-            Visibility_ButtonOpenMenu = true;
+            CloseMenuVis = false;
+            OpenMenuVis = true;
         }
 
         public void CloseApplication(object parameter)

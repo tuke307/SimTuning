@@ -10,19 +10,21 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using UnitsNet.Units;
+using MvvmCross.ViewModels;
+using System.Threading.Tasks;
 
 namespace SimTuning.ViewModels.Einlass
 {
-    public class KanalViewModel : BaseViewModel
+    public class KanalViewModel : MvxViewModel
     {
-        private readonly EinlassLogic einlass = new EinlassLogic();
+        private readonly EinlassLogic einlass;
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
         public KanalViewModel()
         {
-            //InsertDataCommand = new ActionCommand(InsertData);
+            einlass = new EinlassLogic();
 
             AreaQuantityUnits = new AreaQuantity();
             VolumeQuantityUnits = new VolumeQuantity();
@@ -43,29 +45,43 @@ namespace SimTuning.ViewModels.Einlass
                     .Include(vehicles => vehicles.Motor.Ueberstroemer)
                     .ToList();
 
-                Vehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
         }
 
-        public void InsertData(object obj)
+        public ICommand InsertDataCommand { get; set; }
+
+        public override void Prepare()
         {
-            if (Vehicle.Motor.Einlass.FlaecheA.HasValue)
-                EinlassA = Vehicle.Motor.Einlass.FlaecheA;
-
-            if (Vehicle.Motor.Einlass.SteuerzeitSZ.HasValue)
-                Einlasssteuerwinkel = Vehicle.Motor.Einlass.SteuerzeitSZ;
-
-            if (Vehicle.Motor.ResonanzU.HasValue)
-                Resonanzdrehzahl = Vehicle.Motor.ResonanzU;
-
-            if (Vehicle.Motor.KurbelgehaeuseV.HasValue)
-                KurbelgehauseV = Vehicle.Motor.KurbelgehaeuseV;
-
-            if (Vehicle.Motor.Einlass.LaengeL.HasValue)
-                AnsaugleitungD = Vehicle.Motor.Einlass.LaengeL;
+            // This is the first method to be called after construction
         }
 
-        public ICommand InsertDataCommand { get; set; }
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
+        #region Commands
+
+        public void InsertData(object obj)
+        {
+            if (HelperVehicle.Motor.Einlass.FlaecheA.HasValue)
+                EinlassA = HelperVehicle.Motor.Einlass.FlaecheA;
+
+            if (HelperVehicle.Motor.Einlass.SteuerzeitSZ.HasValue)
+                Einlasssteuerwinkel = HelperVehicle.Motor.Einlass.SteuerzeitSZ;
+
+            if (HelperVehicle.Motor.ResonanzU.HasValue)
+                Resonanzdrehzahl = HelperVehicle.Motor.ResonanzU;
+
+            if (HelperVehicle.Motor.KurbelgehaeuseV.HasValue)
+                KurbelgehauseV = HelperVehicle.Motor.KurbelgehaeuseV;
+
+            if (HelperVehicle.Motor.Einlass.LaengeL.HasValue)
+                AnsaugleitungD = HelperVehicle.Motor.Einlass.LaengeL;
+        }
 
         private void Refresh_resonanzlaenge()
         {
@@ -80,96 +96,146 @@ namespace SimTuning.ViewModels.Einlass
             }
         }
 
-        public ObservableCollection<VehiclesModel> Vehicles
+        #endregion Commands
+
+        #region Values
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        public ObservableCollection<VehiclesModel> HelperVehicles
         {
-            get => Get<ObservableCollection<VehiclesModel>>();
-            set => Set(value);
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
         }
 
-        public VehiclesModel Vehicle
+        private VehiclesModel _helperVehicle;
+
+        public VehiclesModel HelperVehicle
         {
-            get => Get<VehiclesModel>();
-            set => Set(value);
+            get => _helperVehicle;
+            set { SetProperty(ref _helperVehicle, value); }
         }
+
+        private UnitListItem _unitResonanzlaenge;
 
         public UnitListItem UnitResonanzlaenge
         {
-            get => Get<UnitListItem>();
+            get => _unitResonanzlaenge;
             set
             {
-                Resonanzlaenge = Business.Functions.UpdateValue(Resonanzlaenge, UnitResonanzlaenge, value);
+                Resonanzlaenge = Business.Functions.UpdateValue(Resonanzlaenge, _unitResonanzlaenge, value);
 
-                Set(value);
+                SetProperty(ref _unitResonanzlaenge, value);
             }
         }
 
+        private double? _resonanzlaenge;
+
         public double? Resonanzlaenge
         {
-            get => Get<double?>();
-            set => Set(value);
+            get => _resonanzlaenge;
+            set { SetProperty(ref _resonanzlaenge, value); }
         }
+
+        private UnitListItem _unitEinlassA;
 
         public UnitListItem UnitEinlassA
         {
-            get => Get<UnitListItem>();
+            get => _unitEinlassA;
             set
             {
                 EinlassA = Business.Functions.UpdateValue(EinlassA, UnitEinlassA, value);
 
-                Set(value);
+                SetProperty(ref _unitEinlassA, value);
             }
         }
+
+        private double? _einlassA;
 
         public double? EinlassA
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_resonanzlaenge(); }
+            get => _einlassA;
+            set
+            {
+                SetProperty(ref _einlassA, value);
+                Refresh_resonanzlaenge();
+            }
         }
+
+        private double? _einlasssteuerwinkel;
 
         public double? Einlasssteuerwinkel
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_resonanzlaenge(); }
+            get => _einlasssteuerwinkel;
+            set
+            {
+                SetProperty(ref _einlasssteuerwinkel, value);
+                Refresh_resonanzlaenge();
+            }
         }
+
+        private double? _resonanzdrehzahl;
 
         public double? Resonanzdrehzahl
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_resonanzlaenge(); }
+            get => _resonanzdrehzahl;
+            set
+            {
+                SetProperty(ref _resonanzdrehzahl, value);
+                Refresh_resonanzlaenge();
+            }
         }
+
+        private UnitListItem _unitKurbelgehauseV;
 
         public UnitListItem UnitKurbelgehauseV
         {
-            get => Get<UnitListItem>();
+            get => _unitKurbelgehauseV;
             set
             {
-                KurbelgehauseV = Business.Functions.UpdateValue(KurbelgehauseV, UnitKurbelgehauseV, value);
+                KurbelgehauseV = Business.Functions.UpdateValue(KurbelgehauseV, _unitKurbelgehauseV, value);
 
-                Set(value);
+                SetProperty(ref _unitKurbelgehauseV, value);
             }
         }
+
+        private double? _kurbelgehauseV;
 
         public double? KurbelgehauseV
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_resonanzlaenge(); }
-        }
-
-        public UnitListItem UnitAnsaugleitungD
-        {
-            get => Get<UnitListItem>();
+            get => _kurbelgehauseV;
             set
             {
-                AnsaugleitungD = Business.Functions.UpdateValue(AnsaugleitungD, UnitAnsaugleitungD, value);
-
-                Set(value);
+                SetProperty(ref _kurbelgehauseV, value);
+                Refresh_resonanzlaenge();
             }
         }
 
+        private UnitListItem _unitAnsaugleitungD;
+
+        public UnitListItem UnitAnsaugleitungD
+        {
+            get => _unitAnsaugleitungD;
+            set
+            {
+                AnsaugleitungD = Business.Functions.UpdateValue(AnsaugleitungD, _unitAnsaugleitungD, value);
+
+                SetProperty(ref _unitAnsaugleitungD, value);
+            }
+        }
+
+        private double? _ansaugleitungD;
+
         public double? AnsaugleitungD
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_resonanzlaenge(); }
+            get => _ansaugleitungD;
+            set
+            {
+                SetProperty(ref _ansaugleitungD, value);
+                Refresh_resonanzlaenge();
+            }
         }
+
+        #endregion Values
     }
 }

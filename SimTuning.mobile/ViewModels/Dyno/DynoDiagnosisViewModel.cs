@@ -36,7 +36,7 @@ namespace SimTuning.mobile.ViewModels.Dyno
 
             await Task.Run(() => base.RefreshPlot());
 
-            OnPropertyChanged("PlotStrength");
+            RaisePropertyChanged("PlotStrength");
 
             await loadingDialog.DismissAsync();
         }

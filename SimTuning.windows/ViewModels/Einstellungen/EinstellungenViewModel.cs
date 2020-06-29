@@ -2,10 +2,11 @@
 using SimTuning.windows.ViewModels;
 using SimTuning.windows.Views.Einstellungen;
 using System.Windows.Input;
+using MvvmCross.ViewModels;
 
 namespace SimTuning.ViewModels.Einstellungen
 {
-    public class EinstellungenViewModel : BaseViewModel
+    public class EinstellungenViewModel : MvxViewModel
     {
         private readonly MainWindowViewModel mainWindowViewModel;
 
@@ -17,10 +18,12 @@ namespace SimTuning.ViewModels.Einstellungen
             NewContent("Aussehen");
         }
 
+        private object _einstellungsContent;
+
         public object EinstellungsContent
         {
-            get => Get<object>();
-            set => Set(value);
+            get => _einstellungsContent;
+            set => SetProperty(ref _einstellungsContent, value);
         }
 
         public ICommand NewContentCommand { get; set; }

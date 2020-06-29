@@ -30,16 +30,11 @@ namespace SimTuning.ViewModels.Einstellungen
             Password = passwordBox.SecurePassword;
         }
 
-        //public ICommand ConnectUserCommand { get; set; }
-        //public ICommand RegisterSiteCommand { get; set; }
-        //public ICommand LoginSiteCommand { get; set; }
-        //public ICommand PasswordChangedCommand { get; set; }
-
         protected override async void ConnectUser(object parameter)
         {
             var tuple = await API.API.UserLoginAsync(email: Email, password: Password);
-            mainWindowViewModel.USER_VALID = tuple.Item1;
-            mainWindowViewModel.LICENSE_VALID = tuple.Item2;
+            mainWindowViewModel.UserValid = tuple.Item1;
+            mainWindowViewModel.LicenseValid = tuple.Item2;
 
             for (int i = 0; i < tuple.Item3.Count; i++)
                 mainWindowViewModel.NotificationSnackbar.Enqueue(tuple.Item3[i]);
@@ -54,29 +49,5 @@ namespace SimTuning.ViewModels.Einstellungen
         {
             Functions.GoToSite("https://tuke-productions.de/mein-konto/");
         }
-
-        //private SettingsModel settings
-        //{
-        //    get => Get<SettingsModel>();
-        //    set => Set(value);
-        //}
-
-        //public string Email
-        //{
-        //    get => Get<string>();
-        //    set => Set(value);
-        //}
-
-        //public string firstname
-        //{
-        //    get => Get<string>();
-        //    set => Set(value);
-        //}
-
-        //public string lastname
-        //{
-        //    get => Get<string>();
-        //    set => Set(value);
-        //}
     }
 }

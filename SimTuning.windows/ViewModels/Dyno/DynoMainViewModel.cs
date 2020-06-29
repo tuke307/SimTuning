@@ -2,10 +2,11 @@
 using SimTuning.windows.Business;
 using SimTuning.windows.Views.Dyno;
 using System.Windows.Input;
+using MvvmCross.ViewModels;
 
 namespace SimTuning.windows.ViewModels.Dyno
 {
-    public class DynoMainViewModel : BaseViewModel
+    public class DynoMainViewModel : MvxViewModel
     {
         private readonly MainWindowViewModel mainWindowViewModel;
 
@@ -17,10 +18,12 @@ namespace SimTuning.windows.ViewModels.Dyno
             NewContent("Datensatz");
         }
 
+        private object _dynoContent;
+
         public object DynoContent
         {
-            get => Get<object>();
-            set => Set(value);
+            get => _dynoContent;
+            set => SetProperty(ref _dynoContent, value);
         }
 
         public ICommand NewContentCommand { get; set; }

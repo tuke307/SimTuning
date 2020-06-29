@@ -70,7 +70,7 @@ namespace SimTuning.mobile.ViewModels.Dyno
                 {
                     while (player.IsPlaying)
                     {
-                        OnPropertyChanged("AudioPosition");
+                        RaisePropertyChanged("AudioPosition");
                     }
                 });
             }
@@ -87,8 +87,8 @@ namespace SimTuning.mobile.ViewModels.Dyno
             if (player != null)
             {
                 player.Stop();
-                _AudioPosition = 0;
-                OnPropertyChanged("AudioPosition");
+                _audioPosition = 0;
+                RaisePropertyChanged("AudioPosition");
             }
         }
 
@@ -110,10 +110,12 @@ namespace SimTuning.mobile.ViewModels.Dyno
             await loadingDialog.DismissAsync();
         }
 
+        private ImageSource _imageAudioSpectrogram;
+
         public ImageSource ImageAudioSpectrogram
         {
-            get => Get<ImageSource>();
-            private set => Set(value);
+            get => _imageAudioSpectrogram;
+            private set => SetProperty(ref _imageAudioSpectrogram, value);
         }
 
         public double? AudioMaximum
@@ -127,36 +129,21 @@ namespace SimTuning.mobile.ViewModels.Dyno
             }
         }
 
-        //Für View
+        private double? _audioPosition;
+
         public double? AudioPosition
         {
-            get
-            {
-                return _AudioPosition;
-            }
+            get => _audioPosition;
             set
             {
-                Set(value);
+                SetProperty(ref _audioPosition, value);
 
                 if (player != null)
                 {
                     player.Seek(value.Value);
-                    _AudioPosition = value;
+                    _audioPosition = value;
                 }
             }
-        }
-
-        //private gesetzte position
-        private double? _AudioPosition
-        {
-            get
-            {
-                if (player != null)
-                    return player.CurrentPosition;
-
-                return null;
-            }
-            set => Set(value);
         }
 
         protected new async Task CutBeginn()
@@ -165,11 +152,11 @@ namespace SimTuning.mobile.ViewModels.Dyno
             {
                 var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Laden");
 
-                await TrimAudio(_AudioPosition.Value, 0);
+                await TrimAudio(_audioPosition.Value, 0);
 
                 OpenFile();
 
-                OnPropertyChanged("AudioPosition");
+                RaisePropertyChanged("AudioPosition");
 
                 await loadingDialog.DismissAsync();
 
@@ -183,11 +170,11 @@ namespace SimTuning.mobile.ViewModels.Dyno
             {
                 var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Laden");
 
-                await TrimAudio(0, _AudioPosition.Value);
+                await TrimAudio(0, _audioPosition.Value);
 
                 OpenFile();
 
-                OnPropertyChanged("AudioPosition");
+                RaisePropertyChanged("AudioPosition");
 
                 await loadingDialog.DismissAsync();
 
@@ -205,7 +192,7 @@ namespace SimTuning.mobile.ViewModels.Dyno
             Task t = Task.Run(() =>
             {
                 Task.Delay(1000).Wait();
-                OnPropertyChanged("AudioMaximum");
+                RaisePropertyChanged("AudioMaximum");
             });
         }
 

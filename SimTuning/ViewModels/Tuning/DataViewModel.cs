@@ -1,15 +1,17 @@
 ﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimTuning.ViewModels.Tuning
 {
-    public class DataViewModel : BaseViewModel
+    public class DataViewModel : MvxViewModel
     {
         public DataViewModel()
         {
@@ -29,6 +31,20 @@ namespace SimTuning.ViewModels.Tuning
         public ICommand ShowSaveButtonCommand { get; set; }
         public ICommand NewTuningCommand { get; set; }
         public ICommand DeleteTuningCommand { get; set; }
+
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
+        #region Commands
 
         protected virtual void NewTuning()
         {
@@ -137,100 +153,6 @@ namespace SimTuning.ViewModels.Tuning
             SaveButton = false;
         }
 
-        public bool SaveButton
-        {
-            get => Get<bool>();
-            set => Set(value);
-        }
-
-        public bool CreateNewVehicle
-        {
-            get => Get<bool>();
-            set => Set(value);
-        }
-
-        public bool TakeExistingVehicle
-        {
-            get => Get<bool>();
-            set => Set(value);
-        }
-
-        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
-        {
-            get => Get<ObservableCollection<Data.Models.VehiclesModel>>();
-            set => Set(value);
-        }
-
-        public Data.Models.VehiclesModel Vehicle
-        {
-            get => Get<Data.Models.VehiclesModel>();
-            set { Set(value); SaveButton = true; }
-        }
-
-        public Data.Models.TuningModel Tuning
-        {
-            get => Get<Data.Models.TuningModel>();
-            set
-            {
-                //alten ausgewälten Tuning-Datensatz inaktiv setzen
-                SetInactiveTuning();
-
-                //fahrzeug zurücksetzen
-                Vehicle = null;
-
-                if (value != null)
-                {
-                    //Active setzen
-                    value = SetActiveTuning(value);
-
-                    //komplett laden
-                    value = LoadTuning(value);
-
-                    //Vehicle laden
-                    if (value.Vehicle != null)
-                    {
-                        CreateNewVehicle = false;
-                        TakeExistingVehicle = true;
-                        Vehicle = Vehicles.Where(v => v.Id == value.Vehicle.Id).First();
-                    }
-                    else
-                    {
-                        CreateNewVehicle = true;
-                        TakeExistingVehicle = false;
-                    }
-
-                    Set(value);
-                }
-                else
-                {
-                    CreateNewVehicle = false;
-                    TakeExistingVehicle = false;
-
-                    Set(value);
-
-                    ////gerade gelöscht => letztes, in Datenbank gespeichertes Vehicle neu laden
-                    //if (Tunings.Count != 0)
-                    //{
-                    //    //Tuning = Tunings.LastOrDefault();
-                    //}
-                    //else
-                    //{
-                    //    //wenn lsite leer ist
-
-                    //}
-                }
-
-                //Da werte in UI geändert wurden, wird save-button angezeigt, daher nach dem laden wieder disablen
-                SaveButton = false;
-            }
-        }
-
-        public ObservableCollection<Data.Models.TuningModel> Tunings
-        {
-            get => Get<ObservableCollection<Data.Models.TuningModel>>();
-            set => Set(value);
-        }
-
         protected Data.Models.TuningModel LoadTuning(Data.Models.TuningModel Tuning)
         {
             try
@@ -306,5 +228,110 @@ namespace SimTuning.ViewModels.Tuning
                 //z.B. nicht in datenbank
             }
         }
+
+        #endregion Commands
+
+        #region Values
+
+        private bool _saveButton;
+
+        public bool SaveButton
+        {
+            get => _saveButton;
+            set { SetProperty(ref _saveButton, value); }
+        }
+
+        private bool _createNewVehicle;
+
+        public bool CreateNewVehicle
+        {
+            get => _createNewVehicle;
+            set { SetProperty(ref _createNewVehicle, value); }
+        }
+
+        private bool _takeExistingVehicle;
+
+        public bool TakeExistingVehicle
+        {
+            get => _takeExistingVehicle;
+            set { SetProperty(ref _takeExistingVehicle, value); }
+        }
+
+        private ObservableCollection<Data.Models.VehiclesModel> _vehicles;
+
+        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
+        {
+            get => _vehicles;
+            set { SetProperty(ref _vehicles, value); }
+        }
+
+        private Data.Models.VehiclesModel _vehicle;
+
+        public Data.Models.VehiclesModel Vehicle
+        {
+            get => _vehicle;
+            set
+            {
+                SetProperty(ref _vehicle, value);
+                SaveButton = true;
+            }
+        }
+
+        private Data.Models.TuningModel _tuning;
+
+        public Data.Models.TuningModel Tuning
+        {
+            get => _tuning;
+            set
+            {
+                //alten ausgewälten Tuning-Datensatz inaktiv setzen
+                SetInactiveTuning();
+
+                //fahrzeug zurücksetzen
+                Vehicle = null;
+
+                if (value != null)
+                {
+                    //Active setzen
+                    value = SetActiveTuning(value);
+
+                    //komplett laden
+                    value = LoadTuning(value);
+
+                    //Vehicle laden
+                    if (value.Vehicle != null)
+                    {
+                        CreateNewVehicle = false;
+                        TakeExistingVehicle = true;
+                        Vehicle = Vehicles.Where(v => v.Id == value.Vehicle.Id).First();
+                    }
+                    else
+                    {
+                        CreateNewVehicle = true;
+                        TakeExistingVehicle = false;
+                    }
+                }
+                else
+                {
+                    CreateNewVehicle = false;
+                    TakeExistingVehicle = false;
+                }
+
+                SetProperty(ref _tuning, value);
+
+                //Da werte in UI geändert wurden, wird save-button angezeigt, daher nach dem laden wieder disablen
+                SaveButton = false;
+            }
+        }
+
+        private ObservableCollection<Data.Models.TuningModel> _tunings;
+
+        public ObservableCollection<Data.Models.TuningModel> Tunings
+        {
+            get => _tunings;
+            set { SetProperty(ref _tunings, value); }
+        }
+
+        #endregion Values
     }
 }

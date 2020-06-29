@@ -57,7 +57,7 @@ namespace SimTuning.mobile.ViewModels.Dyno
 
             await Task.Run(() => base.Refresh_Plot());
 
-            OnPropertyChanged("PlotAudio");
+            RaisePropertyChanged("PlotAudio");
 
             await loadingDialog.DismissAsync();
         }
@@ -71,7 +71,7 @@ namespace SimTuning.mobile.ViewModels.Dyno
 
             await Task.Run(() => base.FilterPlot());
 
-            OnPropertyChanged("PlotAudio");
+            RaisePropertyChanged("PlotAudio");
 
             await loadingDialog.DismissAsync();
         }
@@ -82,15 +82,17 @@ namespace SimTuning.mobile.ViewModels.Dyno
 
             await Task.Run(() => base.SpecificGraph());
 
-            OnPropertyChanged("PlotAudio");
+            RaisePropertyChanged("PlotAudio");
 
             await loadingDialog.DismissAsync();
         }
 
+        private ImageSource _displayedImage;
+
         public ImageSource DisplayedImage
         {
-            get => Get<ImageSource>();
-            set => Set(value);
+            get => _displayedImage;
+            set => SetProperty(ref _displayedImage, value);
         }
     }
 }

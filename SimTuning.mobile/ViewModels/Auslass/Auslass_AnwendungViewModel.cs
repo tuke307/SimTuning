@@ -8,7 +8,6 @@ namespace SimTuning.mobile.ViewModels.Auslass
     {
         public Auslass_AnwendungViewModel()
         {
-            //auslass = new AuslassLogic();
             CalculateCommand = new Command(Calculate);
             DiffusorStageCommand = new Command(DiffusorStage);
 
@@ -20,12 +19,13 @@ namespace SimTuning.mobile.ViewModels.Auslass
             Stream stream = base.Calculate();
             Auspuff = ImageSource.FromStream(() => stream);
         }
-       
+
+        private ImageSource _auspuff;
 
         public ImageSource Auspuff
         {
-            get => Get<ImageSource>();
-            private set => Set(value);
+            get => _auspuff;
+            private set => SetProperty(ref _auspuff, value);
         }
     }
 }

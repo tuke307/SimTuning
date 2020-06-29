@@ -5,22 +5,20 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using UnitsNet.Units;
+using MvvmCross.ViewModels;
+using System.Threading.Tasks;
 
 namespace SimTuning.ViewModels.Einstellungen
 {
-    public class VehiclesViewModel : BaseViewModel
+    public class VehiclesViewModel : MvxViewModel
     {
-        //private readonly MainWindowViewModel mainWindowViewModel;
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
-
         public ObservableCollection<UnitListItem> MassQuantityUnits { get; }
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
-        public VehiclesViewModel(/*MainWindowViewModel mainWindowViewModel*/)
+        public VehiclesViewModel()
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
-
             AreaQuantityUnits = new AreaQuantity();
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
@@ -52,19 +50,32 @@ namespace SimTuning.ViewModels.Einstellungen
 
                 Engines = new ObservableCollection<Data.Models.MotorModel>(db.Motor.ToList());
             }
-
-            //NewVehicleCommand = new ActionCommand(NewVehicle);
-            //DeleteVehicleCommand = new ActionCommand(DeleteVehicle);
-            //SaveVehicleCommand = new ActionCommand(SaveVehicle);
-            //ShowSaveButtonCommand = new ActionCommand(ShowSave);
         }
+
+        public ICommand NewVehicleCommand { get; set; }
+        public ICommand DeleteVehicleCommand { get; set; }
+        public ICommand SaveVehicleCommand { get; set; }
+        public ICommand ShowSaveButtonCommand { get; set; }
+
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
+        #region Commands
 
         protected void ShowSave(object obj)
         {
             SaveButton = true;
         }
 
-        //Speichern eines Fahrzeugs
         protected void SaveVehicle()
         {
             using (var db = new Data.DatabaseContext())
@@ -117,77 +128,6 @@ namespace SimTuning.ViewModels.Einstellungen
             }
         }
 
-        public ICommand NewVehicleCommand { get; set; }
-        public ICommand DeleteVehicleCommand { get; set; }
-        public ICommand SaveVehicleCommand { get; set; }
-        public ICommand ShowSaveButtonCommand { get; set; }
-
-        public ObservableCollection<Data.Models.MotorModel> Engines
-        {
-            get => Get<ObservableCollection<Data.Models.MotorModel>>();
-            set => Set(value);
-        }
-
-        public Data.Models.MotorModel Engine
-        {
-            get => Get<Data.Models.MotorModel>();
-            set
-            {
-                if (Vehicle != null)
-                {
-                    //wenn Vehicle geladen wird; motor setzen für dropdown
-                    if (Vehicle.MotorId.HasValue)
-                        value = Engines.Where(m => m.Id == Vehicle.MotorId.Value).First();
-
-                    if (value != null)
-                    {
-                        if (value.Id != Vehicle.MotorId)
-                        {
-                            //wenn beim Vehicle ein neuer Motor ausgewählt wird
-                            Vehicle.Motor = value;
-                            OnPropertyChanged("Vehicle"); // Motor-Werte für UI updaten
-                        }
-                    }
-                }
-
-                Set(value);
-            }
-        }
-
-        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
-        {
-            get => Get<ObservableCollection<Data.Models.VehiclesModel>>();
-            set => Set(value);
-        }
-
-        public Data.Models.VehiclesModel Vehicle
-        {
-            get => Get<Data.Models.VehiclesModel>();
-            set
-            {
-                if (value != null)
-                {
-                    //Laden des kompletten Datensatzes
-                    LoadVehicle(value);
-                }
-                else
-                {
-                    //gerade gelöscht => letztes Vehicle neu laden
-                    if (Vehicles.Count != 0)
-                        Vehicle = Vehicles.Last();
-                }
-
-                //Einfügen
-                Set(value);
-
-                //nix mehr zu speichern
-                SaveButton = false;
-
-                //Motor refreshen
-                Engine = null;
-            }
-        }
-
         private Data.Models.VehiclesModel LoadVehicle(Data.Models.VehiclesModel value)
         {
             using (var db = new Data.DatabaseContext())
@@ -210,238 +150,362 @@ namespace SimTuning.ViewModels.Einstellungen
             }
         }
 
+        #endregion Commands
+
+        #region Values
+
+        private ObservableCollection<Data.Models.MotorModel> _engines;
+
+        public ObservableCollection<Data.Models.MotorModel> Engines
+        {
+            get => _engines;
+            set { SetProperty(ref _engines, value); }
+        }
+
+        private Data.Models.MotorModel _engine;
+
+        public Data.Models.MotorModel Engine
+        {
+            get => _engine;
+            set
+            {
+                if (Vehicle != null)
+                {
+                    //wenn Vehicle geladen wird; motor setzen für dropdown
+                    if (Vehicle.MotorId.HasValue)
+                        value = Engines.Where(m => m.Id == Vehicle.MotorId.Value).First();
+
+                    if (value != null)
+                    {
+                        if (value.Id != Vehicle.MotorId)
+                        {
+                            //wenn beim Vehicle ein neuer Motor ausgewählt wird
+                            Vehicle.Motor = value;
+                            RaisePropertyChanged("Vehicle"); // Motor-Werte für UI updaten
+                        }
+                    }
+                }
+
+                SetProperty(ref _engine, value);
+            }
+        }
+
+        private ObservableCollection<Data.Models.VehiclesModel> _vehicles;
+
+        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
+        {
+            get => _vehicles;
+            set { SetProperty(ref _vehicles, value); }
+        }
+
+        private Data.Models.VehiclesModel _vehicle;
+
+        public Data.Models.VehiclesModel Vehicle
+        {
+            get => _vehicle;
+            set
+            {
+                if (value != null)
+                {
+                    //Laden des kompletten Datensatzes
+                    LoadVehicle(value);
+                }
+                else
+                {
+                    //gerade gelöscht => letztes Vehicle neu laden
+                    if (Vehicles.Count != 0)
+                        Vehicle = Vehicles.Last();
+                }
+
+                //Einfügen
+                SetProperty(ref _vehicle, value);
+
+                //nix mehr zu speichern
+                SaveButton = false;
+
+                //Motor refreshen
+                Engine = null;
+            }
+        }
+
+        private bool _saveButton;
+
         public bool SaveButton
         {
-            get => Get<bool>();
-            set => Set(value);
+            get => _saveButton;
+            set { SetProperty(ref _saveButton, value); }
         }
+
+        #region Units
+
+        private UnitListItem _unitAnsaugleitungL;
 
         public UnitListItem UnitAnsaugleitungL
         {
-            get => Get<UnitListItem>();
+            get => _unitAnsaugleitungL;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Einlass.LaengeL = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.LaengeL, UnitAnsaugleitungL, value);
+                    Vehicle.Motor.Einlass.LaengeL = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.LaengeL, _unitAnsaugleitungL, value);
 
-                Set(value);
+                SetProperty(ref _unitAnsaugleitungL, value);
             }
         }
+
+        private UnitListItem _unitFrontA;
 
         public UnitListItem UnitFrontA
         {
-            get => Get<UnitListItem>();
+            get => _unitFrontA;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.FrontA = Business.Functions.UpdateValue(Vehicle.FrontA, UnitFrontA, value);
+                    Vehicle.FrontA = Business.Functions.UpdateValue(Vehicle.FrontA, _unitFrontA, value);
 
-                Set(value);
+                SetProperty(ref _unitFrontA, value);
             }
         }
+
+        private UnitListItem _unitGewicht;
 
         public UnitListItem UnitGewicht
         {
-            get => Get<UnitListItem>();
+            get => _unitGewicht;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Gewicht = Business.Functions.UpdateValue(Vehicle.Gewicht, UnitGewicht, value);
+                    Vehicle.Gewicht = Business.Functions.UpdateValue(Vehicle.Gewicht, _unitGewicht, value);
 
-                Set(value);
+                SetProperty(ref _unitGewicht, value);
             }
         }
+
+        private UnitListItem _unitHub;
 
         public UnitListItem UnitHub
         {
-            get => Get<UnitListItem>();
+            get => _unitHub;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.HubL = Business.Functions.UpdateValue(Vehicle.Motor.HubL, UnitHub, value);
+                    Vehicle.Motor.HubL = Business.Functions.UpdateValue(Vehicle.Motor.HubL, _unitHub, value);
 
-                Set(value);
+                SetProperty(ref _unitHub, value);
             }
         }
+
+        private UnitListItem _unitPleulL;
 
         public UnitListItem UnitPleulL
         {
-            get => Get<UnitListItem>();
+            get => _unitPleulL;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.PleulL = Business.Functions.UpdateValue(Vehicle.Motor.PleulL, UnitPleulL, value);
+                    Vehicle.Motor.PleulL = Business.Functions.UpdateValue(Vehicle.Motor.PleulL, _unitPleulL, value);
 
-                Set(value);
+                SetProperty(ref _unitPleulL, value);
             }
         }
+
+        private UnitListItem _unitDeachsierung;
 
         public UnitListItem UnitDeachsierung
         {
-            get => Get<UnitListItem>();
+            get => _unitDeachsierung;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.DeachsierungL = Business.Functions.UpdateValue(Vehicle.Motor.DeachsierungL, UnitDeachsierung, value);
+                    Vehicle.Motor.DeachsierungL = Business.Functions.UpdateValue(Vehicle.Motor.DeachsierungL, _unitDeachsierung, value);
 
-                Set(value);
+                SetProperty(ref _unitDeachsierung, value);
             }
         }
+
+        private UnitListItem _unitBohrungD;
 
         public UnitListItem UnitBohrungD
         {
-            get => Get<UnitListItem>();
+            get => _unitBohrungD;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.BohrungD = Business.Functions.UpdateValue(Vehicle.Motor.BohrungD, UnitBohrungD, value);
+                    Vehicle.Motor.BohrungD = Business.Functions.UpdateValue(Vehicle.Motor.BohrungD, _unitBohrungD, value);
 
-                Set(value);
+                SetProperty(ref _unitBohrungD, value);
             }
         }
+
+        private UnitListItem _unitHubraumV;
 
         public UnitListItem UnitHubraumV
         {
-            get => Get<UnitListItem>();
+            get => _unitHubraumV;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.HubraumV = Business.Functions.UpdateValue(Vehicle.Motor.HubraumV, UnitHubraumV, value);
+                    Vehicle.Motor.HubraumV = Business.Functions.UpdateValue(Vehicle.Motor.HubraumV, _unitHubraumV, value);
 
-                Set(value);
+                SetProperty(ref _unitHubraumV, value);
             }
         }
+
+        private UnitListItem _unitBrennraumV;
 
         public UnitListItem UnitBrennraumV
         {
-            get => Get<UnitListItem>();
+            get => _unitBrennraumV;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.BrennraumV = Business.Functions.UpdateValue(Vehicle.Motor.BrennraumV, UnitBrennraumV, value);
+                    Vehicle.Motor.BrennraumV = Business.Functions.UpdateValue(Vehicle.Motor.BrennraumV, _unitBrennraumV, value);
 
-                Set(value);
+                SetProperty(ref _unitBrennraumV, value);
             }
         }
+
+        private UnitListItem _unitKurbelgehaeuseV;
 
         public UnitListItem UnitKurbelgehaeuseV
         {
-            get => Get<UnitListItem>();
+            get => _unitKurbelgehaeuseV;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.BrennraumV = Business.Functions.UpdateValue(Vehicle.Motor.KurbelgehaeuseV, UnitKurbelgehaeuseV, value);
+                    Vehicle.Motor.BrennraumV = Business.Functions.UpdateValue(Vehicle.Motor.KurbelgehaeuseV, _unitKurbelgehaeuseV, value);
 
-                Set(value);
+                SetProperty(ref _unitKurbelgehaeuseV, value);
             }
         }
+
+        private UnitListItem _unitEinlassH;
 
         public UnitListItem UnitEinlassH
         {
-            get => Get<UnitListItem>();
+            get => _unitEinlassH;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Einlass.HoeheH = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.HoeheH, UnitEinlassH, value);
+                    Vehicle.Motor.Einlass.HoeheH = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.HoeheH, _unitEinlassH, value);
 
-                Set(value);
+                SetProperty(ref _unitEinlassH, value);
             }
         }
+
+        public UnitListItem _unitEinlassB;
 
         public UnitListItem UnitEinlassB
         {
-            get => Get<UnitListItem>();
+            get => _unitEinlassB;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Einlass.BreiteB = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.BreiteB, UnitEinlassB, value);
+                    Vehicle.Motor.Einlass.BreiteB = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.BreiteB, _unitEinlassB, value);
 
-                Set(value);
+                SetProperty(ref _unitEinlassB, value);
             }
         }
+
+        public UnitListItem _unitEinlassA;
 
         public UnitListItem UnitEinlassA
         {
-            get => Get<UnitListItem>();
+            get => _unitEinlassA;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Einlass.FlaecheA = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.FlaecheA, UnitEinlassA, value);
+                    Vehicle.Motor.Einlass.FlaecheA = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.FlaecheA, _unitEinlassA, value);
 
-                Set(value);
+                SetProperty(ref _unitEinlassA, value);
             }
         }
+
+        private UnitListItem _unitAuslassH;
 
         public UnitListItem UnitAuslassH
         {
-            get => Get<UnitListItem>();
+            get => _unitAuslassH;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Auslass.HoeheH = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.HoeheH, UnitAuslassH, value);
+                    Vehicle.Motor.Auslass.HoeheH = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.HoeheH, _unitAuslassH, value);
 
-                Set(value);
+                SetProperty(ref _unitAuslassH, value);
             }
         }
+
+        private UnitListItem _unitAuslassB;
 
         public UnitListItem UnitAuslassB
         {
-            get => Get<UnitListItem>();
+            get => _unitAuslassB;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Auslass.BreiteB = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.BreiteB, UnitAuslassB, value);
+                    Vehicle.Motor.Auslass.BreiteB = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.BreiteB, _unitAuslassB, value);
 
-                Set(value);
+                SetProperty(ref _unitAuslassB, value);
             }
         }
+
+        private UnitListItem _unitAuslassA;
 
         public UnitListItem UnitAuslassA
         {
-            get => Get<UnitListItem>();
+            get => _unitAuslassA;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Auslass.FlaecheA = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.FlaecheA, UnitAuslassA, value);
+                    Vehicle.Motor.Auslass.FlaecheA = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.FlaecheA, _unitAuslassA, value);
 
-                Set(value);
+                SetProperty(ref _unitAuslassA, value);
             }
         }
+
+        private UnitListItem _unitUeberstroemerH;
 
         public UnitListItem UnitUeberstroemerH
         {
-            get => Get<UnitListItem>();
+            get => _unitUeberstroemerH;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Ueberstroemer.Hoehe = Business.Functions.UpdateValue(Vehicle.Motor.Ueberstroemer.Hoehe, UnitUeberstroemerH, value);
+                    Vehicle.Motor.Ueberstroemer.Hoehe = Business.Functions.UpdateValue(Vehicle.Motor.Ueberstroemer.Hoehe, _unitUeberstroemerH, value);
 
-                Set(value);
+                SetProperty(ref _unitUeberstroemerH, value);
             }
         }
+
+        private UnitListItem _unitUeberstroemerB;
 
         public UnitListItem UnitUeberstroemerB
         {
-            get => Get<UnitListItem>();
+            get => _unitUeberstroemerB;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Ueberstroemer.Breite = Business.Functions.UpdateValue(Vehicle.Motor.Ueberstroemer.Breite, UnitUeberstroemerB, value);
+                    Vehicle.Motor.Ueberstroemer.Breite = Business.Functions.UpdateValue(Vehicle.Motor.Ueberstroemer.Breite, _unitUeberstroemerB, value);
 
-                Set(value);
+                SetProperty(ref _unitUeberstroemerB, value);
             }
         }
+
+        private UnitListItem _unitUeberstroemerA;
 
         public UnitListItem UnitUeberstroemerA
         {
-            get => Get<UnitListItem>();
+            get => _unitUeberstroemerA;
             set
             {
                 if (Vehicle != null)
-                    Vehicle.Motor.Ueberstroemer.Flaeche = Business.Functions.UpdateValue(Vehicle.Motor.Ueberstroemer.Flaeche, UnitUeberstroemerA, value);
+                    Vehicle.Motor.Ueberstroemer.Flaeche = Business.Functions.UpdateValue(Vehicle.Motor.Ueberstroemer.Flaeche, _unitUeberstroemerA, value);
 
-                Set(value);
+                SetProperty(ref _unitUeberstroemerA, value);
             }
         }
+
+        #endregion Units
+
+        #endregion Values
     }
 }

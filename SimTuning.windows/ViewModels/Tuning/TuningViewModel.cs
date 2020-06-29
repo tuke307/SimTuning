@@ -3,10 +3,11 @@ using SimTuning.windows.Business;
 using SimTuning.windows.Views.Tuning;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using MvvmCross.ViewModels;
 
 namespace SimTuning.windows.ViewModels.Tuning
 {
-    public class TuningViewModel : BaseViewModel
+    public class TuningViewModel : MvxViewModel
     {
         private MainWindowViewModel mainWindowViewModel;
 
@@ -18,10 +19,12 @@ namespace SimTuning.windows.ViewModels.Tuning
             NewContent("Datensatz");
         }
 
+        private object _tuningContent;
+
         public object TuningContent
         {
-            get => Get<object>();
-            set => Set(value);
+            get => _tuningContent;
+            set => SetProperty(ref _tuningContent, value);
         }
 
         public ICommand NewContentCommand { get; set; }

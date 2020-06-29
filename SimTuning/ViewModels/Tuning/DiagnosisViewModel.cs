@@ -1,22 +1,26 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.ViewModels;
 using OxyPlot;
 using SimTuning.ModuleLogic;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SimTuning.ViewModels.Tuning
 {
-    public class DiagnosisViewModel : BaseViewModel
+    public class DiagnosisViewModel : MvxViewModel
     {
-        private readonly TuningLogic tunigLogic = new TuningLogic();
+        private readonly TuningLogic tunigLogic;
 
         public DiagnosisViewModel()
         {
+            tunigLogic = new TuningLogic();
+
             tunigLogic.DefinePlot();
             tunigLogic.OriginalSeries();
-            //OnPropertyChanged("PlotTuning");
+            //RaisePropertyChanged("PlotTuning");
 
             Enable_Zoom = false;
             Enable_verschieben = false;
@@ -32,6 +36,20 @@ namespace SimTuning.ViewModels.Tuning
             }
         }
 
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
+        #region Commands
+
         protected Data.Models.TuningModel LoadTuning(Data.Models.TuningModel tuning)
         {
             try
@@ -44,7 +62,6 @@ namespace SimTuning.ViewModels.Tuning
                       .Include(v => v.Vehicle)
                       .Include(v => v.Tuning)
                       .First();
-
                 }
             }
             catch (Exception)
@@ -54,59 +71,70 @@ namespace SimTuning.ViewModels.Tuning
             }
         }
 
+        #endregion Commands
+
+        #region Values
+
+        private TuningModel _tuning;
 
         public TuningModel Tuning
         {
-            get => Get<TuningModel>();
-            set => Set(value);
+            get => _tuning;
+            set { SetProperty(ref _tuning, value); }
         }
 
         public PlotModel PlotTuning
         {
             get { return tunigLogic.PlotTuning; }
-            set => Set(value);
         }
 
         public PlotController PlotTuningController
         {
             get { return tunigLogic.PlotTuningController; }
-            set => Set(value);
         }
+
+        private bool _enable_Zoom;
 
         public bool Enable_Zoom
         {
-            get => Get<bool>();
+            get => _enable_Zoom;
             set
             {
-                Set(value);
+                SetProperty(ref _enable_Zoom, value);
 
                 if (value == true) { tunigLogic.Controller_zoom_on(); }
                 else { tunigLogic.Controller_zoom_off(); }
             }
         }
 
+        private bool _enable_verschieben;
+
         public bool Enable_verschieben
         {
-            get => Get<bool>();
+            get => _enable_verschieben;
             set
             {
-                Set(value);
+                SetProperty(ref _enable_verschieben, value);
 
                 if (value == true) { tunigLogic.Controller_pan_on(); }
                 else { tunigLogic.Controller_pan_off(); }
             }
         }
 
+        private bool _enable_Tracker;
+
         public bool Enable_Tracker
         {
-            get => Get<bool>();
+            get => _enable_Tracker;
             set
             {
-                Set(value);
+                SetProperty(ref _enable_Tracker, value);
 
                 if (value == true) { tunigLogic.Controller_tracker_on(); }
                 else { tunigLogic.Controller_tracker_off(); }
             }
         }
+
+        #endregion Values
     }
 }

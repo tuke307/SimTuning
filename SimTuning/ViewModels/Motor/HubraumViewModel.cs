@@ -1,16 +1,18 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.ViewModels;
 using SimTuning.Models;
 using SimTuning.ModuleLogic;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using UnitsNet.Units;
 
 namespace SimTuning.ViewModels.Motor
 {
-    public class HubraumViewModel : BaseViewModel
+    public class HubraumViewModel : MvxViewModel
     {
         private readonly EngineLogic hubraum;
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
@@ -38,118 +40,23 @@ namespace SimTuning.ViewModels.Motor
                     .Include(vehicles => vehicles.Motor.Ueberstroemer)
                     .ToList();
 
-                Vehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
         }
 
-        public GrindingDiametersModel GrindingDiameters
+        public override void Prepare()
         {
-            get => Get<GrindingDiametersModel>();
-            set => Set(value);
+            // This is the first method to be called after construction
         }
 
-        public ObservableCollection<VehiclesModel> Vehicles
+        public override Task Initialize()
         {
-            get => Get<ObservableCollection<VehiclesModel>>();
-            set => Set(value);
+            // Async initialization
+
+            return base.Initialize();
         }
 
-        public VehiclesModel Vehicle
-        {
-            get => Get<VehiclesModel>();
-            set
-            {
-                Set(value);
-
-                if (value.Motor.BohrungD.HasValue)
-                    GrindingDiameters = hubraum.Get_GrindingDiameters(value.Motor.BohrungD.Value);
-            }
-        }
-
-        public UnitListItem UnitEinbauspiel
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                Einbauspiel = Business.Functions.UpdateValue(Einbauspiel, UnitEinbauspiel, value);
-
-                Set(value);
-            }
-        }
-
-        public double? Einbauspiel
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_all(); }
-        }
-
-        public UnitListItem UnitKolbenD
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                KolbenD = Business.Functions.UpdateValue(KolbenD, UnitKolbenD, value);
-
-                Set(value);
-            }
-        }
-
-        public double? KolbenD
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public UnitListItem UnitBohrungD
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                BohrungD = Business.Functions.UpdateValue(BohrungD, UnitBohrungD, value);
-
-                Set(value);
-            }
-        }
-
-        public double? BohrungD
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public UnitListItem UnitHub
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                Hub = Business.Functions.UpdateValue(Hub, UnitHub, value);
-
-                Set(value);
-            }
-        }
-
-        public double? Hub
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_all(); }
-        }
-
-        public UnitListItem UnitHubraumV
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                HubraumV = Business.Functions.UpdateValue(HubraumV, UnitHubraumV, value);
-
-                Set(value);
-            }
-        }
-
-        public double? HubraumV
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_all(); }
-        }
+        #region Commands
 
         private void Refresh_all()
         {
@@ -181,5 +88,158 @@ namespace SimTuning.ViewModels.Motor
                     LengthUnit.Millimeter));
             }
         }
+
+        #endregion Commands
+
+        #region Values
+
+        private GrindingDiametersModel _grindingDiameters;
+
+        public GrindingDiametersModel GrindingDiameters
+        {
+            get => _grindingDiameters;
+            set { SetProperty(ref _grindingDiameters, value); }
+        }
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        public ObservableCollection<VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
+        }
+
+        private VehiclesModel _helperVehicle;
+
+        public VehiclesModel HelperVehicle
+        {
+            get => _helperVehicle;
+            set
+            {
+                SetProperty(ref _helperVehicle, value);
+
+                if (value.Motor.BohrungD.HasValue)
+                    GrindingDiameters = hubraum.Get_GrindingDiameters(value.Motor.BohrungD.Value);
+            }
+        }
+
+        private UnitListItem _unitEinbauspiel;
+
+        public UnitListItem UnitEinbauspiel
+        {
+            get => _unitEinbauspiel;
+            set
+            {
+                Einbauspiel = Business.Functions.UpdateValue(Einbauspiel, _unitEinbauspiel, value);
+
+                SetProperty(ref _unitEinbauspiel, value);
+            }
+        }
+
+        private double? _einbauspiel;
+
+        public double? Einbauspiel
+        {
+            get => _einbauspiel;
+            set
+            {
+                SetProperty(ref _einbauspiel, value);
+                Refresh_all();
+            }
+        }
+
+        private UnitListItem _unitKolbenD;
+
+        public UnitListItem UnitKolbenD
+        {
+            get => _unitKolbenD;
+            set
+            {
+                KolbenD = Business.Functions.UpdateValue(KolbenD, UnitKolbenD, value);
+
+                SetProperty(ref _unitKolbenD, value);
+            }
+        }
+
+        private double? _kolbenD;
+
+        public double? KolbenD
+        {
+            get => _kolbenD;
+            set { SetProperty(ref _kolbenD, value); }
+        }
+
+        private UnitListItem _unitBohrungD;
+
+        public UnitListItem UnitBohrungD
+        {
+            get => _unitBohrungD;
+            set
+            {
+                BohrungD = Business.Functions.UpdateValue(BohrungD, _unitBohrungD, value);
+
+                SetProperty(ref _unitBohrungD, value);
+            }
+        }
+
+        private double? _bohrungD;
+
+        public double? BohrungD
+        {
+            get => _bohrungD;
+            set { SetProperty(ref _bohrungD, value); }
+        }
+
+        private UnitListItem _unitHub;
+
+        public UnitListItem UnitHub
+        {
+            get => _unitHub;
+            set
+            {
+                Hub = Business.Functions.UpdateValue(Hub, UnitHub, value);
+
+                SetProperty(ref _unitHub, value);
+            }
+        }
+
+        private double? _hub;
+
+        public double? Hub
+        {
+            get => _hub;
+            set
+            {
+                SetProperty(ref _hub, value);
+                Refresh_all();
+            }
+        }
+
+        private UnitListItem _unitHubraumV;
+
+        public UnitListItem UnitHubraumV
+        {
+            get => _unitHubraumV;
+            set
+            {
+                HubraumV = Business.Functions.UpdateValue(HubraumV, UnitHubraumV, value);
+
+                SetProperty(ref _unitHubraumV, value);
+            }
+        }
+
+        private double? _hubraumV;
+
+        public double? HubraumV
+        {
+            get => _hubraumV;
+            set
+            {
+                SetProperty(ref _hubraumV, value);
+                Refresh_all();
+            }
+        }
+
+        #endregion Values
     }
 }

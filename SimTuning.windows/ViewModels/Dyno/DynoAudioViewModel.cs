@@ -24,8 +24,6 @@ namespace SimTuning.windows.ViewModels.Dyno
             CutBeginnCommand = new AsyncCommand(async () => await CutBeginn());
             CutEndCommand = new AsyncCommand(async () => await CutEnd());
 
-            //BadgeFileOpen = false;
-
             //datensatz checken
             //CheckDynoData();
         }
@@ -83,7 +81,7 @@ namespace SimTuning.windows.ViewModels.Dyno
                     while (player.IsPlaying)
                     {
                         //AudioPosition = player.CurrentPosition;
-                        OnPropertyChanged("AudioPosition");
+                        RaisePropertyChanged("AudioPosition");
                     }
                 });
             }
@@ -100,8 +98,8 @@ namespace SimTuning.windows.ViewModels.Dyno
             if (player != null)
             {
                 player.Stop();
-                _AudioPosition = 0;
-                OnPropertyChanged("AudioPosition");
+                AudioPosition = 0;
+                RaisePropertyChanged("AudioPosition");
             }
         }
 
@@ -120,10 +118,12 @@ namespace SimTuning.windows.ViewModels.Dyno
             mainWindowViewModel.LoadingAnimation = false;
         }
 
+        private BitmapSource _imageAudioFile;
+
         public BitmapSource ImageAudioFile
         {
-            get => Get<BitmapSource>();
-            set => Set(value);
+            get => _imageAudioFile;
+            set => SetProperty(ref _imageAudioFile, value);
         }
 
         public double? AudioMaximum
@@ -137,36 +137,21 @@ namespace SimTuning.windows.ViewModels.Dyno
             }
         }
 
-        //Für View
+        private double? _audioPosition;
+
         public double? AudioPosition
         {
-            get
-            {
-                return _AudioPosition;
-            }
+            get => _audioPosition;
             set
             {
-                Set(value);
+                SetProperty(ref _audioPosition, value);
 
                 if (player != null)
                 {
                     player.Seek(value.Value);
-                    _AudioPosition = value;
+                    _audioPosition = value;
                 }
             }
-        }
-
-        //privat gesetzte position
-        private double? _AudioPosition
-        {
-            get
-            {
-                if (player != null)
-                    return player.CurrentPosition;
-
-                return null;
-            }
-            set => Set(value);
         }
 
         protected new async Task CutBeginn()
@@ -175,11 +160,11 @@ namespace SimTuning.windows.ViewModels.Dyno
             {
                 mainWindowViewModel.LoadingAnimation = true;
 
-                await TrimAudio(_AudioPosition.Value, 0);
+                await TrimAudio(AudioPosition.Value, 0);
 
                 OpenFile();
 
-                OnPropertyChanged("AudioPosition");
+                RaisePropertyChanged("AudioPosition");
 
                 mainWindowViewModel.LoadingAnimation = false;
 
@@ -193,11 +178,11 @@ namespace SimTuning.windows.ViewModels.Dyno
             {
                 mainWindowViewModel.LoadingAnimation = true;
 
-                await TrimAudio(0, _AudioPosition.Value);
+                await TrimAudio(0, AudioPosition.Value);
 
                 OpenFile();
 
-                OnPropertyChanged("AudioPosition");
+                RaisePropertyChanged("AudioPosition");
 
                 mainWindowViewModel.LoadingAnimation = false;
 
@@ -215,7 +200,7 @@ namespace SimTuning.windows.ViewModels.Dyno
             Task t = Task.Run(() =>
             {
                 Task.Delay(1000).Wait();
-                OnPropertyChanged("AudioMaximum");
+                RaisePropertyChanged("AudioMaximum");
             });
         }
 

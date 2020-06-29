@@ -13,19 +13,19 @@ namespace SimTuning.windows.ViewModels.Auslass
             InsertDataCommand = new ActionCommand(InsertData);
         }
 
-
         protected void Calculate(object parameter)
         {
-            Stream stream = base.Calculate();   
+            Stream stream = base.Calculate();
             PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
             Auspuff = decoder.Frames[0];
         }
 
-     
+        private BitmapSource _auspuff;
+
         public BitmapSource Auspuff
         {
-            get => Get<BitmapSource>();
-            set => Set(value);
+            get => _auspuff;
+            set => SetProperty(ref _auspuff, value);
         }
     }
 }

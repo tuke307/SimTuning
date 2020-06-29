@@ -2,10 +2,11 @@
 using SimTuning.windows.Business;
 using SimTuning.windows.Views.Einlass;
 using System.Windows.Input;
+using MvvmCross.ViewModels;
 
 namespace SimTuning.windows.ViewModels.Einlass
 {
-    public class EinlassViewModel : BaseViewModel
+    public class EinlassViewModel : MvxViewModel
     {
         public EinlassViewModel()
         {
@@ -13,10 +14,12 @@ namespace SimTuning.windows.ViewModels.Einlass
             NewContent("Kanal");
         }
 
+        private object _einlassContent;
+
         public object EinlassContent
         {
-            get => Get<object>();
-            set => Set(value);
+            get => _einlassContent;
+            set => SetProperty(ref _einlassContent, value);
         }
 
         public ICommand NewContentCommand { get; set; }

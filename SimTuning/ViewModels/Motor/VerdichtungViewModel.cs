@@ -8,19 +8,20 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using UnitsNet.Units;
+using MvvmCross.ViewModels;
+using System.Threading.Tasks;
 
 namespace SimTuning.ViewModels.Motor
 {
-    public class VerdichtungViewModel : BaseViewModel
+    public class VerdichtungViewModel : MvxViewModel
     {
-        private EngineLogic verdichtung;
+        private readonly EngineLogic engineLogic;
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
         public VerdichtungViewModel()
         {
-            //InsertDataCommand = new ActionCommand(InsertData);
-            verdichtung = new EngineLogic();
+            engineLogic = new EngineLogic();
 
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
@@ -42,41 +43,43 @@ namespace SimTuning.ViewModels.Motor
                     .Include(vehicles => vehicles.Motor.Ueberstroemer)
                     .ToList();
 
-                Vehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
         }
 
         public ICommand InsertDataCommand { get; set; }
 
-        public ObservableCollection<VehiclesModel> Vehicles
+        public override void Prepare()
         {
-            get => Get<ObservableCollection<VehiclesModel>>();
-            set => Set(value);
+            // This is the first method to be called after construction
         }
 
-        public VehiclesModel Vehicle
+        public override Task Initialize()
         {
-            get => Get<VehiclesModel>();
-            set => Set(value);
+            // Async initialization
+
+            return base.Initialize();
         }
+
+        #region Commands
 
         protected void InsertData(object parameter)
         {
-            if (Vehicle.Motor.HubraumV.HasValue)
-                HubraumV = Vehicle.Motor.HubraumV;
+            if (HelperVehicle.Motor.HubraumV.HasValue)
+                HubraumV = HelperVehicle.Motor.HubraumV;
 
-            if (Vehicle.Motor.BrennraumV.HasValue)
-                BrennraumV = Vehicle.Motor.BrennraumV;
+            if (HelperVehicle.Motor.BrennraumV.HasValue)
+                BrennraumV = HelperVehicle.Motor.BrennraumV;
 
-            if (Vehicle.Motor.BohrungD.HasValue)
-                BohrungD = Vehicle.Motor.BohrungD;
+            if (HelperVehicle.Motor.BohrungD.HasValue)
+                BohrungD = HelperVehicle.Motor.BohrungD;
         }
 
         private void Refresh_verdichtung()
         {
             if (HubraumV.HasValue && BrennraumV.HasValue && BohrungD.HasValue)
             {
-                derzeitige_verdichtung = verdichtung.Get_Verdichtung(
+                Derzeitige_verdichtung = engineLogic.Get_Verdichtung(
                     UnitsNet.UnitConverter.Convert(HubraumV.Value,
                     UnitHubraumV.UnitEnumValue,
                     VolumeUnit.CubicMillimeter),
@@ -95,7 +98,7 @@ namespace SimTuning.ViewModels.Motor
         {
             if (HubraumV.HasValue && BrennraumV.HasValue && BohrungD.HasValue && Zielverdichtung != 0)
             {
-                AbdrehenLength = verdichtung.Get_Abdrehen_mm(
+                AbdrehenLength = engineLogic.Get_Abdrehen_mm(
                     UnitsNet.UnitConverter.Convert(HubraumV.Value,
                     UnitHubraumV.UnitEnumValue,
                     VolumeUnit.CubicMillimeter),
@@ -112,90 +115,154 @@ namespace SimTuning.ViewModels.Motor
             }
         }
 
+        #endregion Commands
+
+        #region Values
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        public ObservableCollection<VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
+        }
+
+        private VehiclesModel _helperVehicle;
+
+        public VehiclesModel HelperVehicle
+        {
+            get => _helperVehicle;
+            set { SetProperty(ref _helperVehicle, value); }
+        }
+
+        private UnitListItem _unitHubraumV;
+
         public UnitListItem UnitHubraumV
         {
-            get => Get<UnitListItem>();
+            get => _unitHubraumV;
             set
             {
-                HubraumV = Business.Functions.UpdateValue(HubraumV, UnitHubraumV, value);
+                HubraumV = Business.Functions.UpdateValue(HubraumV, _unitHubraumV, value);
 
-                Set(value);
+                SetProperty(ref _unitHubraumV, value);
             }
         }
+
+        private double? _hubraumV;
 
         public double? HubraumV
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_verdichtung(); }
+            get => _hubraumV;
+            set
+            {
+                SetProperty(ref _hubraumV, value);
+                Refresh_verdichtung();
+            }
         }
+
+        private UnitListItem _unitBrennraum;
 
         public UnitListItem UnitBrennraumV
         {
-            get => Get<UnitListItem>();
+            get => _unitBrennraum;
             set
             {
-                BrennraumV = Business.Functions.UpdateValue(BrennraumV, UnitBrennraumV, value);
+                BrennraumV = Business.Functions.UpdateValue(BrennraumV, _unitBrennraum, value);
 
-                Set(value);
+                SetProperty(ref _unitBrennraum, value);
             }
         }
+
+        private double? _brennraumV;
 
         public double? BrennraumV
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_verdichtung(); }
+            get => _brennraumV;
+            set
+            {
+                SetProperty(ref _brennraumV, value);
+                Refresh_verdichtung();
+            }
         }
+
+        private UnitListItem _unitBohrungD;
 
         public UnitListItem UnitBohrungD
         {
-            get => Get<UnitListItem>();
+            get => _unitBohrungD;
             set
             {
-                BohrungD = Business.Functions.UpdateValue(BohrungD, UnitBohrungD, value);
+                BohrungD = Business.Functions.UpdateValue(BohrungD, _unitBohrungD, value);
 
-                Set(value);
+                SetProperty(ref _unitBohrungD, value);
             }
         }
+
+        private double? _bohrungD;
 
         public double? BohrungD
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_verdichtung(); }
-        }
-
-        public double? derzeitige_verdichtung
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public UnitListItem UnitAbdrehenLength
-        {
-            get => Get<UnitListItem>();
+            get => _bohrungD;
             set
             {
-                AbdrehenLength = Business.Functions.UpdateValue(AbdrehenLength, UnitAbdrehenLength, value);
-
-                Set(value);
+                SetProperty(ref _bohrungD, value);
+                Refresh_verdichtung();
             }
         }
 
+        private double? _derzeitige_verdichtung;
+
+        public double? Derzeitige_verdichtung
+        {
+            get => _derzeitige_verdichtung;
+            set { SetProperty(ref _derzeitige_verdichtung, value); }
+        }
+
+        private UnitListItem _unitAbdrehenLength;
+
+        public UnitListItem UnitAbdrehenLength
+        {
+            get => _unitAbdrehenLength;
+            set
+            {
+                AbdrehenLength = Business.Functions.UpdateValue(AbdrehenLength, _unitAbdrehenLength, value);
+
+                SetProperty(ref _unitAbdrehenLength, value);
+            }
+        }
+
+        private double? _abdrehenLength;
+
         public double? AbdrehenLength
         {
-            get => Get<double?>();
-            set => Set(value);
+            get => _abdrehenLength;
+            set { SetProperty(ref _abdrehenLength, value); }
         }
+
+        private List<double?> _zielverdichtungen;
 
         public List<double?> Zielverdichtungen
         {
-            get => Get<List<double?>>();
-            set { Set(value); Refresh_zielverdichtung(); }
+            get => _zielverdichtungen;
+            set
+            {
+                SetProperty(ref _zielverdichtungen, value);
+                Refresh_zielverdichtung();
+            }
         }
+
+        private double? _zielverdichtung;
 
         public double? Zielverdichtung
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_zielverdichtung(); }
+            get => _zielverdichtung;
+            set
+            {
+                SetProperty(ref _zielverdichtung, value);
+                Refresh_zielverdichtung();
+            }
         }
+
+        #endregion Values
     }
 }

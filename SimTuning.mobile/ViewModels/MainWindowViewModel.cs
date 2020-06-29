@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using SimTuning.mobile.Views;
+﻿using SimTuning.mobile.Views;
 using SimTuning.mobile.Views.Auslass;
 using SimTuning.mobile.Views.Demo;
 using SimTuning.mobile.Views.Dyno;
@@ -8,7 +7,6 @@ using SimTuning.mobile.Views.Einstellungen;
 using SimTuning.mobile.Views.Home;
 using SimTuning.mobile.Views.Motor;
 using SimTuning.mobile.Views.Tuning;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
@@ -17,12 +15,10 @@ namespace SimTuning.mobile.ViewModels
 {
     public class MainWindowViewModel : SimTuning.ViewModels.MainWindow
     {
-        //private ApplicationChanges settings = new ApplicationChanges();
         public INavigation Navigation { get; set; }
 
         public MainWindowViewModel(INavigation navigation)
         {
-            //SelectedIndex = 0;
             Navigation = navigation;
             ChangeTabCommand = new Command(async () => await SetPageAsync());
 
@@ -33,12 +29,9 @@ namespace SimTuning.mobile.ViewModels
 
         protected override async void Application_load()
         {
-            //settings.LoadColors();
-            //await Navigation.PushAsync(new Home_screen());
-
             var tuple = await API.API.UserLoginAsync();
-            USER_VALID = tuple.Item1;
-            LICENSE_VALID = tuple.Item2;
+            UserValid = tuple.Item1;
+            LicenseValid = tuple.Item2;
 
             for (int i = 0; i < tuple.Item3.Count; i++)
             {
@@ -47,23 +40,13 @@ namespace SimTuning.mobile.ViewModels
             }
         }
 
+        private MasterPageItem _currentTab;
+
         public MasterPageItem CurrentTab
         {
-            get => Get<MasterPageItem>();
-            set => Set(value);
+            get => _currentTab;
+            set => SetProperty(ref _currentTab, value);
         }
-
-        //public bool USER_VALID
-        //{
-        //    get => Get<bool>();
-        //    set => Set(value);
-        //}
-
-        //public bool LICENSE_VALID
-        //{
-        //    get => Get<bool>();
-        //    set => Set(value);
-        //}
 
         private async System.Threading.Tasks.Task SetPageAsync()
         {
@@ -86,14 +69,14 @@ namespace SimTuning.mobile.ViewModels
                     break;
 
                 case "Tuning":
-                    if (LICENSE_VALID)
+                    if (LicenseValid)
                         await Navigation.PushAsync(new TuningMainView());
                     else
                         await Navigation.PushAsync(new BuyPro());
                     break;
 
                 case "Dyno":
-                    if (LICENSE_VALID)
+                    if (LicenseValid)
                         await Navigation.PushAsync(new Dyno_main());
                     else
                         await Navigation.PushAsync(new BuyPro());

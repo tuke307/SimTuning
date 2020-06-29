@@ -1,6 +1,7 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.ViewModels;
 using SimTuning.Models;
 using SimTuning.ModuleLogic;
 using System;
@@ -8,12 +9,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using UnitsNet.Units;
 
 namespace SimTuning.ViewModels.Auslass
 {
-    public class AnwendungViewModel : BaseViewModel
+    public class AnwendungViewModel : MvxViewModel
     {
         protected readonly AuslassLogic auslass;
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
@@ -30,9 +32,6 @@ namespace SimTuning.ViewModels.Auslass
             Vehicle.Motor = new MotorModel();
             Vehicle.Motor.Auslass = new AuslassModel();
             Vehicle.Motor.Auslass.Auspuff = new AuspuffModel();
-
-            //InputExhaust = new SimTuning.Models.InputExhaustModel();
-            //OutputExhaust = new SimTuning.Models.OutputExhaustModel();
 
             AreaQuantityUnits = new AreaQuantity();
             VolumeQuantityUnits = new VolumeQuantity();
@@ -59,9 +58,23 @@ namespace SimTuning.ViewModels.Auslass
             DiffStages = new List<string>() { "One Stage", "Two Stage", "Three Stage" };
         }
 
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
         public ICommand CalculateCommand { get; set; }
         public ICommand DiffusorStageCommand { get; set; }
         public ICommand InsertDataCommand { get; set; }
+
+        #region Commands
 
         public void InsertData(object obj)
         {
@@ -81,24 +94,6 @@ namespace SimTuning.ViewModels.Auslass
         public void DiffusorStage(object obj)
         {
             Vehicle.Motor.Auslass.Auspuff.DiffusorStage = Convert.ToInt32(obj);
-        }
-
-        public ObservableCollection<VehiclesModel> HelperVehicles
-        {
-            get => Get<ObservableCollection<VehiclesModel>>();
-            set => Set(value);
-        }
-
-        public VehiclesModel HelperVehicle
-        {
-            get => Get<VehiclesModel>();
-            set => Set(value);
-        }
-
-        public VehiclesModel Vehicle
-        {
-            get => Get<VehiclesModel>();
-            set => Set(value);
         }
 
         protected virtual Stream Calculate()
@@ -134,102 +129,134 @@ namespace SimTuning.ViewModels.Auslass
                  UnitEndrohrL.UnitEnumValue,
                  LengthUnit.Millimeter);
 
-
             VehiclesModel vehicle = Vehicle;
             Stream stream = SimTuning.Business.Converts.SKBitmapToStream(auslass.Auspuff(ref vehicle));
             Vehicle = vehicle;
-            OnPropertyChanged("Vehicle");
+            RaisePropertyChanged("Vehicle");
 
             return stream;
-            //SimTuning.Models.OutputExhaustModel _OutputExhaust;
-            //Stream stream = SimTuning.Business.Converts.SKBitmapToStream(auslass.Auspuff(InputExhaust, out _OutputExhaust));
-            //OutputExhaust = _OutputExhaust;
-            //PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-            //Auspuff = decoder.Frames[0];
         }
+
+        #endregion Commands
+
+        #region Values
+
+        #region Hilfsdaten
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        public ObservableCollection<VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
+        }
+
+        private VehiclesModel _helperVehicle;
+
+        public VehiclesModel HelperVehicle
+        {
+            get => _helperVehicle;
+            set { SetProperty(ref _helperVehicle, value); }
+        }
+
+        #endregion Hilfsdaten
+
+        private VehiclesModel _vehicle;
+
+        public VehiclesModel Vehicle
+        {
+            get => _vehicle;
+            set { SetProperty(ref _vehicle, value); }
+        }
+
+        #region Units
+
+        private UnitListItem _unitAuslassD;
 
         public UnitListItem UnitAuslassD
         {
-            get => Get<UnitListItem>();
+            get => _unitAuslassD;
             set
             {
                 Vehicle.Motor.Auslass.DurchmesserD = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.DurchmesserD, UnitAuslassD, value);
-                OnPropertyChanged("InputExhaust");
+                RaisePropertyChanged(() => Vehicle);
 
-                Set(value);
+                SetProperty(ref _unitAuslassD, value);
             }
         }
+
+        private UnitListItem _unitSchallG;
 
         public UnitListItem UnitSchallG
         {
-            get => Get<UnitListItem>();
+            get => _unitSchallG;
             set
             {
                 Vehicle.Motor.Auslass.Auspuff.AbgasV = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.Auspuff.AbgasV, UnitSchallG, value);
-                OnPropertyChanged("InputExhaust");
+                RaisePropertyChanged(() => Vehicle);
 
-                Set(value);
+                SetProperty(ref _unitSchallG, value);
             }
         }
+
+        private UnitListItem _unitAuslassL;
 
         public UnitListItem UnitAuslassL
         {
-            get => Get<UnitListItem>();
+            get => _unitAuslassL;
             set
             {
                 Vehicle.Motor.Auslass.LaengeL = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.LaengeL, UnitAuslassL, value);
-                OnPropertyChanged("InputExhaust");
+                RaisePropertyChanged(() => Vehicle);
 
-                Set(value);
+                SetProperty(ref _unitAuslassL, value);
             }
         }
+
+        private UnitListItem _unitAuslassF;
 
         public UnitListItem UnitAuslassF
         {
-            get => Get<UnitListItem>();
+            get => _unitAuslassF;
             set
             {
                 Vehicle.Motor.Auslass.FlaecheA = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.FlaecheA, UnitAuslassF, value);
-                OnPropertyChanged("InputExhaust");
+                RaisePropertyChanged(() => Vehicle);
 
-                Set(value);
+                SetProperty(ref _unitAuslassF, value);
             }
         }
+
+        private UnitListItem _unitEndrohrD;
 
         public UnitListItem UnitEndrohrD
         {
-            get => Get<UnitListItem>();
+            get => _unitEndrohrD;
             set
             {
                 Vehicle.Motor.Auslass.Auspuff.EndrohrD = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.Auspuff.EndrohrD, UnitEndrohrD, value);
-                OnPropertyChanged("InputExhaust");
+                RaisePropertyChanged(() => Vehicle);
 
-                Set(value);
+                SetProperty(ref _unitEndrohrD, value);
             }
         }
+
+        private UnitListItem _unitEndrohrL;
 
         public UnitListItem UnitEndrohrL
         {
-            get => Get<UnitListItem>();
+            get => _unitEndrohrL;
             set
             {
                 Vehicle.Motor.Auslass.Auspuff.EndrohrL = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.Auspuff.EndrohrL, UnitEndrohrL, value);
-                OnPropertyChanged("InputExhaust");
+                RaisePropertyChanged(() => Vehicle);
 
-                Set(value);
+                SetProperty(ref _unitEndrohrL, value);
             }
         }
 
-        //public SimTuning.Models.InputExhaustModel InputExhaust
-        //{
-        //    get => Get<SimTuning.Models.InputExhaustModel>();
-        //    set => Set(value);
-        //}
+        #endregion Units
 
-        //public SimTuning.Models.OutputExhaustModel OutputExhaust
-        //{
-        //    get => Get<SimTuning.Models.OutputExhaustModel>();
-        //    set => Set(value);
-        //}
+        #endregion Values
     }
 }

@@ -14,32 +14,40 @@ namespace SimTuning.mobile.ViewModels
         protected new void Refresh_Steuerzeit()
         {
             Stream stream = base.Refresh_Steuerzeit();
-            if(stream != null)
+            if (stream != null)
                 PortTimingCircle = ImageSource.FromStream(() => stream);
         }
 
+        private ImageSource _portTimingCircle;
+
         public ImageSource PortTimingCircle
         {
-            get => Get<ImageSource>();
-            private set => Set(value);
+            get => _portTimingCircle;
+            private set => SetProperty(ref _portTimingCircle, value);
         }
+
+        private double? _einlass_Steuerzeit;
 
         public override double? Einlass_Steuerzeit
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_Steuerzeit(); }
+            get => _einlass_Steuerzeit;
+            set { SetProperty(ref _einlass_Steuerzeit, value); Refresh_Steuerzeit(); }
         }
+
+        private double? _auslass_Steuerzeit;
 
         public override double? Auslass_Steuerzeit
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_Steuerzeit(); }
+            get => _auslass_Steuerzeit;
+            set { SetProperty(ref _auslass_Steuerzeit, value); Refresh_Steuerzeit(); }
         }
+
+        private double? _ueberstroemer_Steuerzeit;
 
         public override double? Ueberstroemer_Steuerzeit
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_Steuerzeit(); }
+            get => _ueberstroemer_Steuerzeit;
+            set { SetProperty(ref _ueberstroemer_Steuerzeit, value); Refresh_Steuerzeit(); }
         }
     }
 }

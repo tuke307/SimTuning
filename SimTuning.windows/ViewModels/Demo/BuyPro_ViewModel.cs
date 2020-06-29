@@ -10,8 +10,6 @@ namespace SimTuning.ViewModels.Demo
             OpenWebsiteCommand = new ActionCommand(OpenWebsite);
         }
 
-        //public ICommand OpenWebsiteCommand { get; set; }
-
         protected override void OpenWebsite(object parameter)
         {
             Functions.GoToSite("https://www.tuke-productions.de");

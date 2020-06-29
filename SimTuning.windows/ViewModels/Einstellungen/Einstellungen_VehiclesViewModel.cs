@@ -20,10 +20,10 @@ namespace SimTuning.ViewModels.Einstellungen
 
         private bool CanExecute(object obj)
         {
-            if (!mainWindowViewModel.LICENSE_VALID)
+            if (!mainWindowViewModel.LicenseValid)
                 mainWindowViewModel.NotificationSnackbar.Enqueue("Kaufe die Pro Version um Presets zu ändern");
 
-            return mainWindowViewModel.LICENSE_VALID;
+            return mainWindowViewModel.LicenseValid;
         }
 
         protected void NewVehicle(object obj)

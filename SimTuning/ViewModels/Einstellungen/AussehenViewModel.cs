@@ -1,10 +1,12 @@
 ﻿using Data;
+using MvvmCross.ViewModels;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimTuning.ViewModels.Einstellungen
 {
-    public class AussehenViewModel : BaseViewModel
+    public class AussehenViewModel : MvxViewModel
     {
         public AussehenViewModel()
         {
@@ -15,29 +17,48 @@ namespace SimTuning.ViewModels.Einstellungen
         public ICommand ApplyPrimaryCommand { get; set; }
         public ICommand ApplyAccentCommand { get; set; }
 
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
+        #region Commands
+
         protected virtual void ApplyPrimary()
         {
-            //color.SetPrimary(parameter);
         }
 
         protected virtual void ApplyAccent()
         {
-            //color.SetAccent(parameter);
         }
 
         protected virtual void ApplyBaseTheme()
         {
-            //color.SetBaseTheme(ToogleDarkmode);
         }
+
+        #endregion Commands
+
+        #region Values
+
+        private bool _toogleDarkmode;
 
         public bool ToogleDarkmode
         {
-            get => Get<bool>();
+            get => _toogleDarkmode;
             set
             {
-                Set(value);
+                SetProperty(ref _toogleDarkmode, value);
                 ApplyBaseTheme();
             }
         }
+
+        #endregion Values
     }
 }

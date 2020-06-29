@@ -42,10 +42,10 @@ namespace SimTuning.ViewModels
 
         private bool CanExecute(object obj)
         {
-            if (!mainWindowViewModel.LICENSE_VALID)
+            if (!mainWindowViewModel.LicenseValid)
                 mainWindowViewModel.NotificationSnackbar.Enqueue("Kaufe die Pro Version um die Farben zu ändern");
 
-            return mainWindowViewModel.LICENSE_VALID;
+            return mainWindowViewModel.LicenseValid;
         }
     }
 }

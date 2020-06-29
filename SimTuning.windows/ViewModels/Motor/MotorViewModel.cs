@@ -2,10 +2,11 @@
 using SimTuning.windows.Business;
 using SimTuning.windows.Views.Motor;
 using System.Windows.Input;
+using MvvmCross.ViewModels;
 
 namespace SimTuning.windows.ViewModels.Motor
 {
-    public class MotorViewModel : BaseViewModel
+    public class MotorViewModel : MvxViewModel
     {
         public MotorViewModel()
         {
@@ -13,10 +14,12 @@ namespace SimTuning.windows.ViewModels.Motor
             NewContent("Steuerzeit-Umrechnungen");
         }
 
+        private object _motorContent;
+
         public object MotorContent
         {
-            get => Get<object>();
-            set => Set(value);
+            get => _motorContent;
+            set => SetProperty(ref _motorContent, value);
         }
 
         public ICommand NewContentCommand { get; set; }

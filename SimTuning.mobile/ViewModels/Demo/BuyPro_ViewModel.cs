@@ -12,8 +12,6 @@ namespace SimTuning.mobile.ViewModels.Demo
             OpenWebsiteCommand = new Command(OpenWebsite);
         }
 
-        //public ICommand OpenWebsiteCommand { get; set; }
-
         protected override void OpenWebsite(object parameter)
         {
             Launcher.OpenAsync(new Uri("https://tuke-productions.de"));

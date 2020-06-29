@@ -8,10 +8,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using UnitsNet.Units;
+using MvvmCross.ViewModels;
+using System.Threading.Tasks;
 
 namespace SimTuning.ViewModels.Auslass
 {
-    public class TheorieViewModel : BaseViewModel
+    public class TheorieViewModel : MvxViewModel
     {
         private readonly AuslassLogic auslass;
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
@@ -21,8 +23,6 @@ namespace SimTuning.ViewModels.Auslass
         public TheorieViewModel()
         {
             auslass = new AuslassLogic();
-
-            //InsertDataCommand = new ActionCommand(InsertData);
 
             AreaQuantityUnits = new AreaQuantity();
             LengthQuantityUnits = new LengthQuantity();
@@ -41,155 +41,36 @@ namespace SimTuning.ViewModels.Auslass
                     .Include(vehicles => vehicles.Motor.Auslass)
                     .ToList();
 
-                Vehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
-        }
-
-        protected virtual void InsertData(object obj)
-        {
-            if (Vehicle.Motor.Auslass.FlaecheA.HasValue)
-                AuslassA = Vehicle.Motor.Auslass.FlaecheA;
-
-            if (Vehicle.Motor.ResonanzU.HasValue)
-                ResonanzDrehzahl = Vehicle.Motor.ResonanzU;
-
-            if (Vehicle.Motor.Auslass.SteuerzeitSZ.HasValue)
-                AusslassSteuerwinkel = Vehicle.Motor.Auslass.SteuerzeitSZ;
         }
 
         public ICommand InsertDataCommand { get; set; }
 
-        public ObservableCollection<VehiclesModel> Vehicles
+        public override void Prepare()
         {
-            get => Get<ObservableCollection<VehiclesModel>>();
-            set => Set(value);
+            // This is the first method to be called after construction
         }
 
-        public VehiclesModel Vehicle
+        public override Task Initialize()
         {
-            get => Get<VehiclesModel>();
-            set => Set(value);
+            // Async initialization
+
+            return base.Initialize();
         }
 
-        public string KruemmerSpannneD
+        #region Commands
+
+        protected virtual void InsertData(object obj)
         {
-            get => Get<string>();
-            set => Set(value);
-        }
+            if (HelperVehicle.Motor.Auslass.FlaecheA.HasValue)
+                AuslassA = HelperVehicle.Motor.Auslass.FlaecheA;
 
-        public UnitListItem UnitAuslassA
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                AuslassA = Business.Functions.UpdateValue(AuslassA, UnitAuslassA, value);
+            if (HelperVehicle.Motor.ResonanzU.HasValue)
+                ResonanzDrehzahl = HelperVehicle.Motor.ResonanzU;
 
-                Set(value);
-            }
-        }
-
-        public double? AuslassA
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_KruemmerD(); }
-        }
-
-        public UnitListItem UnitKruemmerD
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                KruemmerD = Business.Functions.UpdateValue(KruemmerD, UnitKruemmerD, value);
-
-                Set(value);
-            }
-        }
-
-        public double? KruemmerD
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_KruemmerL(); }
-        }
-
-        public double? DrehmomentF
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_KruemmerL(); }
-        }
-
-        public UnitListItem UnitKruemmerL
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                KruemmerL = Business.Functions.UpdateValue(KruemmerL, UnitKruemmerL, value);
-
-                Set(value);
-            }
-        }
-
-        public double? KruemmerL
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? ModAbgasT
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_AuspuffGeschwindigkeit(); }
-        }
-
-        public UnitListItem UnitAbgasV
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                AbgasV = Business.Functions.UpdateValue(AbgasV, UnitAbgasV, value);
-
-                Set(value);
-            }
-        }
-
-        public double? AbgasV
-        {
-            get => Get<double?>();
-            set => Set(value);
-        }
-
-        public double? AbgasT
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_Resonanzlaenge(); }
-        }
-
-        public double? AusslassSteuerwinkel
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_Resonanzlaenge(); }
-        }
-
-        public double? ResonanzDrehzahl
-        {
-            get => Get<double?>();
-            set { Set(value); Refresh_Resonanzlaenge(); }
-        }
-
-        public UnitListItem UnitResonanzL
-        {
-            get => Get<UnitListItem>();
-            set
-            {
-                ResonanzL = Business.Functions.UpdateValue(ResonanzL, UnitResonanzL, value);
-
-                Set(value);
-            }
-        }
-
-        public double? ResonanzL
-        {
-            get => Get<double?>();
-            set => Set(value);
+            if (HelperVehicle.Motor.Auslass.SteuerzeitSZ.HasValue)
+                AusslassSteuerwinkel = HelperVehicle.Motor.Auslass.SteuerzeitSZ;
         }
 
         private void Refresh_KruemmerL()
@@ -238,5 +119,208 @@ namespace SimTuning.ViewModels.Auslass
             if (AusslassSteuerwinkel.HasValue && AbgasT.HasValue && ResonanzDrehzahl.HasValue)
                 ResonanzL = auslass.Get_Resonanzlaenge(AusslassSteuerwinkel.Value, AbgasT.Value, ResonanzDrehzahl.Value);
         }
+
+        #endregion Commands
+
+        #region Values
+
+        #region Hilfsdaten
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        public ObservableCollection<VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
+        }
+
+        private VehiclesModel _helperVehicle;
+
+        public VehiclesModel HelperVehicle
+        {
+            get => _helperVehicle;
+            set { SetProperty(ref _helperVehicle, value); }
+        }
+
+        #endregion Hilfsdaten
+
+        private string _kruemmerSpannneD;
+
+        public string KruemmerSpannneD
+        {
+            get => _kruemmerSpannneD;
+            set { SetProperty(ref _kruemmerSpannneD, value); }
+        }
+
+        private UnitListItem _unitAuslassA;
+
+        public UnitListItem UnitAuslassA
+        {
+            get => _unitAuslassA;
+            set
+            {
+                AuslassA = Business.Functions.UpdateValue(AuslassA, _unitAuslassA, value);
+
+                SetProperty(ref _unitAuslassA, value);
+            }
+        }
+
+        private double? _auslassA;
+
+        public double? AuslassA
+        {
+            get => _auslassA;
+            set { SetProperty(ref _auslassA, value); }
+        }
+
+        private UnitListItem _unitKruemmerD;
+
+        public UnitListItem UnitKruemmerD
+        {
+            get => _unitKruemmerD;
+            set
+            {
+                KruemmerD = Business.Functions.UpdateValue(KruemmerD, _unitKruemmerD, value);
+
+                SetProperty(ref _unitKruemmerD, value);
+            }
+        }
+
+        private double? _kruemmerD;
+
+        public double? KruemmerD
+        {
+            get => _kruemmerD;
+            set
+            {
+                SetProperty(ref _kruemmerD, value);
+                Refresh_KruemmerL();
+            }
+        }
+
+        private double? _drehmomentF;
+
+        public double? DrehmomentF
+        {
+            get => _drehmomentF;
+            set
+            {
+                SetProperty(ref _drehmomentF, value);
+                Refresh_KruemmerL();
+            }
+        }
+
+        private UnitListItem _unitKruemmerL;
+
+        public UnitListItem UnitKruemmerL
+        {
+            get => _unitKruemmerL;
+            set
+            {
+                KruemmerL = Business.Functions.UpdateValue(KruemmerL, _unitKruemmerL, value);
+
+                SetProperty(ref _unitKruemmerL, value);
+            }
+        }
+
+        private double? _kruemmerL;
+
+        public double? KruemmerL
+        {
+            get => _kruemmerL;
+            set { SetProperty(ref _kruemmerL, value); }
+        }
+
+        private double? _modAbgasT;
+
+        public double? ModAbgasT
+        {
+            get => _modAbgasT;
+            set
+            {
+                SetProperty(ref _modAbgasT, value);
+                Refresh_AuspuffGeschwindigkeit();
+            }
+        }
+
+        private UnitListItem _unitAbgasV;
+
+        public UnitListItem UnitAbgasV
+        {
+            get => _unitAbgasV;
+            set
+            {
+                AbgasV = Business.Functions.UpdateValue(AbgasV, _unitAbgasV, value);
+
+                SetProperty(ref _unitAbgasV, value);
+            }
+        }
+
+        private double? _abgasV;
+
+        public double? AbgasV
+        {
+            get => _abgasV;
+            set { SetProperty(ref _abgasV, value); }
+        }
+
+        private double? _abgasT;
+
+        public double? AbgasT
+        {
+            get => _abgasT;
+            set
+            {
+                SetProperty(ref _abgasT, value);
+                Refresh_Resonanzlaenge();
+            }
+        }
+
+        private double? _ausslassSteuerwinkel;
+
+        public double? AusslassSteuerwinkel
+        {
+            get => _ausslassSteuerwinkel;
+            set
+            {
+                SetProperty(ref _ausslassSteuerwinkel, value);
+                Refresh_Resonanzlaenge();
+            }
+        }
+
+        private double? _resonanzDrehzahl;
+
+        public double? ResonanzDrehzahl
+        {
+            get => _resonanzDrehzahl;
+            set
+            {
+                SetProperty(ref _resonanzDrehzahl, value);
+                Refresh_Resonanzlaenge();
+            }
+        }
+
+        private UnitListItem _unitResonanzL;
+
+        public UnitListItem UnitResonanzL
+        {
+            get => _unitAuslassA;
+            set
+            {
+                ResonanzL = Business.Functions.UpdateValue(ResonanzL, _unitResonanzL, value);
+
+                SetProperty(ref _unitResonanzL, value);
+            }
+        }
+
+        private double? _resonanzL;
+
+        public double? ResonanzL
+        {
+            get => _resonanzL;
+            set { SetProperty(ref _resonanzL, value); }
+        }
+
+        #endregion Values
     }
 }

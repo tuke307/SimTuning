@@ -9,21 +9,25 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using UnitsNet.Units;
+using MvvmCross.ViewModels;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace SimTuning.ViewModels.Einlass
 {
-    public class VergaserViewModel : BaseViewModel
+    public class VergaserViewModel : MvxViewModel
     {
-        private readonly EinlassLogic einlass = new EinlassLogic();
+        private readonly EinlassLogic einlass;
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
 
         public VergaserViewModel()
         {
+            einlass = new EinlassLogic();
+
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
 
-            //InsertDataCommand = new ActionCommand(InsertData);
             UnitHubvolumen = VolumeQuantityUnits.Where(x => x.UnitEnumValue.Equals(VolumeUnit.CubicCentimeter)).First();
             UnitVergasergroeße = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
             UnitHauptdueseD = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Micrometer)).First();
@@ -34,31 +38,33 @@ namespace SimTuning.ViewModels.Einlass
                     .Include(vehicles => vehicles.Motor)
                     .ToList();
 
-                Vehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
         }
 
         public ICommand InsertDataCommand { get; set; }
 
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
+            return base.Initialize();
+        }
+
+        #region Commands
+
         public void InsertData(object obj)
         {
-            if (Vehicle.Motor.HubraumV.HasValue)
-                Hubvolumen = Vehicle.Motor.HubraumV;
+            if (HelperVehicle.Motor.HubraumV.HasValue)
+                Hubvolumen = HelperVehicle.Motor.HubraumV;
 
-            if (Vehicle.Motor.ResonanzU.HasValue)
-                Resonanzdrehzahl = Vehicle.Motor.ResonanzU;
-        }
-
-        public ObservableCollection<VehiclesModel> Vehicles
-        {
-            get => Get<ObservableCollection<VehiclesModel>>();
-            set => Set(value);
-        }
-
-        public VehiclesModel Vehicle
-        {
-            get => Get<VehiclesModel>();
-            set => Set(value);
+            if (HelperVehicle.Motor.ResonanzU.HasValue)
+                Resonanzdrehzahl = HelperVehicle.Motor.ResonanzU;
         }
 
         private void Refresh_Vergasergroeße()
@@ -84,61 +90,109 @@ namespace SimTuning.ViewModels.Einlass
             }
         }
 
+        #endregion Commands
+
+        #region Values
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        public ObservableCollection<VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
+        }
+
+        private VehiclesModel _helperVehicle;
+
+        public VehiclesModel HelperVehicle
+        {
+            get => _helperVehicle;
+            set { SetProperty(ref _helperVehicle, value); }
+        }
+
+        private UnitListItem _unitHauptdueseD;
+
         public UnitListItem UnitHauptdueseD
         {
-            get => Get<UnitListItem>();
+            get => _unitHauptdueseD;
             set
             {
                 HauptdueseD = Business.Functions.UpdateValue(HauptdueseD, UnitHauptdueseD, value);
 
-                Set(value);
+                SetProperty(ref _unitHauptdueseD, value);
             }
         }
 
+        private double? _hauptdueseD;
+
         public double? HauptdueseD
         {
-            get => Get<double?>();
-            set => Set(value);
+            get => _hauptdueseD;
+            set { SetProperty(ref _hauptdueseD, value); }
         }
+
+        private double? _resonanzdrehzahl;
 
         public double? Resonanzdrehzahl
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_Vergasergroeße(); }
+            get => _resonanzdrehzahl;
+            set
+            {
+                SetProperty(ref _resonanzdrehzahl, value);
+                Refresh_Vergasergroeße();
+            }
         }
+
+        private UnitListItem _unitHubvolumen;
 
         public UnitListItem UnitHubvolumen
         {
-            get => Get<UnitListItem>();
+            get => _unitHubvolumen;
             set
             {
                 Hubvolumen = Business.Functions.UpdateValue(Hubvolumen, UnitHubvolumen, value);
 
-                Set(value);
+                SetProperty(ref _unitHubvolumen, value);
             }
         }
 
+        private double? _hubvolumen;
+
         public double? Hubvolumen
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_Vergasergroeße(); }
+            get => _hubvolumen;
+            set
+            {
+                SetProperty(ref _hubvolumen, value);
+                Refresh_Vergasergroeße();
+            }
         }
+
+        private UnitListItem _unitVergasergroeße;
 
         public UnitListItem UnitVergasergroeße
         {
-            get => Get<UnitListItem>();
+            get => _unitVergasergroeße;
             set
             {
                 Vergasergroeße = Business.Functions.UpdateValue(Vergasergroeße, UnitVergasergroeße, value);
 
-                Set(value);
+                SetProperty(ref _unitVergasergroeße, value);
             }
         }
 
+        private double? _vergasergroeße;
+
         public double? Vergasergroeße
         {
-            get => Get<double?>();
-            set { Set(value); Refresh_Hauptduesendurchmesser(); }
+            get => _vergasergroeße;
+            set
+            {
+                SetProperty(ref _vergasergroeße, value);
+                Refresh_Hauptduesendurchmesser();
+            }
         }
+
+        #endregion Values
     }
 }
