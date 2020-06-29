@@ -96,7 +96,7 @@
                                              Grid.Column="3"
                                              Foreground="DarkGreen"
                                              ToolTip="Account ist eingeloggt"
-                                             Visibility="{Binding Mode=TwoWay, Path=_userValid, Converter={StaticResource BoolToVis}}"
+                                             Visibility="{Binding Mode=TwoWay, Path=UserValid, Converter={StaticResource BoolToVis}}"
                                              Kind="DriversLicenseOutline"
                                              Height="20"
                                              Width="20" />
@@ -222,7 +222,7 @@
                     </Grid.RenderTransform>
 
                     <Button x:Name="ButtonOpenMenu"
-                            Visibility="{Binding Mode=OneWay, Path=Visibility_ButtonOpenMenu, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Visibility="{Binding Mode=OneWay, Path=OpenMenuVis, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Height="60"
                             Width="60"
                             HorizontalAlignment="Right"
@@ -238,7 +238,7 @@
                     </Button>
 
                     <Button x:Name="ButtonCloseMenu"
-                            Visibility="{Binding Mode=OneWay, Path=Visibility_ButtonCloseMenu, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Visibility="{Binding Mode=OneWay, Path=CloseMenuVis, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Height="60"
                             Width="60"
                             HorizontalAlignment="Right"

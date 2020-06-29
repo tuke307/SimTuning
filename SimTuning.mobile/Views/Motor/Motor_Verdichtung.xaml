@@ -170,8 +170,8 @@
 
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
-                                                Choices="{Binding Vehicles}"
-                                                SelectedChoice="{Binding Vehicle}"
+                                                Choices="{Binding HelperVehicles}"
+                                                SelectedChoice="{Binding HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>
 
@@ -202,7 +202,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="0"
                                      Grid.Column="1">
-                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=Vehicle.Motor.HubraumV}"
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.HubraumV}"
                                                           IsEnabled="False"
                                                           Placeholder=" "
                                                           FloatingPlaceholderEnabled="False"
@@ -219,7 +219,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="1"
                                      Grid.Column="1">
-                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=Vehicle.Motor.Bohrung}"
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Bohrung}"
                                                           IsEnabled="False"
                                                           Placeholder=" "
                                                           FloatingPlaceholderEnabled="False"
@@ -236,7 +236,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="2"
                                      Grid.Column="1">
-                            <material:MaterialTextField  Text="{Binding Mode=OneWay, Path=Vehicle.Motor.BrennraumV}"
+                            <material:MaterialTextField  Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.BrennraumV}"
                                                          IsEnabled="False"
                                                          Placeholder=" "
                                                          FloatingPlaceholderEnabled="False"

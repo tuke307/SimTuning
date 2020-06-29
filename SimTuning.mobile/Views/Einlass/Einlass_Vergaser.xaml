@@ -138,8 +138,8 @@
 
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
-                                                Choices="{Binding Vehicles}"
-                                                SelectedChoice="{Binding Vehicle}"
+                                                Choices="{Binding HelperVehicles}"
+                                                SelectedChoice="{Binding HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>
 
@@ -165,7 +165,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="0"
                                      Grid.Column="1">
-                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=Vehicle.Motor.HubraumV}"
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.HubraumV}"
                                                         Placeholder=" "
                                                         IsEnabled="False"
                                                         WidthRequest="100"
@@ -182,7 +182,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="1"
                                      Grid.Column="1">
-                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=Vehicle.Motor.ResonanzU}"
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.ResonanzU}"
                                                         Placeholder=" "
                                                         FloatingPlaceholderEnabled="False"
                                                         IsEnabled="False"

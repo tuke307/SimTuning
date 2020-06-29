@@ -51,7 +51,7 @@
                     <TextBox Grid.Row="0"
                              Grid.Column="1"
                              IsEnabled="False"
-                             Text="{Binding Mode=OneWay, Path=Vehicle.Motor.Einlass.SteuerzeitSZ}"
+                             Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Einlass.SteuerzeitSZ}"
                              Margin="10 0 0 0" />
 
                     <Label Grid.Row="1"
@@ -61,7 +61,7 @@
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
                              IsEnabled="False"
-                             Text="{Binding Mode=OneWay, Path=Vehicle.Motor.Auslass.SteuerzeitSZ}"
+                             Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Auslass.SteuerzeitSZ}"
                              Margin="10 0 0 0" />
 
                     <Label Grid.Row="2"
@@ -71,7 +71,7 @@
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
                              IsEnabled="False"
-                             Text="{Binding Mode=OneWay, Path=Vehicle.Motor.Ueberstroemer.SteuerzeitSZ}"
+                             Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Ueberstroemer.SteuerzeitSZ}"
                              Margin="10 0 0 0" />
                 </Grid>
 
@@ -81,8 +81,8 @@
                           HorizontalAlignment="Center"
                           materialDesign:HintAssist.Hint="Fahrzeug"
                           IsEditable="False"
-                          SelectedItem="{Binding Vehicle}"
-                          ItemsSource="{Binding Vehicles}"
+                          SelectedItem="{Binding  HelperVehicle}"
+                          ItemsSource="{Binding  HelperVehicles}"
                           DisplayMemberPath="Name"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           Width="100" />

@@ -221,8 +221,8 @@
                           HorizontalAlignment="Center"
                           materialDesign:HintAssist.Hint="Fahrzeug"
                           IsEditable="False"
-                          SelectedItem="{Binding Vehicle}"
-                          ItemsSource="{Binding Vehicles}"
+                          SelectedItem="{Binding  HelperVehicle}"
+                          ItemsSource="{Binding  HelperVehicles}"
                           DisplayMemberPath="Name"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 
@@ -267,7 +267,7 @@
                            HorizontalAlignment="Left"
                            VerticalAlignment="Bottom" />
 
-                    <TextBox Text="{Binding Mode=OneWay, Path=Vehicle.Motor.Bohrung}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Bohrung}"
                              Grid.Row="0"
                              Grid.Column="1"
                              IsEnabled="False" />

@@ -195,7 +195,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="1"
                                      Grid.Column="1">
-                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=Vehicle.Motor.Einlass.SteuerzeitSZ}"
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Einlass.SteuerzeitSZ}"
                                                         Placeholder=" "
                                                         FloatingPlaceholderEnabled="False"
                                                         IsEnabled="False"
@@ -213,7 +213,7 @@
                                      Grid.Row="2"
                                      Grid.Column="1">
 
-                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=Vehicle.Motor.ResonanzU}"
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.ResonanzU}"
                                                         IsEnabled="False"
                                                         Placeholder=" "
                                                         FloatingPlaceholderEnabled="False"
@@ -231,7 +231,7 @@
                                      Grid.Row="3"
                                      Grid.Column="1">
 
-                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=Vehicle.Motor.KurbelgehaeuseV}"
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.KurbelgehaeuseV}"
                                                         IsEnabled="False"
                                                         Placeholder=" "
                                                         FloatingPlaceholderEnabled="False"
@@ -249,7 +249,7 @@
                                      Grid.Row="4"
                                      Grid.Column="1">
 
-                            <material:MaterialTextField  Text="{Binding Mode=OneWay, Path=Vehicle.Ansaugleitungslaenge}"
+                            <material:MaterialTextField  Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Einlass.LaengeL}"
                                                          IsEnabled="False"
                                                          Placeholder=" "
                                                          FloatingPlaceholderEnabled="False"

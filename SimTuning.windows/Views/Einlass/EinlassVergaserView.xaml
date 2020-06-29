@@ -200,8 +200,8 @@
                           HorizontalAlignment="Center"
                           materialDesign:HintAssist.Hint="Fahrzeug"
                           IsEditable="False"
-                          SelectedItem="{Binding Vehicle}"
-                          ItemsSource="{Binding Vehicles}"
+                          SelectedItem="{Binding  HelperVehicle}"
+                          ItemsSource="{Binding  HelperVehicles}"
                           DisplayMemberPath="Name"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 
@@ -229,11 +229,11 @@
                            VerticalAlignment="Top"
                            FontWeight="Normal" />
 
-                    <TextBox Text="{Binding Mode=OneWay, Path=Vehicle.Motor.HubraumV}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.HubraumV}"
                              Grid.Row="0"
                              IsEnabled="false"
                              Grid.Column="1" />
-                    <TextBox Text="{Binding Mode=OneWay, Path=Vehicle.Motor.ResonanzU}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.ResonanzU}"
                              Grid.Row="1"
                              IsEnabled="false"
                              Grid.Column="1" />

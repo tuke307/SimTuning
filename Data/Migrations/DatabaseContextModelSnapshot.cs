@@ -434,14 +434,14 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("Luftdruck")
+                    b.Property<double?>("LuftdruckP")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("Temperatur")
+                    b.Property<double?>("TemperaturT")
                         .HasColumnType("REAL");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -456,36 +456,36 @@ namespace Data.Migrations
                         {
                             Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Luftdruck = 1010.0,
+                            LuftdruckP = 1010.0,
                             Name = "Frühling",
-                            Temperatur = 10.0,
+                            TemperaturT = 10.0,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Luftdruck = 1010.0,
+                            LuftdruckP = 1010.0,
                             Name = "Sommer",
-                            Temperatur = 25.0,
+                            TemperaturT = 25.0,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Luftdruck = 1010.0,
+                            LuftdruckP = 1010.0,
                             Name = "Herbst",
-                            Temperatur = 10.0,
+                            TemperaturT = 10.0,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Luftdruck = 1010.0,
+                            LuftdruckP = 1010.0,
                             Name = "Winter",
-                            Temperatur = 1.0,
+                            TemperaturT = 1.0,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -515,6 +515,9 @@ namespace Data.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<double?>("HubraumV")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("KolbenG")
                         .HasColumnType("REAL");
 
                     b.Property<double?>("KurbelgehaeuseV")
@@ -687,6 +690,9 @@ namespace Data.Migrations
                     b.Property<double?>("DiagrammeU")
                         .HasColumnType("REAL");
 
+                    b.Property<int?>("EnvironmentId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -698,6 +704,8 @@ namespace Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EnvironmentId");
 
                     b.HasIndex("VehicleId")
                         .IsUnique();
@@ -1039,6 +1047,10 @@ Stückzahl: 20.000",
 
             modelBuilder.Entity("Data.Models.TuningModel", b =>
                 {
+                    b.HasOne("Data.Models.EnvironmentModel", "Environment")
+                        .WithMany()
+                        .HasForeignKey("EnvironmentId");
+
                     b.HasOne("Data.Models.VehiclesModel", "Vehicle")
                         .WithOne("Tuning")
                         .HasForeignKey("Data.Models.TuningModel", "VehicleId")

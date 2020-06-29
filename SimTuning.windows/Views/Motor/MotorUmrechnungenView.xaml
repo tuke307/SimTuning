@@ -230,8 +230,8 @@
                           HorizontalAlignment="Center"
                           materialDesign:HintAssist.Hint="Fahrzeug"
                           IsEditable="False"
-                          SelectedItem="{Binding Vehicle}"
-                          ItemsSource="{Binding Vehicles}"
+                          SelectedItem="{Binding  HelperVehicle}"
+                          ItemsSource="{Binding  HelperVehicles}"
                           DisplayMemberPath="Name"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           Width="120">
@@ -265,19 +265,19 @@
                            Grid.Column="0"
                            VerticalContentAlignment="Bottom"
                            FontWeight="Normal" />
-                    <TextBox Text="{Binding Mode=OneWay, Path=Vehicle.Motor.HubL}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.HubL}"
                              IsEnabled="False"
                              Grid.Row="0"
                              Grid.Column="1"
                              Margin="10,0,0,0"
                              Width="25" />
-                    <TextBox Text="{Binding Mode=OneWay, Path=Vehicle.Motor.Pleullaenge}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Pleullaenge}"
                              IsEnabled="False"
                              Grid.Row="1"
                              Grid.Column="1"
                              Margin="10,0,0,0"
                              Width="25" />
-                    <TextBox Text="{Binding Mode=OneWay, Path=Vehicle.Motor.DeachsierungL}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.DeachsierungL}"
                              IsEnabled="False"
                              Grid.Row="2"
                              Grid.Column="1"

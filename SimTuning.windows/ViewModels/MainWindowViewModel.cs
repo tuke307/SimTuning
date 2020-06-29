@@ -21,8 +21,8 @@ namespace SimTuning.windows.ViewModels
         {
             SelectedIndex = 0;
             LoadingAnimation = false;
-            _closeMenuVis = false;
-            _openMenuVis = true;
+            CloseMenuVis = false;
+            OpenMenuVis = true;
 
             ButtonOpenMenu = new ActionCommand(ButtonOpenMenu_Click);
             ButtonCloseMenu = new ActionCommand(ButtonCloseMenu_Click);

@@ -16,8 +16,8 @@ namespace Data.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Temperatur = table.Column<double>(nullable: true),
-                    Luftdruck = table.Column<double>(nullable: true)
+                    TemperaturT = table.Column<double>(nullable: true),
+                    LuftdruckP = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -35,6 +35,7 @@ namespace Data.Migrations
                     Name = table.Column<string>(nullable: false),
                     HubL = table.Column<double>(nullable: true),
                     PleulL = table.Column<double>(nullable: true),
+                    KolbenG = table.Column<double>(nullable: true),
                     DeachsierungL = table.Column<double>(nullable: true),
                     BohrungD = table.Column<double>(nullable: true),
                     ResonanzU = table.Column<double>(nullable: true),
@@ -295,11 +296,18 @@ namespace Data.Migrations
                     Beschreibung = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: true),
                     DiagrammeU = table.Column<double>(nullable: true),
-                    VehicleId = table.Column<int>(nullable: false)
+                    VehicleId = table.Column<int>(nullable: false),
+                    EnvironmentId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tuning", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tuning_Environment_EnvironmentId",
+                        column: x => x.EnvironmentId,
+                        principalTable: "Environment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tuning_Vehicles_VehicleId",
                         column: x => x.VehicleId,
@@ -402,53 +410,53 @@ namespace Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Environment",
-                columns: new[] { "Id", "CreatedDate", "Luftdruck", "Name", "Temperatur", "UpdatedDate" },
+                columns: new[] { "Id", "CreatedDate", "LuftdruckP", "Name", "TemperaturT", "UpdatedDate" },
                 values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1010.0, "Frühling", 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Environment",
-                columns: new[] { "Id", "CreatedDate", "Luftdruck", "Name", "Temperatur", "UpdatedDate" },
+                columns: new[] { "Id", "CreatedDate", "LuftdruckP", "Name", "TemperaturT", "UpdatedDate" },
                 values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1010.0, "Sommer", 25.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Environment",
-                columns: new[] { "Id", "CreatedDate", "Luftdruck", "Name", "Temperatur", "UpdatedDate" },
+                columns: new[] { "Id", "CreatedDate", "LuftdruckP", "Name", "TemperaturT", "UpdatedDate" },
                 values: new object[] { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1010.0, "Herbst", 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Environment",
-                columns: new[] { "Id", "CreatedDate", "Luftdruck", "Name", "Temperatur", "UpdatedDate" },
+                columns: new[] { "Id", "CreatedDate", "LuftdruckP", "Name", "TemperaturT", "UpdatedDate" },
                 values: new object[] { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1010.0, "Winter", 1.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Motor",
-                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 1, 38.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 42.0, 47600.0, 142800.0, "Rh 50 II", null, 5000.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
+                values: new object[] { 1, 38.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 42.0, 47600.0, null, 142800.0, "Rh 50 II", null, 5000.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
-                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 2, 38.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 42.0, 47600.0, 142800.0, "KRo Rh 50", null, 5500.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
+                values: new object[] { 2, 38.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 42.0, 47600.0, null, 142800.0, "KRo Rh 50", null, 5500.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
-                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 3, 40.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 39.5, 49600.0, 148800.0, "M53/1 KFR", null, 5750.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
+                values: new object[] { 3, 40.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 39.5, 49600.0, null, 148800.0, "M53/1 KFR", null, 5750.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
-                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 4, 40.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 39.5, 49600.0, 148800.0, "M 53/21 KF", null, 5500.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
+                values: new object[] { 4, 40.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 39.5, 49600.0, null, 148800.0, "M 53/21 KF", null, 5500.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
-                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 5, 38.0, 5880.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.0, null, 44.0, 49900.0, 149700.0, "M 541 KF", 95.0, 5500.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
+                values: new object[] { 5, 38.0, 5880.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.0, null, 44.0, 49900.0, null, 149700.0, "M 541 KF", 95.0, 5500.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
-                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 6, 45.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 44.0, 49900.0, 209700.0, "M 741/1 KF", null, 6000.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
+                values: new object[] { 6, 45.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 44.0, 49900.0, null, 209700.0, "M 741/1 KF", null, 6000.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Settings",
@@ -630,6 +638,11 @@ Stückzahl: 20.000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                 table: "MotorUeberstroemer",
                 column: "MotorId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tuning_EnvironmentId",
+                table: "Tuning",
+                column: "EnvironmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tuning_VehicleId",
