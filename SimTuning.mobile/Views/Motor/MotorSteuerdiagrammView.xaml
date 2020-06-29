@@ -278,7 +278,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="0"
                                      Grid.Column="1">
-                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Einlass.Steuerzeit}"
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Einlass.SteuerzeitSZ}"
                                                           IsEnabled="False"
                                                           Placeholder=" "
                                                           FloatingPlaceholderEnabled="False"
@@ -298,7 +298,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="1"
                                      Grid.Column="1">
-                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Auslass.Steuerzeit}"
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Auslass.SteuerzeitSZ}"
                                                           IsEnabled="False"
                                                           Placeholder=" "
                                                           FloatingPlaceholderEnabled="False"
@@ -318,7 +318,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="2"
                                      Grid.Column="1">
-                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Ueberstroemer.Steuerzeit}"
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Ueberstroemer.SteuerzeitSZ}"
                                                           IsEnabled="False"
                                                           Placeholder=" "
                                                           FloatingPlaceholderEnabled="False"

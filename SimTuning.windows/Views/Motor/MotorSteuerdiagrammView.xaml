@@ -283,7 +283,7 @@
                     <TextBox Grid.Row="0"
                              Grid.Column="1"
                              IsEnabled="False"
-                             Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Einlass.Steuerzeit}"
+                             Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Einlass.SteuerzeitSZ}"
                              Margin="10 0 0 0" />
 
                     <Label Grid.Row="1"
@@ -293,7 +293,7 @@
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
                              IsEnabled="False"
-                             Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Auslass.Steuerzeit}"
+                             Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Auslass.SteuerzeitSZ}"
                              Margin="10 0 0 0" />
 
                     <Label Grid.Row="2"
@@ -303,7 +303,7 @@
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
                              IsEnabled="False"
-                             Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Ueberstroemer.Steuerzeit}"
+                             Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Ueberstroemer.SteuerzeitSZ}"
                              Margin="10 0 0 0" />
                 </Grid>
 

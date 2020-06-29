@@ -52,14 +52,14 @@
                        Grid.Column="1"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       Content="{Binding Mode=OneWay, Path=version_now}">
+                       Content="{Binding Mode=OneWay, Path=Version_now}">
                 </Label>
 
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       Content="{Binding Mode=OneWay, Path=version_new}">
+                       Content="{Binding Mode=OneWay, Path=Version_new}">
                 </Label>
 
                 <Button Grid.Row="0"
