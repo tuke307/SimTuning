@@ -9,7 +9,7 @@ namespace SimTuning.windows.Views.Motor
         {
             InitializeComponent();
 
-            DataContext = new Motor_UmrechnungViewModel();
+            DataContext = new MotorUmrechnungViewModel();
         }
     }
 }

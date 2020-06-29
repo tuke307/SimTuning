@@ -29,6 +29,18 @@
     <ProjectReference Include="..\SimTuning\SimTuning.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\Auslass\AuslassAnwendungView.xaml.cs">
+      <DependentUpon>AuslassAnwendungView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Auslass\AuslassTheorieView.xaml.cs">
+      <DependentUpon>AuslassTheorieView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Auslass\AuslassMainView.xaml.cs">
+      <DependentUpon>AuslassMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Demo\DemoMainView.xaml.cs">
+      <DependentUpon>DemoMainView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Dyno\DynoDiagnosisView.xaml.cs">
       <DependentUpon>DynoDiagnosisView.xaml</DependentUpon>
     </Compile>
@@ -38,8 +50,44 @@
     <Compile Update="Views\Dyno\DynoSpectrogramView.xaml.cs">
       <DependentUpon>DynoSpectrogramView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Dyno\DynoMainView.xaml.cs">
+      <DependentUpon>DynoMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einlass\EinlassKanalView.xaml.cs">
+      <DependentUpon>EinlassKanalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einlass\EinlassVergaserView.xaml.cs">
+      <DependentUpon>EinlassVergaserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einlass\EinlassMainView.xaml.cs">
+      <DependentUpon>EinlassMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einstellungen\EinstellungenKontoView.xaml.cs">
+      <DependentUpon>EinstellungenKontoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einstellungen\EinstellungenVehiclesView.xaml.cs">
+      <DependentUpon>EinstellungenVehiclesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Home\HomeMainView.xaml.cs">
+      <DependentUpon>HomeMainView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorHubraumView.xaml.cs">
+      <DependentUpon>MotorHubraumView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorVerdichtungView.xaml.cs">
+      <DependentUpon>MotorVerdichtungView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorUmrechnungenView.xaml.cs">
+      <DependentUpon>MotorUmrechnungenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorMainView.xaml.cs">
+      <DependentUpon>MotorMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorSteuerdiagrammView.xaml.cs">
+      <DependentUpon>MotorSteuerdiagrammView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Tuning\TuningDataView.xaml.cs">
       <DependentUpon>TuningDataView.xaml</DependentUpon>

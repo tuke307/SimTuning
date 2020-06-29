@@ -12,7 +12,7 @@ namespace SimTuning.windows.Views.Einlass
         {
             InitializeComponent();
 
-            DataContext = new Einlass_VergaserViewModel();
+            DataContext = new EinlassVergaserViewModel();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace SimTuning.windows.Views.Auslass
         {
             InitializeComponent();
 
-            DataContext = new AuslassViewModel();
+            DataContext = new AuslassMainViewModel();
         }
     }
 }

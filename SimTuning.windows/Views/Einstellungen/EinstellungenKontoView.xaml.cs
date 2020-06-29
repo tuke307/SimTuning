@@ -13,7 +13,7 @@ namespace SimTuning.windows.Views.Einstellungen
         {
             InitializeComponent();
 
-            DataContext = new Einstellungen_KontoViewModel(mainWindowViewModel);
+            DataContext = new EinstellungenKontoViewModel(mainWindowViewModel);
         }
     }
 }

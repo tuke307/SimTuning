@@ -1,0 +1,365 @@
+﻿<ContentPage x:Class="SimTuning.mobile.Views.Auslass.AuslassTheorieView"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             BackgroundColor="{DynamicResource MaterialDesignPaper}">
+    <ScrollView>
+        <StackLayout>
+
+            <!--LÄNGE-->
+            <Frame Margin="10">
+                <StackLayout>
+
+                    <material:MaterialLabel Text="Krümmer-Länge"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <material:MaterialTextField Placeholder="Ø Krümmer"
+                                                        Text="{Binding Mode=TwoWay, Path=KruemmerD}"
+                                                        WidthRequest="250"
+                                                        InputType="Numeric">
+                            </material:MaterialTextField>
+
+                            <material:MaterialTextField InputType="Choice"
+                                                        Margin="5, 0, 0, 0"
+                                                        Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                        SelectedChoice="{Binding UnitKruemmerD}"
+                                                        ChoicesBindingName="Abbreviation">
+                            </material:MaterialTextField>
+                            <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                                   VerticalOptions="Center">
+                                mm
+                            </material:MaterialLabel>-->
+                        </StackLayout>
+
+                        <material:MaterialLabel Margin="0, 10, 0, 0"
+                                                Text="Drehmoment(Krümmer)- Faktor"></material:MaterialLabel>
+
+                        <Grid HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <material:MaterialLabel Grid.Column="0"
+                                                    HorizontalTextAlignment="Start"
+                                                    Margin="5, 0, 0, 0"
+                                                    Text="spitz"></material:MaterialLabel>
+
+                            <material:MaterialLabel Grid.Column="2"
+                                                    Margin="0, 0, 0, 5"
+                                                    HorizontalTextAlignment="End"
+                                                    Text="flach"></material:MaterialLabel>
+                        </Grid>
+
+                        <Slider Maximum="12"
+                                Minimum="6"
+                                Value="{Binding Mode=TwoWay, Path=DrehmomentF}"
+                                HorizontalOptions="FillAndExpand"
+                                Margin="0, -10, 0, 10">
+                        </Slider>
+
+                        <StackLayout Orientation="Horizontal">
+                            <material:MaterialTextField Placeholder="Krümmerlänge"
+                                                        IsEnabled="False"
+                                                        Text="{Binding Mode=TwoWay, Path=KruemmerL}"
+                                                        WidthRequest="250"
+                                                        InputType="Numeric">
+                            </material:MaterialTextField>
+
+                            <material:MaterialTextField InputType="Choice"
+                                                        Margin="5, 0, 0, 0"
+                                                        Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                        SelectedChoice="{Binding UnitKruemmerL}"
+                                                        ChoicesBindingName="Abbreviation">
+                            </material:MaterialTextField>
+                            <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                                   VerticalOptions="Center">
+                                cm
+                            </material:MaterialLabel>-->
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--DURCHMESSER-->
+            <Frame Margin="10">
+                <StackLayout>
+
+                    <material:MaterialLabel Text="Krümmer-Durchmesser"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <material:MaterialTextField Placeholder="Auslassfläche"
+                                                    Text="{Binding Path=AuslassA, Mode=TwoWay}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitAuslassA}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            cm²
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Ø Krümmer"
+                                                    IsEnabled="False"
+                                                    Text="{Binding Path=KruemmerSpannneD, Mode=TwoWay}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                VerticalOptions="Center">
+                            mm
+                        </material:MaterialLabel>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame Margin="10">
+                <StackLayout>
+
+                    <material:MaterialLabel Text="Abgastemperatur"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <material:MaterialTextField Placeholder="Temperatur"
+                                                    Text="{Binding Path=ModAbgasT, Mode=TwoWay}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                VerticalOptions="Center">
+                            °C
+                        </material:MaterialLabel>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <material:MaterialTextField Placeholder="Geschwindigkeit"
+                                                    IsEnabled="False"
+                                                    Text="{Binding AbgasV, Mode=TwoWay}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitAbgasV}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            m/s
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame Margin="10">
+                <StackLayout>
+
+                    <material:MaterialLabel Text="Resonanzlänge"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Ausslass Steuerwinkel"
+                                                    Text="{Binding Path=AusslassSteuerwinkel, Mode=TwoWay}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                VerticalOptions="Center">
+                            °KW
+                        </material:MaterialLabel>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <material:MaterialTextField Placeholder="Abgastemperatur"
+                                                    Text="{Binding Path=AbgasT, Mode=TwoWay}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                VerticalOptions="Center">
+                            °C
+                        </material:MaterialLabel>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <material:MaterialTextField Placeholder="Resonanzdrehzahl"
+                                                    Text="{Binding Path=ResonanzDrehzahl, Mode=TwoWay}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                VerticalOptions="Center">
+                            1/min
+                        </material:MaterialLabel>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Resonanzlänge"
+                                                    IsEnabled="False"
+                                                    Text="{Binding Path=ResonanzL, Mode=TwoWay}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitResonanzL}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            cm
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Hilfe"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <material:MaterialTextField InputType="Choice"
+                                                Placeholder="Fahrzeug"
+                                                Choices="{Binding  HelperVehicles}"
+                                                SelectedChoice="{Binding HelperVehicle}"
+                                                ChoicesBindingName="Name">
+                    </material:MaterialTextField>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <material:MaterialLabel Text="Auslass-Fläche"
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="Auslass-Steuerwinkel"
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="Resonanzdrehzahl"
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="0"
+                                     Grid.Column="1">
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Auslass.Flaeche}"
+                                                        Placeholder=" "
+                                                        IsEnabled="False"
+                                                        WidthRequest="100"
+                                                        FloatingPlaceholderEnabled="False"
+                                                        InputType="Numeric"
+                                                        Margin="10,0,0,0" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm²
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="1"
+                                     Grid.Column="1">
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Auslass.SteuerzeitSZ}"
+                                                        Placeholder=" "
+                                                        FloatingPlaceholderEnabled="False"
+                                                        IsEnabled="False"
+                                                        WidthRequest="100"
+                                                        InputType="Numeric"
+                                                        Margin="10,0,0,0" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                °KW
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="2"
+                                     Grid.Column="1">
+
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.ResonanzU}"
+                                                        IsEnabled="False"
+                                                        Placeholder=" "
+                                                        FloatingPlaceholderEnabled="False"
+                                                        WidthRequest="100"
+                                                        InputType="Numeric"
+                                                        Margin="10,0,0,0" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                1/min
+                            </material:MaterialLabel>
+                        </StackLayout>
+                    </Grid>
+
+                    <material:MaterialButton ImageSource="ic_chevron_right_black_18dp.png"
+                                             Command="{Binding InsertDataCommand}"
+                                             WidthRequest="100"
+                                             HeightRequest="70"
+                                             HorizontalOptions="Center"
+                                             Margin="10" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

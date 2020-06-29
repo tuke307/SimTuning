@@ -14,7 +14,7 @@ namespace SimTuning.windows.Views.Tuning
         {
             InitializeComponent();
 
-            DataContext = new TuningViewModel(mainWindowViewModel);
+            DataContext = new TuningMainViewModel(mainWindowViewModel);
         }
     }
 }

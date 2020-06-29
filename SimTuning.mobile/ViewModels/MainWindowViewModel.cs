@@ -1,4 +1,13 @@
-﻿using SimTuning.mobile.Views;
+﻿using MvvmCross.Navigation;
+using SimTuning.mobile.ViewModels.Auslass;
+using SimTuning.mobile.ViewModels.Demo;
+using SimTuning.mobile.ViewModels.Dyno;
+using SimTuning.mobile.ViewModels.Einlass;
+using SimTuning.mobile.ViewModels.Einstellungen;
+using SimTuning.mobile.ViewModels.Home;
+using SimTuning.mobile.ViewModels.Motor;
+using SimTuning.mobile.ViewModels.Tuning;
+using SimTuning.mobile.Views;
 using SimTuning.mobile.Views.Auslass;
 using SimTuning.mobile.Views.Demo;
 using SimTuning.mobile.Views.Dyno;
@@ -15,11 +24,11 @@ namespace SimTuning.mobile.ViewModels
 {
     public class MainWindowViewModel : SimTuning.ViewModels.MainWindow
     {
-        public INavigation Navigation { get; set; }
+        private readonly IMvxNavigationService _navigationService;
 
-        public MainWindowViewModel(INavigation navigation)
+        public MainWindowViewModel(IMvxNavigationService navigationService)
         {
-            Navigation = navigation;
+            _navigationService = navigationService;
             ChangeTabCommand = new Command(async () => await SetPageAsync());
 
             Application_load();
@@ -53,44 +62,44 @@ namespace SimTuning.mobile.ViewModels
             switch (CurrentTab.Title)
             {
                 case "Home":
-                    await Navigation.PushAsync(new Home_screen());
+                    await _navigationService.Navigate<HomeMainViewModel>();/* Navigation.PushAsync(new Home_screen());*/
                     break;
 
                 case "Einlass":
-                    await Navigation.PushAsync(new Einlass_main());
+                    await _navigationService.Navigate<EinlassMainViewModel>(); /* Navigation.PushAsync(new Einlass_main());*/
                     break;
 
                 case "Auslass":
-                    await Navigation.PushAsync(new Auslass_main());
+                    await _navigationService.Navigate<AuslassMainViewModel>(); /*Navigation.PushAsync(new Auslass_main());*/
                     break;
 
                 case "Motor":
-                    await Navigation.PushAsync(new Motor_main());
+                    await _navigationService.Navigate<MotorMainViewModel>();/*Navigation.PushAsync(new Motor_main());*/
                     break;
 
                 case "Tuning":
                     if (LicenseValid)
-                        await Navigation.PushAsync(new TuningMainView());
+                        await _navigationService.Navigate<TuningMainViewModel>(); /*Navigation.PushAsync(new TuningMainView());*/
                     else
-                        await Navigation.PushAsync(new BuyPro());
+                        await _navigationService.Navigate<DemoMainViewModel>(); /*Navigation.PushAsync(new BuyPro());*/
                     break;
 
                 case "Dyno":
                     if (LicenseValid)
-                        await Navigation.PushAsync(new Dyno_main());
+                        await _navigationService.Navigate<DynoMainViewModel>(); /*Navigation.PushAsync(new Dyno_main());*/
                     else
-                        await Navigation.PushAsync(new BuyPro());
+                        await _navigationService.Navigate<DemoMainViewModel>(); /*Navigation.PushAsync(new BuyPro());*/
                     break;
 
                 case "Einstellungen":
-                    await Navigation.PushAsync(new Einstellungen_main(this));
+                    await _navigationService.Navigate<EinstellungenMainViewModel>(); /*Navigation.PushAsync(new Einstellungen_main(this));*/
                     break;
 
                 default:
                     break;
             }
 
-            (Application.Current.MainPage as MasterDetailPage).IsPresented = false;
+            //(Application.Current.MainPage as MasterDetailPage).IsPresented = false;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace SimTuning.windows.Views.Demo
         {
             InitializeComponent();
 
-            DataContext = new BuyPro_ViewModel();
+            DataContext = new DemoMainViewModel();
         }
     }
 }

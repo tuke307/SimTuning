@@ -13,7 +13,7 @@ namespace SimTuning.windows.Views.Home
         {
             InitializeComponent();
 
-            DataContext = new HomeViewModel(mainWindowViewModel);
+            DataContext = new HomeMainViewModel(mainWindowViewModel);
         }
     }
 }

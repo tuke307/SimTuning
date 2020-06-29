@@ -1,4 +1,5 @@
-﻿using SimTuning.mobile.ViewModels;
+﻿using MvvmCross.Navigation;
+using SimTuning.mobile.ViewModels;
 using System;
 using Xamarin.Forms;
 
@@ -9,11 +10,13 @@ namespace SimTuning.mobile.Views
     /// </summary>
     public partial class MainPage : MasterDetailPage
     {
+        private readonly IMvxNavigationService navigationService;
+
         public MainPage()
         {
             InitializeComponent();
 
-            BindingContext = new MainWindowViewModel(this.Navigation);
+            BindingContext = new MainWindowViewModel(navigationService);
 
             //masterPage.listFree.ItemSelected += OnItemSelected;
             //masterPage.listPro.ItemSelected += OnProItemSelected;
