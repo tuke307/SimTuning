@@ -4,6 +4,7 @@
                        x:TypeArguments="viewModels:EinstellungenKontoViewModel"
                        xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       Title="Konto"
                        xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                        BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <StackLayout>

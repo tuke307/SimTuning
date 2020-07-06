@@ -4,10 +4,5 @@
                       x:TypeArguments="viewModels:MotorMainViewModel"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:local="clr-namespace:SimTuning.Forms.UI.Views.Motor"
                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
-    <local:MotorUmrechnungenView Title="Umrechnungen" />
-    <local:MotorSteuerdiagrammView Title="Steuer-diagramm" />
-    <local:MotorVerdichtungView Title="Verdichtung" />
-    <local:MotorHubraumView Title="Hubraum" />
 </views:MvxTabbedPage>

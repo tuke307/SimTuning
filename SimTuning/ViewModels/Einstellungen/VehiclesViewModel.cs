@@ -76,7 +76,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             SaveButton = true;
         }
 
-        protected void SaveVehicle()
+        protected virtual void SaveVehicle()
         {
             using (var db = new Data.DatabaseContext())
             {
@@ -88,7 +88,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             SaveButton = false;
         }
 
-        protected void NewVehicle()
+        protected virtual void NewVehicle()
         {
             //Vordefinieren des neuen Fahrzeugs
             Vehicles.Add(new Data.Models.VehiclesModel()
@@ -103,7 +103,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             SaveButton = true;
         }
 
-        protected void DeleteVehicle()
+        protected virtual void DeleteVehicle()
         {
             if (Vehicle.Deletable)
             {

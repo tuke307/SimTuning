@@ -2,7 +2,10 @@
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using Plugin.SimpleAudioPlayer;
+using System.Globalization;
 using System.IO;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
@@ -12,6 +15,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
     public class DynoAudioViewModel : SimTuning.Core.ViewModels.Dyno.AudioViewModel
     {
         private ISimpleAudioPlayer player;
+        private readonly ResourceManager rm;
 
         public DynoAudioViewModel()
         {
@@ -22,15 +26,16 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             CutBeginnCommand = new MvxAsyncCommand(() => CutBeginn());
             CutEndCommand = new MvxAsyncCommand(() => CutEnd());
 
+            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
             //datensatz checken
             //CheckDynoData();
         }
 
-        private bool CheckDynoData()
+        private async Task<bool> CheckDynoData()
         {
             if (Dyno == null)
             {
-                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync("Bitte Datensatz auswählen um fortzufahren!"));
+                await MaterialDialog.Instance.SnackbarAsync(message: rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)).ConfigureAwait(false);
                 return false;
             }
             else { return true; }
@@ -38,10 +43,10 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
         protected new async Task OpenFileDialog()
         {
-            if (!CheckDynoData())
+            if (!CheckDynoData().Result)
                 return;
 
-            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { ".wav", ".mp3" });
+            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { ".wav", ".mp3" }).ConfigureAwait(true);
 
             if (fileData == null)
                 return; // user canceled file picking
@@ -52,7 +57,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             if (player != null)
             {
-                await ReloadImageAudioSpectrogram();
+                await ReloadImageAudioSpectrogram().ConfigureAwait(true);
 
                 BadgeFileOpen = true;
             }
@@ -97,16 +102,12 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <returns></returns>
         protected new async Task ReloadImageAudioSpectrogram()
         {
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Laden");
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await Task.Run(() =>
-            {
-                Stream stream = base.ReloadImageAudioSpectrogram();
-                ImageAudioSpectrogram = ImageSource.FromStream(() => stream);
-            }
-            );
+            Stream stream = base.ReloadImageAudioSpectrogram();
+            ImageAudioSpectrogram = ImageSource.FromStream(() => stream);
 
-            await loadingDialog.DismissAsync();
+            await loadingDialog.DismissAsync().ConfigureAwait(false);
         }
 
         private ImageSource _imageAudioSpectrogram;
@@ -149,17 +150,17 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             if (player != null)
             {
-                var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Laden");
+                var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-                await TrimAudio(_audioPosition.Value, 0);
+                await TrimAudio(_audioPosition.Value, 0).ConfigureAwait(true);
 
                 OpenFile();
 
-                RaisePropertyChanged("AudioPosition");
+                await RaisePropertyChanged("AudioPosition").ConfigureAwait(false);
 
-                await loadingDialog.DismissAsync();
+                await loadingDialog.DismissAsync().ConfigureAwait(false);
 
-                await ReloadImageAudioSpectrogram();
+                await ReloadImageAudioSpectrogram().ConfigureAwait(true);
             }
         }
 
@@ -167,17 +168,17 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             if (player != null)
             {
-                var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Laden");
+                var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-                await TrimAudio(0, _audioPosition.Value);
+                await TrimAudio(0, _audioPosition.Value).ConfigureAwait(true);
 
                 OpenFile();
 
-                RaisePropertyChanged("AudioPosition");
+                await RaisePropertyChanged("AudioPosition").ConfigureAwait(false);
 
-                await loadingDialog.DismissAsync();
+                await loadingDialog.DismissAsync().ConfigureAwait(false);
 
-                await ReloadImageAudioSpectrogram();
+                await ReloadImageAudioSpectrogram().ConfigureAwait(true);
             }
         }
 
@@ -187,6 +188,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
             player = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
             player.Load(stream);
+            stream.Dispose();
 
             Task t = Task.Run(() =>
             {
@@ -195,13 +197,13 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             });
         }
 
-        protected new async Task TrimAudio(double cut_start, double cut_end)
+        protected new async Task TrimAudio(double cutStart, double cutEnd)
         {
             player.Stop();
             player.Dispose();
             player = null;
 
-            await Task.Run(() => base.TrimAudio(cut_start, cut_end));
+            await Task.Run(() => base.TrimAudio(cutStart, cutEnd)).ConfigureAwait(true);
         }
     }
 }

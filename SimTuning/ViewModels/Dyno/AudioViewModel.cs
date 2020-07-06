@@ -92,18 +92,18 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// Schneidet die Audio Datei zurecht
         /// speichert den geschnittenen Schnipsel in einem Stream und überschreibt diese dann
         /// </summary>
-        /// <param name="cut_start">The cut start.</param>
-        /// <param name="cut_end">The cut end.</param>
-        protected virtual void TrimAudio(double cut_start, double cut_end)
+        /// <param name="cutStart">The cut start.</param>
+        /// <param name="cutEnd">The cut end.</param>
+        protected virtual void TrimAudio(double cutStart, double cutEnd)
         {
             //string tempFile = Path.Combine(SimTuning.Core.Constants.FileDirectory, "temp.wav");
             Stream cuttedFileStream = new MemoryStream();
             //FileStream fsSource = new FileStream(SimTuning.Core.Constants.AudioFilePath, FileMode.Open, FileAccess.Read);
 
-            if (cut_start > 0)
-                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(cut_start), TimeSpan.FromSeconds(0), outStream: ref cuttedFileStream, inPath: SimTuning.Core.Constants.AudioFilePath);
-            else if (cut_end > 0)
-                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(cut_end), outStream: ref cuttedFileStream, inPath: SimTuning.Core.Constants.AudioFilePath);
+            if (cutStart > 0)
+                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(cutStart), TimeSpan.FromSeconds(0), outStream: ref cuttedFileStream, inPath: SimTuning.Core.Constants.AudioFilePath);
+            else if (cutEnd > 0)
+                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(cutEnd), outStream: ref cuttedFileStream, inPath: SimTuning.Core.Constants.AudioFilePath);
 
             //löscht alte Datei
             File.Delete(SimTuning.Core.Constants.AudioFilePath);

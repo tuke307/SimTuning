@@ -4,6 +4,7 @@
                        x:TypeArguments="viewModels:MotorUmrechnungenViewModel"
                        xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       Title="Umrechnungen"
                        xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                        BackgroundColor="{DynamicResource MaterialDesignPaper}">
 
@@ -30,6 +31,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitHub}"
@@ -49,6 +51,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitPleulL}"
@@ -68,6 +71,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitDeachsierung}"
@@ -88,6 +92,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitHubR}"
@@ -136,6 +141,7 @@
                                                     InputType="Numeric" />
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitAbstandOTlength}"

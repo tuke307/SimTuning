@@ -1,6 +1,7 @@
 ﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                        x:Class="SimTuning.Forms.UI.Views.Einlass.EinlassKanalView"
                        xmlns="http://xamarin.com/schemas/2014/forms"
+                       Title="Kanal"
                        x:TypeArguments="viewModels:EinlassKanalViewModel"
                        xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einlass"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -28,7 +29,9 @@
                             </material:MaterialTextField>
 
                             <material:MaterialTextField InputType="Choice"
+                                                        FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
+                                                        VerticalOptions="FillAndExpand"
                                                         Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                         SelectedChoice="{Binding UnitEinlassA}"
                                                         ChoicesBindingName="Abbreviation">
@@ -73,6 +76,7 @@
                             </material:MaterialTextField>
 
                             <material:MaterialTextField InputType="Choice"
+                                                        FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
                                                         Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                         SelectedChoice="{Binding UnitKurbelgehauseV}"
@@ -92,6 +96,7 @@
                             </material:MaterialTextField>
 
                             <material:MaterialTextField InputType="Choice"
+                                                        FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                         SelectedChoice="{Binding UnitAnsaugleitungD}"
@@ -113,6 +118,7 @@
                             </material:MaterialTextField>
 
                             <material:MaterialTextField InputType="Choice"
+                                                        FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                         SelectedChoice="{Binding UnitResonanzlaenge}"
@@ -140,8 +146,8 @@
 
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
-                                                Choices="{Binding Vehicles}"
-                                                SelectedChoice="{Binding Vehicle}"
+                                                Choices="{Binding HelperVehicles, Mode=OneTime}"
+                                                SelectedChoice="{Binding HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>
 
@@ -181,7 +187,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="0"
                                      Grid.Column="1">
-                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=Vehicle.Motor.Einlass.Flaeche}"
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Einlass.Flaeche}"
                                                         Placeholder=" "
                                                         IsEnabled="False"
                                                         WidthRequest="100"

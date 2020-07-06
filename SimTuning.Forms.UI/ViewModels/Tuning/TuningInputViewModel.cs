@@ -13,7 +13,7 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         {
             if (Tuning == null)
             {
-                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync("Bitte Datensatz auswählen um fortzufahren!"));
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync("Bitte Datensatz auswählen um fortzufahren!"));
                 return false;
             }
             else { return true; }

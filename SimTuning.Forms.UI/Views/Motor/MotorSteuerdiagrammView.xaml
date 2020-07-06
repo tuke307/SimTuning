@@ -1,6 +1,7 @@
 ﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                        x:Class="SimTuning.Forms.UI.Views.Motor.MotorSteuerdiagrammView"
                        xmlns="http://xamarin.com/schemas/2014/forms"
+                       Title="Steuerdiagramm"
                        x:TypeArguments="viewModels:MotorSteuerdiagrammViewModel"
                        xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor;assembly=SimTuning.Forms.UI"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"

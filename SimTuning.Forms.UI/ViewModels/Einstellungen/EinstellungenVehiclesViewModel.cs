@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using System;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -20,48 +21,48 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 
         private bool CanExecute()
         {
-            Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Kaufe die Pro Version um Presets zu ändern",
-                                           msDuration: MaterialSnackbar.DurationLong));
+            Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Kaufe die Pro Version um Presets zu ändern",
+                                          msDuration: MaterialSnackbar.DurationLong));
 
             return false;//mainWindowViewModel.LicenseValid;
         }
 
-        protected void NewVehicle()
+        protected override void NewVehicle()
         {
             try
             {
                 base.NewVehicle();
             }
-            catch
+            catch (Exception)
             {
-                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim erstellen",
-                                           msDuration: MaterialSnackbar.DurationLong));
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim erstellen",
+                                          msDuration: MaterialSnackbar.DurationLong));
             }
         }
 
-        protected void DeleteVehicle()
+        protected override void DeleteVehicle()
         {
             try
             {
                 base.DeleteVehicle();
             }
-            catch
+            catch (Exception)
             {
-                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim löschen",
-                                           msDuration: MaterialSnackbar.DurationLong));
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim löschen",
+                                          msDuration: MaterialSnackbar.DurationLong));
             }
         }
 
-        protected void SaveVehicle()
+        protected override void SaveVehicle()
         {
             try
             {
                 base.SaveVehicle();
             }
-            catch
+            catch (Exception)
             {
-                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim speichern",
-                                           msDuration: MaterialSnackbar.DurationLong));
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim speichern",
+                                          msDuration: MaterialSnackbar.DurationLong));
             }
         }
     }

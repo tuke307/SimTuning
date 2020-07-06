@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using System;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -21,22 +22,18 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
             {
                 base.NewTuning();
             }
-            catch
+            catch (Exception)
             {
-                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim erstellen",
-                                           msDuration: MaterialSnackbar.DurationLong));
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim erstellen",
+                                          msDuration: MaterialSnackbar.DurationLong));
             }
         }
 
-        protected override void DeleteTuning()
+        protected new void DeleteTuning()
         {
-            try
+            if (!base.DeleteTuning())
             {
-                DeleteTuning();
-            }
-            catch
-            {
-                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim löschen",
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim löschen",
                                            msDuration: MaterialSnackbar.DurationLong));
             }
         }
@@ -45,7 +42,7 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         {
             if (!base.SaveTuning())
             {
-                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim speichern",
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim speichern",
                                            msDuration: MaterialSnackbar.DurationLong));
             }
         }

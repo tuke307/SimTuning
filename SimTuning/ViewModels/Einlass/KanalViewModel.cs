@@ -81,7 +81,7 @@ namespace SimTuning.Core.ViewModels.Einlass
                 AnsaugleitungD = HelperVehicle.Motor.Einlass.LaengeL;
         }
 
-        private void Refresh_resonanzlaenge()
+        private void RefreshResonanzlaenge()
         {
             if (EinlassA.HasValue && Einlasssteuerwinkel.HasValue && KurbelgehauseV.HasValue && Resonanzdrehzahl.HasValue && AnsaugleitungD.HasValue)
             {
@@ -156,7 +156,7 @@ namespace SimTuning.Core.ViewModels.Einlass
             set
             {
                 SetProperty(ref _einlassA, value);
-                Refresh_resonanzlaenge();
+                RefreshResonanzlaenge();
             }
         }
 
@@ -168,7 +168,7 @@ namespace SimTuning.Core.ViewModels.Einlass
             set
             {
                 SetProperty(ref _einlasssteuerwinkel, value);
-                Refresh_resonanzlaenge();
+                RefreshResonanzlaenge();
             }
         }
 
@@ -180,7 +180,7 @@ namespace SimTuning.Core.ViewModels.Einlass
             set
             {
                 SetProperty(ref _resonanzdrehzahl, value);
-                Refresh_resonanzlaenge();
+                RefreshResonanzlaenge();
             }
         }
 
@@ -205,7 +205,7 @@ namespace SimTuning.Core.ViewModels.Einlass
             set
             {
                 SetProperty(ref _kurbelgehauseV, value);
-                Refresh_resonanzlaenge();
+                RefreshResonanzlaenge();
             }
         }
 
@@ -230,7 +230,7 @@ namespace SimTuning.Core.ViewModels.Einlass
             set
             {
                 SetProperty(ref _ansaugleitungD, value);
-                Refresh_resonanzlaenge();
+                RefreshResonanzlaenge();
             }
         }
 

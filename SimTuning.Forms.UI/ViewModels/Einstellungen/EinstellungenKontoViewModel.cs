@@ -17,7 +17,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             RegisterSiteCommand = new MvxCommand(RegisterSite);
         }
 
-        protected override async void ConnectUser()
+        protected override void ConnectUser()
         {
             //var tuple = await API.API.UserLoginAsync(email: Email, password: SimTuning.Core.Business.Converts.StringToSecureString(Password));
             //mainWindowViewModel.UserValid = tuple.Item1;

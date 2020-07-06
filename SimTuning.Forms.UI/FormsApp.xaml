@@ -24,7 +24,7 @@
                 <!--Secondary COLOR-->
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.green.xaml" />-->
                 <!--<ResourceDictionary Source="/Themes/Recommended/Accent/MaterialDesignColor.Green.xaml" />-->
-                <accent:Teal />
+                <accent:Blue />
             </ResourceDictionary.MergedDictionaries>
 
             <mtrl:MaterialColorConfiguration x:Key="Theme"

@@ -1,14 +1,21 @@
 ﻿using Plugin.DeviceInfo;
 using System;
+using System.Globalization;
 using System.IO;
+using System.Reflection;
+using System.Resources;
 
 namespace SimTuning.Forms.UI
 {
     public partial class FormsApp : Xamarin.Forms.Application
     {
+        private readonly ResourceManager rm;
+
         public FormsApp()
         {
             InitializeComponent();
+
+            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
 
             XF.Material.Forms.Material.Init(this, "Material.Configuration");
 
@@ -25,7 +32,7 @@ namespace SimTuning.Forms.UI
                     break;
 
                 default:
-                    throw new NotImplementedException("Platform not supported");
+                    throw new NotImplementedException(message: rm.GetString("ERR_NOSUPPORT", CultureInfo.CurrentCulture));
             }
         }
 

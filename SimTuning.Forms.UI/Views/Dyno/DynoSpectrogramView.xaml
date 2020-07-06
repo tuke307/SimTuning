@@ -4,6 +4,7 @@
                        xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       Title="Spectrogram"
                        xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
                        xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                        xmlns:behavior="clr-namespace:SimTuning.Forms.UI.Behaviors"
@@ -120,7 +121,6 @@
 
                     <oxy:PlotView Model="{Binding PlotAudio}"
                                   HeightRequest="400" />
-                    <!--Controller="{Binding Plot_Controller}"-->
                 </StackLayout>
             </Frame>
 
@@ -148,6 +148,7 @@
 
                     <!--Graph-->
                     <material:MaterialTextField InputType="Choice"
+                                                FloatingPlaceholderEnabled="False"
                                                 Placeholder="Graphauswahl"
                                                 Choices="{Binding Graphs}"
                                                 SelectedChoice="{Binding Graph}"

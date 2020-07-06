@@ -11,17 +11,6 @@ namespace SimTuning.Forms.UI.Views.Einstellungen
         public EinstellungenMainView(/*MainWindowViewModel mainWindowViewModel*/)
         {
             InitializeComponent();
-
-            //Einstellungen_Vehicles = new EinstellungenVehiclesView(/*mainWindowViewModel*/);
-            //Einstellungen_Vehicles.Title = "Fahrzeuge";
-
-            //Einstellungen_Konto = new EinstellungenKontoView(/*mainWindowViewModel*/);
-            //Einstellungen_Konto.Title = "Konto";
-
-            //Children.Add(Einstellungen_Vehicles);
-            //Children.Add(Einstellungen_Konto);
-
-            //BindingContext = new EinstellungenMainViewModel();
         }
     }
 }

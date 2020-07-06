@@ -3,9 +3,5 @@
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       x:TypeArguments="viewModels:EinlassMainViewModel"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einlass"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:local="clr-namespace:SimTuning.Forms.UI.Views.Einlass">
-
-    <local:EinlassKanalView Title="Kanal" />
-    <local:EinlassVergaserView Title="Vergaser" />
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 </views:MvxTabbedPage>

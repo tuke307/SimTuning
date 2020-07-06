@@ -2,6 +2,7 @@
                        x:Class="SimTuning.Forms.UI.Views.Einstellungen.EinstellungenVehiclesView"
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       Title="Fahrzeuge"
                        x:TypeArguments="viewModels:EinstellungenVehiclesViewModel"
                        xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
                        xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
@@ -140,6 +141,7 @@
                                         </material:MaterialTextField>
 
                                         <material:MaterialTextField InputType="Choice"
+                                                                    FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=MassQuantityUnits, Mode=OneTime}"
                                                                     SelectedChoice="{Binding UnitGewicht}"
@@ -159,6 +161,7 @@
                                         </material:MaterialTextField>
 
                                         <material:MaterialTextField InputType="Choice"
+                                                                    FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                     SelectedChoice="{Binding UnitFrontA}"
@@ -190,6 +193,7 @@
                                         </material:MaterialTextField>
 
                                         <material:MaterialTextField InputType="Choice"
+                                                                    FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                     SelectedChoice="{Binding UnitAnsaugleitungL}"
@@ -215,6 +219,7 @@
                                 <StackLayout Margin="20, 0, 0, 0">
 
                                     <material:MaterialTextField InputType="Choice"
+                                                                FloatingPlaceholderEnabled="False"
                                                                 Placeholder="Motor"
                                                                 Choices="{Binding Engines}"
                                                                 SelectedChoice="{Binding Engine}"
@@ -255,6 +260,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitHub}"
@@ -274,6 +280,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitPleulL}"
@@ -293,6 +300,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitDeachsierung}"
@@ -312,6 +320,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitBohrungD}"
@@ -341,6 +350,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitHubraumV}"
@@ -360,6 +370,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitBrennraumV}"
@@ -379,6 +390,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitKurbelgehaeuseV}"
@@ -414,6 +426,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitEinlassH}"
@@ -433,6 +446,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitEinlassB}"
@@ -452,6 +466,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitEinlassA}"
@@ -497,6 +512,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitAuslassH}"
@@ -516,6 +532,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitAuslassB}"
@@ -535,6 +552,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitAuslassA}"
@@ -580,6 +598,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitUeberstroemerH}"
@@ -599,6 +618,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitUeberstroemerB}"
@@ -618,6 +638,7 @@
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
+                                                                                    FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding UnitUeberstroemerA}"
@@ -700,12 +721,14 @@
                                                 <StackLayout Orientation="Horizontal"
                                                              Margin="20, 0, 0, 0">
                                                     <material:MaterialTextField InputType="Choice"
+                                                                                FloatingPlaceholderEnabled="False"
                                                                                 Placeholder="X"
                                                                                 Choices="{Binding Dyno.Audio}"
                                                                                 ChoicesBindingName="X">
                                                     </material:MaterialTextField>
 
                                                     <material:MaterialTextField InputType="Choice"
+                                                                                FloatingPlaceholderEnabled="False"
                                                                                 Placeholder="Y"
                                                                                 Choices="{Binding Dyno.Audio}"
                                                                                 ChoicesBindingName="Y">
@@ -729,12 +752,14 @@
                                                 <StackLayout Orientation="Horizontal"
                                                              Margin="20, 0, 0, 0">
                                                     <material:MaterialTextField InputType="Choice"
+                                                                                FloatingPlaceholderEnabled="False"
                                                                                 Placeholder="X"
                                                                                 Choices="{Binding Dyno.DynoPS}"
                                                                                 ChoicesBindingName="X">
                                                     </material:MaterialTextField>
 
                                                     <material:MaterialTextField InputType="Choice"
+                                                                                FloatingPlaceholderEnabled="False"
                                                                                 Placeholder="Y"
                                                                                 Choices="{Binding Dyno.DynoPS}"
                                                                                 ChoicesBindingName="Y">
@@ -758,12 +783,14 @@
                                                 <StackLayout Orientation="Horizontal"
                                                              Margin="20, 0, 0, 0">
                                                     <material:MaterialTextField InputType="Choice"
+                                                                                FloatingPlaceholderEnabled="False"
                                                                                 Placeholder="X"
                                                                                 Choices="{Binding Dyno.DynoNm}"
                                                                                 ChoicesBindingName="X">
                                                     </material:MaterialTextField>
 
                                                     <material:MaterialTextField InputType="Choice"
+                                                                                FloatingPlaceholderEnabled="False"
                                                                                 Placeholder="Y"
                                                                                 Choices="{Binding Dyno.DynoNm}"
                                                                                 ChoicesBindingName="Y">

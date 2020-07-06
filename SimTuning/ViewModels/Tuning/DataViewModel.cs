@@ -66,27 +66,36 @@ namespace SimTuning.Core.ViewModels.Tuning
             SaveButton = true;
         }
 
-        protected virtual void DeleteTuning()
+        protected virtual bool DeleteTuning()
         {
-            //in Datenbank löschen
-            if (Tuning.Id != 0)
+            try
             {
-                using (var Data = new Data.DatabaseContext())
+                //in Datenbank löschen
+                if (Tuning.Id != 0)
                 {
-                    //in Datenbank löschen
-                    Data.Tuning.Remove(Tuning);
+                    using (var Data = new Data.DatabaseContext())
+                    {
+                        //in Datenbank löschen
+                        Data.Tuning.Remove(Tuning);
 
-                    Data.SaveChanges();
+                        Data.SaveChanges();
+                    }
+
+                    Tunings.Remove(Tunings.Where(d => d.Id == Tuning.Id).First());
                 }
 
-                Tunings.Remove(Tunings.Where(d => d.Id == Tuning.Id).First());
+                //in lokaler liste löschen
+                Tunings.Remove(Tuning);
+
+                //Letzten in liste Laden
+                Tuning = null;
+
+                return true;
             }
-
-            //in lokaler liste löschen
-            Tunings.Remove(Tuning);
-
-            //Letzten in liste Laden
-            Tuning = null;
+            catch
+            {
+                return false;
+            }
         }
 
         protected virtual void ShowSave()

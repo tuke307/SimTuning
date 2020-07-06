@@ -1,6 +1,7 @@
 ﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                        x:Class="SimTuning.Forms.UI.Views.Einlass.EinlassVergaserView"
                        xmlns="http://xamarin.com/schemas/2014/forms"
+                       Title="Vergaser"
                        x:TypeArguments="viewModels:EinlassVergaserViewModel"
                        xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einlass"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -29,6 +30,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitHubvolumen}"
@@ -62,6 +64,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitVergasergroeße}"
@@ -94,6 +97,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitVergasergroeße}"
@@ -114,6 +118,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitHauptdueseD}"

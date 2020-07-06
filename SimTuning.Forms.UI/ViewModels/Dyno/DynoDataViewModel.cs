@@ -16,20 +16,20 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             ShowSaveButtonCommand = new MvxCommand(ShowSave);
         }
 
-        protected void NewDyno()
+        protected override void NewDyno()
         {
             try
             {
                 base.NewDyno();
             }
-            catch
+            catch (Exception)
             {
                 Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim erstellen",
-                                           msDuration: MaterialSnackbar.DurationLong));
+                                           msDuration: MaterialSnackbar.DurationLong).ConfigureAwait(false));
             }
         }
 
-        protected void DeleteDyno()
+        protected override void DeleteDyno()
         {
             try
             {
@@ -38,17 +38,16 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             catch (Exception)
             {
                 Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim löschen",
-                                           msDuration: MaterialSnackbar.DurationLong));
+                                           msDuration: MaterialSnackbar.DurationLong).ConfigureAwait(false));
             }
         }
 
-        protected void SaveDyno()
+        protected new void SaveDyno()
         {
             if (!base.SaveDyno())
-
             {
                 Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim speichern",
-                                           msDuration: MaterialSnackbar.DurationLong));
+                                           msDuration: MaterialSnackbar.DurationLong).ConfigureAwait(false));
             }
         }
     }

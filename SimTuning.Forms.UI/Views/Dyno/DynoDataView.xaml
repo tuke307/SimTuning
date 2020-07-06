@@ -9,6 +9,7 @@
                        xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                        xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
                        mc:Ignorable="d"
+                       Title="Datensatz"
                        x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDataView"
                        BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <ScrollView>
@@ -93,6 +94,7 @@
                         <material:MaterialTextField Grid.Column="1"
                                                     VerticalOptions="End"
                                                     InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Placeholder="Fahrzeug"
                                                     IsEnabled="{Binding Source={x:Reference Name=RB2}, Path=IsSelected}"
                                                     Choices="{Binding Mode=TwoWay, Path=Vehicles}"
@@ -157,12 +159,14 @@
                                 <StackLayout Orientation="Horizontal"
                                              Margin="20, 0, 0, 0">
                                     <material:MaterialTextField InputType="Choice"
+                                                                FloatingPlaceholderEnabled="False"
                                                                 Placeholder="X"
                                                                 Choices="{Binding Dyno.Audio}"
                                                                 ChoicesBindingName="X">
                                     </material:MaterialTextField>
 
                                     <material:MaterialTextField InputType="Choice"
+                                                                FloatingPlaceholderEnabled="False"
                                                                 Placeholder="Y"
                                                                 Choices="{Binding Dyno.Audio}"
                                                                 ChoicesBindingName="Y">
@@ -186,12 +190,14 @@
                                 <StackLayout Orientation="Horizontal"
                                              Margin="20, 0, 0, 0">
                                     <material:MaterialTextField InputType="Choice"
+                                                                FloatingPlaceholderEnabled="False"
                                                                 Placeholder="X"
                                                                 Choices="{Binding Dyno.DynoPS}"
                                                                 ChoicesBindingName="X">
                                     </material:MaterialTextField>
 
                                     <material:MaterialTextField InputType="Choice"
+                                                                FloatingPlaceholderEnabled="False"
                                                                 Placeholder="Y"
                                                                 Choices="{Binding Dyno.DynoPS}"
                                                                 ChoicesBindingName="Y">
@@ -215,12 +221,14 @@
                                 <StackLayout Orientation="Horizontal"
                                              Margin="20, 0, 0, 0">
                                     <material:MaterialTextField InputType="Choice"
+                                                                FloatingPlaceholderEnabled="False"
                                                                 Placeholder="X"
                                                                 Choices="{Binding Dyno.DynoNm}"
                                                                 ChoicesBindingName="X">
                                     </material:MaterialTextField>
 
                                     <material:MaterialTextField InputType="Choice"
+                                                                FloatingPlaceholderEnabled="False"
                                                                 Placeholder="Y"
                                                                 Choices="{Binding Dyno.DynoNm}"
                                                                 ChoicesBindingName="Y">

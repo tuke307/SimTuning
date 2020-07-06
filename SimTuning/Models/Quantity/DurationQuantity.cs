@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UnitsNet;
 
 namespace SimTuning.Core.Models
@@ -10,7 +11,7 @@ namespace SimTuning.Core.Models
         {
             QuantityInfo quantityInfo = Quantity.GetInfo(QuantityType.Duration);
 
-            foreach (Enum unitValue in quantityInfo.Units)
+            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
             {
                 Add(new UnitListItem(unitValue));
             }

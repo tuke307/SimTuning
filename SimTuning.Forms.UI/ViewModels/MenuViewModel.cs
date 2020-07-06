@@ -30,7 +30,7 @@ namespace SimTuning.Forms.UI.ViewModels
             ShowTuningCommand = new MvxAsyncCommand(() => _navigationService.Navigate<TuningMainViewModel>());
             ShowEinstellungenCommand = new MvxAsyncCommand(() => _navigationService.Navigate<EinstellungenMainViewModel>());
 
-            ApplicationLoad();
+            //ApplicationLoad();
         }
 
         public IMvxAsyncCommand ShowHomeCommand { get; set; }
@@ -41,18 +41,18 @@ namespace SimTuning.Forms.UI.ViewModels
         public IMvxAsyncCommand ShowTuningCommand { get; set; }
         public IMvxAsyncCommand ShowEinstellungenCommand { get; set; }
 
-        protected new async void ApplicationLoad()
-        {
-            //var tuple = await API.API.UserLoginAsync().ConfigureAwait(true);
-            //UserValid = tuple.Item1;
-            //LicenseValid = tuple.Item2;
+        //protected new void ApplicationLoad()
+        //{
+        //    //var tuple = await API.API.UserLoginAsync().ConfigureAwait(true);
+        //    //UserValid = tuple.Item1;
+        //    //LicenseValid = tuple.Item2;
 
-            //for (int i = 0; i < tuple.Item3.Count; i++)
-            //{
-            //    await MaterialDialog.Instance.SnackbarAsync(message: tuple.Item3[i],
-            //                                msDuration: MaterialSnackbar.DurationLong).ConfigureAwait(false);
-            //}
-        }
+        //    //for (int i = 0; i < tuple.Item3.Count; i++)
+        //    //{
+        //    //    await MaterialDialog.Instance.SnackbarAsync(message: tuple.Item3[i],
+        //    //                                msDuration: MaterialSnackbar.DurationLong).ConfigureAwait(false);
+        //    //}
+        //}
 
         //private MasterPageItem _currentTab;
 

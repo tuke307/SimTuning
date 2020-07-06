@@ -7,11 +7,12 @@
                        xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                        xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
                        BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                       Title="Anwendung"
                        x:Class="SimTuning.Forms.UI.Views.Auslass.AuslassAnwendungView">
 
-    <views:MvxContentPage.Resources>
+    <ContentPage.Resources>
         <behaviors:NegateBooleanConverter x:Key="Inverter" />
-    </views:MvxContentPage.Resources>
+    </ContentPage.Resources>
 
     <ScrollView>
         <StackLayout>
@@ -36,6 +37,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitSchallG}"
@@ -68,6 +70,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitAuslassD}"
@@ -87,6 +90,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitAuslassL}"
@@ -119,6 +123,7 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitAuslassF}"
@@ -272,6 +277,7 @@
                                                     InputType="Numeric" />
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitEndrohrD}"
@@ -291,6 +297,7 @@
                                                     InputType="Numeric" />
 
                         <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding UnitEndrohrL}"

@@ -4,6 +4,7 @@
                        xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       Title="Diagnose"
                        xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
                        xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                        BackgroundColor="{DynamicResource MaterialDesignPaper}">
