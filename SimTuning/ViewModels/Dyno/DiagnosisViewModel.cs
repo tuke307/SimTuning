@@ -1,17 +1,17 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using OxyPlot;
-using SimTuning.ModuleLogic;
+using SimTuning.Core.ModuleLogic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace SimTuning.ViewModels.Dyno
+namespace SimTuning.Core.ViewModels.Dyno
 {
     public class DiagnosisViewModel : MvxViewModel
     {
@@ -38,10 +38,10 @@ namespace SimTuning.ViewModels.Dyno
             }
         }
 
-        public ICommand RefreshPlotCommand { get; set; }
-        public ICommand InsertVehicleCommand { get; set; }
-        public ICommand InsertEnvironmentCommand { get; set; }
-        public ICommand ShowSaveCommand { get; set; }
+        public IMvxAsyncCommand RefreshPlotCommand { get; set; }
+        public IMvxCommand InsertVehicleCommand { get; set; }
+        public IMvxCommand InsertEnvironmentCommand { get; set; }
+        public IMvxCommand ShowSaveCommand { get; set; }
 
         public override void Prepare()
         {
@@ -71,7 +71,7 @@ namespace SimTuning.ViewModels.Dyno
             }
         }
 
-        public void InsertVehicle(object parameter)
+        public void InsertVehicle()
         {
             if (HelperVehicle.Gewicht.HasValue)
                 Dyno.Vehicle.Gewicht = HelperVehicle.Gewicht;
@@ -85,7 +85,7 @@ namespace SimTuning.ViewModels.Dyno
             RaisePropertyChanged("Dyno");
         }
 
-        public void InsertEnvironment(object parameter)
+        public void InsertEnvironment()
         {
             if (HelperEnvironment.LuftdruckP.HasValue)
                 Dyno.Environment.LuftdruckP = HelperEnvironment.LuftdruckP;

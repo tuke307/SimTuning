@@ -1,15 +1,14 @@
 ﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace SimTuning.ViewModels.Tuning
+namespace SimTuning.Core.ViewModels.Tuning
 {
     public class DataViewModel : MvxViewModel
     {
@@ -27,10 +26,10 @@ namespace SimTuning.ViewModels.Tuning
             }
         }
 
-        public ICommand SaveTuningCommand { get; set; }
-        public ICommand ShowSaveButtonCommand { get; set; }
-        public ICommand NewTuningCommand { get; set; }
-        public ICommand DeleteTuningCommand { get; set; }
+        public IMvxCommand SaveTuningCommand { get; set; }
+        public IMvxCommand ShowSaveButtonCommand { get; set; }
+        public IMvxCommand NewTuningCommand { get; set; }
+        public IMvxCommand DeleteTuningCommand { get; set; }
 
         public override void Prepare()
         {
@@ -90,67 +89,73 @@ namespace SimTuning.ViewModels.Tuning
             Tuning = null;
         }
 
-        protected virtual void ShowSave(object obj)
+        protected virtual void ShowSave()
         {
             SaveButton = true;
         }
 
-        protected virtual void SaveTuning()
+        protected virtual bool SaveTuning()
         {
-            if (Tuning != null)
+            try
             {
-                //Vehicle zuweisen
-                if (TakeExistingVehicle)
+                if (Tuning != null)
                 {
-                    //kein Vehicle ausgewählt
-                    if (Vehicle == null)
+                    //Vehicle zuweisen
+                    if (TakeExistingVehicle)
                     {
-                        //Snackbar message
+                        //kein Vehicle ausgewählt
+                        if (Vehicle == null)
+                        {
+                            return false;
+                        }
 
-                        return;
+                        Tuning.Vehicle = Vehicle;
                     }
-
-                    Tuning.Vehicle = Vehicle;
-                }
-                //neues Fahrzeug erstellen
-                else if (CreateNewVehicle)
-                {
-                    Data.Models.VehiclesModel vehicle = new Data.Models.VehiclesModel()
+                    //neues Fahrzeug erstellen
+                    else if (CreateNewVehicle)
                     {
-                        Name = "Tuning-Fahrzeug",
-                        Beschreibung = "Erstellt über Tuning-Modul mit der Option 'Neues Fahrzeug erstellen'",
-                        Deletable = true
-                    };
+                        Data.Models.VehiclesModel vehicle = new Data.Models.VehiclesModel()
+                        {
+                            Name = "Tuning-Fahrzeug",
+                            Beschreibung = "Erstellt über Tuning-Modul mit der Option 'Neues Fahrzeug erstellen'",
+                            Deletable = true
+                        };
+
+                        using (var Data = new Data.DatabaseContext())
+                        {
+                            Data.Vehicles.Add(vehicle);
+
+                            Data.SaveChanges();
+                        }
+
+                        //neues Vehicle Tuning zuweisen
+                        Tuning.Vehicle = vehicle;
+
+                        //Lokaler list hinzufügen und auswählen
+                        Vehicles.Add(vehicle);
+
+                        Vehicle = Vehicles.Last();
+
+                        //Radio buttons zurücksetzen
+                        CreateNewVehicle = false;
+                        TakeExistingVehicle = true;
+                    }
 
                     using (var Data = new Data.DatabaseContext())
                     {
-                        Data.Vehicles.Add(vehicle);
+                        Data.Tuning.Update(Tuning);
 
                         Data.SaveChanges();
                     }
-
-                    //neues Vehicle Tuning zuweisen
-                    Tuning.Vehicle = vehicle;
-
-                    //Lokaler list hinzufügen und auswählen
-                    Vehicles.Add(vehicle);
-
-                    Vehicle = Vehicles.Last();
-
-                    //Radio buttons zurücksetzen
-                    CreateNewVehicle = false;
-                    TakeExistingVehicle = true;
                 }
 
-                using (var Data = new Data.DatabaseContext())
-                {
-                    Data.Tuning.Update(Tuning);
-
-                    Data.SaveChanges();
-                }
+                SaveButton = false;
+                return true;
             }
-
-            SaveButton = false;
+            catch
+            {
+                return false;
+            }
         }
 
         protected Data.Models.TuningModel LoadTuning(Data.Models.TuningModel Tuning)

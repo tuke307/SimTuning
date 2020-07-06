@@ -1,19 +1,18 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.Commands;
+using MvvmCross.ViewModels;
 using OxyPlot;
-using SimTuning.ModuleLogic;
+using SimTuning.Core.ModuleLogic;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using MvvmCross.ViewModels;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace SimTuning.ViewModels.Dyno
+namespace SimTuning.Core.ViewModels.Dyno
 {
     public class SpectrogramViewModel : MvxViewModel
     {
@@ -51,11 +50,10 @@ namespace SimTuning.ViewModels.Dyno
             }
         }
 
-        public ICommand RefreshSpectrogram { get; set; }
-        public ICommand AuswahlFenster { get; set; }
-        public ICommand RefreshPlot { get; set; }
-        public ICommand FilterPlotCommand { get; set; }
-        public ICommand SpecificGraphCommand { get; set; }
+        public IMvxAsyncCommand RefreshSpectrogramCommand { get; set; }
+        public IMvxAsyncCommand RefreshPlotCommand { get; set; }
+        public IMvxAsyncCommand FilterPlotCommand { get; set; }
+        public IMvxAsyncCommand SpecificGraphCommand { get; set; }
 
         public override void Prepare()
         {
@@ -71,7 +69,7 @@ namespace SimTuning.ViewModels.Dyno
 
         #region Commands
 
-        protected virtual void Refresh_Plot()
+        protected virtual void RefreshPlot()
         {
             Graphs = null;
             Graph = null;
@@ -99,8 +97,8 @@ namespace SimTuning.ViewModels.Dyno
             Normal_Refresh = true;
             Badge_Refresh = false;
 
-            SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Constants.AudioFilePath, Quality, Intensity, Colormap, Frequenzbeginn / 60, Frequenzende / 60);
-            Stream stream = SimTuning.Business.Converts.SKBitmapToStream(spec);
+            SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Core.Constants.AudioFilePath, Quality, Intensity, Colormap, Frequenzbeginn / 60, Frequenzende / 60);
+            Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(spec);
 
             return stream;
         }

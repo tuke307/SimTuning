@@ -8,6 +8,7 @@ namespace Data
     public class DatabaseContext : DbContext
     {
         #region DataSets
+
         public DbSet<VehiclesModel> Vehicles { get; set; }
         public DbSet<MotorModel> Motor { get; set; }
         public DbSet<EinlassModel> MotorEinlass { get; set; }
@@ -25,7 +26,8 @@ namespace Data
         public DbSet<TuningPSModel> Tuning_ps { get; set; }
 
         public DbSet<SettingsModel> Settings { get; set; }
-        #endregion
+
+        #endregion DataSets
 
         /// <summary>
         /// Datenbank-Kontext
@@ -53,6 +55,7 @@ namespace Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Data-Seeding
+
             modelBuilder.Entity<EnvironmentModel>().HasData(
                 new EnvironmentModel { Id = 1, Name = "Frühling", TemperaturT = 10, LuftdruckP = 1010 },
                 new EnvironmentModel { Id = 2, Name = "Sommer", TemperaturT = 25, LuftdruckP = 1010 },
@@ -101,7 +104,8 @@ namespace Data
                 new UeberstroemerModel { Id = 4, MotorId = 4 },
                 new UeberstroemerModel { Id = 5, MotorId = 5, SteuerzeitSZ = 117.0 },
                 new UeberstroemerModel { Id = 6, MotorId = 6 });
-            #endregion
+
+            #endregion Data-Seeding
         }
 
         /// <summary>

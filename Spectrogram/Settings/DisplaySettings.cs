@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Spectrogram.Settings
+﻿namespace Spectrogram.Settings
 {
     public class DisplaySettings
     {

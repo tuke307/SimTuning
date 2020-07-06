@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimTuning.Models
+﻿namespace SimTuning.Core.Models
 {
     public class TuningOutput
     {

@@ -1,8 +1,8 @@
-﻿using MvvmCross.ViewModels;
+﻿using MvvmCross.Commands;
+using MvvmCross.ViewModels;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace SimTuning.ViewModels.Home
+namespace SimTuning.Core.ViewModels.Home
 {
     public class HomeViewModel : MvxViewModel
     {
@@ -10,11 +10,11 @@ namespace SimTuning.ViewModels.Home
         {
         }
 
-        public ICommand OpenInstagramCommand { get; set; }
-        public ICommand OpenWebsiteCommand { get; set; }
-        public ICommand OpenTwitterCommand { get; set; }
-        public ICommand OpenEmailCommand { get; set; }
-        public ICommand OpenDonateCommand { get; set; }
+        public IMvxCommand OpenInstagramCommand { get; set; }
+        public IMvxCommand OpenWebsiteCommand { get; set; }
+        public IMvxCommand OpenTwitterCommand { get; set; }
+        public IMvxCommand OpenEmailCommand { get; set; }
+        public IMvxCommand OpenDonateCommand { get; set; }
 
         public override void Prepare()
         {
@@ -30,23 +30,23 @@ namespace SimTuning.ViewModels.Home
 
         #region Commands
 
-        protected virtual void OpenInstagram(object parameter)
+        protected virtual void OpenInstagram()
         {
         }
 
-        protected virtual void OpenWebsite(object parameter)
+        protected virtual void OpenWebsite()
         {
         }
 
-        protected virtual void OpenTwitter(object parameter)
+        protected virtual void OpenTwitter()
         {
         }
 
-        protected virtual void OpenEmail(object parameter)
+        protected virtual void OpenEmail()
         {
         }
 
-        protected virtual void OpenDonate(object parameter)
+        protected virtual void OpenDonate()
         {
         }
 

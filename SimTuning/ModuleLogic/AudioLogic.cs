@@ -1,8 +1,6 @@
 ﻿using SkiaSharp;
-using System;
-using System.IO;
 
-namespace SimTuning.ModuleLogic
+namespace SimTuning.Core.ModuleLogic
 {
     public class AudioLogic
     {

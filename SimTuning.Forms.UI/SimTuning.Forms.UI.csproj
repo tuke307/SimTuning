@@ -1,0 +1,134 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <ApplicationIcon></ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>Current</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ExpandableView" Version="1.0.10" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MvvmCross" Version="6.4.2" />
+    <PackageReference Include="MvvmCross.Forms" Version="6.4.2" />
+    <PackageReference Include="OxyPlot.Xamarin.Forms" Version="1.0.0" />
+    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.41" />
+    <PackageReference Include="XF.Material" Version="1.6.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\API\API.csproj" />
+    <ProjectReference Include="..\SimTuning\SimTuning.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Auslass\AuslassAnwendungView.xaml.cs">
+      <DependentUpon>AuslassAnwendungView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Auslass\AuslassTheorieView.xaml.cs">
+      <DependentUpon>AuslassTheorieView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Auslass\AuslassMainView.xaml.cs">
+      <DependentUpon>AuslassMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Demo\DemoMainView.xaml.cs">
+      <DependentUpon>DemoMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Dyno\DynoDiagnosisView.xaml.cs">
+      <DependentUpon>DynoDiagnosisView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Dyno\DynoAudioView.xaml.cs">
+      <DependentUpon>DynoAudioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Dyno\DynoSpectrogramView.xaml.cs">
+      <DependentUpon>DynoSpectrogramView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Dyno\DynoMainView.xaml.cs">
+      <DependentUpon>DynoMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einlass\EinlassKanalView.xaml.cs">
+      <DependentUpon>EinlassKanalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einlass\EinlassVergaserView.xaml.cs">
+      <DependentUpon>EinlassVergaserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einlass\EinlassMainView.xaml.cs">
+      <DependentUpon>EinlassMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einstellungen\EinstellungenKontoView.xaml.cs">
+      <DependentUpon>EinstellungenKontoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einstellungen\EinstellungenVehiclesView.xaml.cs">
+      <DependentUpon>EinstellungenVehiclesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Home\HomeMainView.xaml.cs">
+      <DependentUpon>HomeMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorHubraumView.xaml.cs">
+      <DependentUpon>MotorHubraumView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorVerdichtungView.xaml.cs">
+      <DependentUpon>MotorVerdichtungView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorUmrechnungenView.xaml.cs">
+      <DependentUpon>MotorUmrechnungenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorMainView.xaml.cs">
+      <DependentUpon>MotorMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Motor\MotorSteuerdiagrammView.xaml.cs">
+      <DependentUpon>MotorSteuerdiagrammView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Tuning\TuningDataView.xaml.cs">
+      <DependentUpon>TuningDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Tuning\TuningInputView.xaml.cs">
+      <DependentUpon>TuningInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Tuning\TuningMainView.xaml.cs">
+      <DependentUpon>TuningMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Tuning\TuningDiagnosisView.xaml.cs">
+      <DependentUpon>TuningDiagnosisView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Components\MenuOptionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Dyno\DynoDataView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Einstellungen\EinstellungenMainView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MenuView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

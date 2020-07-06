@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxTabbedPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      x:Class="SimTuning.Forms.UI.Views.Dyno.DynoMainView"
+                      x:TypeArguments="viewModels:DynoMainViewModel"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:local="clr-namespace:SimTuning.Forms.UI.Views.Dyno"
+                      xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+                      xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
+                      xmlns:lazy="clr-namespace:SimTuning.Forms.UI.LazyLoading"
+                      android:TabbedPage.IsSwipePagingEnabled="False"
+                      android:TabbedPage.IsSmoothScrollEnabled="True"
+                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
+    <TabbedPage.Behaviors>
+        <behaviors:ActivePageTabbedPageBehavior />
+    </TabbedPage.Behaviors>
+
+    <TabbedPage.Children>
+        <local:DynoDataView Title="Datensatz" />
+        <local:DynoAudioView Title="Audio" />
+        <local:DynoSpectrogramView Title="Spectrogram" />
+        <local:DynoDiagnosisView Title="Diagnose" />
+    </TabbedPage.Children>
+
+    <!--lazy load-->
+    <!--
+    <lazy:LazyLoadedContentPage Title="Audio">
+        <ContentPage.Behaviors>
+            <behaviors:LazyContentPageBehavior ContentTemplate="{StaticResource ContentTemplate}" />
+        </ContentPage.Behaviors>
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <DataTemplate x:Key="ContentTemplate">
+                    <local:DynoAudioView />
+                </DataTemplate>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+    </lazy:LazyLoadedContentPage>
+
+    -->
+    <!--lazy load-->
+    <!--
+    <lazy:LazyLoadedContentPage Title="Spectrogram">
+        <ContentPage.Behaviors>
+            <behaviors:LazyContentPageBehavior ContentTemplate="{StaticResource ContentTemplate}" />
+        </ContentPage.Behaviors>
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <DataTemplate x:Key="ContentTemplate">
+                    <local:DynoSpectrogramView />
+                </DataTemplate>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+    </lazy:LazyLoadedContentPage>
+
+    -->
+    <!--lazy load-->
+    <!--
+    <lazy:LazyLoadedContentPage Title="Diagnose">
+        <ContentPage.Behaviors>
+            <behaviors:LazyContentPageBehavior ContentTemplate="{StaticResource ContentTemplate}" />
+        </ContentPage.Behaviors>
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <DataTemplate x:Key="ContentTemplate">
+                    <local:DynoDiagnosisView />
+                </DataTemplate>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+    </lazy:LazyLoadedContentPage>-->
+</views:MvxTabbedPage>

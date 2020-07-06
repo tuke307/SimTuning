@@ -1,19 +1,19 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using SimTuning.Models;
-using SimTuning.ModuleLogic;
+using SimTuning.Core.Models;
+using SimTuning.Core.ModuleLogic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using UnitsNet.Units;
 
-namespace SimTuning.ViewModels.Auslass
+namespace SimTuning.Core.ViewModels.Auslass
 {
     public class AnwendungViewModel : MvxViewModel
     {
@@ -70,13 +70,13 @@ namespace SimTuning.ViewModels.Auslass
             return base.Initialize();
         }
 
-        public ICommand CalculateCommand { get; set; }
-        public ICommand DiffusorStageCommand { get; set; }
-        public ICommand InsertDataCommand { get; set; }
+        public IMvxCommand CalculateCommand { get; set; }
+        public IMvxCommand DiffusorStageCommand { get; set; }
+        public IMvxCommand InsertDataCommand { get; set; }
 
         #region Commands
 
-        public void InsertData(object obj)
+        public void InsertData()
         {
             if (HelperVehicle.Motor.Auslass.FlaecheA.HasValue)
                 Vehicle.Motor.Auslass.FlaecheA = UnitsNet.UnitConverter.Convert(
@@ -130,7 +130,7 @@ namespace SimTuning.ViewModels.Auslass
                  LengthUnit.Millimeter);
 
             VehiclesModel vehicle = Vehicle;
-            Stream stream = SimTuning.Business.Converts.SKBitmapToStream(auslass.Auspuff(ref vehicle));
+            Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(auslass.Auspuff(ref vehicle));
             Vehicle = vehicle;
             RaisePropertyChanged("Vehicle");
 

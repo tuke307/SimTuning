@@ -2,15 +2,15 @@
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.ViewModels;
-using SimTuning.Models;
-using SimTuning.ModuleLogic;
+using SimTuning.Core.Models;
+using SimTuning.Core.ModuleLogic;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using UnitsNet.Units;
 
-namespace SimTuning.ViewModels.Motor
+namespace SimTuning.Core.ViewModels.Motor
 {
     public class HubraumViewModel : MvxViewModel
     {

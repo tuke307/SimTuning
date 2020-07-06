@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using UnitsNet;
 
-namespace SimTuning.Models
+namespace SimTuning.Core.Models
 {
     public class DurationQuantity : ObservableCollection<UnitListItem>
     {

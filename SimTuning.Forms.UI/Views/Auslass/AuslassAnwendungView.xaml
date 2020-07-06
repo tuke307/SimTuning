@@ -1,0 +1,833 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage  x:TypeArguments="viewModels:AuslassAnwendungViewModel"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Auslass;assembly=SimTuning.Forms.UI"
+                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                       xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
+                       BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                       x:Class="SimTuning.Forms.UI.Views.Auslass.AuslassAnwendungView">
+
+    <views:MvxContentPage.Resources>
+        <behaviors:NegateBooleanConverter x:Key="Inverter" />
+    </views:MvxContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout>
+
+            <!--DATEN-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Daten"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Schallgeschwindigkeit"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.SchallG}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitSchallG}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel VerticalOptions="Center"
+                               Margin="5, 0, 0, 0">
+                            m/s
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Resonanzdrehzahl"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.ResonanzD}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialLabel VerticalOptions="Center"
+                                                Margin="5, 0, 0, 0">
+                            1/min
+                        </material:MaterialLabel>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Auslass Durchmesser"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.AuslassD}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitAuslassD}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel VerticalOptions="Center"
+                               Margin="5, 0, 0, 0">
+                            mm
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Auslass-Kanal Länge"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.AuslassL}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitAuslassL}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel VerticalOptions="Center"
+                               Margin="5, 0, 0, 0">
+                            mm
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Auslass-Steuerzeit"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.AuslassSZ}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialLabel VerticalOptions="Center"
+                                                Margin="5, 0, 0, 0">
+                            °KW
+                        </material:MaterialLabel>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Auslass-Fläche"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.AuslassF}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitAuslassF}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel VerticalOptions="Center"
+                               Margin="5, 0, 0, 0">
+                            mm²
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--Krümmer-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Krümmer"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <material:MaterialLabel Margin="0, 10, 0, 0"
+                                            Text="Drehmoment(Krümmer)- Faktor"></material:MaterialLabel>
+
+                    <Grid HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <material:MaterialLabel Grid.Column="0"
+                                                HorizontalTextAlignment="Start"
+                                                Margin="5, 0, 0, 0"
+                                                Text="spitz"></material:MaterialLabel>
+
+                        <material:MaterialLabel Grid.Column="2"
+                                                Margin="0, 0, 0, 5"
+                                                HorizontalTextAlignment="End"
+                                                Text="flach"></material:MaterialLabel>
+                    </Grid>
+                    <material:MaterialSlider MinValue="6"
+                                             MaxValue="12"
+                                             HorizontalOptions="FillAndExpand"
+                                             Margin="0, -10, 0, 10"
+                                             Value="{Binding Mode=TwoWay, Path=InputExhaust.KruemmerF}">
+                    </material:MaterialSlider>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Krümmer Winkel"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.KruemmerW}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric">
+                        </material:MaterialTextField>
+
+                        <material:MaterialLabel VerticalOptions="Center"
+                                                Margin="5, 0, 0, 0">
+                            mm²
+                        </material:MaterialLabel>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--Mittelteil-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Mittelteil"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <material:MaterialLabel Margin="0, 10, 0, 0"
+                                            Text="Drehmoment(Mitelteil)- Faktor"></material:MaterialLabel>
+
+                    <Grid HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <material:MaterialLabel Grid.Column="0"
+                                                HorizontalTextAlignment="Start"
+                                                Margin="5, 0, 0, 0"
+                                                Text="spitz"></material:MaterialLabel>
+
+                        <material:MaterialLabel Grid.Column="2"
+                                                Margin="0, 0, 0, 5"
+                                                HorizontalTextAlignment="End"
+                                                Text="flach"></material:MaterialLabel>
+                    </Grid>
+                    <material:MaterialSlider HorizontalOptions="FillAndExpand"
+                                             Margin="0, -10, 0, 10"
+                                             MinValue="6"
+                                             MaxValue="12"
+                                             Value="{Binding Mode=TwoWay, Path=InputExhaust.MittelteilF}">
+                    </material:MaterialSlider>
+                </StackLayout>
+            </Frame>
+
+            <!--Gegenkonus-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Gegenkonus"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <material:MaterialTextField Placeholder="GegenKonus Winkel"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.GegenKonusW}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                VerticalOptions="Center">
+                            °
+                        </material:MaterialLabel>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--Endrohr-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Winkel"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <material:MaterialTextField Placeholder="Endrohr Durchmesser"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.EndrohrD}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitEndrohrD}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            mm
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <material:MaterialTextField Placeholder="Endrohr Länge"
+                                                    Text="{Binding Mode=TwoWay, Path=InputExhaust.EndrohrL}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitEndrohrL}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
+                               VerticalOptions="Center">
+                            mm
+                        </material:MaterialLabel>-->
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--DIFFUSOR-->
+            <Frame Margin="10">
+                <StackLayout>
+
+                    <material:MaterialLabel Text="Diffusor"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill" />
+
+                    <material:MaterialRadioButtonGroup Choices="{Binding DiffStages}"
+                                                       x:Name="radioButtonGroup"
+                                                       SelectedIndexChangedCommand="{Binding DiffusorStageCommand}">
+                    </material:MaterialRadioButtonGroup>
+
+                    <StackLayout IsVisible="false">
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout"
+                                         Binding="{Binding InputExhaust.DiffusorStage}"
+                                         Value="1">
+                                <Setter Property="IsVisible"
+                                        Value="true"></Setter>
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+
+                        <material:MaterialLabel FontSize="Subtitle"
+                                                Text="Two Stage"
+                                                Margin="0, 0, 0, 10">
+                        </material:MaterialLabel>
+
+                        <StackLayout>
+                            <material:MaterialLabel>1. Stage</material:MaterialLabel>
+
+                            <!--<StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Länge"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.Diffusor1L}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>-->
+
+                            <StackLayout Orientation="Horizontal"
+                                         Grid.Row="3"
+                                         Grid.Column="0">
+                                <material:MaterialTextField Placeholder="Winkel"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.DiffusorW1}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    °
+                                </material:MaterialLabel>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <Grid IsVisible="false">
+                        <Grid.Triggers>
+                            <DataTrigger TargetType="Grid"
+                                         Binding="{Binding InputExhaust.DiffusorStage}"
+                                         Value="2">
+                                <Setter Property="IsVisible"
+                                        Value="true"></Setter>
+                            </DataTrigger>
+                        </Grid.Triggers>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <material:MaterialLabel Grid.ColumnSpan="2"
+                                                Grid.Row="0"
+                                                FontSize="Caption"
+                                                Text="Two Stage"
+                                                Margin="0, 0, 0, 10">
+                        </material:MaterialLabel>
+
+                        <StackLayout Grid.Row="1"
+                                     Grid.Column="0">
+                            <material:MaterialLabel>1. Stage</material:MaterialLabel>
+
+                            <!--<StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Länge"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.Diffusor1L}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>-->
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Winkel"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.DiffusorW1}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    °
+                                </material:MaterialLabel>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1"
+                                     Grid.Column="1"
+                                     Margin="30, 0, 0, 0">
+                            <material:MaterialLabel>2. Stage</material:MaterialLabel>
+
+                            <!--<StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Länge"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.Diffusor2L}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>-->
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Winkel"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.DiffusorW2}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    °
+                                </material:MaterialLabel>
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+
+                    <Grid IsVisible="false">
+                        <Grid.Triggers>
+                            <DataTrigger TargetType="Grid"
+                                         Binding="{Binding InputExhaust.DiffusorStage}"
+                                         Value="3">
+                                <Setter Property="IsVisible"
+                                        Value="true"></Setter>
+                            </DataTrigger>
+                        </Grid.Triggers>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <material:MaterialLabel Grid.ColumnSpan="3"
+                                                Grid.Row="0"
+                                                FontSize="Caption"
+                                                Text="Three Stage"
+                                                Margin="0, 0, 0, 10">
+                        </material:MaterialLabel>
+
+                        <StackLayout Grid.Row="1"
+                                     Grid.Column="0">
+                            <material:MaterialLabel>1. Stage</material:MaterialLabel>
+
+                            <!--<StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Länge"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.Diffusor1L}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>-->
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Winkel"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.DiffusorW1}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    °
+                                </material:MaterialLabel>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1"
+                                     Grid.Column="1"
+                                     Margin="30, 0, 0, 0">
+                            <material:MaterialLabel>2. Stage</material:MaterialLabel>
+
+                            <!--<StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Länge"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.Diffusor2L}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>-->
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Winkel"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.DiffusorW2}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    °
+                                </material:MaterialLabel>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1"
+                                     Grid.Column="2"
+                                     Margin="30, 0, 0, 0">
+                            <material:MaterialLabel>3. Stage</material:MaterialLabel>
+
+                            <!--<StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Länge"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.Diffusor3L}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>-->
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="Winkel"
+                                                            Text="{Binding Mode=TwoWay, Path=InputExhaust.DiffusorW3}"
+                                                            WidthRequest="50" />
+
+                                <material:MaterialLabel Margin="5, 0, 0, 0">
+                                    °
+                                </material:MaterialLabel>
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!--ERGEBNIS-->
+            <Frame Margin="10">
+                <StackLayout>
+
+                    <material:MaterialLabel Text="Ergebnis"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill" />
+
+                    <material:MaterialButton Margin="10"
+                                             Text="Calculate"
+                                             HorizontalOptions="Center"
+                                             Command="{Binding CalculateCommand}">
+                    </material:MaterialButton>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Grid.Column="0">
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="D1"
+                                                            IsEnabled="False"
+                                                            Text="{Binding Mode=TwoWay, Path=OutputExhaust.KruemmerD}"
+                                                            WidthRequest="100"
+                                                            InputType="Numeric" />
+
+                                <material:MaterialLabel VerticalOptions="Center"
+                                                        Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="D2"
+                                                            IsEnabled="False"
+                                                            Text="{Binding Mode=TwoWay, Path=OutputExhaust.DiffusorD}"
+                                                            WidthRequest="100"
+                                                            InputType="Numeric" />
+
+                                <material:MaterialLabel VerticalOptions="Center"
+                                                        Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="D3"
+                                                            IsEnabled="False"
+                                                            Text="{Binding Mode=TwoWay, Path=OutputExhaust.MittelteilD}"
+                                                            WidthRequest="100"
+                                                            InputType="Numeric" />
+
+                                <material:MaterialLabel VerticalOptions="Center"
+                                                        Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="D4"
+                                                            IsEnabled="False"
+                                                            Text="{Binding Mode=TwoWay, Path=OutputExhaust.GegenkonusD}"
+                                                            WidthRequest="100"
+                                                            InputType="Numeric" />
+
+                                <material:MaterialLabel VerticalOptions="Center"
+                                                        Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="1"
+                                     HorizontalOptions="End">
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="LK"
+                                                            IsEnabled="False"
+                                                            Text="{Binding Mode=TwoWay, Path=OutputExhaust.KruemmerL}"
+                                                            WidthRequest="100"
+                                                            InputType="Numeric" />
+
+                                <material:MaterialLabel VerticalOptions="Center"
+                                                        Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="LD"
+                                                            IsEnabled="False"
+                                                            Text="{Binding Mode=TwoWay, Path=OutputExhaust.DiffusorL}"
+                                                            WidthRequest="100"
+                                                            InputType="Numeric" />
+
+                                <material:MaterialLabel VerticalOptions="Center"
+                                                        Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="LM"
+                                                            IsEnabled="False"
+                                                            Text="{Binding Mode=TwoWay, Path=OutputExhaust.MittelteilL}"
+                                                            WidthRequest="100"
+                                                            InputType="Numeric" />
+
+                                <material:MaterialLabel VerticalOptions="Center"
+                                                        Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="LG"
+                                                            IsEnabled="False"
+                                                            Text="{Binding Mode=TwoWay, Path=OutputExhaust.GegenkonusL}"
+                                                            WidthRequest="100"
+                                                            InputType="Numeric" />
+
+                                <material:MaterialLabel VerticalOptions="Center"
+                                                        Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <material:MaterialTextField Placeholder="LE"
+                                                            IsEnabled="False"
+                                                            Text="{Binding Mode=TwoWay, Path=OutputExhaust.EndrohrL}"
+                                                            WidthRequest="100"
+                                                            InputType="Numeric" />
+
+                                <material:MaterialLabel VerticalOptions="Center"
+                                                        Margin="5, 0, 0, 0">
+                                    mm
+                                </material:MaterialLabel>
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+
+                    <Image Source="{Binding Mode=OneWay,  Path=Auspuff}"
+                           HeightRequest="300" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Gesamtlänge"
+                                                    IsEnabled="False"
+                                                    Text="{Binding Mode=TwoWay, Path=OutputExhaust.GesamtL}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialLabel VerticalOptions="Center"
+                                                Margin="5, 0, 0, 0">
+                            mm
+                        </material:MaterialLabel>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Placeholder="Resonanzlänge"
+                                                    IsEnabled="False"
+                                                    Text="{Binding Mode=TwoWay, Path=OutputExhaust.ResonanzL}"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialLabel VerticalOptions="Center"
+                                                Margin="5, 0, 0, 0">
+                            mm
+                        </material:MaterialLabel>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Hilfe"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <material:MaterialTextField InputType="Choice"
+                                                Placeholder="Fahrzeug"
+                                                Choices="{Binding  HelperVehicles}"
+                                                SelectedChoice="{Binding  HelperVehicle}"
+                                                ChoicesBindingName="Name">
+                    </material:MaterialTextField>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <material:MaterialLabel Text="Auslass-Fläche"
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="Auslass-Steuerwinkel"
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="Resonanzdrehzahl"
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="0"
+                                     Grid.Column="1">
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Auslass.Flaeche}"
+                                                        Placeholder=" "
+                                                        IsEnabled="False"
+                                                        WidthRequest="100"
+                                                        FloatingPlaceholderEnabled="False"
+                                                        InputType="Numeric"
+                                                        Margin="10,0,0,0" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm²
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="1"
+                                     Grid.Column="1">
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Auslass.SteuerzeitSZ}"
+                                                        Placeholder=" "
+                                                        FloatingPlaceholderEnabled="False"
+                                                        IsEnabled="False"
+                                                        WidthRequest="100"
+                                                        InputType="Numeric"
+                                                        Margin="10,0,0,0" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                °KW
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="2"
+                                     Grid.Column="1">
+
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.ResonanzU}"
+                                                        IsEnabled="False"
+                                                        Placeholder=" "
+                                                        FloatingPlaceholderEnabled="False"
+                                                        WidthRequest="100"
+                                                        InputType="Numeric"
+                                                        Margin="10,0,0,0" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                1/min
+                            </material:MaterialLabel>
+                        </StackLayout>
+                    </Grid>
+
+                    <material:MaterialButton ImageSource="ic_chevron_right_black_18dp.png"
+                                             Command="{Binding InsertDataCommand}"
+                                             WidthRequest="100"
+                                             HeightRequest="70"
+                                             HorizontalOptions="Center"
+                                             Margin="10" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</views:MvxContentPage>

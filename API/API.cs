@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net;
 using System.Security;
 using System.Threading.Tasks;
 using WordPressPCL.Models;
@@ -37,7 +34,7 @@ namespace API
 
             //für automatischen start
             if (email == null && password == null)
-                SimTuning.Business.Functions.GetLoginCredentials(out email, out password);
+                SimTuning.Core.Business.Functions.GetLoginCredentials(out email, out password);
             if (email == null || password == null)
                 goto Finish;
 
@@ -79,7 +76,7 @@ namespace API
             }
 
             //Speichern der daten
-            SimTuning.Business.Functions.SaveLoginCredentials(email, password);
+            SimTuning.Core.Business.Functions.SaveLoginCredentials(email, password);
 
         Finish:
             return new Tuple<bool, bool, List<string>>(_userValid, _licenseValid, messages);

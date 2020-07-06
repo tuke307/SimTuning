@@ -1,6 +1,6 @@
 ﻿using OxyPlot;
 
-namespace SimTuning.ModuleLogic
+namespace SimTuning.Core.ModuleLogic
 {
     public class TuningLogic
     {

@@ -1,16 +1,16 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using SimTuning.ModuleLogic;
+using MvvmCross.Commands;
+using MvvmCross.ViewModels;
+using SimTuning.Core.ModuleLogic;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows.Input;
-using MvvmCross.ViewModels;
 using System.Threading.Tasks;
 
-namespace SimTuning.ViewModels.Motor
+namespace SimTuning.Core.ViewModels.Motor
 {
     public class SteuerdiagrammViewModel : MvxViewModel
     {
@@ -72,8 +72,8 @@ namespace SimTuning.ViewModels.Motor
             }
         }
 
-        public ICommand InsertVehicleCommand { get; set; }
-        public ICommand InsertReferenceCommand { get; set; }
+        public IMvxCommand InsertVehicleCommand { get; set; }
+        public IMvxCommand InsertReferenceCommand { get; set; }
 
         public override void Prepare()
         {
@@ -89,7 +89,7 @@ namespace SimTuning.ViewModels.Motor
 
         #region Commands
 
-        protected virtual Stream Refresh_Steuerzeit()
+        protected virtual Stream RefreshSteuerzeit()
         {
             if (Einlass_Steuerzeit.HasValue)
             {
@@ -114,20 +114,20 @@ namespace SimTuning.ViewModels.Motor
 
             if (Einlass_Steuerzeit.HasValue && Ueberstroemer_Steuerzeit.HasValue && Auslass_Steuerzeit.HasValue)
             {
-                Stream stream = SimTuning.Business.Converts.SKBitmapToStream(steuerzeit.Steuerzeit_Rad(Einlass_Steuerzeit.Value, Auslass_Steuerzeit.Value, Ueberstroemer_Steuerzeit.Value));
+                Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(steuerzeit.Steuerzeit_Rad(Einlass_Steuerzeit.Value, Auslass_Steuerzeit.Value, Ueberstroemer_Steuerzeit.Value));
                 return stream;
             }
             else { return null; }
         }
 
-        protected void InsertVehicle(object parameter)
+        protected void InsertVehicle()
         {
             Einlass_Steuerzeit = HelperVehicle.Motor.Einlass.SteuerzeitSZ;
             Auslass_Steuerzeit = HelperVehicle.Motor.Auslass.SteuerzeitSZ;
             Ueberstroemer_Steuerzeit = HelperVehicle.Motor.Ueberstroemer.SteuerzeitSZ;
         }
 
-        protected void InsertReference(object parameter)
+        protected void InsertReference()
         {
             Einlass_Steuerzeit = MotorSteuerzeit.Einlass.SteuerzeitSZ;
             Auslass_Steuerzeit = MotorSteuerzeit.Auslass.SteuerzeitSZ;

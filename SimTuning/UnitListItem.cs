@@ -1,7 +1,7 @@
 ﻿using System;
 using UnitsNet;
 
-namespace SimTuning
+namespace SimTuning.Core
 {
     /// <summary>
     ///     Represents an item in the from/to unit listboxes.

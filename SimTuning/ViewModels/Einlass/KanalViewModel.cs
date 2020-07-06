@@ -1,19 +1,17 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using SimTuning.Models;
-using SimTuning.ModuleLogic;
-using System;
+using MvvmCross.Commands;
+using MvvmCross.ViewModels;
+using SimTuning.Core.Models;
+using SimTuning.Core.ModuleLogic;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Windows.Input;
-using UnitsNet.Units;
-using MvvmCross.ViewModels;
 using System.Threading.Tasks;
+using UnitsNet.Units;
 
-namespace SimTuning.ViewModels.Einlass
+namespace SimTuning.Core.ViewModels.Einlass
 {
     public class KanalViewModel : MvxViewModel
     {
@@ -49,7 +47,7 @@ namespace SimTuning.ViewModels.Einlass
             }
         }
 
-        public ICommand InsertDataCommand { get; set; }
+        public IMvxCommand InsertDataCommand { get; set; }
 
         public override void Prepare()
         {
@@ -65,7 +63,7 @@ namespace SimTuning.ViewModels.Einlass
 
         #region Commands
 
-        public void InsertData(object obj)
+        public void InsertData()
         {
             if (HelperVehicle.Motor.Einlass.FlaecheA.HasValue)
                 EinlassA = HelperVehicle.Motor.Einlass.FlaecheA;

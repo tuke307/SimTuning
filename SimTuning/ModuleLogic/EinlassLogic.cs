@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimTuning.ModuleLogic
+namespace SimTuning.Core.ModuleLogic
 {
     public class EinlassLogic
     {

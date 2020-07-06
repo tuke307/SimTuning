@@ -1,8 +1,8 @@
-﻿using MvvmCross.ViewModels;
+﻿using MvvmCross.Commands;
+using MvvmCross.ViewModels;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace SimTuning.ViewModels.Demo
+namespace SimTuning.Core.ViewModels.Demo
 {
     public class BuyProViewModel : MvxViewModel
     {
@@ -10,7 +10,7 @@ namespace SimTuning.ViewModels.Demo
         {
         }
 
-        public ICommand OpenWebsiteCommand { get; set; }
+        public IMvxCommand OpenWebsiteCommand { get; set; }
 
         public override void Prepare()
         {
@@ -26,7 +26,7 @@ namespace SimTuning.ViewModels.Demo
 
         #region Commands
 
-        protected virtual void OpenWebsite(object parameter)
+        protected virtual void OpenWebsite()
         {
             //Business.Functions.GoToSite("https://www.tuke-productions.de");
         }

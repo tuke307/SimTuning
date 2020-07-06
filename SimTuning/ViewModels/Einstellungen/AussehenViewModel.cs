@@ -1,10 +1,10 @@
 ﻿using Data;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace SimTuning.ViewModels.Einstellungen
+namespace SimTuning.Core.ViewModels.Einstellungen
 {
     public class AussehenViewModel : MvxViewModel
     {
@@ -14,8 +14,8 @@ namespace SimTuning.ViewModels.Einstellungen
                 ToogleDarkmode = db.Settings.ToList().Last().DarkMode;
         }
 
-        public ICommand ApplyPrimaryCommand { get; set; }
-        public ICommand ApplyAccentCommand { get; set; }
+        public IMvxCommand ApplyPrimaryCommand { get; set; }
+        public IMvxCommand ApplyAccentCommand { get; set; }
 
         public override void Prepare()
         {

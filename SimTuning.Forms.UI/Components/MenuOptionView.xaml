@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Class="SimTuning.Forms.UI.Components.MenuOptionView"
+             Padding="10"
+             Orientation="Horizontal">
+    <material:MaterialIcon x:Name="Icon"
+                           Aspect="AspectFit"
+                           WidthRequest="25"
+                           HeightRequest="25" />
+    <material:MaterialLabel x:Name="Label"
+                            HorizontalOptions="StartAndExpand"
+                            VerticalOptions="Center" />
+</StackLayout>

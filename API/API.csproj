@@ -11,6 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimTuning\SimTuning.csproj" />
+    <ProjectReference Include="..\SimTuning\SimTuning.Core.csproj" />
   </ItemGroup>
 </Project>

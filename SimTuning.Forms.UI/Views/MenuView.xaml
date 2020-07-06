@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<view:MvxContentPage  xmlns:view="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
+                      x:TypeArguments="viewModels:MenuViewModel"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:component="clr-namespace:SimTuning.Forms.UI.Components"
+                      mc:Ignorable="d"
+                      Title="Menu"
+                      x:Class="SimTuning.Forms.UI.Views.MenuView">
+    <view:MvxContentPage.Resources>
+        <!--CONVERTER-->
+        <behaviors:NegateBooleanConverter x:Key="Inverter" />
+    </view:MvxContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--USER-->
+        <Grid BackgroundColor="{DynamicResource Primary100}"
+              Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--<material:MaterialLabel Grid.Row="0"
+                           Text="Tony"
+                           FontSize="Title"
+                           VerticalOptions="End"
+                           HorizontalOptions="Center" />-->
+
+            <StackLayout Grid.Row="1"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Start"
+                         Orientation="Horizontal">
+                <!--USER-->
+                <material:MaterialIcon Source="ic_card_account_details_outline_black_18dp"
+                                       TintColor="DarkRed"
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       BindingContext="{x:Reference Name=user}"
+                                       IsVisible="{Binding Path=IsVisible, Converter={StaticResource Inverter}}">
+                </material:MaterialIcon>
+
+                <material:MaterialIcon x:Name="user"
+                                       Source="ic_card_account_details_outline_black_18dp"
+                                       TintColor="DarkGreen"
+                                       WidthRequest="40"
+                                       HeightRequest="40"
+                                       IsVisible="{Binding Mode=OneWay, Path=UserValid}">
+                </material:MaterialIcon>
+
+                <!--LIZENZ-->
+                <material:MaterialIcon Source="ic_account_key_outline_black_18dp"
+                                       TintColor="DarkRed"
+                                       WidthRequest="25"
+                                       HeightRequest="25"
+                                       BindingContext="{x:Reference Name=license}"
+                                       IsVisible="{Binding Path=IsVisible, Converter={StaticResource Inverter}}">
+                </material:MaterialIcon>
+
+                <material:MaterialIcon x:Name="license"
+                                       Source="ic_account_key_outline_black_18dp"
+                                       TintColor="DarkGreen"
+                                       WidthRequest="25"
+                                       HeightRequest="25"
+                                       IsVisible="{Binding Mode=OneWay, Path=LicenseValid}">
+                </material:MaterialIcon>
+            </StackLayout>
+        </Grid>
+
+        <!--MENÜ-Items-->
+        <Grid Grid.Row="1"
+              BackgroundColor="{DynamicResource MaterialDesignBackground}">
+
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="StartAndExpand"
+                         Orientation="Vertical">
+
+                <component:MenuOptionView HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="StartAndExpand"
+                                          Text="Home"
+                                          Source="ic_dashboard_black_18dp">
+                    <component:MenuOptionView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleClicked"
+                                              Command="{Binding ShowHomeCommand}" />
+                    </component:MenuOptionView.GestureRecognizers>
+                </component:MenuOptionView>
+
+                <BoxView HorizontalOptions="FillAndExpand"
+                         HeightRequest="2"
+                         Color="Gray" />
+
+                <component:MenuOptionView HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="StartAndExpand"
+                                          Text="Einlass"
+                                          Source="ic_arrow_forward_black_18dp">
+                    <component:MenuOptionView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleClicked"
+                                              Command="{Binding ShowEinlassCommand}" />
+                    </component:MenuOptionView.GestureRecognizers>
+                </component:MenuOptionView>
+
+                <component:MenuOptionView HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="StartAndExpand"
+                                          Text="Auslass"
+                                          Source="ic_arrow_back_black_18dp">
+                    <component:MenuOptionView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleClicked"
+                                              Command="{Binding ShowAuslassCommand}" />
+                    </component:MenuOptionView.GestureRecognizers>
+                </component:MenuOptionView>
+
+                <component:MenuOptionView HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="StartAndExpand"
+                                          Text="Motor"
+                                          Source="ic_engine_black_18dp">
+                    <component:MenuOptionView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleClicked"
+                                              Command="{Binding ShowMotorCommand}" />
+                    </component:MenuOptionView.GestureRecognizers>
+                </component:MenuOptionView>
+
+                <BoxView HorizontalOptions="FillAndExpand"
+                         HeightRequest="2"
+                         Color="Gray" />
+
+                <component:MenuOptionView HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="StartAndExpand"
+                                          Text="Tuning"
+                                          Source="ic_tune_vertical_black_18dp">
+                    <component:MenuOptionView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleClicked"
+                                              Command="{Binding ShowTuningCommand}" />
+                    </component:MenuOptionView.GestureRecognizers>
+                </component:MenuOptionView>
+
+                <component:MenuOptionView HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="StartAndExpand"
+                                          Text="Dyno"
+                                          Source="ic_chart_scatter_plot_black_18dp">
+                    <component:MenuOptionView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleClicked"
+                                              Command="{Binding ShowDynoCommand}" />
+                    </component:MenuOptionView.GestureRecognizers>
+                </component:MenuOptionView>
+
+                <BoxView HorizontalOptions="FillAndExpand"
+                         HeightRequest="2"
+                         Color="Gray" />
+
+                <component:MenuOptionView HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="StartAndExpand"
+                                          Text="Einstellungen"
+                                          Source="ic_settings_black_18dp">
+                    <component:MenuOptionView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleClicked"
+                                              Command="{Binding ShowEinstellungenCommand}" />
+                    </component:MenuOptionView.GestureRecognizers>
+                </component:MenuOptionView>
+            </StackLayout>
+        </Grid>
+    </Grid>
+</view:MvxContentPage>

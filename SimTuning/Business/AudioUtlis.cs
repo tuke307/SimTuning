@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace SimTuning.Business
+namespace SimTuning.Core.Business
 {
     public static class AudioUtils
     {
@@ -96,12 +96,12 @@ namespace SimTuning.Business
             try
             {
                 //alte Dyno Audio löschen
-                if (File.Exists(SimTuning.Constants.AudioFilePath))
+                if (File.Exists(SimTuning.Core.Constants.AudioFilePath))
                 {
-                    File.Delete(SimTuning.Constants.AudioFilePath);
+                    File.Delete(SimTuning.Core.Constants.AudioFilePath);
                 }
 
-                string localFile = Path.Combine(SimTuning.Constants.FileDirectory, fileName);
+                string localFile = Path.Combine(SimTuning.Core.Constants.FileDirectory, fileName);
                 MemoryStream memoryStream = new MemoryStream();
                 fileData.CopyTo(memoryStream);
 
@@ -113,12 +113,12 @@ namespace SimTuning.Business
                 //in lokales Verzeichnis kopieren
                 if (fileName.EndsWith(".mp3"))
                 {
-                    Mp3ToWav(fileName, SimTuning.Constants.AudioFilePath);
+                    Mp3ToWav(fileName, SimTuning.Core.Constants.AudioFilePath);
                     File.Delete(localFile);
                 }
                 else if (fileName.EndsWith(".wav"))
                 {
-                    File.Move(localFile, SimTuning.Constants.AudioFilePath);
+                    File.Move(localFile, SimTuning.Core.Constants.AudioFilePath);
                 }
             }
             catch

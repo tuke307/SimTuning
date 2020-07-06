@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security;
-using System.Text;
+﻿using System.Security;
 using System.Threading.Tasks;
 
 //using WooCommerceNET.WooCommerce.v3;
@@ -13,7 +10,7 @@ namespace API
     public static class WordPress
     {
         /// <summary>
-        /// Meldet Nutzer in Wordpress(Datenbank) an und holt Nutzerdaten 
+        /// Meldet Nutzer in Wordpress(Datenbank) an und holt Nutzerdaten
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
@@ -26,7 +23,7 @@ namespace API
 
             try
             {
-                await client.RequestJWToken(email, SimTuning.Business.Converts.SecureStringToString(password));
+                await client.RequestJWToken(email, SimTuning.Core.Business.Converts.SecureStringToString(password));
                 var user = await client.Users.GetCurrentUser();
                 return user;
             }

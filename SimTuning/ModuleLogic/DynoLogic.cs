@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SimTuning.ModuleLogic
+namespace SimTuning.Core.ModuleLogic
 {
     public class DynoLogic
     {

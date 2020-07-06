@@ -1,23 +1,23 @@
 ﻿using Data.Models;
-using System.Security;
-using System.Windows.Input;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using System.Security;
 using System.Threading.Tasks;
 
-namespace SimTuning.ViewModels.Einstellungen
+namespace SimTuning.Core.ViewModels.Einstellungen
 {
     public class KontoViewModel : MvxViewModel
     {
         public KontoViewModel()
         {
-            SimTuning.Business.Functions.GetLoginCredentials(out string _email, out SecureString _password);
+            SimTuning.Core.Business.Functions.GetLoginCredentials(out string _email, out SecureString _password);
             Email = _email;
         }
 
-        public ICommand ConnectUserCommand { get; set; }
-        public ICommand RegisterSiteCommand { get; set; }
-        public ICommand LoginSiteCommand { get; set; }
-        public ICommand PasswordChangedCommand { get; set; }
+        public IMvxCommand ConnectUserCommand { get; set; }
+        public IMvxCommand RegisterSiteCommand { get; set; }
+        public IMvxCommand LoginSiteCommand { get; set; }
+        public IMvxCommand PasswordChangedCommand { get; set; }
 
         public override void Prepare()
         {
@@ -37,11 +37,11 @@ namespace SimTuning.ViewModels.Einstellungen
         {
         }
 
-        protected virtual void ConnectUser(object parameter)
+        protected virtual void ConnectUser()
         {
         }
 
-        protected virtual void RegisterSite(object parameter)
+        protected virtual void RegisterSite()
         {
         }
 

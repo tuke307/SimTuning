@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace API
+﻿namespace API
 {
     public static class Constants
     {
-       /// <summary>
-       /// Wordpress Link
-       /// </summary>
+        /// <summary>
+        /// Wordpress Link
+        /// </summary>
         public static readonly string WPApiUrl = "https://www.tuke-productions.de/wp-json/";
 
         /// <summary>

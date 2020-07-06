@@ -1,0 +1,26 @@
+﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                       x:Class="SimTuning.Forms.UI.Views.Demo.DemoMainView"
+                       x:TypeArguments="viewModels:DemoMainViewModel"
+                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Demo"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+    <StackLayout VerticalOptions="Center">
+        <Frame Margin="10">
+            <material:MaterialLabel>
+                Kauf die Pro-Version um dieses Modul öffnen zu können
+            </material:MaterialLabel>
+        </Frame>
+
+        <material:MaterialButton Command="{Binding OpenWebsiteCommand}"
+                                 Text="Website"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+            <!--<StackLayout Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Web" />
+                <material:MaterialLabel Margin="8 0 0 0">Website</material:MaterialLabel>
+            </StackLayout>-->
+        </material:MaterialButton>
+    </StackLayout>
+</views:MvxContentPage>

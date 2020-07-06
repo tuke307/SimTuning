@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
+using System.Linq;
 using UnitsNet;
 
-namespace SimTuning.Models
+namespace SimTuning.Core.Models
 {
     public class LengthQuantity : ObservableCollection<UnitListItem>
     {
@@ -12,7 +11,7 @@ namespace SimTuning.Models
         {
             QuantityInfo quantityInfo = Quantity.GetInfo(QuantityType.Length);
 
-            foreach (Enum unitValue in quantityInfo.Units)
+            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
             {
                 Add(new UnitListItem(unitValue));
             }

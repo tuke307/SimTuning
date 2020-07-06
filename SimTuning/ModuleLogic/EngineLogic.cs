@@ -1,10 +1,9 @@
-﻿using SimTuning.Models;
+﻿using SimTuning.Core.Models;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
-namespace SimTuning.ModuleLogic
+namespace SimTuning.Core.ModuleLogic
 {
     public class EngineLogic
     {

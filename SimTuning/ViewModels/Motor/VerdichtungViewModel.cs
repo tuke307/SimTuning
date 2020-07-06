@@ -1,17 +1,17 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using SimTuning.Models;
-using SimTuning.ModuleLogic;
+using MvvmCross.Commands;
+using MvvmCross.ViewModels;
+using SimTuning.Core.Models;
+using SimTuning.Core.ModuleLogic;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
-using UnitsNet.Units;
-using MvvmCross.ViewModels;
 using System.Threading.Tasks;
+using UnitsNet.Units;
 
-namespace SimTuning.ViewModels.Motor
+namespace SimTuning.Core.ViewModels.Motor
 {
     public class VerdichtungViewModel : MvxViewModel
     {
@@ -47,7 +47,7 @@ namespace SimTuning.ViewModels.Motor
             }
         }
 
-        public ICommand InsertDataCommand { get; set; }
+        public IMvxCommand InsertDataCommand { get; set; }
 
         public override void Prepare()
         {
@@ -63,7 +63,7 @@ namespace SimTuning.ViewModels.Motor
 
         #region Commands
 
-        protected void InsertData(object parameter)
+        protected void InsertData()
         {
             if (HelperVehicle.Motor.HubraumV.HasValue)
                 HubraumV = HelperVehicle.Motor.HubraumV;

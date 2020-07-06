@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace SimTuning
+namespace SimTuning.Core
 {
     public class Constants
     {
@@ -20,7 +20,7 @@ namespace SimTuning
                 switch (Constants.Platform)
                 {
                     case Plugin.DeviceInfo.Abstractions.Platform.Windows:
-                        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning"); //appdata-local-simtunig
+                        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning.Core"); //appdata-local-simtunig
 
                     case Plugin.DeviceInfo.Abstractions.Platform.iOS:
                         return Environment.GetFolderPath(Environment.SpecialFolder.Personal); //interner speicher

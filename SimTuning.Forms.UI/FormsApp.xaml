@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material"
+             xmlns:theme="clr-namespace:SimTuning.Forms.UI.Themes.Base"
+             xmlns:primary="clr-namespace:SimTuning.Forms.UI.Themes.Primary"
+             xmlns:accent="clr-namespace:SimTuning.Forms.UI.Themes.Accent"
+             mc:Ignorable="d"
+             x:Class="SimTuning.Forms.UI.FormsApp">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--BASE THEME-->
+                <theme:Light />
+                <!--<ResourceDictionary Source="/Themes/Recommended/Base/MaterialDesignTheme.Dark.xaml" />-->
+
+                <!--Primary COLOR-->
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.indigo.xaml" />-->
+                <!--<ResourceDictionary Source="/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />-->
+                <primary:DeepOrange />
+
+                <!--Secondary COLOR-->
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.green.xaml" />-->
+                <!--<ResourceDictionary Source="/Themes/Recommended/Accent/MaterialDesignColor.Green.xaml" />-->
+                <accent:Teal />
+            </ResourceDictionary.MergedDictionaries>
+
+            <mtrl:MaterialColorConfiguration x:Key="Theme"
+                                             OnBackground="{StaticResource MaterialDesignBody}"
+                                             OnError="{StaticResource ValidationErrorColor}"
+                                             OnPrimary="{StaticResource MaterialDesignBody}"
+                                             OnSecondary="{StaticResource MaterialDesignBody}"
+                                             OnSurface="{StaticResource MaterialDesignBody}"
+                                             Background="{StaticResource MaterialDesignBackground}"
+                                             Error="{StaticResource ValidationErrorColor}"
+                                             Primary="{StaticResource Primary500}"
+                                             PrimaryVariant="{StaticResource Primary500Foreground}"
+                                             Secondary="{StaticResource Accent700}"
+                                             SecondaryVariant="{StaticResource Accent700Foreground}"
+                                             Surface="{StaticResource MaterialDesignCardBackground}" />
+        </ResourceDictionary>
+
+        <mtrl:MaterialConfiguration x:Key="Material.Configuration"
+                                    ColorConfiguration="{StaticResource Theme}" />
+
+        <!--<OnPlatform x:Key="FontFamily.RobotoRegular"
+                    x:TypeArguments="x:String"
+                    Android="Fonts/Roboto-Regular.ttf#Roboto-Regular"
+                    iOS="Roboto-Regular" />
+        <OnPlatform x:Key="FontFamily.RobotoMedium"
+                    x:TypeArguments="x:String"
+                    Android="Fonts/Roboto-Medium.ttf#Roboto-Medium"
+                    iOS="Roboto-Medium" />-->
+
+        <!--<mtrltypo:MaterialFontConfiguration x:Key="Material.Font"
+                                            Body1="{StaticResource FontFamily.RobotoRegular}"
+                                            Body2="{StaticResource FontFamily.RobotoRegular}"
+                                            Button="{StaticResource FontFamily.RobotoMedium}"
+                                            Caption="{StaticResource FontFamily.RobotoRegular}"
+                                            H1="{StaticResource FontFamily.RobotoRegular}"
+                                            H2="{StaticResource FontFamily.RobotoRegular}"
+                                            H3="{StaticResource FontFamily.RobotoRegular}"
+                                            H4="{StaticResource FontFamily.RobotoRegular}"
+                                            H5="{StaticResource FontFamily.RobotoRegular}"
+                                            H6="{StaticResource FontFamily.RobotoMedium}"
+                                            Overline="{StaticResource FontFamily.RobotoRegular}"
+                                            Subtitle1="{StaticResource FontFamily.RobotoRegular}"
+                                            Subtitle2="{StaticResource FontFamily.RobotoMedium}" />-->
+    </Application.Resources>
+</Application>

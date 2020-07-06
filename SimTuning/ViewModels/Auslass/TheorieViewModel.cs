@@ -1,17 +1,17 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using SimTuning.Models;
-using SimTuning.ModuleLogic;
+using MvvmCross.Commands;
+using MvvmCross.ViewModels;
+using SimTuning.Core.Models;
+using SimTuning.Core.ModuleLogic;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
-using UnitsNet.Units;
-using MvvmCross.ViewModels;
 using System.Threading.Tasks;
+using UnitsNet.Units;
 
-namespace SimTuning.ViewModels.Auslass
+namespace SimTuning.Core.ViewModels.Auslass
 {
     public class TheorieViewModel : MvxViewModel
     {
@@ -45,7 +45,7 @@ namespace SimTuning.ViewModels.Auslass
             }
         }
 
-        public ICommand InsertDataCommand { get; set; }
+        public IMvxCommand InsertDataCommand { get; set; }
 
         public override void Prepare()
         {
@@ -61,7 +61,7 @@ namespace SimTuning.ViewModels.Auslass
 
         #region Commands
 
-        protected virtual void InsertData(object obj)
+        protected virtual void InsertData()
         {
             if (HelperVehicle.Motor.Auslass.FlaecheA.HasValue)
                 AuslassA = HelperVehicle.Motor.Auslass.FlaecheA;

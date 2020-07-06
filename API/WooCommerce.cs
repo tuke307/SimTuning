@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using WooCommerceNET;
 using WooCommerceNET.WooCommerce.Legacy;
@@ -29,7 +27,7 @@ namespace API
                 orders = await wc_object.GetCustomerOrders(userId, parms);
 
                 //SimTuning Produkt Id = 312
-                order = orders.Find(i => i.line_items.Find(l => l.product_id == 312) != null); 
+                order = orders.Find(i => i.line_items.Find(l => l.product_id == 312) != null);
 
                 return order;
             }

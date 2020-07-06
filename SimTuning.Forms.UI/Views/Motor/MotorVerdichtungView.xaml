@@ -1,0 +1,268 @@
+﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                       x:Class="SimTuning.Forms.UI.Views.Motor.MotorVerdichtungView"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:TypeArguments="viewModels:MotorVerdichtungViewModel"
+                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor"
+                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+
+    <ScrollView>
+        <StackLayout>
+
+            <!--GRUNDLEGENDES-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Grundlegendes"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField WidthRequest="250"
+                                                    Text="{Binding Path=BrennraumV}"
+                                                    Placeholder="Brennraum-Volumen"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    WidthRequest="100"
+                                                    Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitBrennraumV}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField WidthRequest="250"
+                                                    Text="{Binding Path=BohrungD}"
+                                                    Placeholder="Ø Bohrung"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    WidthRequest="100"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitBohrungD}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField WidthRequest="250"
+                                                    Placeholder="Hubraum-Volumen"
+                                                    Text="{Binding Path=HubraumV}"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    WidthRequest="100"
+                                                    Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitHubraumV}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--VERHÄLTNIS-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Verdichtungsverhältnis"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <material:MaterialLabel Text="derzeitige Verdichtung:" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField Text="{Binding Path=derzeitige_verdichtung}"
+                                                    Placeholder=" "
+                                                    FloatingPlaceholderEnabled="False"
+                                                    IsEnabled="False"
+                                                    WidthRequest="250"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialLabel Text=":1"
+                                                VerticalOptions="Center"
+                                                Margin="5, 0, 0, 0" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--ERHÖHEN-->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Verdichtung erhöhen"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <!--Verdichtung-->
+                    <StackLayout Orientation="Horizontal">
+                        <material:MaterialTextField InputType="Choice"
+                                                    Placeholder="Ziel-Verdichtung"
+                                                    Choices="{Binding Zielverdichtungen}"
+                                                    SelectedChoice="{Binding Zielverdichtung}">
+                        </material:MaterialTextField>
+
+                        <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                VerticalOptions="Center"
+                                                Text=": 1" />
+                    </StackLayout>
+
+                    <Grid HorizontalOptions="FillAndExpand"
+                          Margin="0, 10, 0, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <material:MaterialLabel Grid.Column="0"
+                                                Text="Zylinderkopf abdrehen um:"
+                                                VerticalOptions="Center" />
+
+                        <material:MaterialTextField Grid.Column="1"
+                                                    Placeholder=" "
+                                                    FloatingPlaceholderEnabled="False"
+                                                    Text="{Binding AbdrehenLength}"
+                                                    WidthRequest="85"
+                                                    IsEnabled="False"
+                                                    InputType="Numeric" />
+
+                        <material:MaterialTextField Grid.Column="2"
+                                                    InputType="Choice"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding UnitAbdrehenLength}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
+                        <!--<material:MaterialLabel Grid.Column="2"
+                               VerticalOptions="Center"
+                               Margin="5, 0, 0, 0">
+                            mm
+                        </material:MaterialLabel>-->
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!---->
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Hilfswerte"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <material:MaterialTextField InputType="Choice"
+                                                Placeholder="Fahrzeug"
+                                                Choices="{Binding HelperVehicles}"
+                                                SelectedChoice="{Binding HelperVehicle}"
+                                                ChoicesBindingName="Name">
+                    </material:MaterialTextField>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <material:MaterialLabel Text="Hubraum"
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="Ø Bohrung"
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+                        <material:MaterialLabel Text="Brennraum"
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                VerticalOptions="Center" />
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="0"
+                                     Grid.Column="1">
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.HubraumV}"
+                                                          IsEnabled="False"
+                                                          Placeholder=" "
+                                                          FloatingPlaceholderEnabled="False"
+                                                          WidthRequest="100"
+                                                          Margin="10,0,0,0"
+                                                          InputType="Numeric" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm³
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="1"
+                                     Grid.Column="1">
+                            <material:MaterialTextField   Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Bohrung}"
+                                                          IsEnabled="False"
+                                                          Placeholder=" "
+                                                          FloatingPlaceholderEnabled="False"
+                                                          WidthRequest="100"
+                                                          Margin="10,0,0,0"
+                                                          InputType="Numeric" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="2"
+                                     Grid.Column="1">
+                            <material:MaterialTextField  Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.BrennraumV}"
+                                                         IsEnabled="False"
+                                                         Placeholder=" "
+                                                         FloatingPlaceholderEnabled="False"
+                                                         WidthRequest="100"
+                                                         Margin="10,0,0,0"
+                                                         InputType="Numeric" />
+
+                            <material:MaterialLabel Margin="5, 0, 0, 0"
+                                                    VerticalOptions="Center">
+                                mm³
+                            </material:MaterialLabel>
+                        </StackLayout>
+
+                        <material:MaterialButton ImageSource="ic_chevron_right_black_18dp.png"
+                                                 HorizontalOptions="Center"
+                                                 Command="{Binding InsertDataCommand}"
+                                                 Grid.Row="4"
+                                                 Grid.Column="0"
+                                                 Grid.ColumnSpan="2"
+                                                 WidthRequest="90" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</views:MvxContentPage>

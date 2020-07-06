@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       x:TypeArguments="viewModels:DynoDataViewModel"
+                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                       xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
+                       mc:Ignorable="d"
+                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDataView"
+                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+    <ScrollView>
+        <StackLayout>
+
+            <Frame Margin="10"
+                   VerticalOptions="CenterAndExpand">
+                <StackLayout>
+                    <material:MaterialLabel Text="Auswahl"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <ListView HeightRequest="200"
+                              ItemsSource="{Binding Mode=TwoWay, Path=Dynos}"
+                              SelectedItem="{Binding Mode=TwoWay, Path=Dyno}"
+                              RowHeight="40">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <material:MaterialLabel Text="{Binding Name}"
+                                                                FontAttributes="Bold"
+                                                                Margin="0, 0, 0, -5" />
+                                        <material:MaterialLabel Text="{Binding Beschreibung}" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center"
+                                 Margin="5, 0, 0, 0">
+                        <material:MaterialButton ImageSource="ic_add_circle_outline_black_18dp.png"
+                                                 Command="{Binding NewDynoCommand}">
+                        </material:MaterialButton>
+
+                        <material:MaterialButton ImageSource="ic_remove_circle_outline_black_18dp.png"
+                                                 Command="{Binding DeleteDynoCommand}">
+                        </material:MaterialButton>
+                    </StackLayout>
+
+                    <Grid Margin="0, 20, 0, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Grid.Column="0">
+                            <material:MaterialRadioButton x:Name="RB1"
+                                                          Text="neues Fahrzeug erstellen"
+                                                          IsSelected="{Binding Mode=TwoWay, Path=CreateNewVehicle}">
+                                <material:MaterialRadioButton.Triggers>
+                                    <DataTrigger TargetType="material:MaterialRadioButton"
+                                                 Binding="{Binding Source={x:Reference RB2},Path=IsSelected}"
+                                                 Value="true">
+                                        <Setter Property="IsSelected"
+                                                Value="false" />
+                                    </DataTrigger>
+                                </material:MaterialRadioButton.Triggers>
+                            </material:MaterialRadioButton>
+
+                            <material:MaterialRadioButton x:Name="RB2"
+                                                          Text="vorhandenes Fahrzeug verknüpfen"
+                                                          IsSelected="{Binding Mode=TwoWay, Path=TakeExistingVehicle}">
+                                <material:MaterialRadioButton.Triggers>
+                                    <DataTrigger TargetType="material:MaterialRadioButton"
+                                                 Binding="{Binding Source={x:Reference RB1},Path=IsSelected}"
+                                                 Value="true">
+                                        <Setter Property="IsSelected"
+                                                Value="false" />
+                                    </DataTrigger>
+                                </material:MaterialRadioButton.Triggers>
+                            </material:MaterialRadioButton>
+                        </StackLayout>
+
+                        <material:MaterialTextField Grid.Column="1"
+                                                    VerticalOptions="End"
+                                                    InputType="Choice"
+                                                    Placeholder="Fahrzeug"
+                                                    IsEnabled="{Binding Source={x:Reference Name=RB2}, Path=IsSelected}"
+                                                    Choices="{Binding Mode=TwoWay, Path=Vehicles}"
+                                                    SelectedChoice="{Binding Mode=TwoWay, Path=Vehicle}"
+                                                    ChoicesBindingName="Name">
+                        </material:MaterialTextField>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <Frame Margin="10">
+                <StackLayout>
+                    <material:MaterialLabel Text="Daten"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold" />
+                    <BoxView Color="Gray"
+                             HeightRequest="2"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 5" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Grid.Column="0">
+                            <material:MaterialTextField Placeholder="Name"
+                                                        Text="{Binding Mode=TwoWay, Path=Dyno.Name}"
+                                                        Margin="5">
+                            </material:MaterialTextField>
+
+                            <material:MaterialTextField Placeholder="Beschreibung"
+                                                        Text="{Binding Mode=TwoWay, Path=Dyno.Beschreibung}"
+                                                        Margin="5">
+                            </material:MaterialTextField>
+                        </StackLayout>
+
+                        <material:MaterialButton Grid.Column="1"
+                                                 Margin="15"
+                                                 VerticalOptions="Center"
+                                                 HorizontalOptions="Center"
+                                                 ImageSource="ic_save_black_18dp.png"
+                                                 IsEnabled="{Binding Mode=OneWay, Path=SaveButton}"
+                                                 Command="{Binding SaveDynoCommand}"
+                                                 WidthRequest="100"
+                                                 HeightRequest="60">
+                        </material:MaterialButton>
+                    </Grid>
+
+                    <!--Audio-->
+                    <expandable:ExpandableView>
+                        <expandable:ExpandableView.PrimaryView>
+                            <Frame>
+                                <material:MaterialLabel>
+                                    Audio
+                                </material:MaterialLabel>
+                            </Frame>
+                        </expandable:ExpandableView.PrimaryView>
+                        <expandable:ExpandableView.SecondaryViewTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal"
+                                             Margin="20, 0, 0, 0">
+                                    <material:MaterialTextField InputType="Choice"
+                                                                Placeholder="X"
+                                                                Choices="{Binding Dyno.Audio}"
+                                                                ChoicesBindingName="X">
+                                    </material:MaterialTextField>
+
+                                    <material:MaterialTextField InputType="Choice"
+                                                                Placeholder="Y"
+                                                                Choices="{Binding Dyno.Audio}"
+                                                                ChoicesBindingName="Y">
+                                    </material:MaterialTextField>
+                                </StackLayout>
+                            </DataTemplate>
+                        </expandable:ExpandableView.SecondaryViewTemplate>
+                    </expandable:ExpandableView>
+
+                    <!--PS-->
+                    <expandable:ExpandableView>
+                        <expandable:ExpandableView.PrimaryView>
+                            <Frame>
+                                <material:MaterialLabel>
+                                    PS
+                                </material:MaterialLabel>
+                            </Frame>
+                        </expandable:ExpandableView.PrimaryView>
+                        <expandable:ExpandableView.SecondaryViewTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal"
+                                             Margin="20, 0, 0, 0">
+                                    <material:MaterialTextField InputType="Choice"
+                                                                Placeholder="X"
+                                                                Choices="{Binding Dyno.DynoPS}"
+                                                                ChoicesBindingName="X">
+                                    </material:MaterialTextField>
+
+                                    <material:MaterialTextField InputType="Choice"
+                                                                Placeholder="Y"
+                                                                Choices="{Binding Dyno.DynoPS}"
+                                                                ChoicesBindingName="Y">
+                                    </material:MaterialTextField>
+                                </StackLayout>
+                            </DataTemplate>
+                        </expandable:ExpandableView.SecondaryViewTemplate>
+                    </expandable:ExpandableView>
+
+                    <!--Nm-->
+                    <expandable:ExpandableView>
+                        <expandable:ExpandableView.PrimaryView>
+                            <Frame>
+                                <material:MaterialLabel>
+                                    Nm
+                                </material:MaterialLabel>
+                            </Frame>
+                        </expandable:ExpandableView.PrimaryView>
+                        <expandable:ExpandableView.SecondaryViewTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal"
+                                             Margin="20, 0, 0, 0">
+                                    <material:MaterialTextField InputType="Choice"
+                                                                Placeholder="X"
+                                                                Choices="{Binding Dyno.DynoNm}"
+                                                                ChoicesBindingName="X">
+                                    </material:MaterialTextField>
+
+                                    <material:MaterialTextField InputType="Choice"
+                                                                Placeholder="Y"
+                                                                Choices="{Binding Dyno.DynoNm}"
+                                                                ChoicesBindingName="Y">
+                                    </material:MaterialTextField>
+                                </StackLayout>
+                            </DataTemplate>
+                        </expandable:ExpandableView.SecondaryViewTemplate>
+                    </expandable:ExpandableView>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</views:MvxContentPage>

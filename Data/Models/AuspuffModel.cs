@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Models
 {
@@ -15,7 +12,7 @@ namespace Data.Models
         public double? DiffusorW { get; set; }
         public double? DiffusorW1 { get; set; }
         public double? DiffusorW2 { get; set; }
-        public double? DiffusorW3 { get; set; } 
+        public double? DiffusorW3 { get; set; }
         public double? DiffusorL { get; set; }
         public double? DiffusorD { get; set; }
         public double? DiffusorL1 { get; set; }

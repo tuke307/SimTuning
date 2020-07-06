@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimTuning.ViewModels.Tuning
+namespace SimTuning.Core.ViewModels.Tuning
 {
     public class InputViewModel : MvxViewModel
     {

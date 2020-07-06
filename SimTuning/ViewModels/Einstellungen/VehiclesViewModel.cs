@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SimTuning.Models;
+using MvvmCross.Commands;
+using MvvmCross.ViewModels;
+using SimTuning.Core.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
-using UnitsNet.Units;
-using MvvmCross.ViewModels;
 using System.Threading.Tasks;
+using UnitsNet.Units;
 
-namespace SimTuning.ViewModels.Einstellungen
+namespace SimTuning.Core.ViewModels.Einstellungen
 {
     public class VehiclesViewModel : MvxViewModel
     {
@@ -52,10 +52,10 @@ namespace SimTuning.ViewModels.Einstellungen
             }
         }
 
-        public ICommand NewVehicleCommand { get; set; }
-        public ICommand DeleteVehicleCommand { get; set; }
-        public ICommand SaveVehicleCommand { get; set; }
-        public ICommand ShowSaveButtonCommand { get; set; }
+        public IMvxCommand NewVehicleCommand { get; set; }
+        public IMvxCommand DeleteVehicleCommand { get; set; }
+        public IMvxCommand SaveVehicleCommand { get; set; }
+        public IMvxCommand ShowSaveButtonCommand { get; set; }
 
         public override void Prepare()
         {
@@ -71,7 +71,7 @@ namespace SimTuning.ViewModels.Einstellungen
 
         #region Commands
 
-        protected void ShowSave(object obj)
+        protected void ShowSave()
         {
             SaveButton = true;
         }

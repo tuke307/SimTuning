@@ -1,11 +1,10 @@
-﻿using SimTuning.Models;
-using SkiaSharp;
+﻿using SkiaSharp;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace SimTuning.Business
+namespace SimTuning.Core.Business
 {
     public class Converts
     {
