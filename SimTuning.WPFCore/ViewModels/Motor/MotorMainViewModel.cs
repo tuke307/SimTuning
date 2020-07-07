@@ -1,50 +1,41 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimTuning.WPFCore.ViewModels.Motor
 {
     public class MotorMainViewModel : SimTuning.Core.ViewModels.Motor.MainViewModel
     {
-        public MotorMainViewModel()
+        private readonly IMvxNavigationService _navigationService;
+        private bool _firstTime = true;
+
+        public MotorMainViewModel(IMvxNavigationService navigationService)
         {
-            //NewContentCommand = new MvxCommand<string>(NewContent);
-            //NewContent("Steuerzeit-Umrechnungen");
+            _navigationService = navigationService;
         }
 
-        private object _motorContent;
-
-        public object MotorContent
+        private Task ShowInitialViewModels()
         {
-            get => _motorContent;
-            set => SetProperty(ref _motorContent, value);
+            var tasks = new List<Task>
+            {
+                _navigationService.Navigate<MotorUmrechnungViewModel>(),
+                _navigationService.Navigate<MotorSteuerdiagrammViewModel>(),
+                _navigationService.Navigate<MotorVerdichtungViewModel>(),
+                _navigationService.Navigate<MotorHubraumViewModel>()
+            };
+            return Task.WhenAll(tasks);
         }
 
-        public ICommand NewContentCommand { get; set; }
-
-        //public void NewContent(object parameter)
-        //{
-        //    switch (parameter)
-        //    {
-        //        case "Steuerzeit-Umrechnungen":
-        //            MotorContent = new MotorUmrechnungenView();
-        //            break;
-
-        //        case "Steuerdiagramm":
-        //            MotorContent = new MotorSteuerdiagrammView();
-        //            break;
-
-        //        case "Verdichtung":
-        //            MotorContent = new MotorVerdichtungView();
-        //            break;
-
-        //        case "Hubraum":
-        //            MotorContent = new MotorHubraumView();
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-        //}
+        public override void ViewAppearing()
+        {
+            if (_firstTime)
+            {
+                ShowInitialViewModels();
+                _firstTime = false;
+            }
+        }
     }
 }

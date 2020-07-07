@@ -16,6 +16,8 @@
     <PackageReference Include="UnitsNet" Version="4.67.0" />
     <PackageReference Include="WooCommerceNET" Version="0.8.2" />
     <PackageReference Include="WordPressPCL" Version="1.7.1" />
+    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
+    <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.41" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />

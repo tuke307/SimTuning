@@ -11,13 +11,12 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
         {
             this.mainWindowViewModel = mainWindowViewModel;
 
-            NewDynoCommand = new MvxCommand<string>(new Action<object>(NewDyno));
-            DeleteDynoCommand = new MvxCommand<string>(new Action<object>(DeleteDyno));
-            SaveDynoCommand = new MvxCommand<string>(new Action<object>(SaveDyno));
-            ShowSaveButtonCommand = new MvxCommand(ShowSave);
+            NewDynoCommand = new MvxCommand(NewDyno);
+            DeleteDynoCommand = new MvxCommand(DeleteDyno);
+            SaveDynoCommand = new MvxCommand(SaveDyno);
         }
 
-        protected void NewDyno(object obj)
+        protected override void NewDyno()
         {
             try
             {
@@ -29,7 +28,7 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
             }
         }
 
-        protected void DeleteDyno(object obj)
+        protected override void DeleteDyno()
         {
             try
             {
@@ -41,13 +40,9 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
             }
         }
 
-        protected void SaveDyno(object obj)
+        protected new void SaveDyno()
         {
-            try
-            {
-                SaveDyno();
-            }
-            catch
+            if (!base.SaveDyno())
             {
                 mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim speichern");
             }

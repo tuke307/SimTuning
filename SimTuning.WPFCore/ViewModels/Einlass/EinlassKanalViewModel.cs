@@ -6,7 +6,6 @@ namespace SimTuning.WPFCore.ViewModels.Einlass
     {
         public EinlassKanalViewModel()
         {
-            InsertDataCommand = new MvxCommand(InsertData);
         }
     }
 }

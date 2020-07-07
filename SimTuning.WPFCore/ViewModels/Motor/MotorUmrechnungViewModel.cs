@@ -6,7 +6,6 @@ namespace SimTuning.WPFCore.ViewModels.Motor
     {
         public MotorUmrechnungViewModel()
         {
-            InsertDataCommand = new MvxCommand(InsertData);
         }
     }
 }

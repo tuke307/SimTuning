@@ -8,8 +8,6 @@ namespace SimTuning.Forms.UI.ViewModels.Motor
     {
         public MotorSteuerdiagrammViewModel()
         {
-            InsertReferenceCommand = new MvxCommand(InsertReference);
-            InsertVehicleCommand = new MvxCommand(InsertVehicle);
         }
 
         protected new void RefreshSteuerzeit()

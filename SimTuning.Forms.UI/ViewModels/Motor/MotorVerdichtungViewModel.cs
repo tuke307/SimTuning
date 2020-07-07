@@ -6,7 +6,6 @@ namespace SimTuning.Forms.UI.ViewModels.Motor
     {
         public MotorVerdichtungViewModel()
         {
-            InsertDataCommand = new MvxCommand(InsertData);
         }
     }
 }

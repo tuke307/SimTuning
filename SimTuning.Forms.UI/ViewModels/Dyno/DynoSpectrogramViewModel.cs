@@ -11,17 +11,14 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     public class DynoSpectrogramViewModel : SimTuning.Core.ViewModels.Dyno.SpectrogramViewModel
     {
-        private readonly ResourceManager rm;
-
         public DynoSpectrogramViewModel()
         {
-            //Commands
-            FilterPlotCommand = new MvxAsyncCommand(() => FilterPlot());
-            RefreshSpectrogramCommand = new MvxAsyncCommand(() => ReloadImageAudioSpectrogram());
-            RefreshPlotCommand = new MvxAsyncCommand(() => RefreshPlot());
-            SpecificGraphCommand = new MvxAsyncCommand(() => SpecificGraph());
+            //override Commands
+            FilterPlotCommand = new MvxAsyncCommand(FilterPlot);
+            RefreshSpectrogramCommand = new MvxAsyncCommand(ReloadImageAudioSpectrogram);
+            RefreshPlotCommand = new MvxAsyncCommand(RefreshPlot);
+            SpecificGraphCommand = new MvxAsyncCommand(SpecificGraph);
 
-            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
             //datensatz checken
             //CheckDynoData();
         }
@@ -56,9 +53,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await Task.Run(() => base.RefreshPlot()).ConfigureAwait(true);
-
-            await RaisePropertyChanged("PlotAudio").ConfigureAwait(false);
+            await base.RefreshPlot().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }
@@ -70,9 +65,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await Task.Run(() => base.FilterPlot()).ConfigureAwait(true);
-
-            await RaisePropertyChanged("PlotAudio").ConfigureAwait(false);
+            await base.FilterPlot().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }
@@ -81,9 +74,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await Task.Run(() => base.SpecificGraph()).ConfigureAwait(true);
-
-            await RaisePropertyChanged("PlotAudio").ConfigureAwait(false);
+            await base.SpecificGraph().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }

@@ -1,42 +1,39 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimTuning.WPFCore.ViewModels.Auslass
 {
     public class AuslassMainViewModel : SimTuning.Core.ViewModels.Auslass.MainViewModel
     {
-        public AuslassMainViewModel()
+        private readonly IMvxNavigationService _navigationService;
+        private bool _firstTime = true;
+
+        public AuslassMainViewModel(IMvxNavigationService navigationService)
         {
-            //NewContentCommand = new MvxCommand<string>(NewContent);
-            //NewContent("Theorie");
+            _navigationService = navigationService;
         }
 
-        private object _auslassContent;
-
-        public object AuslassContent
+        private Task ShowInitialViewModels()
         {
-            get => _auslassContent;
-            set => SetProperty(ref _auslassContent, value);
+            var tasks = new List<Task>
+            {
+                _navigationService.Navigate<AuslassTheorieViewModel>(),
+                _navigationService.Navigate<AuslassAnwendungViewModel>()
+            };
+            return Task.WhenAll(tasks);
         }
 
-        public ICommand NewContentCommand { get; set; }
-
-        //public void NewContent(object parameter)
-        //{
-        //    switch (parameter)
-        //    {
-        //        case "Theorie":
-        //            AuslassContent = new AuslassTheorieView();
-        //            break;
-
-        //        case "Anwendung":
-        //            AuslassContent = new AuslassAnwendungView();
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-        //}
+        public override void ViewAppearing()
+        {
+            if (_firstTime)
+            {
+                ShowInitialViewModels();
+                _firstTime = false;
+            }
+        }
     }
 }

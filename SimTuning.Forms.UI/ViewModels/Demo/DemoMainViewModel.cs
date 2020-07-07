@@ -1,17 +1,14 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Navigation;
 using System;
 using Xamarin.Essentials;
 
 namespace SimTuning.Forms.UI.ViewModels.Demo
 {
-    public class DemoMainViewModel : SimTuning.Core.ViewModels.Demo.BuyProViewModel
+    public class DemoMainViewModel : SimTuning.Core.ViewModels.Demo.DemoMainViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
-
-        public DemoMainViewModel(IMvxNavigationService navigationService)
+        public DemoMainViewModel()
         {
-            _navigationService = navigationService;
+            //override commands
             OpenWebsiteCommand = new MvxCommand(OpenWebsite);
         }
 

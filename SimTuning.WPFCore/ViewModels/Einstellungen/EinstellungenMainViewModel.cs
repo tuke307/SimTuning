@@ -1,54 +1,38 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
-using System.Windows.Input;
+﻿using MvvmCross.Navigation;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimTuning.WPFCore.ViewModels.Einstellungen
 {
     public class EinstellungenMainViewModel : SimTuning.Core.ViewModels.Einstellungen.MainViewModel
     {
-        private readonly MainWindowViewModel mainWindowViewModel;
+        private readonly IMvxNavigationService _navigationService;
+        private bool _firstTime = true;
 
-        public EinstellungenMainViewModel(MainWindowViewModel mainWindowViewModel)
+        public EinstellungenMainViewModel(IMvxNavigationService navigationService)
         {
-            this.mainWindowViewModel = mainWindowViewModel;
-
-            //NewContentCommand = new MvxCommand<string>(NewContent);
-            //NewContent("Aussehen");
+            _navigationService = navigationService;
         }
 
-        private object _einstellungsContent;
-
-        public object EinstellungsContent
+        private Task ShowInitialViewModels()
         {
-            get => _einstellungsContent;
-            set => SetProperty(ref _einstellungsContent, value);
+            var tasks = new List<Task>
+            {
+                _navigationService.Navigate<EinstellungenAussehenViewModel>(),
+                _navigationService.Navigate<EinstellungenUpdateViewModel>(),
+                _navigationService.Navigate<EinstellungenVehiclesViewModel>(),
+                _navigationService.Navigate<EinstellungenKontoViewModel>()
+            };
+            return Task.WhenAll(tasks);
         }
 
-        public ICommand NewContentCommand { get; set; }
-
-        //public void NewContent(object parameter)
-        //{
-        //    switch (parameter)
-        //    {
-        //        case "Aussehen":
-        //            EinstellungsContent = new EinstellungenAussehenView(mainWindowViewModel);
-        //            break;
-
-        //        case "Presets":
-        //            EinstellungsContent = new EinstellungenVehiclesView(mainWindowViewModel);
-        //            break;
-
-        //        case "Update":
-        //            EinstellungsContent = new EinstellungenUpdateView(mainWindowViewModel);
-        //            break;
-
-        //        case "Konto":
-        //            EinstellungsContent = new EinstellungenKontoView(mainWindowViewModel);
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-        //}
+        public override void ViewAppearing()
+        {
+            if (_firstTime)
+            {
+                ShowInitialViewModels();
+                _firstTime = false;
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
@@ -19,6 +21,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         protected readonly AudioLogic audioLogic;
 
         protected readonly DynoLogic dynoLogic;
+        protected readonly ResourceManager rm;
 
         public SpectrogramViewModel()
         {
@@ -48,6 +51,8 @@ namespace SimTuning.Core.ViewModels.Dyno
                 }
                 catch { }
             }
+
+            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
         }
 
         public IMvxAsyncCommand RefreshSpectrogramCommand { get; set; }
@@ -69,7 +74,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region Commands
 
-        protected virtual void RefreshPlot()
+        protected virtual async Task RefreshPlot()
         {
             Graphs = null;
             Graph = null;
@@ -80,9 +85,11 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch
             { }
+
+            await RaisePropertyChanged("PlotAudio");
         }
 
-        protected virtual void FilterPlot()
+        protected virtual async Task FilterPlot()
         {
             Graphs = null;
             Graph = null;
@@ -90,6 +97,8 @@ namespace SimTuning.Core.ViewModels.Dyno
             dynoLogic.PlotRotionalSpeed(audioLogic.SpectrogramAudio, true);
 
             Graphs = dynoLogic.PlotAudio.Series.Select(x => x.Title).ToList();
+
+            await RaisePropertyChanged("PlotAudio");
         }
 
         protected Stream ReloadImageAudioSpectrogram()
@@ -103,7 +112,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             return stream;
         }
 
-        protected virtual void SpecificGraph()
+        protected virtual async Task SpecificGraph()
         {
             if (Graphs == null || Graph == null)
                 return;
@@ -117,6 +126,8 @@ namespace SimTuning.Core.ViewModels.Dyno
                 db.Dyno.Update(Dyno);
                 db.SaveChanges();
             }
+
+            await RaisePropertyChanged("PlotAudio");
         }
 
         #endregion Commands

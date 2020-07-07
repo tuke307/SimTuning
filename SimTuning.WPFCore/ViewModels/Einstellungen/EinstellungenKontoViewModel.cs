@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using SimTuning.WPFCore.Business;
 using System.Security;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace SimTuning.WPFCore.ViewModels.Einstellungen
@@ -14,12 +15,10 @@ namespace SimTuning.WPFCore.ViewModels.Einstellungen
         {
             this.mainWindowViewModel = mainWindowViewModel;
 
-            //SimTuning.Business.Functions.LoginCredentials(out string _email, out SecureString _password);
-            //Email = _email;
-
-            ConnectUserCommand = new MvxCommand(ConnectUser);
+            //override Commands
+            ConnectUserCommand = new MvxAsyncCommand(ConnectUser);
             RegisterSiteCommand = new MvxCommand(RegisterSite);
-            LoginSiteCommand = new MvxCommand<string>(LoginSite);
+
             PasswordChangedCommand = new MvxCommand<string>(PasswordChanged);
         }
 
@@ -29,7 +28,7 @@ namespace SimTuning.WPFCore.ViewModels.Einstellungen
             Password = passwordBox.SecurePassword;
         }
 
-        protected override async void ConnectUser()
+        protected new async Task ConnectUser()
         {
             var tuple = await API.API.UserLoginAsync(email: Email, password: Password);
             User.UserValid = tuple.Item1;
@@ -40,11 +39,6 @@ namespace SimTuning.WPFCore.ViewModels.Einstellungen
         }
 
         protected override void RegisterSite()
-        {
-            Functions.GoToSite("https://tuke-productions.de/mein-konto/");
-        }
-
-        protected override void LoginSite(object parameter)
         {
             Functions.GoToSite("https://tuke-productions.de/mein-konto/");
         }

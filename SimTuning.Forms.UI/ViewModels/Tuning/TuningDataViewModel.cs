@@ -13,7 +13,6 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
             NewTuningCommand = new MvxCommand(NewTuning);
             DeleteTuningCommand = new MvxCommand(DeleteTuning);
             SaveTuningCommand = new MvxCommand(SaveTuning);
-            ShowSaveButtonCommand = new MvxCommand(ShowSave);
         }
 
         protected override void NewTuning()

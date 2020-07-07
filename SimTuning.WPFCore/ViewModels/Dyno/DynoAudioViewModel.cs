@@ -1,6 +1,5 @@
-﻿using Microsoft.Win32;
-using MvvmCross.Commands;
-using Plugin.SimpleAudioPlayer;
+﻿using MvvmCross.Commands;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -11,28 +10,38 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
     {
         private readonly MainWindowViewModel mainWindowViewModel;
 
-        private ISimpleAudioPlayer player;
-
         public DynoAudioViewModel(MainWindowViewModel mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel; //LoadingScreen
 
+            //override commands
             OpenFileCommand = new MvxAsyncCommand(async () => await OpenFileDialog());
             CutBeginnCommand = new MvxAsyncCommand(async () => await CutBeginn());
             CutEndCommand = new MvxAsyncCommand(async () => await CutEnd());
-            StopCommand = new MvxCommand(Stop);
-            PauseCommand = new MvxCommand(Pause);
-            PlayCommand = new MvxCommand(Play);
 
             //datensatz checken
             //CheckDynoData();
         }
 
+        #region Values
+
+        private BitmapSource _imageAudioFile;
+
+        public BitmapSource ImageAudioFile
+        {
+            get => _imageAudioFile;
+            set => SetProperty(ref _imageAudioFile, value);
+        }
+
+        #endregion Values
+
+        #region Commands
+
         private bool CheckDynoData()
         {
             if (Dyno == null)
             {
-                mainWindowViewModel.NotificationSnackbar.Enqueue("Bitte Datensatz auswählen um fortzufahren!");
+                mainWindowViewModel.NotificationSnackbar.Enqueue(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
                 return false;
             }
             else { return true; }
@@ -43,63 +52,13 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
             if (!CheckDynoData())
                 return;
 
-            //Windows Auswahlfenster
-            var filePath = string.Empty;
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Audio Datei (*.mp3;*.wav)|*.mp3;*.wav;";
+            await base.OpenFileDialog();
 
-            //wenn Datei ausgewählt
-            if ((bool)openFileDialog.ShowDialog())
-            {
-                //Get the path of specified file
-                filePath = openFileDialog.FileName;
-
-                //Read the contents of the file into a stream
-                var fileStream = openFileDialog.OpenFile();
-
-                if (SimTuning.Core.Business.AudioUtils.AudioCopy(Path.GetFileName(filePath), fileStream))
-                    OpenFile();
-
-                if (player != null)
-                {
-                    await ReloadImageAudioSpectrogram();
-
-                    BadgeFileOpen = true;
-                }
-            }
-        }
-
-        protected override void Play()
-        {
             if (player != null)
             {
-                player.Play();
+                await ReloadImageAudioSpectrogram();
 
-                //Position aktualisieren
-                Task t = Task.Run(() =>
-                {
-                    while (player.IsPlaying)
-                    {
-                        //AudioPosition = player.CurrentPosition;
-                        RaisePropertyChanged("AudioPosition");
-                    }
-                });
-            }
-        }
-
-        protected override void Pause()
-        {
-            if (player != null)
-                player.Pause();
-        }
-
-        protected override void Stop()
-        {
-            if (player != null)
-            {
-                player.Stop();
-                AudioPosition = 0;
-                RaisePropertyChanged("AudioPosition");
+                BadgeFileOpen = true;
             }
         }
 
@@ -118,99 +77,34 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
             mainWindowViewModel.LoadingAnimation = false;
         }
 
-        private BitmapSource _imageAudioFile;
-
-        public BitmapSource ImageAudioFile
-        {
-            get => _imageAudioFile;
-            set => SetProperty(ref _imageAudioFile, value);
-        }
-
-        public double? AudioMaximum
-        {
-            get
-            {
-                if (player != null)
-                    return player.Duration;
-                else
-                    return null;
-            }
-        }
-
-        private double? _audioPosition;
-
-        public double? AudioPosition
-        {
-            get => _audioPosition;
-            set
-            {
-                SetProperty(ref _audioPosition, value);
-
-                if (player != null)
-                {
-                    player.Seek(value.Value);
-                    _audioPosition = value;
-                }
-            }
-        }
-
         protected new async Task CutBeginn()
         {
-            if (player != null)
-            {
-                mainWindowViewModel.LoadingAnimation = true;
+            if (player == null)
+                return;
 
-                await TrimAudio(AudioPosition.Value, 0);
+            mainWindowViewModel.LoadingAnimation = true;
 
-                OpenFile();
+            await base.CutBeginn();
 
-                await RaisePropertyChanged("AudioPosition");
+            mainWindowViewModel.LoadingAnimation = false;
 
-                mainWindowViewModel.LoadingAnimation = false;
-
-                await ReloadImageAudioSpectrogram();
-            }
+            await ReloadImageAudioSpectrogram();
         }
 
         protected new async Task CutEnd()
         {
-            if (player != null)
-            {
-                mainWindowViewModel.LoadingAnimation = true;
+            if (player == null)
+                return;
 
-                await TrimAudio(0, AudioPosition.Value);
+            mainWindowViewModel.LoadingAnimation = true;
 
-                OpenFile();
+            await base.CutEnd().ConfigureAwait(true);
 
-                await RaisePropertyChanged("AudioPosition");
+            mainWindowViewModel.LoadingAnimation = false;
 
-                mainWindowViewModel.LoadingAnimation = false;
-
-                await ReloadImageAudioSpectrogram();
-            }
+            await ReloadImageAudioSpectrogram();
         }
 
-        protected override void OpenFile()
-        {
-            //initialisieren
-            var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
-            player = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
-            player.Load(stream);
-
-            Task t = Task.Run(() =>
-            {
-                Task.Delay(1000).Wait();
-                RaisePropertyChanged("AudioMaximum");
-            });
-        }
-
-        protected new async Task TrimAudio(double cut_start, double cut_end)
-        {
-            player.Stop();
-            player.Dispose();
-            player = null;
-
-            await Task.Run(() => base.TrimAudio(cut_start, cut_end));
-        }
+        #endregion Commands
     }
 }

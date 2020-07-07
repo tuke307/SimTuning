@@ -1,42 +1,36 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
-using System.Windows.Input;
+﻿using MvvmCross.Navigation;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimTuning.WPFCore.ViewModels.Einlass
 {
     public class EinlassMainViewModel : SimTuning.Core.ViewModels.Einlass.MainViewModel
     {
-        public EinlassMainViewModel()
+        private readonly IMvxNavigationService _navigationService;
+        private bool _firstTime = true;
+
+        public EinlassMainViewModel(IMvxNavigationService navigationService)
         {
-            //NewContentCommand = new MvxCommand<string>(NewContent);
-            //NewContent("Kanal");
+            _navigationService = navigationService;
         }
 
-        private object _einlassContent;
-
-        public object EinlassContent
+        private Task ShowInitialViewModels()
         {
-            get => _einlassContent;
-            set => SetProperty(ref _einlassContent, value);
+            var tasks = new List<Task>
+            {
+                _navigationService.Navigate<EinlassKanalViewModel>(),
+                _navigationService.Navigate<EinlassVergaserViewModel>()
+            };
+            return Task.WhenAll(tasks);
         }
 
-        public ICommand NewContentCommand { get; set; }
-
-        //public void NewContent(object parameter)
-        //{
-        //    switch (parameter)
-        //    {
-        //        case "Kanal":
-        //            EinlassContent = new EinlassKanalView();
-        //            break;
-
-        //        case "Vergaser":
-        //            EinlassContent = new EinlassVergaserView();
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-        //}
+        public override void ViewAppearing()
+        {
+            if (_firstTime)
+            {
+                ShowInitialViewModels();
+                _firstTime = false;
+            }
+        }
     }
 }

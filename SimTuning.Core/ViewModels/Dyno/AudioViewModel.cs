@@ -3,11 +3,16 @@ using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
+using Plugin.SimpleAudioPlayer;
 using SimTuning.Core.ModuleLogic;
 using SkiaSharp;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
@@ -15,6 +20,8 @@ namespace SimTuning.Core.ViewModels.Dyno
     public class AudioViewModel : MvxViewModel
     {
         protected AudioLogic audioLogic;
+        protected ISimpleAudioPlayer player;
+        protected readonly ResourceManager rm;
 
         public AudioViewModel()
         {
@@ -29,6 +36,13 @@ namespace SimTuning.Core.ViewModels.Dyno
                 }
                 catch { }
             }
+
+            //messages
+            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
+
+            StopCommand = new MvxCommand(Stop);
+            PauseCommand = new MvxCommand(Pause);
+            PlayCommand = new MvxCommand(Play);
         }
 
         public IMvxAsyncCommand OpenFileCommand { get; set; }
@@ -52,32 +66,83 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region Commands
 
-        protected virtual void OpenFileDialog()
+        protected virtual async Task OpenFileDialog()
         {
+            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { ".wav", ".mp3" }).ConfigureAwait(true);
+
+            if (fileData == null)
+                return; // user canceled file picking
+
+            //wenn Datei ausgewählt
+            if (SimTuning.Core.Business.AudioUtils.AudioCopy(fileData.FileName, fileData.GetStream()))
+                OpenFile();
         }
 
         protected virtual void Play()
         {
+            if (player != null)
+            {
+                player.Play();
+
+                //Position aktualisieren
+                Task t = Task.Run(() =>
+                {
+                    while (player.IsPlaying)
+                    {
+                        //AudioPosition = player.CurrentPosition;
+                        RaisePropertyChanged("AudioPosition");
+                    }
+                });
+            }
         }
 
         protected virtual void Pause()
         {
+            if (player != null)
+                player.Pause();
         }
 
         protected virtual void Stop()
         {
+            if (player != null)
+            {
+                player.Stop();
+                AudioPosition = 0;
+                RaisePropertyChanged("AudioPosition");
+            }
         }
 
         protected virtual void OpenFile()
         {
+            //initialisieren
+            var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
+            player = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
+            player.Load(stream);
+            stream.Dispose();
+
+            Task t = Task.Run(() =>
+            {
+                Task.Delay(1000).Wait();
+                RaisePropertyChanged("AudioMaximum");
+            });
         }
 
-        protected virtual void CutBeginn()
+        protected virtual async Task CutBeginn()
         {
+            TrimAudio(AudioPosition.Value, 0);
+
+            OpenFile();
+
+            await RaisePropertyChanged("AudioPosition");
         }
 
-        protected virtual void CutEnd()
+        protected virtual async Task CutEnd()
         {
+            TrimAudio(0, AudioPosition.Value);
+
+            OpenFile();
+
+            await RaisePropertyChanged("AudioPosition");
         }
 
         protected Stream ReloadImageAudioSpectrogram()
@@ -96,6 +161,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <param name="cutEnd">The cut end.</param>
         protected virtual void TrimAudio(double cutStart, double cutEnd)
         {
+            player.Stop();
+            player.Dispose();
+            player = null;
+
             //string tempFile = Path.Combine(SimTuning.Core.Constants.FileDirectory, "temp.wav");
             Stream cuttedFileStream = new MemoryStream();
             //FileStream fsSource = new FileStream(SimTuning.Core.Constants.AudioFilePath, FileMode.Open, FileAccess.Read);
@@ -136,6 +205,34 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             get => _badgeFileOpen;
             set { SetProperty(ref _badgeFileOpen, value); }
+        }
+
+        public double? AudioMaximum
+        {
+            get
+            {
+                if (player != null)
+                    return player.Duration;
+                else
+                    return null;
+            }
+        }
+
+        private double? _audioPosition;
+
+        public double? AudioPosition
+        {
+            get => _audioPosition;
+            set
+            {
+                SetProperty(ref _audioPosition, value);
+
+                if (player != null)
+                {
+                    player.Seek(value.Value);
+                    _audioPosition = value;
+                }
+            }
         }
 
         #endregion Values

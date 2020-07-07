@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Commands;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -13,21 +14,22 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         {
             this.mainWindowViewModel = mainWindowViewModel;
 
-            ConnectUserCommand = new MvxCommand(ConnectUser);
+            //override commands
+            ConnectUserCommand = new MvxAsyncCommand(ConnectUser);
             RegisterSiteCommand = new MvxCommand(RegisterSite);
         }
 
-        protected override void ConnectUser()
+        protected new async Task ConnectUser()
         {
-            //var tuple = await API.API.UserLoginAsync(email: Email, password: SimTuning.Core.Business.Converts.StringToSecureString(Password));
-            //mainWindowViewModel.UserValid = tuple.Item1;
-            //mainWindowViewModel.LicenseValid = tuple.Item2;
+            var tuple = await API.API.UserLoginAsync(email: Email, password: Core.Business.Converts.StringToSecureString(Password)).ConfigureAwait(true);
+            User.UserValid = tuple.Item1;
+            User.LicenseValid = tuple.Item2;
 
-            //for (int i = 0; i < tuple.Item3.Count; i++)
-            //{
-            //    await MaterialDialog.Instance.SnackbarAsync(message: tuple.Item3[i],
-            //                                msDuration: MaterialSnackbar.DurationLong);
-            //}
+            for (int i = 0; i < tuple.Item3.Count; i++)
+            {
+                await MaterialDialog.Instance.SnackbarAsync(message: tuple.Item3[i],
+                                            msDuration: MaterialSnackbar.DurationLong).ConfigureAwait(false);
+            }
         }
 
         protected override void RegisterSite()

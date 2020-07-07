@@ -14,7 +14,6 @@ namespace SimTuning.WPFCore.ViewModels.Tuning
             NewTuningCommand = new MvxCommand<string>(new Action<object>(NewTuning));
             DeleteTuningCommand = new MvxCommand<string>(new Action<object>(DeleteTuning));
             SaveTuningCommand = new MvxCommand<string>(new Action<object>(SaveTuning));
-            ShowSaveButtonCommand = new MvxCommand(ShowSave);
         }
 
         protected void NewTuning(object obj)
@@ -31,11 +30,7 @@ namespace SimTuning.WPFCore.ViewModels.Tuning
 
         protected void DeleteTuning(object obj)
         {
-            try
-            {
-                DeleteTuning();
-            }
-            catch
+            if (!base.DeleteTuning())
             {
                 mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim löschen");
             }
@@ -43,11 +38,7 @@ namespace SimTuning.WPFCore.ViewModels.Tuning
 
         protected void SaveTuning(object obj)
         {
-            try
-            {
-                SaveTuning();
-            }
-            catch
+            if (!base.SaveTuning())
             {
                 mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim speichern");
             }

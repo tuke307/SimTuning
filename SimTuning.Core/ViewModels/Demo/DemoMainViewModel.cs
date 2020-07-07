@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Demo
 {
-    public class BuyProViewModel : MvxViewModel
+    public class DemoMainViewModel : MvxViewModel
     {
-        public BuyProViewModel()
+        public DemoMainViewModel()
         {
         }
 

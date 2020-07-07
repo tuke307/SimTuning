@@ -13,7 +13,6 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             NewDynoCommand = new MvxCommand(NewDyno);
             DeleteDynoCommand = new MvxCommand(DeleteDyno);
             SaveDynoCommand = new MvxCommand(SaveDyno);
-            ShowSaveButtonCommand = new MvxCommand(ShowSave);
         }
 
         protected override void NewDyno()

@@ -3,10 +3,11 @@ using SimTuning.WPFCore.Business;
 
 namespace SimTuning.WPFCore.ViewModels.Demo
 {
-    public class DemoMainViewModel : SimTuning.Core.ViewModels.Demo.BuyProViewModel
+    public class DemoMainViewModel : SimTuning.Core.ViewModels.Demo.DemoMainViewModel
     {
         public DemoMainViewModel()
         {
+            //override commands
             OpenWebsiteCommand = new MvxCommand(OpenWebsite);
         }
 

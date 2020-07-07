@@ -12,6 +12,8 @@ namespace SimTuning.Forms.UI.ViewModels.Home
         public HomeMainViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
+
+            //override commands
             OpenInstagramCommand = new MvxCommand(OpenInstagram);
             OpenWebsiteCommand = new MvxCommand(OpenWebsite);
             OpenTwitterCommand = new MvxCommand(OpenTwitter);

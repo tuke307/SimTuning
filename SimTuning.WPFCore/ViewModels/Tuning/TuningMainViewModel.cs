@@ -1,50 +1,40 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimTuning.WPFCore.ViewModels.Tuning
 {
     public class TuningMainViewModel : SimTuning.Core.ViewModels.Tuning.MainViewModel
     {
-        private MainWindowViewModel mainWindowViewModel;
+        private readonly IMvxNavigationService _navigationService;
+        private bool _firstTime = true;
 
-        public TuningMainViewModel(MainWindowViewModel mainWindowViewModel)
+        public TuningMainViewModel(IMvxNavigationService navigationService)
         {
-            this.mainWindowViewModel = mainWindowViewModel;
-
-            //NewContentCommand = new MvxCommand<string>(NewContent);
-            //NewContent("Datensatz");
+            _navigationService = navigationService;
         }
 
-        private object _tuningContent;
-
-        public object TuningContent
+        private Task ShowInitialViewModels()
         {
-            get => _tuningContent;
-            set => SetProperty(ref _tuningContent, value);
+            var tasks = new List<Task>
+            {
+                _navigationService.Navigate<TuningDataViewModel>(),
+                _navigationService.Navigate<TuningInputViewModel>(),
+                _navigationService.Navigate<TuningDiagnosisViewModel>()
+            };
+            return Task.WhenAll(tasks);
         }
 
-        public ICommand NewContentCommand { get; set; }
-
-        //public void NewContent(object parameter)
-        //{
-        //    switch (parameter)
-        //    {
-        //        case "Datensatz":
-        //            TuningContent = new TuningDataView(mainWindowViewModel);
-        //            break;
-
-        //        case "Eingabewerte":
-        //            TuningContent = new TuningInputView(mainWindowViewModel);
-        //            break;
-
-        //        case "Diagnose":
-        //            TuningContent = new TuningDiagnosisView(mainWindowViewModel);
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-        //}
+        public override void ViewAppearing()
+        {
+            if (_firstTime)
+            {
+                ShowInitialViewModels();
+                _firstTime = false;
+            }
+        }
     }
 }

@@ -13,11 +13,11 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
         {
             this.mainWindowViewModel = mainWindowViewModel; //LoadingScreen
 
-            //SPECTROGRAM
-            FilterPlotCommand = new MvxAsyncCommand(async () => await FilterPlot());
-            RefreshSpectrogramCommand = new MvxAsyncCommand(async () => await ReloadImageAudioSpectrogram());
-            RefreshPlotCommand = new MvxAsyncCommand(async () => await RefreshPlot());
-            SpecificGraphCommand = new MvxAsyncCommand(async () => await SpecificGraph());
+            //override Commands
+            FilterPlotCommand = new MvxAsyncCommand(FilterPlot);
+            RefreshSpectrogramCommand = new MvxAsyncCommand(ReloadImageAudioSpectrogram);
+            RefreshPlotCommand = new MvxAsyncCommand(RefreshPlot);
+            SpecificGraphCommand = new MvxAsyncCommand(SpecificGraph);
 
             //datensatz checken
             //CheckDynoData();
@@ -57,9 +57,7 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
 
             mainWindowViewModel.LoadingAnimation = true;
 
-            await Task.Run(() => base.RefreshPlot());
-
-            await RaisePropertyChanged("PlotAudio");
+            await base.RefreshPlot();
 
             mainWindowViewModel.LoadingAnimation = false;
         }
@@ -71,9 +69,7 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
 
             mainWindowViewModel.LoadingAnimation = true;
 
-            await Task.Run(() => base.FilterPlot());
-
-            await RaisePropertyChanged("PlotAudio");
+            await base.FilterPlot();
 
             mainWindowViewModel.LoadingAnimation = false;
         }
@@ -83,8 +79,6 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
             mainWindowViewModel.LoadingAnimation = true;
 
             await Task.Run(() => base.SpecificGraph());
-
-            await RaisePropertyChanged("PlotAudio");
 
             mainWindowViewModel.LoadingAnimation = false;
         }

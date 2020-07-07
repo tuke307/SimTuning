@@ -52,6 +52,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
                 Engines = new ObservableCollection<Data.Models.MotorModel>(db.Motor.ToList());
             }
+
+            ShowSaveButtonCommand = new MvxCommand(ShowSave);
         }
 
         public IMvxCommand NewVehicleCommand { get; set; }

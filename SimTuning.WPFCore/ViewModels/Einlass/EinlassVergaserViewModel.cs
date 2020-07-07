@@ -6,7 +6,6 @@ namespace SimTuning.WPFCore.ViewModels.Einlass
     {
         public EinlassVergaserViewModel()
         {
-            InsertDataCommand = new MvxCommand(InsertData);
         }
     }
 }

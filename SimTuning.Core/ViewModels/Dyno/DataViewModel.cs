@@ -24,6 +24,8 @@ namespace SimTuning.Core.ViewModels.Dyno
 
                 Dyno = Dynos.Where(d => d.Active == true).FirstOrDefault();
             }
+
+            ShowSaveButtonCommand = new MvxCommand(ShowSave);
         }
 
         public IMvxCommand SaveDynoCommand { get; set; }

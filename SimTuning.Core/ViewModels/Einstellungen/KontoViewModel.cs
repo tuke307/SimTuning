@@ -16,9 +16,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             Email = _email;
         }
 
-        public IMvxCommand ConnectUserCommand { get; set; }
+        public IMvxAsyncCommand ConnectUserCommand { get; set; }
         public IMvxCommand RegisterSiteCommand { get; set; }
-        public IMvxCommand LoginSiteCommand { get; set; }
         public IMvxCommand PasswordChangedCommand { get; set; }
 
         public override void Prepare(SimTuning.Core.Models.UserModel _user)

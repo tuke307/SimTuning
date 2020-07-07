@@ -24,6 +24,8 @@ namespace SimTuning.Core.ViewModels.Tuning
 
                 Tuning = Tunings.Where(d => d.Active == true).FirstOrDefault();
             }
+
+            ShowSaveButtonCommand = new MvxCommand(ShowSave);
         }
 
         public IMvxCommand SaveTuningCommand { get; set; }

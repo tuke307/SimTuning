@@ -6,7 +6,6 @@ namespace SimTuning.WPFCore.ViewModels.Motor
     {
         public MotorVerdichtungViewModel()
         {
-            InsertDataCommand = new MvxCommand(InsertData);
         }
     }
 }

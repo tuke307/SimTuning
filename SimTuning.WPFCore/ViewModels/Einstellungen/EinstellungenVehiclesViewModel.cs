@@ -1,26 +1,24 @@
 ﻿using MvvmCross.Commands;
-using System;
 
 namespace SimTuning.WPFCore.ViewModels.Einstellungen
 {
     public class EinstellungenVehiclesViewModel : SimTuning.Core.ViewModels.Einstellungen.VehiclesViewModel
     {
-        //private readonly MainWindowViewModel mainWindowViewModel;
+        private readonly MainWindowViewModel mainWindowViewModel;
 
-        public EinstellungenVehiclesViewModel(/*MainWindowViewModel mainWindowViewModel*/)
+        public EinstellungenVehiclesViewModel(MainWindowViewModel mainWindowViewModel)
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
+            this.mainWindowViewModel = mainWindowViewModel;
 
             NewVehicleCommand = new MvxCommand(NewVehicle, CanExecute);
             DeleteVehicleCommand = new MvxCommand(DeleteVehicle, CanExecute);
             SaveVehicleCommand = new MvxCommand(SaveVehicle, CanExecute);
-            ShowSaveButtonCommand = new MvxCommand(ShowSave);
         }
 
         private bool CanExecute()
         {
-            //if (!mainWindowViewModel.LicenseValid)
-            //mainWindowViewModel.NotificationSnackbar.Enqueue("Kaufe die Pro Version um Presets zu ändern");
+            if (!User.LicenseValid)
+                mainWindowViewModel.NotificationSnackbar.Enqueue("Kaufe die Pro Version um Presets zu ändern");
 
             return User.LicenseValid;
         }
@@ -33,7 +31,7 @@ namespace SimTuning.WPFCore.ViewModels.Einstellungen
             }
             catch
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim erstellen");
+                mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim erstellen");
             }
         }
 
@@ -45,7 +43,7 @@ namespace SimTuning.WPFCore.ViewModels.Einstellungen
             }
             catch
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim löschen");
+                mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim löschen");
             }
         }
 
@@ -57,7 +55,7 @@ namespace SimTuning.WPFCore.ViewModels.Einstellungen
             }
             catch
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim speichern");
+                mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim speichern");
             }
         }
     }

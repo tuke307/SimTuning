@@ -1,54 +1,38 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
-using System.Windows.Input;
+﻿using MvvmCross.Navigation;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimTuning.WPFCore.ViewModels.Dyno
 {
     public class DynoMainViewModel : SimTuning.Core.ViewModels.Dyno.MainViewModel
     {
-        private readonly MainWindowViewModel mainWindowViewModel;
+        private readonly IMvxNavigationService _navigationService;
+        private bool _firstTime = true;
 
-        public DynoMainViewModel(MainWindowViewModel mainWindowViewModel)
+        public DynoMainViewModel(IMvxNavigationService navigationService)
         {
-            this.mainWindowViewModel = mainWindowViewModel; //LoadingScreen
-
-            //NewContentCommand = new MvxCommand<string>(NewContent);
-            //NewContent("Datensatz");
+            _navigationService = navigationService;
         }
 
-        private object _dynoContent;
-
-        public object DynoContent
+        private Task ShowInitialViewModels()
         {
-            get => _dynoContent;
-            set => SetProperty(ref _dynoContent, value);
+            var tasks = new List<Task>
+            {
+                _navigationService.Navigate<DynoDataViewModel>(),
+                _navigationService.Navigate<DynoAudioViewModel>(),
+                _navigationService.Navigate<DynoSpectrogramViewModel>(),
+                _navigationService.Navigate<DynoDiagnosisViewModel>()
+            };
+            return Task.WhenAll(tasks);
         }
 
-        public ICommand NewContentCommand { get; set; }
-
-        //public void NewContent(object parameter)
-        //{
-        //    switch (parameter)
-        //    {
-        //        case "Datensatz":
-        //            DynoContent = new DynoDataView(mainWindowViewModel);
-        //            break;
-
-        //        case "Audio-Verarbeitung":
-        //            DynoContent = new DynoAudioView(mainWindowViewModel);
-        //            break;
-
-        //        case "Audio-Spectrogram":
-        //            DynoContent = new DynoSpectrogramView(mainWindowViewModel);
-        //            break;
-
-        //        case "Leistungsfeststellung":
-        //            DynoContent = new DynoDiagnosisView(mainWindowViewModel);
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-        //}
+        public override void ViewAppearing()
+        {
+            if (_firstTime)
+            {
+                ShowInitialViewModels();
+                _firstTime = false;
+            }
+        }
     }
 }

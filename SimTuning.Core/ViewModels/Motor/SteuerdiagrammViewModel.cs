@@ -70,6 +70,9 @@ namespace SimTuning.Core.ViewModels.Motor
 
                 HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
+
+            InsertReferenceCommand = new MvxCommand(InsertReference);
+            InsertVehicleCommand = new MvxCommand(InsertVehicle);
         }
 
         public IMvxCommand InsertVehicleCommand { get; set; }

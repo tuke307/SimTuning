@@ -8,10 +8,8 @@ namespace SimTuning.Forms.UI.ViewModels.Auslass
     {
         public AuslassAnwendungViewModel()
         {
+            //override command
             CalculateCommand = new MvxCommand(Calculate);
-            DiffusorStageCommand = new MvxCommand<string>(DiffusorStage);
-
-            InsertDataCommand = new MvxCommand(InsertData);
         }
 
         protected new void Calculate()

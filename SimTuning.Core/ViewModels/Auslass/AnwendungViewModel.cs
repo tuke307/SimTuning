@@ -56,6 +56,10 @@ namespace SimTuning.Core.ViewModels.Auslass
             }
 
             DiffStages = new List<string>() { "One Stage", "Two Stage", "Three Stage" };
+
+            //Commands
+            InsertDataCommand = new MvxCommand(InsertData);
+            DiffusorStageCommand = new MvxCommand<string>(DiffusorStage);
         }
 
         public override void Prepare()

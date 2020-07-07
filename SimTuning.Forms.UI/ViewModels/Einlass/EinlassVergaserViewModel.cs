@@ -6,7 +6,6 @@ namespace SimTuning.Forms.UI.ViewModels.Einlass
     {
         public EinlassVergaserViewModel()
         {
-            InsertDataCommand = new MvxCommand(InsertData);
         }
     }
 }

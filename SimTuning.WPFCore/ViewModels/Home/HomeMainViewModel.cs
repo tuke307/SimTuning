@@ -11,6 +11,7 @@ namespace SimTuning.WPFCore.ViewModels.Home
         {
             //this.mainWindowViewModel = mainWindowViewModel;
 
+            //override commands
             OpenInstagramCommand = new MvxCommand(OpenInstagram);
             OpenWebsiteCommand = new MvxCommand(OpenWebsite);
             OpenTwitterCommand = new MvxCommand(OpenTwitter);

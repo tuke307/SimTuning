@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
@@ -16,6 +18,7 @@ namespace SimTuning.Core.ViewModels.Dyno
     public class DiagnosisViewModel : MvxViewModel
     {
         protected DynoLogic dynoLogic;
+        protected readonly ResourceManager rm;
 
         public DiagnosisViewModel()
         {
@@ -36,6 +39,11 @@ namespace SimTuning.Core.ViewModels.Dyno
                 }
                 catch { }
             }
+
+            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
+
+            InsertVehicleCommand = new MvxCommand(InsertVehicle);
+            InsertEnvironmentCommand = new MvxCommand(InsertEnvironment);
         }
 
         public IMvxAsyncCommand RefreshPlotCommand { get; set; }
@@ -57,7 +65,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region Commands
 
-        protected virtual void RefreshPlot()
+        protected virtual async Task RefreshPlot()
         {
             dynoLogic.CalculateStrengthPlot(Dyno, out List<DynoPSModel> ps, out List<DynoNmModel> nm);
             Dyno.DynoPS = ps;
@@ -69,6 +77,8 @@ namespace SimTuning.Core.ViewModels.Dyno
                 db.Dyno.Attach(Dyno);
                 db.SaveChanges();
             }
+
+            await RaisePropertyChanged("PlotStrength");
         }
 
         public void InsertVehicle()

@@ -11,9 +11,7 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
         {
             this.mainWindowViewModel = mainWindowViewModel; //LoadingScreen
 
-            RefreshPlotCommand = new MvxAsyncCommand(async () => await RefreshPlot());
-            InsertVehicleCommand = new MvxCommand(InsertVehicle);
-            InsertEnvironmentCommand = new MvxCommand(InsertEnvironment);
+            RefreshPlotCommand = new MvxAsyncCommand(RefreshPlot);
 
             //datensatz checken
             //CheckDynoData();
@@ -36,9 +34,7 @@ namespace SimTuning.WPFCore.ViewModels.Dyno
 
             mainWindowViewModel.LoadingAnimation = true;
 
-            await Task.Run(() => base.RefreshPlot());
-
-            await RaisePropertyChanged("PlotStrength");
+            await base.RefreshPlot().ConfigureAwait(true);
 
             mainWindowViewModel.LoadingAnimation = false;
         }

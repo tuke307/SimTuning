@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

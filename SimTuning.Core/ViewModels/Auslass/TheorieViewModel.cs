@@ -43,6 +43,9 @@ namespace SimTuning.Core.ViewModels.Auslass
 
                 HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
+
+            //Commands
+            InsertDataCommand = new MvxCommand(InsertData);
         }
 
         public IMvxCommand InsertDataCommand { get; set; }

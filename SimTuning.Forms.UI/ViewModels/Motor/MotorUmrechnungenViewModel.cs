@@ -6,7 +6,6 @@ namespace SimTuning.Forms.UI.ViewModels.Motor
     {
         public MotorUmrechnungenViewModel()
         {
-            InsertDataCommand = new MvxCommand(InsertData);
         }
     }
 }

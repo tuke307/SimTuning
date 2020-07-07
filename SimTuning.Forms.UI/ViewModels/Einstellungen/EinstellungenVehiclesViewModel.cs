@@ -7,24 +7,20 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 {
     public class EinstellungenVehiclesViewModel : SimTuning.Core.ViewModels.Einstellungen.VehiclesViewModel
     {
-        private readonly MainPageViewModel mainWindowViewModel;
-
-        public EinstellungenVehiclesViewModel(MainPageViewModel mainWindowViewModel)
+        public EinstellungenVehiclesViewModel()
         {
-            this.mainWindowViewModel = mainWindowViewModel;
-
             NewVehicleCommand = new MvxCommand(NewVehicle, CanExecute);
             DeleteVehicleCommand = new MvxCommand(DeleteVehicle, CanExecute);
             SaveVehicleCommand = new MvxCommand(SaveVehicle, CanExecute);
-            ShowSaveButtonCommand = new MvxCommand(ShowSave);
         }
 
         private bool CanExecute()
         {
-            Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Kaufe die Pro Version um Presets zu ändern",
+            if (!User.LicenseValid)
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Kaufe die Pro Version um Presets zu ändern",
                                           msDuration: MaterialSnackbar.DurationLong));
 
-            return false;//mainWindowViewModel.LicenseValid;
+            return User.LicenseValid;
         }
 
         protected override void NewVehicle()
