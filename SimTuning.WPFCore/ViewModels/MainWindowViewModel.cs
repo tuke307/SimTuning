@@ -1,7 +1,9 @@
 ﻿using MaterialDesignThemes.Wpf;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using SimTuning.Core.Models;
 using SimTuning.WPFCore.Business;
+using SimTuning.WPFCore.ViewModels.Home;
 
 namespace SimTuning.WPFCore.ViewModels
 {
@@ -23,6 +25,12 @@ namespace SimTuning.WPFCore.ViewModels
             NotificationSnackbar = new SnackbarMessageQueue();
 
             _navigationService = navigationService;
+
+            ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
+            ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel, UserModel>(User));
+
+            ShowMenuViewModelCommand.Execute();
+            //ShowHomeViewModelCommand.Execute();
         }
 
         public MvxCommand ButtonOpenMenu { get; set; }

@@ -1,4 +1,5 @@
-﻿using MvvmCross.ViewModels;
+﻿using MvvmCross.Commands;
+using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using System.Threading.Tasks;
 
@@ -9,6 +10,9 @@ namespace SimTuning.Core.ViewModels
         public MainPage()
         {
         }
+
+        public IMvxAsyncCommand ShowHomeViewModelCommand { get; protected set; }
+        public IMvxAsyncCommand ShowMenuViewModelCommand { get; protected set; }
 
         public override void Prepare()
         {

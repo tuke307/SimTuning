@@ -1,17 +1,15 @@
-﻿using SimTuning.WPFCore.ViewModels;
-using SimTuning.WPFCore.ViewModels.Tuning;
-using System.Windows.Controls;
+﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
+using SimTuning.WPFCore.ViewModels.Tuning;
 
 namespace SimTuning.Forms.WPFCore.Views.Tuning
 {
+    [MvxContentPresentation(WindowIdentifier = nameof(MainWindow), StackNavigation = false)]
     public partial class TuningInputView : MvxWpfView<TuningInputViewModel>
     {
-        public TuningInputView(/*MainWindowViewModel mainWindowViewModel*/)
+        public TuningInputView()
         {
             InitializeComponent();
-
-            //DataContext = new TuningInputViewModel(mainWindowViewModel);
         }
     }
 }

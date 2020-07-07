@@ -1,19 +1,15 @@
-﻿using SimTuning.WPFCore.ViewModels.Motor;
-using System.Windows.Controls;
+﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
+using SimTuning.WPFCore.ViewModels.Motor;
 
 namespace SimTuning.Forms.WPFCore.Views.Motor
 {
-    /// <summary>
-    /// Interaktionslogik für Motor.xaml
-    /// </summary>
+    [MvxContentPresentation(WindowIdentifier = nameof(MainWindow), StackNavigation = false)]
     public partial class MotorMainView : MvxWpfView<MotorMainViewModel>
     {
         public MotorMainView()
         {
             InitializeComponent();
-
-            //DataContext = new MotorMainViewModel();
         }
     }
 }

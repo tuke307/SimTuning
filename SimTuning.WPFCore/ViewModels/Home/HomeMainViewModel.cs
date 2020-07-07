@@ -5,11 +5,11 @@ namespace SimTuning.WPFCore.ViewModels.Home
 {
     public class HomeMainViewModel : SimTuning.Core.ViewModels.Home.HomeViewModel
     {
-        private readonly MainWindowViewModel mainWindowViewModel;
+        //private readonly MainWindowViewModel mainWindowViewModel;
 
-        public HomeMainViewModel(MainWindowViewModel mainWindowViewModel)
+        public HomeMainViewModel(/*MainWindowViewModel mainWindowViewModel*/)
         {
-            this.mainWindowViewModel = mainWindowViewModel;
+            //this.mainWindowViewModel = mainWindowViewModel;
 
             OpenInstagramCommand = new MvxCommand(OpenInstagram);
             OpenWebsiteCommand = new MvxCommand(OpenWebsite);
@@ -17,10 +17,10 @@ namespace SimTuning.WPFCore.ViewModels.Home
             OpenEmailCommand = new MvxCommand(OpenEmail);
             OpenDonateCommand = new MvxCommand(OpenDonate);
 
-            OpenTutorialCommand = new MvxCommand(OpenTutorial);
+            //OpenTutorialCommand = new MvxCommand(OpenTutorial);
         }
 
-        public ICommand OpenTutorialCommand { get; set; }
+        //public MvxCommand OpenTutorialCommand { get; set; }
 
         protected override void OpenInstagram()
         {

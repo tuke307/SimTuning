@@ -1,17 +1,15 @@
-﻿using MvvmCross.Platforms.Wpf.Views;
-using SimTuning.WPFCore.ViewModels;
+﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
+using MvvmCross.Platforms.Wpf.Views;
 using SimTuning.WPFCore.ViewModels.Einstellungen;
-using System.Windows.Controls;
 
 namespace SimTuning.Forms.WPFCore.Views.Einstellungen
 {
+    [MvxContentPresentation(WindowIdentifier = nameof(MainWindow), StackNavigation = false)]
     public partial class EinstellungenAussehenView : MvxWpfView<EinstellungenAussehenViewModel>
     {
-        public EinstellungenAussehenView(/*MainWindowViewModel mainWindowViewModel*/)
+        public EinstellungenAussehenView()
         {
             InitializeComponent();
-
-            //DataContext = new EinstellungenAussehenViewModel(mainWindowViewModel);
         }
     }
 }

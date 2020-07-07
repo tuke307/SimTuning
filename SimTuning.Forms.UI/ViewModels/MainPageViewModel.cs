@@ -16,8 +16,5 @@ namespace SimTuning.Forms.UI.ViewModels
             ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
             ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel, UserModel>(User));
         }
-
-        public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }
-        public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
     }
 }

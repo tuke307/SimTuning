@@ -1,17 +1,15 @@
-﻿using SimTuning.WPFCore.ViewModels;
-using SimTuning.WPFCore.ViewModels.Dyno;
-using System.Windows.Controls;
+﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
+using SimTuning.WPFCore.ViewModels.Dyno;
 
 namespace SimTuning.Forms.WPFCore.Views.Dyno
 {
+    [MvxContentPresentation(WindowIdentifier = nameof(MainWindow), StackNavigation = false)]
     public partial class DynoMainView : MvxWpfView<DynoMainViewModel>
     {
-        public DynoMainView(/*MainWindowViewModel mainWindowViewModel*/)
+        public DynoMainView()
         {
             InitializeComponent();
-
-            //DataContext = new DynoMainViewModel(mainWindowViewModel);
         }
     }
 }

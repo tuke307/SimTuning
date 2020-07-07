@@ -1,31 +1,18 @@
-﻿using MvvmCross.Platforms.Wpf.Views;
+﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
+using MvvmCross.Platforms.Wpf.Views;
 using SimTuning.WPFCore.ViewModels;
 using System.Windows;
 using System.Windows.Input;
 
 namespace SimTuning.Forms.WPFCore.Views
 {
+    [MvxWindowPresentation(Identifier = nameof(MainWindow), Modal = false)]
     public partial class MainWindow : MvxWindow<MainWindowViewModel>
     {
-        //private bool _firstTime = true;
-
         public MainWindow()
         {
             InitializeComponent();
         }
-
-        //protected override void OnAppearing()
-        //{
-        //    if (_firstTime)
-        //    {
-        //        ViewModel.ShowMenuViewModelCommand.Execute(null);
-        //        ViewModel.ShowHomeViewModelCommand.Execute(null);
-
-        //        _firstTime = false;
-        //    }
-
-        //    base.OnAppearing();
-        //}
 
         private void GridTop_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
