@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Forms.UI.ViewModels.Einlass
 {
-    public class EinlassMainViewModel : MvxViewModel
+    public class EinlassMainViewModel : SimTuning.Core.ViewModels.Einlass.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
         private bool _firstTime = true;

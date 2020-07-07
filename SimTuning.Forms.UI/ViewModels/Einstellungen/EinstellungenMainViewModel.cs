@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 {
-    public class EinstellungenMainViewModel : MvxViewModel
+    public class EinstellungenMainViewModel : SimTuning.Core.ViewModels.Einstellungen.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
         private bool _firstTime = true;

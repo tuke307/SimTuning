@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D9E1D51-5806-407C-A96D-32FFB7F0A4DF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SimTuning.Forms.WPF</RootNamespace>
+    <AssemblyName>SimTuning.Forms.WPF</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MvvmCross, Version=6.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.6.4.2\lib\net461\MvvmCross.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvvmCross.Platforms.Wpf, Version=6.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Platforms.Wpf.6.4.2\lib\net461\MvvmCross.Platforms.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Business\CombiningConverter.cs" />
+    <Compile Include="Business\NegateBooleanConverter.cs" />
+    <Compile Include="Business\NumberOnlyBehaviour.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Views\Auslass\AuslassAnwendungView.xaml.cs">
+      <DependentUpon>AuslassAnwendungView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Auslass\AuslassMainView.xaml.cs">
+      <DependentUpon>AuslassMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Auslass\AuslassTheorieView.xaml.cs">
+      <DependentUpon>AuslassTheorieView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Demo\BuyProView.xaml.cs">
+      <DependentUpon>BuyProView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dyno\DynoAudioView.xaml.cs">
+      <DependentUpon>DynoAudioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dyno\DynoDataView.xaml.cs">
+      <DependentUpon>DynoDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dyno\DynoDiagnosisView.xaml.cs">
+      <DependentUpon>DynoDiagnosisView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dyno\DynoMainView.xaml.cs">
+      <DependentUpon>DynoMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dyno\DynoSpectrogramView.xaml.cs">
+      <DependentUpon>DynoSpectrogramView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Einlass\EinlassKanalView.xaml.cs">
+      <DependentUpon>EinlassKanalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Einlass\EinlassMainView.xaml.cs">
+      <DependentUpon>EinlassMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Einlass\EinlassVergaserView.xaml.cs">
+      <DependentUpon>EinlassVergaserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Einstellungen\EinstellungenAussehenView.xaml.cs">
+      <DependentUpon>EinstellungenAussehenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Einstellungen\EinstellungenKontoView.xaml.cs">
+      <DependentUpon>EinstellungenKontoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Einstellungen\EinstellungenMainView.xaml.cs">
+      <DependentUpon>EinstellungenMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Einstellungen\EinstellungenUpdateView.xaml.cs">
+      <DependentUpon>EinstellungenUpdateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Einstellungen\EinstellungenVehiclesView.xaml.cs">
+      <DependentUpon>EinstellungenVehiclesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\Home_screen.xaml.cs">
+      <DependentUpon>Home_screen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Motor\MotorHubraumView.xaml.cs">
+      <DependentUpon>MotorHubraumView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Motor\MotorMainView.xaml.cs">
+      <DependentUpon>MotorMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Motor\MotorSteuerdiagrammView.xaml.cs">
+      <DependentUpon>MotorSteuerdiagrammView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Motor\MotorUmrechnungenView.xaml.cs">
+      <DependentUpon>MotorUmrechnungenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Motor\MotorVerdichtungView.xaml.cs">
+      <DependentUpon>MotorVerdichtungView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tuning\TuningDataView.xaml.cs">
+      <DependentUpon>TuningDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tuning\TuningDiagnosisView.xaml.cs">
+      <DependentUpon>TuningDiagnosisView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tuning\TuningInputView.xaml.cs">
+      <DependentUpon>TuningInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tuning\TuningMainView.xaml.cs">
+      <DependentUpon>TuningMainView.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Auslass\AuslassAnwendungView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Auslass\AuslassMainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Auslass\AuslassTheorieView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Demo\BuyProView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dyno\DynoAudioView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dyno\DynoDataView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dyno\DynoDiagnosisView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dyno\DynoMainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dyno\DynoSpectrogramView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Einlass\EinlassKanalView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Einlass\EinlassMainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Einlass\EinlassVergaserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Einstellungen\EinstellungenAussehenView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Einstellungen\EinstellungenKontoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Einstellungen\EinstellungenMainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Einstellungen\EinstellungenUpdateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Einstellungen\EinstellungenVehiclesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Home\Home_screen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Motor\MotorHubraumView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Motor\MotorMainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Motor\MotorSteuerdiagrammView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Motor\MotorUmrechnungenView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Motor\MotorVerdichtungView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Tuning\TuningDataView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Tuning\TuningDiagnosisView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Tuning\TuningInputView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Tuning\TuningMainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\sample_gif.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo_win.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo_win.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimTuning.WPFCore\SimTuning.WPFCore.csproj">
+      <Project>{f7bbc8d8-e42f-4de2-930f-6170f35858da}</Project>
+      <Name>SimTuning.WPFCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

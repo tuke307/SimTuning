@@ -1,0 +1,366 @@
+﻿<views:MvxWpfView  xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+                   x:Class="SimTuning.Forms.WPF.Views.Dyno.DynoDiagnosisView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   x:TypeArguments="viewModels:DynoDiagnosisViewModel"
+                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Dyno;assembly=SimTuning.WPFCore"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   xmlns:behaviours="clr-namespace:SimTuning.Forms.WPF.Business"
+                   xmlns:oxy="http://oxyplot.org/wpf"
+                   mc:Ignorable="d"
+                   Background="{DynamicResource MaterialDesignPaper}"
+                   d:DesignWidth="1200"
+                   d:DesignHeight="550"
+                   MinWidth="1010"
+                   MinHeight="550">
+    <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}"
+                  HorizontalScrollBarVisibility="Visible"
+                  VerticalScrollBarVisibility="Disabled">
+
+        <!--4. Modul-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--1. Group box Plot-->
+            <GroupBox MinWidth="750"
+                      Grid.Row="0"
+                      Grid.Column="0"
+                      Margin="10"
+                      Header="Graph"
+                      Style="{DynamicResource MaterialDesignGroupBox}"
+                      materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                      BorderThickness="0.3">
+                <Grid>
+                    <oxy:PlotView Model="{Binding PlotStrength}"
+                                  Background="{DynamicResource MaterialDesignPaper}" />
+                </Grid>
+            </GroupBox>
+
+            <!--2. group box-->
+            <GroupBox Grid.Row="0"
+                      Grid.Column="1"
+                      Margin="10"
+                      Header="Graph-Einstellungen">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0"
+                             Grid.Column="0"
+                             materialDesign:HintAssist.Hint="Gesamtübersetzung"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Uebersetzung, StringFormat={}{##.##}}"
+                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             TextWrapping="Wrap"
+                             Width="120">
+                    </TextBox>
+
+                    <TextBox Grid.Row="1"
+                             Grid.Column="0"
+                             materialDesign:HintAssist.Hint="Gewicht"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Gewicht, StringFormat={}{##.##}}"
+                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             TextWrapping="Wrap"
+                             Width="120">
+                    </TextBox>
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="10 15 0 0">
+                        <Run>kg</Run>
+                    </TextBlock>
+
+                    <TextBox Grid.Row="2"
+                             Grid.Column="0"
+                             materialDesign:HintAssist.Hint="Frontfläche"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Frontflaeche, StringFormat={}{##.##}}"
+                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             TextWrapping="Wrap"
+                             Width="120">
+                    </TextBox>
+
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="10 15 0 0">
+                        cm<Run Text="&#x00B2;" />
+                    </TextBlock>
+
+                    <TextBox Grid.Row="3"
+                             Grid.Column="0"
+                             materialDesign:HintAssist.Hint="cw"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Cw, StringFormat={}{##.##}}"
+                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             TextWrapping="Wrap"
+                             Width="120">
+                    </TextBox>
+
+                    <TextBox Grid.Row="4"
+                             Grid.Column="0"
+                             materialDesign:HintAssist.Hint="Temperatur"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Mode=TwoWay, Path=Dyno.Environment.TemperaturT, StringFormat={}{##.##}}"
+                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             TextWrapping="Wrap"
+                             Width="120">
+                    </TextBox>
+
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="10 15 0 0">
+                        <Run>°C</Run>
+                    </TextBlock>
+
+                    <TextBox Grid.Row="5"
+                             Grid.Column="0"
+                             materialDesign:HintAssist.Hint="Luftdruck"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Mode=TwoWay, Path=Dyno.Environment.LuftdruckP, StringFormat={}{##.##}}"
+                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             TextWrapping="Wrap"
+                             Width="120">
+                    </TextBox>
+
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="10 15 0 0">
+                        <Run>mbar</Run>
+                    </TextBlock>
+
+                    <!--Refresh-->
+                    <Button Grid.Row="6"
+                            Grid.ColumnSpan="2"
+                            Width="75"
+                            Content="{materialDesign:PackIcon Refresh}"
+                            Command="{Binding RefreshPlotCommand}">
+                    </Button>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="0"
+                      Grid.Column="2"
+                      Header="Hilfe"
+                      Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="0.2*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Gesamtübersetzung"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal" />
+                        <Label Content="Gewicht"
+                               Grid.Row="2"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal" />
+                        <Label Content="Frontfläche"
+                               Grid.Row="3"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal" />
+                        <Label Content="cw-Wert"
+                               Grid.Row="4"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal" />
+
+                        <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Uebersetzung}"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal"
+                               Margin="10 0 0 0" />
+                        <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Gewicht}"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal"
+                               Margin="10 0 0 0" />
+                        <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Frontflaeche}"
+                               Grid.Row="3"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal"
+                               Margin="10 0 0 0" />
+                        <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Cw}"
+                               Grid.Row="4"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal"
+                               Margin="10 0 0 0" />
+
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="10 0 0 0">
+                        <Run>kg</Run>
+                        </TextBlock>
+
+                        <TextBlock Grid.Row="3"
+                                   Grid.Column="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="10 0 0 0">
+                        cm<Run Text="&#x00B2;" />
+                        </TextBlock>
+
+                        <ComboBox Grid.Row="0"
+                                  Grid.ColumnSpan="3"
+                                  Margin="10"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  materialDesign:HintAssist.Hint="Fahrzeug"
+                                  IsEditable="False"
+                                  SelectedItem="{Binding  HelperVehicle}"
+                                  ItemsSource="{Binding  HelperVehicles}"
+                                  DisplayMemberPath="Name"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  Width="100" />
+
+                        <Button Content="{materialDesign:PackIcon ChevronRightCircleOutline}"
+                                Command="{Binding InsertVehicleCommand}"
+                                ToolTip="einfügen"
+                                Grid.Row="5"
+                                Grid.ColumnSpan="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Width="60" />
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Temperatur"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal" />
+                        <Label Content="Luftdruck"
+                               Grid.Row="2"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal" />
+                        <Label Content="{Binding Mode=OneWay, Path= HelperEnvironment.TemperaturT}"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal" />
+                        <Label Content="{Binding Mode=OneWay, Path= HelperEnvironment.LuftdruckP}"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontWeight="Normal" />
+
+                        <ComboBox Grid.Row="0"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="3"
+                                  Margin="10"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  materialDesign:HintAssist.Hint="Jahreszeit"
+                                  IsEditable="False"
+                                  SelectedItem="{Binding  HelperEnvironment}"
+                                  ItemsSource="{Binding  HelperEnvironments}"
+                                  DisplayMemberPath="Name"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  Width="100" />
+
+                        <Button Content="{materialDesign:PackIcon ChevronRightCircleOutline}"
+                                Command="{Binding InsertEnvironmentCommand}"
+                                ToolTip="einfügen"
+                                Grid.Row="5"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Width="60" />
+                    </Grid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </ScrollViewer>
+</views:MvxWpfView>

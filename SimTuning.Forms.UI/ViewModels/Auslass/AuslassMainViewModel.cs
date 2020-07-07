@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Forms.UI.ViewModels.Auslass
 {
-    public class AuslassMainViewModel : MvxViewModel
+    public class AuslassMainViewModel : SimTuning.Core.ViewModels.Auslass.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
         private bool _firstTime = true;

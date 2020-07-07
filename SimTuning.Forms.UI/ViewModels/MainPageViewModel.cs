@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using SimTuning.Core.Models;
 using SimTuning.Forms.UI.ViewModels.Home;
 
 namespace SimTuning.Forms.UI.ViewModels
@@ -12,19 +13,11 @@ namespace SimTuning.Forms.UI.ViewModels
         {
             _navigationService = navigationService;
 
-            ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel>());
-            ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel>());
+            ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
+            ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel, UserModel>(User));
         }
-
-        // MvvmCross Lifecycle
-
-        // MVVM Properties
-
-        // MVVM Commands
 
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
-
-        // Private methods
     }
 }

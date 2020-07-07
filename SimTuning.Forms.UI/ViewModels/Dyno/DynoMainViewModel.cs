@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
-    public class DynoMainViewModel : MvxViewModel
+    public class DynoMainViewModel : SimTuning.Core.ViewModels.Dyno.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
         private bool _firstTime = true;

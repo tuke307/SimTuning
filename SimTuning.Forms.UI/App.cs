@@ -8,10 +8,10 @@ namespace SimTuning.Forms.UI
     {
         public override void Initialize()
         {
-            CreatableTypes()
-               .EndingWith("Service")
-               .AsInterfaces()
-               .RegisterAsLazySingleton();
+            //CreatableTypes()
+            //   .EndingWith("Service")
+            //   .AsInterfaces()
+            //   .RegisterAsLazySingleton();
 
             RegisterAppStart<MainPageViewModel>();
         }
