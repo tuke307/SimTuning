@@ -1,6 +1,8 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
 using System.Linq;
@@ -8,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Tuning
 {
-    public class InputViewModel : MvxViewModel
+    public class InputViewModel : MvxNavigationViewModel
     {
-        public InputViewModel()
+        public InputViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             using (var db = new DatabaseContext())
             {

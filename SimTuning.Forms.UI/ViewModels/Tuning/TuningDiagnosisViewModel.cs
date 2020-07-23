@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using MvvmCross.Logging;
+using MvvmCross.Navigation;
+using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace SimTuning.Forms.UI.ViewModels.Tuning
 {
     public class TuningDiagnosisViewModel : SimTuning.Core.ViewModels.Tuning.DiagnosisViewModel
     {
-        public TuningDiagnosisViewModel()
+        public TuningDiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
         }
 

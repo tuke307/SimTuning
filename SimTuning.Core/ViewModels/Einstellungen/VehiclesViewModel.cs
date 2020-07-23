@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using System;
@@ -11,7 +13,7 @@ using WordPressPCL.Models;
 
 namespace SimTuning.Core.ViewModels.Einstellungen
 {
-    public class VehiclesViewModel : MvxViewModel<UserModel>
+    public class VehiclesViewModel : MvxNavigationViewModel<UserModel>
     {
         public UserModel User;
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
@@ -19,7 +21,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
-        public VehiclesViewModel()
+        public VehiclesViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             AreaQuantityUnits = new AreaQuantity();
             VolumeQuantityUnits = new VolumeQuantity();

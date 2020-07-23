@@ -324,43 +324,44 @@ namespace SimTuning.Core.ModuleLogic
             /*
              * LÄNGEN
              */
-            //1
+
+            // 1
             graphic_auspuff.DrawLine(Xstart1, Ymiddle + Ydiff1,
                                      Xstart1, Ymiddle + 200,
-                                     blackPen);//Begrenzung-Links
+                                     blackPen); // Begrenzung-Links
             graphic_auspuff.DrawLine(Xstart1, Ymiddle + 175,
                                      Xstart2, Ymiddle + 175,
-                                     blackDoubleArrowPen);//Maß-Linie
+                                     blackDoubleArrowPen); // Maß-Linie
 
-            //ONE-Stage Diffusor
+            // ONE-Stage Diffusor
             if (vehicle.Motor.Auslass.Auspuff.DiffusorL1 != 0)
             {
-                //TWO-Stage Diffusor
+                // TWO-Stage Diffusor
                 if (vehicle.Motor.Auslass.Auspuff.DiffusorL2 != 0)
                 {
-                    //THREE-Stage Diffusor
+                    // THREE-Stage Diffusor
                     if (vehicle.Motor.Auslass.Auspuff.DiffusorL3 != 0)
                     {
-                        //2
+                        // 2
                         graphic_auspuff.DrawLine(Xstart2, Ymiddle + Ydiff2,
                                                  Xstart2, Ymiddle + 200,
-                                                 blackPen);//Begrenzung-links
+                                                 blackPen); // Begrenzung-links
                         graphic_auspuff.DrawLine(Xstart2, Ymiddle + 175,
                                                  Xstart3, Ymiddle + 175,
-                                                 blackDoubleArrowPen);//Maß-Linie
+                                                 blackDoubleArrowPen); // Maß-Linie
 
-                        //3
+                        // 3
                         graphic_auspuff.DrawLine(Xstart4, Ymiddle + Ydiff3,
                                                  Xstart4, Ymiddle + 200,
-                                                 blackPen);//Begrenzung-Mitte
+                                                 blackPen); // Begrenzung-Mitte
                         graphic_auspuff.DrawLine(Xstart4, Ymiddle + 175,
                                                  Xstart5, Ymiddle + 175,
-                                                 blackDoubleArrowPen);//Maß-Linie
+                                                 blackDoubleArrowPen); // Maß-Linie
                         graphic_auspuff.DrawLine(Xstart4, Ymiddle + 175,
                                                  Xstart5, Ymiddle + 175,
-                                                 blackDoubleArrowPen);//Maß-Linie
+                                                 blackDoubleArrowPen); // Maß-Linie
 
-                        //4
+                        // 4
                         graphic_auspuff.DrawLine(Xstart6, Ymiddle + Ydiff4,
                                                  Xstart6, Ymiddle + 200,
                                                  blackPen);//Begrenzung-Mitte

@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
@@ -7,7 +9,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     public class DynoDataViewModel : SimTuning.Core.ViewModels.Dyno.DataViewModel
     {
-        public DynoDataViewModel()
+        public DynoDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             //Commands
             NewDynoCommand = new MvxCommand(NewDyno);

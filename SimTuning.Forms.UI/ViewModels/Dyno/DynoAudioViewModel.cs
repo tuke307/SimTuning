@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     public class DynoAudioViewModel : SimTuning.Core.ViewModels.Dyno.AudioViewModel
     {
-        public DynoAudioViewModel()
+        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             //Override commands
             OpenFileCommand = new MvxAsyncCommand(() => OpenFileDialog());

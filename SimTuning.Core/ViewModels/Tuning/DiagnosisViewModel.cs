@@ -1,6 +1,8 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using OxyPlot;
 using SimTuning.Core.ModuleLogic;
@@ -10,12 +12,22 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Tuning
 {
-    public class DiagnosisViewModel : MvxViewModel
+    public class DiagnosisViewModel : MvxNavigationViewModel
     {
-        private readonly TuningLogic tunigLogic;
+        private TuningLogic tunigLogic;
 
-        public DiagnosisViewModel()
+        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
+        }
+
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            // Async initialization
             tunigLogic = new TuningLogic();
 
             tunigLogic.DefinePlot();
@@ -34,16 +46,6 @@ namespace SimTuning.Core.ViewModels.Tuning
                 }
                 catch { }
             }
-        }
-
-        public override void Prepare()
-        {
-            // This is the first method to be called after construction
-        }
-
-        public override Task Initialize()
-        {
-            // Async initialization
 
             return base.Initialize();
         }

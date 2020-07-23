@@ -1,4 +1,7 @@
-﻿using MvvmCross.Commands;
+﻿using API;
+using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -8,11 +11,11 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 {
     public class EinstellungenKontoViewModel : SimTuning.Core.ViewModels.Einstellungen.KontoViewModel
     {
-        private readonly MainPageViewModel mainWindowViewModel;
+        // private readonly MainPageViewModel mainWindowViewModel;
 
-        public EinstellungenKontoViewModel(MainPageViewModel mainWindowViewModel)
+        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)/*(MainPageViewModel mainWindowViewModel)*/
         {
-            this.mainWindowViewModel = mainWindowViewModel;
+            //this.mainWindowViewModel = mainWindowViewModel;
 
             //override commands
             ConnectUserCommand = new MvxAsyncCommand(ConnectUser);

@@ -2,6 +2,8 @@
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using SimTuning.Core.ModuleLogic;
@@ -13,14 +15,14 @@ using UnitsNet.Units;
 
 namespace SimTuning.Core.ViewModels.Auslass
 {
-    public class TheorieViewModel : MvxViewModel
+    public class TheorieViewModel : MvxNavigationViewModel
     {
         private readonly AuslassLogic auslass;
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
         public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; }
 
-        public TheorieViewModel()
+        public TheorieViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             auslass = new AuslassLogic();
 

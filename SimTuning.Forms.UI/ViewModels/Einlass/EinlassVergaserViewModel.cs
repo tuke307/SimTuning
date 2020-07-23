@@ -1,10 +1,12 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 
 namespace SimTuning.Forms.UI.ViewModels.Einlass
 {
     public class EinlassVergaserViewModel : SimTuning.Core.ViewModels.Einlass.VergaserViewModel
     {
-        public EinlassVergaserViewModel()
+        public EinlassVergaserViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
         }
     }

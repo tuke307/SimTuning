@@ -1,5 +1,7 @@
 ﻿using Data;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using System.Linq;
@@ -7,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Einstellungen
 {
-    public class AussehenViewModel : MvxViewModel<UserModel>
+    public class AussehenViewModel : MvxNavigationViewModel<UserModel>
     {
         public UserModel User;
 
-        public AussehenViewModel()
+        public AussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             using (var db = new DatabaseContext())
                 ToogleDarkmode = db.Settings.ToList().Last().DarkMode;

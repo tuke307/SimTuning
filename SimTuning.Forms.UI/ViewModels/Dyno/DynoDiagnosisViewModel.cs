@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System.Globalization;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
@@ -7,7 +9,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     public class DynoDiagnosisViewModel : SimTuning.Core.ViewModels.Dyno.DiagnosisViewModel
     {
-        public DynoDiagnosisViewModel()
+        public DynoDiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             //override Commands
             RefreshPlotCommand = new MvxAsyncCommand(RefreshPlot);

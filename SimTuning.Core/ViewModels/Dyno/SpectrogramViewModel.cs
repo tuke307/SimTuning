@@ -2,6 +2,8 @@
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using OxyPlot;
 using SimTuning.Core.ModuleLogic;
@@ -16,14 +18,14 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
 {
-    public class SpectrogramViewModel : MvxViewModel
+    public class SpectrogramViewModel : MvxNavigationViewModel
     {
         protected readonly AudioLogic audioLogic;
 
         protected readonly DynoLogic dynoLogic;
         protected readonly ResourceManager rm;
 
-        public SpectrogramViewModel()
+        public SpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             audioLogic = new AudioLogic();
             dynoLogic = new DynoLogic();

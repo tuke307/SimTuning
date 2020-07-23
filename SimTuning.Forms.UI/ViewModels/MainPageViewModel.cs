@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Core.Models;
 using SimTuning.Forms.UI.ViewModels.Home;
@@ -9,7 +10,7 @@ namespace SimTuning.Forms.UI.ViewModels
     {
         private readonly IMvxNavigationService _navigationService;
 
-        public MainPageViewModel(IMvxNavigationService navigationService)
+        public MainPageViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             _navigationService = navigationService;
 

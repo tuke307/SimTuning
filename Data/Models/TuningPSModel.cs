@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Data.Models
+﻿namespace Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class TuningPSModel : BaseEntityModel
     {
         [Required]

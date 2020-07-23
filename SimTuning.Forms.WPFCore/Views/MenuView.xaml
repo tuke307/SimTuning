@@ -4,9 +4,9 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
                    x:TypeArguments="viewModels:MenuViewModel"
                    xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels;assembly=SimTuning.WPFCore"
-                   xmlns:local="clr-namespace:SimTuning.Forms.WPFCore.Business"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    mc:Ignorable="d">
@@ -32,13 +32,13 @@
 
         <!--CONVERTER-->
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
-        <local:NegateBooleanConverter x:Key="Inverter" />
+        <behaviours:NegateBooleanConverter x:Key="Inverter" />
 
         <!--2 CONVERTER kombiniert-->
-        <local:CombiningConverter x:Key="negatedBoolToVisibilityConverter"
-                                  Converter1="{StaticResource Inverter}"
-                                  Converter2="{StaticResource BoolToVis}">
-        </local:CombiningConverter>
+        <behaviours:CombiningConverter x:Key="negatedBoolToVisibilityConverter"
+                                       Converter1="{StaticResource Inverter}"
+                                       Converter2="{StaticResource BoolToVis}">
+        </behaviours:CombiningConverter>
     </views:MvxWpfView.Resources>
 
     <views:MvxWpfView.Triggers>
@@ -108,9 +108,6 @@
                                                  Width="25"
                                                  Height="25" />
                     </Button>
-
-                    <Image Height="80"
-                           VerticalAlignment="Bottom" />
                 </Grid>
 
                 <ListView Foreground="#FF5C99D6"

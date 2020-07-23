@@ -1,4 +1,5 @@
-﻿using MvvmCross.Navigation;
+﻿using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace SimTuning.Forms.UI.ViewModels.Motor
         private readonly IMvxNavigationService _navigationService;
         private bool _firstTime = true;
 
-        public MotorMainViewModel(IMvxNavigationService navigationService)
+        public MotorMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             _navigationService = navigationService;
         }

@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
@@ -7,7 +9,7 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
 {
     public class TuningDataViewModel : SimTuning.Core.ViewModels.Tuning.DataViewModel
     {
-        public TuningDataViewModel()
+        public TuningDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             //Commands
             NewTuningCommand = new MvxCommand(NewTuning);

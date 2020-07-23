@@ -1,12 +1,14 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Demo
 {
-    public class DemoMainViewModel : MvxViewModel
+    public class DemoMainViewModel : MvxNavigationViewModel
     {
-        public DemoMainViewModel()
+        public DemoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
         }
 

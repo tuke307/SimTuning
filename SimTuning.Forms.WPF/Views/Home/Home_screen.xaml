@@ -4,13 +4,13 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                   x:TypeArguments="viewModels:HomeMainViewModel"
-                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Home;assembly=SimTuning.WPFCore"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    Background="{DynamicResource MaterialDesignPaper}"
                    mc:Ignorable="d"
                    MinHeight="600"
                    MinWidth="1010">
+    <!--x:TypeArguments="viewModels:HomeMainViewModel"
+                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Home;assembly=SimTuning.WPFCore"-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />

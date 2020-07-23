@@ -1,4 +1,5 @@
-﻿using MvvmCross.Navigation;
+﻿using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einlass
         private readonly IMvxNavigationService _navigationService;
         private bool _firstTime = true;
 
-        public EinlassMainViewModel(IMvxNavigationService navigationService)
+        public EinlassMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             _navigationService = navigationService;
         }

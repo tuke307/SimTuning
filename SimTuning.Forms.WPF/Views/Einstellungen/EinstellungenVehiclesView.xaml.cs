@@ -1,11 +1,8 @@
 ﻿using MvvmCross.Platforms.Wpf.Views;
-using SimTuning.WPFCore.ViewModels;
-using SimTuning.WPFCore.ViewModels.Einstellungen;
-using System.Windows.Controls;
 
 namespace SimTuning.Forms.WPF.Views.Einstellungen
 {
-    public partial class EinstellungenVehiclesView : MvxWpfView<EinstellungenVehiclesViewModel>
+    public partial class EinstellungenVehiclesView : MvxWpfView/*<EinstellungenVehiclesViewModel>*/
     {
         public EinstellungenVehiclesView(/*MainWindowViewModel mainWindowViewModel*/)
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace SimTuning.Forms.WPFCore.Business
+namespace SimTuning.WPFCore.Business
 {
     public class CombiningConverter : IValueConverter
     {

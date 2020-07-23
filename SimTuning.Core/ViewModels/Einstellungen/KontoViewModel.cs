@@ -1,19 +1,19 @@
 ﻿using Data.Models;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System.Security;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Einstellungen
 {
-    public class KontoViewModel : MvxViewModel<SimTuning.Core.Models.UserModel>
+    public class KontoViewModel : MvxNavigationViewModel<SimTuning.Core.Models.UserModel>
     {
         public SimTuning.Core.Models.UserModel User;
 
-        public KontoViewModel()
+        public KontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            SimTuning.Core.Business.Functions.GetLoginCredentials(out string _email, out SecureString _password);
-            Email = _email;
         }
 
         public IMvxAsyncCommand ConnectUserCommand { get; set; }
@@ -29,7 +29,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         public override Task Initialize()
         {
-            // Async initialization
+            SimTuning.Core.Business.Functions.GetLoginCredentials(out string _email, out SecureString _password);
+            Email = _email;
 
             return base.Initialize();
         }

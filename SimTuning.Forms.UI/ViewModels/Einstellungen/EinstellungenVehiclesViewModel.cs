@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
@@ -7,7 +9,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 {
     public class EinstellungenVehiclesViewModel : SimTuning.Core.ViewModels.Einstellungen.VehiclesViewModel
     {
-        public EinstellungenVehiclesViewModel()
+        public EinstellungenVehiclesViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             NewVehicleCommand = new MvxCommand(NewVehicle, CanExecute);
             DeleteVehicleCommand = new MvxCommand(DeleteVehicle, CanExecute);

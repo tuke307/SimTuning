@@ -1,11 +1,8 @@
-﻿using SimTuning.WPFCore.ViewModels;
-using SimTuning.WPFCore.ViewModels.Dyno;
-using System.Windows.Controls;
-using MvvmCross.Platforms.Wpf.Views;
+﻿using MvvmCross.Platforms.Wpf.Views;
 
 namespace SimTuning.Forms.WPF.Views.Dyno
 {
-    public partial class DynoDiagnosisView : MvxWpfView<DynoDiagnosisViewModel>
+    public partial class DynoDiagnosisView : MvxWpfView/*<DynoDiagnosisViewModel>*/
     {
         public DynoDiagnosisView(/*MainWindowViewModel mainWindowViewModel*/)
         {

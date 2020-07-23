@@ -53,9 +53,9 @@
                 </StackPanel>
             </materialDesign:ColorZone>
 
-            <ContentControl Grid.Row="1"
-                            Content="{Binding EinstellungsContent}">
-            </ContentControl>
+            <ContentPresenter Grid.Row="1"
+                              Content="{Binding}">
+            </ContentPresenter>
         </StackPanel>
     </Grid>
 </views:MvxWpfView>

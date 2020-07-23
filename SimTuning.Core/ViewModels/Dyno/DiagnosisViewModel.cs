@@ -2,6 +2,8 @@
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using OxyPlot;
 using SimTuning.Core.ModuleLogic;
@@ -15,12 +17,12 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
 {
-    public class DiagnosisViewModel : MvxViewModel
+    public class DiagnosisViewModel : MvxNavigationViewModel
     {
         protected DynoLogic dynoLogic;
         protected readonly ResourceManager rm;
 
-        public DiagnosisViewModel()
+        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             dynoLogic = new DynoLogic();
 

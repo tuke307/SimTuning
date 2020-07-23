@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System;
 using Xamarin.Essentials;
@@ -9,7 +10,7 @@ namespace SimTuning.Forms.UI.ViewModels.Home
     {
         private readonly IMvxNavigationService _navigationService;
 
-        public HomeMainViewModel(IMvxNavigationService navigationService)
+        public HomeMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             _navigationService = navigationService;
 

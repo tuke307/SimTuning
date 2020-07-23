@@ -5,6 +5,5 @@
   <color name="colorPrimaryDark">#000000</color>
   <color name="colorAccent">#C1272C</color>
 
-  <!-- White to Black -->
   <color name="splash_background">#FF303030</color>
 </resources>

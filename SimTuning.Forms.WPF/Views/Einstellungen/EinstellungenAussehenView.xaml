@@ -2,8 +2,6 @@
                    x:Class="SimTuning.Forms.WPF.Views.Einstellungen.EinstellungenAussehenView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   x:TypeArguments="viewModels:EinstellungenAussehenViewModel"
-                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Einstellungen;assembly=SimTuning.WPFCore"
                    xmlns:local="clr-namespace:SimTuning.Forms.WPF.Views.Einstellungen"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,6 +11,8 @@
                    Background="{DynamicResource MaterialDesignPaper}"
                    MinWidth="1010"
                    MinHeight="550">
+    <!--x:TypeArguments="viewModels:EinstellungenAussehenViewModel"
+                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Einstellungen;assembly=SimTuning.WPFCore"-->
     <UserControl.Resources>
         <!--Button-->
         <Style TargetType="Button"

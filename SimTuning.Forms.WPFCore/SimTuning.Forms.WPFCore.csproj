@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <CodeAnalysisRuleSet>..\T4M Code Rules.ruleset</CodeAnalysisRuleSet>
     <Authors>Tony Meißner</Authors>
     <Company>tuke productions</Company>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -17,10 +18,12 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>Current</OldToolsVersion>
-    <PackageId>SimTuning.Forms.WPFCore</PackageId>
+    <PackageId>SimTuning</PackageId>
     <PackageIcon>logo_win.png</PackageIcon>
     <Product>SimTuning</Product>
     <ApplicationIcon>logo_win.ico</ApplicationIcon>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,11 +50,19 @@
     <PackageReference Include="Autoupdater.NET.Official" Version="1.6.0" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.6" />
     <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MvvmCross" Version="6.4.2" />
-    <PackageReference Include="MvvmCross.Forms" Version="6.4.2" />
     <PackageReference Include="MvvmCross.Platforms.Wpf" Version="6.4.2" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="OxyPlot.Core" Version="2.0.0" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="Xam.Plugin.SimpleAudioPlayer.WPF" Version="1.4.0" />
     <PackageReference Include="XamlAnimatedGif" Version="1.2.2" />

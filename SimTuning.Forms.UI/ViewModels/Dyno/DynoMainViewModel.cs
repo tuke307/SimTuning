@@ -1,4 +1,5 @@
-﻿using MvvmCross.Navigation;
+﻿using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         private readonly IMvxNavigationService _navigationService;
         private bool _firstTime = true;
 
-        public DynoMainViewModel(IMvxNavigationService navigationService)
+        public DynoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             _navigationService = navigationService;
         }

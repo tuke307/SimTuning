@@ -2,6 +2,8 @@
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using SimTuning.Core.ModuleLogic;
@@ -13,13 +15,13 @@ using UnitsNet.Units;
 
 namespace SimTuning.Core.ViewModels.Einlass
 {
-    public class VergaserViewModel : MvxViewModel
+    public class VergaserViewModel : MvxNavigationViewModel
     {
         private readonly EinlassLogic einlass;
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
 
-        public VergaserViewModel()
+        public VergaserViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             einlass = new EinlassLogic();
 

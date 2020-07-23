@@ -5,16 +5,15 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:oxy="http://oxyplot.org/wpf"
-                   x:TypeArguments="viewModels:TuningDiagnosisViewModel"
-                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Tuning;assembly=SimTuning.WPFCore"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                   xmlns:behaviours="clr-namespace:SimTuning.Forms.WPF.Business"
                    Background="{DynamicResource MaterialDesignPaper}"
                    mc:Ignorable="d"
                    d:DesignWidth="1000"
                    d:DesignHeight="550"
                    MinWidth="1010"
                    MinHeight="550">
+    <!--x:TypeArguments="viewModels:TuningDiagnosisViewModel"
+                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Tuning;assembly=SimTuning.WPFCore"-->
     <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}"
                   HorizontalScrollBarVisibility="Visible"
                   VerticalScrollBarVisibility="Visible">

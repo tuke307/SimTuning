@@ -1,14 +1,17 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels
 {
-    public class MainPage : MvxViewModel
+    public class MainPage : MvxNavigationViewModel
     {
-        public MainPage()
+        public MainPage(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
+            User = new UserModel();
         }
 
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; protected set; }

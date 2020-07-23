@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System.IO;
 using Xamarin.Forms;
 
@@ -6,7 +8,7 @@ namespace SimTuning.Forms.UI.ViewModels.Auslass
 {
     public class AuslassAnwendungViewModel : SimTuning.Core.ViewModels.Auslass.AnwendungViewModel
     {
-        public AuslassAnwendungViewModel()
+        public AuslassAnwendungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             //override command
             CalculateCommand = new MvxCommand(Calculate);

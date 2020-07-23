@@ -5,6 +5,10 @@ using System.Linq;
 
 namespace Data
 {
+    /// <summary>
+    /// Main Funktionalität der DB
+    /// </summary>
+    /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
     public class DatabaseContext : DbContext
     {
         #region DataSets
@@ -32,6 +36,7 @@ namespace Data
         /// <summary>
         /// Datenbank-Kontext
         /// </summary>
+        /// <see cref="DatabaseContext"/>
         public DatabaseContext()
         {
             //aktuell halten

@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System.IO;
 using Xamarin.Forms;
 
@@ -6,7 +8,7 @@ namespace SimTuning.Forms.UI.ViewModels.Motor
 {
     public class MotorSteuerdiagrammViewModel : SimTuning.Core.ViewModels.Motor.SteuerdiagrammViewModel
     {
-        public MotorSteuerdiagrammViewModel()
+        public MotorSteuerdiagrammViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
         }
 

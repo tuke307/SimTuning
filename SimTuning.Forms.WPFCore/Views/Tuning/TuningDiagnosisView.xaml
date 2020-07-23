@@ -8,7 +8,7 @@
                    x:TypeArguments="viewModels:TuningDiagnosisViewModel"
                    xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Tuning;assembly=SimTuning.WPFCore"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                   xmlns:behaviours="clr-namespace:SimTuning.Forms.WPFCore.Business"
+                   xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
                    Background="{DynamicResource MaterialDesignPaper}"
                    mc:Ignorable="d"
                    d:DesignWidth="1000"

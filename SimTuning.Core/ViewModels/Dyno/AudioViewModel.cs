@@ -2,6 +2,8 @@
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
@@ -17,13 +19,29 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
 {
-    public class AudioViewModel : MvxViewModel
+    public class AudioViewModel : MvxNavigationViewModel
     {
         protected AudioLogic audioLogic;
         protected ISimpleAudioPlayer player;
-        protected readonly ResourceManager rm;
+        protected ResourceManager rm;
 
-        public AudioViewModel()
+        public AudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        {
+        }
+
+        public IMvxAsyncCommand OpenFileCommand { get; set; }
+        public IMvxAsyncCommand CutBeginnCommand { get; set; }
+        public IMvxAsyncCommand CutEndCommand { get; set; }
+        public IMvxCommand StopCommand { get; set; }
+        public IMvxCommand PauseCommand { get; set; }
+        public IMvxCommand PlayCommand { get; set; }
+
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
         {
             audioLogic = new AudioLogic();
             BadgeFileOpen = false;
@@ -43,23 +61,6 @@ namespace SimTuning.Core.ViewModels.Dyno
             StopCommand = new MvxCommand(Stop);
             PauseCommand = new MvxCommand(Pause);
             PlayCommand = new MvxCommand(Play);
-        }
-
-        public IMvxAsyncCommand OpenFileCommand { get; set; }
-        public IMvxAsyncCommand CutBeginnCommand { get; set; }
-        public IMvxAsyncCommand CutEndCommand { get; set; }
-        public IMvxCommand StopCommand { get; set; }
-        public IMvxCommand PauseCommand { get; set; }
-        public IMvxCommand PlayCommand { get; set; }
-
-        public override void Prepare()
-        {
-            // This is the first method to be called after construction
-        }
-
-        public override Task Initialize()
-        {
-            // Async initialization
 
             return base.Initialize();
         }

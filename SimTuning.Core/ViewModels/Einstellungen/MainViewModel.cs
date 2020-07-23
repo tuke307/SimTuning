@@ -1,13 +1,15 @@
-﻿using MvvmCross.ViewModels;
+﻿using MvvmCross.Logging;
+using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Einstellungen
 {
-    public class MainViewModel : MvxViewModel<SimTuning.Core.Models.UserModel>
+    public class MainViewModel : MvxNavigationViewModel<SimTuning.Core.Models.UserModel>
     {
         public SimTuning.Core.Models.UserModel User;
 
-        public MainViewModel()
+        public MainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
         }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace SimTuning.Forms.WPF.Business
+namespace SimTuning.WPFCore.Business
 {
     public class NegateBooleanConverter : IValueConverter
     {

@@ -2,6 +2,8 @@
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.ModuleLogic;
 using System.Collections.Generic;
@@ -12,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Motor
 {
-    public class SteuerdiagrammViewModel : MvxViewModel
+    public class SteuerdiagrammViewModel : MvxNavigationViewModel
     {
         protected EngineLogic steuerzeit;
 
-        public SteuerdiagrammViewModel()
+        public SteuerdiagrammViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             steuerzeit = new EngineLogic();
 

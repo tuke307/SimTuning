@@ -2,6 +2,8 @@
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using SimTuning.Core.ModuleLogic;
@@ -13,13 +15,13 @@ using UnitsNet.Units;
 
 namespace SimTuning.Core.ViewModels.Motor
 {
-    public class UmrechnungViewModel : MvxViewModel
+    public class UmrechnungViewModel : MvxNavigationViewModel
     {
         private readonly EngineLogic engineLogic;
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
-        public UmrechnungViewModel()
+        public UmrechnungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             engineLogic = new EngineLogic();
 

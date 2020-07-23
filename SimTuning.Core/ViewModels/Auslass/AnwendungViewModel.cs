@@ -2,6 +2,8 @@
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using SimTuning.Core.ModuleLogic;
@@ -12,20 +14,32 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UnitsNet.Units;
+using WooCommerceNET.WooCommerce.v3;
 
 namespace SimTuning.Core.ViewModels.Auslass
 {
-    public class AnwendungViewModel : MvxViewModel
+    public class AnwendungViewModel : MvxNavigationViewModel
     {
-        protected readonly AuslassLogic auslass;
-        public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
-        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
-        public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
-        public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; }
+        protected AuslassLogic auslass;
+        public ObservableCollection<UnitListItem> AreaQuantityUnits { get; protected set; }
+        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; protected set; }
+        public ObservableCollection<UnitListItem> LengthQuantityUnits { get; protected set; }
+        public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; protected set; }
         public List<string> DiffStages { get; private set; }
 
-        public AnwendungViewModel()
+        public AnwendungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
+        }
+
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            // Async initialization
+
             auslass = new AuslassLogic();
 
             Vehicle = new VehiclesModel();
@@ -60,16 +74,6 @@ namespace SimTuning.Core.ViewModels.Auslass
             //Commands
             InsertDataCommand = new MvxCommand(InsertData);
             DiffusorStageCommand = new MvxCommand<string>(DiffusorStage);
-        }
-
-        public override void Prepare()
-        {
-            // This is the first method to be called after construction
-        }
-
-        public override Task Initialize()
-        {
-            // Async initialization
 
             return base.Initialize();
         }

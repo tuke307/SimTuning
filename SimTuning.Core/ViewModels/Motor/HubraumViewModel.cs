@@ -1,6 +1,8 @@
 ﻿using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using SimTuning.Core.ModuleLogic;
@@ -12,13 +14,13 @@ using UnitsNet.Units;
 
 namespace SimTuning.Core.ViewModels.Motor
 {
-    public class HubraumViewModel : MvxViewModel
+    public class HubraumViewModel : MvxNavigationViewModel
     {
         private readonly EngineLogic hubraum;
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
-        public HubraumViewModel()
+        public HubraumViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             hubraum = new EngineLogic();
 

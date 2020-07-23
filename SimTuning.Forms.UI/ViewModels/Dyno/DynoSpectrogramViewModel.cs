@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -11,7 +13,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     public class DynoSpectrogramViewModel : SimTuning.Core.ViewModels.Dyno.SpectrogramViewModel
     {
-        public DynoSpectrogramViewModel()
+        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             //override Commands
             FilterPlotCommand = new MvxAsyncCommand(FilterPlot);
