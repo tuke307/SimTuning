@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Core.Models;
 using System;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
@@ -16,13 +17,25 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             SaveVehicleCommand = new MvxCommand(SaveVehicle, CanExecute);
         }
 
+        public override void Prepare(UserModel _user)
+        {
+            base.Prepare(_user);
+        }
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
         private bool CanExecute()
         {
-            if (!User.LicenseValid)
+            if (!this.User.LicenseValid)
+            {
                 Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Kaufe die Pro Version um Presets zu ändern",
                                           msDuration: MaterialSnackbar.DurationLong));
+            }
 
-            return User.LicenseValid;
+            return this.User.LicenseValid;
         }
 
         protected override void NewVehicle()

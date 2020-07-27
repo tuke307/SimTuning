@@ -68,23 +68,6 @@ namespace Spectrogram
             return bmp;
         }
 
-        //public static SKBitmap Rotate(SKBitmap bmpIn, float angle = 90)
-        //{
-        //    // TODO: this could be faster with byte manipulation since it's 90 degrees
-
-        //    if (bmpIn == null)
-        //        return null;
-
-        //    SKBitmap bmp = new SKBitmap(bmpIn);
-        //    SKBitmap bmpRotated = new SKBitmap(bmp.Height, bmp.Width);
-
-        //    Graphics gfx = Graphics.FromImage(bmpRotated);
-        //    gfx.RotateTransform(angle);
-        //    gfx.DrawImage(bmp, new Point(0, -bmp.Height));
-
-        //    return bmpRotated;
-        //}
-
         public static SKBitmap ApplyColormap(SKBitmap bmp, Colormap colormap)
         {
             //farbtabellen erstellen
@@ -109,12 +92,16 @@ namespace Spectrogram
             }
 
             //Colormap anwenden
-            SKCanvas canvas = new SKCanvas(bmp);
+            var coloredBitmap = new SKBitmap(bmp.Width, bmp.Height);
+
+            var surface = new SKCanvas(coloredBitmap);
             SKPaint paint = new SKPaint();
             paint.ColorFilter = SKColorFilter.CreateTable(rtable, rtable, gtable, btable);
 
-            canvas.DrawBitmap(bmp, bmp.Width, bmp.Height, paint: paint);
-            canvas.Save();
+            surface.Translate(coloredBitmap.Width / 2, coloredBitmap.Height / 2);
+            surface.DrawBitmap(bmp, bmp.Width, bmp.Height, paint: paint);
+
+            return coloredBitmap;
 
             //using (var image = SKImage.FromBitmap(bmp))
             //using (var data = image.Encode())
@@ -125,8 +112,6 @@ namespace Spectrogram
             //        data.SaveTo(stream);
             //    }
             //}
-
-            return bmp;
         }
     }
 }

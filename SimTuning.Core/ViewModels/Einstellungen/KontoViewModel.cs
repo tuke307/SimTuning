@@ -10,7 +10,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 {
     public class KontoViewModel : MvxNavigationViewModel<SimTuning.Core.Models.UserModel>
     {
-        public SimTuning.Core.Models.UserModel User;
+        public SimTuning.Core.Models.UserModel User { get; protected set; }
 
         public KontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {

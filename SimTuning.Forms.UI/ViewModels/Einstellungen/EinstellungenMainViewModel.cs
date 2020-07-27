@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,8 +20,8 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         {
             var tasks = new List<Task>
             {
-                _navigationService.Navigate<EinstellungenVehiclesViewModel>(),
-                _navigationService.Navigate<EinstellungenKontoViewModel>()
+                _navigationService.Navigate<EinstellungenVehiclesViewModel, UserModel>(User),
+                _navigationService.Navigate<EinstellungenKontoViewModel, UserModel>(User)
             };
             return Task.WhenAll(tasks);
         }

@@ -1,6 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Core.Models;
 
 namespace SimTuning.WPFCore.ViewModels.Einstellungen
 {
@@ -17,11 +19,22 @@ namespace SimTuning.WPFCore.ViewModels.Einstellungen
             SaveVehicleCommand = new MvxCommand(SaveVehicle, CanExecute);
         }
 
+        public override void Prepare(UserModel _user)
+        {
+            base.Prepare(_user);
+        }
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
         private bool CanExecute()
         {
-            //if (!User.LicenseValid)
-            //mainWindowViewModel.NotificationSnackbar.Enqueue("Kaufe die Pro Version um Presets zu ändern");
-
+            if (!User.LicenseValid)
+            {
+                //mainWindowViewModel.NotificationSnackbar.Enqueue("Kaufe die Pro Version um Presets zu ändern");
+            }
             return User.LicenseValid;
         }
 

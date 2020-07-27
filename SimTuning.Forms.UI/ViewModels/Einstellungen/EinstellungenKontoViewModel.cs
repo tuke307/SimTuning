@@ -2,6 +2,7 @@
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Core.Models;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -20,6 +21,16 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             //override commands
             ConnectUserCommand = new MvxAsyncCommand(ConnectUser);
             RegisterSiteCommand = new MvxCommand(RegisterSite);
+        }
+
+        public override void Prepare(UserModel _user)
+        {
+            base.Prepare(_user);
+        }
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
         }
 
         protected new async Task ConnectUser()

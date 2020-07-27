@@ -6,108 +6,108 @@ namespace Spectrogram
 {
     public class Spectrogram
     {
-        public readonly Settings.FftSettings fftSettings;
-        public readonly Settings.DisplaySettings displaySettings;
+        public readonly Settings.FftSettings FftSettings;
+        public readonly Settings.DisplaySettings DisplaySettings;
 
-        public List<float[]> fftList = new List<float[]>();
-        public List<float> signal = new List<float>();
+        public List<float[]> FftList = new List<float[]>();
+        public List<float> Signal = new List<float>();
 
-        public int nextIndex;
-        public float[] latestFFT;
+        public int NextIndex;
+        public float[] LatestFFT;
 
         public Spectrogram(int sampleRate = 8000, int fftSize = 1024, int? step = null)
         {
             if (step == null)
                 step = sampleRate;
-            fftSettings = new Settings.FftSettings(sampleRate, fftSize, (int)step);
-            displaySettings = new Settings.DisplaySettings();
-            displaySettings.fftResolution = fftSettings.fftResolution;
-            displaySettings.freqHigh = fftSettings.maxFreq;
+            FftSettings = new Settings.FftSettings(sampleRate, fftSize, (int)step);
+            DisplaySettings = new Settings.DisplaySettings();
+            DisplaySettings.fftResolution = FftSettings.fftResolution;
+            DisplaySettings.freqHigh = FftSettings.maxFreq;
         }
 
         public override string ToString()
         {
-            return $"Spectrogram ({fftSettings.sampleRate} Hz) " +
+            return $"Spectrogram ({FftSettings.sampleRate} Hz) " +
                 "with {ffts.Count} segments in memory " +
                 "({fftSettings.fftSize} points each)";
         }
 
         public string GetFftInfo()
         {
-            return fftSettings.ToString();
+            return FftSettings.ToString();
         }
 
         public void AddExtend(float[] values)
         {
-            signal.AddRange(values);
+            Signal.AddRange(values);
             ProcessNewSegments(scroll: false, fixedSize: null);
         }
 
         public void AddCircular(float[] values, int fixedSize)
         {
-            signal.AddRange(values);
+            Signal.AddRange(values);
             ProcessNewSegments(scroll: false, fixedSize: fixedSize);
         }
 
         public void AddScroll(float[] values, int fixedSize)
         {
-            signal.AddRange(values);
+            Signal.AddRange(values);
             ProcessNewSegments(scroll: true, fixedSize: fixedSize);
         }
 
         private void ProcessNewSegments(bool scroll, int? fixedSize)
         {
-            int segmentsRemaining = (signal.Count - fftSettings.fftSize) / fftSettings.step;
-            float[] segment = new float[fftSettings.fftSize];
+            int segmentsRemaining = (Signal.Count - FftSettings.fftSize) / FftSettings.step;
+            float[] segment = new float[FftSettings.fftSize];
 
-            while (signal.Count > (fftSettings.fftSize + fftSettings.step))
+            while (Signal.Count > (FftSettings.fftSize + FftSettings.step))
             {
-                int remainingSegments = (signal.Count - fftSettings.fftSize) / fftSettings.step;
+                int remainingSegments = (Signal.Count - FftSettings.fftSize) / FftSettings.step;
                 if (remainingSegments % 10 == 0)
                 {
                     Console.WriteLine(string.Format("Processing segment {0} of {1} ({2:0.0}%)",
-                        fftList.Count + 1, segmentsRemaining, 100.0 * (fftList.Count + 1) / segmentsRemaining));
+                        FftList.Count + 1, segmentsRemaining, 100.0 * (FftList.Count + 1) / segmentsRemaining));
                 }
 
-                signal.CopyTo(0, segment, 0, fftSettings.fftSize);
-                signal.RemoveRange(0, fftSettings.step);
+                Signal.CopyTo(0, segment, 0, FftSettings.fftSize);
+                Signal.RemoveRange(0, FftSettings.step);
 
-                latestFFT = Operations.FFT(segment);
+                LatestFFT = Operations.FFT(segment);
 
                 if (fixedSize == null)
-                    AddNewFftExtend(latestFFT);
+                    AddNewFftExtend(LatestFFT);
                 else
-                    AddNewFftFixed(latestFFT, (int)fixedSize, scroll);
+                    AddNewFftFixed(LatestFFT, (int)fixedSize, scroll);
             }
 
-            displaySettings.width = fftList.Count;
+            DisplaySettings.width = FftList.Count;
             //displaySettings.renderNeeded = true;
         }
 
         private void AddNewFftExtend(float[] fft)
         {
-            fftList.Add(fft);
+            FftList.Add(fft);
         }
 
         private void AddNewFftFixed(float[] fft, int fixedSize, bool scroll)
         {
-            while (fftList.Count < fixedSize)
-                fftList.Add(null);
-            while (fftList.Count > fixedSize)
-                fftList.RemoveAt(fftList.Count - 1);
+            while (FftList.Count < fixedSize)
+                FftList.Add(null);
+            while (FftList.Count > fixedSize)
+                FftList.RemoveAt(FftList.Count - 1);
 
             if (scroll)
             {
-                fftList.Add(fft);
-                fftList.RemoveAt(0);
+                FftList.Add(fft);
+                FftList.RemoveAt(0);
             }
             else
             {
-                nextIndex = Math.Min(nextIndex, fftList.Count - 1);
-                fftList[nextIndex] = fft;
-                nextIndex += 1;
-                if (nextIndex >= fftList.Count)
-                    nextIndex = 0;
+                NextIndex = Math.Min(NextIndex, FftList.Count - 1);
+                FftList[NextIndex] = fft;
+                NextIndex += 1;
+                if (NextIndex >= FftList.Count)
+                    NextIndex = 0;
             }
         }
 
@@ -124,30 +124,30 @@ namespace Spectrogram
             bool highlightLatestColumn = false
             )
         {
-            if (fftList.Count == 0)
+            if (FftList.Count == 0)
                 return null;
 
-            if (displaySettings.height < 1)
+            if (DisplaySettings.height < 1)
                 throw new ArgumentException("FFT frequency range is too small");
 
             if (intensity != null)
-                displaySettings.brightness = (float)intensity;
+                DisplaySettings.brightness = (float)intensity;
 
-            displaySettings.decibels = decibels;
-            displaySettings.colormap = (colormap == null) ? displaySettings.colormap : (Colormap)colormap;
-            displaySettings.freqLow = (freqLow == null) ? 0 : (double)freqLow;
-            displaySettings.freqHigh = (freqHigh == null) ? fftSettings.maxFreq : (double)freqHigh;
-            displaySettings.showTicks = (showTicks == null) ? displaySettings.showTicks : (bool)showTicks;
-            displaySettings.tickSpacingHz = (tickSpacingHz == null) ? displaySettings.tickSpacingHz : (double)tickSpacingHz;
-            displaySettings.tickSpacingSec = (tickSpacingSec == null) ? displaySettings.tickSpacingSec : (double)tickSpacingSec;
+            DisplaySettings.decibels = decibels;
+            DisplaySettings.colormap = (colormap == null) ? DisplaySettings.colormap : (Colormap)colormap;
+            DisplaySettings.freqLow = (freqLow == null) ? 0 : (double)freqLow;
+            DisplaySettings.freqHigh = (freqHigh == null) ? FftSettings.maxFreq : (double)freqHigh;
+            DisplaySettings.showTicks = (showTicks == null) ? DisplaySettings.showTicks : (bool)showTicks;
+            DisplaySettings.tickSpacingHz = (tickSpacingHz == null) ? DisplaySettings.tickSpacingHz : (double)tickSpacingHz;
+            DisplaySettings.tickSpacingSec = (tickSpacingSec == null) ? DisplaySettings.tickSpacingSec : (double)tickSpacingSec;
 
             if (highlightLatestColumn)
-                displaySettings.highlightColumn = nextIndex;
+                DisplaySettings.highlightColumn = NextIndex;
             else
-                displaySettings.highlightColumn = null;
+                DisplaySettings.highlightColumn = null;
 
             //SKBitmap bmpIndexed;
-            SKBitmap bmpRgb = Image.BitmapFromFFTs(fftList.ToArray(), displaySettings);
+            SKBitmap bmpRgb = Image.BitmapFromFFTs(FftList.ToArray(), DisplaySettings);
 
             //using (var benchmark = new Benchmark(true))
             //{

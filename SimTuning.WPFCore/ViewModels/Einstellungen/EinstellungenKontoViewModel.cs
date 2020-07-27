@@ -2,6 +2,7 @@
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Core.Models;
 using SimTuning.WPFCore.Business;
 using System.Security;
 using System.Threading.Tasks;
@@ -23,6 +24,16 @@ namespace SimTuning.WPFCore.ViewModels.Einstellungen
             RegisterSiteCommand = new MvxCommand(RegisterSite);
 
             PasswordChangedCommand = new MvxCommand<string>(PasswordChanged);
+        }
+
+        public override void Prepare(UserModel _user)
+        {
+            base.Prepare(_user);
+        }
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
         }
 
         protected override void PasswordChanged(object parameter)

@@ -50,13 +50,13 @@ namespace SimTuning.Core.ModuleLogic
             #region SpectrogramData
 
             //Daten verarbeiten
-            spec_data.AddRange(spectrogramAudio.fftList);
-            hzPerFFT = spectrogramAudio.fftSettings.fftResolution; //FFT-Array-elements pro 1 Hertz-> spec.fftSettings.maxFreq / fftSize
-            segmentsPerSecond = spectrogramAudio.fftSettings.segmentsPerSecond; //HORIZONTAL; anzahl spalten pro sekunde
-            fft_beginn = Math.Round(Convert.ToDouble(spectrogramAudio.displaySettings.freqLow) / hzPerFFT);
-            fft_ende = Math.Round(Convert.ToDouble(spectrogramAudio.displaySettings.freqHigh) / hzPerFFT);
-            strongPoint = 350 / spectrogramAudio.displaySettings.brightness; //selbst ausgewählt
-            abstand = Math.Round(Math.Sqrt(Convert.ToDouble(spectrogramAudio.displaySettings.freqHigh - spectrogramAudio.displaySettings.freqLow)) / 2); //Hälfte der wurzel des Frequenzbereichs
+            spec_data.AddRange(spectrogramAudio.FftList);
+            hzPerFFT = spectrogramAudio.FftSettings.fftResolution; //FFT-Array-elements pro 1 Hertz-> spec.fftSettings.maxFreq / fftSize
+            segmentsPerSecond = spectrogramAudio.FftSettings.segmentsPerSecond; //HORIZONTAL; anzahl spalten pro sekunde
+            fft_beginn = Math.Round(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqLow) / hzPerFFT);
+            fft_ende = Math.Round(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqHigh) / hzPerFFT);
+            strongPoint = 350 / spectrogramAudio.DisplaySettings.brightness; //selbst ausgewählt
+            abstand = Math.Round(Math.Sqrt(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqHigh - spectrogramAudio.DisplaySettings.freqLow)) / 2); //Hälfte der wurzel des Frequenzbereichs
 
             #endregion SpectrogramData
 

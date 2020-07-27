@@ -15,7 +15,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 {
     public class VehiclesViewModel : MvxNavigationViewModel<UserModel>
     {
-        public UserModel User;
+        public UserModel User { get; protected set; }
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
         public ObservableCollection<UnitListItem> MassQuantityUnits { get; }
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }

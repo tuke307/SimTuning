@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using SimTuning.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,6 +15,16 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         public TuningMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             _navigationService = navigationService;
+        }
+
+        public override void Prepare(UserModel _user)
+        {
+            base.Prepare(_user);
+        }
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
         }
 
         private Task ShowInitialViewModels()

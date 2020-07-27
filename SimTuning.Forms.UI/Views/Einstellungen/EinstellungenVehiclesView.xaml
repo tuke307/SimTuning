@@ -7,6 +7,7 @@
                        xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
                        xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                        xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
+                       xmlns:local="clr-namespace:SimTuning.Forms.UI.Behaviors"
                        BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <ScrollView>
         <StackLayout>
@@ -75,21 +76,20 @@
                             <material:MaterialTextField Placeholder="Name"
                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Name}"
                                                         Margin="5">
-                                <!--<i:Interaction.Triggers>
-                                <i:EventTrigger EventName="TextChanged">
-                                    <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
+                                <material:MaterialTextField.Behaviors>
+                                    <local:EventToCommandBehavior EventName="TextChanged"
+                                                                  Command="{Binding ShowSaveButtonCommand}" />
+                                </material:MaterialTextField.Behaviors>
                             </material:MaterialTextField>
 
                             <material:MaterialTextField Placeholder="Beschreibung"
                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Beschreibung}"
                                                         Margin="5">
-                                <!--<i:Interaction.Triggers>
-                                <i:EventTrigger EventName="TextChanged">
-                                    <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
+
+                                <material:MaterialTextField.Behaviors>
+                                    <local:EventToCommandBehavior EventName="TextChanged"
+                                                                  Command="{Binding ShowSaveButtonCommand}" />
+                                </material:MaterialTextField.Behaviors>
                             </material:MaterialTextField>
                         </StackLayout>
 
@@ -121,11 +121,11 @@
                                         <material:MaterialTextField Placeholder="Gesamtuebersetzung"
                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Uebersetzung}"
                                                                     WidthRequest="200">
-                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                            <material:MaterialTextField.Behaviors>
+                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                            </material:MaterialTextField.Behaviors>
                                         </material:MaterialTextField>
                                     </StackLayout>
 
@@ -133,11 +133,11 @@
                                         <material:MaterialTextField Placeholder="Gewicht"
                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Gewicht}"
                                                                     WidthRequest="200">
-                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                            <material:MaterialTextField.Behaviors>
+                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                            </material:MaterialTextField.Behaviors>
                                         </material:MaterialTextField>
 
                                         <material:MaterialTextField InputType="Choice"
@@ -153,11 +153,11 @@
                                         <material:MaterialTextField Placeholder="Frontflaeche"
                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Frontflaeche}"
                                                                     WidthRequest="200">
-                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                            <material:MaterialTextField.Behaviors>
+                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                            </material:MaterialTextField.Behaviors>
                                         </material:MaterialTextField>
 
                                         <material:MaterialTextField InputType="Choice"
@@ -173,11 +173,11 @@
                                         <material:MaterialTextField Placeholder="cw-Wert"
                                                                     Text="{Binding Path=Vehicle.Cw}"
                                                                     WidthRequest="200">
-                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                            <material:MaterialTextField.Behaviors>
+                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                            </material:MaterialTextField.Behaviors>
                                         </material:MaterialTextField>
                                     </StackLayout>
 
@@ -185,11 +185,11 @@
                                         <material:MaterialTextField Placeholder="Ansaugleitungslaenge"
                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Ansaugleitungslaenge}"
                                                                     WidthRequest="200">
-                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                            <material:MaterialTextField.Behaviors>
+                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                            </material:MaterialTextField.Behaviors>
                                         </material:MaterialTextField>
 
                                         <material:MaterialTextField InputType="Choice"
@@ -241,22 +241,22 @@
                                                     <material:MaterialTextField Placeholder="Name"
                                                                                 Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Name}"
                                                                                 WidthRequest="200">
-                                                        <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                        <material:MaterialTextField.Behaviors>
+                                                            <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                          Command="{Binding ShowSaveButtonCommand}" />
+                                                        </material:MaterialTextField.Behaviors>
                                                     </material:MaterialTextField>
 
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Hub"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.HubL}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -272,11 +272,11 @@
                                                         <material:MaterialTextField Placeholder="Pleullaenge"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Pleullaenge}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -292,11 +292,11 @@
                                                         <material:MaterialTextField Placeholder="Deachsierung"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.DeachsierungL}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -312,11 +312,11 @@
                                                         <material:MaterialTextField Placeholder="Bohrung"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Bohrung}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -331,22 +331,22 @@
                                                     <material:MaterialTextField Placeholder="Resonanzdrehzahl"
                                                                                 Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.ResonanzU}"
                                                                                 WidthRequest="200">
-                                                        <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                        <material:MaterialTextField.Behaviors>
+                                                            <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                          Command="{Binding ShowSaveButtonCommand}" />
+                                                        </material:MaterialTextField.Behaviors>
                                                     </material:MaterialTextField>
 
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Hubraum Volumen"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.HubraumV}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -362,11 +362,11 @@
                                                         <material:MaterialTextField Placeholder="Brennraum Volumen"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.BrennraumV}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -382,11 +382,11 @@
                                                         <material:MaterialTextField Placeholder="Kurbelgehaeuse Volumen"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.KurbelgehaeuseV}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -418,11 +418,11 @@
                                                         <material:MaterialTextField Placeholder="Hoehe"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Einlass.Hoehe}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -438,11 +438,11 @@
                                                         <material:MaterialTextField Placeholder="Breite"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Einlass.Breite}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -458,11 +458,11 @@
                                                         <material:MaterialTextField Placeholder="Flaeche"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Einlass.Flaeche}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -477,11 +477,11 @@
                                                     <material:MaterialTextField Placeholder="Steuerzeit"
                                                                                 Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Einlass.SteuerzeitSZ}"
                                                                                 WidthRequest="200">
-                                                        <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                        <material:MaterialTextField.Behaviors>
+                                                            <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                          Command="{Binding ShowSaveButtonCommand}" />
+                                                        </material:MaterialTextField.Behaviors>
                                                     </material:MaterialTextField>
                                                 </StackLayout>
                                             </DataTemplate>
@@ -504,11 +504,11 @@
                                                         <material:MaterialTextField Placeholder="Hoehe"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Hoehe}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -524,11 +524,11 @@
                                                         <material:MaterialTextField Placeholder="Breite"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Breite}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -544,11 +544,11 @@
                                                         <material:MaterialTextField Placeholder="Flaeche"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Flaeche}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -563,11 +563,11 @@
                                                     <material:MaterialTextField Placeholder="Steuerzeit"
                                                                                 Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.SteuerzeitSZ}"
                                                                                 WidthRequest="200">
-                                                        <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                        <material:MaterialTextField.Behaviors>
+                                                            <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                          Command="{Binding ShowSaveButtonCommand}" />
+                                                        </material:MaterialTextField.Behaviors>
                                                     </material:MaterialTextField>
                                                 </StackLayout>
                                             </DataTemplate>
@@ -590,11 +590,11 @@
                                                         <material:MaterialTextField Placeholder="Hoehe"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.Hoehe}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -610,11 +610,11 @@
                                                         <material:MaterialTextField Placeholder="Breite"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.Breite}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -630,11 +630,11 @@
                                                         <material:MaterialTextField Placeholder="Flaeche"
                                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.Flaeche}"
                                                                                     WidthRequest="200">
-                                                            <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                            <material:MaterialTextField.Behaviors>
+                                                                <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                              Command="{Binding ShowSaveButtonCommand}" />
+                                                            </material:MaterialTextField.Behaviors>
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -649,21 +649,21 @@
                                                     <material:MaterialTextField Placeholder="Anzahl"
                                                                                 Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.Anzahl}"
                                                                                 WidthRequest="200">
-                                                        <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                        <material:MaterialTextField.Behaviors>
+                                                            <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                          Command="{Binding ShowSaveButtonCommand}" />
+                                                        </material:MaterialTextField.Behaviors>
                                                     </material:MaterialTextField>
 
                                                     <material:MaterialTextField Placeholder="Steuerzeit"
                                                                                 Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.SteuerzeitSZ}"
                                                                                 WidthRequest="200">
-                                                        <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                                        <material:MaterialTextField.Behaviors>
+                                                            <local:EventToCommandBehavior EventName="TextChanged"
+                                                                                          Command="{Binding ShowSaveButtonCommand}" />
+                                                        </material:MaterialTextField.Behaviors>
                                                     </material:MaterialTextField>
                                                 </StackLayout>
                                             </DataTemplate>
@@ -690,21 +690,21 @@
                                     <material:MaterialTextField Placeholder="Name"
                                                                 Text="{Binding Mode=TwoWay, Path=Vehicle.Dyno.Name}"
                                                                 WidthRequest="200">
-                                        <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                        <material:MaterialTextField.Behaviors>
+                                            <local:EventToCommandBehavior EventName="TextChanged"
+                                                                          Command="{Binding ShowSaveButtonCommand}" />
+                                        </material:MaterialTextField.Behaviors>
                                     </material:MaterialTextField>
 
                                     <material:MaterialTextField Placeholder="Beschreibung"
                                                                 Text="{Binding Mode=TwoWay, Path=Vehicle.Dyno.Beschreibung}"
                                                                 WidthRequest="200">
-                                        <!--<i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->
+
+                                        <material:MaterialTextField.Behaviors>
+                                            <local:EventToCommandBehavior EventName="TextChanged"
+                                                                          Command="{Binding ShowSaveButtonCommand}" />
+                                        </material:MaterialTextField.Behaviors>
                                     </material:MaterialTextField>
 
                                     <!--Audio-->
