@@ -1,4 +1,5 @@
 ﻿using Data;
+using SkiaSharp;
 using System;
 using System.IO;
 using System.Linq;
@@ -168,16 +169,41 @@ namespace SimTuning.Core.Business
         /// Updates the value.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <param name="SelectedFromUnit">The selected from unit.</param>
-        /// <param name="SelectedToUnit">The selected to unit.</param>
+        /// <param name="selectedFromUnit">The selected from unit.</param>
+        /// <param name="selectedToUnit">The selected to unit.</param>
         /// <returns></returns>
-        public static double? UpdateValue(double? value, UnitListItem SelectedFromUnit, UnitListItem SelectedToUnit)
+        public static double? UpdateValue(double? value, UnitListItem selectedFromUnit, UnitListItem selectedToUnit)
         {
-            if (value == null || SelectedFromUnit == null || SelectedToUnit == null) return null;
+            if (value == null || selectedFromUnit == null || selectedToUnit == null)
+            {
+                return null;
+            }
 
-            return Math.Round(UnitsNet.UnitConverter.Convert(value.Value,
-                SelectedFromUnit.UnitEnumValue,
-                SelectedToUnit.UnitEnumValue), 2);
+            return Math.Round(
+                UnitsNet.UnitConverter.Convert(
+                    value.Value,
+                    selectedFromUnit.UnitEnumValue,
+                    selectedToUnit.UnitEnumValue), 2);
+        }
+
+        /// <summary>
+        /// Rotiert die SKBitmap.
+        /// </summary>
+        /// <param name="bitmap">The bitmap.</param>
+        /// <param name="degrees">The degrees.</param>
+        /// <returns>Das gedrehte Bild.</returns>
+        public static SKBitmap RotateBitmap(SKBitmap bitmap, int degrees)
+        {
+            var rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+
+            var surface = new SKCanvas(rotated);
+
+            surface.Translate(rotated.Width / 2, rotated.Height / 2);
+            surface.RotateDegrees(degrees);
+            surface.Translate(-rotated.Width / 2, -rotated.Height / 2);
+            surface.DrawBitmap(bitmap, 0, 0);
+
+            return rotated;
         }
     }
 }

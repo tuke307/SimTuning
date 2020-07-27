@@ -20,11 +20,9 @@ namespace SimTuning.WPFCore.ViewModels.Auslass
 
         private Task ShowInitialViewModels()
         {
-            var tasks = new List<Task>
-            {
-                _navigationService.Navigate<AuslassTheorieViewModel>(),
-                _navigationService.Navigate<AuslassAnwendungViewModel>()
-            };
+            var tasks = new List<Task>();
+            tasks.Add(_navigationService.Navigate<AuslassTheorieViewModel>());
+            tasks.Add(_navigationService.Navigate<AuslassAnwendungViewModel>());
             return Task.WhenAll(tasks);
         }
 

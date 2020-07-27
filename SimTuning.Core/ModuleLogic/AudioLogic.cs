@@ -34,12 +34,13 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="_Frequenzbeginn">The frequenzbeginn.</param>
         /// <param name="_Frequenzende">The frequenzende.</param>
         /// <returns></returns>
-        public SKBitmap GetSpectrogram(string _audioFile,
-                                        string _Quality = "gut",
-                                        double _Intensity = 0.75,
-                                        Spectrogram.Colormap _Hintergrundfarbe = Spectrogram.Colormap.viridis,
-                                        int _Frequenzbeginn = 25,
-                                        int _Frequenzende = 250)
+        public SKBitmap GetSpectrogram(
+            string _audioFile,
+            string _Quality = "gut",
+            double _Intensity = 0.75,
+            Spectrogram.Colormap _Hintergrundfarbe = Spectrogram.Colormap.viridis,
+            int _Frequenzbeginn = 25,
+            int _Frequenzende = 250)
         {
             //Werte setzen
             audioFile = _audioFile;

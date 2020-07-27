@@ -17,14 +17,11 @@ namespace SimTuning.Core.ViewModels.Einlass
 {
     public class VergaserViewModel : MvxNavigationViewModel
     {
-        private readonly EinlassLogic einlass;
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
 
         public VergaserViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            einlass = new EinlassLogic();
-
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
 
@@ -73,7 +70,7 @@ namespace SimTuning.Core.ViewModels.Einlass
         {
             if (Hubvolumen.HasValue && Resonanzdrehzahl.HasValue)
             {
-                Vergasergroeße = einlass.Get_Vergasergroeße(
+                Vergasergroeße = EinlassLogic.GetCarburetorSize(
                     UnitsNet.UnitConverter.Convert(Hubvolumen.Value,
                     UnitHubvolumen.UnitEnumValue,
                     VolumeUnit.CubicCentimeter),
@@ -85,7 +82,7 @@ namespace SimTuning.Core.ViewModels.Einlass
         {
             if (Vergasergroeße.HasValue)
             {
-                HauptdueseD = einlass.Get_Hauptduesendurchmesser(
+                HauptdueseD = EinlassLogic.GetCarburetorMainNozzleDiameter(
                     UnitsNet.UnitConverter.Convert(Vergasergroeße.Value,
                     UnitVergasergroeße.UnitEnumValue,
                     LengthUnit.Millimeter));

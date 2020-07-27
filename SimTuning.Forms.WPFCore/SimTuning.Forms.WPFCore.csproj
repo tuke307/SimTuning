@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <CodeAnalysisRuleSet>..\T4M Code Rules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Code Rules.ruleset</CodeAnalysisRuleSet>
     <Authors>Tony Meißner</Authors>
     <Company>tuke productions</Company>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

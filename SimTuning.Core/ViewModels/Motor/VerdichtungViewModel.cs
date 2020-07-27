@@ -17,14 +17,11 @@ namespace SimTuning.Core.ViewModels.Motor
 {
     public class VerdichtungViewModel : MvxNavigationViewModel
     {
-        private readonly EngineLogic engineLogic;
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
         public VerdichtungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            engineLogic = new EngineLogic();
-
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
 
@@ -83,7 +80,7 @@ namespace SimTuning.Core.ViewModels.Motor
         {
             if (HubraumV.HasValue && BrennraumV.HasValue && BohrungD.HasValue)
             {
-                Derzeitige_verdichtung = engineLogic.Get_Verdichtung(
+                Derzeitige_verdichtung = EngineLogic.GetCompression(
                     UnitsNet.UnitConverter.Convert(HubraumV.Value,
                     UnitHubraumV.UnitEnumValue,
                     VolumeUnit.CubicMillimeter),
@@ -102,7 +99,7 @@ namespace SimTuning.Core.ViewModels.Motor
         {
             if (HubraumV.HasValue && BrennraumV.HasValue && BohrungD.HasValue && Zielverdichtung != 0)
             {
-                AbdrehenLength = engineLogic.Get_Abdrehen_mm(
+                AbdrehenLength = EngineLogic.GetToDecreasingLength(
                     UnitsNet.UnitConverter.Convert(HubraumV.Value,
                     UnitHubraumV.UnitEnumValue,
                     VolumeUnit.CubicMillimeter),

@@ -24,28 +24,28 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            dynoLogic = new DynoLogic();
+            this.dynoLogic = new DynoLogic();
 
             using (var db = new DatabaseContext())
             {
                 IList<VehiclesModel> vehicList = db.Vehicles.ToList();
-                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                this.HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
 
                 IList<EnvironmentModel> environmList = db.Environment.ToList();
-                HelperEnvironments = new ObservableCollection<EnvironmentModel>(environmList);
+                this.HelperEnvironments = new ObservableCollection<EnvironmentModel>(environmList);
 
                 try
                 {
-                    Dyno = db.Dyno.Where(d => d.Active == true).Include(v => v.Audio).First();
-                    NewEnvironment();
+                    this.Dyno = db.Dyno.Where(d => d.Active == true).Include(v => v.Audio).First();
+                    this.NewEnvironment();
                 }
                 catch { }
             }
 
-            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
+            this.rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
 
-            InsertVehicleCommand = new MvxCommand(InsertVehicle);
-            InsertEnvironmentCommand = new MvxCommand(InsertEnvironment);
+            this.InsertVehicleCommand = new MvxCommand(this.InsertVehicle);
+            this.InsertEnvironmentCommand = new MvxCommand(this.InsertEnvironment);
         }
 
         public IMvxAsyncCommand RefreshPlotCommand { get; set; }
@@ -66,22 +66,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         }
 
         #region Commands
-
-        protected virtual async Task RefreshPlot()
-        {
-            dynoLogic.CalculateStrengthPlot(Dyno, out List<DynoPSModel> ps, out List<DynoNmModel> nm);
-            Dyno.DynoPS = ps;
-            Dyno.DynoNm = nm;
-
-            using (var db = new DatabaseContext())
-            {
-                //in Datenbank einfügen
-                db.Dyno.Attach(Dyno);
-                db.SaveChanges();
-            }
-
-            await RaisePropertyChanged("PlotStrength");
-        }
 
         public void InsertVehicle()
         {
@@ -108,15 +92,31 @@ namespace SimTuning.Core.ViewModels.Dyno
             RaisePropertyChanged("Dyno");
         }
 
+        protected virtual async Task RefreshPlot()
+        {
+            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPSModel> ps, out List<DynoNmModel> nm);
+            this.Dyno.DynoPS = ps;
+            this.Dyno.DynoNm = nm;
+
+            using (var db = new DatabaseContext())
+            {
+                //in Datenbank einfügen
+                db.Dyno.Attach(this.Dyno);
+                db.SaveChanges();
+            }
+
+            await RaisePropertyChanged("PlotStrength");
+        }
+
         private void NewEnvironment()
         {
-            if (Dyno.Environment == null)
+            if (this.Dyno.Environment == null)
             {
-                Dyno.Environment = new EnvironmentModel()
+                this.Dyno.Environment = new EnvironmentModel()
                 {
                     Name = "Automatisch erstellt " + DateTime.Now,
                 };
-                RaisePropertyChanged("Dyno");
+                this.RaisePropertyChanged("Dyno");
             }
         }
 

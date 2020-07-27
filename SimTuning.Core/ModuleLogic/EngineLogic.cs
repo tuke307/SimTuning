@@ -1,20 +1,24 @@
-﻿using SimTuning.Core.Models;
+﻿using SimTuning.Core.Business;
+using SimTuning.Core.Models;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
 
 namespace SimTuning.Core.ModuleLogic
 {
-    public class EngineLogic
+    /// <summary>
+    /// Motor Logik.
+    /// </summary>
+    public static class EngineLogic
     {
         /// <summary>
-        /// Gets the uebersetzung.
+        /// Gibt die Übersetzung zurück.
         /// </summary>
         /// <param name="getriebe">The getriebe.</param>
         /// <param name="primaer">The primaer.</param>
         /// <param name="sekundaer">The sekundaer.</param>
-        /// <returns></returns>
-        public double Get_Uebersetzung(double getriebe = 0, double primaer = 0, double sekundaer = 0)
+        /// <returns>Übersetzung.</returns>
+        public static double GetTransmission(double getriebe = 0, double primaer = 0, double sekundaer = 0)
         {
             double uebersetzung = getriebe * sekundaer * primaer;
 
@@ -28,11 +32,11 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="pleullaenge">The pleullaenge.</param>
         /// <param name="deachsierung">The deachsierung.</param>
         /// <returns></returns>
-        public double Get_hubradius(double hub, double pleullaenge, double deachsierung)
+        public static double GetStrokeRadius(double hub, double pleullaenge, double deachsierung)
         {
             double hubradius = hub *
-                        Math.Sqrt(Math.Abs(Math.Pow(4 * deachsierung, 2) + Math.Pow(hub, 2) - 4 * Math.Pow(pleullaenge, 2))) /
-                        Math.Sqrt(Math.Abs(4 * Math.Pow(hub, 2) - 16 * Math.Pow(pleullaenge, 2)));
+                        Math.Sqrt(Math.Abs(Math.Pow(4 * deachsierung, 2) + Math.Pow(hub, 2) - (4 * Math.Pow(pleullaenge, 2)))) /
+                        Math.Sqrt(Math.Abs((4 * Math.Pow(hub, 2)) - (16 * Math.Pow(pleullaenge, 2))));
 
             hubradius = Math.Round(hubradius, 2);
 
@@ -40,29 +44,16 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// berechnet mm vor OT
-        /// </summary>
-        /// <param name="mmvorot">The mmvorot.</param>
-        /// <returns></returns>
-        public double Get_steuerzeit(double mmvorot)
-        {
-            //nach kw grad rechnen
-            double kwgrad = 0/*Math.Round(kwgrad, 2)*/;
-
-            return kwgrad;
-        }
-
-        /// <summary>
-        /// berechnet Grad vor OT
+        /// Berechnet Grad vor OT.
         /// </summary>
         /// <param name="pleullaenge">The pleullaenge.</param>
         /// <param name="hubradius">The hubradius.</param>
         /// <param name="deachsierung">The deachsierung.</param>
         /// <param name="kwgrad">The kwgrad.</param>
-        /// <returns></returns>
-        public double Get_mmvorot(double pleullaenge, double hubradius, double deachsierung, double kwgrad)
+        /// <returns>Länge vor OT in mm.</returns>
+        public static double GetDistanceToOT(double pleullaenge, double hubradius, double deachsierung, double kwgrad)
         {
-            //übergebene Gradmaß in Bogenmaß umrechnen
+            // übergebene Gradmaß in Bogenmaß umrechnen
             kwgrad = kwgrad / 180 * Math.PI * 1;
 
             double mmvorot = Math.Sqrt(Math.Pow(pleullaenge + hubradius, 2) - Math.Pow(deachsierung, 2)) -
@@ -80,30 +71,21 @@ namespace SimTuning.Core.ModuleLogic
         /// <summary>
         /// Gets the unterschied grad.
         /// </summary>
-        /// <param name="vorher">The vorher.</param>
-        /// <param name="nachher">The nachher.</param>
-        /// <returns></returns>
-        public double Get_Unterschied_grad(double vorher, double nachher)
-        {
-            double differenz = nachher - vorher;
-            differenz = Math.Abs(differenz);
-
-            return differenz;
-        }
-
-        /// <summary>
-        /// Gets the unterschied mm.
-        /// </summary>
+        /// <param name="inmm">Rückgabeeinheit.</param>
         /// <param name="vorher">The vorher.</param>
         /// <param name="nachher">The nachher.</param>
         /// <param name="pleullaenge">The pleullaenge.</param>
         /// <param name="hubradius">The hubradius.</param>
         /// <param name="deachsierung">The deachsierung.</param>
-        /// <returns></returns>
-        public double Get_Unterschied_mm(double vorher, double nachher, double pleullaenge, double hubradius, double deachsierung)
+        /// <returns>Differenz in Grad oder mm</returns>
+        public static double GetPortTimingDifference(bool inmm, double vorher, double nachher, double pleullaenge = 0, double hubradius = 0, double deachsierung = 0)
         {
-            vorher = Get_mmvorot(pleullaenge, hubradius, deachsierung, vorher);
-            nachher = Get_mmvorot(pleullaenge, hubradius, deachsierung, nachher);
+            // umrechnen in mm
+            if (inmm)
+            {
+                vorher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, vorher);
+                nachher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, nachher);
+            }
 
             double differenz = nachher - vorher;
             differenz = Math.Abs(differenz);
@@ -114,13 +96,13 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Steuerwinkels the oeffnet.
+        /// Steuerwinkels öffnet.
         /// </summary>
         /// <param name="steuerzeit_einlass">The steuerzeit einlass.</param>
         /// <param name="steuerzeit_auslass">The steuerzeit auslass.</param>
         /// <param name="steuerzeit_ueberstroemer">The steuerzeit ueberstroemer.</param>
         /// <returns></returns>
-        public double Steuerwinkel_oeffnet(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
+        public static double GetSteuerwinkelOeffnet(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
         {
             double steuerwinkel_oeffnet = 0;
 
@@ -143,13 +125,13 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Steuerwinkels the schließt.
+        /// Steuerwinkels schließt.
         /// </summary>
         /// <param name="steuerzeit_einlass">The steuerzeit einlass.</param>
         /// <param name="steuerzeit_auslass">The steuerzeit auslass.</param>
         /// <param name="steuerzeit_ueberstroemer">The steuerzeit ueberstroemer.</param>
         /// <returns></returns>
-        public double Steuerwinkel_schließt(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
+        public static double GetSteuerwinkelSchließt(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
         {
             double steuerwinkel_schließt = 0;
 
@@ -179,7 +161,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="kolbenoberkantekante_checked">if set to <c>true</c> [kolbenoberkantekante checked].</param>
         /// <param name="kolbenunterkante_checked">if set to <c>true</c> [kolbenunterkante checked].</param>
         /// <returns></returns>
-        public List<double> Get_steuerwinkel(double vorher_steuerzeit, double nachher_steuerzeit, bool kolbenoberkantekante_checked, bool kolbenunterkante_checked)
+        public static List<double> GetSteuerwinkel(double vorher_steuerzeit, double nachher_steuerzeit, bool kolbenoberkantekante_checked, bool kolbenunterkante_checked)
         {
             List<double> steuerwinkel = new List<double>();
 
@@ -223,7 +205,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="steuerwinkel_auslass">The steuerwinkel auslass.</param>
         /// <param name="steuerwinkel_ueberstroemer">The steuerwinkel ueberstroemer.</param>
         /// <returns></returns>
-        public double Vorauslass(double steuerwinkel_auslass, double steuerwinkel_ueberstroemer)
+        public static double GetVorauslass(double steuerwinkel_auslass, double steuerwinkel_ueberstroemer)
         {
             double vorauslass = (steuerwinkel_auslass - steuerwinkel_ueberstroemer) / 2;
 
@@ -233,17 +215,17 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Steuerzeits the RAD.
+        /// Zeichnet das Steuerdiagramm.
         /// </summary>
-        /// <param name="einlass">The einlass.</param>
-        /// <param name="auslass">The auslass.</param>
-        /// <param name="ueberstroemer">The ueberstroemer.</param>
-        /// <returns></returns>
-        public SKBitmap Steuerzeit_Rad(double einlass, double auslass, double ueberstroemer)
+        /// <param name="einlass">Einlass-Steuerzeit.</param>
+        /// <param name="auslass">Auslass-Steuerzeit.</param>
+        /// <param name="ueberstroemer">Überstroemer-Steuerzeit.</param>
+        /// <returns>Bild des Steuerdiagramms.</returns>
+        public static SKBitmap GetPortTimingCircle(double einlass, double auslass, double ueberstroemer)
         {
             int radMaß = 500; // quadratisch
             int radius = radMaß / 2;
-            int rand = 50; //zu jeder seite hin
+            int rand = 50; // zu jeder seite hin
             int mitte = (500 + 50 + 50) / 2;
 
             SKBitmap bmp_rad = new SKBitmap(radMaß + (rand * 2), radMaß + (rand * 2));
@@ -302,43 +284,43 @@ namespace SimTuning.Core.ModuleLogic
                                  new SKPoint(bmp_rad.Width, mitte), blackPen);
 
             //Einlass öffnet
-            koordinaten = PointOnCircle(Steuerwinkel_oeffnet(steuerzeit_einlass: einlass), radius);
+            koordinaten = GetPointOnCircle(GetSteuerwinkelOeffnet(steuerzeit_einlass: einlass), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  redPen);
 
             //Einlass schließt
-            koordinaten = PointOnCircle(Steuerwinkel_schließt(steuerzeit_einlass: einlass), radius);
+            koordinaten = GetPointOnCircle(GetSteuerwinkelSchließt(steuerzeit_einlass: einlass), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  redPen);
 
             //Auslass öffnet
-            koordinaten = PointOnCircle(Steuerwinkel_oeffnet(steuerzeit_auslass: auslass), radius);
+            koordinaten = GetPointOnCircle(GetSteuerwinkelOeffnet(steuerzeit_auslass: auslass), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  bluePen);
 
             //Auslass schließt
-            koordinaten = PointOnCircle(Steuerwinkel_schließt(steuerzeit_auslass: auslass), radius);
+            koordinaten = GetPointOnCircle(GetSteuerwinkelSchließt(steuerzeit_auslass: auslass), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  bluePen);
 
             //Überströmer öffnet
-            koordinaten = PointOnCircle(Steuerwinkel_oeffnet(steuerzeit_ueberstroemer: ueberstroemer), radius);
+            koordinaten = GetPointOnCircle(GetSteuerwinkelOeffnet(steuerzeit_ueberstroemer: ueberstroemer), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  greenPen);
 
             //Überströmer schließt
-            koordinaten = PointOnCircle(Steuerwinkel_schließt(steuerzeit_ueberstroemer: ueberstroemer), radius);
+            koordinaten = GetPointOnCircle(GetSteuerwinkelSchließt(steuerzeit_ueberstroemer: ueberstroemer), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  greenPen);
 
             //drehen
-            RotateBitmap(bmp_rad, 270).CopyTo(bmp_rad);
+            Functions.RotateBitmap(bmp_rad, 270).CopyTo(bmp_rad);
 
             //gedrehete Bitmap erneut in Canvas einfügen
             graphic_rad = new SKCanvas(bmp_rad);
@@ -352,32 +334,12 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Rotates the bitmap.
-        /// </summary>
-        /// <param name="bitmap">The bitmap.</param>
-        /// <param name="degrees">The degrees.</param>
-        /// <returns></returns>
-        private SKBitmap RotateBitmap(SKBitmap bitmap, int degrees)
-        {
-            var rotated = new SKBitmap(bitmap.Width, bitmap.Height);
-
-            var surface = new SKCanvas(rotated);
-
-            surface.Translate(rotated.Width / 2, rotated.Height / 2);
-            surface.RotateDegrees(degrees);
-            surface.Translate(-rotated.Width / 2, -rotated.Height / 2);
-            surface.DrawBitmap(bitmap, 0, 0);
-
-            return rotated;
-        }
-
-        /// <summary>
         /// Points the on circle.
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <param name="radius">The radius.</param>
         /// <returns></returns>
-        public static SKPoint PointOnCircle(double angle, double radius)
+        public static SKPoint GetPointOnCircle(double angle, double radius)
         {
             SKPoint coordinates = new SKPoint();
 
@@ -386,9 +348,13 @@ namespace SimTuning.Core.ModuleLogic
 
             double y_richtung = radius * Math.Sin(angle * Math.PI / 180);
             if (y_richtung >= 0)
+            {
                 coordinates.Y = Convert.ToInt32(radius - y_richtung);
+            }
             else if (y_richtung <= 0)
+            {
                 coordinates.Y = Convert.ToInt32(radius + Math.Abs(y_richtung));
+            }
 
             return coordinates;
         }
@@ -400,27 +366,25 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="brennraum">The brennraum.</param>
         /// <param name="durchmesser">The durchmesser.</param>
         /// <returns></returns>
-        public double Get_Verdichtung(double hubraum, double brennraum, double durchmesser)
+        public static double GetCompression(double hubraum, double brennraum, double durchmesser)
         {
-            double verdichtung = 0;
-
-            verdichtung = (hubraum + brennraum) / brennraum;
+            double verdichtung = (hubraum + brennraum) / brennraum;
             verdichtung = Math.Round(verdichtung, 1);
 
             return verdichtung;
         }
 
         /// <summary>
-        /// Gets the abdrehen mm.
+        /// Berechnet den abzunehmenden Bereich am Zylinderkopf.
         /// </summary>
-        /// <param name="hubraum">The hubraum.</param>
-        /// <param name="brennraum">The brennraum.</param>
-        /// <param name="durchmesser">The durchmesser.</param>
-        /// <param name="ziel_verdichtung">The ziel verdichtung.</param>
-        /// <returns></returns>
-        public double Get_Abdrehen_mm(double hubraum, double brennraum, double durchmesser, double ziel_verdichtung)
+        /// <param name="hubraum">Hubraum.</param>
+        /// <param name="brennraum">Brennraum.</param>
+        /// <param name="durchmesser">Zylinder-Durchmesser.</param>
+        /// <param name="zielVerdichtung">Zielverdichtung.</param>
+        /// <returns>den abzunehmenden Bereich in mm.</returns>
+        public static double GetToDecreasingLength(double hubraum, double brennraum, double durchmesser, double zielVerdichtung)
         {
-            double abdrehen_mm = 4 * (brennraum * ziel_verdichtung - brennraum - hubraum) / (Math.PI * (Math.Pow(durchmesser, 2) * ziel_verdichtung - Math.Pow(durchmesser, 2)));
+            double abdrehen_mm = 4 * ((brennraum * zielVerdichtung) - brennraum - hubraum) / (Math.PI * ((Math.Pow(durchmesser, 2) * zielVerdichtung) - Math.Pow(durchmesser, 2)));
             abdrehen_mm = Math.Round(abdrehen_mm, 2);
 
             return abdrehen_mm;
@@ -432,23 +396,21 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="bohrungsdurchmesser">The bohrungsdurchmesser.</param>
         /// <param name="hub">The hub.</param>
         /// <returns></returns>
-        public double Get_Hubraum(double bohrungsdurchmesser, double hub)
+        public static double GetDisplacement(double bohrungsdurchmesser, double hub)
         {
-            double hubraum = 0;
-
-            hubraum = (Math.PI * bohrungsdurchmesser) / 4 * hub;
+            double hubraum = Math.PI * bohrungsdurchmesser / 4 * hub;
             hubraum = Math.Round(hubraum, 1);
 
             return hubraum;
         }
 
         /// <summary>
-        /// Gets the bohrungs durchmesser.
+        /// Berechnet den Bohrungs-Durchmesser.
         /// </summary>
         /// <param name="hubraum">The hubraum.</param>
         /// <param name="hub">The hub.</param>
-        /// <returns></returns>
-        public double Get_BohrungsDurchmesser(double hubraum, double hub)
+        /// <returns>Bohrung in mm.</returns>
+        public static double GetCylinderHoleDiameter(double hubraum, double hub)
         {
             double durchmesser = 0;
 
@@ -464,7 +426,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="bohrungsdurchmesser">The bohrungsdurchmesser.</param>
         /// <param name="einbauspiel">The einbauspiel.</param>
         /// <returns></returns>
-        public double Get_KolbenDurchmesser(double bohrungsdurchmesser, double einbauspiel)
+        public static double GetPistonDiameter(double bohrungsdurchmesser, double einbauspiel)
         {
             double durchmesser = 0;
 
@@ -479,7 +441,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="hub">The hub.</param>
         /// <param name="drehzahl">The drehzahl.</param>
         /// <returns></returns>
-        public double Get_Kolbengeschwindigkeit(double hub, double drehzahl)
+        public static double GetPistonSpeed(double hub, double drehzahl)
         {
             double kolbengeschwindigkeit = 0;
 
@@ -494,7 +456,7 @@ namespace SimTuning.Core.ModuleLogic
         /// </summary>
         /// <param name="diameter">The diameter.</param>
         /// <returns></returns>
-        public GrindingDiametersModel Get_GrindingDiameters(double diameter)
+        public static GrindingDiametersModel GetGrindingDiameters(double diameter)
         {
             GrindingDiametersModel grindingDiametersModel = new GrindingDiametersModel();
 

@@ -24,16 +24,9 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
         #region Commands
 
-        private async Task<bool> CheckDynoData()
-        {
-            if (Dyno == null)
-            {
-                await MaterialDialog.Instance.SnackbarAsync(message: rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)).ConfigureAwait(false);
-                return false;
-            }
-            else { return true; }
-        }
-
+        /// <summary>
+        /// Opens the file dialog.
+        /// </summary>
         protected new async Task OpenFileDialog()
         {
             if (!CheckDynoData().Result)
@@ -89,6 +82,16 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             await loadingDialog.DismissAsync().ConfigureAwait(false);
 
             await ReloadImageAudioSpectrogram().ConfigureAwait(false);
+        }
+
+        private async Task<bool> CheckDynoData()
+        {
+            if (Dyno == null)
+            {
+                await MaterialDialog.Instance.SnackbarAsync(message: rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+                return false;
+            }
+            else { return true; }
         }
 
         #endregion Commands

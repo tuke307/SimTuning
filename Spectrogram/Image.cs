@@ -88,10 +88,10 @@ namespace Spectrogram
         public static SKBitmap ApplyColormap(SKBitmap bmp, Colormap colormap)
         {
             //farbtabellen erstellen
-            byte[] Atable = new byte[256];
-            byte[] Rtable = new byte[256];
-            byte[] Gtable = new byte[256];
-            byte[] Btable = new byte[256];
+            byte[] atable = new byte[256];
+            byte[] rtable = new byte[256];
+            byte[] gtable = new byte[256];
+            byte[] btable = new byte[256];
 
             //Map erstellen
             ColorMap colorMap = new ColorMap(colormap.ToString());
@@ -102,16 +102,16 @@ namespace Spectrogram
             //farbtabellen zuweisen
             for (int i = 0; i < 256; i++)
             {
-                Atable[i] = (byte)255;
-                Rtable[i] = colors[i][0];
-                Gtable[i] = colors[i][1];
-                Btable[i] = colors[i][2];
+                atable[i] = (byte)255;
+                rtable[i] = colors[i][0];
+                gtable[i] = colors[i][1];
+                btable[i] = colors[i][2];
             }
 
             //Colormap anwenden
             SKCanvas canvas = new SKCanvas(bmp);
             SKPaint paint = new SKPaint();
-            paint.ColorFilter = SKColorFilter.CreateTable(Rtable, Rtable, Gtable, Btable);
+            paint.ColorFilter = SKColorFilter.CreateTable(rtable, rtable, gtable, btable);
 
             canvas.DrawBitmap(bmp, bmp.Width, bmp.Height, paint: paint);
             canvas.Save();

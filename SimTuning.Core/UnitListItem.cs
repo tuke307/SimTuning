@@ -12,12 +12,12 @@ namespace SimTuning.Core
     {
         public UnitListItem(Enum val)
         {
-            UnitEnumValue = val;
-            UnitEnumValueInt = Convert.ToInt32(val);
-            UnitEnumType = val.GetType();
-            Abbreviation = UnitAbbreviationsCache.Default.GetDefaultAbbreviation(UnitEnumType, UnitEnumValueInt);
+            this.UnitEnumValue = val;
+            this.UnitEnumValueInt = Convert.ToInt32(val);
+            this.UnitEnumType = val.GetType();
+            this.Abbreviation = UnitAbbreviationsCache.Default.GetDefaultAbbreviation(this.UnitEnumType, this.UnitEnumValueInt);
 
-            Text = $"{val} [{Abbreviation}]";
+            this.Text = $"{val} [{this.Abbreviation}]";
         }
 
         public string Text { get; }

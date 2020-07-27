@@ -3,29 +3,32 @@ using System;
 
 namespace SimTuning.Core.ModuleLogic
 {
-    public class AuslassLogic
+    /// <summary>
+    /// Auslass Logik
+    /// </summary>
+    public static class AuslassLogic
     {
         /// <summary>
-        /// Berechnet Abgasgeschwindigkeit
+        /// Berechnet Abgasgeschwindigkeit.
         /// </summary>
         /// <param name="abgastemperatur">The abgastemperatur.</param>
-        /// <returns></returns>
-        public double Get_Abgasgeschwindigkeit(double abgastemperatur)
+        /// <returns>Abasgeschwindigkeit in m/s.</returns>
+        public static double GetGasVelocity(double abgastemperatur)
         {
-            double abgasgeschwindigkeit = 331 + 0.6 * abgastemperatur;
+            double abgasgeschwindigkeit = 331 + (0.6 * abgastemperatur);
             abgasgeschwindigkeit = Math.Round(abgasgeschwindigkeit, 2);
 
             return abgasgeschwindigkeit;
         }
 
         /// <summary>
-        /// Berechnet Resonanzlänge
+        /// Berechnet Resonanzlänge.
         /// </summary>
         /// <param name="vehicleSteuerwinkel">The vehicle steuerwinkel.</param>
         /// <param name="abgasTemperatur">The abgas temperatur.</param>
         /// <param name="resonanzDrehzahl">The resonanz drehzahl.</param>
-        /// <returns></returns>
-        public double Get_Resonanzlaenge(double vehicleSteuerwinkel, double abgasTemperatur, double resonanzDrehzahl)
+        /// <returns>Resonanzlänge in cm.</returns>
+        public static double GetResonanceLength(double vehicleSteuerwinkel, double abgasTemperatur, double resonanzDrehzahl)
         {
             // von mm in cm /10
             double resonanzlaenge = vehicleSteuerwinkel * abgasTemperatur / (360 * 2 * resonanzDrehzahl / 60) * 1000;
@@ -35,12 +38,12 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Berechnet wie lange der vehicle Kanal offen ist
+        /// Berechnet wie lange der Fahrzeug-Kanal offen ist.
         /// </summary>
         /// <param name="vehicleSteuerzeit">The vehicle steuerzeit.</param>
         /// <param name="drehzahl">The drehzahl.</param>
-        /// <returns></returns>
-        public double Get_vehicleKanalOffen(double vehicleSteuerzeit, double drehzahl)
+        /// <returns>Zeit in s.</returns>
+        public static double GetVehiclePortDuration(double vehicleSteuerzeit, double drehzahl)
         {
             double zeit = 60 * vehicleSteuerzeit / drehzahl * 360;
 
@@ -48,33 +51,33 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Berechnet die Krümmerlänge
+        /// Berechnet die Krümmerlänge.
         /// </summary>
         /// <param name="kruemmerdurchmesser">The kruemmerdurchmesser.</param>
         /// <param name="drehmomentfaktor">The drehmomentfaktor.</param>
         /// <param name="vehicleLaenge">The vehicle laenge.</param>
-        /// <returns></returns>
-        public double Get_Kruemmerlaenge(double kruemmerdurchmesser, double drehmomentfaktor, double vehicleLaenge)
+        /// <returns>KrümmerLänge in cm.</returns>
+        public static double GetManifoldLength(double kruemmerdurchmesser, double drehmomentfaktor, double vehicleLaenge)
         {
             // von mm in cm /10
-            double kruemmerlaenge = drehmomentfaktor * kruemmerdurchmesser - vehicleLaenge /*/ 10*/;
+            double kruemmerlaenge = (drehmomentfaktor * kruemmerdurchmesser) - vehicleLaenge /*/ 10*/;
             kruemmerlaenge = Math.Round(kruemmerlaenge, 2);
 
             return kruemmerlaenge;
         }
 
         /// <summary>
-        /// Berechnet den Krümmer Durchmesser
+        /// Berechnet den Krümmer Durchmesser.
         /// </summary>
-        /// <param name="vehicleflaeche">vehiclefläche in cm²</param>
-        /// <param name="percentage">Flächenvergrößerung in %, normalerweise im Bereich von 10% bis 20% </param>
-        /// <returns>Krümmerdurchmesser in cm</returns>
-        public double Get_KruemmerDurchmesser(double vehicleflaeche, int percentage = 10)
+        /// <param name="vehicleflaeche">vehiclefläche in cm².</param>
+        /// <param name="percentage">Flächenvergrößerung in %, normalerweise im Bereich von 10% bis 20%.</param>
+        /// <returns>Krümmerdurchmesser in cm.</returns>
+        public static double GetManifoldDiameter(double vehicleflaeche, int percentage = 10)
         {
-            //Vergrößerung um mehr als 100%
+            // Vergrößerung um mehr als 100%
             double factor = 1 + (percentage / 100);
 
-            //radius mal 2
+            // radius mal 2
             double durchmesser = Math.Sqrt(vehicleflaeche * factor) / Math.Sqrt(Math.PI) * 2;
             durchmesser = Math.Round(durchmesser, 2);
 
@@ -82,23 +85,22 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Berechnet einen Auspuff
+        /// Berechnet einen Auspuff.
         /// </summary>
-        /// <param name="vehicle">Die Eingabedaten für die Auspuffberechnung</param>
-        /// <param name="_vehicle">Die Berechneten Ausgabedaten für den Auspuff</param>
-        /// <returns>Bild des Auspuffs</returns>
-        public SKBitmap Auspuff(ref Data.Models.VehiclesModel vehicle)
+        /// <param name="vehicle">Die Daten für die Auspuffberechnung.</param>
+        /// <returns>Bild des Auspuffs.</returns>
+        public static SKBitmap Auspuff(ref Data.Models.VehiclesModel vehicle)
         {
             #region Berechnung
 
             /*
             * Berechnung
             */
-            vehicle.Motor.Auslass.Auspuff.ResonanzL = Get_Resonanzlaenge(vehicle.Motor.Auslass.SteuerzeitSZ.Value, vehicle.Motor.Auslass.Auspuff.AbgasT.Value, vehicle.Motor.ResonanzU.Value);
+            vehicle.Motor.Auslass.Auspuff.ResonanzL = GetResonanceLength(vehicle.Motor.Auslass.SteuerzeitSZ.Value, vehicle.Motor.Auslass.Auspuff.AbgasT.Value, vehicle.Motor.ResonanzU.Value);
 
             //KRÜMMER
             vehicle.Motor.Auslass.Auspuff.KruemmerD = vehicle.Motor.Auslass.DurchmesserD.Value;/*Get_KruemmerDurchmesser(vehicleflaeche);*/
-            vehicle.Motor.Auslass.Auspuff.KruemmerL = Get_Kruemmerlaenge(vehicle.Motor.Auslass.DurchmesserD.Value, vehicle.Motor.Auslass.Auspuff.KruemmerF.Value, vehicle.Motor.Auslass.LaengeL.Value);
+            vehicle.Motor.Auslass.Auspuff.KruemmerL = GetManifoldLength(vehicle.Motor.Auslass.DurchmesserD.Value, vehicle.Motor.Auslass.Auspuff.KruemmerF.Value, vehicle.Motor.Auslass.LaengeL.Value);
 
             //MITTELTEIL
             vehicle.Motor.Auslass.Auspuff.MittelteilD = Math.Round(Math.Sqrt(vehicle.Motor.Auslass.FlaecheA.Value * 4 / Math.PI) * vehicle.Motor.Auslass.Auspuff.MittelteilF.Value, 2);
@@ -220,37 +222,37 @@ namespace SimTuning.Core.ModuleLogic
 
             #region Positionshilfen
 
-            int Xbeginn = 100; //Abstand links
-            int Xstart1 = Xbeginn;
-            int Xstart2 = Xstart1 + width1;
-            int Xstart3 = Xstart2 + width2;
-            int Xstart4 = Xstart3 + width3;
-            int Xstart5 = Xstart4 + width4;
-            int Xstart6 = Xstart5 + width5;
-            int Xstart7 = Xstart6 + width6;
+            int xbeginn = 100; //Abstand links
+            int xstart1 = xbeginn;
+            int xstart2 = xstart1 + width1;
+            int xstart3 = xstart2 + width2;
+            int xstart4 = xstart3 + width3;
+            int xstart5 = xstart4 + width4;
+            int xstart6 = xstart5 + width5;
+            int xstart7 = xstart6 + width6;
 
-            int Ymiddle = (pic_height / 2) + (pic_height / 4);
-            int Ydiff1 = height1 / 2;
-            int Ydiff2 = height2 / 2;
-            int Ydiff3 = height3 / 2;
-            int Ydiff4 = height4 / 2;
-            int Ydiff5 = height5 / 2;
-            int Ydiff6 = height6 / 2;
-            int Ydiff7 = height7 / 2;
+            int ymiddle = (pic_height / 2) + (pic_height / 4);
+            int ydiff1 = height1 / 2;
+            int ydiff2 = height2 / 2;
+            int ydiff3 = height3 / 2;
+            int ydiff4 = height4 / 2;
+            int ydiff5 = height5 / 2;
+            int ydiff6 = height6 / 2;
+            int ydiff7 = height7 / 2;
 
             #endregion Positionshilfen
 
             #region AuspuffGeruest
 
             //1
-            graphic_auspuff.DrawLine(new SKPoint(Xstart1, Ymiddle - Ydiff1),
-                                     new SKPoint(Xstart2, Ymiddle - Ydiff2),
+            graphic_auspuff.DrawLine(new SKPoint(xstart1, ymiddle - ydiff1),
+                                     new SKPoint(xstart2, ymiddle - ydiff2),
                                      redPen);//oben
-            graphic_auspuff.DrawLine(new SKPoint(Xstart1, Ymiddle + Ydiff1),
-                                     new SKPoint(Xstart2, Ymiddle + Ydiff2),
+            graphic_auspuff.DrawLine(new SKPoint(xstart1, ymiddle + ydiff1),
+                                     new SKPoint(xstart2, ymiddle + ydiff2),
                                      redPen);//unten
-            graphic_auspuff.DrawLine(new SKPoint(Xstart1, Ymiddle - Ydiff1),
-                                     new SKPoint(Xstart1, Ymiddle + Ydiff1),
+            graphic_auspuff.DrawLine(new SKPoint(xstart1, ymiddle - ydiff1),
+                                     new SKPoint(xstart1, ymiddle + ydiff1),
                                      redPen);//Links
 
             //ONE-Stage Diffusor
@@ -263,57 +265,57 @@ namespace SimTuning.Core.ModuleLogic
                     if (vehicle.Motor.Auslass.Auspuff.DiffusorL3 != 0)
                     {
                         //THREE-Stages malen
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle - Ydiff4,
-                                                 Xstart5, Ymiddle - Ydiff5,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle - ydiff4,
+                                                 xstart5, ymiddle - ydiff5,
                                                  redPen);//oben
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle + Ydiff4,
-                                                 Xstart5, Ymiddle + Ydiff5,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle + ydiff4,
+                                                 xstart5, ymiddle + ydiff5,
                                                  redPen);//unten
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle - Ydiff4,
-                                                 Xstart4, Ymiddle + Ydiff4,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle - ydiff4,
+                                                 xstart4, ymiddle + ydiff4,
                                                  redPen);//links
                     }
                     else //TWO-Stages malen
                     {
-                        graphic_auspuff.DrawLine(new SKPoint(Xstart3, Ymiddle - Ydiff3),
-                                                 new SKPoint(Xstart4, Ymiddle - Ydiff4),
+                        graphic_auspuff.DrawLine(new SKPoint(xstart3, ymiddle - ydiff3),
+                                                 new SKPoint(xstart4, ymiddle - ydiff4),
                                                  redPen);//oben
-                        graphic_auspuff.DrawLine(new SKPoint(Xstart3, Ymiddle + Ydiff3),
-                                                 new SKPoint(Xstart4, Ymiddle + Ydiff4),
+                        graphic_auspuff.DrawLine(new SKPoint(xstart3, ymiddle + ydiff3),
+                                                 new SKPoint(xstart4, ymiddle + ydiff4),
                                                  redPen);//unten
-                        graphic_auspuff.DrawLine(new SKPoint(Xstart3, Ymiddle - Ydiff3),
-                                                 new SKPoint(Xstart3, Ymiddle + Ydiff3),
+                        graphic_auspuff.DrawLine(new SKPoint(xstart3, ymiddle - ydiff3),
+                                                 new SKPoint(xstart3, ymiddle + ydiff3),
                                                  redPen);//links
                     }
                 }
                 else //ONE-Stage malen
                 {
                     //2
-                    graphic_auspuff.DrawLine(new SKPoint(Xstart2, Ymiddle - Ydiff2),
-                                             new SKPoint(Xstart5, Ymiddle - Ydiff5),
+                    graphic_auspuff.DrawLine(new SKPoint(xstart2, ymiddle - ydiff2),
+                                             new SKPoint(xstart5, ymiddle - ydiff5),
                                              redPen);//oben
-                    graphic_auspuff.DrawLine(new SKPoint(Xstart2, Ymiddle + Ydiff2),
-                                             new SKPoint(Xstart5, Ymiddle + Ydiff5),
+                    graphic_auspuff.DrawLine(new SKPoint(xstart2, ymiddle + ydiff2),
+                                             new SKPoint(xstart5, ymiddle + ydiff5),
                                              redPen);//unten
-                    graphic_auspuff.DrawLine(new SKPoint(Xstart2, Ymiddle - Ydiff2),
-                                             new SKPoint(Xstart2, Ymiddle + Ydiff2),
+                    graphic_auspuff.DrawLine(new SKPoint(xstart2, ymiddle - ydiff2),
+                                             new SKPoint(xstart2, ymiddle + ydiff2),
                                              redPen); //links
                 }
             }
 
             //5
-            graphic_auspuff.DrawRect(Xstart5, Ymiddle - Ydiff5,
+            graphic_auspuff.DrawRect(xstart5, ymiddle - ydiff5,
                                      width5, height5,
                                      redPen);
             //6
-            graphic_auspuff.DrawLine(new SKPoint(Xstart6, Ymiddle - Ydiff6),
-                                     new SKPoint(Xstart7, Ymiddle - Ydiff7),
+            graphic_auspuff.DrawLine(new SKPoint(xstart6, ymiddle - ydiff6),
+                                     new SKPoint(xstart7, ymiddle - ydiff7),
                                      redPen);//oben
-            graphic_auspuff.DrawLine(new SKPoint(Xstart6, Ymiddle + Ydiff6),
-                                     new SKPoint(Xstart7, Ymiddle + Ydiff7),
+            graphic_auspuff.DrawLine(new SKPoint(xstart6, ymiddle + ydiff6),
+                                     new SKPoint(xstart7, ymiddle + ydiff7),
                                      redPen);//unten
             //7
-            graphic_auspuff.DrawRect(Xstart7, Ymiddle - Ydiff7,
+            graphic_auspuff.DrawRect(xstart7, ymiddle - ydiff7,
                                      width7, height7,
                                      redPen);
 
@@ -326,11 +328,11 @@ namespace SimTuning.Core.ModuleLogic
              */
 
             // 1
-            graphic_auspuff.DrawLine(Xstart1, Ymiddle + Ydiff1,
-                                     Xstart1, Ymiddle + 200,
+            graphic_auspuff.DrawLine(xstart1, ymiddle + ydiff1,
+                                     xstart1, ymiddle + 200,
                                      blackPen); // Begrenzung-Links
-            graphic_auspuff.DrawLine(Xstart1, Ymiddle + 175,
-                                     Xstart2, Ymiddle + 175,
+            graphic_auspuff.DrawLine(xstart1, ymiddle + 175,
+                                     xstart2, ymiddle + 175,
                                      blackDoubleArrowPen); // Maß-Linie
 
             // ONE-Stage Diffusor
@@ -343,117 +345,117 @@ namespace SimTuning.Core.ModuleLogic
                     if (vehicle.Motor.Auslass.Auspuff.DiffusorL3 != 0)
                     {
                         // 2
-                        graphic_auspuff.DrawLine(Xstart2, Ymiddle + Ydiff2,
-                                                 Xstart2, Ymiddle + 200,
+                        graphic_auspuff.DrawLine(xstart2, ymiddle + ydiff2,
+                                                 xstart2, ymiddle + 200,
                                                  blackPen); // Begrenzung-links
-                        graphic_auspuff.DrawLine(Xstart2, Ymiddle + 175,
-                                                 Xstart3, Ymiddle + 175,
+                        graphic_auspuff.DrawLine(xstart2, ymiddle + 175,
+                                                 xstart3, ymiddle + 175,
                                                  blackDoubleArrowPen); // Maß-Linie
 
                         // 3
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle + Ydiff3,
-                                                 Xstart4, Ymiddle + 200,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle + ydiff3,
+                                                 xstart4, ymiddle + 200,
                                                  blackPen); // Begrenzung-Mitte
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle + 175,
-                                                 Xstart5, Ymiddle + 175,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle + 175,
+                                                 xstart5, ymiddle + 175,
                                                  blackDoubleArrowPen); // Maß-Linie
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle + 175,
-                                                 Xstart5, Ymiddle + 175,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle + 175,
+                                                 xstart5, ymiddle + 175,
                                                  blackDoubleArrowPen); // Maß-Linie
 
                         // 4
-                        graphic_auspuff.DrawLine(Xstart6, Ymiddle + Ydiff4,
-                                                 Xstart6, Ymiddle + 200,
+                        graphic_auspuff.DrawLine(xstart6, ymiddle + ydiff4,
+                                                 xstart6, ymiddle + 200,
                                                  blackPen);//Begrenzung-Mitte
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle + 175,
-                                                 Xstart5, Ymiddle + 175,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle + 175,
+                                                 xstart5, ymiddle + 175,
                                                  blackDoubleArrowPen);//Maß-Linie
                     }
                     else
                     {
                         //2
-                        graphic_auspuff.DrawLine(Xstart2, Ymiddle + Ydiff2,
-                                                 Xstart2, Ymiddle + 200,
+                        graphic_auspuff.DrawLine(xstart2, ymiddle + ydiff2,
+                                                 xstart2, ymiddle + 200,
                                                  blackPen);//Begrenzung-links
-                        graphic_auspuff.DrawLine(Xstart2, Ymiddle + 175,
-                                                 Xstart3, Ymiddle + 175,
+                        graphic_auspuff.DrawLine(xstart2, ymiddle + 175,
+                                                 xstart3, ymiddle + 175,
                                                  blackDoubleArrowPen);//Maß-Linie
 
                         //3
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle + Ydiff3,
-                                                 Xstart4, Ymiddle + 200,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle + ydiff3,
+                                                 xstart4, ymiddle + 200,
                                                  blackPen);//Begrenzung-Mitte
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle + 175,
-                                                 Xstart5, Ymiddle + 175,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle + 175,
+                                                 xstart5, ymiddle + 175,
                                                  blackDoubleArrowPen);//Maß-Linie
-                        graphic_auspuff.DrawLine(Xstart4, Ymiddle + 175,
-                                                 Xstart5, Ymiddle + 175,
+                        graphic_auspuff.DrawLine(xstart4, ymiddle + 175,
+                                                 xstart5, ymiddle + 175,
                                                  blackDoubleArrowPen);//Maß-Linie
                     }
                 }
                 else
                 {
                     //2
-                    graphic_auspuff.DrawLine(Xstart2, Ymiddle + Ydiff2,
-                                             Xstart2, Ymiddle + 200,
+                    graphic_auspuff.DrawLine(xstart2, ymiddle + ydiff2,
+                                             xstart2, ymiddle + 200,
                                              blackPen);//Begrenzung-links
-                    graphic_auspuff.DrawLine(Xstart2, Ymiddle + 175,
-                                             Xstart3, Ymiddle + 175,
+                    graphic_auspuff.DrawLine(xstart2, ymiddle + 175,
+                                             xstart3, ymiddle + 175,
                                              blackDoubleArrowPen);//Maß-Linie
                 }
             }
 
             //5
-            graphic_auspuff.DrawLine(Xstart5, Ymiddle + Ydiff5,
-                                     Xstart5, Ymiddle + 200,
+            graphic_auspuff.DrawLine(xstart5, ymiddle + ydiff5,
+                                     xstart5, ymiddle + 200,
                                      blackPen);//Begrenzung-Links
-            graphic_auspuff.DrawLine(Xstart5, Ymiddle + 175,
-                                     Xstart6, Ymiddle + 175,
+            graphic_auspuff.DrawLine(xstart5, ymiddle + 175,
+                                     xstart6, ymiddle + 175,
                                      blackDoubleArrowPen);//Maß-Linie
             //6
-            graphic_auspuff.DrawLine(Xstart6, Ymiddle + Ydiff6,
-                                     Xstart6, Ymiddle + 200,
+            graphic_auspuff.DrawLine(xstart6, ymiddle + ydiff6,
+                                     xstart6, ymiddle + 200,
                                      blackPen);//Begrenzung-Links
-            graphic_auspuff.DrawLine(Xstart6, Ymiddle + 175,
-                                     Xstart7, Ymiddle + 175,
+            graphic_auspuff.DrawLine(xstart6, ymiddle + 175,
+                                     xstart7, ymiddle + 175,
                                      blackDoubleArrowPen);//Maß-Linie
             //7
-            graphic_auspuff.DrawLine(Xstart7, Ymiddle + Ydiff7,
-                                     Xstart7, Ymiddle + 200,
+            graphic_auspuff.DrawLine(xstart7, ymiddle + ydiff7,
+                                     xstart7, ymiddle + 200,
                                      blackPen);//Begrenzung-Links
-            graphic_auspuff.DrawLine(Xstart7 + width7, Ymiddle + Ydiff7,
-                                     Xstart7 + width7, Ymiddle + 200,
+            graphic_auspuff.DrawLine(xstart7 + width7, ymiddle + ydiff7,
+                                     xstart7 + width7, ymiddle + 200,
                                      blackPen);//Begrenzung-Rechts
-            graphic_auspuff.DrawLine(Xstart7, Ymiddle + 175,
-                                     Xstart7 + width7, Ymiddle + 175,
+            graphic_auspuff.DrawLine(xstart7, ymiddle + 175,
+                                     xstart7 + width7, ymiddle + 175,
                                      blackDoubleArrowPen);//Maß-Linie
             //konus
-            graphic_auspuff.DrawLine(Xstart2, Ymiddle + 175,
-                                     Xstart5, Ymiddle + 175,
+            graphic_auspuff.DrawLine(xstart2, ymiddle + 175,
+                                     xstart5, ymiddle + 175,
                                      blackDoubleArrowPen);//Maß-Linie
 
             /*
              * Durchmesser
              */
             //Header
-            graphic_auspuff.DrawLine(Xstart1, Ymiddle - Ydiff1,
-                                     Xstart1 - 50, Ymiddle - Ydiff1,
+            graphic_auspuff.DrawLine(xstart1, ymiddle - ydiff1,
+                                     xstart1 - 50, ymiddle - ydiff1,
                                      blackPen);//Begrenzung-oben
-            graphic_auspuff.DrawLine(Xstart1, Ymiddle + Ydiff1,
-                                     Xstart1 - 50, Ymiddle + Ydiff1,
+            graphic_auspuff.DrawLine(xstart1, ymiddle + ydiff1,
+                                     xstart1 - 50, ymiddle + ydiff1,
                                      blackPen);//Begrenzung-unten
-            graphic_auspuff.DrawLine(Xstart1 - 35, Ymiddle - Ydiff1,
-                                     Xstart1 - 35, Ymiddle + Ydiff1,
+            graphic_auspuff.DrawLine(xstart1 - 35, ymiddle - ydiff1,
+                                     xstart1 - 35, ymiddle + ydiff1,
                                      blackDoubleArrowPen);//Maß-Linie
             //Stringer
-            graphic_auspuff.DrawLine(Xstart7 + width7, Ymiddle - Ydiff7,
-                                     Xstart7 + width7 + 50, Ymiddle - Ydiff7,
+            graphic_auspuff.DrawLine(xstart7 + width7, ymiddle - ydiff7,
+                                     xstart7 + width7 + 50, ymiddle - ydiff7,
                                      blackPen);//Begrenzung-oben
-            graphic_auspuff.DrawLine(Xstart7 + width7, Ymiddle + Ydiff7,
-                                     Xstart7 + width7 + 50, Ymiddle + Ydiff7,
+            graphic_auspuff.DrawLine(xstart7 + width7, ymiddle + ydiff7,
+                                     xstart7 + width7 + 50, ymiddle + ydiff7,
                                      blackPen);//Begrenzung-unten
-            graphic_auspuff.DrawLine(Xstart7 + width7 + 35, Ymiddle - Ydiff7,
-                                     Xstart7 + width7 + 35, Ymiddle + Ydiff7,
+            graphic_auspuff.DrawLine(xstart7 + width7 + 35, ymiddle - ydiff7,
+                                     xstart7 + width7 + 35, ymiddle + ydiff7,
                                      blackDoubleArrowPen);//Maß-Linie
 
             #endregion MaßLinien
@@ -465,7 +467,7 @@ namespace SimTuning.Core.ModuleLogic
              */
 
             //Längen
-            graphic_auspuff.DrawText(/*kruemmerL.ToString()*/"LK", Xstart1 + (width1 / 2) - 15, Ymiddle + 200, blackPen);
+            graphic_auspuff.DrawText(/*kruemmerL.ToString()*/"LK", xstart1 + (width1 / 2) - 15, ymiddle + 200, blackPen);
 
             //ONE-Stage Diffusor
             if (vehicle.Motor.Auslass.Auspuff.DiffusorL1 != 0)
@@ -476,32 +478,32 @@ namespace SimTuning.Core.ModuleLogic
                     //THREE-Stage Diffusor
                     if (vehicle.Motor.Auslass.Auspuff.DiffusorL3 != 0)
                     {
-                        graphic_auspuff.DrawText(/*konus1L.ToString()*/"LD1", Xstart2 + (width2 / 2) - 15, Ymiddle + 150, blackPen);
-                        graphic_auspuff.DrawText(/*konus2L.ToString()*/"LD2", Xstart3 + (width3 / 2) - 15, Ymiddle + 150, blackPen);
-                        graphic_auspuff.DrawText(/*konus3L.ToString()*/"LD3", Xstart4 + (width4 / 2) - 15, Ymiddle + 150, blackPen);
+                        graphic_auspuff.DrawText(/*konus1L.ToString()*/"LD1", xstart2 + (width2 / 2) - 15, ymiddle + 150, blackPen);
+                        graphic_auspuff.DrawText(/*konus2L.ToString()*/"LD2", xstart3 + (width3 / 2) - 15, ymiddle + 150, blackPen);
+                        graphic_auspuff.DrawText(/*konus3L.ToString()*/"LD3", xstart4 + (width4 / 2) - 15, ymiddle + 150, blackPen);
                     }
                     else
                     {
-                        graphic_auspuff.DrawText(/*konus1L.ToString()*/"LD1", Xstart2 + (width2 / 2) - 15, Ymiddle + 150, blackPen);
-                        graphic_auspuff.DrawText(/*konus2L.ToString()*/"LD2", Xstart3 + (width3 / 2) - 15, Ymiddle + 150, blackPen);
+                        graphic_auspuff.DrawText(/*konus1L.ToString()*/"LD1", xstart2 + (width2 / 2) - 15, ymiddle + 150, blackPen);
+                        graphic_auspuff.DrawText(/*konus2L.ToString()*/"LD2", xstart3 + (width3 / 2) - 15, ymiddle + 150, blackPen);
                     }
                 }
                 else
                 {
-                    graphic_auspuff.DrawText(/*konus1L.ToString()*/"LD", Xstart2 + (width2 / 2) - 15, Ymiddle + 200, blackPen);
+                    graphic_auspuff.DrawText(/*konus1L.ToString()*/"LD", xstart2 + (width2 / 2) - 15, ymiddle + 200, blackPen);
                 }
             }
 
-            graphic_auspuff.DrawText(/*mittelteilL.ToString()*/"LM", Xstart5 + (width5 / 2) - 15, Ymiddle + 200, blackPen);
-            graphic_auspuff.DrawText(/*gegenkonusL.ToString()*/"LG", Xstart6 + (width6 / 2) - 15, Ymiddle + 200, blackPen);
-            graphic_auspuff.DrawText(/*endrohrL.ToString()*/"LE", Xstart7 + (width7 / 2) - 15, Ymiddle + 200, blackPen);
+            graphic_auspuff.DrawText(/*mittelteilL.ToString()*/"LM", xstart5 + (width5 / 2) - 15, ymiddle + 200, blackPen);
+            graphic_auspuff.DrawText(/*gegenkonusL.ToString()*/"LG", xstart6 + (width6 / 2) - 15, ymiddle + 200, blackPen);
+            graphic_auspuff.DrawText(/*endrohrL.ToString()*/"LE", xstart7 + (width7 / 2) - 15, ymiddle + 200, blackPen);
 
             //Durchmesser
             graphic_auspuff.DrawText("D1",
-                                     Xstart1 - 90, Ymiddle - 15,
+                                     xstart1 - 90, ymiddle - 15,
                                      blackPen);
             graphic_auspuff.DrawText("D2",
-                                     Xstart7 + width7 + 65, Ymiddle - 15,
+                                     xstart7 + width7 + 65, ymiddle - 15,
                                      blackPen);
             //graphic_auspuff.DrawString("D3", drawFont, drawBrushblack, Xstart7 + width7 + 65, Ymiddle - 15);
             //graphic_auspuff.DrawString("D4", drawFont, drawBrushblack, Xstart7 + width7 + 65, Ymiddle - 15);
@@ -512,19 +514,19 @@ namespace SimTuning.Core.ModuleLogic
 
             blackPen.TextSize = 25;
             graphic_auspuff.DrawText("Krümmer",
-                                     Xstart1 + 20, Ymiddle,
+                                     xstart1 + 20, ymiddle,
                                      blackPen);
             graphic_auspuff.DrawText("Konus",
-                                     Xstart2 + 20, Ymiddle,
+                                     xstart2 + 20, ymiddle,
                                      blackPen);
             graphic_auspuff.DrawText("Mittelteil",
-                                     Xstart5 + 20, Ymiddle,
+                                     xstart5 + 20, ymiddle,
                                      blackPen);
             graphic_auspuff.DrawText("Gegenkonus",
-                                     Xstart6 + 20, Ymiddle,
+                                     xstart6 + 20, ymiddle,
                                      blackPen);
             graphic_auspuff.DrawText("Endrohr",
-                                     Xstart7 + 20, Ymiddle,
+                                     xstart7 + 20, ymiddle,
                                      blackPen);
 
             #endregion TeilBezeichnung

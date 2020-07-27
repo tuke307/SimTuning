@@ -54,17 +54,17 @@ namespace SimTuning.Core.ViewModels.Tuning
             //Fahrzeug zurücksetzen
             Vehicle = null;
 
-            TuningModel Tuning = new TuningModel()
+            TuningModel tuning = new TuningModel()
             {
                 Name = "Tuning-Durchgang",
                 Beschreibung = "Erstellt am " + DateTime.Now.ToString()
             };
 
             //in Collection hinzufügen
-            Tunings.Add(Tuning);
+            Tunings.Add(tuning);
 
             //vorauswahl
-            Tuning = Tunings.Last();
+            tuning = Tunings.Last();
             CreateNewVehicle = true;
 
             SaveButton = true;

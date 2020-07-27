@@ -15,6 +15,15 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             _navigationService = navigationService;
         }
 
+        public override void ViewAppearing()
+        {
+            if (_firstTime)
+            {
+                ShowInitialViewModels();
+                _firstTime = false;
+            }
+        }
+
         private Task ShowInitialViewModels()
         {
             var tasks = new List<Task>
@@ -25,15 +34,6 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 _navigationService.Navigate<DynoDiagnosisViewModel>()
             };
             return Task.WhenAll(tasks);
-        }
-
-        public override void ViewAppearing()
-        {
-            if (_firstTime)
-            {
-                ShowInitialViewModels();
-                _firstTime = false;
-            }
         }
     }
 }

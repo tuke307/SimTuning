@@ -67,6 +67,9 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region Commands
 
+        /// <summary>
+        /// Opens the file dialog.
+        /// </summary>
         protected virtual async Task OpenFileDialog()
         {
             FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { ".wav", ".mp3" }).ConfigureAwait(true);

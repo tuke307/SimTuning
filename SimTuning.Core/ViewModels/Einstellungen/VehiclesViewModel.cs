@@ -154,7 +154,9 @@ namespace SimTuning.Core.ViewModels.Einstellungen
                   .First();
                 }
                 else
+                {
                     return value;
+                }
             }
         }
 

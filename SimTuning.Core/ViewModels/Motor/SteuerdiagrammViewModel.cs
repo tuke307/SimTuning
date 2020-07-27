@@ -16,12 +16,8 @@ namespace SimTuning.Core.ViewModels.Motor
 {
     public class SteuerdiagrammViewModel : MvxNavigationViewModel
     {
-        protected EngineLogic steuerzeit;
-
         public SteuerdiagrammViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            steuerzeit = new EngineLogic();
-
             //Lokale liste kreieren
             MotorSteuerzeiten = new ObservableCollection<MotorModel>(){
                 new MotorModel()
@@ -98,31 +94,34 @@ namespace SimTuning.Core.ViewModels.Motor
         {
             if (Einlass_Steuerzeit.HasValue)
             {
-                Einlass_Steuerwinkel_oeffnen = steuerzeit.Steuerwinkel_oeffnet(Einlass_Steuerzeit.Value, 0, 0);
-                Einlass_Steuerwinkel_schließen = steuerzeit.Steuerwinkel_schließt(Einlass_Steuerzeit.Value, 0, 0);
+                Einlass_Steuerwinkel_oeffnen = EngineLogic.GetSteuerwinkelOeffnet(Einlass_Steuerzeit.Value, 0, 0);
+                Einlass_Steuerwinkel_schließen = EngineLogic.GetSteuerwinkelSchließt(Einlass_Steuerzeit.Value, 0, 0);
             }
             if (Auslass_Steuerzeit.HasValue)
             {
-                Auslass_Steuerwinkel_oeffnen = steuerzeit.Steuerwinkel_oeffnet(0, Auslass_Steuerzeit.Value, 0);
-                Auslass_Steuerwinkel_schließen = steuerzeit.Steuerwinkel_schließt(0, Auslass_Steuerzeit.Value, 0);
+                Auslass_Steuerwinkel_oeffnen = EngineLogic.GetSteuerwinkelOeffnet(0, Auslass_Steuerzeit.Value, 0);
+                Auslass_Steuerwinkel_schließen = EngineLogic.GetSteuerwinkelSchließt(0, Auslass_Steuerzeit.Value, 0);
             }
             if (Ueberstroemer_Steuerzeit.HasValue)
             {
-                Ueberstroemer_Steuerwinkel_oeffnen = steuerzeit.Steuerwinkel_oeffnet(0, 0, Ueberstroemer_Steuerzeit.Value);
-                Ueberstroemer_Steuerwinkel_schließen = steuerzeit.Steuerwinkel_schließt(0, 0, Ueberstroemer_Steuerzeit.Value);
+                Ueberstroemer_Steuerwinkel_oeffnen = EngineLogic.GetSteuerwinkelOeffnet(0, 0, Ueberstroemer_Steuerzeit.Value);
+                Ueberstroemer_Steuerwinkel_schließen = EngineLogic.GetSteuerwinkelSchließt(0, 0, Ueberstroemer_Steuerzeit.Value);
             }
 
             if (Ueberstroemer_Steuerzeit.HasValue && Auslass_Steuerzeit.HasValue)
             {
-                Vorauslass_Steuerzeit = steuerzeit.Vorauslass(Auslass_Steuerzeit.Value, Ueberstroemer_Steuerzeit.Value);
+                Vorauslass_Steuerzeit = EngineLogic.GetVorauslass(Auslass_Steuerzeit.Value, Ueberstroemer_Steuerzeit.Value);
             }
 
             if (Einlass_Steuerzeit.HasValue && Ueberstroemer_Steuerzeit.HasValue && Auslass_Steuerzeit.HasValue)
             {
-                Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(steuerzeit.Steuerzeit_Rad(Einlass_Steuerzeit.Value, Auslass_Steuerzeit.Value, Ueberstroemer_Steuerzeit.Value));
+                Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(EngineLogic.GetPortTimingCircle(this.Einlass_Steuerzeit.Value, this.Auslass_Steuerzeit.Value, this.Ueberstroemer_Steuerzeit.Value));
                 return stream;
             }
-            else { return null; }
+            else
+            {
+                return null;
+            }
         }
 
         protected void InsertVehicle()
@@ -134,9 +133,20 @@ namespace SimTuning.Core.ViewModels.Motor
 
         protected void InsertReference()
         {
-            Einlass_Steuerzeit = MotorSteuerzeit.Einlass.SteuerzeitSZ;
-            Auslass_Steuerzeit = MotorSteuerzeit.Auslass.SteuerzeitSZ;
-            Ueberstroemer_Steuerzeit = MotorSteuerzeit.Ueberstroemer.SteuerzeitSZ;
+            if (this.MotorSteuerzeit.Einlass.SteuerzeitSZ.HasValue)
+            {
+                this.Einlass_Steuerzeit = this.MotorSteuerzeit.Einlass.SteuerzeitSZ.Value;
+            }
+
+            if (this.MotorSteuerzeit.Auslass.SteuerzeitSZ.HasValue)
+            {
+                this.Auslass_Steuerzeit = this.MotorSteuerzeit.Auslass.SteuerzeitSZ.Value;
+            }
+
+            if (this.MotorSteuerzeit.Ueberstroemer.SteuerzeitSZ.HasValue)
+            {
+                this.Ueberstroemer_Steuerzeit = this.MotorSteuerzeit.Ueberstroemer.SteuerzeitSZ.Value;
+            }
         }
 
         #endregion Commands

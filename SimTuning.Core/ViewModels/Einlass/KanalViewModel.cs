@@ -17,15 +17,12 @@ namespace SimTuning.Core.ViewModels.Einlass
 {
     public class KanalViewModel : MvxNavigationViewModel
     {
-        private readonly EinlassLogic einlass;
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
         public KanalViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            einlass = new EinlassLogic();
-
             AreaQuantityUnits = new AreaQuantity();
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
@@ -89,7 +86,7 @@ namespace SimTuning.Core.ViewModels.Einlass
         {
             if (EinlassA.HasValue && Einlasssteuerwinkel.HasValue && KurbelgehauseV.HasValue && Resonanzdrehzahl.HasValue && AnsaugleitungD.HasValue)
             {
-                Resonanzlaenge = einlass.Get_Resonanzlaenge(
+                Resonanzlaenge = EinlassLogic.GetResonanceLength(
                     UnitsNet.UnitConverter.Convert(EinlassA.Value, UnitEinlassA.UnitEnumValue, AreaUnit.SquareCentimeter),
                     Einlasssteuerwinkel.Value,
                     UnitsNet.UnitConverter.Convert(KurbelgehauseV.Value, UnitKurbelgehauseV.UnitEnumValue, VolumeUnit.CubicCentimeter),

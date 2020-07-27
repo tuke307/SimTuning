@@ -17,13 +17,12 @@ namespace SimTuning.Core.ViewModels.Motor
 {
     public class UmrechnungViewModel : MvxNavigationViewModel
     {
-        private readonly EngineLogic engineLogic;
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
         public UmrechnungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            engineLogic = new EngineLogic();
+            this.
 
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
@@ -65,10 +64,22 @@ namespace SimTuning.Core.ViewModels.Motor
 
         #region Commands
 
+        protected void InsertData()
+        {
+            if (HelperVehicle.Motor.HubL.HasValue)
+                Hub = HelperVehicle.Motor.HubL;
+
+            if (HelperVehicle.Motor.PleulL.HasValue)
+                PleulL = HelperVehicle.Motor.PleulL;
+
+            if (HelperVehicle.Motor.DeachsierungL.HasValue)
+                Deachsierung = HelperVehicle.Motor.DeachsierungL;
+        }
+
         private void Refresh_hubradius()
         {
             if (Hub.HasValue && PleulL.HasValue && Deachsierung.HasValue)
-                HubR = engineLogic.Get_hubradius(
+                HubR = EngineLogic.GetStrokeRadius(
                      UnitsNet.UnitConverter.Convert(Hub.Value,
                      UnitHub.UnitEnumValue,
                      LengthUnit.Millimeter),
@@ -82,22 +93,10 @@ namespace SimTuning.Core.ViewModels.Motor
                      LengthUnit.Millimeter));
         }
 
-        protected void InsertData()
-        {
-            if (HelperVehicle.Motor.HubL.HasValue)
-                Hub = HelperVehicle.Motor.HubL;
-
-            if (HelperVehicle.Motor.PleulL.HasValue)
-                PleulL = HelperVehicle.Motor.PleulL;
-
-            if (HelperVehicle.Motor.DeachsierungL.HasValue)
-                Deachsierung = HelperVehicle.Motor.DeachsierungL;
-        }
-
         private void Refresh_kwgrad()
         {
             if (PleulL.HasValue && HubR.HasValue && Deachsierung.HasValue && Steuerzeit.HasValue)
-                AbstandOTlength = engineLogic.Get_mmvorot(
+                AbstandOTlength = EngineLogic.GetDistanceToOT(
                       UnitsNet.UnitConverter.Convert(PleulL.Value,
                       UnitPleulL.UnitEnumValue,
                       LengthUnit.Millimeter),
@@ -118,19 +117,21 @@ namespace SimTuning.Core.ViewModels.Motor
             if (VorherSteuerzeit.HasValue && NachherSteuerzeit.HasValue && PleulL.HasValue && HubR.HasValue && Deachsierung.HasValue && (Kolbenoberkante_checked || Kolbenunterkante_checked))
             {
                 List<double> steuerwinkel = new List<double>();
-                steuerwinkel.AddRange(engineLogic.Get_steuerwinkel(VorherSteuerzeit.Value, NachherSteuerzeit.Value, Kolbenoberkante_checked, Kolbenunterkante_checked));
+                steuerwinkel.AddRange(EngineLogic.GetSteuerwinkel(VorherSteuerzeit.Value, NachherSteuerzeit.Value, Kolbenoberkante_checked, Kolbenunterkante_checked));
 
                 VorherSteuerwinkelOeffnet = steuerwinkel[0];
                 VorherSteuerwinkelSchließt = steuerwinkel[1];
                 NachherSteuerwinkelOeffnet = steuerwinkel[2];
                 NachherSteuerwinkelSchließt = steuerwinkel[3];
 
-                Unterschied_grad = engineLogic.Get_Unterschied_grad(VorherSteuerzeit.Value, NachherSteuerzeit.Value);
+                Unterschied_grad = EngineLogic.GetPortTimingDifference(false, VorherSteuerzeit.Value, NachherSteuerzeit.Value);
 
                 //verbessern und durschnitt aus öffnen und schließen bilden
-                Unterschied_mm = engineLogic.Get_Unterschied_mm(
-                    VorherSteuerwinkelOeffnet.Value,
-                    NachherSteuerwinkelOeffnet.Value,
+                Unterschied_mm = EngineLogic.GetPortTimingDifference(
+                    true,
+
+                    this.VorherSteuerwinkelOeffnet.Value,
+                    this.NachherSteuerwinkelOeffnet.Value,
 
                      UnitsNet.UnitConverter.Convert(PleulL.Value,
                     UnitPleulL.UnitEnumValue,

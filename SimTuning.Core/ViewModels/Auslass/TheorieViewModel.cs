@@ -17,24 +17,21 @@ namespace SimTuning.Core.ViewModels.Auslass
 {
     public class TheorieViewModel : MvxNavigationViewModel
     {
-        private readonly AuslassLogic auslass;
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
         public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; }
 
         public TheorieViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            auslass = new AuslassLogic();
+            this.AreaQuantityUnits = new AreaQuantity();
+            this.LengthQuantityUnits = new LengthQuantity();
+            this.SpeedQuantityUnits = new SpeedQuantity();
 
-            AreaQuantityUnits = new AreaQuantity();
-            LengthQuantityUnits = new LengthQuantity();
-            SpeedQuantityUnits = new SpeedQuantity();
-
-            UnitAbgasV = SpeedQuantityUnits.Where(x => x.UnitEnumValue.Equals(SpeedUnit.MeterPerSecond)).First();
-            UnitAuslassA = AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareCentimeter)).First();
-            UnitKruemmerD = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            UnitKruemmerL = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Centimeter)).First();
-            UnitResonanzL = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Centimeter)).First();
+            this.UnitAbgasV = this.SpeedQuantityUnits.Where(x => x.UnitEnumValue.Equals(SpeedUnit.MeterPerSecond)).First();
+            this.UnitAuslassA = this.AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareCentimeter)).First();
+            this.UnitKruemmerD = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            this.UnitKruemmerL = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Centimeter)).First();
+            this.UnitResonanzL = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Centimeter)).First();
 
             using (var db = new DatabaseContext())
             {
@@ -46,8 +43,8 @@ namespace SimTuning.Core.ViewModels.Auslass
                 HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
 
-            //Commands
-            InsertDataCommand = new MvxCommand(InsertData);
+            // Commands
+            this.InsertDataCommand = new MvxCommand(this.InsertData);
         }
 
         public IMvxCommand InsertDataCommand { get; set; }
@@ -68,29 +65,37 @@ namespace SimTuning.Core.ViewModels.Auslass
 
         protected virtual void InsertData()
         {
-            if (HelperVehicle.Motor.Auslass.FlaecheA.HasValue)
-                AuslassA = HelperVehicle.Motor.Auslass.FlaecheA;
+            if (this.HelperVehicle.Motor.Auslass.FlaecheA.HasValue)
+            {
+                this.AuslassA = this.HelperVehicle.Motor.Auslass.FlaecheA;
+            }
 
-            if (HelperVehicle.Motor.ResonanzU.HasValue)
-                ResonanzDrehzahl = HelperVehicle.Motor.ResonanzU;
+            if (this.HelperVehicle.Motor.ResonanzU.HasValue)
+            {
+                this.ResonanzDrehzahl = this.HelperVehicle.Motor.ResonanzU;
+            }
 
-            if (HelperVehicle.Motor.Auslass.SteuerzeitSZ.HasValue)
-                AusslassSteuerwinkel = HelperVehicle.Motor.Auslass.SteuerzeitSZ;
+            if (this.HelperVehicle.Motor.Auslass.SteuerzeitSZ.HasValue)
+            {
+                this.AusslassSteuerwinkel = this.HelperVehicle.Motor.Auslass.SteuerzeitSZ;
+            }
         }
 
         private void Refresh_KruemmerL()
         {
-            if (KruemmerD.HasValue)
+            if (this.KruemmerD.HasValue)
             {
-                if (!DrehmomentF.HasValue)
-                    DrehmomentF = 9;
+                if (!this.DrehmomentF.HasValue)
+                {
+                    this.DrehmomentF = 9;
+                }
 
-                KruemmerL = auslass.Get_Kruemmerlaenge(
-                     UnitsNet.UnitConverter.Convert(KruemmerD.Value,
-                     UnitKruemmerD.UnitEnumValue,
+                this.KruemmerL = AuslassLogic.GetManifoldLength(
+                     UnitsNet.UnitConverter.Convert(this.KruemmerD.Value,
+                     this.UnitKruemmerD.UnitEnumValue,
                      LengthUnit.Millimeter),
 
-                     DrehmomentF.Value,
+                     this.DrehmomentF.Value,
 
                      0);
             }
@@ -98,16 +103,16 @@ namespace SimTuning.Core.ViewModels.Auslass
 
         private void Refresh_KruemmerD()
         {
-            if (AuslassA.HasValue)
+            if (this.AuslassA.HasValue)
                 KruemmerSpannneD =
-                    auslass.Get_KruemmerDurchmesser(
+                    AuslassLogic.GetManifoldDiameter(
                     UnitsNet.UnitConverter.Convert(AuslassA.Value,
                     UnitAuslassA.UnitEnumValue,
                     AreaUnit.SquareCentimeter), 10)
                     +
                     " - "
                     +
-                    auslass.Get_KruemmerDurchmesser(
+                    AuslassLogic.GetManifoldDiameter(
                     UnitsNet.UnitConverter.Convert(AuslassA.Value,
                     UnitAuslassA.UnitEnumValue,
                     AreaUnit.SquareCentimeter), 20);
@@ -115,14 +120,18 @@ namespace SimTuning.Core.ViewModels.Auslass
 
         private void Refresh_AuspuffGeschwindigkeit()
         {
-            if (ModAbgasT.HasValue)
-                AbgasV = auslass.Get_Abgasgeschwindigkeit(ModAbgasT.Value);
+            if (this.ModAbgasT.HasValue)
+            {
+                this.AbgasV = AuslassLogic.GetGasVelocity(this.ModAbgasT.Value);
+            }
         }
 
         private void Refresh_Resonanzlaenge()
         {
-            if (AusslassSteuerwinkel.HasValue && AbgasT.HasValue && ResonanzDrehzahl.HasValue)
-                ResonanzL = auslass.Get_Resonanzlaenge(AusslassSteuerwinkel.Value, AbgasT.Value, ResonanzDrehzahl.Value);
+            if (this.AusslassSteuerwinkel.HasValue && this.AbgasT.HasValue && this.ResonanzDrehzahl.HasValue)
+            {
+                this.ResonanzL = AuslassLogic.GetResonanceLength(this.AusslassSteuerwinkel.Value, this.AbgasT.Value, this.ResonanzDrehzahl.Value);
+            }
         }
 
         #endregion Commands

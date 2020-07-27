@@ -66,8 +66,8 @@ namespace Spectrogram
                 var fftR = fft_buffer[fft_buffer.Length - i - 1];
 
                 // note that this is different than just taking the absolute value
-                float absL = (float)Math.Sqrt(fftL.X * fftL.X + fftL.Y * fftL.Y);
-                float absR = (float)Math.Sqrt(fftR.X * fftR.X + fftR.Y * fftR.Y);
+                float absL = (float)Math.Sqrt((fftL.X * fftL.X) + (fftL.Y * fftL.Y));
+                float absR = (float)Math.Sqrt((fftR.X * fftR.X) + (fftR.Y * fftR.Y));
                 fft[i] = (absL + absR) / 2;
             }
 

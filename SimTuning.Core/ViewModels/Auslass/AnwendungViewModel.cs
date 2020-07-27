@@ -20,7 +20,6 @@ namespace SimTuning.Core.ViewModels.Auslass
 {
     public class AnwendungViewModel : MvxNavigationViewModel
     {
-        protected AuslassLogic auslass;
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; protected set; }
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; protected set; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; protected set; }
@@ -39,8 +38,6 @@ namespace SimTuning.Core.ViewModels.Auslass
         public override Task Initialize()
         {
             // Async initialization
-
-            auslass = new AuslassLogic();
 
             Vehicle = new VehiclesModel();
             Vehicle.Motor = new MotorModel();
@@ -138,7 +135,7 @@ namespace SimTuning.Core.ViewModels.Auslass
                  LengthUnit.Millimeter);
 
             VehiclesModel vehicle = Vehicle;
-            Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(auslass.Auspuff(ref vehicle));
+            Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(AuslassLogic.Auspuff(ref vehicle));
             Vehicle = vehicle;
             RaisePropertyChanged("Vehicle");
 

@@ -9,7 +9,7 @@ namespace SimTuning.Forms.UI.Components
     {
         public MenuOptionView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         public string Text

@@ -16,14 +16,11 @@ namespace SimTuning.Core.ViewModels.Motor
 {
     public class HubraumViewModel : MvxNavigationViewModel
     {
-        private readonly EngineLogic hubraum;
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
         public HubraumViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            hubraum = new EngineLogic();
-
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
 
@@ -67,7 +64,7 @@ namespace SimTuning.Core.ViewModels.Motor
                 if (!Einbauspiel.HasValue)
                     Einbauspiel = 0.03;
 
-                BohrungD = hubraum.Get_BohrungsDurchmesser(
+                BohrungD = EngineLogic.GetCylinderHoleDiameter(
                     UnitsNet.UnitConverter.Convert(
                     HubraumV.Value,
                     UnitHubraumV.UnitEnumValue,
@@ -78,7 +75,7 @@ namespace SimTuning.Core.ViewModels.Motor
                     UnitHub.UnitEnumValue,
                     LengthUnit.Centimeter));
 
-                KolbenD = hubraum.Get_KolbenDurchmesser(
+                KolbenD = EngineLogic.GetPistonDiameter(
                     UnitsNet.UnitConverter.Convert(
                     BohrungD.Value,
                     UnitBohrungD.UnitEnumValue,
@@ -121,7 +118,7 @@ namespace SimTuning.Core.ViewModels.Motor
                 SetProperty(ref _helperVehicle, value);
 
                 if (value.Motor.BohrungD.HasValue)
-                    GrindingDiameters = hubraum.Get_GrindingDiameters(value.Motor.BohrungD.Value);
+                    GrindingDiameters = EngineLogic.GetGrindingDiameters(value.Motor.BohrungD.Value);
             }
         }
 

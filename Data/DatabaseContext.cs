@@ -45,6 +45,33 @@ namespace Data
         }
 
         /// <summary>
+        /// Aufgerufen beim speichern der Entitys
+        /// </summary>
+        /// <returns></returns>
+        public override int SaveChanges()
+        {
+            var entries = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is BaseEntityModel && (
+                        e.State == EntityState.Added
+                        || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+                //Modified Date
+                ((BaseEntityModel)entityEntry.Entity).UpdatedDate = DateTime.Now;
+
+                //Creation Date
+                if (entityEntry.State == EntityState.Added)
+                {
+                    ((BaseEntityModel)entityEntry.Entity).CreatedDate = DateTime.Now;
+                }
+            }
+
+            return base.SaveChanges();
+        }
+
+        /// <summary>
         /// einmaliger Aufruf
         /// </summary>
         /// <param name="options"></param>
@@ -111,33 +138,6 @@ namespace Data
                 new UeberstroemerModel { Id = 6, MotorId = 6 });
 
             #endregion Data-Seeding
-        }
-
-        /// <summary>
-        /// Aufgerufen beim speichern der Entitys
-        /// </summary>
-        /// <returns></returns>
-        public override int SaveChanges()
-        {
-            var entries = ChangeTracker
-                .Entries()
-                .Where(e => e.Entity is BaseEntityModel && (
-                        e.State == EntityState.Added
-                        || e.State == EntityState.Modified));
-
-            foreach (var entityEntry in entries)
-            {
-                //Modified Date
-                ((BaseEntityModel)entityEntry.Entity).UpdatedDate = DateTime.Now;
-
-                //Creation Date
-                if (entityEntry.State == EntityState.Added)
-                {
-                    ((BaseEntityModel)entityEntry.Entity).CreatedDate = DateTime.Now;
-                }
-            }
-
-            return base.SaveChanges();
         }
     }
 }

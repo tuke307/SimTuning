@@ -18,16 +18,6 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             //CheckDynoData();
         }
 
-        private bool CheckDynoData()
-        {
-            if (Dyno == null)
-            {
-                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)).ConfigureAwait(false));
-                return false;
-            }
-            else { return true; }
-        }
-
         protected new async Task RefreshPlot()
         {
             if (!CheckDynoData())
@@ -38,6 +28,16 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             await base.RefreshPlot().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
+        }
+
+        private bool CheckDynoData()
+        {
+            if (Dyno == null)
+            {
+                Task.Run(async () => await MaterialDialog.Instance.SnackbarAsync(message: rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)).ConfigureAwait(false));
+                return false;
+            }
+            else { return true; }
         }
     }
 }

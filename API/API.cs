@@ -17,8 +17,8 @@ namespace API
         public static async Task<Tuple<bool, bool, List<string>>> UserLoginAsync(string email = null, SecureString password = null)
         {
             //default
-            bool _userValid = false;
-            bool _licenseValid = false;
+            bool userValid = false;
+            bool licenseValid = false;
             List<string> messages = new List<string>();
             User user = null; //Account
             WooCommerceNET.WooCommerce.Legacy.Order order = null; //Lizenz
@@ -26,8 +26,8 @@ namespace API
             //admin start
             if (email == "admin123")
             {
-                _licenseValid = true;
-                _userValid = true;
+                licenseValid = true;
+                userValid = true;
                 messages.Add("ADMIN LOGIN");
                 goto Finish;
             }
@@ -56,7 +56,7 @@ namespace API
             if (user != null)
             {
                 messages.Add("Erfolgreich eingeloggt");
-                _userValid = true;
+                userValid = true;
             }
             else
             {
@@ -68,7 +68,7 @@ namespace API
             if (order != null)
             {
                 messages.Add("PRO Version");
-                _licenseValid = true;
+                licenseValid = true;
             }
             else
             {
@@ -79,7 +79,7 @@ namespace API
             SimTuning.Core.Business.Functions.SaveLoginCredentials(email, password);
 
         Finish:
-            return new Tuple<bool, bool, List<string>>(_userValid, _licenseValid, messages);
+            return new Tuple<bool, bool, List<string>>(userValid, licenseValid, messages);
         }
     }
 }

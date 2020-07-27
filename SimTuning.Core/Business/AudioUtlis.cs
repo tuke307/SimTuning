@@ -37,32 +37,6 @@ namespace SimTuning.Core.Business
         }
 
         /// <summary>
-        /// Trims the wav file.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <param name="writer">The writer.</param>
-        /// <param name="startPos">The start position.</param>
-        /// <param name="endPos">The end position.</param>
-        private static void TrimWavFile(WaveFileReader reader, ref WaveFileWriter writer, int startPos, int endPos)
-        {
-            reader.Position = startPos;
-            byte[] buffer = new byte[1024];
-            while (reader.Position < endPos)
-            {
-                int bytesRequired = (int)(endPos - reader.Position);
-                if (bytesRequired > 0)
-                {
-                    int bytesToRead = Math.Min(bytesRequired, buffer.Length);
-                    int bytesRead = reader.Read(buffer, 0, bytesToRead);
-                    if (bytesRead > 0)
-                    {
-                        writer.Write(buffer, 0, bytesRead);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Konvertiert .mp3 zu .wav
         /// </summary>
         /// <param name="mp3File">Pfad Der MP3 Datei</param>
@@ -86,11 +60,11 @@ namespace SimTuning.Core.Business
         }
 
         /// <summary>
-        /// Erstellt mit übergebenen Stream eine .wav Datei im lokalen Verzeichnis
+        /// Erstellt mit übergebenen Stream eine .wav Datei im lokalen Verzeichnis.
         /// </summary>
-        /// <param name="fileName">Datei-Name (.wav oder .mp3)</param>
-        /// <param name="fileData">Datei-Stream</param>
-        /// <returns></returns>
+        /// <param name="fileName">Datei-Name (.wav oder .mp3).</param>
+        /// <param name="fileData">Datei-Stream.</param>
+        /// <returns>status.</returns>
         public static bool AudioCopy(string fileName, Stream fileData)
         {
             try
@@ -128,6 +102,32 @@ namespace SimTuning.Core.Business
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Trims the wav file.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="startPos">The start position.</param>
+        /// <param name="endPos">The end position.</param>
+        private static void TrimWavFile(WaveFileReader reader, ref WaveFileWriter writer, int startPos, int endPos)
+        {
+            reader.Position = startPos;
+            byte[] buffer = new byte[1024];
+            while (reader.Position < endPos)
+            {
+                int bytesRequired = (int)(endPos - reader.Position);
+                if (bytesRequired > 0)
+                {
+                    int bytesToRead = Math.Min(bytesRequired, buffer.Length);
+                    int bytesRead = reader.Read(buffer, 0, bytesToRead);
+                    if (bytesRead > 0)
+                    {
+                        writer.Write(buffer, 0, bytesRead);
+                    }
+                }
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Data
 {
-    public class Constants
+    public static class Constants
     {
         public const string DatabaseName = "simtuning.db";
 

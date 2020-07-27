@@ -16,12 +16,12 @@ namespace SimTuning.Core.ViewModels.Dyno
     {
         public DataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            using (var Data = new Data.DatabaseContext())
+            using (var data = new Data.DatabaseContext())
             {
-                IList<Data.Models.VehiclesModel> vehicList = Data.Vehicles.ToList();
+                IList<Data.Models.VehiclesModel> vehicList = data.Vehicles.ToList();
                 Vehicles = new ObservableCollection<Data.Models.VehiclesModel>(vehicList);
 
-                IList<Data.Models.DynoModel> dynoList = Data.Dyno.ToList();
+                IList<Data.Models.DynoModel> dynoList = data.Dyno.ToList();
                 Dynos = new ObservableCollection<Data.Models.DynoModel>(dynoList);
 
                 Dyno = Dynos.Where(d => d.Active == true).FirstOrDefault();
@@ -125,15 +125,15 @@ namespace SimTuning.Core.ViewModels.Dyno
                             Deletable = true
                         };
 
-                        using (var Data = new Data.DatabaseContext())
+                        using (var data = new Data.DatabaseContext())
                         {
-                            Data.Vehicles.Add(vehicle);
+                            data.Vehicles.Add(vehicle);
 
-                            Data.SaveChanges();
+                            data.SaveChanges();
                         }
 
                         //neues Vehicle Dyno zuweisen
-                        Dyno.Vehicle = vehicle;
+                        this.Dyno.Vehicle = vehicle;
 
                         //Lokaler list hinzufügen und auswählen
                         Vehicles.Add(vehicle);
@@ -166,10 +166,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                using (var Data = new Data.DatabaseContext())
+                using (var data = new Data.DatabaseContext())
                 {
                     //Vehicle+Dyno laden
-                    return Data.Dyno
+                    return data.Dyno
                       .Where(v => v.Id == dyno.Id)
                       .Include(v => v.Vehicle)
                       .Include(v => v.Audio)

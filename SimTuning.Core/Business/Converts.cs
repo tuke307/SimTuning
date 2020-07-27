@@ -32,7 +32,10 @@ namespace SimTuning.Core.Business
         /// <returns></returns>
         public static SecureString StringToSecureString(string password)
         {
-            if (string.IsNullOrEmpty(password) || password.Length == 0) { return null; }
+            if (string.IsNullOrEmpty(password) || password.Length == 0)
+            {
+                return null;
+            }
 
             var securePassword = new SecureString();
 
