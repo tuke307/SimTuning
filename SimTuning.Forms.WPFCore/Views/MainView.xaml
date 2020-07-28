@@ -6,12 +6,12 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
-                   TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-                   Background="{DynamicResource MaterialDesignPaper}"
-                   FontFamily="{DynamicResource MaterialDesignFont}"
+                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
                    mc:Ignorable="d"
                    MinHeight="630"
-                   MinWidth="1070">
+                   MinWidth="1070"
+                   Height="630"
+                   Width="1070">
     <views:MvxWpfView.Resources>
         <!--CONVERTER-->
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -23,12 +23,48 @@
                                        Converter2="{StaticResource BoolToVis}">
         </behaviours:CombiningConverter>
     </views:MvxWpfView.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              Background="{StaticResource MaterialDesignDarkBackground}"
+              MouseLeftButtonDown="GridTop_MouseLeftButtonDown">
+        </Grid>
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="10,0">
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                    Width="25"
+                    Height="25"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Foreground="White"
+                    Click="WindowMinimize_Click">
+                <materialDesign:PackIcon Kind="WindowMinimize" />
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                    Width="25"
+                    Height="25"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Foreground="White"
+                    Click="WindowMaximize_Click">
+                <materialDesign:PackIcon Kind="WindowMaximize" />
+            </Button>
+            <Button  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                     Width="25"
+                     Height="25"
+                     Background="{x:Null}"
+                     BorderBrush="{x:Null}"
+                     Foreground="White"
+                     Click="WindowClose_Click">
+                <materialDesign:PackIcon Kind="WindowClose" />
+            </Button>
+        </StackPanel>
 
         <Grid Grid.Row="0">
             <StackPanel Orientation="Horizontal"
@@ -100,13 +136,20 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Frame x:Name="MenuContent"
-                   Grid.Column="0"
-                   NavigationUIVisibility="Hidden"></Frame>
+            <ItemsControl  Grid.Column="0"
+                           region:MvxContainer.Id="MenuContent"
+                           region:MvxContainer.HolderType="{x:Type ItemsControl}"></ItemsControl>
 
-            <Frame x:Name="PageContent"
-                   Grid.Column="1"
-                   NavigationUIVisibility="Hidden"></Frame>
+            <!--<Frame x:Name="MenuContent"
+                   Grid.Column="0"></Frame>-->
+
+            <ItemsControl  Grid.Column="1"
+                           region:MvxContainer.Id="PageContent"
+                           region:MvxContainer.HolderType="{x:Type ItemsControl}"></ItemsControl>
+
+            <!--<Frame x:Name="PageContent"
+                   Grid.Column="1">
+            </Frame>-->
         </Grid>
     </Grid>
 </views:MvxWpfView>

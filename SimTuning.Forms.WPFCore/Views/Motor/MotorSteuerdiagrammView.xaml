@@ -9,6 +9,9 @@
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
                    mc:Ignorable="d"
+                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   region:MvxContainer.Header="Steuerdiagramm"
+                   Name="MotorSteuerdiagramm"
                    MinHeight="550"
                    MinWidth="1010"
                    Background="{DynamicResource MaterialDesignPaper}">

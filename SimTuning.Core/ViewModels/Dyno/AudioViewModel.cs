@@ -27,6 +27,12 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         public AudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
+            audioLogic = new AudioLogic();
+            BadgeFileOpen = false;
+
+            StopCommand = new MvxCommand(Stop);
+            PauseCommand = new MvxCommand(Pause);
+            PlayCommand = new MvxCommand(Play);
         }
 
         public IMvxAsyncCommand OpenFileCommand { get; set; }
@@ -43,24 +49,17 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         public override Task Initialize()
         {
-            audioLogic = new AudioLogic();
-            BadgeFileOpen = false;
-
             using (var db = new DatabaseContext())
             {
                 try
                 {
-                    Dyno = db.Dyno.Where(d => d.Active == true).Include(v => v.Audio).First();
+                    Dyno = db.Dyno.Where(d => d.Active == true)/*.Include(v => v.Audio)*/.First();
                 }
                 catch { }
             }
 
             //messages
-            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
-
-            StopCommand = new MvxCommand(Stop);
-            PauseCommand = new MvxCommand(Pause);
-            PlayCommand = new MvxCommand(Play);
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             return base.Initialize();
         }

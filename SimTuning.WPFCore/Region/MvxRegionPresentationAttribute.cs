@@ -1,4 +1,9 @@
-﻿using MvvmCross.Presenters.Attributes;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MvvmCross.Presenters.Attributes;
 
 namespace SimTuning.WPFCore.Region
 {
@@ -6,12 +11,12 @@ namespace SimTuning.WPFCore.Region
     // [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public sealed class MvxRegionPresentationAttribute : MvxBasePresentationAttribute
     {
+        //public string RegionName { get; private set; }
+
         //public MvxRegionPresentationAttribute(string regionName)
         //{
-        //    this.Name = regionName;
+        //    RegionName = regionName;
         //}
-
-        //public string Name { get; private set; }
 
         public string RegionName { get; set; }
         public string WindowIdentifier { get; set; }

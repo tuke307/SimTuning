@@ -42,7 +42,7 @@ namespace SimTuning.Core.ViewModels.Dyno
                 catch { }
             }
 
-            this.rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             this.InsertVehicleCommand = new MvxCommand(this.InsertVehicle);
             this.InsertEnvironmentCommand = new MvxCommand(this.InsertEnvironment);

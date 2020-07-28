@@ -6,12 +6,16 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Tuning
 {
     public class InputViewModel : MvxNavigationViewModel
     {
+        protected ResourceManager rm;
+
         public InputViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             using (var db = new DatabaseContext())
@@ -32,6 +36,9 @@ namespace SimTuning.Core.ViewModels.Tuning
         public override Task Initialize()
         {
             // Async initialization
+
+            //messages
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             return base.Initialize();
         }

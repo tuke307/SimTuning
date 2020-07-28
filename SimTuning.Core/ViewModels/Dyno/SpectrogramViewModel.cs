@@ -54,7 +54,7 @@ namespace SimTuning.Core.ViewModels.Dyno
                 catch { }
             }
 
-            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
         }
 
         public IMvxAsyncCommand RefreshSpectrogramCommand { get; set; }

@@ -1,7 +1,6 @@
-﻿using MvvmCross.IoC;
+﻿using System.IO;
 using MvvmCross.ViewModels;
-using SimTuning.WPFCore.ViewModels;
-using System.IO;
+using SimTuning.Core.ViewModels.Auslass;
 
 namespace SimTuning.WPFCore
 {
@@ -16,7 +15,9 @@ namespace SimTuning.WPFCore
             if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
                 Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
 
-            RegisterAppStart<MainViewModel>();
+            RegisterAppStart<SimTuning.WPFCore.ViewModels.MainViewModel>();
+
+            base.Initialize();
         }
     }
 }

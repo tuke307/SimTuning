@@ -9,6 +9,9 @@
                    xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    mc:Ignorable="d"
+                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   region:MvxContainer.Header="Vergaser"
+                   Name="EinlassVergaser"
                    Background="{DynamicResource MaterialDesignPaper}"
                    MinWidth="1010"
                    MinHeight="550">

@@ -7,6 +7,7 @@ using SimTuning.Core.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Resources;
 using System.Threading.Tasks;
 using UnitsNet.Units;
 using WordPressPCL.Models;
@@ -15,6 +16,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 {
     public class VehiclesViewModel : MvxNavigationViewModel<UserModel>
     {
+        protected ResourceManager rm;
         public UserModel User { get; protected set; }
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
         public ObservableCollection<UnitListItem> MassQuantityUnits { get; }
@@ -73,6 +75,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         public override Task Initialize()
         {
             // Async initialization
+
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             return base.Initialize();
         }

@@ -1,27 +1,22 @@
-﻿using MvvmCross;
-using MvvmCross.Platforms.Wpf.Presenters;
-using MvvmCross.Platforms.Wpf.Views;
-using MvvmCross.ViewModels;
-using MvvmCross.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MvvmCross;
+using MvvmCross.Platforms.Wpf.Presenters;
+using MvvmCross.Platforms.Wpf.Views;
+using MvvmCross.ViewModels;
+using MvvmCross.Views;
 
 namespace SimTuning.WPFCore.Region
 {
     public class MvxMultiRegionWpfViewPresenter : MvxWpfViewPresenter
     {
-        private readonly ContentControl _contentControl;
+        private readonly ContentControl Root;
 
-        public MvxMultiRegionWpfViewPresenter(ContentControl contentControl)
-            : base(contentControl)
-        {
-            _contentControl = contentControl;
-        }
+        public MvxMultiRegionWpfViewPresenter(ContentControl root) : base(root) => Root = root;
 
         public override Task<bool> Show(MvxViewModelRequest request)
         {
@@ -32,7 +27,7 @@ namespace SimTuning.WPFCore.Region
                 var loader = Mvx.IoCProvider.Resolve<IMvxWpfViewLoader>();
                 var view = loader.CreateView(request);
 
-                var containerView = FindChild<Frame>(_contentControl, viewType.GetRegionName());
+                var containerView = FindChild<Frame>(Root, viewType.GetRegionName());
 
                 if (containerView != null)
                 {

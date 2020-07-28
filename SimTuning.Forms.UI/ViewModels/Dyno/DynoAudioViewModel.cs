@@ -29,16 +29,18 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         protected new async Task OpenFileDialog()
         {
-            if (!CheckDynoData().Result)
+            if (!this.CheckDynoData().Result)
+            {
                 return;
+            }
 
             await base.OpenFileDialog().ConfigureAwait(true);
 
-            if (player != null)
+            if (this.player != null)
             {
-                await ReloadImageAudioSpectrogram().ConfigureAwait(true);
+                await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
 
-                BadgeFileOpen = true;
+                this.BadgeFileOpen = true;
             }
         }
 
@@ -86,12 +88,15 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
         private async Task<bool> CheckDynoData()
         {
-            if (Dyno == null)
+            if (this.Dyno == null)
             {
-                await MaterialDialog.Instance.SnackbarAsync(message: rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+                await MaterialDialog.Instance.SnackbarAsync(message: this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)).ConfigureAwait(false);
                 return false;
             }
-            else { return true; }
+            else
+            {
+                return true;
+            }
         }
 
         #endregion Commands

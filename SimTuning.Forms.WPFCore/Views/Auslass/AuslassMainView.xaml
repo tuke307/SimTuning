@@ -7,6 +7,8 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
                    Background="{DynamicResource MaterialDesignPaper}"
                    mc:Ignorable="d"
                    d:DesignWidth="1010"
@@ -15,7 +17,14 @@
                    MinHeight="600">
 
     <Grid>
-        <Grid.RowDefinitions>
+        <dragablz:TabablzControl FixedHeaderCount="2"
+                                 Grid.Row="0"
+                                 region:MvxContainer.Id="AuslassRegion">
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>
+        </dragablz:TabablzControl>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
@@ -27,7 +36,9 @@
                 <StackPanel Orientation="Horizontal"
                             Margin="2">
 
-                    <!--<materialDesign:PackIcon Kind="ViewDashboard" Height="25" Width="25" Margin="10" />-->
+                    -->
+        <!--<materialDesign:PackIcon Kind="ViewDashboard" Height="25" Width="25" Margin="10" />-->
+        <!--
                     <RadioButton x:Name="rbt1"
                                  Content="Theorie"
                                  Style="{StaticResource MaterialDesignTabRadioButton}"
@@ -36,7 +47,9 @@
                                  IsChecked="true">
                     </RadioButton>
 
-                    <!--<materialDesign:PackIcon Kind="ArrowCompressRight" Height="25" Width="25" Margin="10" />-->
+                    -->
+        <!--<materialDesign:PackIcon Kind="ArrowCompressRight" Height="25" Width="25" Margin="10" />-->
+        <!--
                     <RadioButton x:Name="rbt2"
                                  Content="Anwendung"
                                  Style="{StaticResource MaterialDesignTabRadioButton}"
@@ -49,6 +62,6 @@
             <ContentPresenter Grid.Row="1"
                               Content="{Binding}">
             </ContentPresenter>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </views:MvxWpfView>

@@ -8,6 +8,8 @@ using OxyPlot;
 using SimTuning.Core.ModuleLogic;
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Tuning
@@ -15,6 +17,7 @@ namespace SimTuning.Core.ViewModels.Tuning
     public class DiagnosisViewModel : MvxNavigationViewModel
     {
         private TuningLogic tunigLogic;
+        protected ResourceManager rm;
 
         public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
@@ -46,6 +49,9 @@ namespace SimTuning.Core.ViewModels.Tuning
                 }
                 catch { }
             }
+
+            //messages
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             return base.Initialize();
         }

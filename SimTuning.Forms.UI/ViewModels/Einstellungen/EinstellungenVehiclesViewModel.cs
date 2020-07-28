@@ -3,6 +3,7 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Core.Models;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -31,7 +32,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         {
             if (!this.User.LicenseValid)
             {
-                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Kaufe die Pro Version um Presets zu ändern",
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: rm.GetString("MES_PRO", CultureInfo.CurrentCulture),
                                           msDuration: MaterialSnackbar.DurationLong));
             }
 

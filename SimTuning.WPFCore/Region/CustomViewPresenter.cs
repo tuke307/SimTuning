@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using MvvmCross;
 using MvvmCross.Platforms.Wpf.Presenters;
+using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using MvvmCross.Presenters;
 using MvvmCross.ViewModels;
@@ -19,9 +21,9 @@ namespace SimTuning.WPFCore.Region
             _contentControl = contentControl;
         }
 
-        protected virtual Task<bool> ShowRegionContentView(FrameworkElement element, MvxRegionPresentationAttribute attribute, MvxViewModelRequest request)
+        protected virtual Task<bool> ShowRegionContentView(MvxRegionPresentationAttribute attribute, MvxViewModelRequest request)
         {
-            //var contentControl = FrameworkElementsDictionary.Keys.FirstOrDefault(w => (w as MvxWindow)?.Identifier == attribute.WindowIdentifier) ?? FrameworkElementsDictionary.Keys.Last();
+            //_contentControl = FrameworkElementsDictionary.Keys.FirstOrDefault(w => (w as MvxWindow)?.Identifier == attribute.WindowIdentifier) ?? FrameworkElementsDictionary.Keys.Last();
             var viewFinder = Mvx.IoCProvider.Resolve<IMvxViewsContainer>();
             var viewType = viewFinder.GetViewType(request.ViewModelType);
             if (viewType.HasRegionAttribute())
@@ -32,52 +34,33 @@ namespace SimTuning.WPFCore.Region
                 var region = viewType.GetRegionName();
 
                 var containerView = LogicalTreeHelper.FindLogicalNode(_contentControl, region) as Frame;
+
                 if (containerView != null)
                 {
-                    containerView.Navigate(view);
-                    return Task.FromResult(true);
+                    var result = containerView.Navigate(view);
+                    return Task.FromResult(result);
                 }
             }
             return Task.FromResult(false);
         }
 
-        //public override Task<bool> ChangePresentation(MvxPresentationHint hint)
+        //protected virtual void ShowViewWithNoContainer(MvxViewModelRequest request, MvxContentPresentationAttribute attribute)
         //{
-        //    if (hint is MvxPanelPopToRootPresentationHint)
-        //    {
-        //        var mainView = _contentControl.Content as MainView;
-        //        if (mainView != null)
-        //        {
-        //            mainView.PopToRoot();
-        //        }
-        //    }
-
-        //    base.ChangePresentation(hint);
-
-        //    return Task.FromResult(false);
+        //    var view = WpfViewLoader.CreateView(request);
+        //    base.ShowContentView(view, new MvxContentPresentationAttribute(), request);
         //}
 
         public override void RegisterAttributeTypes()
         {
-            //AttributeTypesToActionsDictionary.Add(
-            // typeof(MvxRegionPresentationAttribute),
-            // new MvxRegionPresentationAttribute
-            // {
-            //     ShowAction = (viewType, attribute, request) =>
-            //     {
-            //         var view = WpfViewLoader.CreateView(request);
-            //         ShowWindow(view, (MyCustomModePresentationAttribute)attribute, request);
-            //     },
-            //     CloseAction = (viewModel, attribute) => CloseWindow(viewModel)
-            // });
+            AttributeTypesToActionsDictionary.Add(
+                typeof(MvxRegionPresentationAttribute),
+                new MvxPresentationAttributeAction()
+                {
+                    ShowAction = (viewType, attribute, request) => ShowRegionContentView((MvxRegionPresentationAttribute)attribute, request),
+                    CloseAction = (viewModel, attribute) => CloseContentView(viewModel)
+                });
 
-            AttributeTypesToActionsDictionary.Register<MvxRegionPresentationAttribute>(
-                   (viewType, attribute, request) =>
-                   {
-                       var view = WpfViewLoader.CreateView(request);
-                       return ShowRegionContentView(view, (MvxRegionPresentationAttribute)attribute, request);
-                   },
-                   (viewModel, attribute) => CloseContentView(viewModel));
+            base.RegisterAttributeTypes();
         }
     }
 }

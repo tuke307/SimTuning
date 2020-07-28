@@ -10,6 +10,9 @@
                    xmlns:materialDesignColors="clr-namespace:MaterialDesignColors;assembly=MaterialDesignColors"
                    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                    mc:Ignorable="d"
+                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   region:MvxContainer.Header="Aussehen"
+                   Name="Aussehen"
                    Background="{DynamicResource MaterialDesignPaper}"
                    MinWidth="1010"
                    MinHeight="550">

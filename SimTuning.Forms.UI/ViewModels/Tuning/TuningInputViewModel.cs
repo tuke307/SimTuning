@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using System.Globalization;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -15,7 +16,7 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         {
             if (Tuning == null)
             {
-                Task.Run(() => MaterialDialog.Instance.SnackbarAsync("Bitte Datensatz auswählen um fortzufahren!"));
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)));
                 return false;
             }
             else { return true; }

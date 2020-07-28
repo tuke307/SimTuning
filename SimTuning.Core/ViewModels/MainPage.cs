@@ -29,14 +29,6 @@ namespace SimTuning.Core.ViewModels
             return base.Initialize();
         }
 
-        #region Commands
-
-        protected virtual void ApplicationLoad()
-        {
-        }
-
-        #endregion Commands
-
         #region Values
 
         private UserModel _user;

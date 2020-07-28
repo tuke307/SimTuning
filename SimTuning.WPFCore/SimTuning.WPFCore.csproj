@@ -198,10 +198,17 @@
     <Compile Include="LoadingView.xaml.cs">
       <DependentUpon>LoadingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Region\Commands\MvxCloseHolderCommand.cs" />
+    <Compile Include="Region\Commands\MvxCloseViewCommand.cs" />
     <Compile Include="Region\CustomViewPresenter.cs" />
+    <Compile Include="Region\MvxContainer.cs" />
     <Compile Include="Region\MvxMultiRegionWpfViewPresenter.cs" />
     <Compile Include="Region\MvxRegionPresentationAttribute.cs" />
+    <Compile Include="Region\mvxViewPosition.cs" />
+    <Compile Include="Region\MvxWpfPresenter.cs" />
+    <Compile Include="Region\MvxWpfPresenterAttribute.cs" />
     <Compile Include="Region\MvxWpfPresenterExtensions.cs" />
+    <Compile Include="Region\MvxWpfSetup.cs" />
     <Compile Include="ViewModels\Auslass\AuslassAnwendungViewModel.cs" />
     <Compile Include="ViewModels\Auslass\AuslassMainViewModel.cs" />
     <Compile Include="ViewModels\Auslass\AuslassTheorieViewModel.cs" />

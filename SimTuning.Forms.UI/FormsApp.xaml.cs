@@ -15,7 +15,7 @@ namespace SimTuning.Forms.UI
         {
             InitializeComponent();
 
-            rm = new ResourceManager("resources", Assembly.GetExecutingAssembly());
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             XF.Material.Forms.Material.Init(this, "Material.Configuration");
 

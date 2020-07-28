@@ -9,12 +9,12 @@ using SimTuning.Forms.UI;
 namespace SimTuning.Forms.Droid
 {
     [Activity(Label = "SimTuning",
-            Theme = "@style/MyTheme",
+            Theme = "@style/MainTheme",
             Icon = "@mipmap/logo",
             MainLauncher = true,
             ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
             LaunchMode = LaunchMode.SingleTask)]
-    public class MainActivity : MvxFormsAppCompatActivity<MvxFormsAndroidSetup<App, FormsApp>, App, FormsApp>
+    public class MainActivity : MvxFormsAppCompatActivity/*<MvxFormsAndroidSetup<App, FormsApp>, App, FormsApp>*/
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -26,7 +26,6 @@ namespace SimTuning.Forms.Droid
             //zusätzliche Controls
             XF.Material.Droid.Material.Init(this, bundle);
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
-            //SetContentView(Resource.Layout.TipView);
         }
     }
 }

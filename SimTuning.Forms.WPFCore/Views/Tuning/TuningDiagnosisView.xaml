@@ -13,6 +13,9 @@
                    mc:Ignorable="d"
                    d:DesignWidth="1000"
                    d:DesignHeight="550"
+                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   region:MvxContainer.Header="Diagnose"
+                   Name="TuningDiagnosis"
                    MinWidth="1010"
                    MinHeight="550">
     <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}"

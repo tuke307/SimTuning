@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimTuning.Droid {
+namespace SimTuning.Core {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace SimTuning.Droid {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class resources {
+    public class resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace SimTuning.Droid {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimTuning.Droid.resources", typeof(resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimTuning.Core.resources", typeof(resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace SimTuning.Droid {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,38 +61,47 @@ namespace SimTuning.Droid {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bitte Datensatz auswählen um fortzufahren!.
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static string ERR_NODATA {
+        public static System.IO.UnmanagedMemoryStream DynoAudio {
+            get {
+                return ResourceManager.GetStream("DynoAudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a record to continue!.
+        /// </summary>
+        public static string ERR_NODATA {
             get {
                 return ResourceManager.GetString("ERR_NODATA", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diese Plattform wird nicht unterstützt!.
+        ///   Looks up a localized string similar to This platform is not supported!.
         /// </summary>
-        internal static string ERR_NOSUPPORT {
+        public static string ERR_NOSUPPORT {
             get {
                 return ResourceManager.GetString("ERR_NOSUPPORT", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Laden.
+        ///   Looks up a localized string similar to Loading.
         /// </summary>
-        internal static string MES_LOAD {
+        public static string MES_LOAD {
             get {
                 return ResourceManager.GetString("MES_LOAD", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        ///   Looks up a localized string similar to Buy the Pro version to change presets.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream sample {
+        public static string MES_PRO {
             get {
-                return ResourceManager.GetStream("sample", resourceCulture);
+                return ResourceManager.GetString("MES_PRO", resourceCulture);
             }
         }
     }

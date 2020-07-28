@@ -11,6 +11,9 @@
                    mc:Ignorable="d"
                    Background="{DynamicResource MaterialDesignPaper}"
                    d:DesignHeight="450"
+                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   region:MvxContainer.Header="Datensatz"
+                   Name="TuningData"
                    d:DesignWidth="800"
                    MinWidth="1010"
                    MinHeight="550">

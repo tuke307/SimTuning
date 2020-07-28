@@ -118,16 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ERR_NODATA" xml:space="preserve">
-    <value>Bitte Datensatz auswählen um fortzufahren!</value>
+    <value>Please select a record to continue!</value>
   </data>
   <data name="ERR_NOSUPPORT" xml:space="preserve">
-    <value>Diese Plattform wird nicht unterstützt!</value>
+    <value>This platform is not supported!</value>
   </data>
   <data name="MES_LOAD" xml:space="preserve">
-    <value>Laden</value>
+    <value>Loading</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="sample" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\sample.wav;System.IO.MemoryStream, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e</value>
+  <data name="MES_PRO" xml:space="preserve">
+    <value>Buy the Pro version to change presets</value>
   </data>
 </root>

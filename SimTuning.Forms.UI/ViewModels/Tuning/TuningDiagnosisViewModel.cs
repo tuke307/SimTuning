@@ -1,5 +1,8 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -11,11 +14,24 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         {
         }
 
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
+        {
+            //messages
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
+
+            return base.Initialize();
+        }
+
         private bool CheckTuningData()
         {
-            if (Tuning == null)
+            if (this.Tuning == null)
             {
-                Task.Run(() => MaterialDialog.Instance.SnackbarAsync("Bitte Datensatz auswählen um fortzufahren!"));
+                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)));
                 return false;
             }
             else { return true; }
@@ -23,7 +39,7 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
 
         private void SaveTuning()
         {
-            if (!CheckTuningData())
+            if (!this.CheckTuningData())
                 return;
         }
     }

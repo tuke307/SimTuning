@@ -1,4 +1,5 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using System.Threading.Tasks;
+using MaterialDesignThemes.Wpf;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
@@ -30,23 +31,42 @@ namespace SimTuning.WPFCore.ViewModels
             ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
             ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel, UserModel>(User));
 
-            //ShowMenuViewModelCommand.Execute();
-            //ShowHomeViewModelCommand.Execute();
+            ShowMenuViewModelCommand.Execute();
+            ShowHomeViewModelCommand.Execute();
         }
 
         public MvxCommand ButtonOpenMenu { get; set; }
         public MvxCommand ButtonCloseMenu { get; set; }
 
-        protected override async void ApplicationLoad()
+        public override void Prepare()
+        {
+            // This is the first method to be called after construction
+        }
+
+        public override Task Initialize()
         {
             settings.LoadColors();
 
-            var tuple = await API.API.UserLoginAsync();
-            User.UserValid = tuple.Item1;
-            User.LicenseValid = tuple.Item2;
+            var tuple = API.API.UserLoginAsync();
+            User.UserValid = tuple.Result.Item1;
+            User.LicenseValid = tuple.Result.Item2;
 
-            for (int i = 0; i < tuple.Item3.Count; i++)
-                NotificationSnackbar.Enqueue(tuple.Item3[i]);
+            for (int i = 0; i < tuple.Result.Item3.Count; i++)
+                NotificationSnackbar.Enqueue(tuple.Result.Item3[i]);
+
+            return base.Initialize();
+        }
+
+        public void ButtonOpenMenu_Click()
+        {
+            CloseMenuVis = true;
+            OpenMenuVis = false;
+        }
+
+        public void ButtonCloseMenu_Click()
+        {
+            CloseMenuVis = false;
+            OpenMenuVis = true;
         }
 
         private bool _openMenuVis;
@@ -71,18 +91,6 @@ namespace SimTuning.WPFCore.ViewModels
         {
             get => _notificationSnackbar;
             private set => SetProperty(ref _notificationSnackbar, value);
-        }
-
-        public void ButtonOpenMenu_Click()
-        {
-            CloseMenuVis = true;
-            OpenMenuVis = false;
-        }
-
-        public void ButtonCloseMenu_Click()
-        {
-            CloseMenuVis = false;
-            OpenMenuVis = true;
         }
     }
 }
