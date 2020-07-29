@@ -23,10 +23,7 @@ namespace SimTuning.WPFCore.ViewModels
             _navigationService = navigationService;
 
             LoadingAnimation = false;
-        }
 
-        public override Task Initialize()
-        {
             ShowHomeCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
 
             ShowEinlassCommand = new MvxAsyncCommand(() => _navigationService.Navigate<EinlassMainViewModel, UserModel>(User));
@@ -40,7 +37,10 @@ namespace SimTuning.WPFCore.ViewModels
             ShowTuningCommand = new MvxAsyncCommand(ShowTuning);
 
             ShowEinstellungenCommand = new MvxAsyncCommand(() => _navigationService.Navigate<EinstellungenMainViewModel, UserModel>(User));
+        }
 
+        public override Task Initialize()
+        {
             return base.Initialize();
         }
 

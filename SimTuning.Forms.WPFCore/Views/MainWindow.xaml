@@ -5,7 +5,6 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                  xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
                   mc:Ignorable="d"
                   TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                   Background="{DynamicResource MaterialDesignPaper}"
@@ -23,15 +22,4 @@
                       NonClientFrameEdges="None"
                       ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
-    <views:MvxWindow.Resources>
-        <!--CONVERTER-->
-        <BooleanToVisibilityConverter x:Key="BoolToVis" />
-        <behaviours:NegateBooleanConverter x:Key="Inverter" />
-
-        <!--2 CONVERTER kombiniert-->
-        <behaviours:CombiningConverter x:Key="negatedBoolToVisibilityConverter"
-                                       Converter1="{StaticResource Inverter}"
-                                       Converter2="{StaticResource BoolToVis}">
-        </behaviours:CombiningConverter>
-    </views:MvxWindow.Resources>
 </views:MvxWindow>

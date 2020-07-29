@@ -2,15 +2,19 @@
                    x:Class="SimTuning.Forms.WPFCore.Views.MenuView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
+                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   mc:Ignorable="d"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    x:TypeArguments="viewModels:MenuViewModel"
                    xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels;assembly=SimTuning.WPFCore"
-                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
-                   mc:Ignorable="d">
+                   MinHeight="630"
+                   MinWidth="1070"
+                   Height="630"
+                   Width="1070">
     <views:MvxWpfView.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
@@ -41,7 +45,6 @@
                                        Converter2="{StaticResource BoolToVis}">
         </behaviours:CombiningConverter>
     </views:MvxWpfView.Resources>
-
     <views:MvxWpfView.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click"
                       SourceName="ButtonOpenMenu">
@@ -52,13 +55,17 @@
             <BeginStoryboard Storyboard="{StaticResource CloseMenu}" />
         </EventTrigger>
     </views:MvxWpfView.Triggers>
-
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
         <!--MENÜ GRID-->
         <Grid x:Name="GridMenu"
               Background="{DynamicResource MaterialDesignDarkBackground}"
               Width="60"
-              Grid.Row="1"
+              Grid.Column="0"
               HorizontalAlignment="Left">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="2"
@@ -95,7 +102,7 @@
                     </Button>
 
                     <Button x:Name="ButtonCloseMenu"
-                            Visibility="{Binding Mode=OneWay, Path=CloseMenuVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Visibility="{Binding Mode=OneWay, ElementName=ButtonOpenMenu, Path=IsVisible, Converter={StaticResource negatedBoolToVisibilityConverter}}"
                             Height="60"
                             Width="60"
                             HorizontalAlignment="Right"
@@ -128,10 +135,10 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{Binding ShowHomeCommand}">
-                                </i:InvokeCommandAction>
                                 <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
                                                        CommandParameter="PageContent">
+                                </i:InvokeCommandAction>
+                                <i:InvokeCommandAction Command="{Binding ShowHomeCommand}">
                                 </i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -153,10 +160,10 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{Binding ShowEinlassCommand}">
-                                </i:InvokeCommandAction>
                                 <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
                                                        CommandParameter="PageContent">
+                                </i:InvokeCommandAction>
+                                <i:InvokeCommandAction Command="{Binding ShowEinlassCommand}">
                                 </i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -174,10 +181,10 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{Binding ShowAuslassCommand}">
-                                </i:InvokeCommandAction>
                                 <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
                                                        CommandParameter="PageContent">
+                                </i:InvokeCommandAction>
+                                <i:InvokeCommandAction Command="{Binding ShowAuslassCommand}">
                                 </i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -195,10 +202,10 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{Binding ShowMotorCommand}">
-                                </i:InvokeCommandAction>
                                 <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
                                                        CommandParameter="PageContent">
+                                </i:InvokeCommandAction>
+                                <i:InvokeCommandAction Command="{Binding ShowMotorCommand}">
                                 </i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -220,10 +227,10 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{Binding ShowTuningCommand}">
-                                </i:InvokeCommandAction>
                                 <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
                                                        CommandParameter="PageContent">
+                                </i:InvokeCommandAction>
+                                <i:InvokeCommandAction Command="{Binding ShowTuningCommand}">
                                 </i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -241,10 +248,10 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{Binding ShowDynoCommand}">
-                                </i:InvokeCommandAction>
                                 <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
                                                        CommandParameter="PageContent">
+                                </i:InvokeCommandAction>
+                                <i:InvokeCommandAction Command="{Binding ShowDynoCommand}">
                                 </i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -266,10 +273,10 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{Binding ShowEinstellungenCommand}">
-                                </i:InvokeCommandAction>
                                 <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
                                                        CommandParameter="PageContent">
+                                </i:InvokeCommandAction>
+                                <i:InvokeCommandAction Command="{Binding ShowEinstellungenCommand}">
                                 </i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -277,5 +284,15 @@
                 </ListView>
             </StackPanel>
         </Grid>
+
+        <!--<Frame x:Name="MenuContent"
+                   Grid.Column="0"></Frame>-->
+
+        <ItemsControl  Grid.Column="1"
+                       region:MvxContainer.Id="PageContent"></ItemsControl>
+
+        <!--<Frame x:Name="PageContent"
+                   Grid.Column="1">
+            </Frame>-->
     </Grid>
 </views:MvxWpfView>

@@ -18,6 +18,16 @@ namespace SimTuning.WPFCore.ViewModels.Auslass
             _navigationService = navigationService;
         }
 
+        public override void Prepare(SimTuning.Core.Models.UserModel _user)
+        {
+            base.Prepare(_user);
+        }
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
         private Task ShowInitialViewModels()
         {
             var tasks = new List<Task>();

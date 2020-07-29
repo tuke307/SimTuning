@@ -13,7 +13,7 @@ namespace SimTuning.WPFCore.Region
         public string ContainerId { get; set; }
         public Func<object, string> ViewId { get; set; }
 
-        private static string DefaultViewId(object view) => view?.ToString();
+        public static string DefaultViewId(object view) => view?.ToString();
 
         public MvxWpfPresenterAttribute(string containerId) : this(containerId, mvxViewPosition.New)
         {

@@ -18,12 +18,6 @@ namespace SimTuning.WPFCore.ViewModels
         {
             //SelectedIndex = 0;
 
-            CloseMenuVis = false;
-            OpenMenuVis = true;
-
-            ButtonOpenMenu = new MvxCommand(ButtonOpenMenu_Click);
-            ButtonCloseMenu = new MvxCommand(ButtonCloseMenu_Click);
-
             NotificationSnackbar = new SnackbarMessageQueue();
 
             _navigationService = navigationService;
@@ -31,12 +25,17 @@ namespace SimTuning.WPFCore.ViewModels
             ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
             ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel, UserModel>(User));
 
+            //ShowMenuViewModelCommand.Execute();
+            //ShowHomeViewModelCommand.Execute();
+        }
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
             ShowMenuViewModelCommand.Execute();
             ShowHomeViewModelCommand.Execute();
         }
-
-        public MvxCommand ButtonOpenMenu { get; set; }
-        public MvxCommand ButtonCloseMenu { get; set; }
 
         public override void Prepare()
         {
@@ -55,34 +54,6 @@ namespace SimTuning.WPFCore.ViewModels
                 NotificationSnackbar.Enqueue(tuple.Result.Item3[i]);
 
             return base.Initialize();
-        }
-
-        public void ButtonOpenMenu_Click()
-        {
-            CloseMenuVis = true;
-            OpenMenuVis = false;
-        }
-
-        public void ButtonCloseMenu_Click()
-        {
-            CloseMenuVis = false;
-            OpenMenuVis = true;
-        }
-
-        private bool _openMenuVis;
-
-        public bool OpenMenuVis
-        {
-            get => _openMenuVis;
-            set { SetProperty(ref _openMenuVis, value); }
-        }
-
-        private bool _closeMenuVis;
-
-        public bool CloseMenuVis
-        {
-            get => _closeMenuVis;
-            set { SetProperty(ref _closeMenuVis, value); }
         }
 
         private SnackbarMessageQueue _notificationSnackbar;

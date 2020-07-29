@@ -1,4 +1,5 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.WPFCore.Business;
@@ -11,6 +12,16 @@ namespace SimTuning.WPFCore.ViewModels.Demo
         {
             //override commands
             OpenWebsiteCommand = new MvxCommand(OpenWebsite);
+        }
+
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
         }
 
         protected override void OpenWebsite()

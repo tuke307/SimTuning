@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimTuning.WPFCore.ViewModels.Home
@@ -24,6 +25,15 @@ namespace SimTuning.WPFCore.ViewModels.Home
         }
 
         //public MvxCommand OpenTutorialCommand { get; set; }
+        public override void Prepare(SimTuning.Core.Models.UserModel _user)
+        {
+            base.Prepare(_user);
+        }
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
 
         protected override void OpenInstagram()
         {

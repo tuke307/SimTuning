@@ -1,4 +1,6 @@
-﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
+﻿using System;
+using Microsoft.VisualBasic.CompilerServices;
+using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using SimTuning.WPFCore.Region;
 using SimTuning.WPFCore.ViewModels.Auslass;

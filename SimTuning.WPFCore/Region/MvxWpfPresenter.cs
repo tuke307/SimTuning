@@ -18,13 +18,13 @@ namespace SimTuning.WPFCore.Region
 {
     public class MvxWpfPresenter : MvxWpfViewPresenter
     {
-        private readonly ContentControl Root;
+        private readonly ContentControl _root;
 
         public MvxWpfPresenter() : this(Application.Current?.MainWindow)
         {
         }
 
-        public MvxWpfPresenter(ContentControl root) : base(root) => Root = root;
+        public MvxWpfPresenter(ContentControl root) : base(root) => _root = root;
 
         public static IMvxCommand CloseHolderCommand { get; } = new MvxCloseHolderCommand();
         public static IMvxCommand CloseViewCommand { get; } = new MvxCloseViewCommand();

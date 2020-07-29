@@ -2,10 +2,13 @@
                    x:Class="SimTuning.Forms.WPFCore.Views.MainView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
+                   x:TypeArguments="viewModels:MainViewModel"
+                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels;assembly=SimTuning.WPFCore"
+                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
                    mc:Ignorable="d"
                    MinHeight="630"
@@ -13,6 +16,7 @@
                    Height="630"
                    Width="1070">
     <views:MvxWpfView.Resources>
+
         <!--CONVERTER-->
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
         <behaviours:NegateBooleanConverter x:Key="Inverter" />
@@ -23,6 +27,7 @@
                                        Converter2="{StaticResource BoolToVis}">
         </behaviours:CombiningConverter>
     </views:MvxWpfView.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -34,15 +39,17 @@
               MouseLeftButtonDown="GridTop_MouseLeftButtonDown">
         </Grid>
 
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Margin="10,0">
+        <StackPanel  Grid.Row="0"
+                     Orientation="Horizontal"
+                     HorizontalAlignment="Right"
+                     Margin="10,0">
             <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                     Width="25"
                     Height="25"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White"
+                    Command="{Binding ShowHomeViewModelCommand}"
                     Click="WindowMinimize_Click">
                 <materialDesign:PackIcon Kind="WindowMinimize" />
             </Button>
@@ -52,6 +59,7 @@
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White"
+                    Command="{Binding ShowMenuViewModelCommand}"
                     Click="WindowMaximize_Click">
                 <materialDesign:PackIcon Kind="WindowMaximize" />
             </Button>
@@ -130,26 +138,7 @@
                                  MessageQueue="{Binding Mode=OneWay, Path=NotificationSnackbar}">
         </materialDesign:Snackbar>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <ItemsControl  Grid.Column="0"
-                           region:MvxContainer.Id="MenuContent"
-                           region:MvxContainer.HolderType="{x:Type ItemsControl}"></ItemsControl>
-
-            <!--<Frame x:Name="MenuContent"
-                   Grid.Column="0"></Frame>-->
-
-            <ItemsControl  Grid.Column="1"
-                           region:MvxContainer.Id="PageContent"
-                           region:MvxContainer.HolderType="{x:Type ItemsControl}"></ItemsControl>
-
-            <!--<Frame x:Name="PageContent"
-                   Grid.Column="1">
-            </Frame>-->
-        </Grid>
+        <ItemsControl Grid.Row="1"
+                      region:MvxContainer.Id="MainContent"></ItemsControl>
     </Grid>
 </views:MvxWpfView>

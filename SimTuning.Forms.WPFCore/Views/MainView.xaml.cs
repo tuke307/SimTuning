@@ -1,20 +1,23 @@
-﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
+﻿using System.Windows;
+using System.Windows.Input;
+using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using MvvmCross.ViewModels;
+using SimTuning.WPFCore.Region;
 using SimTuning.WPFCore.ViewModels;
-using System.Windows;
-using System.Windows.Input;
 
 namespace SimTuning.Forms.WPFCore.Views
 {
-    //[MvxContentPresentation(WindowIdentifier = nameof(MainWindow), StackNavigation = true)]
-    //[MvxWindowPresentation(Identifier = nameof(MainView), Modal = false)]
-    //[MvxViewFor(typeof(MainViewModel))]
-    public partial class MainView /*: MvxWpfView*//*: MvxWindow<RootWindowViewModel>*/
+    //[MvxViewFor(typeof(MenuViewModel))]
+    //[MvxWpfPresenter("MenuContent", mvxViewPosition.NewOrExsist)]
+    //[MvxContentPresentation(WindowIdentifier = nameof(MainView), StackNavigation = false)]
+    //[MvxRegionPresentation(RegionName = "MenuContent", WindowIdentifier = nameof(MainView))]
+    //[MvxRegion("MenuContent")]
+    public partial class MainView : MvxWpfView<MainViewModel>
     {
         public MainView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void GridTop_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
