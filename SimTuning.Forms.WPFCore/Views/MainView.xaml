@@ -4,17 +4,18 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                   xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
+                   xmlns:behaviours="clr-namespace:SimTuning.Forms.WPFCore.Business"
                    x:TypeArguments="viewModels:MainViewModel"
-                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels;assembly=SimTuning.WPFCore"
+                   xmlns:viewModels="clr-namespace:SimTuning.Forms.WPFCore.ViewModels"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   xmlns:region="clr-namespace:SimTuning.Forms.WPFCore.Region"
                    mc:Ignorable="d"
-                   MinHeight="630"
-                   MinWidth="1070"
-                   Height="630"
-                   Width="1070">
+                   Background="{x:Null}"
+                   d:DesignHeight="630"
+                   d:DesignWidth="1070"
+                   MinHeight="600"
+                   MinWidth="1070">
     <views:MvxWpfView.Resources>
 
         <!--CONVERTER-->
@@ -29,52 +30,18 @@
     </views:MvxWpfView.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>-->
 
-        <Grid Grid.Row="0"
+        <!--<Grid Grid.Row="0"
               Background="{StaticResource MaterialDesignDarkBackground}"
               MouseLeftButtonDown="GridTop_MouseLeftButtonDown">
-        </Grid>
+        </Grid>-->
 
-        <StackPanel  Grid.Row="0"
-                     Orientation="Horizontal"
-                     HorizontalAlignment="Right"
-                     Margin="10,0">
-            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                    Width="25"
-                    Height="25"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White"
-                    Command="{Binding ShowHomeViewModelCommand}"
-                    Click="WindowMinimize_Click">
-                <materialDesign:PackIcon Kind="WindowMinimize" />
-            </Button>
-            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                    Width="25"
-                    Height="25"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White"
-                    Command="{Binding ShowMenuViewModelCommand}"
-                    Click="WindowMaximize_Click">
-                <materialDesign:PackIcon Kind="WindowMaximize" />
-            </Button>
-            <Button  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                     Width="25"
-                     Height="25"
-                     Background="{x:Null}"
-                     BorderBrush="{x:Null}"
-                     Foreground="White"
-                     Click="WindowClose_Click">
-                <materialDesign:PackIcon Kind="WindowClose" />
-            </Button>
-        </StackPanel>
-
-        <Grid Grid.Row="0">
+        <!--<Grid Grid.Row="0"
+              Background="{x:Null}">
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
 
@@ -85,7 +52,7 @@
                                              Grid.Column="3"
                                              Foreground="DarkRed"
                                              ToolTip="KEIN Account ist eingeloggt"
-                                             Visibility="{Binding Path=IsVisible, ElementName=user, Converter={StaticResource negatedBoolToVisibilityConverter}}"
+                                             Visibility="{Binding Path=IsVisible, ElementName=user, Converter={StaticResource negatedBoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                              Kind="DriversLicenseOutline"
                                              Height="20"
                                              Width="20" />
@@ -97,7 +64,7 @@
                                              Grid.Column="3"
                                              Foreground="DarkGreen"
                                              ToolTip="Account ist eingeloggt"
-                                             Visibility="{Binding Mode=TwoWay, Path=User.UserValid, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                             Visibility="{Binding Mode=TwoWay, Path=User.UserValid, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                              Kind="DriversLicenseOutline"
                                              Height="20"
                                              Width="20" />
@@ -111,7 +78,7 @@
                                              Grid.Column="3"
                                              Foreground="DarkRed"
                                              ToolTip="KEINE Lizenz vorhanden"
-                                             Visibility="{Binding Path=IsVisible, ElementName=license, Converter={StaticResource negatedBoolToVisibilityConverter}}"
+                                             Visibility="{Binding Path=IsVisible, ElementName=license, Converter={StaticResource negatedBoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                              Kind="UserKeyOutline"
                                              Height="20"
                                              Width="20" />
@@ -120,7 +87,7 @@
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
                                              ToolTip="Lizenz vorhanden"
-                                             Visibility="{Binding Mode=TwoWay, Path=User.LicenseValid, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                             Visibility="{Binding Mode=TwoWay, Path=User.LicenseValid, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                              Grid.Row="1"
                                              Grid.Column="3"
                                              Foreground="DarkGreen"
@@ -129,16 +96,15 @@
                                              Width="20" />
                 </StackPanel>
             </StackPanel>
-        </Grid>
+        </Grid>-->
 
-        <materialDesign:Snackbar Grid.Column="1"
-                                 Grid.Row="1"
+        <ItemsControl Grid.Row="1"
+                      region:MvxContainer.Id="MainViewRegion"></ItemsControl>
+
+        <materialDesign:Snackbar Grid.Row="1"
                                  VerticalAlignment="Bottom"
                                  HorizontalAlignment="Center"
                                  MessageQueue="{Binding Mode=OneWay, Path=NotificationSnackbar}">
         </materialDesign:Snackbar>
-
-        <ItemsControl Grid.Row="1"
-                      region:MvxContainer.Id="MainContent"></ItemsControl>
     </Grid>
 </views:MvxWpfView>

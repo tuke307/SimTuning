@@ -4,20 +4,23 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
                    x:TypeArguments="viewModels:TuningMainViewModel"
-                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Tuning;assembly=SimTuning.WPFCore"
-                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   xmlns:viewModels="clr-namespace:SimTuning.Forms.WPFCore.ViewModels.Tuning"
+                   xmlns:region="clr-namespace:SimTuning.Forms.WPFCore.Region"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    Background="{DynamicResource MaterialDesignPaper}"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    mc:Ignorable="d"
-                   MinWidth="1010"
-                   MinHeight="600">
+                   d:DesignHeight="600"
+                   d:DesignWidth="1010"
+                   MinHeight="600"
+                   MinWidth="1010">
 
     <Grid>
         <dragablz:TabablzControl FixedHeaderCount="3"
                                  Grid.Row="0"
-                                 region:MvxContainer.Id="TuningRegion">
+                                 region:MvxContainer.Id="TuningRegion"
+                                 SelectedIndex="{Binding Mode=TwoWay, Path=TuningTabIndex}">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>

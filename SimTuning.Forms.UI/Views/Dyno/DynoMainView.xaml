@@ -8,5 +8,6 @@
                       xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
                       android:TabbedPage.IsSwipePagingEnabled="False"
                       android:TabbedPage.IsSmoothScrollEnabled="True"
+                      TabIndex="{Binding Mode=TwoWay, Path=DynoTabIndex}"
                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
 </views:MvxTabbedPage>

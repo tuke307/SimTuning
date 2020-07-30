@@ -26,5 +26,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
             return base.Initialize();
         }
+
+        private int _einstellungenTabIndex;
+
+        public int EinstellungenTabIndex
+        {
+            get => _einstellungenTabIndex;
+            set { SetProperty(ref _einstellungenTabIndex, value); }
+        }
     }
 }

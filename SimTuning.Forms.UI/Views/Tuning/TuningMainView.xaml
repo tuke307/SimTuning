@@ -3,6 +3,7 @@
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       x:TypeArguments="viewModels:TuningMainViewModel"
+                      TabIndex="{Binding Mode=TwoWay, Path=TuningTabIndex}"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Tuning"
                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
 </views:MvxTabbedPage>

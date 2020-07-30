@@ -26,5 +26,13 @@ namespace SimTuning.Core.ViewModels.Motor
 
             return base.Initialize();
         }
+
+        private int _motorTabIndex;
+
+        public int MotorTabIndex
+        {
+            get => _motorTabIndex;
+            set { SetProperty(ref _motorTabIndex, value); }
+        }
     }
 }

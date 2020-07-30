@@ -1,5 +1,5 @@
 ﻿using MvvmCross.Core;
-using SimTuning.WPFCore.Region;
+using SimTuning.Forms.WPFCore.Region;
 
 namespace SimTuning.Forms.WPFCore
 {
@@ -8,7 +8,7 @@ namespace SimTuning.Forms.WPFCore
         protected override void RegisterSetup()
         {
             base.RegisterSetup();
-            this.RegisterSetupType<MvxWpfSetup<SimTuning.WPFCore.App>>();
+            this.RegisterSetupType<MvxWpfSetup<MvxApp>>();
         }
     }
 }

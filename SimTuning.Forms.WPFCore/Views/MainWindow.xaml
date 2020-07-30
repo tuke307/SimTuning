@@ -5,7 +5,9 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                  xmlns:behaviours="clr-namespace:SimTuning.Forms.WPFCore.Business"
                   mc:Ignorable="d"
+                  xmlns:region="clr-namespace:SimTuning.Forms.WPFCore.Region"
                   TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                   Background="{DynamicResource MaterialDesignPaper}"
                   FontFamily="{DynamicResource MaterialDesignFont}"
@@ -22,4 +24,56 @@
                       NonClientFrameEdges="None"
                       ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
+    <Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Background="{StaticResource MaterialDesignDarkBackground}"
+                  MouseLeftButtonDown="GridTop_MouseLeftButtonDown">
+            </Grid>
+
+            <StackPanel  Grid.Row="0"
+                         Orientation="Horizontal"
+                         HorizontalAlignment="Right"
+                         Margin="10,0">
+                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Width="25"
+                        Height="25"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        Foreground="White"
+                        Command="{Binding ShowHomeViewModelCommand}"
+                        Click="WindowMinimize_Click">
+                    <materialDesign:PackIcon Kind="WindowMinimize" />
+                </Button>
+                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Width="25"
+                        Height="25"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        Foreground="White"
+                        Command="{Binding ShowMenuViewModelCommand}"
+                        Click="WindowMaximize_Click">
+                    <materialDesign:PackIcon Kind="WindowMaximize" />
+                </Button>
+                <Button  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                         Width="25"
+                         Height="25"
+                         Background="{x:Null}"
+                         BorderBrush="{x:Null}"
+                         Foreground="White"
+                         Click="WindowClose_Click">
+                    <materialDesign:PackIcon Kind="WindowClose" />
+                </Button>
+            </StackPanel>
+
+            <ItemsControl Grid.Row="1"
+                          region:MvxContainer.Id="MainWindowRegion"></ItemsControl>
+        </Grid>
+    </Grid>
 </views:MvxWindow>

@@ -26,5 +26,13 @@ namespace SimTuning.Core.ViewModels.Einlass
 
             return base.Initialize();
         }
+
+        private int _einlassTabIndex;
+
+        public int EinlassTabIndex
+        {
+            get => _einlassTabIndex;
+            set { SetProperty(ref _einlassTabIndex, value); }
+        }
     }
 }

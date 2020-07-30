@@ -1,7 +1,7 @@
 ﻿using MvvmCross.Platforms.Wpf.Views;
 using System.Windows.Controls;
 
-namespace SimTuning.WPFCore.Views
+namespace SimTuning.WPF.Base.Views
 {
     public partial class Tutorial_main : MvxWpfView
     {

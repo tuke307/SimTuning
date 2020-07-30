@@ -15,8 +15,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         public AussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            using (var db = new DatabaseContext())
-                ToogleDarkmode = db.Settings.ToList().Last().DarkMode;
         }
 
         public IMvxCommand ApplyPrimaryCommand { get; set; }
@@ -35,37 +33,5 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
             return base.Initialize();
         }
-
-        #region Commands
-
-        protected virtual void ApplyPrimary()
-        {
-        }
-
-        protected virtual void ApplyAccent()
-        {
-        }
-
-        protected virtual void ApplyBaseTheme()
-        {
-        }
-
-        #endregion Commands
-
-        #region Values
-
-        private bool _toogleDarkmode;
-
-        public bool ToogleDarkmode
-        {
-            get => _toogleDarkmode;
-            set
-            {
-                SetProperty(ref _toogleDarkmode, value);
-                ApplyBaseTheme();
-            }
-        }
-
-        #endregion Values
     }
 }

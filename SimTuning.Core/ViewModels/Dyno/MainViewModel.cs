@@ -26,5 +26,13 @@ namespace SimTuning.Core.ViewModels.Dyno
 
             return base.Initialize();
         }
+
+        private int _dynoTabIndex;
+
+        public int DynoTabIndex
+        {
+            get => _dynoTabIndex;
+            set { SetProperty(ref _dynoTabIndex, value); }
+        }
     }
 }

@@ -5,16 +5,16 @@
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                   xmlns:behaviours="clr-namespace:SimTuning.WPFCore.Business;assembly=SimTuning.WPFCore"
-                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   xmlns:behaviours="clr-namespace:SimTuning.Forms.WPFCore.Business"
+                   xmlns:region="clr-namespace:SimTuning.Forms.WPFCore.Region"
                    mc:Ignorable="d"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    x:TypeArguments="viewModels:MenuViewModel"
-                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels;assembly=SimTuning.WPFCore"
-                   MinHeight="630"
-                   MinWidth="1070"
-                   Height="630"
-                   Width="1070">
+                   xmlns:viewModels="clr-namespace:SimTuning.Forms.WPFCore.ViewModels"
+                   d:DesignHeight="600"
+                   d:DesignWidth="1070"
+                   MinHeight="600"
+                   MinWidth="1070">
     <views:MvxWpfView.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
@@ -59,8 +59,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60" />
             <ColumnDefinition Width="*" />
+            
         </Grid.ColumnDefinitions>
-
+        <ItemsControl  Grid.Column="1"
+                       region:MvxContainer.Id="PageContent"></ItemsControl>
+        
         <!--MENÜ GRID-->
         <Grid x:Name="GridMenu"
               Background="{DynamicResource MaterialDesignDarkBackground}"
@@ -287,9 +290,6 @@
 
         <!--<Frame x:Name="MenuContent"
                    Grid.Column="0"></Frame>-->
-
-        <ItemsControl  Grid.Column="1"
-                       region:MvxContainer.Id="PageContent"></ItemsControl>
 
         <!--<Frame x:Name="PageContent"
                    Grid.Column="1">

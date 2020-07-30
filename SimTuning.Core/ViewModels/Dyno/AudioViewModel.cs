@@ -69,13 +69,8 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Opens the file dialog.
         /// </summary>
-        protected virtual async Task OpenFileDialog()
+        protected virtual async Task OpenFileDialog(FileData fileData)
         {
-            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { ".wav", ".mp3" }).ConfigureAwait(true);
-
-            if (fileData == null)
-                return; // user canceled file picking
-
             //wenn Datei ausgewählt
             if (SimTuning.Core.Business.AudioUtils.AudioCopy(fileData.FileName, fileData.GetStream()))
                 OpenFile();
@@ -119,7 +114,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             //initialisieren
             var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
-            player = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
+            player = CrossSimpleAudioPlayer.Current;
             player.Load(stream);
             stream.Dispose();
 

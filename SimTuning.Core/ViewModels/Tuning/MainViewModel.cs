@@ -26,5 +26,13 @@ namespace SimTuning.Core.ViewModels.Tuning
 
             return base.Initialize();
         }
+
+        private int _tuningTabIndex;
+
+        public int TuningTabIndex
+        {
+            get => _tuningTabIndex;
+            set { SetProperty(ref _tuningTabIndex, value); }
+        }
     }
 }

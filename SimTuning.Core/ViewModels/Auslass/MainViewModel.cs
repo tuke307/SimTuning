@@ -26,5 +26,13 @@ namespace SimTuning.Core.ViewModels.Auslass
 
             return base.Initialize();
         }
+
+        private int _auslassTabIndex;
+
+        public int AuslassTabIndex
+        {
+            get => _auslassTabIndex;
+            set { SetProperty(ref _auslassTabIndex, value); }
+        }
     }
 }

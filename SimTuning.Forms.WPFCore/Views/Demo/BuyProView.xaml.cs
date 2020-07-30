@@ -1,7 +1,7 @@
 ﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
-using SimTuning.WPFCore.Region;
-using SimTuning.WPFCore.ViewModels.Demo;
+using SimTuning.Forms.WPFCore.Region;
+using SimTuning.Forms.WPFCore.ViewModels.Demo;
 
 namespace SimTuning.Forms.WPFCore.Views.Demo
 {

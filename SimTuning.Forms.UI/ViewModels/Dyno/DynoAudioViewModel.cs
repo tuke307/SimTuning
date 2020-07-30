@@ -1,6 +1,8 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
@@ -34,7 +36,12 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 return;
             }
 
-            await base.OpenFileDialog().ConfigureAwait(true);
+            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { ".wav", ".mp3" }).ConfigureAwait(true);
+
+            if (fileData == null)
+                return; // user canceled file picking
+
+            await base.OpenFileDialog(fileData).ConfigureAwait(true);
 
             if (this.player != null)
             {

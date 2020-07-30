@@ -3,6 +3,7 @@
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       x:TypeArguments="viewModels:EinstellungenMainViewModel"
+                      TabIndex="{Binding Mode=TwoWay, Path=EinstellungenTabIndex}"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
                       x:Class="SimTuning.Forms.UI.Views.Einstellungen.EinstellungenMainView">
 </views:MvxTabbedPage>

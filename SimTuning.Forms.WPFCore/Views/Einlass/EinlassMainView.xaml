@@ -5,19 +5,22 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    x:TypeArguments="viewModels:EinlassMainViewModel"
-                   xmlns:viewModels="clr-namespace:SimTuning.WPFCore.ViewModels.Einlass;assembly=SimTuning.WPFCore"
+                   xmlns:viewModels="clr-namespace:SimTuning.Forms.WPFCore.ViewModels.Einlass"
                    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-                   xmlns:region="clr-namespace:SimTuning.WPFCore.Region;assembly=SimTuning.WPFCore"
+                   xmlns:region="clr-namespace:SimTuning.Forms.WPFCore.Region"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    mc:Ignorable="d"
                    Background="{DynamicResource MaterialDesignPaper}"
-                   MinWidth="1010"
-                   MinHeight="600">
+                   d:DesignHeight="600"
+                   d:DesignWidth="1010"
+                   MinHeight="600"
+                   MinWidth="1010">
 
     <Grid>
         <dragablz:TabablzControl FixedHeaderCount="2"
                                  Grid.Row="0"
-                                 region:MvxContainer.Id="EinlassRegion">
+                                 region:MvxContainer.Id="EinlassRegion"
+                                 SelectedIndex="{Binding Mode=TwoWay, Path=EinlassTabIndex}">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>

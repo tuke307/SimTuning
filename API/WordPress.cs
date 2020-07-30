@@ -10,11 +10,11 @@ namespace API
     public static class WordPress
     {
         /// <summary>
-        /// Meldet Nutzer in Wordpress(Datenbank) an und holt Nutzerdaten
+        /// Meldet Nutzer in Wordpress(Datenbank) an und holt Nutzerdaten.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        /// <returns>Nutzerdaten</returns>
+        /// <returns>Nutzerdaten.</returns>
         public static async Task<User> UserAccount(string email, SecureString password)
         {
             // Initialize
