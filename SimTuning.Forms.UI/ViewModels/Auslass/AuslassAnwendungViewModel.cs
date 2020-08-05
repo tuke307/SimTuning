@@ -2,6 +2,7 @@
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace SimTuning.Forms.UI.ViewModels.Auslass
@@ -11,10 +12,10 @@ namespace SimTuning.Forms.UI.ViewModels.Auslass
         public AuslassAnwendungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             //override command
-            CalculateCommand = new MvxCommand(Calculate);
+            CalculateCommand = new MvxAsyncCommand(Calculate);
         }
 
-        protected new void Calculate()
+        protected new async Task Calculate()
         {
             Stream stream = base.Calculate();
             Auspuff = ImageSource.FromStream(() => stream);

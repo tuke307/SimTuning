@@ -9,7 +9,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
     public class EinstellungenMainViewModel : SimTuning.Core.ViewModels.Einstellungen.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private bool _firstTime = true;
 
         public EinstellungenMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {

@@ -16,6 +16,7 @@ namespace SimTuning.Core.ViewModels
 
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; protected set; }
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; protected set; }
+        public IMvxAsyncCommand LoginUserCommand { get; protected set; }
 
         public override void Prepare()
         {
@@ -27,6 +28,10 @@ namespace SimTuning.Core.ViewModels
             // Async initialization
 
             return base.Initialize();
+        }
+
+        protected virtual void LoginUser()
+        {
         }
 
         #region Values

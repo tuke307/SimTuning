@@ -15,6 +15,7 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Plugin.FilePicker.Abstractions;
+using Plugin.SimpleAudioPlayer;
 using SimTuning.Core.ModuleLogic;
 using SkiaSharp;
 
@@ -25,6 +26,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         protected AudioLogic audioLogic;
         public readonly IMediaManager MediaManager;
         protected ResourceManager rm;
+        protected ISimpleAudioPlayer player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
 
         public AudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {

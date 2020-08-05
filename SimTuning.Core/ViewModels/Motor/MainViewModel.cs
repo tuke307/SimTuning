@@ -7,7 +7,7 @@ namespace SimTuning.Core.ViewModels.Motor
 {
     public class MainViewModel : MvxNavigationViewModel<SimTuning.Core.Models.UserModel>
     {
-        public SimTuning.Core.Models.UserModel User;
+        public SimTuning.Core.Models.UserModel User { get; protected set; }
 
         public MainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {

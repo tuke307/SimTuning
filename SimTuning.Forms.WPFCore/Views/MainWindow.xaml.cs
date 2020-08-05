@@ -15,10 +15,6 @@ namespace SimTuning.Forms.WPFCore.Views
         public MainWindow()
         {
             InitializeComponent();
-
-            //var message = MessageTextBox.Text;
-
-            //the message queue can be called from any thread
         }
 
         private void GridTop_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -7,24 +7,24 @@ namespace SimTuning.Forms.UI.Views
     [MvxMasterDetailPagePresentation(MasterDetailPosition.Root, WrapInNavigationPage = false, NoHistory = true)]
     public partial class MainPage : MvxMasterDetailPage<MainPageViewModel>
     {
-        private bool _firstTime = true;
+        // private bool _firstTime = true;
 
         public MainPage()
         {
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
-        {
-            if (_firstTime)
-            {
-                ViewModel.ShowMenuViewModelCommand.Execute(null);
-                ViewModel.ShowHomeViewModelCommand.Execute(null);
+        //protected override void OnAppearing()
+        //{
+        //    if (_firstTime)
+        //    {
+        //        ViewModel.ShowMenuViewModelCommand.Execute();
+        //        ViewModel.ShowHomeViewModelCommand.Execute();
 
-                _firstTime = false;
-            }
+        //        _firstTime = false;
+        //    }
 
-            base.OnAppearing();
-        }
+        //    base.OnAppearing();
+        //}
     }
 }

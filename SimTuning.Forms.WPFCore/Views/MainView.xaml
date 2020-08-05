@@ -12,92 +12,12 @@
                    xmlns:region="clr-namespace:SimTuning.Forms.WPFCore.Region"
                    mc:Ignorable="d"
                    Background="{x:Null}"
-                   d:DesignHeight="630"
+                   d:DesignHeight="670"
                    d:DesignWidth="1070"
-                   MinHeight="600"
+                   MinHeight="670"
                    MinWidth="1070">
-    <views:MvxWpfView.Resources>
-
-        <!--CONVERTER-->
-        <BooleanToVisibilityConverter x:Key="BoolToVis" />
-        <behaviours:NegateBooleanConverter x:Key="Inverter" />
-
-        <!--2 CONVERTER kombiniert-->
-        <behaviours:CombiningConverter x:Key="negatedBoolToVisibilityConverter"
-                                       Converter1="{StaticResource Inverter}"
-                                       Converter2="{StaticResource BoolToVis}">
-        </behaviours:CombiningConverter>
-    </views:MvxWpfView.Resources>
 
     <Grid>
-        <!--<Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>-->
-
-        <!--<Grid Grid.Row="0"
-              Background="{StaticResource MaterialDesignDarkBackground}"
-              MouseLeftButtonDown="GridTop_MouseLeftButtonDown">
-        </Grid>-->
-
-        <!--<Grid Grid.Row="0"
-              Background="{x:Null}">
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"
-                                             Grid.Row="0"
-                                             Grid.Column="3"
-                                             Foreground="DarkRed"
-                                             ToolTip="KEIN Account ist eingeloggt"
-                                             Visibility="{Binding Path=IsVisible, ElementName=user, Converter={StaticResource negatedBoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                             Kind="DriversLicenseOutline"
-                                             Height="20"
-                                             Width="20" />
-
-                    <materialDesign:PackIcon x:Name="user"
-                                             VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"
-                                             Grid.Row="0"
-                                             Grid.Column="3"
-                                             Foreground="DarkGreen"
-                                             ToolTip="Account ist eingeloggt"
-                                             Visibility="{Binding Mode=TwoWay, Path=User.UserValid, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                             Kind="DriversLicenseOutline"
-                                             Height="20"
-                                             Width="20" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal"
-                            Margin="20 0 0 0">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"
-                                             Grid.Row="1"
-                                             Grid.Column="3"
-                                             Foreground="DarkRed"
-                                             ToolTip="KEINE Lizenz vorhanden"
-                                             Visibility="{Binding Path=IsVisible, ElementName=license, Converter={StaticResource negatedBoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                             Kind="UserKeyOutline"
-                                             Height="20"
-                                             Width="20" />
-
-                    <materialDesign:PackIcon x:Name="license"
-                                             VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"
-                                             ToolTip="Lizenz vorhanden"
-                                             Visibility="{Binding Mode=TwoWay, Path=User.LicenseValid, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                             Grid.Row="1"
-                                             Grid.Column="3"
-                                             Foreground="DarkGreen"
-                                             Kind="UserKeyOutline"
-                                             Height="20"
-                                             Width="20" />
-                </StackPanel>
-            </StackPanel>
-        </Grid>-->
-
         <ItemsControl Grid.Row="1"
                       region:MvxContainer.Id="MainViewRegion"></ItemsControl>
     </Grid>

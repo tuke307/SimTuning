@@ -9,6 +9,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
     public class EinstellungenVehiclesViewModel : SimTuning.Core.ViewModels.Einstellungen.VehiclesViewModel
     {
+        private bool firstTime = true;
+
         public EinstellungenVehiclesViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             NewVehicleCommand = new MvxCommand(NewVehicle, CanExecute);
@@ -26,11 +28,18 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             return base.Initialize();
         }
 
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+            firstTime = false;
+        }
+
         private bool CanExecute()
         {
             if (!User.LicenseValid)
             {
-                Functions.ShowSnackbarDialog("Kaufe die Pro Version um Presets zu ändern");
+                if (!firstTime)
+                    Functions.ShowSnackbarDialog("Kaufe die Pro Version um Presets zu ändern");
             }
             return User.LicenseValid;
         }

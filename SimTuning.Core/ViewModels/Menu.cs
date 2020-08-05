@@ -8,7 +8,7 @@ namespace SimTuning.Core.ViewModels
 {
     public class Menu : MvxNavigationViewModel<SimTuning.Core.Models.UserModel>
     {
-        public SimTuning.Core.Models.UserModel User;
+        public SimTuning.Core.Models.UserModel User { get; protected set; }
 
         public Menu(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {

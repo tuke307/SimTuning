@@ -15,6 +15,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
     public class EinstellungenAussehenViewModel : SimTuning.Core.ViewModels.Einstellungen.AussehenViewModel
     {
         private readonly ApplicationChanges color = new ApplicationChanges();
+        private bool firstTime = true;
 
         public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
@@ -38,6 +39,12 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             return base.Initialize();
         }
 
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+            firstTime = false;
+        }
+
         #region Commands
 
         protected void ApplyPrimary(object parameter)
@@ -59,7 +66,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
         {
             if (!User.LicenseValid)
             {
-                Functions.ShowSnackbarDialog(rm.GetString("MES_PRO", CultureInfo.CurrentCulture));
+                if (!firstTime)
+                    Functions.ShowSnackbarDialog(rm.GetString("MES_PRO", CultureInfo.CurrentCulture));
             }
             return User.LicenseValid;
         }

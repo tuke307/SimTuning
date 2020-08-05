@@ -9,7 +9,7 @@ using System.Windows.Input;
 namespace SimTuning.Forms.WPFCore.Views
 {
     [MvxWpfPresenter("MainViewRegion", mvxViewPosition.NewOrExsist)]
-    public partial class MenuView : MvxWpfView<MenuViewModel>/*: MvxWindow<RootWindowViewModel>*/
+    public partial class MenuView : MvxWpfView<MenuViewModel>
     {
         public MenuView()
         {
