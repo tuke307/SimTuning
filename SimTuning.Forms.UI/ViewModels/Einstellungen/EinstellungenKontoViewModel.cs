@@ -12,12 +12,8 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 {
     public class EinstellungenKontoViewModel : SimTuning.Core.ViewModels.Einstellungen.KontoViewModel
     {
-        // private readonly MainPageViewModel mainWindowViewModel;
-
-        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)/*(MainPageViewModel mainWindowViewModel)*/
+        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
-
             //override commands
             ConnectUserCommand = new MvxAsyncCommand(ConnectUser);
             RegisterSiteCommand = new MvxCommand(RegisterSite);

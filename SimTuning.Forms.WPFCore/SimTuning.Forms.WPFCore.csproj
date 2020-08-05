@@ -26,25 +26,10 @@
     <Version>1.1.0</Version>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Views\Home\Tutorial_Berechnungen.xaml.cs" />
-    <Compile Remove="Views\Home\Tutorial_dyno.xaml.cs" />
-    <Compile Remove="Views\Home\Tutorial_Einstellungen.xaml.cs" />
-    <Compile Remove="Views\Home\Tutorial_leistungsdiagnose.xaml.cs" />
-    <Compile Remove="Views\Home\Tutorial_main.xaml.cs" />
-    <Compile Remove="Views\Home\Tutorial_menues.xaml.cs" />
-    <Compile Remove="Views\Home\Tutorial_Overview.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="Views\Home\Tutorial_Berechnungen.xaml" />
-    <Page Remove="Views\Home\Tutorial_dyno.xaml" />
-    <Page Remove="Views\Home\Tutorial_Einstellungen.xaml" />
-    <Page Remove="Views\Home\Tutorial_leistungsdiagnose.xaml" />
-    <Page Remove="Views\Home\Tutorial_main.xaml" />
-    <Page Remove="Views\Home\Tutorial_menues.xaml" />
-    <Page Remove="Views\Home\Tutorial_Overview.xaml" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official" Version="1.6.0" />
@@ -57,16 +42,13 @@
     </PackageReference>
     <PackageReference Include="MvvmCross" Version="6.4.2" />
     <PackageReference Include="MvvmCross.Platforms.Wpf" Version="6.4.2" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="OxyPlot.Core" Version="2.0.0" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
+    <PackageReference Include="Plugin.MediaManager" Version="0.9.7" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
-    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
-    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer.WPF" Version="1.4.0" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.43-beta" />
     <PackageReference Include="XamlAnimatedGif" Version="1.2.2" />
   </ItemGroup>

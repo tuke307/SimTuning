@@ -58,6 +58,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
 
             ShowSaveButtonCommand = new MvxCommand(ShowSave);
+
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
         }
 
         public IMvxCommand NewVehicleCommand { get; set; }

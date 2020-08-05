@@ -7,11 +7,9 @@ namespace SimTuning.Forms.UI.Views.Dyno
     [MvxTabbedPagePresentation(TabbedPosition.Tab)]
     public partial class DynoAudioView : MvxContentPage<DynoAudioViewModel>
     {
-        public DynoAudioView(/*MainWindowViewModel mainWindowViewModel*/)
+        public DynoAudioView()
         {
             InitializeComponent();
-
-            //BindingContext = new DynoAudioViewModel(/*mainWindowViewModel*/);
         }
     }
 }

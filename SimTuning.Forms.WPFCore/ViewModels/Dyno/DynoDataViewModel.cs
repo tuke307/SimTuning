@@ -1,18 +1,15 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Forms.WPFCore.Business;
 using System;
 
 namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
     public class DynoDataViewModel : SimTuning.Core.ViewModels.Dyno.DataViewModel
     {
-        //private MainWindowViewModel mainWindowViewModel;
-
-        public DynoDataViewModel/*MainWindowViewModel mainWindowViewModel*/(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public DynoDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
-
             NewDynoCommand = new MvxCommand(NewDyno);
             DeleteDynoCommand = new MvxCommand(DeleteDyno);
             SaveDynoCommand = new MvxCommand(SaveDyno);
@@ -26,7 +23,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             }
             catch
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim erstellen");
+                Functions.ShowSnackbarDialog("Fehler beim erstellen");
             }
         }
 
@@ -38,7 +35,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             }
             catch
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim löschen");
+                Functions.ShowSnackbarDialog("Fehler beim löschen");
             }
         }
 
@@ -46,7 +43,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         {
             if (!base.SaveDyno())
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim speichern");
+                Functions.ShowSnackbarDialog("Fehler beim speichern");
             }
         }
     }

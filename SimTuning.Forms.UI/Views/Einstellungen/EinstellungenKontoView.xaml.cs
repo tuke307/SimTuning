@@ -7,11 +7,9 @@ namespace SimTuning.Forms.UI.Views.Einstellungen
     [MvxTabbedPagePresentation(TabbedPosition.Tab)]
     public partial class EinstellungenKontoView : MvxContentPage<EinstellungenKontoViewModel>
     {
-        public EinstellungenKontoView(/*MainWindowViewModel mainWindowViewModel*/)
+        public EinstellungenKontoView()
         {
             InitializeComponent();
-
-            //BindingContext = new EinstellungenKontoViewModel(mainWindowViewModel);
         }
     }
 }

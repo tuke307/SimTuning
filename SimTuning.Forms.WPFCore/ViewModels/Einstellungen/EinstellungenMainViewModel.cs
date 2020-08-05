@@ -26,27 +26,14 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             return base.Initialize();
         }
 
-        private Task ShowInitialViewModels()
-        {
-            var tasks = new List<Task>
-            {
-                _navigationService.Navigate<EinstellungenAussehenViewModel, UserModel>(User),
-                _navigationService.Navigate<EinstellungenUpdateViewModel>(),
-                _navigationService.Navigate<EinstellungenVehiclesViewModel, UserModel>(User),
-                _navigationService.Navigate<EinstellungenKontoViewModel, UserModel>(User)
-            };
-            return Task.WhenAll(tasks);
-        }
-
         public override void ViewAppearing()
         {
-            if (_firstTime)
-            {
-                ShowInitialViewModels();
-                _firstTime = false;
+            _navigationService.Navigate<EinstellungenAussehenViewModel, UserModel>(User);
+            _navigationService.Navigate<EinstellungenUpdateViewModel>();
+            _navigationService.Navigate<EinstellungenVehiclesViewModel, UserModel>(User);
+            _navigationService.Navigate<EinstellungenKontoViewModel, UserModel>(User);
 
-                EinstellungenTabIndex = 0;
-            }
+            EinstellungenTabIndex = 0;
         }
     }
 }

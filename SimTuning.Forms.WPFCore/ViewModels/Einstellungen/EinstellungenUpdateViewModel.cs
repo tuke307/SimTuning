@@ -10,12 +10,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
     public class EinstellungenUpdateViewModel : MvxViewModel
     {
-        //private readonly MainWindowViewModel mainWindowViewModel;
-
-        public EinstellungenUpdateViewModel(/*MainWindowViewModel mainWindowViewModel*/)
+        public EinstellungenUpdateViewModel()
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
-
             UpdateCheckCommand = new MvxCommand<string>(UpdateCheck);
             StartUpdateCommand = new MvxCommand<string>(StartUpdate);
         }

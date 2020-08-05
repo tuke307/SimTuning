@@ -1,18 +1,15 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Forms.WPFCore.Business;
 using System;
 
 namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
 {
     public class TuningDataViewModel : SimTuning.Core.ViewModels.Tuning.DataViewModel
     {
-        //private MainWindowViewModel mainWindowViewModel;
-
-        public TuningDataViewModel/*MainWindowViewModel mainWindowViewModel*/(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public TuningDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
-
             NewTuningCommand = new MvxCommand<string>(new Action<object>(NewTuning));
             DeleteTuningCommand = new MvxCommand<string>(new Action<object>(DeleteTuning));
             SaveTuningCommand = new MvxCommand<string>(new Action<object>(SaveTuning));
@@ -26,7 +23,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
             }
             catch
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim erstellen");
+                Functions.ShowSnackbarDialog("Fehler beim erstellen");
             }
         }
 
@@ -34,7 +31,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
         {
             if (!base.DeleteTuning())
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim löschen");
+                Functions.ShowSnackbarDialog("Fehler beim löschen");
             }
         }
 
@@ -42,7 +39,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
         {
             if (!base.SaveTuning())
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim speichern");
+                Functions.ShowSnackbarDialog("Fehler beim speichern");
             }
         }
     }

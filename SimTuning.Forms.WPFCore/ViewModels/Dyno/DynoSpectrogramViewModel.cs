@@ -1,6 +1,10 @@
-﻿using MvvmCross.Commands;
+﻿using MaterialDesignThemes.Wpf;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Forms.WPFCore.Business;
+using SimTuning.Forms.WPFCore.Views.Dialog;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -9,12 +13,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
     public class DynoSpectrogramViewModel : SimTuning.Core.ViewModels.Dyno.SpectrogramViewModel
     {
-        //private readonly MainWindowViewModel mainWindowViewModel;
-
-        public DynoSpectrogramViewModel/*MainWindowViewModel mainWindowViewModel*/(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel; //LoadingScreen
-
             //override Commands
             FilterPlotCommand = new MvxAsyncCommand(FilterPlot);
             RefreshSpectrogramCommand = new MvxAsyncCommand(ReloadImageAudioSpectrogram);
@@ -27,62 +27,72 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 
         private bool CheckDynoData()
         {
-            if (Dyno == null)
+            if (this.Dyno == null)
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Bitte Datensatz auswählen um fortzufahren!");
+                Functions.ShowSnackbarDialog(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
                 return false;
             }
-            else { return true; }
+            else
+            {
+                return true;
+            }
         }
 
         protected new async Task ReloadImageAudioSpectrogram()
         {
-            if (!CheckDynoData())
+            if (!this.CheckDynoData())
+            {
                 return;
+            }
 
-            // mainWindowViewModel.LoadingAnimation = true;
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            {
+                Stream stream = base.ReloadImageAudioSpectrogram();
+                PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                DisplayedImage = decoder.Frames[0];
 
-            await Task.Run(() =>
-                {
-                    Stream stream = base.ReloadImageAudioSpectrogram();
-                    PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                    DisplayedImage = decoder.Frames[0];
-                });
-
-            // mainWindowViewModel.LoadingAnimation = false;
+                args.Session.Close();
+            }).ConfigureAwait(true);
         }
 
         protected new async Task RefreshPlot()
         {
-            if (!CheckDynoData())
+            if (!this.CheckDynoData())
+            {
                 return;
+            }
 
-            // mainWindowViewModel.LoadingAnimation = true;
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            {
+                await base.RefreshPlot();
 
-            await base.RefreshPlot();
-
-            //mainWindowViewModel.LoadingAnimation = false;
+                args.Session.Close();
+            }).ConfigureAwait(true);
         }
 
         protected new async Task FilterPlot()
         {
-            if (!CheckDynoData())
+            if (!this.CheckDynoData())
+            {
                 return;
+            }
 
-            //mainWindowViewModel.LoadingAnimation = true;
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            {
+                await base.FilterPlot().ConfigureAwait(true);
 
-            await base.FilterPlot();
-
-            //mainWindowViewModel.LoadingAnimation = false;
+                args.Session.Close();
+            }).ConfigureAwait(true);
         }
 
         protected new async Task SpecificGraph()
         {
-            //mainWindowViewModel.LoadingAnimation = true;
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            {
+                await base.SpecificGraph().ConfigureAwait(true);
 
-            await Task.Run(() => base.SpecificGraph());
-
-            //mainWindowViewModel.LoadingAnimation = false;
+                args.Session.Close();
+            }).ConfigureAwait(true);
         }
 
         private BitmapSource _displayedImage;

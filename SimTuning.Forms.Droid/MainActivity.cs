@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using MediaManager;
 using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.Forms.Platforms.Android.Views;
 using SimTuning.Forms.UI;
@@ -26,6 +27,7 @@ namespace SimTuning.Forms.Droid
             //zusätzliche Controls
             XF.Material.Droid.Material.Init(this, bundle);
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
+            CrossMediaManager.Current.Init(this);
         }
     }
 }

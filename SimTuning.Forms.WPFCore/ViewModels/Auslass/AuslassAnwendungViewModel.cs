@@ -1,6 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using MaterialDesignThemes.Wpf;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Forms.WPFCore.Views.Dialog;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -16,16 +18,21 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Auslass
         public override Task Initialize()
         {
             //override command
-            CalculateCommand = new MvxCommand(Calculate);
+            CalculateCommand = new MvxAsyncCommand(CalculateAsync);
 
             return base.Initialize();
         }
 
-        protected new void Calculate()
+        protected new async Task CalculateAsync()
         {
-            Stream stream = base.Calculate();
-            PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-            Auspuff = decoder.Frames[0];
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", delegate (object sender, DialogOpenedEventArgs args)
+            {
+                Stream stream = base.Calculate();
+                PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                Auspuff = decoder.Frames[0];
+
+                args.Session.Close();
+            }).ConfigureAwait(true);
         }
 
         private BitmapSource _auspuff;

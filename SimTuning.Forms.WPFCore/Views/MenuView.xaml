@@ -11,6 +11,7 @@
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    x:TypeArguments="viewModels:MenuViewModel"
                    xmlns:viewModels="clr-namespace:SimTuning.Forms.WPFCore.ViewModels"
+                   xmlns:utilities="clr-namespace:SimTuning.Forms.WPFCore.Menu"
                    d:DesignHeight="600"
                    d:DesignWidth="1070"
                    MinHeight="600"
@@ -56,243 +57,315 @@
         </EventTrigger>
     </views:MvxWpfView.Triggers>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60" />
-            <ColumnDefinition Width="*" />
-            
-        </Grid.ColumnDefinitions>
-        <ItemsControl  Grid.Column="1"
-                       region:MvxContainer.Id="PageContent"></ItemsControl>
-        
-        <!--MENÜ GRID-->
-        <Grid x:Name="GridMenu"
-              Background="{DynamicResource MaterialDesignDarkBackground}"
-              Width="60"
-              Grid.Column="0"
-              HorizontalAlignment="Left">
-            <Grid.Effect>
-                <DropShadowEffect BlurRadius="2"
-                                  ShadowDepth="1"
-                                  Color="#FFAEAEAE" />
-            </Grid.Effect>
-            <StackPanel>
-                <Grid Height="100"
-                      Background="White"
-                      RenderTransformOrigin="0.5,0.5">
-                    <Grid.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform />
-                            <SkewTransform />
-                            <RotateTransform />
-                            <TranslateTransform />
-                        </TransformGroup>
-                    </Grid.RenderTransform>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                    <Button x:Name="ButtonOpenMenu"
-                            Visibility="{Binding Mode=OneWay, Path=OpenMenuVis, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Height="60"
-                            Width="60"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}"
-                            Foreground="#FF31577E"
-                            Command="{Binding ButtonOpenMenu}">
-                        <materialDesign:PackIcon Kind="Menu"
-                                                 Width="25"
-                                                 Height="25" />
-                    </Button>
+            <!--<materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel>
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                  DockPanel.Dock="Top"
+                                  HorizontalAlignment="Right"
+                                  Margin="16"
+                                  IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    <Menu>
+                        <Menu.Resources>
+                            <Style TargetType="MenuItem"
+                                   BasedOn="{StaticResource {x:Type MenuItem}}">
+                                <Setter Property="utilities:TreeHelpers.Modifiers">
+                                    <Setter.Value>
+                                        <utilities:ModifierCollection>
+                                            <utilities:Modifier Property="{x:Static Popup.PlacementProperty}"
+                                                                Value="{x:Static PlacementMode.Right}"
+                                                                TemplatePartName="PART_Popup" />
+                                        </utilities:ModifierCollection>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Menu.Resources>
+                        <Menu.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </Menu.ItemsPanel>
+                        <MenuItem Header="Item 1">
+                            <MenuItem Header="Sub Item 1" />
+                            <MenuItem Header="Sub Item 2" />
+                            <MenuItem Header="Sub Item 3" />
+                        </MenuItem>
+                        <MenuItem Header="Item 2">
+                            <MenuItem Header="Sub Item 1" />
+                            <MenuItem Header="Sub Item 2" />
+                            <MenuItem Header="Sub Item 3" />
+                        </MenuItem>
+                        <MenuItem Header="Item 3">
+                            <MenuItem Header="Sub Item 1" />
+                            <MenuItem Header="Sub Item 2" />
+                            <MenuItem Header="Sub Item 3" />
+                        </MenuItem>
+                    </Menu>
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
 
-                    <Button x:Name="ButtonCloseMenu"
-                            Visibility="{Binding Mode=OneWay, ElementName=ButtonOpenMenu, Path=IsVisible, Converter={StaticResource negatedBoolToVisibilityConverter}}"
-                            Height="60"
-                            Width="60"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}"
-                            Foreground="#FF31577E"
-                            Command="{Binding ButtonCloseMenu}">
-                        <materialDesign:PackIcon Kind="ArrowLeft"
-                                                 Width="25"
-                                                 Height="25" />
-                    </Button>
-                </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-                <ListView Foreground="#FF5C99D6"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          SelectedIndex="{Binding SelectedIndex}">
+                <materialDesign:ColorZone Padding="16"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                          Mode="PrimaryMid"
+                                          DockPanel.Dock="Top">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                      IsChecked="False"
+                                      x:Name="MenuToggleButton"
+                                      Grid.Column="0" />
+                    </Grid>
+                </materialDesign:ColorZone>
+            </Grid>
+        </materialDesign:DrawerHost>-->
 
-                    <!--Index=0-->
-                    <ListViewItem Height="60"
-                                  IsSelected="True">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ViewDashboard"
-                                                     Height="25"
+            <!--MENÜ GRID-->
+            <Grid x:Name="GridMenu"
+                  Background="{DynamicResource MaterialDesignDarkBackground}"
+                  Width="60"
+                  Grid.Column="0"
+                  HorizontalAlignment="Left">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="2"
+                                      ShadowDepth="1"
+                                      Color="#FFAEAEAE" />
+                </Grid.Effect>
+                <StackPanel>
+                    <Grid Height="100"
+                          Background="White"
+                          RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+
+                        <Button x:Name="ButtonOpenMenu"
+                                Visibility="{Binding Mode=OneWay, Path=OpenMenuVis, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Height="60"
+                                Width="60"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Foreground="#FF31577E"
+                                Command="{Binding ButtonOpenMenu}">
+                            <materialDesign:PackIcon Kind="Menu"
                                                      Width="25"
-                                                     Margin="10" />
-                            <TextBlock Text="Home"
-                                       Margin="10, 15, 0, 0" />
-                        </StackPanel>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
-                                                       CommandParameter="PageContent">
-                                </i:InvokeCommandAction>
-                                <i:InvokeCommandAction Command="{Binding ShowHomeCommand}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ListViewItem>
+                                                     Height="25" />
+                        </Button>
 
-                    <!--Seperator Index=1-->
-                    <Separator Width="150"
-                               HorizontalAlignment="Center"></Separator>
-
-                    <!--Index=2-->
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ArrowCompressRight"
-                                                     Height="25"
+                        <Button x:Name="ButtonCloseMenu"
+                                Visibility="{Binding Mode=OneWay, ElementName=ButtonOpenMenu, Path=IsVisible, Converter={StaticResource negatedBoolToVisibilityConverter}}"
+                                Height="60"
+                                Width="60"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Foreground="#FF31577E"
+                                Command="{Binding ButtonCloseMenu}">
+                            <materialDesign:PackIcon Kind="ArrowLeft"
                                                      Width="25"
-                                                     Margin="10" />
-                            <TextBlock Text="Einlass"
-                                       Margin="10, 15, 0, 0" />
-                        </StackPanel>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
-                                                       CommandParameter="PageContent">
-                                </i:InvokeCommandAction>
-                                <i:InvokeCommandAction Command="{Binding ShowEinlassCommand}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ListViewItem>
+                                                     Height="25" />
+                        </Button>
+                    </Grid>
 
-                    <!--Index=3-->
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ArrowCompressLeft"
-                                                     Height="25"
-                                                     Width="25"
-                                                     Margin="10" />
-                            <TextBlock Text="Auslass"
-                                       Margin="10, 15, 0, 0" />
-                        </StackPanel>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
-                                                       CommandParameter="PageContent">
-                                </i:InvokeCommandAction>
-                                <i:InvokeCommandAction Command="{Binding ShowAuslassCommand}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ListViewItem>
+                    <ListView Foreground="#FF5C99D6"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              SelectedIndex="{Binding SelectedIndex}">
 
-                    <!--Index=4-->
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Engine"
-                                                     Height="25"
-                                                     Width="25"
-                                                     Margin="10" />
-                            <TextBlock Text="Motor"
-                                       Margin="10, 15, 0, 0" />
-                        </StackPanel>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
-                                                       CommandParameter="PageContent">
-                                </i:InvokeCommandAction>
-                                <i:InvokeCommandAction Command="{Binding ShowMotorCommand}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ListViewItem>
+                        <!--Index=0-->
+                        <ListViewItem Height="60"
+                                      IsSelected="True">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ViewDashboard"
+                                                         Height="25"
+                                                         Width="25"
+                                                         Margin="10" />
+                                <TextBlock Text="Home"
+                                           Margin="10, 15, 0, 0" />
+                            </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
+                                                           CommandParameter="PageContent">
+                                    </i:InvokeCommandAction>
+                                    <i:InvokeCommandAction Command="{Binding ShowHomeCommand}">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListViewItem>
 
-                    <!--Seperator Index=5-->
-                    <Separator Width="150"
-                               HorizontalAlignment="Center"></Separator>
+                        <!--Seperator Index=1-->
+                        <Separator Width="150"
+                                   HorizontalAlignment="Center"></Separator>
 
-                    <!--Index=6-->
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="TuneVertical"
-                                                     Height="25"
-                                                     Width="25"
-                                                     Margin="10" />
-                            <TextBlock Text="Tuning"
-                                       Margin="10, 15, 0, 0" />
-                        </StackPanel>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
-                                                       CommandParameter="PageContent">
-                                </i:InvokeCommandAction>
-                                <i:InvokeCommandAction Command="{Binding ShowTuningCommand}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ListViewItem>
+                        <!--Index=2-->
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ArrowCompressRight"
+                                                         Height="25"
+                                                         Width="25"
+                                                         Margin="10" />
+                                <TextBlock Text="Einlass"
+                                           Margin="10, 15, 0, 0" />
+                            </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
+                                                           CommandParameter="PageContent">
+                                    </i:InvokeCommandAction>
+                                    <i:InvokeCommandAction Command="{Binding ShowEinlassCommand}">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListViewItem>
 
-                    <!--Index=7-->
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ChartScatterPlot"
-                                                     Height="25"
-                                                     Width="25"
-                                                     Margin="10" />
-                            <TextBlock Text="Dyno"
-                                       Margin="10, 15, 0, 0" />
-                        </StackPanel>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
-                                                       CommandParameter="PageContent">
-                                </i:InvokeCommandAction>
-                                <i:InvokeCommandAction Command="{Binding ShowDynoCommand}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ListViewItem>
+                        <!--Index=3-->
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ArrowCompressLeft"
+                                                         Height="25"
+                                                         Width="25"
+                                                         Margin="10" />
+                                <TextBlock Text="Auslass"
+                                           Margin="10, 15, 0, 0" />
+                            </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
+                                                           CommandParameter="PageContent">
+                                    </i:InvokeCommandAction>
+                                    <i:InvokeCommandAction Command="{Binding ShowAuslassCommand}">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListViewItem>
 
-                    <!--Seperator Index=8-->
-                    <Separator Height="18"
-                               Visibility="Hidden"></Separator>
+                        <!--Index=4-->
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Engine"
+                                                         Height="25"
+                                                         Width="25"
+                                                         Margin="10" />
+                                <TextBlock Text="Motor"
+                                           Margin="10, 15, 0, 0" />
+                            </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
+                                                           CommandParameter="PageContent">
+                                    </i:InvokeCommandAction>
+                                    <i:InvokeCommandAction Command="{Binding ShowMotorCommand}">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListViewItem>
 
-                    <!--Index=9-->
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Cogs"
-                                                     Height="25"
-                                                     Width="25"
-                                                     Margin="10" />
-                            <TextBlock Text="Einstellungen"
-                                       Margin="10, 15, 0, 0" />
-                        </StackPanel>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
-                                                       CommandParameter="PageContent">
-                                </i:InvokeCommandAction>
-                                <i:InvokeCommandAction Command="{Binding ShowEinstellungenCommand}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ListViewItem>
-                </ListView>
-            </StackPanel>
+                        <!--Seperator Index=5-->
+                        <Separator Width="150"
+                                   HorizontalAlignment="Center"></Separator>
+
+                        <!--Index=6-->
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="TuneVertical"
+                                                         Height="25"
+                                                         Width="25"
+                                                         Margin="10" />
+                                <TextBlock Text="Tuning"
+                                           Margin="10, 15, 0, 0" />
+                            </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
+                                                           CommandParameter="PageContent">
+                                    </i:InvokeCommandAction>
+                                    <i:InvokeCommandAction Command="{Binding ShowTuningCommand}">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListViewItem>
+
+                        <!--Index=7-->
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ChartScatterPlot"
+                                                         Height="25"
+                                                         Width="25"
+                                                         Margin="10" />
+                                <TextBlock Text="Dyno"
+                                           Margin="10, 15, 0, 0" />
+                            </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
+                                                           CommandParameter="PageContent">
+                                    </i:InvokeCommandAction>
+                                    <i:InvokeCommandAction Command="{Binding ShowDynoCommand}">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListViewItem>
+
+                        <!--Seperator Index=8-->
+                        <Separator Height="18"
+                                   Visibility="Hidden"></Separator>
+
+                        <!--Index=9-->
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Cogs"
+                                                         Height="25"
+                                                         Width="25"
+                                                         Margin="10" />
+                                <TextBlock Text="Einstellungen"
+                                           Margin="10, 15, 0, 0" />
+                            </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
+                                                           CommandParameter="PageContent">
+                                    </i:InvokeCommandAction>
+                                    <i:InvokeCommandAction Command="{Binding ShowEinstellungenCommand}">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListViewItem>
+                    </ListView>
+                </StackPanel>
+            </Grid>
         </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <!--<Frame x:Name="MenuContent"
-                   Grid.Column="0"></Frame>-->
-
-        <!--<Frame x:Name="PageContent"
-                   Grid.Column="1">
-            </Frame>-->
+            <ItemsControl  Grid.Column="1"
+                           region:MvxContainer.Id="PageContent"></ItemsControl>
+        </Grid>
     </Grid>
 </views:MvxWpfView>

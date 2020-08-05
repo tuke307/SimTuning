@@ -4,7 +4,6 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Core.Models;
-using SimTuning.Forms.WPFCore.Views.Dialog;
 using SimTuning.Forms.WPFCore.Business;
 using SimTuning.Forms.WPFCore.ViewModels.Home;
 
@@ -21,7 +20,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels
 
             ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
             ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel, UserModel>(User));
-            NotificationSnackbar = new SnackbarMessageQueue();
         }
 
         public override void ViewAppeared()
@@ -30,6 +28,15 @@ namespace SimTuning.Forms.WPFCore.ViewModels
 
             ShowMenuViewModelCommand.Execute();
             ShowHomeViewModelCommand.Execute();
+
+            //Task.Run(() =>
+            //{
+            //    var tuple = API.API.UserLoginAsync();
+            //    User.UserValid = tuple.Result.Item1;
+            //    User.LicenseValid = tuple.Result.Item2;
+
+            //    Functions.ShowSnackbarDialog(tuple.Result.Item3);
+            //});
         }
 
         public override void Prepare()
@@ -42,29 +49,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             settings.LoadColors();
 
             return base.Initialize();
-        }
-
-        public override void ViewAppearing()
-        {
-            base.ViewAppearing();
-
-            Task.Run(() =>
-            {
-                var tuple = API.API.UserLoginAsync();
-                User.UserValid = tuple.Result.Item1;
-                User.LicenseValid = tuple.Result.Item2;
-
-                for (int i = 0; i < tuple.Result.Item3.Count; i++)
-                    NotificationSnackbar.Enqueue(tuple.Result.Item3[i]);
-            });
-        }
-
-        private SnackbarMessageQueue _notificationSnackbar;
-
-        public SnackbarMessageQueue NotificationSnackbar
-        {
-            get => _notificationSnackbar;
-            private set => SetProperty(ref _notificationSnackbar, value);
         }
     }
 }

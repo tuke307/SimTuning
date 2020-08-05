@@ -8,7 +8,7 @@ namespace SimTuning.Forms.UI.Views.Einstellungen
     [MvxMasterDetailPagePresentation(MasterDetailPosition.Detail, WrapInNavigationPage = true, NoHistory = true)]
     public partial class EinstellungenMainView : MvxTabbedPage<EinstellungenMainViewModel>
     {
-        public EinstellungenMainView(/*MainWindowViewModel mainWindowViewModel*/)
+        public EinstellungenMainView()
         {
             InitializeComponent();
         }

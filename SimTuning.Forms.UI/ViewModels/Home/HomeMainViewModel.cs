@@ -20,6 +20,7 @@ namespace SimTuning.Forms.UI.ViewModels.Home
             OpenTwitterCommand = new MvxCommand(OpenTwitter);
             OpenEmailCommand = new MvxCommand(OpenEmail);
             OpenDonateCommand = new MvxCommand(OpenDonate);
+            OpenTutorialCommand = new MvxCommand(OpenTutorial);
         }
 
         protected override void OpenInstagram()
@@ -45,6 +46,11 @@ namespace SimTuning.Forms.UI.ViewModels.Home
         protected override void OpenDonate()
         {
             Launcher.OpenAsync(new Uri("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PZ5GBAFYMBPWS&source=url"));
+        }
+
+        protected override void OpenTutorial()
+        {
+            Launcher.OpenAsync(new Uri("https://simtuning.tuke-productions.de/anleitung/"));
         }
     }
 }

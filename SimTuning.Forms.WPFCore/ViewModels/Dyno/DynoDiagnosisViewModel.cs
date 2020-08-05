@@ -1,18 +1,18 @@
-﻿using MvvmCross.Commands;
+﻿using MaterialDesignThemes.Wpf;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Forms.WPFCore.Business;
+using SimTuning.Forms.WPFCore.Views.Dialog;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
     public class DynoDiagnosisViewModel : SimTuning.Core.ViewModels.Dyno.DiagnosisViewModel
     {
-        //private readonly MainWindowViewModel mainWindowViewModel;
-
-        public DynoDiagnosisViewModel/*MainWindowViewModel mainWindowViewModel*/(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public DynoDiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel; //LoadingScreen
-
             RefreshPlotCommand = new MvxAsyncCommand(RefreshPlot);
 
             //datensatz checken
@@ -23,7 +23,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         {
             if (Dyno == null)
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Bitte Datensatz auswählen um fortzufahren!");
+                Functions.ShowSnackbarDialog(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
                 return false;
             }
             else { return true; }
@@ -31,14 +32,17 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 
         protected new async Task RefreshPlot()
         {
-            if (!CheckDynoData())
+            if (!this.CheckDynoData())
+            {
                 return;
+            }
 
-            //mainWindowViewModel.LoadingAnimation = true;
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            {
+                await base.RefreshPlot().ConfigureAwait(true);
 
-            await base.RefreshPlot().ConfigureAwait(true);
-
-            //mainWindowViewModel.LoadingAnimation = false;
+                args.Session.Close();
+            }).ConfigureAwait(true);
         }
     }
 }

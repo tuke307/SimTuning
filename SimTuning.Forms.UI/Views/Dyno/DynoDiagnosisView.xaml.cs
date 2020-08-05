@@ -7,11 +7,9 @@ namespace SimTuning.Forms.UI.Views.Dyno
     [MvxTabbedPagePresentation(TabbedPosition.Tab)]
     public partial class DynoDiagnosisView : MvxContentPage<DynoDiagnosisViewModel>
     {
-        public DynoDiagnosisView(/*MainWindowViewModel mainWindowViewModel*/)
+        public DynoDiagnosisView()
         {
             InitializeComponent();
-
-            //BindingContext = new DynoDiagnosisViewModel(/*mainWindowViewModel*/);
         }
     }
 }

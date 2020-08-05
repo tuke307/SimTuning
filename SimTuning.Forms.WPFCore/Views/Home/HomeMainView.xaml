@@ -2,6 +2,8 @@
                    x:Class="SimTuning.Forms.WPFCore.Views.Home.HomeMainView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   x:TypeArguments="viewModels:HomeMainViewModel"
+                   xmlns:viewModels="clr-namespace:SimTuning.Forms.WPFCore.ViewModels.Home"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"

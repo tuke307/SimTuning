@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using MaterialDesignThemes.Wpf;
@@ -7,17 +8,18 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
+using Plugin.SimpleAudioPlayer;
+using SimTuning.Forms.WPFCore.Business;
+using SimTuning.Forms.WPFCore.Views.Dialog;
 
 namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
     public class DynoAudioViewModel : SimTuning.Core.ViewModels.Dyno.AudioViewModel
     {
-        //private readonly MainWindowViewModel mainWindowViewModel;
         private readonly IMvxNavigationService _navigationService;
 
-        public DynoAudioViewModel/*MainWindowViewModel mainWindowViewModel*/(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel; //LoadingScreen
             _navigationService = navigationService;
 
             //override commands
@@ -47,11 +49,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         {
             if (Dyno == null)
             {
-                //await DialogHost.Show(new LoadingView(), "SnackbarDialog", delegate (object sender, DialogOpenedEventArgs args)
-                //{
-                //    args.Session.Close(false);
-                //});
-                //mainWindowViewModel.NotificationSnackbar.Enqueue(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
                 return false;
             }
             else { return true; }
@@ -69,7 +68,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 
             await base.OpenFileDialog(fileData);
 
-            if (player != null)
+            if (MediaManager.MediaPlayer != null)
             {
                 await ReloadImageAudioSpectrogram();
 
@@ -77,45 +76,58 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             }
         }
 
+        protected override void OpenFile()
+        {
+            //initialisieren
+            var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
+            //MediaManager = CrossSimpleAudioMediaManager.Current;
+            MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
+            //ISimpleAudioPlayer player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
+            //player.Load(stream);
+            //player.Play();
+            stream.Dispose();
+
+            base.OpenFile();
+        }
+
         protected new async Task ReloadImageAudioSpectrogram()
         {
-            //mainWindowViewModel.LoadingAnimation = true;
-            //await DialogHost.Show(new LoadingView(), "LoadingDialog", delegate (object sender, DialogOpenedEventArgs args)
-            //{
-            Stream stream = base.ReloadImageAudioSpectrogram();
-            PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-            ImageAudioFile = decoder.Frames[0];
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", delegate (object sender, DialogOpenedEventArgs args)
+            {
+                Stream stream = base.ReloadImageAudioSpectrogram();
+                PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                ImageAudioFile = decoder.Frames[0];
 
-            //    args.Session.Close(false);
-            //}).ConfigureAwait(false);
-
-            //mainWindowViewModel.LoadingAnimation = false;
+                args.Session.Close();
+            }).ConfigureAwait(true);
         }
 
         protected new async Task CutBeginn()
         {
-            if (player == null)
+            if (MediaManager.MediaPlayer == null)
                 return;
 
-            //mainWindowViewModel.LoadingAnimation = true;
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            {
+                await base.CutBeginn();
 
-            await base.CutBeginn();
-
-            //mainWindowViewModel.LoadingAnimation = false;
+                args.Session.Close();
+            }).ConfigureAwait(true);
 
             await ReloadImageAudioSpectrogram();
         }
 
         protected new async Task CutEnd()
         {
-            if (player == null)
+            if (MediaManager.MediaPlayer == null)
                 return;
 
-            //mainWindowViewModel.LoadingAnimation = true;
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            {
+                await base.CutEnd();
 
-            await base.CutEnd().ConfigureAwait(true);
-
-            //mainWindowViewModel.LoadingAnimation = false;
+                args.Session.Close();
+            }).ConfigureAwait(true);
 
             await ReloadImageAudioSpectrogram();
         }

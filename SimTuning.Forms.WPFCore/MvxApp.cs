@@ -1,5 +1,8 @@
 ﻿using System.IO;
+using MediaManager;
+using MvvmCross;
 using MvvmCross.ViewModels;
+using OxyPlot.Wpf;
 
 namespace SimTuning.Forms.WPFCore
 {
@@ -17,6 +20,10 @@ namespace SimTuning.Forms.WPFCore
             RegisterAppStart<SimTuning.Forms.WPFCore.ViewModels.MainViewModel>();
 
             base.Initialize();
+
+            //CrossMediaManager.Current.Init(this);
+            //CrossMediaManager.Current.Init();
+            //Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
         }
     }
 }

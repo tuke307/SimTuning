@@ -3,17 +3,14 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Core.Models;
+using SimTuning.Forms.WPFCore.Business;
 
 namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
     public class EinstellungenVehiclesViewModel : SimTuning.Core.ViewModels.Einstellungen.VehiclesViewModel
     {
-        //private readonly MainWindowViewModel mainWindowViewModel;
-
-        public EinstellungenVehiclesViewModel/*MainWindowViewModel mainWindowViewModel*/(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public EinstellungenVehiclesViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
-
             NewVehicleCommand = new MvxCommand(NewVehicle, CanExecute);
             DeleteVehicleCommand = new MvxCommand(DeleteVehicle, CanExecute);
             SaveVehicleCommand = new MvxCommand(SaveVehicle, CanExecute);
@@ -33,7 +30,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
         {
             if (!User.LicenseValid)
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Kaufe die Pro Version um Presets zu ändern");
+                Functions.ShowSnackbarDialog("Kaufe die Pro Version um Presets zu ändern");
             }
             return User.LicenseValid;
         }
@@ -46,7 +43,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             }
             catch
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim erstellen");
+                Functions.ShowSnackbarDialog("Fehler beim erstellen");
             }
         }
 
@@ -58,7 +55,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             }
             catch
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim löschen");
+                Functions.ShowSnackbarDialog("Fehler beim löschen");
             }
         }
 
@@ -70,7 +67,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             }
             catch
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Fehler beim speichern");
+                Functions.ShowSnackbarDialog("Fehler beim speichern");
             }
         }
     }

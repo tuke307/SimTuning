@@ -12,13 +12,10 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
     public class EinstellungenKontoViewModel : SimTuning.Core.ViewModels.Einstellungen.KontoViewModel
     {
-        //private readonly MainWindowViewModel mainWindowViewModel;
         private SecureString Password;
 
-        public EinstellungenKontoViewModel/*MainWindowViewModel mainWindowViewModel*/(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
-
             //override Commands
             ConnectUserCommand = new MvxAsyncCommand(ConnectUser);
             RegisterSiteCommand = new MvxCommand(RegisterSite);
@@ -50,11 +47,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             var tuple = await API.API.UserLoginAsync(email: Email, password: Password);
             User.UserValid = tuple.Item1;
             User.LicenseValid = tuple.Item2;
-
-            for (int i = 0; i < tuple.Item3.Count; i++)
-            {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue(tuple.Item3[i]);
-            }
+            Functions.ShowSnackbarDialog(tuple.Item3);
         }
 
         protected override void RegisterSite()

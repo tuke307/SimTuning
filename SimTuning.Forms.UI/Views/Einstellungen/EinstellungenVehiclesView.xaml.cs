@@ -7,11 +7,9 @@ namespace SimTuning.Forms.UI.Views.Einstellungen
     [MvxTabbedPagePresentation(TabbedPosition.Tab)]
     public partial class EinstellungenVehiclesView : MvxContentPage<EinstellungenVehiclesViewModel>
     {
-        public EinstellungenVehiclesView(/*MainWindowViewModel mainWindowViewModel*/)
+        public EinstellungenVehiclesView()
         {
             InitializeComponent();
-
-            //BindingContext = new EinstellungenVehiclesViewModel(mainWindowViewModel);
         }
     }
 }

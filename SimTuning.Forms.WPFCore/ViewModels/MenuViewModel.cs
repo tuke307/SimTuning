@@ -1,6 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using MaterialDesignThemes.Wpf;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Core.Business;
 using SimTuning.Core.Models;
 using SimTuning.Forms.WPFCore.ViewModels.Auslass;
 using SimTuning.Forms.WPFCore.ViewModels.Demo;

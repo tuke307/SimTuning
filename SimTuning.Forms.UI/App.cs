@@ -1,4 +1,5 @@
-﻿using MvvmCross;
+﻿using MediaManager;
+using MvvmCross;
 using MvvmCross.IoC;
 using SimTuning.Forms.UI.ViewModels;
 
@@ -12,6 +13,8 @@ namespace SimTuning.Forms.UI
             //   .EndingWith("Service")
             //   .AsInterfaces()
             //   .RegisterAsLazySingleton();
+            Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
+            //CrossMediaManager.Current.Library.Providers.Add(new MediaItemProvider());
 
             RegisterAppStart<MainPageViewModel>();
         }

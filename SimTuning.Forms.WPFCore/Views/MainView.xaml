@@ -100,11 +100,5 @@
 
         <ItemsControl Grid.Row="1"
                       region:MvxContainer.Id="MainViewRegion"></ItemsControl>
-
-        <materialDesign:Snackbar Grid.Row="1"
-                                 VerticalAlignment="Bottom"
-                                 HorizontalAlignment="Center"
-                                 MessageQueue="{Binding Mode=OneWay, Path=NotificationSnackbar}">
-        </materialDesign:Snackbar>
     </Grid>
 </views:MvxWpfView>

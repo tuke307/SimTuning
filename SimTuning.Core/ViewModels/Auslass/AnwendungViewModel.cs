@@ -75,7 +75,7 @@ namespace SimTuning.Core.ViewModels.Auslass
             return base.Initialize();
         }
 
-        public IMvxCommand CalculateCommand { get; set; }
+        public IMvxAsyncCommand CalculateCommand { get; set; }
         public IMvxCommand DiffusorStageCommand { get; set; }
         public IMvxCommand InsertDataCommand { get; set; }
 

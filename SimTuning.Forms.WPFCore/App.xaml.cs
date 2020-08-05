@@ -1,4 +1,7 @@
-﻿using MvvmCross.Core;
+﻿using System.Windows;
+using MediaManager;
+using MvvmCross;
+using MvvmCross.Core;
 using SimTuning.Forms.WPFCore.Region;
 
 namespace SimTuning.Forms.WPFCore

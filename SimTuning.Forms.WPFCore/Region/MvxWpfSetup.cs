@@ -14,7 +14,6 @@ namespace SimTuning.Forms.WPFCore.Region
         protected override IMvxWpfViewPresenter CreateViewPresenter(ContentControl root)
         {
             return new MvxWpfPresenter(root);
-            //return new CustomViewPresenter(root);
         }
     }
 }

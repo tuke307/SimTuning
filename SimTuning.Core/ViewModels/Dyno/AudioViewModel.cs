@@ -1,28 +1,29 @@
-﻿using Data;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Resources;
+using System.Threading.Tasks;
+using Data;
 using Data.Models;
+using MediaManager;
+using MediaManager.Library;
+using MediaManager.Media;
+using MediaManager.Playback;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
-using Plugin.SimpleAudioPlayer;
 using SimTuning.Core.ModuleLogic;
 using SkiaSharp;
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Resources;
-using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
 {
     public class AudioViewModel : MvxNavigationViewModel
     {
         protected AudioLogic audioLogic;
-        protected ISimpleAudioPlayer player;
+        public readonly IMediaManager MediaManager;
         protected ResourceManager rm;
 
         public AudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
@@ -30,17 +31,19 @@ namespace SimTuning.Core.ViewModels.Dyno
             audioLogic = new AudioLogic();
             BadgeFileOpen = false;
 
-            StopCommand = new MvxCommand(Stop);
-            PauseCommand = new MvxCommand(Pause);
-            PlayCommand = new MvxCommand(Play);
+            StopCommand = new MvxAsyncCommand(StopAsync);
+            PauseCommand = new MvxAsyncCommand(PauseAsync);
+            PlayCommand = new MvxAsyncCommand(PlayAsync);
+
+            //this.MediaManager.PositionChanged += Current_PositionChanged;
         }
 
         public IMvxAsyncCommand OpenFileCommand { get; set; }
         public IMvxAsyncCommand CutBeginnCommand { get; set; }
         public IMvxAsyncCommand CutEndCommand { get; set; }
-        public IMvxCommand StopCommand { get; set; }
-        public IMvxCommand PauseCommand { get; set; }
-        public IMvxCommand PlayCommand { get; set; }
+        public IMvxAsyncCommand StopCommand { get; set; }
+        public IMvxAsyncCommand PauseCommand { get; set; }
+        public IMvxAsyncCommand PlayCommand { get; set; }
 
         public override void Prepare()
         {
@@ -76,53 +79,55 @@ namespace SimTuning.Core.ViewModels.Dyno
                 OpenFile();
         }
 
-        protected virtual void Play()
+        protected virtual async Task PlayAsync()
         {
-            if (player != null)
-            {
-                player.Play();
+            //if (MediaManager != null)
+            //{
+            await MediaManager.Play();
 
-                //Position aktualisieren
-                Task t = Task.Run(() =>
-                {
-                    while (player.IsPlaying)
-                    {
-                        //AudioPosition = player.CurrentPosition;
-                        RaisePropertyChanged("AudioPosition");
-                    }
-                });
-            }
+            //Position aktualisieren
+            //Task t = Task.Run(() =>
+            //{
+            //    while (MediaManager.IsPlaying())
+            //    {
+            //        //AudioPosition = MediaManager.CurrentPosition;
+            //        RaisePropertyChanged("AudioPosition");
+            //    }
+            //});
+            //}
         }
 
-        protected virtual void Pause()
+        protected virtual async Task PauseAsync()
         {
-            if (player != null)
-                player.Pause();
+            if (MediaManager != null)
+                await MediaManager.Pause();
         }
 
-        protected virtual void Stop()
+        protected virtual async Task StopAsync()
         {
-            if (player != null)
+            if (MediaManager.MediaPlayer != null)
             {
-                player.Stop();
-                AudioPosition = 0;
-                RaisePropertyChanged("AudioPosition");
+                await MediaManager.Stop();
+                //AudioPosition = 0;
+                //RaisePropertyChanged("AudioPosition");
             }
         }
 
         protected virtual void OpenFile()
         {
-            //initialisieren
-            var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
-            player = CrossSimpleAudioPlayer.Current;
-            player.Load(stream);
-            stream.Dispose();
+            ////initialisieren
+            //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
+            ////MediaManager = CrossSimpleAudioMediaManager.Current;
+            //MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
+            //stream.Dispose();
 
-            Task t = Task.Run(() =>
-            {
-                Task.Delay(1000).Wait();
-                RaisePropertyChanged("AudioMaximum");
-            });
+            this.MediaManager.PositionChanged += Current_PositionChanged;
+            RaisePropertyChanged(() => AudioMaximum);
+            //Task t = Task.Run(() =>
+            //{
+            //    Task.Delay(1000).Wait();
+            //    RaisePropertyChanged(() => AudioMaximum);
+            //});
         }
 
         protected virtual async Task CutBeginn()
@@ -159,9 +164,8 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <param name="cutEnd">The cut end.</param>
         protected virtual void TrimAudio(double cutStart, double cutEnd)
         {
-            player.Stop();
-            player.Dispose();
-            player = null;
+            MediaManager.Stop();
+            MediaManager.Dispose();
 
             //string tempFile = Path.Combine(SimTuning.Core.Constants.FileDirectory, "temp.wav");
             Stream cuttedFileStream = new MemoryStream();
@@ -185,9 +189,52 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
+        private void Current_MediaItemFailed(object sender, MediaItemFailedEventArgs e)
+        {
+            Log.Debug($"Media item failed: {e.MediaItem.Title}, Message: {e.Message}, Exception: {e.Exeption?.ToString()};");
+        }
+
+        private void Current_MediaItemFinished(object sender, MediaItemEventArgs e)
+        {
+            Log.Debug($"Media item finished: {e.MediaItem.Title};");
+        }
+
+        private void Current_MediaItemChanged(object sender, MediaItemEventArgs e)
+        {
+            Log.Debug($"Media item changed, new item title: {e.MediaItem.Title};");
+        }
+
+        private void Current_StatusChanged(object sender, StateChangedEventArgs e)
+        {
+            //Log.Debug($"Status changed: {System.Enum.GetName(typeof(MediaManager), e.State)};");
+        }
+
+        private void Current_BufferingChanged(object sender, BufferedChangedEventArgs e)
+        {
+            Log.Debug($"Total buffered time is {e.Buffered};");
+        }
+
+        private void Current_PositionChanged(object sender, PositionChangedEventArgs e)
+        {
+            Log.Debug($"Current position is {e.Position};");
+            RaisePropertyChanged(() => AudioPosition);
+        }
+
         #endregion Commands
 
         #region Values
+
+        public IMediaItem Current => MediaManager.Queue.Current;
+
+        public string CurrentTitle => Current.DisplayTitle;
+        public string CurrentSubtitle => Current.DisplaySubtitle;
+
+        public int Buffered => Convert.ToInt32(MediaManager.Buffered.TotalSeconds);
+
+        public float FloatedPosition => (float)AudioPosition / (float)AudioMaximum;
+
+        //public string TotalDuration => MediaManager.Duration.ToString(@"mm\:ss");
+        //public string TotalPlayed => MediaManager.Position.ToString(@"mm\:ss");
 
         private DynoModel _dyno;
 
@@ -209,26 +256,27 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             get
             {
-                if (player != null)
-                    return player.Duration;
+                if (MediaManager != null)
+                    return MediaManager.Duration.TotalSeconds;
                 else
                     return null;
             }
         }
 
-        private double? _audioPosition;
-
         public double? AudioPosition
         {
-            get => _audioPosition;
+            get
+            {
+                if (MediaManager != null)
+                    return MediaManager.Position.TotalSeconds;
+                else
+                    return null;
+            }
             set
             {
-                SetProperty(ref _audioPosition, value);
-
-                if (player != null)
+                if (MediaManager.MediaPlayer != null)
                 {
-                    player.Seek(value.Value);
-                    _audioPosition = value;
+                    MediaManager.SeekTo(TimeSpan.FromSeconds(value.Value));
                 }
             }
         }

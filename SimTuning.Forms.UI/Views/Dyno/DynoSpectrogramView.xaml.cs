@@ -7,11 +7,9 @@ namespace SimTuning.Forms.UI.Views.Dyno
     [MvxTabbedPagePresentation(TabbedPosition.Tab)]
     public partial class DynoSpectrogramView : MvxContentPage<DynoSpectrogramViewModel>
     {
-        public DynoSpectrogramView(/*MainWindowViewModel mainWindowViewModel*/)
+        public DynoSpectrogramView()
         {
             InitializeComponent();
-
-            //BindingContext = new DynoSpectrogramViewModel(/*mainWindowViewModel*/);
         }
     }
 }

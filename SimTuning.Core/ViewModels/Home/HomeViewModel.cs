@@ -19,6 +19,7 @@ namespace SimTuning.Core.ViewModels.Home
         public IMvxCommand OpenTwitterCommand { get; set; }
         public IMvxCommand OpenEmailCommand { get; set; }
         public IMvxCommand OpenDonateCommand { get; set; }
+        public MvxCommand OpenTutorialCommand { get; set; }
 
         public override void Prepare(SimTuning.Core.Models.UserModel _user)
         {
@@ -53,6 +54,10 @@ namespace SimTuning.Core.ViewModels.Home
         }
 
         protected virtual void OpenDonate()
+        {
+        }
+
+        protected virtual void OpenTutorial()
         {
         }
 

@@ -6,6 +6,7 @@ using MvvmCross.Navigation;
 using SimTuning.Core.Models;
 using SimTuning.Forms.WPFCore.Business;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,12 +15,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
     public class EinstellungenAussehenViewModel : SimTuning.Core.ViewModels.Einstellungen.AussehenViewModel
     {
         private readonly ApplicationChanges color = new ApplicationChanges();
-        //private MainWindowViewModel mainWindowViewModel;
 
-        public EinstellungenAussehenViewModel/*MainWindowViewModel mainWindowViewModel*/(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
-
             Swatches = new SwatchesProvider().Swatches;
             ApplyPrimaryCommand = new MvxCommand<object>(ApplyPrimary, CanExecute);
             ApplyAccentCommand = new MvxCommand<object>(ApplyAccent, CanExecute);
@@ -61,7 +59,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
         {
             if (!User.LicenseValid)
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Kaufe die Pro Version um die Farben zu ändern");
+                Functions.ShowSnackbarDialog(rm.GetString("MES_PRO", CultureInfo.CurrentCulture));
             }
             return User.LicenseValid;
         }

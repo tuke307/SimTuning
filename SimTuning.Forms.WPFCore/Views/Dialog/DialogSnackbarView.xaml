@@ -4,25 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SimTuning.Forms.WPFCore"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d"
-             d:DesignHeight="450"
-             d:DesignWidth="800">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-        <materialDesign:DialogHost Identifier="SnackbarDialog"
-                                   SnackbarMessageQueue="{Binding ElementName=MySnackbar, Path=MessageQueue}">
-            <Grid>
-                <!-- app content here -->
-                <materialDesign:Snackbar x:Name="MySnackbar"
-                                         MessageQueue="{materialDesign:MessageQueue}" />
-            </Grid>
-        </materialDesign:DialogHost>
-
+    <Grid>
+        <materialDesign:Snackbar x:Name="MySnackbar"
+                                 MessageQueue="{materialDesign:MessageQueue}" />
+    </Grid>
 </UserControl>

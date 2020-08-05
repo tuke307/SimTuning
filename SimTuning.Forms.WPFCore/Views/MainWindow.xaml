@@ -47,7 +47,6 @@
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
                         Foreground="White"
-                        Command="{Binding ShowHomeViewModelCommand}"
                         Click="WindowMinimize_Click">
                     <materialDesign:PackIcon Kind="WindowMinimize" />
                 </Button>
@@ -57,7 +56,6 @@
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
                         Foreground="White"
-                        Command="{Binding ShowMenuViewModelCommand}"
                         Click="WindowMaximize_Click">
                     <materialDesign:PackIcon Kind="WindowMaximize" />
                 </Button>
@@ -75,5 +73,14 @@
             <ItemsControl Grid.Row="1"
                           region:MvxContainer.Id="MainWindowRegion"></ItemsControl>
         </Grid>
+
+        <materialDesign:DialogHost Identifier="DialogLoading">
+        </materialDesign:DialogHost>
+
+        <materialDesign:DialogHost  VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center"
+                                    Identifier="DialogSnackbar"
+                                    SnackbarMessageQueue="{Binding ElementName=MySnackbar, Path=MessageQueue}">
+        </materialDesign:DialogHost>
     </Grid>
 </views:MvxWindow>

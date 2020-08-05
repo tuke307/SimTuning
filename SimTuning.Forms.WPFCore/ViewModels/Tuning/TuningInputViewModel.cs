@@ -1,22 +1,21 @@
-﻿using MvvmCross.Logging;
+﻿using System.Globalization;
+using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Forms.WPFCore.Business;
 
 namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
 {
     public class TuningInputViewModel : SimTuning.Core.ViewModels.Tuning.InputViewModel
     {
-        //private MainWindowViewModel mainWindowViewModel;
-
-        public TuningInputViewModel/*MainWindowViewModel mainWindowViewModel*/(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public TuningInputViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            //this.mainWindowViewModel = mainWindowViewModel;
         }
 
         private bool CheckTuningData()
         {
             if (Tuning == null)
             {
-                //mainWindowViewModel.NotificationSnackbar.Enqueue("Bitte Datensatz auswählen um fortzufahren!");
+                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
                 return false;
             }
             else { return true; }
