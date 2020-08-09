@@ -25,15 +25,15 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         public override void Prepare(UserModel _user)
         {
-            // This is the first method to be called after construction
-
             User = _user;
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-            // Async initialization
-
             return base.Initialize();
         }
     }

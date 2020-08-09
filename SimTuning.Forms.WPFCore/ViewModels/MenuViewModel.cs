@@ -20,6 +20,11 @@ namespace SimTuning.Forms.WPFCore.ViewModels
     {
         private readonly IMvxNavigationService _navigationService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
         public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             _navigationService = navigationService;
@@ -41,6 +46,10 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initialisierung.</returns>
         public override Task Initialize()
         {
             return base.Initialize();
@@ -48,7 +57,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels
 
         protected new async Task LoginUser()
         {
-            var result = await API.API.UserLoginAsync();
+            var result = await API.Login.UserLoginAsync().ConfigureAwait(true);
             this.User = result.Item1;
 
             WPFCore.Business.Functions.ShowSnackbarDialog(result.Item2);

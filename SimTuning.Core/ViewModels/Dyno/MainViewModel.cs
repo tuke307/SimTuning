@@ -15,15 +15,15 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         public override void Prepare(SimTuning.Core.Models.UserModel _user)
         {
-            // This is the first method to be called after construction
-
             User = _user;
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-            // Async initialization
-
             return base.Initialize();
         }
 

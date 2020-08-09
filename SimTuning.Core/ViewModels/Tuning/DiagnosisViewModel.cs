@@ -23,14 +23,20 @@ namespace SimTuning.Core.ViewModels.Tuning
         {
         }
 
+        /// <summary>
+        /// Prepares this instance.
+        /// called after construction.
+        /// </summary>
         public override void Prepare()
         {
-            // This is the first method to be called after construction
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-            // Async initialization
             tunigLogic = new TuningLogic();
 
             tunigLogic.DefinePlot();

@@ -15,6 +15,10 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Auslass
         {
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             //override command

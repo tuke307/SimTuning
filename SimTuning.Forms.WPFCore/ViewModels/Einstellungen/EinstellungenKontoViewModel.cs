@@ -28,6 +28,10 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             base.Prepare(_user);
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             return base.Initialize();
@@ -44,7 +48,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 
         protected new async Task ConnectUser()
         {
-            var result = await API.API.UserLoginAsync(email: Email, password: Password);
+            var result = await API.Login.UserLoginAsync(email: Email, password: Password);
             User = result.Item1;
             Functions.ShowSnackbarDialog(result.Item2);
         }

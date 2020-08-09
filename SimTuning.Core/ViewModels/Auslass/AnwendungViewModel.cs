@@ -26,35 +26,46 @@ namespace SimTuning.Core.ViewModels.Auslass
         public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; protected set; }
         public List<string> DiffStages { get; private set; }
 
-        public AnwendungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnwendungViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public AnwendungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
         }
 
+        /// <summary>
+        /// Prepares this instance.
+        /// called after construction.
+        /// </summary>
         public override void Prepare()
         {
-            // This is the first method to be called after construction
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-            // Async initialization
+            this.Vehicle = new VehiclesModel();
+            this.Vehicle.Motor = new MotorModel();
+            this.Vehicle.Motor.Auslass = new AuslassModel();
+            this.Vehicle.Motor.Auslass.Auspuff = new AuspuffModel();
 
-            Vehicle = new VehiclesModel();
-            Vehicle.Motor = new MotorModel();
-            Vehicle.Motor.Auslass = new AuslassModel();
-            Vehicle.Motor.Auslass.Auspuff = new AuspuffModel();
+            this.AreaQuantityUnits = new AreaQuantity();
+            this.VolumeQuantityUnits = new VolumeQuantity();
+            this.LengthQuantityUnits = new LengthQuantity();
+            this.SpeedQuantityUnits = new SpeedQuantity();
 
-            AreaQuantityUnits = new AreaQuantity();
-            VolumeQuantityUnits = new VolumeQuantity();
-            LengthQuantityUnits = new LengthQuantity();
-            SpeedQuantityUnits = new SpeedQuantity();
-
-            UnitSchallG = SpeedQuantityUnits.Where(x => x.UnitEnumValue.Equals(SpeedUnit.MeterPerSecond)).First();
-            UnitAuslassF = AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareMillimeter)).First();
-            UnitAuslassD = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            UnitAuslassL = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            UnitEndrohrD = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            UnitEndrohrL = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            this.UnitSchallG = this.SpeedQuantityUnits.Where(x => x.UnitEnumValue.Equals(SpeedUnit.MeterPerSecond)).First();
+            this.UnitAuslassF = this.AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareMillimeter)).First();
+            this.UnitAuslassD = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            this.UnitAuslassL = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            this.UnitEndrohrD = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            this.UnitEndrohrL = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
 
             using (var db = new DatabaseContext())
             {
@@ -63,14 +74,14 @@ namespace SimTuning.Core.ViewModels.Auslass
                     .Include(vehicles => vehicles.Motor.Auslass)
                     .ToList();
 
-                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                this.HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
 
-            DiffStages = new List<string>() { "One Stage", "Two Stage", "Three Stage" };
+            this.DiffStages = new List<string>() { "One Stage", "Two Stage", "Three Stage" };
 
             //Commands
-            InsertDataCommand = new MvxCommand(InsertData);
-            DiffusorStageCommand = new MvxCommand<string>(DiffusorStage);
+            this.InsertDataCommand = new MvxCommand(InsertData);
+            this.DiffusorStageCommand = new MvxCommand<string>(DiffusorStage);
 
             return base.Initialize();
         }

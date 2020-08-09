@@ -22,11 +22,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         public override void Prepare(SimTuning.Core.Models.UserModel _user)
         {
-            // This is the first method to be called after construction
-
             User = _user;
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             SimTuning.Core.Business.Functions.GetLoginCredentials(out string _email, out SecureString _password);

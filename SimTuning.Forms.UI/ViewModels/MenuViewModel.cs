@@ -38,7 +38,7 @@ namespace SimTuning.Forms.UI.ViewModels
 
         protected new async Task LoginUser()
         {
-            var result = await API.API.UserLoginAsync();
+            var result = await API.Login.UserLoginAsync();
             User = result.Item1;
 
             Functions.ShowSnackbarDialog(result.Item2);

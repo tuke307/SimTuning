@@ -23,11 +23,19 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Home
             OpenTutorialCommand = new MvxCommand(OpenTutorial);
         }
 
+        /// <summary>
+        /// Prepares this instance.
+        /// called after construction.
+        /// </summary>
         public override void Prepare()
         {
             base.Prepare();
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             return base.Initialize();

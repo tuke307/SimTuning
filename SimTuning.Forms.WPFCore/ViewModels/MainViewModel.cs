@@ -10,12 +10,22 @@ using SimTuning.Forms.WPFCore.ViewModels.Home;
 
 namespace SimTuning.Forms.WPFCore.ViewModels
 {
+    /// <summary>
+    /// WPF-spezifisches Main-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.MainPage" />
     public class MainViewModel : SimTuning.Core.ViewModels.MainPage
     {
         private readonly ApplicationChanges settings = new ApplicationChanges();
         private readonly IMvxNavigationService _navigationService;
 
-        public MainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public MainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
             this._navigationService = navigationService;
 
@@ -23,6 +33,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             this.ShowMenuViewModelCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<MenuViewModel>());
         }
 
+        /// <summary>
+        /// When view is appearing.
+        /// </summary>
         public override void ViewAppearing()
         {
             base.ViewAppearing();
@@ -31,11 +44,19 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             this.ShowHomeViewModelCommand.Execute();
         }
 
+        /// <summary>
+        /// Prepares this instance.
+        /// called after construction.
+        /// </summary>
         public override void Prepare()
         {
-            // This is the first method to be called after construction
+            base.Prepare();
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             this.settings.LoadColors();

@@ -19,6 +19,10 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einlass
             base.Prepare(_user);
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             return base.Initialize();

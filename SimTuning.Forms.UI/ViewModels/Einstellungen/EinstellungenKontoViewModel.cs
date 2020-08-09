@@ -25,6 +25,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             base.Prepare(_user);
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             return base.Initialize();
@@ -32,7 +36,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 
         protected new async Task ConnectUser()
         {
-            var result = await API.API.UserLoginAsync(email: Email, password: Core.Business.Converts.StringToSecureString(Password)).ConfigureAwait(true);
+            var result = await API.Login.UserLoginAsync(email: Email, password: Core.Business.Converts.StringToSecureString(Password)).ConfigureAwait(true);
             User = result.Item1;
 
             Functions.ShowSnackbarDialog(result.Item2);

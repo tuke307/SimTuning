@@ -7,22 +7,36 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels
 {
+    /// <summary>
+    /// Menu-ViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class Menu : MvxNavigationViewModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Menu"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
         public Menu(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            User = new UserModel();
+            this.User = new UserModel();
         }
 
+        /// <summary>
+        /// Prepares this instance.
+        /// called after construction.
+        /// </summary>
         public override void Prepare()
         {
-            // This is the first method to be called after construction
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-            // Async initialization
-
             return base.Initialize();
         }
 

@@ -6,13 +6,16 @@ using WooCommerceNET.WooCommerce.Legacy;
 
 namespace API
 {
+    /// <summary>
+    /// WooCommerce-Klasse.
+    /// </summary>
     public static class WooCommerce
     {
         /// <summary>
-        /// Holt die Bestellung von SimTuning
+        /// Holt die Bestellung von SimTuning.
         /// </summary>
         /// <param name="userId">Nutzer bei der, die Bestellung geholt werden soll</param>
-        /// <returns></returns>
+        /// <returns>Bestellung von SimTuning.</returns>
         public static async Task<WooCommerceNET.WooCommerce.Legacy.Order> UserLicense(int userId)
         {
             List<WooCommerceNET.WooCommerce.Legacy.Order> orders = null;
@@ -38,7 +41,7 @@ namespace API
         }
 
         /// <summary>
-        /// Anfrage für http-Pakete, ohne werden diese evtl. nicht durchgelassen
+        /// Anfrage für http-Pakete, ohne werden diese evtl. nicht durchgelassen.
         /// </summary>
         /// <param name="request"></param>
         private static void RequestFilter(HttpWebRequest request)

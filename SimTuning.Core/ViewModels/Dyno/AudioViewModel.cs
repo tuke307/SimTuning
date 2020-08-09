@@ -47,11 +47,18 @@ namespace SimTuning.Core.ViewModels.Dyno
         public IMvxAsyncCommand PauseCommand { get; set; }
         public IMvxAsyncCommand PlayCommand { get; set; }
 
+        /// <summary>
+        /// Prepares this instance.
+        /// called after construction.
+        /// </summary>
         public override void Prepare()
         {
-            // This is the first method to be called after construction
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             using (var db = new DatabaseContext())

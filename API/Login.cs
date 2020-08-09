@@ -7,7 +7,10 @@ using WordPressPCL.Models;
 
 namespace API
 {
-    public static class API
+    /// <summary>
+    /// Einlogg-Klasse.
+    /// </summary>
+    public static class Login
     {
         /// <summary>
         /// Aufruf-Funktion zum einloggen des Nutzers.
