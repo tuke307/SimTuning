@@ -16,7 +16,7 @@
                    xmlns:region="clr-namespace:SimTuning.Forms.WPFCore.Region"
                    region:MvxContainer.Header="Diagnose"
                    Name="TuningDiagnosis"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    MinHeight="550">
     <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}"
                   HorizontalScrollBarVisibility="Visible"

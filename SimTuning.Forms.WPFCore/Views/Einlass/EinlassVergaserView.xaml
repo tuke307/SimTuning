@@ -13,7 +13,7 @@
                    region:MvxContainer.Header="Vergaser"
                    Name="EinlassVergaser"
                    Background="{DynamicResource MaterialDesignPaper}"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    MinHeight="550">
 
     <Grid>

@@ -13,7 +13,7 @@
                    region:MvxContainer.Header="Verdichtung"
                    Name="MotorVerdichtung"
                    MinHeight="550"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    Background="{DynamicResource MaterialDesignPaper}">
 
     <Grid>

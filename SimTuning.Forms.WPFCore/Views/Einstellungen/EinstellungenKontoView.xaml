@@ -13,9 +13,9 @@
                    Name="Konto"
                    Background="{DynamicResource MaterialDesignPaper}"
                    mc:Ignorable="d"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    MinHeight="550"
-                   d:DesignWidth="1010"
+                   d:DesignWidth="1024"
                    d:DesignHeight="550">
     <Grid>
         <Grid.ColumnDefinitions>

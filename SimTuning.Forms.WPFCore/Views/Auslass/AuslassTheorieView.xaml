@@ -13,9 +13,9 @@
                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                   xmlns:behaviours="clr-namespace:SimTuning.Forms.WPFCore.Business"
                   Background="{DynamicResource MaterialDesignPaper}"
-                  d:DesignWidth="1010"
+                  d:DesignWidth="1024"
                   d:DesignHeight="550"
-                  MinWidth="1010"
+                  MinWidth="1024"
                   MinHeight="550">
 
     <Grid>

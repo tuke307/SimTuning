@@ -15,7 +15,7 @@
                    region:MvxContainer.Header="Datensatz"
                    Name="TuningData"
                    d:DesignWidth="800"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    MinHeight="550">
     <Grid>
         <Grid.ColumnDefinitions>

@@ -14,7 +14,7 @@
                    region:MvxContainer.Header="Aussehen"
                    Name="Aussehen"
                    Background="{DynamicResource MaterialDesignPaper}"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    MinHeight="550">
     <UserControl.Resources>
         <!--Button-->

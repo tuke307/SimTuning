@@ -14,7 +14,7 @@
                    xmlns:behaviours="clr-namespace:SimTuning.Forms.WPFCore.Business"
                    mc:Ignorable="d"
                    Background="{DynamicResource MaterialDesignPaper}"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    MinHeight="550"
                    Height="550">
     <Grid>

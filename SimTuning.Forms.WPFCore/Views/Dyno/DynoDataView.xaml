@@ -16,7 +16,7 @@
                    Background="{DynamicResource MaterialDesignPaper}"
                    d:DesignHeight="450"
                    d:DesignWidth="800"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    MinHeight="550">
     <Grid>
         <Grid.ColumnDefinitions>

@@ -12,9 +12,9 @@
                     Background="{DynamicResource MaterialDesignPaper}"
                     mc:Ignorable="d"
                     d:DesignHeight="600"
-                    d:DesignWidth="1010"
+                    d:DesignWidth="1024"
                     MinHeight="600"
-                    MinWidth="1010">
+                    MinWidth="1024">
     <Grid>
         <dragablz:TabablzControl FixedHeaderCount="4"
                                  Grid.Row="0"

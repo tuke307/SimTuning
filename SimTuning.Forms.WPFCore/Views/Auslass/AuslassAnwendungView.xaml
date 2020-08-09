@@ -15,7 +15,7 @@
                    Background="{DynamicResource MaterialDesignPaper}"
                    d:DesignWidth="2000"
                    d:DesignHeight="550"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    MinHeight="550">
 
     <ScrollViewer HorizontalScrollBarVisibility="Visible"

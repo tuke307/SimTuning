@@ -12,9 +12,9 @@
                    xmlns:region="clr-namespace:SimTuning.Forms.WPFCore.Region"
                    region:MvxContainer.Header="Umrechnung"
                    Name="MotorUmrechnung"
-                   MinWidth="1010"
+                   MinWidth="1024"
                    MinHeight="550"
-                   d:DesignWidth="1010"
+                   d:DesignWidth="1024"
                    d:DesignHeight="550"
                    Background="{DynamicResource MaterialDesignPaper}">
 

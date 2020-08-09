@@ -14,9 +14,9 @@
                    xmlns:utilities="clr-namespace:SimTuning.Forms.WPFCore.Menu"
                    xmlns:local="clr-namespace:SimTuning.Forms.WPFCore.Views.Home"
                    d:DesignHeight="670"
-                   d:DesignWidth="1070"
+                   d:DesignWidth="1024"
                    MinHeight="670"
-                   MinWidth="1070">
+                   MinWidth="1024">
     <views:MvxWpfView.Resources>
 
         <!--CONVERTER-->

@@ -13,7 +13,7 @@
                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   Background="{DynamicResource MaterialDesignPaper}"
                   mc:Ignorable="d"
-                  d:DesignWidth="1010"
+                  d:DesignWidth="1024"
                   d:DesignHeight="560">
     <Grid>
         <Grid.ColumnDefinitions>

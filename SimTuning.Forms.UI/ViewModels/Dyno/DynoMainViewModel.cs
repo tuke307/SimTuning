@@ -9,7 +9,6 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
     public class DynoMainViewModel : SimTuning.Core.ViewModels.Dyno.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private bool _firstTime = true;
 
         public DynoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
@@ -28,11 +27,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
         public override void ViewAppearing()
         {
-            if (_firstTime)
-            {
-                ShowInitialViewModels();
-                _firstTime = false;
-            }
+            ShowInitialViewModels();
         }
 
         private Task ShowInitialViewModels()

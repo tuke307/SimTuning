@@ -12,9 +12,9 @@
                   Background="{DynamicResource MaterialDesignPaper}"
                   FontFamily="{DynamicResource MaterialDesignFont}"
                   MinHeight="700"
-                  MinWidth="1070"
+                  MinWidth="1024"
                   Height="700"
-                  Width="1070"
+                  Width="1024"
                   WindowStyle="None"
                   ResizeMode="CanResizeWithGrip"
                   WindowStartupLocation="CenterScreen">
