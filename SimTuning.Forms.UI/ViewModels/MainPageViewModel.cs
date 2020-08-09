@@ -16,30 +16,16 @@ namespace SimTuning.Forms.UI.ViewModels
         {
             _navigationService = navigationService;
 
-            this.ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
-            this.ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel, UserModel>(User));
-            this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
+            this.ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel>());
+            this.ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel>());
         }
 
-        protected new async Task LoginUser()
+        public override void ViewAppeared()
         {
-            var tuple = await API.API.UserLoginAsync();
-            User.UserValid = tuple.Item1;
-            User.LicenseValid = tuple.Item2;
-
-            foreach (var item in tuple.Item3)
-            {
-                await MaterialDialog.Instance.SnackbarAsync(message: item).ConfigureAwait(false);
-            }
-        }
-
-        public override void ViewAppearing()
-        {
-            base.ViewAppearing();
+            base.ViewAppeared();
 
             ShowMenuViewModelCommand.Execute();
             ShowHomeViewModelCommand.Execute();
-            LoginUserCommand.Execute();
         }
     }
 }

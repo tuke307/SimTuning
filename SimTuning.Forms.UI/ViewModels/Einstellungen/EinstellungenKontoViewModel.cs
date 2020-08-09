@@ -3,6 +3,7 @@ using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Core.Models;
+using SimTuning.Forms.UI.Business;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -31,15 +32,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 
         protected new async Task ConnectUser()
         {
-            var tuple = await API.API.UserLoginAsync(email: Email, password: Core.Business.Converts.StringToSecureString(Password)).ConfigureAwait(true);
-            User.UserValid = tuple.Item1;
-            User.LicenseValid = tuple.Item2;
+            var result = await API.API.UserLoginAsync(email: Email, password: Core.Business.Converts.StringToSecureString(Password)).ConfigureAwait(true);
+            User = result.Item1;
 
-            for (int i = 0; i < tuple.Item3.Count; i++)
-            {
-                await MaterialDialog.Instance.SnackbarAsync(message: tuple.Item3[i],
-                                            msDuration: MaterialSnackbar.DurationLong).ConfigureAwait(false);
-            }
+            Functions.ShowSnackbarDialog(result.Item2);
         }
 
         protected override void RegisterSite()

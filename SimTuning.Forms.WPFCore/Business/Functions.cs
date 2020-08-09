@@ -54,6 +54,10 @@ namespace SimTuning.Forms.WPFCore.Business
                     view.MySnackbar.MessageQueue.Enqueue(message);
                 }
             }
+            else
+            {
+                view.MySnackbar.MessageQueue.Enqueue(content);
+            }
 
             await DialogHost.Show(view, "DialogSnackbar").ConfigureAwait(true);
         }

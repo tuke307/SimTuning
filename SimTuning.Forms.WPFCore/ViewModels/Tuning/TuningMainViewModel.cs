@@ -11,7 +11,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
     public class TuningMainViewModel : SimTuning.Core.ViewModels.Tuning.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private bool _firstTime = true;
 
         public TuningMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
@@ -28,26 +27,13 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
             return base.Initialize();
         }
 
-        private Task ShowInitialViewModels()
-        {
-            var tasks = new List<Task>
-            {
-                _navigationService.Navigate<TuningDataViewModel>(),
-                _navigationService.Navigate<TuningInputViewModel>(),
-                _navigationService.Navigate<TuningDiagnosisViewModel>()
-            };
-            return Task.WhenAll(tasks);
-        }
-
         public override void ViewAppearing()
         {
-            if (_firstTime)
-            {
-                ShowInitialViewModels();
-                _firstTime = false;
+            _navigationService.Navigate<TuningDataViewModel>();
+            _navigationService.Navigate<TuningInputViewModel>();
+            _navigationService.Navigate<TuningDiagnosisViewModel>();
 
-                TuningTabIndex = 0;
-            }
+            TuningTabIndex = 0;
         }
     }
 }

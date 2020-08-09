@@ -11,7 +11,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Auslass
     public class AuslassMainViewModel : SimTuning.Core.ViewModels.Auslass.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private bool _firstTime = true;
 
         public AuslassMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
@@ -28,23 +27,12 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Auslass
             return base.Initialize();
         }
 
-        private Task ShowInitialViewModels()
-        {
-            var tasks = new List<Task>();
-            tasks.Add(_navigationService.Navigate<AuslassTheorieViewModel>());
-            tasks.Add(_navigationService.Navigate<AuslassAnwendungViewModel>());
-            return Task.WhenAll(tasks);
-        }
-
         public override void ViewAppearing()
         {
-            if (_firstTime)
-            {
-                ShowInitialViewModels();
-                _firstTime = false;
+            _navigationService.Navigate<AuslassTheorieViewModel>();
+            _navigationService.Navigate<AuslassAnwendungViewModel>();
 
-                AuslassTabIndex = 0;
-            }
+            AuslassTabIndex = 0;
         }
     }
 }

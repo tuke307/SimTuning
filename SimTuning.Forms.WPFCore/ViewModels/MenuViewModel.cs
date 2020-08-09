@@ -24,9 +24,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels
         {
             _navigationService = navigationService;
 
-            LoadingAnimation = false;
-
-            ShowHomeCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
+            ShowHomeCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel>());
 
             ShowEinlassCommand = new MvxAsyncCommand(() => _navigationService.Navigate<EinlassMainViewModel, UserModel>(User));
 
@@ -39,6 +37,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             ShowTuningCommand = new MvxAsyncCommand(ShowTuning);
 
             ShowEinstellungenCommand = new MvxAsyncCommand(() => _navigationService.Navigate<EinstellungenMainViewModel, UserModel>(User));
+
+            this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
         }
 
         public override Task Initialize()
@@ -46,12 +46,19 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             return base.Initialize();
         }
 
-        private bool _loadingAnimation;
-
-        public bool LoadingAnimation
+        protected new async Task LoginUser()
         {
-            get => _loadingAnimation;
-            set => SetProperty(ref _loadingAnimation, value);
+            var result = await API.API.UserLoginAsync();
+            this.User = result.Item1;
+
+            WPFCore.Business.Functions.ShowSnackbarDialog(result.Item2);
+        }
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            this.LoginUserCommand.Execute();
         }
 
         private async Task ShowDyno()

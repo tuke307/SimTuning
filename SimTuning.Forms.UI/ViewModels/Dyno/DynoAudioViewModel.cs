@@ -3,6 +3,7 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
+using SimTuning.Forms.UI.Business;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
@@ -97,7 +98,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             if (this.Dyno == null)
             {
-                await MaterialDialog.Instance.SnackbarAsync(message: this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
                 return false;
             }
             else

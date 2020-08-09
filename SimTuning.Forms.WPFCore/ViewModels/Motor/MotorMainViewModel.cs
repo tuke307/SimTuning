@@ -11,7 +11,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Motor
     public class MotorMainViewModel : SimTuning.Core.ViewModels.Motor.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private bool _firstTime = true;
 
         public MotorMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
@@ -28,27 +27,14 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Motor
             return base.Initialize();
         }
 
-        private Task ShowInitialViewModels()
-        {
-            var tasks = new List<Task>
-            {
-                _navigationService.Navigate<MotorUmrechnungViewModel>(),
-                _navigationService.Navigate<MotorSteuerdiagrammViewModel>(),
-                _navigationService.Navigate<MotorVerdichtungViewModel>(),
-                _navigationService.Navigate<MotorHubraumViewModel>()
-            };
-            return Task.WhenAll(tasks);
-        }
-
         public override void ViewAppearing()
         {
-            if (_firstTime)
-            {
-                ShowInitialViewModels();
-                _firstTime = false;
+            _navigationService.Navigate<MotorUmrechnungViewModel>();
+            _navigationService.Navigate<MotorSteuerdiagrammViewModel>();
+            _navigationService.Navigate<MotorVerdichtungViewModel>();
+            _navigationService.Navigate<MotorHubraumViewModel>();
 
-                MotorTabIndex = 0;
-            }
+            MotorTabIndex = 0;
         }
     }
 }

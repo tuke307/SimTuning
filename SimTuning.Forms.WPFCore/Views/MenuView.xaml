@@ -232,7 +232,7 @@
                                              Grid.Column="3"
                                              Foreground="DarkGreen"
                                              ToolTip="Account ist eingeloggt"
-                                             Visibility="{Binding Mode=TwoWay, Path=User.UserValid, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                             Visibility="{Binding Mode=OneWay, Path=UserValid, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                              Kind="DriversLicenseOutline"
                                              Height="20"
                                              Width="20" />
@@ -253,7 +253,7 @@
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
                                              ToolTip="Lizenz vorhanden"
-                                             Visibility="{Binding Mode=TwoWay, Path=User.LicenseValid, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                             Visibility="{Binding Mode=OneWay, Path=LicenseValid, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                              Grid.Row="1"
                                              Grid.Column="3"
                                              Foreground="DarkGreen"

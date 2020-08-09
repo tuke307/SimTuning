@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Forms.UI.Business;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -29,7 +30,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             if (Dyno == null)
             {
-                await MaterialDialog.Instance.SnackbarAsync(message: rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+                Functions.ShowSnackbarDialog(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
                 return false;
             }
             else { return true; }

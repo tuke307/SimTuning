@@ -2,6 +2,7 @@
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace SimTuning.Forms.UI.ViewModels.Home
@@ -21,6 +22,16 @@ namespace SimTuning.Forms.UI.ViewModels.Home
             OpenEmailCommand = new MvxCommand(OpenEmail);
             OpenDonateCommand = new MvxCommand(OpenDonate);
             OpenTutorialCommand = new MvxCommand(OpenTutorial);
+        }
+
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        public override Task Initialize()
+        {
+            return base.Initialize();
         }
 
         protected override void OpenInstagram()

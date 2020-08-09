@@ -23,10 +23,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Home
             OpenTutorialCommand = new MvxCommand(OpenTutorial);
         }
 
-        //public MvxCommand OpenTutorialCommand { get; set; }
-        public override void Prepare(SimTuning.Core.Models.UserModel _user)
+        public override void Prepare()
         {
-            base.Prepare(_user);
+            base.Prepare();
         }
 
         public override Task Initialize()

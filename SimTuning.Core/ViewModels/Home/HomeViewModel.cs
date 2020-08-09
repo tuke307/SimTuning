@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Home
 {
-    public class HomeViewModel : MvxNavigationViewModel<SimTuning.Core.Models.UserModel>
+    public class HomeViewModel : MvxNavigationViewModel
     {
-        public SimTuning.Core.Models.UserModel User;
-
         public HomeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
         }
@@ -21,11 +19,9 @@ namespace SimTuning.Core.ViewModels.Home
         public IMvxCommand OpenDonateCommand { get; set; }
         public MvxCommand OpenTutorialCommand { get; set; }
 
-        public override void Prepare(SimTuning.Core.Models.UserModel _user)
+        public override void Prepare()
         {
             // This is the first method to be called after construction
-
-            User = _user;
         }
 
         public override Task Initialize()

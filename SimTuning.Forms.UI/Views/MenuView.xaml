@@ -55,7 +55,7 @@
                                        TintColor="DarkGreen"
                                        WidthRequest="40"
                                        HeightRequest="40"
-                                       IsVisible="{Binding Mode=OneWay, Path=User.UserValid}">
+                                       IsVisible="{Binding Mode=OneWay, Path=UserValid}">
                 </material:MaterialIcon>
 
                 <!--LIZENZ-->
@@ -72,7 +72,7 @@
                                        TintColor="DarkGreen"
                                        WidthRequest="25"
                                        HeightRequest="25"
-                                       IsVisible="{Binding Mode=OneWay, Path=User.LicenseValid}">
+                                       IsVisible="{Binding Mode=OneWay, Path=LicenseValid}">
                 </material:MaterialIcon>
             </StackLayout>
         </Grid>

@@ -44,10 +44,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 
         protected new async Task ConnectUser()
         {
-            var tuple = await API.API.UserLoginAsync(email: Email, password: Password);
-            User.UserValid = tuple.Item1;
-            User.LicenseValid = tuple.Item2;
-            Functions.ShowSnackbarDialog(tuple.Item3);
+            var result = await API.API.UserLoginAsync(email: Email, password: Password);
+            User = result.Item1;
+            Functions.ShowSnackbarDialog(result.Item2);
         }
 
         protected override void RegisterSite()

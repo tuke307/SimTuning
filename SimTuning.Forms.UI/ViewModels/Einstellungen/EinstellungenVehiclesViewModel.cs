@@ -2,6 +2,7 @@
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Core.Models;
+using SimTuning.Forms.UI.Business;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -32,8 +33,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         {
             if (!this.User.LicenseValid)
             {
-                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: rm.GetString("MES_PRO", CultureInfo.CurrentCulture),
-                                          msDuration: MaterialSnackbar.DurationLong));
+                Functions.ShowSnackbarDialog(rm.GetString("MES_PRO", CultureInfo.CurrentCulture));
             }
 
             return this.User.LicenseValid;
@@ -47,8 +47,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             }
             catch (Exception)
             {
-                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim erstellen",
-                                          msDuration: MaterialSnackbar.DurationLong));
+                Functions.ShowSnackbarDialog("Fehler beim erstellen");
             }
         }
 
@@ -60,8 +59,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             }
             catch (Exception)
             {
-                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim löschen",
-                                          msDuration: MaterialSnackbar.DurationLong));
+                Functions.ShowSnackbarDialog("Fehler beim löschen");
             }
         }
 
@@ -73,8 +71,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             }
             catch (Exception)
             {
-                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(message: "Fehler beim speichern",
-                                          msDuration: MaterialSnackbar.DurationLong));
+                Functions.ShowSnackbarDialog("Fehler beim speichern");
             }
         }
     }

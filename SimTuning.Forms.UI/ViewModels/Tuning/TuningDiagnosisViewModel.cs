@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using SimTuning.Forms.UI.Business;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -31,7 +32,8 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         {
             if (this.Tuning == null)
             {
-                Task.Run(() => MaterialDialog.Instance.SnackbarAsync(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture)));
+                Functions.ShowSnackbarDialog(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
                 return false;
             }
             else { return true; }

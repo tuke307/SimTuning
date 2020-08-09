@@ -11,12 +11,10 @@ namespace SimTuning.Core.ViewModels
     {
         public MainPage(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            User = new UserModel();
         }
 
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; protected set; }
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; protected set; }
-        public IMvxAsyncCommand LoginUserCommand { get; protected set; }
 
         public override void Prepare()
         {
@@ -29,21 +27,5 @@ namespace SimTuning.Core.ViewModels
 
             return base.Initialize();
         }
-
-        protected virtual void LoginUser()
-        {
-        }
-
-        #region Values
-
-        private UserModel _user;
-
-        public UserModel User
-        {
-            get => _user;
-            set { SetProperty(ref _user, value); }
-        }
-
-        #endregion Values
     }
 }

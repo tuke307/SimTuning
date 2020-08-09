@@ -19,27 +19,16 @@ namespace SimTuning.Forms.WPFCore.ViewModels
         {
             this._navigationService = navigationService;
 
-            this.ShowHomeViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel, UserModel>(User));
-            this.ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel, UserModel>(User));
-            this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
-        }
-
-        protected new async Task LoginUser()
-        {
-            var tuple = await API.API.UserLoginAsync();
-            User.UserValid = tuple.Item1;
-            User.LicenseValid = tuple.Item2;
-
-            Functions.ShowSnackbarDialog(tuple.Item3);
+            this.ShowHomeViewModelCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<HomeMainViewModel>());
+            this.ShowMenuViewModelCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<MenuViewModel>());
         }
 
         public override void ViewAppearing()
         {
             base.ViewAppearing();
 
-            ShowMenuViewModelCommand.Execute();
-            ShowHomeViewModelCommand.Execute();
-            LoginUserCommand.Execute();
+            this.ShowMenuViewModelCommand.Execute();
+            this.ShowHomeViewModelCommand.Execute();
         }
 
         public override void Prepare()
@@ -49,7 +38,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels
 
         public override Task Initialize()
         {
-            settings.LoadColors();
+            this.settings.LoadColors();
 
             return base.Initialize();
         }

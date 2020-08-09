@@ -8,7 +8,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einlass
     public class EinlassMainViewModel : SimTuning.Core.ViewModels.Einlass.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-        private bool _firstTime = true;
 
         public EinlassMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
@@ -25,25 +24,12 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einlass
             return base.Initialize();
         }
 
-        private Task ShowInitialViewModels()
-        {
-            var tasks = new List<Task>
-            {
-                _navigationService.Navigate<EinlassKanalViewModel>(),
-                _navigationService.Navigate<EinlassVergaserViewModel>()
-            };
-            return Task.WhenAll(tasks);
-        }
-
         public override void ViewAppearing()
         {
-            if (_firstTime)
-            {
-                ShowInitialViewModels();
-                _firstTime = false;
+            _navigationService.Navigate<EinlassKanalViewModel>();
+            _navigationService.Navigate<EinlassVergaserViewModel>();
 
-                EinlassTabIndex = 0;
-            }
+            EinlassTabIndex = 0;
         }
     }
 }
