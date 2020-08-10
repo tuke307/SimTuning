@@ -72,6 +72,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="SimTuning.Forms.iOS.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\account_key_outline.imageset\account_key_outline.png">

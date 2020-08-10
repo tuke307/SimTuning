@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿// project=SimTuning.Droid, file=AssemblyInfo.cs, creation=2020:7:1
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following

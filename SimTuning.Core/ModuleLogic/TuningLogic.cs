@@ -1,4 +1,6 @@
-﻿using OxyPlot;
+﻿// project=SimTuning.Core, file=TuningLogic.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using OxyPlot;
 
 namespace SimTuning.Core.ModuleLogic
 {

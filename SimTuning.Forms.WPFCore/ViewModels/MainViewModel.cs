@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=SimTuning.Forms.WPFCore, file=MainViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System;
 using System.Threading.Tasks;
 using MaterialDesignThemes.Wpf;
 using MvvmCross.Commands;

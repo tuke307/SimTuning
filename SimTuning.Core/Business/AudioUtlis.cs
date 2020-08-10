@@ -1,4 +1,6 @@
-﻿using NAudio.Wave;
+﻿// project=SimTuning.Core, file=AudioUtlis.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using NAudio.Wave;
 using System;
 using System.IO;
 

@@ -1,12 +1,13 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using SimTuning.Core.Models;
-using System.Threading.Tasks;
-
+﻿// project=SimTuning.Core, file=MainPage.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels
 {
+    using System.Threading.Tasks;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+
     /// <summary>
     /// MainPage-ViewModel.
     /// </summary>

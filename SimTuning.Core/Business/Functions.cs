@@ -1,4 +1,6 @@
-﻿using Data;
+﻿// project=SimTuning.Core, file=Functions.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Data;
 using SkiaSharp;
 using System;
 using System.IO;
@@ -9,6 +11,9 @@ using System.Text;
 
 namespace SimTuning.Core.Business
 {
+    /// <summary>
+    /// allgemeine Funktionen.
+    /// </summary>
     public static class Functions
     {
         #region variables
@@ -108,21 +113,6 @@ namespace SimTuning.Core.Business
         }
 
         /// <summary>
-        /// Generate128s the bits of random entropy.
-        /// </summary>
-        /// <returns></returns>
-        private static byte[] Generate128BitsOfRandomEntropy()
-        {
-            var randomBytes = new byte[16]; // 16 Bytes will give us 128 bits.
-            using (var rngCsp = new RNGCryptoServiceProvider())
-            {
-                // Fill the array with cryptographically secure random bytes.
-                rngCsp.GetBytes(randomBytes);
-            }
-            return randomBytes;
-        }
-
-        /// <summary>
         /// Saves the login credentials.
         /// </summary>
         /// <param name="email">The email.</param>
@@ -204,6 +194,21 @@ namespace SimTuning.Core.Business
             surface.DrawBitmap(bitmap, 0, 0);
 
             return rotated;
+        }
+
+        /// <summary>
+        /// Generate128s the bits of random entropy.
+        /// </summary>
+        /// <returns></returns>
+        private static byte[] Generate128BitsOfRandomEntropy()
+        {
+            var randomBytes = new byte[16]; // 16 Bytes will give us 128 bits.
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {
+                // Fill the array with cryptographically secure random bytes.
+                rngCsp.GetBytes(randomBytes);
+            }
+            return randomBytes;
         }
     }
 }

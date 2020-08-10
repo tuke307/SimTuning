@@ -1,4 +1,6 @@
-﻿namespace API
+﻿// project=API, file=Constants.cs, creation=2020:6:28
+// Copyright (c) 2020 tuke productions. All rights reserved.
+namespace API
 {
     /// <summary>
     /// Konstanten für die API Verbindungen.

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// project=API, file=WooCommerce.cs, creation=2020:6:28
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using WooCommerceNET;
@@ -27,9 +29,9 @@ namespace API
             {
                 var parms = new Dictionary<string, string>();
                 parms.Add("status", "completed, processing");
-                orders = await wc_object.GetCustomerOrders(userId, parms);
+                orders = await wc_object.GetCustomerOrders(userId, parms).ConfigureAwait(true);
 
-                //SimTuning Produkt Id = 312
+                // SimTuning Produkt Id = 312
                 order = orders.Find(i => i.line_items.Find(l => l.product_id == 312) != null);
 
                 return order;
@@ -43,7 +45,7 @@ namespace API
         /// <summary>
         /// Anfrage für http-Pakete, ohne werden diese evtl. nicht durchgelassen.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">HTTP Anfrage.</param>
         private static void RequestFilter(HttpWebRequest request)
         {
             request.UserAgent = "WooCommerce.NET";

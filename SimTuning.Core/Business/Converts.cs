@@ -1,4 +1,6 @@
-﻿using SkiaSharp;
+﻿// project=SimTuning.Core, file=Converts.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using SkiaSharp;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;

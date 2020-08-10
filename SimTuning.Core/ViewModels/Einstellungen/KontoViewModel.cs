@@ -1,4 +1,6 @@
-﻿using Data.Models;
+﻿// project=SimTuning.Core, file=KontoViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Data.Models;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
@@ -8,21 +10,33 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Einstellungen
 {
+    /// <summary>
+    /// Einstellungen-Konto-ViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel{SimTuning.Core.Models.UserModel}" />
     public class KontoViewModel : MvxNavigationViewModel<SimTuning.Core.Models.UserModel>
     {
         public SimTuning.Core.Models.UserModel User { get; protected set; }
 
-        public KontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KontoViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public KontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
         }
 
-        public IMvxAsyncCommand ConnectUserCommand { get; set; }
-        public IMvxCommand RegisterSiteCommand { get; set; }
-        public IMvxCommand PasswordChangedCommand { get; set; }
+        #region Methods
 
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
         public override void Prepare(SimTuning.Core.Models.UserModel _user)
         {
-            User = _user;
+            this.User = _user;
         }
 
         /// <summary>
@@ -32,12 +46,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         public override Task Initialize()
         {
             SimTuning.Core.Business.Functions.GetLoginCredentials(out string _email, out SecureString _password);
-            Email = _email;
+            this.Email = _email;
 
             return base.Initialize();
         }
-
-        #region Commmands
 
         protected virtual void PasswordChanged(object parameter)
         {
@@ -55,9 +67,17 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         {
         }
 
-        #endregion Commmands
+        #endregion Methods
 
         #region Values
+
+        #region Commands
+
+        public IMvxAsyncCommand ConnectUserCommand { get; set; }
+        public IMvxCommand RegisterSiteCommand { get; set; }
+        public IMvxCommand PasswordChangedCommand { get; set; }
+
+        #endregion Commands
 
         protected SettingsModel settings;
 

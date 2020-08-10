@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=SimTuning.Forms.WPFCore, file=AuslassMainView.xaml.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System;
 using Microsoft.VisualBasic.CompilerServices;
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;

@@ -1,4 +1,6 @@
-﻿using Data.Models;
+﻿// project=SimTuning.Core, file=DataViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
 using MvvmCross.Logging;

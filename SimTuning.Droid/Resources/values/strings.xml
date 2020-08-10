@@ -1,3 +1,7 @@
+<!--
+project=SimTuning.Droid, file=strings.xml, creation=2020:7:1
+Copyright (c) 2020 tuke productions. All rights reserved.
+-->
 <resources>
     <string name="app_name">SimTuning.Droid</string>
     <string name="action_settings">Settings</string>

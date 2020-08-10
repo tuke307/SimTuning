@@ -1,4 +1,6 @@
-﻿using Data;
+﻿// project=SimTuning.Core, file=AussehenViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Data;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;

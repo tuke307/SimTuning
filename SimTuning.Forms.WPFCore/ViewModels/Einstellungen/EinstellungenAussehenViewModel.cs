@@ -1,4 +1,6 @@
-﻿using Data;
+﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenAussehenViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Data;
 using MaterialDesignColors;
 using MvvmCross.Commands;
 using MvvmCross.Logging;

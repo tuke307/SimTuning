@@ -1,4 +1,6 @@
-﻿using Data;
+﻿// project=SimTuning.Core, file=HubraumViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Logging;

@@ -1,4 +1,6 @@
-﻿using Android.App;
+﻿// project=SimTuning.Forms.Droid, file=MainActivity.cs, creation=2020:7:1
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;

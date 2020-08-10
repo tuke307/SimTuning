@@ -1,12 +1,14 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using SimTuning.Core.Models;
-using System.Threading.Tasks;
-
+﻿// project=SimTuning.Core, file=Menu.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels
 {
+    using System.Threading.Tasks;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using SimTuning.Core.Models;
+
     /// <summary>
     /// Menu-ViewModel.
     /// </summary>
@@ -22,6 +24,8 @@ namespace SimTuning.Core.ViewModels
         {
             this.User = new UserModel();
         }
+
+        #region Methods
 
         /// <summary>
         /// Prepares this instance.
@@ -40,6 +44,19 @@ namespace SimTuning.Core.ViewModels
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Logins the user.
+        /// </summary>
+        protected virtual void LoginUser()
+        {
+        }
+
+        #endregion Methods
+
+        #region Values
+
+        #region Commands
+
         public MvxCommand ButtonOpenMenu { get; set; }
         public MvxCommand ButtonCloseMenu { get; set; }
         public IMvxAsyncCommand ShowHomeCommand { get; set; }
@@ -51,7 +68,7 @@ namespace SimTuning.Core.ViewModels
         public IMvxAsyncCommand ShowEinstellungenCommand { get; set; }
         public IMvxAsyncCommand LoginUserCommand { get; protected set; }
 
-        #region Values
+        #endregion Commands
 
         public bool LicenseValid
         {
@@ -84,9 +101,5 @@ namespace SimTuning.Core.ViewModels
         }
 
         #endregion Values
-
-        protected virtual void LoginUser()
-        {
-        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿// project=SimTuning.Forms.WPFCore, file=MvxApp.cs, creation=2020:8:3
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System.IO;
 using MediaManager;
 using MvvmCross;
 using MvvmCross.ViewModels;

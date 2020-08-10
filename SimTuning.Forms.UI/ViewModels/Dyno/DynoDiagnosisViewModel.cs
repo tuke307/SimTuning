@@ -1,4 +1,6 @@
-﻿using MvvmCross.Commands;
+﻿// project=SimTuning.Forms.UI, file=DynoDiagnosisViewModel.cs, creation=2020:6:28
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Forms.UI.Business;

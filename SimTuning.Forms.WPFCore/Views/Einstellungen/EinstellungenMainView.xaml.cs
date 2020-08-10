@@ -1,4 +1,6 @@
-﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
+﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenMainView.xaml.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using MvvmCross.ViewModels;
 using SimTuning.Forms.WPFCore.Region;

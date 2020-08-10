@@ -1,4 +1,6 @@
-﻿using MvvmCross.Commands;
+﻿// project=SimTuning.Forms.WPFCore, file=AuslassMainViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -8,15 +10,31 @@ using System.Windows.Input;
 
 namespace SimTuning.Forms.WPFCore.ViewModels.Auslass
 {
+    /// <summary>
+    /// WPF-spezifisches AuslassMain-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Auslass.MainViewModel" />
     public class AuslassMainViewModel : SimTuning.Core.ViewModels.Auslass.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
 
-        public AuslassMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuslassMainViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public AuslassMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            _navigationService = navigationService;
+            this._navigationService = navigationService;
         }
 
+        #region Methods
+
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
         public override void Prepare(SimTuning.Core.Models.UserModel _user)
         {
             base.Prepare(_user);
@@ -33,10 +51,12 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Auslass
 
         public override void ViewAppearing()
         {
-            _navigationService.Navigate<AuslassTheorieViewModel>();
-            _navigationService.Navigate<AuslassAnwendungViewModel>();
+            this._navigationService.Navigate<AuslassTheorieViewModel>();
+            this._navigationService.Navigate<AuslassAnwendungViewModel>();
 
-            AuslassTabIndex = 0;
+            this.AuslassTabIndex = 0;
         }
+
+        #endregion Methods
     }
 }

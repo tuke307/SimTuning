@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿// project=SimTuning.Forms.WPFCore, file=TuningDiagnosisViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System.Globalization;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Forms.WPFCore.Business;

@@ -1,4 +1,6 @@
-﻿namespace SimTuning.Core.Models
+﻿// project=SimTuning.Core, file=TuningOutput.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+namespace SimTuning.Core.Models
 {
     public class TuningOutput
     {

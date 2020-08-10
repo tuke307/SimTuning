@@ -80,6 +80,7 @@
     <Compile Include="SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SimTuning.Forms.Droid.licenseheader" />
     <ProguardConfiguration Include="proguard.cfg">
       <SubType>Designer</SubType>
     </ProguardConfiguration>

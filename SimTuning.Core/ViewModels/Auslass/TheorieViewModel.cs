@@ -1,4 +1,6 @@
-﻿using Data;
+﻿// project=SimTuning.Core, file=TheorieViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
@@ -15,13 +17,23 @@ using UnitsNet.Units;
 
 namespace SimTuning.Core.ViewModels.Auslass
 {
+    /// <summary>
+    /// Einlass-Theorie-ViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class TheorieViewModel : MvxNavigationViewModel
     {
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
         public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; }
 
-        public TheorieViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TheorieViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public TheorieViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
             this.AreaQuantityUnits = new AreaQuantity();
             this.LengthQuantityUnits = new LengthQuantity();
@@ -40,14 +52,14 @@ namespace SimTuning.Core.ViewModels.Auslass
                     .Include(vehicles => vehicles.Motor.Auslass)
                     .ToList();
 
-                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                this.HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
 
             // Commands
             this.InsertDataCommand = new MvxCommand(this.InsertData);
         }
 
-        public IMvxCommand InsertDataCommand { get; set; }
+        #region Methods
 
         /// <summary>
         /// Prepares this instance.
@@ -66,8 +78,9 @@ namespace SimTuning.Core.ViewModels.Auslass
             return base.Initialize();
         }
 
-        #region Commands
-
+        /// <summary>
+        /// Inserts the data.
+        /// </summary>
         protected virtual void InsertData()
         {
             if (this.HelperVehicle.Motor.Auslass.FlaecheA.HasValue)
@@ -86,6 +99,9 @@ namespace SimTuning.Core.ViewModels.Auslass
             }
         }
 
+        /// <summary>
+        /// Refreshes the kruemmer l.
+        /// </summary>
         private void Refresh_KruemmerL()
         {
             if (this.KruemmerD.HasValue)
@@ -106,23 +122,31 @@ namespace SimTuning.Core.ViewModels.Auslass
             }
         }
 
+        /// <summary>
+        /// Refreshes the kruemmer d.
+        /// </summary>
         private void Refresh_KruemmerD()
         {
             if (this.AuslassA.HasValue)
-                KruemmerSpannneD =
+            {
+                this.KruemmerSpannneD =
                     AuslassLogic.GetManifoldDiameter(
-                    UnitsNet.UnitConverter.Convert(AuslassA.Value,
-                    UnitAuslassA.UnitEnumValue,
+                    UnitsNet.UnitConverter.Convert(this.AuslassA.Value,
+                    this.UnitAuslassA.UnitEnumValue,
                     AreaUnit.SquareCentimeter), 10)
                     +
                     " - "
                     +
                     AuslassLogic.GetManifoldDiameter(
-                    UnitsNet.UnitConverter.Convert(AuslassA.Value,
-                    UnitAuslassA.UnitEnumValue,
+                    UnitsNet.UnitConverter.Convert(this.AuslassA.Value,
+                    this.UnitAuslassA.UnitEnumValue,
                     AreaUnit.SquareCentimeter), 20);
+            }
         }
 
+        /// <summary>
+        /// Refreshes the auspuff geschwindigkeit.
+        /// </summary>
         private void Refresh_AuspuffGeschwindigkeit()
         {
             if (this.ModAbgasT.HasValue)
@@ -131,6 +155,9 @@ namespace SimTuning.Core.ViewModels.Auslass
             }
         }
 
+        /// <summary>
+        /// Refreshes the resonanzlaenge.
+        /// </summary>
         private void Refresh_Resonanzlaenge()
         {
             if (this.AusslassSteuerwinkel.HasValue && this.AbgasT.HasValue && this.ResonanzDrehzahl.HasValue)
@@ -139,9 +166,15 @@ namespace SimTuning.Core.ViewModels.Auslass
             }
         }
 
-        #endregion Commands
+        #endregion Methods
 
         #region Values
+
+        #region Commands
+
+        public IMvxCommand InsertDataCommand { get; set; }
+
+        #endregion Commands
 
         #region Hilfsdaten
 

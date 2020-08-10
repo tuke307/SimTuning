@@ -1,4 +1,6 @@
-﻿using MvvmCross.Platforms.Wpf.Presenters.Attributes;
+﻿// project=SimTuning.Forms.WPFCore, file=MotorSteuerdiagrammView.xaml.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using SimTuning.Forms.WPFCore.Region;
 using SimTuning.Forms.WPFCore.ViewModels.Motor;

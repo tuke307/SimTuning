@@ -1,4 +1,6 @@
-﻿using System.Security;
+﻿// project=API, file=WordPress.cs, creation=2020:6:28
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System.Security;
 using System.Threading.Tasks;
 
 //using WooCommerceNET.WooCommerce.v3;
@@ -26,8 +28,8 @@ namespace API
 
             try
             {
-                await client.RequestJWToken(email, SimTuning.Core.Business.Converts.SecureStringToString(password));
-                var user = await client.Users.GetCurrentUser();
+                await client.RequestJWToken(email, SimTuning.Core.Business.Converts.SecureStringToString(password)).ConfigureAwait(true);
+                var user = await client.Users.GetCurrentUser().ConfigureAwait(true);
                 return user;
             }
             catch

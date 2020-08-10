@@ -1,4 +1,6 @@
-﻿using AutoUpdaterDotNET;
+﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenUpdateViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using AutoUpdaterDotNET;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System.IO;

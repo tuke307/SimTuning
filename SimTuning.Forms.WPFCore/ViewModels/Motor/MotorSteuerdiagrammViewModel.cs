@@ -1,4 +1,6 @@
-﻿using MvvmCross.Commands;
+﻿// project=SimTuning.Forms.WPFCore, file=MotorSteuerdiagrammViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using System.IO;

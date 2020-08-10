@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// project=SimTuning.Forms.WPFCore, file=TreeHelpers.cs, creation=2020:8:4
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 

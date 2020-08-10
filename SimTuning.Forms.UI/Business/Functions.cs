@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=SimTuning.Forms.UI, file=Functions.cs, creation=2020:8:9
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;

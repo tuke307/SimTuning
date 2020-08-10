@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=SimTuning.Forms.WPFCore, file=MvxWpfPresenterAttribute.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System;
 using MvvmCross.Presenters.Attributes;
 using System.Windows;
 using System.Linq;

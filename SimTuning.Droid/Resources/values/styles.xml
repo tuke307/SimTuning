@@ -1,3 +1,7 @@
+<!--
+project=SimTuning.Droid, file=styles.xml, creation=2020:7:1
+Copyright (c) 2020 tuke productions. All rights reserved.
+-->
 <resources>
   <style name="Theme.Splash" parent="android:Theme">
     <item name="android:windowBackground">@layout/splashscreen</item>

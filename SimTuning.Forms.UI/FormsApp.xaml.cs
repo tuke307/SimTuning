@@ -1,4 +1,6 @@
-﻿using Plugin.DeviceInfo;
+﻿// project=SimTuning.Forms.UI, file=FormsApp.xaml.cs, creation=2020:6:28
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Plugin.DeviceInfo;
 using System;
 using System.Globalization;
 using System.IO;

@@ -17186,6 +17186,7 @@ namespace SimTuning.Forms.Droid
 			global::Xamarin.Forms.Platform.Android.Resource.String.fab_transformation_sheet_behavior = global::SimTuning.Forms.Droid.Resource.String.fab_transformation_sheet_behavior;
 			global::Xamarin.Forms.Platform.Android.Resource.String.hide_bottom_view_on_scroll_behavior = global::SimTuning.Forms.Droid.Resource.String.hide_bottom_view_on_scroll_behavior;
 			global::Xamarin.Forms.Platform.Android.Resource.String.mtrl_chip_close_icon_content_description = global::SimTuning.Forms.Droid.Resource.String.mtrl_chip_close_icon_content_description;
+			global::Xamarin.Forms.Platform.Android.Resource.String.overflow_tab_title = global::SimTuning.Forms.Droid.Resource.String.overflow_tab_title;
 			global::Xamarin.Forms.Platform.Android.Resource.String.password_toggle_content_description = global::SimTuning.Forms.Droid.Resource.String.password_toggle_content_description;
 			global::Xamarin.Forms.Platform.Android.Resource.String.path_password_eye = global::SimTuning.Forms.Droid.Resource.String.path_password_eye;
 			global::Xamarin.Forms.Platform.Android.Resource.String.path_password_eye_mask_strike_through = global::SimTuning.Forms.Droid.Resource.String.path_password_eye_mask_strike_through;
@@ -19864,6 +19865,7 @@ namespace SimTuning.Forms.Droid
 			global::Xamarin.Forms.Platform.Resource.String.fab_transformation_sheet_behavior = global::SimTuning.Forms.Droid.Resource.String.fab_transformation_sheet_behavior;
 			global::Xamarin.Forms.Platform.Resource.String.hide_bottom_view_on_scroll_behavior = global::SimTuning.Forms.Droid.Resource.String.hide_bottom_view_on_scroll_behavior;
 			global::Xamarin.Forms.Platform.Resource.String.mtrl_chip_close_icon_content_description = global::SimTuning.Forms.Droid.Resource.String.mtrl_chip_close_icon_content_description;
+			global::Xamarin.Forms.Platform.Resource.String.overflow_tab_title = global::SimTuning.Forms.Droid.Resource.String.overflow_tab_title;
 			global::Xamarin.Forms.Platform.Resource.String.password_toggle_content_description = global::SimTuning.Forms.Droid.Resource.String.password_toggle_content_description;
 			global::Xamarin.Forms.Platform.Resource.String.path_password_eye = global::SimTuning.Forms.Droid.Resource.String.path_password_eye;
 			global::Xamarin.Forms.Platform.Resource.String.path_password_eye_mask_strike_through = global::SimTuning.Forms.Droid.Resource.String.path_password_eye_mask_strike_through;
@@ -30061,28 +30063,31 @@ namespace SimTuning.Forms.Droid
 			public const int mtrl_chip_close_icon_content_description = 2131624032;
 			
 			// aapt resource value: 0x7F0E0061
-			public const int password_toggle_content_description = 2131624033;
+			public const int overflow_tab_title = 2131624033;
 			
 			// aapt resource value: 0x7F0E0062
-			public const int path_password_eye = 2131624034;
+			public const int password_toggle_content_description = 2131624034;
 			
 			// aapt resource value: 0x7F0E0063
-			public const int path_password_eye_mask_strike_through = 2131624035;
+			public const int path_password_eye = 2131624035;
 			
 			// aapt resource value: 0x7F0E0064
-			public const int path_password_eye_mask_visible = 2131624036;
+			public const int path_password_eye_mask_strike_through = 2131624036;
 			
 			// aapt resource value: 0x7F0E0065
-			public const int path_password_strike_through = 2131624037;
+			public const int path_password_eye_mask_visible = 2131624037;
 			
 			// aapt resource value: 0x7F0E0066
-			public const int search_menu_title = 2131624038;
+			public const int path_password_strike_through = 2131624038;
 			
 			// aapt resource value: 0x7F0E0067
-			public const int status_bar_notification_info_overflow = 2131624039;
+			public const int search_menu_title = 2131624039;
 			
 			// aapt resource value: 0x7F0E0068
-			public const int view_scroll_translation_autohide_behavior = 2131624040;
+			public const int status_bar_notification_info_overflow = 2131624040;
+			
+			// aapt resource value: 0x7F0E0069
+			public const int view_scroll_translation_autohide_behavior = 2131624041;
 			
 			static String()
 			{

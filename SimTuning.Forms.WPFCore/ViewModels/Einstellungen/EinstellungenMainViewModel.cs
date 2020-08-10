@@ -1,4 +1,6 @@
-﻿using MvvmCross.Logging;
+﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenMainViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Core.Models;
 using System.Collections.Generic;
@@ -15,6 +17,10 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             _navigationService = navigationService;
         }
 
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
         public override void Prepare(SimTuning.Core.Models.UserModel _user)
         {
             base.Prepare(_user);

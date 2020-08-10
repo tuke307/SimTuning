@@ -1,10 +1,12 @@
-﻿using SkiaSharp;
-using System;
-
+﻿// project=SimTuning.Core, file=AuslassLogic.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Core.ModuleLogic
 {
+    using System;
+    using SkiaSharp;
+
     /// <summary>
-    /// Auslass Logik
+    /// Auslass Logik.
     /// </summary>
     public static class AuslassLogic
     {
@@ -93,19 +95,16 @@ namespace SimTuning.Core.ModuleLogic
         {
             #region Berechnung
 
-            /*
-            * Berechnung
-            */
             vehicle.Motor.Auslass.Auspuff.ResonanzL = GetResonanceLength(vehicle.Motor.Auslass.SteuerzeitSZ.Value, vehicle.Motor.Auslass.Auspuff.AbgasT.Value, vehicle.Motor.ResonanzU.Value);
 
-            //KRÜMMER
-            vehicle.Motor.Auslass.Auspuff.KruemmerD = vehicle.Motor.Auslass.DurchmesserD.Value;/*Get_KruemmerDurchmesser(vehicleflaeche);*/
+            // KRÜMMER
+            vehicle.Motor.Auslass.Auspuff.KruemmerD = vehicle.Motor.Auslass.DurchmesserD.Value; /*Get_KruemmerDurchmesser(vehicleflaeche);*/
             vehicle.Motor.Auslass.Auspuff.KruemmerL = GetManifoldLength(vehicle.Motor.Auslass.DurchmesserD.Value, vehicle.Motor.Auslass.Auspuff.KruemmerF.Value, vehicle.Motor.Auslass.LaengeL.Value);
 
-            //MITTELTEIL
+            // MITTELTEIL
             vehicle.Motor.Auslass.Auspuff.MittelteilD = Math.Round(Math.Sqrt(vehicle.Motor.Auslass.FlaecheA.Value * 4 / Math.PI) * vehicle.Motor.Auslass.Auspuff.MittelteilF.Value, 2);
 
-            //konus
+            // Konus
             vehicle.Motor.Auslass.Auspuff.DiffusorL1 = 0;
             vehicle.Motor.Auslass.Auspuff.DiffusorD1 = 0;
             vehicle.Motor.Auslass.Auspuff.DiffusorL2 = 0;
@@ -115,7 +114,7 @@ namespace SimTuning.Core.ModuleLogic
             switch (vehicle.Motor.Auslass.Auspuff.DiffusorStage)
             {
                 case 1:
-                    vehicle.Motor.Auslass.Auspuff.DiffusorD1 = Math.Round(2 * Math.Tan(vehicle.Motor.Auslass.Auspuff.KruemmerW.Value * Math.PI / 360) * vehicle.Motor.Auslass.Auspuff.KruemmerL.Value + vehicle.Motor.Auslass.Auspuff.KruemmerD.Value, 2);
+                    vehicle.Motor.Auslass.Auspuff.DiffusorD1 = Math.Round((2 * Math.Tan(vehicle.Motor.Auslass.Auspuff.KruemmerW.Value * Math.PI / 360) * vehicle.Motor.Auslass.Auspuff.KruemmerL.Value) + vehicle.Motor.Auslass.Auspuff.KruemmerD.Value, 2);
                     vehicle.Motor.Auslass.Auspuff.DiffusorL1 = Math.Round((vehicle.Motor.Auslass.Auspuff.MittelteilD.Value - vehicle.Motor.Auslass.Auspuff.DiffusorD1.Value) / (2 * Math.Tan(vehicle.Motor.Auslass.Auspuff.DiffusorW1.Value * (2 * Math.PI / 360))), 2);
                     break;
 
@@ -139,11 +138,11 @@ namespace SimTuning.Core.ModuleLogic
                     break;
             }
 
-            //GEGENKONUS
+            // GEGENKONUS
             vehicle.Motor.Auslass.Auspuff.GegenkonusL = Math.Round((vehicle.Motor.Auslass.Auspuff.MittelteilD.Value - vehicle.Motor.Auslass.Auspuff.EndrohrD.Value) / (2 * Math.Tan(vehicle.Motor.Auslass.Auspuff.GegenKonusW.Value * Math.PI / 180)), 2);
             vehicle.Motor.Auslass.Auspuff.GegenkonusD = vehicle.Motor.Auslass.Auspuff.MittelteilD.Value;
 
-            //MITTELTEIL
+            // MITTELTEIL
             vehicle.Motor.Auslass.Auspuff.MittelteilL = Math.Round(vehicle.Motor.Auslass.Auspuff.ResonanzL.Value - (vehicle.Motor.Auslass.Auspuff.KruemmerL.Value + vehicle.Motor.Auslass.Auspuff.DiffusorL1.Value + vehicle.Motor.Auslass.Auspuff.GegenkonusL.Value / 2), 2);
 
             #endregion Berechnung

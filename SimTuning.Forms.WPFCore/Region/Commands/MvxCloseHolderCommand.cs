@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=SimTuning.Forms.WPFCore, file=MvxCloseHolderCommand.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;

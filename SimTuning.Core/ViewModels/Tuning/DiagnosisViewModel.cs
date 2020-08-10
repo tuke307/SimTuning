@@ -1,4 +1,6 @@
-﻿using Data;
+﻿// project=SimTuning.Core, file=DiagnosisViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Logging;
@@ -14,14 +16,26 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Tuning
 {
+    /// <summary>
+    /// Diagnosis-ViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class DiagnosisViewModel : MvxNavigationViewModel
     {
-        private TuningLogic tunigLogic;
         protected ResourceManager rm;
+        private TuningLogic tunigLogic;
 
-        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagnosisViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
         }
+
+        #region Methods
 
         /// <summary>
         /// Prepares this instance.
@@ -62,8 +76,11 @@ namespace SimTuning.Core.ViewModels.Tuning
             return base.Initialize();
         }
 
-        #region Commands
-
+        /// <summary>
+        /// The Tuning Model to load.
+        /// </summary>
+        /// <param name="tuning">The tuning.</param>
+        /// <returns>geladenes TuningModel.</returns>
         protected Data.Models.TuningModel LoadTuning(Data.Models.TuningModel tuning)
         {
             try
@@ -85,7 +102,7 @@ namespace SimTuning.Core.ViewModels.Tuning
             }
         }
 
-        #endregion Commands
+        #endregion Methods
 
         #region Values
 

@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿// project=SimTuning.Forms.WPFCore, file=DynoAudioViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;

@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security;
-using System.Threading.Tasks;
-using SimTuning.Core.Models;
-using WordPressPCL.Models;
-
+﻿// project=API, file=Login.cs, creation=2020:6:28
+// Copyright (c) 2020 tuke productions. All rights reserved.
 namespace API
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Security;
+    using System.Threading.Tasks;
+    using SimTuning.Core.Models;
+    using WordPressPCL.Models;
+
     /// <summary>
     /// Einlogg-Klasse.
     /// </summary>
@@ -88,7 +90,7 @@ namespace API
             // Speichern der daten
             SimTuning.Core.Business.Functions.SaveLoginCredentials(email, password);
 
-            Finish:
+        Finish:
             return (userModel, messages);
         }
     }

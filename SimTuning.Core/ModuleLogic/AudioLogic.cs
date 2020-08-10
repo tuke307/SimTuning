@@ -1,4 +1,6 @@
-﻿using SkiaSharp;
+﻿// project=SimTuning.Core, file=AudioLogic.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using SkiaSharp;
 
 namespace SimTuning.Core.ModuleLogic
 {

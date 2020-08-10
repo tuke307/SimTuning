@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=SimTuning.Core, file=AudioViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System;
 using System.IO;
 using System.Linq;
 using System.Resources;
@@ -21,31 +23,36 @@ using SkiaSharp;
 
 namespace SimTuning.Core.ViewModels.Dyno
 {
+    /// <summary>
+    /// Dyno-Audio-ViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class AudioViewModel : MvxNavigationViewModel
     {
-        protected AudioLogic audioLogic;
         public readonly IMediaManager MediaManager;
+        protected AudioLogic audioLogic;
         protected ResourceManager rm;
         protected ISimpleAudioPlayer player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
 
-        public AudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AudioViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public AudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            audioLogic = new AudioLogic();
-            BadgeFileOpen = false;
+            this.audioLogic = new AudioLogic();
+            this.BadgeFileOpen = false;
 
-            StopCommand = new MvxAsyncCommand(StopAsync);
-            PauseCommand = new MvxAsyncCommand(PauseAsync);
-            PlayCommand = new MvxAsyncCommand(PlayAsync);
+            this.StopCommand = new MvxAsyncCommand(this.StopAsync);
+            this.PauseCommand = new MvxAsyncCommand(this.PauseAsync);
+            this.PlayCommand = new MvxAsyncCommand(this.PlayAsync);
 
-            //this.MediaManager.PositionChanged += Current_PositionChanged;
+            // this.MediaManager.PositionChanged += Current_PositionChanged;
         }
 
-        public IMvxAsyncCommand OpenFileCommand { get; set; }
-        public IMvxAsyncCommand CutBeginnCommand { get; set; }
-        public IMvxAsyncCommand CutEndCommand { get; set; }
-        public IMvxAsyncCommand StopCommand { get; set; }
-        public IMvxAsyncCommand PauseCommand { get; set; }
-        public IMvxAsyncCommand PlayCommand { get; set; }
+        #region Methods
 
         /// <summary>
         /// Prepares this instance.
@@ -75,8 +82,6 @@ namespace SimTuning.Core.ViewModels.Dyno
 
             return base.Initialize();
         }
-
-        #region Commands
 
         /// <summary>
         /// Opens the file dialog.
@@ -229,9 +234,20 @@ namespace SimTuning.Core.ViewModels.Dyno
             RaisePropertyChanged(() => AudioPosition);
         }
 
-        #endregion Commands
+        #endregion Methods
 
         #region Values
+
+        #region Commands
+
+        public IMvxAsyncCommand OpenFileCommand { get; set; }
+        public IMvxAsyncCommand CutBeginnCommand { get; set; }
+        public IMvxAsyncCommand CutEndCommand { get; set; }
+        public IMvxAsyncCommand StopCommand { get; set; }
+        public IMvxAsyncCommand PauseCommand { get; set; }
+        public IMvxAsyncCommand PlayCommand { get; set; }
+
+        #endregion Commands
 
         public IMediaItem Current => MediaManager.Queue.Current;
 

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿// project=SimTuning.Forms.WPFCore, file=Modifier.cs, creation=2020:8:4
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SimTuning.Forms.WPFCore.Menu

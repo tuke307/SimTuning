@@ -1,12 +1,14 @@
-﻿using Data.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-
+﻿// project=Data, file=DatabaseContext.cs, creation=2020:6:28
+// Copyright (c) 2020 tuke productions. All rights reserved.
 namespace Data
 {
+    using Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Linq;
+
     /// <summary>
-    /// Main Funktionalität der DB
+    /// Main Funktionalität der DB.
     /// </summary>
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
     public class DatabaseContext : DbContext
@@ -39,18 +41,18 @@ namespace Data
         /// <see cref="DatabaseContext"/>
         public DatabaseContext()
         {
-            //aktuell halten
-            Database.Migrate();
-            Database.EnsureCreated();
+            // aktuell halten
+            this.Database.Migrate();
+            this.Database.EnsureCreated();
         }
 
         /// <summary>
-        /// Aufgerufen beim speichern der Entitys
+        /// Aufgerufen beim speichern der Entitys.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Number of state entries.</returns>
         public override int SaveChanges()
         {
-            var entries = ChangeTracker
+            var entries = this.ChangeTracker
                 .Entries()
                 .Where(e => e.Entity is BaseEntityModel && (
                         e.State == EntityState.Added
@@ -58,10 +60,10 @@ namespace Data
 
             foreach (var entityEntry in entries)
             {
-                //Modified Date
+                // Modified Date
                 ((BaseEntityModel)entityEntry.Entity).UpdatedDate = DateTime.Now;
 
-                //Creation Date
+                // Creation Date
                 if (entityEntry.State == EntityState.Added)
                 {
                     ((BaseEntityModel)entityEntry.Entity).CreatedDate = DateTime.Now;
@@ -72,18 +74,18 @@ namespace Data
         }
 
         /// <summary>
-        /// einmaliger Aufruf
+        /// einmaliger Aufruf.
         /// </summary>
-        /// <param name="options"></param>
+        /// <param name="options">Optionen.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseSqlite($"Filename={Constants.DatabasePath}");
         }
 
         /// <summary>
-        /// beim kreieren der Models
+        /// beim kreieren der Models.
         /// </summary>
-        /// <param name="modelBuilder"></param>
+        /// <param name="modelBuilder">ModelBuilder.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Data-Seeding

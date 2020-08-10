@@ -1,4 +1,6 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿// project=SimTuning.Forms.WPFCore, file=MainWindow.xaml.cs, creation=2020:8:3
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using MaterialDesignThemes.Wpf;
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using SimTuning.Forms.WPFCore.Business;

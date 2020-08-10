@@ -1,4 +1,6 @@
-﻿using Data;
+﻿// project=SimTuning.Core, file=AnwendungViewModel.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
@@ -18,12 +20,50 @@ using WooCommerceNET.WooCommerce.v3;
 
 namespace SimTuning.Core.ViewModels.Auslass
 {
+    /// <summary>
+    /// Auslass-Anwendung-ViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class AnwendungViewModel : MvxNavigationViewModel
     {
+        /// <summary>
+        /// Gets or sets the area quantity units.
+        /// </summary>
+        /// <value>
+        /// The area quantity units.
+        /// </value>
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets the volume quantity units.
+        /// </summary>
+        /// <value>
+        /// The volume quantity units.
+        /// </value>
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets the length quantity units.
+        /// </summary>
+        /// <value>
+        /// The length quantity units.
+        /// </value>
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets the speed quantity units.
+        /// </summary>
+        /// <value>
+        /// The speed quantity units.
+        /// </value>
         public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; protected set; }
+
+        /// <summary>
+        /// Gets the difference stages.
+        /// </summary>
+        /// <value>
+        /// The difference stages.
+        /// </value>
         public List<string> DiffStages { get; private set; }
 
         /// <summary>
@@ -35,6 +75,8 @@ namespace SimTuning.Core.ViewModels.Auslass
             : base(logProvider, navigationService)
         {
         }
+
+        #region Methods
 
         /// <summary>
         /// Prepares this instance.
@@ -86,12 +128,9 @@ namespace SimTuning.Core.ViewModels.Auslass
             return base.Initialize();
         }
 
-        public IMvxAsyncCommand CalculateCommand { get; set; }
-        public IMvxCommand DiffusorStageCommand { get; set; }
-        public IMvxCommand InsertDataCommand { get; set; }
-
-        #region Commands
-
+        /// <summary>
+        /// Fügt Vehicle-Helper ein.
+        /// </summary>
         public void InsertData()
         {
             if (HelperVehicle.Motor.Auslass.FlaecheA.HasValue)
@@ -107,11 +146,19 @@ namespace SimTuning.Core.ViewModels.Auslass
                 Vehicle.Motor.Auslass.SteuerzeitSZ = HelperVehicle.Motor.Auslass.SteuerzeitSZ;
         }
 
+        /// <summary>
+        /// Diffusors the stage.
+        /// </summary>
+        /// <param name="obj">The object.</param>
         public void DiffusorStage(object obj)
         {
-            Vehicle.Motor.Auslass.Auspuff.DiffusorStage = Convert.ToInt32(obj);
+            this.Vehicle.Motor.Auslass.Auspuff.DiffusorStage = Convert.ToInt32(obj);
         }
 
+        /// <summary>
+        /// Berechnet den Auspuff.
+        /// </summary>
+        /// <returns>Auspuff-Bild als Stream.</returns>
         protected virtual Stream Calculate()
         {
             //Convert
@@ -147,15 +194,43 @@ namespace SimTuning.Core.ViewModels.Auslass
 
             VehiclesModel vehicle = Vehicle;
             Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(AuslassLogic.Auspuff(ref vehicle));
-            Vehicle = vehicle;
-            RaisePropertyChanged("Vehicle");
+            this.Vehicle = vehicle;
+            this.RaisePropertyChanged("Vehicle");
 
             return stream;
         }
 
-        #endregion Commands
+        #endregion Methods
 
         #region Values
+
+        #region Commands
+
+        /// <summary>
+        /// Gets or sets the calculate command.
+        /// </summary>
+        /// <value>
+        /// The calculate command.
+        /// </value>
+        public IMvxAsyncCommand CalculateCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the diffusor stage command.
+        /// </summary>
+        /// <value>
+        /// The diffusor stage command.
+        /// </value>
+        public IMvxCommand DiffusorStageCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the insert data command.
+        /// </summary>
+        /// <value>
+        /// The insert data command.
+        /// </value>
+        public IMvxCommand InsertDataCommand { get; set; }
+
+        #endregion Commands
 
         #region Hilfsdaten
 
@@ -163,16 +238,16 @@ namespace SimTuning.Core.ViewModels.Auslass
 
         public ObservableCollection<VehiclesModel> HelperVehicles
         {
-            get => _helperVehicles;
-            set { SetProperty(ref _helperVehicles, value); }
+            get => this._helperVehicles;
+            set { this.SetProperty(ref this._helperVehicles, value); }
         }
 
         private VehiclesModel _helperVehicle;
 
         public VehiclesModel HelperVehicle
         {
-            get => _helperVehicle;
-            set { SetProperty(ref _helperVehicle, value); }
+            get => this._helperVehicle;
+            set { this.SetProperty(ref this._helperVehicle, value); }
         }
 
         #endregion Hilfsdaten
@@ -181,8 +256,8 @@ namespace SimTuning.Core.ViewModels.Auslass
 
         public VehiclesModel Vehicle
         {
-            get => _vehicle;
-            set { SetProperty(ref _vehicle, value); }
+            get => this._vehicle;
+            set { this.SetProperty(ref this._vehicle, value); }
         }
 
         #region Units

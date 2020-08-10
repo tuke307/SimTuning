@@ -1,4 +1,6 @@
-﻿using API;
+﻿// project=SimTuning.Forms.UI, file=EinstellungenKontoViewModel.cs, creation=2020:6:30
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using API;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;

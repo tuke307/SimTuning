@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=SimTuning.Forms.WPFCore, file=MainView.xaml.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System;
 using System.Windows;
 using System.Windows.Input;
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;

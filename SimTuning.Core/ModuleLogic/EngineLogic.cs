@@ -1,4 +1,6 @@
-﻿using SimTuning.Core.Business;
+﻿// project=SimTuning.Core, file=EngineLogic.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using SimTuning.Core.Business;
 using SimTuning.Core.Models;
 using SkiaSharp;
 using System;

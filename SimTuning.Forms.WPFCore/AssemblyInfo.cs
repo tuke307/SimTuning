@@ -1,3 +1,5 @@
+// project=SimTuning.Forms.WPFCore, file=AssemblyInfo.cs, creation=2020:7:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
 using System.Windows;
 
 [assembly: ThemeInfo(
