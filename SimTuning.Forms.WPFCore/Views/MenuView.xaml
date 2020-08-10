@@ -8,7 +8,7 @@
                    xmlns:behaviours="clr-namespace:SimTuning.Forms.WPFCore.Business"
                    xmlns:region="clr-namespace:SimTuning.Forms.WPFCore.Region"
                    mc:Ignorable="d"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                    x:TypeArguments="viewModels:MenuViewModel"
                    xmlns:viewModels="clr-namespace:SimTuning.Forms.WPFCore.ViewModels"
                    xmlns:utilities="clr-namespace:SimTuning.Forms.WPFCore.Menu"

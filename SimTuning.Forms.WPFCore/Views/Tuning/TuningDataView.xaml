@@ -7,7 +7,7 @@
                    x:TypeArguments="viewModels:TuningDataViewModel"
                    xmlns:viewModels="clr-namespace:SimTuning.Forms.WPFCore.ViewModels.Tuning"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                    mc:Ignorable="d"
                    Background="{DynamicResource MaterialDesignPaper}"
                    d:DesignHeight="450"

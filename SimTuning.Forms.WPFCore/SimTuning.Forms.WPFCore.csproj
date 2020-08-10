@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <RootNamespace>SimTuning.Forms.WPFCore</RootNamespace>
+    <AssemblyName>SimTuning.Forms.WPFCore</AssemblyName>
     <UseWPF>true</UseWPF>
+    <OutputType>WinExe</OutputType>
+    <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>..\Solution Items\Code Rules.ruleset</CodeAnalysisRuleSet>
     <Authors>Tony Meißner</Authors>
     <Company>tuke productions</Company>
@@ -14,10 +16,6 @@
     <NeutralLanguage>de-DE</NeutralLanguage>
     <SignAssembly>false</SignAssembly>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
     <OldToolsVersion>Current</OldToolsVersion>
     <PackageId>SimTuning</PackageId>
     <PackageIcon>logo_win.png</PackageIcon>
@@ -41,6 +39,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="MvvmCross" Version="6.4.2" />
     <PackageReference Include="MvvmCross.Platforms.Wpf" Version="6.4.2" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
@@ -49,7 +48,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.43-beta" />
   </ItemGroup>
 
