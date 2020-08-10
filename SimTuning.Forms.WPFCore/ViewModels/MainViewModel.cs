@@ -1,17 +1,14 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=MainViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using System;
-using System.Threading.Tasks;
-using MaterialDesignThemes.Wpf;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using SimTuning.Core.Models;
-using SimTuning.Forms.WPFCore.Business;
-using SimTuning.Forms.WPFCore.ViewModels.Home;
-
 namespace SimTuning.Forms.WPFCore.ViewModels
 {
+    using System.Threading.Tasks;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using SimTuning.Forms.WPFCore.Business;
+    using SimTuning.Forms.WPFCore.ViewModels.Home;
+
     /// <summary>
     /// WPF-spezifisches Main-ViewModel.
     /// </summary>
@@ -34,6 +31,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             this.ShowHomeViewModelCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<HomeMainViewModel>());
             this.ShowMenuViewModelCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<MenuViewModel>());
         }
+
+        #region Methods
 
         /// <summary>
         /// When view is appearing.
@@ -65,5 +64,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels
 
             return base.Initialize();
         }
+
+        #endregion Methods
     }
 }

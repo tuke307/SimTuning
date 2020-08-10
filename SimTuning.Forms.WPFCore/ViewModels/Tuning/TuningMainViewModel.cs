@@ -1,23 +1,31 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=TuningMainViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
 {
+    using System.Threading.Tasks;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+
+    /// <summary>
+    ///  WPF-spezifisches Tuning-Main-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Tuning.MainViewModel" />
     public class TuningMainViewModel : SimTuning.Core.ViewModels.Tuning.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
 
-        public TuningMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TuningMainViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public TuningMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            _navigationService = navigationService;
+            this._navigationService = navigationService;
         }
+
+        #region Methods
 
         /// <summary>
         /// Prepares the specified user.
@@ -37,13 +45,18 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Views the appearing.
+        /// </summary>
         public override void ViewAppearing()
         {
-            _navigationService.Navigate<TuningDataViewModel>();
-            _navigationService.Navigate<TuningInputViewModel>();
-            _navigationService.Navigate<TuningDiagnosisViewModel>();
+            this._navigationService.Navigate<TuningDataViewModel>();
+            this._navigationService.Navigate<TuningInputViewModel>();
+            this._navigationService.Navigate<TuningDiagnosisViewModel>();
 
-            TuningTabIndex = 0;
+            this.TuningTabIndex = 0;
         }
+
+        #endregion Methods
     }
 }

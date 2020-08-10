@@ -1,23 +1,25 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=MenuViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using MaterialDesignThemes.Wpf;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using SimTuning.Core.Business;
-using SimTuning.Core.Models;
-using SimTuning.Forms.WPFCore.ViewModels.Auslass;
-using SimTuning.Forms.WPFCore.ViewModels.Demo;
-using SimTuning.Forms.WPFCore.ViewModels.Dyno;
-using SimTuning.Forms.WPFCore.ViewModels.Einlass;
-using SimTuning.Forms.WPFCore.ViewModels.Einstellungen;
-using SimTuning.Forms.WPFCore.ViewModels.Home;
-using SimTuning.Forms.WPFCore.ViewModels.Motor;
-using SimTuning.Forms.WPFCore.ViewModels.Tuning;
-using System.Threading.Tasks;
-
 namespace SimTuning.Forms.WPFCore.ViewModels
 {
+    using System.Threading.Tasks;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using SimTuning.Core.Models;
+    using SimTuning.Forms.WPFCore.ViewModels.Auslass;
+    using SimTuning.Forms.WPFCore.ViewModels.Demo;
+    using SimTuning.Forms.WPFCore.ViewModels.Dyno;
+    using SimTuning.Forms.WPFCore.ViewModels.Einlass;
+    using SimTuning.Forms.WPFCore.ViewModels.Einstellungen;
+    using SimTuning.Forms.WPFCore.ViewModels.Home;
+    using SimTuning.Forms.WPFCore.ViewModels.Motor;
+    using SimTuning.Forms.WPFCore.ViewModels.Tuning;
+
+    /// <summary>
+    ///  WPF-spezifisches Menu-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Menu" />
     public class MenuViewModel : SimTuning.Core.ViewModels.Menu
     {
         private readonly IMvxNavigationService _navigationService;
@@ -48,6 +50,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
         }
 
+        #region Methods
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -57,6 +61,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Logins the user.
+        /// </summary>
         protected new async Task LoginUser()
         {
             var result = await API.Login.UserLoginAsync().ConfigureAwait(true);
@@ -65,6 +72,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             WPFCore.Business.Functions.ShowSnackbarDialog(result.Item2);
         }
 
+        /// <summary>
+        /// Views the appeared.
+        /// </summary>
         public override void ViewAppeared()
         {
             base.ViewAppeared();
@@ -72,6 +82,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             this.LoginUserCommand.Execute();
         }
 
+        /// <summary>
+        /// Shows the dyno.
+        /// </summary>
         private async Task ShowDyno()
         {
             if (User.LicenseValid)
@@ -84,6 +97,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels
             }
         }
 
+        /// <summary>
+        /// Shows the tuning.
+        /// </summary>
         private async Task ShowTuning()
         {
             if (User.LicenseValid)
@@ -95,5 +111,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels
                 await _navigationService.Navigate<DemoMainViewModel>();
             }
         }
+
+        #endregion Methods
     }
 }

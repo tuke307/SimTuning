@@ -1,32 +1,48 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=DynoSpectrogramViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using MaterialDesignThemes.Wpf;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using SimTuning.Forms.WPFCore.Business;
-using SimTuning.Forms.WPFCore.Views.Dialog;
-using System.Globalization;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
+    using System.Globalization;
+    using System.IO;
+    using System.Threading.Tasks;
+    using System.Windows.Media.Imaging;
+    using MaterialDesignThemes.Wpf;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using SimTuning.Forms.WPFCore.Business;
+    using SimTuning.Forms.WPFCore.Views.Dialog;
+
+    /// <summary>
+    ///  WPF-spezifisches Dyno-Spectrogram-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Dyno.SpectrogramViewModel" />
     public class DynoSpectrogramViewModel : SimTuning.Core.ViewModels.Dyno.SpectrogramViewModel
     {
-        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynoSpectrogramViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            //override Commands
-            FilterPlotCommand = new MvxAsyncCommand(FilterPlot);
-            RefreshSpectrogramCommand = new MvxAsyncCommand(ReloadImageAudioSpectrogram);
-            RefreshPlotCommand = new MvxAsyncCommand(RefreshPlot);
-            SpecificGraphCommand = new MvxAsyncCommand(SpecificGraph);
+            // override Commands
+            this.FilterPlotCommand = new MvxAsyncCommand(FilterPlot);
+            this.RefreshSpectrogramCommand = new MvxAsyncCommand(ReloadImageAudioSpectrogram);
+            this.RefreshPlotCommand = new MvxAsyncCommand(RefreshPlot);
+            this.SpecificGraphCommand = new MvxAsyncCommand(SpecificGraph);
 
-            //datensatz checken
-            //CheckDynoData();
+            // datensatz checken
+            // CheckDynoData();
         }
 
+        #region Methods
+
+        /// <summary>
+        /// Checks the dyno data.
+        /// </summary>
+        /// <returns></returns>
         private bool CheckDynoData()
         {
             if (this.Dyno == null)
@@ -40,6 +56,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             }
         }
 
+        /// <summary>
+        /// Reloads the image audio spectrogram.
+        /// </summary>
         protected new async Task ReloadImageAudioSpectrogram()
         {
             if (!this.CheckDynoData())
@@ -57,6 +76,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             }).ConfigureAwait(true);
         }
 
+        /// <summary>
+        /// Refreshes the plot.
+        /// </summary>
         protected new async Task RefreshPlot()
         {
             if (!this.CheckDynoData())
@@ -72,6 +94,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             }).ConfigureAwait(true);
         }
 
+        /// <summary>
+        /// Filters the plot.
+        /// </summary>
         protected new async Task FilterPlot()
         {
             if (!this.CheckDynoData())
@@ -87,6 +112,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             }).ConfigureAwait(true);
         }
 
+        /// <summary>
+        /// Specifics the graph.
+        /// </summary>
         protected new async Task SpecificGraph()
         {
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
@@ -97,6 +125,10 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             }).ConfigureAwait(true);
         }
 
+        #endregion Methods
+
+        #region Values
+
         private BitmapSource _displayedImage;
 
         public BitmapSource DisplayedImage
@@ -104,5 +136,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             get => _displayedImage;
             set => SetProperty(ref _displayedImage, value);
         }
+
+        #endregion Values
     }
 }

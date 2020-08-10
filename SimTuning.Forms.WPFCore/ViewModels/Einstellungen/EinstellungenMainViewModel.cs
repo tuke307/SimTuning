@@ -1,21 +1,33 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenMainViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using SimTuning.Core.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using SimTuning.Core.Models;
+
+    /// <summary>
+    ///  WPF-spezifisches Einstellungen-Main-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Einstellungen.MainViewModel" />
     public class EinstellungenMainViewModel : SimTuning.Core.ViewModels.Einstellungen.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
 
-        public EinstellungenMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EinstellungenMainViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public EinstellungenMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            _navigationService = navigationService;
+            this._navigationService = navigationService;
         }
+
+        #region Methods
 
         /// <summary>
         /// Prepares the specified user.
@@ -35,14 +47,19 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Views the appearing.
+        /// </summary>
         public override void ViewAppearing()
         {
-            _navigationService.Navigate<EinstellungenAussehenViewModel, UserModel>(User);
-            _navigationService.Navigate<EinstellungenUpdateViewModel>();
-            _navigationService.Navigate<EinstellungenVehiclesViewModel, UserModel>(User);
-            _navigationService.Navigate<EinstellungenKontoViewModel, UserModel>(User);
+            this._navigationService.Navigate<EinstellungenAussehenViewModel, UserModel>(User);
+            this._navigationService.Navigate<EinstellungenUpdateViewModel>();
+            this._navigationService.Navigate<EinstellungenVehiclesViewModel, UserModel>(User);
+            this._navigationService.Navigate<EinstellungenKontoViewModel, UserModel>(User);
 
-            EinstellungenTabIndex = 0;
+            this.EinstellungenTabIndex = 0;
         }
+
+        #endregion Methods
     }
 }

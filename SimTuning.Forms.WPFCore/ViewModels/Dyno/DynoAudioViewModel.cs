@@ -1,36 +1,45 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=DynoAudioViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using System.Globalization;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using MaterialDesignThemes.Wpf;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
-using Plugin.SimpleAudioPlayer;
-using SimTuning.Forms.WPFCore.Business;
-using SimTuning.Forms.WPFCore.Views.Dialog;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
+    using System.Globalization;
+    using System.IO;
+    using System.Threading.Tasks;
+    using System.Windows.Media.Imaging;
+    using MaterialDesignThemes.Wpf;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using Plugin.FilePicker;
+    using Plugin.FilePicker.Abstractions;
+    using Plugin.SimpleAudioPlayer;
+    using SimTuning.Forms.WPFCore.Business;
+    using SimTuning.Forms.WPFCore.Views.Dialog;
+
+    /// <summary>
+    ///  WPF-spezifisches Dyno-Audio-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Dyno.AudioViewModel" />
     public class DynoAudioViewModel : SimTuning.Core.ViewModels.Dyno.AudioViewModel
     {
         private readonly IMvxNavigationService _navigationService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynoAudioViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
         public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            _navigationService = navigationService;
+            this._navigationService = navigationService;
 
-            //override commands
-            OpenFileCommand = new MvxAsyncCommand(async () => await OpenFileDialog());
-            CutBeginnCommand = new MvxAsyncCommand(async () => await CutBeginn());
-            CutEndCommand = new MvxAsyncCommand(async () => await CutEnd());
+            // override commands
+            this.OpenFileCommand = new MvxAsyncCommand(async () => await this.OpenFileDialog());
+            this.CutBeginnCommand = new MvxAsyncCommand(async () => await this.CutBeginn());
+            this.CutEndCommand = new MvxAsyncCommand(async () => await this.CutEnd());
 
-            //datensatz checken
-            //CheckDynoData();
+            // datensatz checken
+            // CheckDynoData();
         }
 
         #region Values

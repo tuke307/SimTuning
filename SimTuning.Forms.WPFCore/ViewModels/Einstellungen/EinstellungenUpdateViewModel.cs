@@ -1,25 +1,144 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenUpdateViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using AutoUpdaterDotNET;
-using MvvmCross.Commands;
-using MvvmCross.ViewModels;
-using System.IO;
-using System.Net;
-using System.Windows;
-using System.Windows.Input;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
+    using System.IO;
+    using System.Net;
+    using System.Windows;
+    using System.Windows.Input;
+    using AutoUpdaterDotNET;
+    using MvvmCross.Commands;
+    using MvvmCross.ViewModels;
+
+    /// <summary>
+    ///  WPF-spezifisches Einstellungen-Update-ViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxViewModel" />
     public class EinstellungenUpdateViewModel : MvxViewModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EinstellungenUpdateViewModel"/> class.
+        /// </summary>
         public EinstellungenUpdateViewModel()
         {
-            UpdateCheckCommand = new MvxCommand<string>(UpdateCheck);
-            StartUpdateCommand = new MvxCommand<string>(StartUpdate);
+            this.UpdateCheckCommand = new MvxCommand<string>(UpdateCheck);
+            this.StartUpdateCommand = new MvxCommand<string>(StartUpdate);
         }
 
+        #region Methods
+
+        /// <summary>
+        /// Updates the check.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        private void UpdateCheck(object parameter)
+        {
+            AutoUpdater.Start("https://simtuning.tuke-productions.de/download/autoupdater/?wpdmdl=42");
+            AutoUpdater.ReportErrors = true;
+            AutoUpdater.HttpUserAgent = "SimTuningUpdateCheck";
+            AutoUpdater.CheckForUpdateEvent += UpdaterCheckForUpdateEvent;
+
+            Get_Changelog();
+        }
+
+        /// <summary>
+        /// Starts the update.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        private void StartUpdate(object parameter)
+        {
+            AutoUpdater.Start("https://simtuning.tuke-productions.de/download/autoupdater/?wpdmdl=42");
+            AutoUpdater.ReportErrors = true;
+            AutoUpdater.HttpUserAgent = "SimTuningDonwloadUpdate";
+            AutoUpdater.CheckForUpdateEvent += UpdaterDownloadUpdateEvent;
+        }
+
+        /// <summary>
+        /// Updaters the check for update event.
+        /// </summary>
+        /// <param name="args">The <see cref="UpdateInfoEventArgs"/> instance containing the event data.</param>
+        private void UpdaterCheckForUpdateEvent(UpdateInfoEventArgs args)
+        {
+            if (args != null)
+            {
+                Version_new = args.CurrentVersion.ToString();
+                Version_now = args.InstalledVersion.ToString();
+
+                if (args.IsUpdateAvailable)
+                {
+                    UpdateButton = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updaters the download update event.
+        /// </summary>
+        /// <param name="args">The <see cref="UpdateInfoEventArgs"/> instance containing the event data.</param>
+        private void UpdaterDownloadUpdateEvent(UpdateInfoEventArgs args)
+        {
+            if (args != null)
+            {
+                try
+                {
+                    if (AutoUpdater.DownloadUpdate(args))
+                        Application.Current.Shutdown();
+                }
+                catch
+                {
+                    //MessageBox.Show("FEHLER");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the changelog.
+        /// </summary>
+        private void Get_Changelog()
+        {
+            string file = "https://simtuning.tuke-productions.de/download/releasenotes/?wpdmdl=65";
+            string fileName = @"releasenotes.rtf";
+
+            // Download
+            WebClient myWebClient = new WebClient();
+            myWebClient.DownloadFile(file, fileName);
+
+            // lesen und einfügen
+            if (File.Exists(fileName))
+            {
+                //var flowDocument = new FlowDocument();
+                //var textRange = new TextRange(flowDocument.ContentStart, flowDocument.ContentEnd);
+                //using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                //{
+                //    textRange.Load(fileStream, DataFormats.Rtf);
+                //}
+                //RTFtext = flowDocument;
+            }
+        }
+
+        #endregion Methods
+
+        #region Values
+
+        #region Commands
+
+        /// <summary>
+        /// Gets or sets the update check command.
+        /// </summary>
+        /// <value>
+        /// The update check command.
+        /// </value>
         public ICommand UpdateCheckCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the start update command.
+        /// </summary>
+        /// <value>
+        /// The start update command.
+        /// </value>
         public ICommand StartUpdateCommand { get; set; }
+
+        #endregion Commands
 
         private string _version_now;
 
@@ -45,74 +164,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             set => SetProperty(ref _updateButton, value);
         }
 
-        private void UpdateCheck(object parameter)
-        {
-            AutoUpdater.Start("https://simtuning.tuke-productions.de/download/autoupdater/?wpdmdl=42");
-            AutoUpdater.ReportErrors = true;
-            AutoUpdater.HttpUserAgent = "SimTuningUpdateCheck";
-            AutoUpdater.CheckForUpdateEvent += UpdaterCheckForUpdateEvent;
-
-            Get_Changelog();
-        }
-
-        private void StartUpdate(object parameter)
-        {
-            AutoUpdater.Start("https://simtuning.tuke-productions.de/download/autoupdater/?wpdmdl=42");
-            AutoUpdater.ReportErrors = true;
-            AutoUpdater.HttpUserAgent = "SimTuningDonwloadUpdate";
-            AutoUpdater.CheckForUpdateEvent += UpdaterDownloadUpdateEvent;
-        }
-
-        private void UpdaterCheckForUpdateEvent(UpdateInfoEventArgs args)
-        {
-            if (args != null)
-            {
-                Version_new = args.CurrentVersion.ToString();
-                Version_now = args.InstalledVersion.ToString();
-
-                if (args.IsUpdateAvailable)
-                {
-                    UpdateButton = true;
-                }
-            }
-        }
-
-        private void UpdaterDownloadUpdateEvent(UpdateInfoEventArgs args)
-        {
-            if (args != null)
-            {
-                try
-                {
-                    if (AutoUpdater.DownloadUpdate(args))
-                        Application.Current.Shutdown();
-                }
-                catch
-                {
-                    //MessageBox.Show("FEHLER");
-                }
-            }
-        }
-
-        private void Get_Changelog()
-        {
-            string file = "https://simtuning.tuke-productions.de/download/releasenotes/?wpdmdl=65";
-            string fileName = @"releasenotes.rtf";
-
-            // Download
-            WebClient myWebClient = new WebClient();
-            myWebClient.DownloadFile(file, fileName);
-
-            // lesen und einfügen
-            if (File.Exists(fileName))
-            {
-                //var flowDocument = new FlowDocument();
-                //var textRange = new TextRange(flowDocument.ContentStart, flowDocument.ContentEnd);
-                //using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                //{
-                //    textRange.Load(fileStream, DataFormats.Rtf);
-                //}
-                //RTFtext = flowDocument;
-            }
-        }
+        #endregion Values
     }
 }

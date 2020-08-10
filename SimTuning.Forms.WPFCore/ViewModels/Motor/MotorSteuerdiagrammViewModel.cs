@@ -1,28 +1,46 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=MotorSteuerdiagrammViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using System.IO;
-using System.Windows.Media.Imaging;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Motor
 {
+    using System.IO;
+    using System.Windows.Media.Imaging;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+
+    /// <summary>
+    ///  WPF-spezifisches Motor-Steuerdiagramm-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Motor.SteuerdiagrammViewModel" />
     public class MotorSteuerdiagrammViewModel : SimTuning.Core.ViewModels.Motor.SteuerdiagrammViewModel
     {
-        public MotorSteuerdiagrammViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MotorSteuerdiagrammViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public MotorSteuerdiagrammViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
         }
 
+        #region Methods
+
+        /// <summary>
+        /// Refreshes the steuerzeit.
+        /// </summary>
         protected new void RefreshSteuerzeit()
         {
             Stream stream = base.RefreshSteuerzeit();
             if (stream != null)
             {
                 PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                Steuerzeiten_Rad = decoder.Frames[0];
+                this.Steuerzeiten_Rad = decoder.Frames[0];
             }
         }
+
+        #endregion Methods
+
+        #region Values
 
         private BitmapSource _steuerzeiten_Rad;
 
@@ -55,5 +73,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Motor
             get => _ueberstroemer_Steuerzeit;
             set { SetProperty(ref _ueberstroemer_Steuerzeit, value); RefreshSteuerzeit(); }
         }
+
+        #endregion Values
     }
 }

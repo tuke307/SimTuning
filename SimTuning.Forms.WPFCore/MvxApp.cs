@@ -1,13 +1,17 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=MvxApp.cs, creation=2020:8:3
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using System.IO;
-using MediaManager;
-using MvvmCross;
-using MvvmCross.ViewModels;
-using OxyPlot.Wpf;
-
 namespace SimTuning.Forms.WPFCore
 {
+    using System.IO;
+    using MediaManager;
+    using MvvmCross;
+    using MvvmCross.ViewModels;
+    using OxyPlot.Wpf;
+
+    /// <summary>
+    /// WPF-Specific App Start.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxApplication" />
     public class MvxApp : MvxApplication
     {
         public override void Initialize()
@@ -19,7 +23,7 @@ namespace SimTuning.Forms.WPFCore
             if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
                 Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
 
-            RegisterAppStart<SimTuning.Forms.WPFCore.ViewModels.MainViewModel>();
+            this.RegisterAppStart<SimTuning.Forms.WPFCore.ViewModels.MainViewModel>();
 
             base.Initialize();
 

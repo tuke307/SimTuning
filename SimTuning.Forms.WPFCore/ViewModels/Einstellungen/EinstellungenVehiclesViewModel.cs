@@ -1,25 +1,41 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenVehiclesViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using System.Threading.Tasks;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using SimTuning.Core.Models;
-using SimTuning.Forms.WPFCore.Business;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
+    using System.Threading.Tasks;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using SimTuning.Core.Models;
+    using SimTuning.Forms.WPFCore.Business;
+
+    /// <summary>
+    ///  WPF-spezifisches Einstellungen-Update-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Einstellungen.VehiclesViewModel" />
     public class EinstellungenVehiclesViewModel : SimTuning.Core.ViewModels.Einstellungen.VehiclesViewModel
     {
         private bool firstTime = true;
 
-        public EinstellungenVehiclesViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EinstellungenVehiclesViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public EinstellungenVehiclesViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            NewVehicleCommand = new MvxCommand(NewVehicle, CanExecute);
-            DeleteVehicleCommand = new MvxCommand(DeleteVehicle, CanExecute);
-            SaveVehicleCommand = new MvxCommand(SaveVehicle, CanExecute);
+            this.NewVehicleCommand = new MvxCommand(NewVehicle, CanExecute);
+            this.DeleteVehicleCommand = new MvxCommand(DeleteVehicle, CanExecute);
+            this.SaveVehicleCommand = new MvxCommand(SaveVehicle, CanExecute);
         }
 
+        #region Methods
+
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
         public override void Prepare(UserModel _user)
         {
             base.Prepare(_user);
@@ -34,22 +50,37 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Views the appeared.
+        /// </summary>
         public override void ViewAppeared()
         {
             base.ViewAppeared();
-            firstTime = false;
+            this.firstTime = false;
         }
 
+        /// <summary>
+        /// Determines whether this instance can execute.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance can execute; otherwise, <c>false</c>.
+        /// </returns>
         private bool CanExecute()
         {
-            if (!User.LicenseValid)
+            if (!this.User.LicenseValid)
             {
                 if (!firstTime)
+                {
                     Functions.ShowSnackbarDialog("Kaufe die Pro Version um Presets zu ändern");
+                }
             }
-            return User.LicenseValid;
+
+            return this.User.LicenseValid;
         }
 
+        /// <summary>
+        /// Creates new vehicle.
+        /// </summary>
         protected override void NewVehicle()
         {
             try
@@ -62,6 +93,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Deletes the vehicle.
+        /// </summary>
         protected override void DeleteVehicle()
         {
             try
@@ -74,6 +108,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Saves the vehicle.
+        /// </summary>
         protected override void SaveVehicle()
         {
             try
@@ -85,5 +122,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
                 Functions.ShowSnackbarDialog("Fehler beim speichern");
             }
         }
+
+        #endregion Methods
     }
 }

@@ -1,17 +1,17 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=AuslassMainViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Auslass
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+
     /// <summary>
-    /// WPF-spezifisches AuslassMain-ViewModel.
+    /// WPF-spezifisches Auslass-Main-ViewModel.
     /// </summary>
     /// <seealso cref="SimTuning.Core.ViewModels.Auslass.MainViewModel" />
     public class AuslassMainViewModel : SimTuning.Core.ViewModels.Auslass.MainViewModel

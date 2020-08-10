@@ -1,30 +1,46 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenKontoViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using API;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using SimTuning.Core.Models;
-using SimTuning.Forms.WPFCore.Business;
-using System.Security;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
+    using System.Security;
+    using System.Threading.Tasks;
+    using System.Windows.Controls;
+    using API;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using SimTuning.Core.Models;
+    using SimTuning.Forms.WPFCore.Business;
+
+    /// <summary>
+    ///  WPF-spezifisches Einstellungen-Konto-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Einstellungen.KontoViewModel" />
     public class EinstellungenKontoViewModel : SimTuning.Core.ViewModels.Einstellungen.KontoViewModel
     {
         private SecureString Password;
 
-        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EinstellungenKontoViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            //override Commands
-            ConnectUserCommand = new MvxAsyncCommand(ConnectUser);
-            RegisterSiteCommand = new MvxCommand(RegisterSite);
+            // override Commands
+            this.ConnectUserCommand = new MvxAsyncCommand(ConnectUser);
+            this.RegisterSiteCommand = new MvxCommand(RegisterSite);
 
-            PasswordChangedCommand = new MvxCommand<object>(PasswordChanged);
+            this.PasswordChangedCommand = new MvxCommand<object>(PasswordChanged);
         }
 
+        #region Methods
+
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
         public override void Prepare(UserModel _user)
         {
             base.Prepare(_user);
@@ -39,25 +55,36 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Passwords the changed.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
         protected override void PasswordChanged(object parameter)
         {
-            var passwordBox = parameter as PasswordBox;
-            if (passwordBox != null)
+            if (parameter is PasswordBox passwordBox)
             {
-                Password = passwordBox.SecurePassword;
+                this.Password = passwordBox.SecurePassword;
             }
         }
 
+        /// <summary>
+        /// Connects the user.
+        /// </summary>
         protected new async Task ConnectUser()
         {
             var result = await API.Login.UserLoginAsync(email: Email, password: Password);
-            User = result.Item1;
+            this.User = result.Item1;
             Functions.ShowSnackbarDialog(result.Item2);
         }
 
+        /// <summary>
+        /// Registers the site.
+        /// </summary>
         protected override void RegisterSite()
         {
             Functions.GoToSite("https://tuke-productions.de/mein-konto/");
         }
+
+        #endregion Methods
     }
 }

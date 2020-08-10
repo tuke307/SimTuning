@@ -1,12 +1,12 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=EinlassMainViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Einlass
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+
     /// <summary>
     /// Einlass-Main-ViewModel.
     /// </summary>

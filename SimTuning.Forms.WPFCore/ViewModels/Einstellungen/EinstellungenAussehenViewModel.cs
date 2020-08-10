@@ -1,36 +1,54 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenAussehenViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using Data;
-using MaterialDesignColors;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using SimTuning.Core.Models;
-using SimTuning.Forms.WPFCore.Business;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Data;
+    using MaterialDesignColors;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using SimTuning.Core.Models;
+    using SimTuning.Forms.WPFCore.Business;
+
+    /// <summary>
+    ///  WPF-spezifisches Einstellungen-Aussehen-ViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Einstellungen.AussehenViewModel" />
     public class EinstellungenAussehenViewModel : SimTuning.Core.ViewModels.Einstellungen.AussehenViewModel
     {
+        public IEnumerable<Swatch> Swatches { get; }
+
         private readonly ApplicationChanges color = new ApplicationChanges();
         private bool firstTime = true;
 
-        public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EinstellungenAussehenViewModel"/> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            Swatches = new SwatchesProvider().Swatches;
-            ApplyPrimaryCommand = new MvxCommand<object>(ApplyPrimary, CanExecute);
-            ApplyAccentCommand = new MvxCommand<object>(ApplyAccent, CanExecute);
+            this.Swatches = new SwatchesProvider().Swatches;
+            this.ApplyPrimaryCommand = new MvxCommand<object>(ApplyPrimary, CanExecute);
+            this.ApplyAccentCommand = new MvxCommand<object>(ApplyAccent, CanExecute);
 
             using (var db = new DatabaseContext())
-                ToogleDarkmode = db.Settings.ToList().Last().DarkMode;
+            {
+                this.ToogleDarkmode = db.Settings.ToList().Last().DarkMode;
+            }
         }
 
-        public IEnumerable<Swatch> Swatches { get; }
+        #region Methods
 
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
         public override void Prepare(UserModel _user)
         {
             base.Prepare(_user);
@@ -45,29 +63,48 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Views the appeared.
+        /// </summary>
         public override void ViewAppeared()
         {
             base.ViewAppeared();
             firstTime = false;
         }
 
-        #region Commands
-
+        /// <summary>
+        /// Applies the primary.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
         protected void ApplyPrimary(object parameter)
         {
             color.SetPrimary(parameter);
         }
 
+        /// <summary>
+        /// Applies the accent.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
         protected void ApplyAccent(object parameter)
         {
             color.SetAccent(parameter);
         }
 
+        /// <summary>
+        /// Applies the base theme.
+        /// </summary>
         protected void ApplyBaseTheme()
         {
             color.SetBaseTheme(ToogleDarkmode);
         }
 
+        /// <summary>
+        /// Determines whether this instance can execute the specified parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>
+        ///   <c>true</c> if this instance can execute the specified parameter; otherwise, <c>false</c>.
+        /// </returns>
         private bool CanExecute(object parameter)
         {
             if (!User.LicenseValid)
@@ -78,7 +115,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             return User.LicenseValid;
         }
 
-        #endregion Commands
+        #endregion Methods
 
         #region Values
 
