@@ -20,7 +20,8 @@ namespace SimTuning.Core.ViewModels
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public Menu(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public Menu(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
             this.User = new UserModel();
         }

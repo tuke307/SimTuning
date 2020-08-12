@@ -2,10 +2,9 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.ViewModels.Einlass
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Einlass-Main-ViewModel.
@@ -16,7 +15,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einlass
         private readonly IMvxNavigationService _navigationService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EinlassMainViewModel"/> class.
+        /// Initializes a new instance of the <see cref="EinlassMainViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
@@ -29,6 +28,15 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einlass
         #region Methods
 
         /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
         /// Prepares the specified user.
         /// </summary>
         /// <param name="_user">The user.</param>
@@ -38,14 +46,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einlass
         }
 
         /// <summary>
-        /// Initializes this instance.
+        /// Views the appearing.
         /// </summary>
-        /// <returns>Initilisierung.</returns>
-        public override Task Initialize()
-        {
-            return base.Initialize();
-        }
-
         public override void ViewAppearing()
         {
             this._navigationService.Navigate<EinlassKanalViewModel>();

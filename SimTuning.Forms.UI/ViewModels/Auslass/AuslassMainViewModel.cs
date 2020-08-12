@@ -1,39 +1,56 @@
-﻿// project=SimTuning.Forms.UI, file=AuslassMainViewModel.cs, creation=2020:6:30
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
+﻿// project=SimTuning.Forms.UI, file=AuslassMainViewModel.cs, creation=2020:6:30 Copyright
+// (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Auslass
 {
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// AuslassMainViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Auslass.MainViewModel" />
     public class AuslassMainViewModel : SimTuning.Core.ViewModels.Auslass.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
         private bool _firstTime = true;
 
-        public AuslassMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuslassMainViewModel" /> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public AuslassMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            _navigationService = navigationService;
+            this._navigationService = navigationService;
         }
 
+        /// <summary>
+        /// Views the appearing.
+        /// </summary>
+        public override void ViewAppearing()
+        {
+            if (this._firstTime)
+            {
+                this.ShowInitialViewModels();
+                this._firstTime = false;
+            }
+        }
+
+        /// <summary>
+        /// Shows the initial view models.
+        /// </summary>
+        /// <returns></returns>
         private Task ShowInitialViewModels()
         {
             var tasks = new List<Task>
             {
-                _navigationService.Navigate<AuslassTheorieViewModel>(),
-                _navigationService.Navigate<AuslassAnwendungViewModel>()
+                this._navigationService.Navigate<AuslassTheorieViewModel>(),
+                this._navigationService.Navigate<AuslassAnwendungViewModel>()
             };
             return Task.WhenAll(tasks);
-        }
-
-        public override void ViewAppearing()
-        {
-            if (_firstTime)
-            {
-                ShowInitialViewModels();
-                _firstTime = false;
-            }
         }
     }
 }

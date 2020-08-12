@@ -1,19 +1,19 @@
 ﻿// project=SimTuning.Core, file=DataViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using Data.Models;
-using Microsoft.EntityFrameworkCore;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace SimTuning.Core.ViewModels.Dyno
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+
     /// <summary>
     /// Dyno-Data-ViewModel.
     /// </summary>

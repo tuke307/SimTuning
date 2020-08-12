@@ -1,20 +1,21 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=MainView.xaml.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using System;
-using System.Windows;
-using System.Windows.Input;
-using MvvmCross.Platforms.Wpf.Presenters.Attributes;
-using MvvmCross.Platforms.Wpf.Views;
-using MvvmCross.ViewModels;
-using SimTuning.Forms.WPFCore.Business;
-using SimTuning.Forms.WPFCore.Region;
-using SimTuning.Forms.WPFCore.Views.Dialog;
-
 namespace SimTuning.Forms.WPFCore.Views
 {
+    using MvvmCross.Platforms.Wpf.Views;
+    using SimTuning.Forms.WPFCore.Region;
+
+    /// <summary>
+    /// MainView.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Platforms.Wpf.Views.MvxWpfView{SimTuning.Forms.WPFCore.ViewModels.MainViewModel}" />
+    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
     [MvxWpfPresenter("MainWindowRegion", mvxViewPosition.NewOrExsist)]
     public partial class MainView : MvxWpfView<SimTuning.Forms.WPFCore.ViewModels.MainViewModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainView"/> class.
+        /// </summary>
         public MainView()
         {
             InitializeComponent();

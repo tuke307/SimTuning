@@ -1,24 +1,27 @@
 ﻿// project=SimTuning.Forms.UI, file=App.cs, creation=2020:6:30
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using MediaManager;
-using MvvmCross;
-using MvvmCross.IoC;
-using SimTuning.Forms.UI.ViewModels;
-
 namespace SimTuning.Forms.UI
 {
+    using MediaManager;
+    using MvvmCross;
+    using SimTuning.Forms.UI.ViewModels;
+
+    /// <summary>
+    /// specific application.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxApplication" />
     public class App : MvvmCross.ViewModels.MvxApplication
     {
+        /// <summary>
+        /// Any initialization steps that can be done in the background.
+        /// </summary>
         public override void Initialize()
         {
-            //CreatableTypes()
-            //   .EndingWith("Service")
-            //   .AsInterfaces()
-            //   .RegisterAsLazySingleton();
             Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
-            //CrossMediaManager.Current.Library.Providers.Add(new MediaItemProvider());
 
-            RegisterAppStart<MainPageViewModel>();
+            // CrossMediaManager.Current.Library.Providers.Add(new MediaItemProvider());
+
+            this.RegisterAppStart<MainPageViewModel>();
         }
     }
 }

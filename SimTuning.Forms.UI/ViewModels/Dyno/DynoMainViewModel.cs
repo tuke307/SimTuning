@@ -1,25 +1,30 @@
-﻿// project=SimTuning.Forms.UI, file=DynoMainViewModel.cs, creation=2020:6:30
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using SimTuning.Core.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
+﻿// project=SimTuning.Forms.UI, file=DynoMainViewModel.cs, creation=2020:6:30 Copyright (c)
+// 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using SimTuning.Core.Models;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// DynoMainViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Dyno.MainViewModel" />
     public class DynoMainViewModel : SimTuning.Core.ViewModels.Dyno.MainViewModel
     {
         private readonly IMvxNavigationService _navigationService;
 
-        public DynoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynoMainViewModel" /> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public DynoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            _navigationService = navigationService;
-        }
-
-        public override void Prepare(UserModel _user)
-        {
-            base.Prepare(_user);
+            this._navigationService = navigationService;
         }
 
         /// <summary>
@@ -31,19 +36,35 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             return base.Initialize();
         }
 
-        public override void ViewAppearing()
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
+        public override void Prepare(UserModel _user)
         {
-            ShowInitialViewModels();
+            base.Prepare(_user);
         }
 
+        /// <summary>
+        /// Views the appearing.
+        /// </summary>
+        public override void ViewAppearing()
+        {
+            this.ShowInitialViewModels();
+        }
+
+        /// <summary>
+        /// Shows the initial view models.
+        /// </summary>
+        /// <returns></returns>
         private Task ShowInitialViewModels()
         {
             var tasks = new List<Task>
             {
-                _navigationService.Navigate<DynoDataViewModel>(),
-                _navigationService.Navigate<DynoAudioViewModel>(),
-                _navigationService.Navigate<DynoSpectrogramViewModel>(),
-                _navigationService.Navigate<DynoDiagnosisViewModel>()
+                this._navigationService.Navigate<DynoDataViewModel>(),
+               this. _navigationService.Navigate<DynoAudioViewModel>(),
+                this._navigationService.Navigate<DynoSpectrogramViewModel>(),
+                this._navigationService.Navigate<DynoDiagnosisViewModel>()
             };
             return Task.WhenAll(tasks);
         }

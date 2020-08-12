@@ -1,12 +1,16 @@
 ﻿// project=SimTuning.Forms.UI, file=EventToCommandBehavior.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using System;
-using System.Reflection;
-using System.Windows.Input;
-using Xamarin.Forms;
-
 namespace SimTuning.Forms.UI.Behaviors
 {
+    using System;
+    using System.Reflection;
+    using System.Windows.Input;
+    using Xamarin.Forms;
+
+    /// <summary>
+    /// EventToCommand.
+    /// </summary>
+    /// <seealso cref="SimTuning.Forms.UI.Behaviors.BehaviorBase{Xamarin.Forms.View}" />
     public class EventToCommandBehavior : BehaviorBase<View>
     {
         private Delegate eventHandler;

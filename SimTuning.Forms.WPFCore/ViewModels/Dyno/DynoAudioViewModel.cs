@@ -2,22 +2,21 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
-    using System.Globalization;
-    using System.IO;
-    using System.Threading.Tasks;
-    using System.Windows.Media.Imaging;
     using MaterialDesignThemes.Wpf;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using Plugin.FilePicker;
     using Plugin.FilePicker.Abstractions;
-    using Plugin.SimpleAudioPlayer;
     using SimTuning.Forms.WPFCore.Business;
     using SimTuning.Forms.WPFCore.Views.Dialog;
+    using System.Globalization;
+    using System.IO;
+    using System.Threading.Tasks;
+    using System.Windows.Media.Imaging;
 
     /// <summary>
-    ///  WPF-spezifisches Dyno-Audio-ViewModel.
+    /// WPF-spezifisches Dyno-Audio-ViewModel.
     /// </summary>
     /// <seealso cref="SimTuning.Core.ViewModels.Dyno.AudioViewModel" />
     public class DynoAudioViewModel : SimTuning.Core.ViewModels.Dyno.AudioViewModel
@@ -25,21 +24,23 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         private readonly IMvxNavigationService _navigationService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynoAudioViewModel"/> class.
+        /// Initializes a new instance of the <see cref="DynoAudioViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
             this._navigationService = navigationService;
 
-            // override commands
-            this.OpenFileCommand = new MvxAsyncCommand(async () => await this.OpenFileDialog());
-            this.CutBeginnCommand = new MvxAsyncCommand(async () => await this.CutBeginn());
-            this.CutEndCommand = new MvxAsyncCommand(async () => await this.CutEnd());
+            this.player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
 
-            // datensatz checken
-            // CheckDynoData();
+            // override commands
+            this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
+            this.CutBeginnCommand = new MvxAsyncCommand(this.CutBeginn);
+            this.CutEndCommand = new MvxAsyncCommand(this.CutEnd);
+
+            // datensatz checken CheckDynoData();
         }
 
         #region Values
@@ -55,63 +56,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         #endregion Values
 
         #region Commands
-
-        private async Task<bool> CheckDynoDataAsync()
-        {
-            if (Dyno == null)
-            {
-                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
-
-                return false;
-            }
-            else { return true; }
-        }
-
-        protected new async Task OpenFileDialog()
-        {
-            if (!CheckDynoDataAsync().Result)
-                return;
-
-            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "WAVE Audio (*.wav)|*.wav", "MP3 Audio (*.mp3)|*.mp3" }).ConfigureAwait(true);
-
-            if (fileData == null)
-                return; // user canceled file picking
-
-            await base.OpenFileDialog(fileData);
-
-            if (MediaManager.MediaPlayer != null)
-            {
-                await ReloadImageAudioSpectrogram();
-
-                BadgeFileOpen = true;
-            }
-        }
-
-        protected override void OpenFile()
-        {
-            //initialisieren
-            var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
-            //MediaManager = CrossSimpleAudioMediaManager.Current;
-            MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
-            //ISimpleAudioPlayer player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
-            //player.Load(stream);
-            //player.Play();
-            stream.Dispose();
-
-            base.OpenFile();
-        }
-
-        protected new async Task ReloadImageAudioSpectrogram()
-        {
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", delegate (object sender, DialogOpenedEventArgs args)
-            {
-                Stream stream = base.ReloadImageAudioSpectrogram();
-                PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                ImageAudioFile = decoder.Frames[0];
-
-                args.Session.Close();
-            }).ConfigureAwait(true);
-        }
 
         protected new async Task CutBeginn()
         {
@@ -141,6 +85,63 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             }).ConfigureAwait(true);
 
             await ReloadImageAudioSpectrogram();
+        }
+
+        protected override void OpenFile()
+        {
+            //initialisieren
+            var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
+            //MediaManager = CrossSimpleAudioMediaManager.Current;
+            MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
+            //ISimpleAudioPlayer player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
+            //player.Load(stream);
+            //player.Play();
+            stream.Dispose();
+
+            base.OpenFile();
+        }
+
+        protected new async Task OpenFileDialog()
+        {
+            if (!CheckDynoDataAsync().Result)
+                return;
+
+            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "WAVE Audio (*.wav)|*.wav", "MP3 Audio (*.mp3)|*.mp3" }).ConfigureAwait(true);
+
+            if (fileData == null)
+                return; // user canceled file picking
+
+            await base.OpenFileDialog(fileData);
+
+            if (MediaManager.MediaPlayer != null)
+            {
+                await ReloadImageAudioSpectrogram();
+
+                BadgeFileOpen = true;
+            }
+        }
+
+        protected new async Task ReloadImageAudioSpectrogram()
+        {
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", delegate (object sender, DialogOpenedEventArgs args)
+            {
+                Stream stream = base.ReloadImageAudioSpectrogram();
+                PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                ImageAudioFile = decoder.Frames[0];
+
+                args.Session.Close();
+            }).ConfigureAwait(true);
+        }
+
+        private async Task<bool> CheckDynoDataAsync()
+        {
+            if (this.Dyno == null)
+            {
+                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
+                return false;
+            }
+            else { return true; }
         }
 
         #endregion Commands

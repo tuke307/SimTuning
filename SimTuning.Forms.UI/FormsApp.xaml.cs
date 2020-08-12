@@ -1,21 +1,27 @@
 ﻿// project=SimTuning.Forms.UI, file=FormsApp.xaml.cs, creation=2020:6:28
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using Plugin.DeviceInfo;
-using System;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Resources;
-
 namespace SimTuning.Forms.UI
 {
+    using System;
+    using System.Globalization;
+    using System.IO;
+    using System.Resources;
+    using Plugin.DeviceInfo;
+
+    /// <summary>
+    /// FormsApp.
+    /// </summary>
+    /// <seealso cref="Xamarin.Forms.Application" />
     public partial class FormsApp : Xamarin.Forms.Application
     {
         private readonly ResourceManager rm;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormsApp"/> class.
+        /// </summary>
         public FormsApp()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 

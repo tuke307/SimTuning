@@ -1,12 +1,11 @@
 ﻿// project=SimTuning.Forms.WPFCore, file=DynoMainViewModel.cs, creation=2020:7:31
 // Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Dyno-Main-ViewModel.
     /// </summary>
@@ -16,7 +15,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         private readonly IMvxNavigationService _navigationService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynoMainViewModel"/> class.
+        /// Initializes a new instance of the <see cref="DynoMainViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
@@ -29,6 +28,15 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         #region Methods
 
         /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
         /// Prepares the specified user.
         /// </summary>
         /// <param name="_user">The user.</param>
@@ -38,22 +46,16 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         }
 
         /// <summary>
-        /// Initializes this instance.
+        /// Views the appearing.
         /// </summary>
-        /// <returns>Initilisierung.</returns>
-        public override Task Initialize()
-        {
-            return base.Initialize();
-        }
-
         public override void ViewAppearing()
         {
-            _navigationService.Navigate<DynoDataViewModel>();
-            _navigationService.Navigate<DynoAudioViewModel>();
-            _navigationService.Navigate<DynoSpectrogramViewModel>();
-            _navigationService.Navigate<DynoDiagnosisViewModel>();
+            this._navigationService.Navigate<DynoDataViewModel>();
+            this._navigationService.Navigate<DynoAudioViewModel>();
+            this._navigationService.Navigate<DynoSpectrogramViewModel>();
+            this._navigationService.Navigate<DynoDiagnosisViewModel>();
 
-            DynoTabIndex = 0;
+            this.DynoTabIndex = 0;
         }
 
         #endregion Methods

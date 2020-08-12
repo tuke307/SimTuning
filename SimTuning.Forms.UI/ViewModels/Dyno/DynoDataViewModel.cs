@@ -1,37 +1,36 @@
-﻿// project=SimTuning.Forms.UI, file=DynoDataViewModel.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using SimTuning.Forms.UI.Business;
-using System;
-using System.Threading.Tasks;
-using XF.Material.Forms.UI.Dialogs;
-
+﻿// project=SimTuning.Forms.UI, file=DynoDataViewModel.cs, creation=2020:6:28 Copyright (c)
+// 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using SimTuning.Forms.UI.Business;
+    using System;
+
+    /// <summary>
+    /// DynoDataViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Dyno.DataViewModel" />
     public class DynoDataViewModel : SimTuning.Core.ViewModels.Dyno.DataViewModel
     {
-        public DynoDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynoDataViewModel" /> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public DynoDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            //Commands
-            NewDynoCommand = new MvxCommand(NewDyno);
-            DeleteDynoCommand = new MvxCommand(DeleteDyno);
-            SaveDynoCommand = new MvxCommand(SaveDyno);
+            // Commands
+            this.NewDynoCommand = new MvxCommand(this.NewDyno);
+            this.DeleteDynoCommand = new MvxCommand(this.DeleteDyno);
+            this.SaveDynoCommand = new MvxCommand(this.SaveDyno);
         }
 
-        protected override void NewDyno()
-        {
-            try
-            {
-                base.NewDyno();
-            }
-            catch (Exception)
-            {
-                Functions.ShowSnackbarDialog("Fehler beim erstellen");
-            }
-        }
-
+        /// <summary>
+        /// Deletes the dyno.
+        /// </summary>
         protected override void DeleteDyno()
         {
             try
@@ -44,6 +43,24 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             }
         }
 
+        /// <summary>
+        /// Creates new dyno.
+        /// </summary>
+        protected override void NewDyno()
+        {
+            try
+            {
+                base.NewDyno();
+            }
+            catch (Exception)
+            {
+                Functions.ShowSnackbarDialog("Fehler beim erstellen");
+            }
+        }
+
+        /// <summary>
+        /// Saves the dyno.
+        /// </summary>
         protected new void SaveDyno()
         {
             if (!base.SaveDyno())

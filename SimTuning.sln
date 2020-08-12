@@ -29,8 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimTuning.Forms.WPF", "SimT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DC045AF-3BC3-4D5C-AAE5-A94BDE8EB93C}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Desktop\Code Rules.ruleset = ..\..\..\..\Desktop\Code Rules.ruleset
-		..\..\..\..\Desktop\CodeMaid.config = ..\..\..\..\Desktop\CodeMaid.config
+		Code Rules.ruleset = Code Rules.ruleset
+		CodeMaid.config = CodeMaid.config
 	EndProjectSection
 EndProject
 Global

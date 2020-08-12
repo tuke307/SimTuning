@@ -1,33 +1,80 @@
-﻿// project=SimTuning.Forms.UI, file=DynoAudioViewModel.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
-using SimTuning.Forms.UI.Business;
-using System.Globalization;
-using System.IO;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using XF.Material.Forms.UI.Dialogs;
-
+﻿// project=SimTuning.Forms.UI, file=DynoAudioViewModel.cs, creation=2020:6:28 Copyright
+// (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using Plugin.FilePicker;
+    using Plugin.FilePicker.Abstractions;
+    using SimTuning.Forms.UI.Business;
+    using System.Globalization;
+    using System.IO;
+    using System.Threading.Tasks;
+    using Xamarin.Forms;
+    using XF.Material.Forms.UI.Dialogs;
+
+    /// <summary>
+    /// DynoAudioViewModel.
+    /// </summary>
+    /// <seealso cref="SimTuning.Core.ViewModels.Dyno.AudioViewModel" />
     public class DynoAudioViewModel : SimTuning.Core.ViewModels.Dyno.AudioViewModel
     {
-        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynoAudioViewModel" /> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            //Override commands
-            OpenFileCommand = new MvxAsyncCommand(() => OpenFileDialog());
-            CutBeginnCommand = new MvxAsyncCommand(() => CutBeginn());
-            CutEndCommand = new MvxAsyncCommand(() => CutEnd());
+            // Override commands
+            this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
+            this.CutBeginnCommand = new MvxAsyncCommand(this.CutBeginn);
+            this.CutEndCommand = new MvxAsyncCommand(this.CutEnd);
 
-            //datensatz checken
-            //CheckDynoData();
+            // datensatz checken CheckDynoData();
         }
 
-        #region Commands
+        #region Methods
+
+        /// <summary>
+        /// Cuts the beginn.
+        /// </summary>
+        protected new async Task CutBeginn()
+        {
+            if (this.player == null)
+            {
+                return;
+            }
+
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+
+            await base.CutBeginn().ConfigureAwait(true);
+
+            await loadingDialog.DismissAsync().ConfigureAwait(false);
+
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Cuts the end.
+        /// </summary>
+        protected new async Task CutEnd()
+        {
+            if (this.player == null)
+            {
+                return;
+            }
+
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+
+            await base.CutEnd().ConfigureAwait(true);
+
+            await loadingDialog.DismissAsync().ConfigureAwait(false);
+
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Opens the file dialog.
@@ -42,7 +89,9 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { ".wav", ".mp3" }).ConfigureAwait(true);
 
             if (fileData == null)
+            {
                 return; // user canceled file picking
+            }
 
             await base.OpenFileDialog(fileData).ConfigureAwait(true);
 
@@ -60,42 +109,18 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <returns></returns>
         protected new async Task ReloadImageAudioSpectrogram()
         {
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
             Stream stream = base.ReloadImageAudioSpectrogram();
-            ImageAudioSpectrogram = ImageSource.FromStream(() => stream);
+            this.ImageAudioSpectrogram = ImageSource.FromStream(() => stream);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }
 
-        protected new async Task CutBeginn()
-        {
-            if (player == null)
-                return;
-
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
-
-            await base.CutBeginn().ConfigureAwait(true);
-
-            await loadingDialog.DismissAsync().ConfigureAwait(false);
-
-            await ReloadImageAudioSpectrogram().ConfigureAwait(false);
-        }
-
-        protected new async Task CutEnd()
-        {
-            if (player == null)
-                return;
-
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
-
-            await base.CutEnd().ConfigureAwait(true);
-
-            await loadingDialog.DismissAsync().ConfigureAwait(false);
-
-            await ReloadImageAudioSpectrogram().ConfigureAwait(false);
-        }
-
+        /// <summary>
+        /// Checks the dyno data.
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> CheckDynoData()
         {
             if (this.Dyno == null)
@@ -110,7 +135,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             }
         }
 
-        #endregion Commands
+        #endregion Methods
 
         #region Values
 
