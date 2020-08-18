@@ -40,10 +40,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
-    <PackageReference Include="MvvmCross" Version="6.4.2" />
-    <PackageReference Include="MvvmCross.Platforms.Wpf" Version="6.4.2" />
+    <PackageReference Include="MvvmCross" Version="7.0.0" />
+    <PackageReference Include="MvvmCross.Platforms.Wpf" Version="7.0.0" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
-    <PackageReference Include="Plugin.MediaManager" Version="0.9.7" />
+    <PackageReference Include="Plugin.MediaManager" Version="1.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
