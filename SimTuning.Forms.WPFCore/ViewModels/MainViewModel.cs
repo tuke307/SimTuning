@@ -1,13 +1,13 @@
-﻿// project=SimTuning.Forms.WPFCore, file=MainViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.WPFCore, file=MainViewModel.cs, creation=2020:7:31 Copyright
+// (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.ViewModels
 {
-    using System.Threading.Tasks;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.Forms.WPFCore.Business;
     using SimTuning.Forms.WPFCore.ViewModels.Home;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// WPF-spezifisches Main-ViewModel.
@@ -15,11 +15,10 @@ namespace SimTuning.Forms.WPFCore.ViewModels
     /// <seealso cref="SimTuning.Core.ViewModels.MainPage" />
     public class MainViewModel : SimTuning.Core.ViewModels.MainPage
     {
-        private readonly ApplicationChanges settings = new ApplicationChanges();
         private readonly IMvxNavigationService _navigationService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainViewModel"/> class.
+        /// Initializes a new instance of the <see cref="MainViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
@@ -35,6 +34,25 @@ namespace SimTuning.Forms.WPFCore.ViewModels
         #region Methods
 
         /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            ApplicationChanges.LoadColors();
+
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        /// <summary>
         /// When view is appearing.
         /// </summary>
         public override void ViewAppearing()
@@ -43,26 +61,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels
 
             this.ShowMenuViewModelCommand.Execute();
             this.ShowHomeViewModelCommand.Execute();
-        }
-
-        /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
-        /// </summary>
-        public override void Prepare()
-        {
-            base.Prepare();
-        }
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        /// <returns>Initilisierung.</returns>
-        public override Task Initialize()
-        {
-            this.settings.LoadColors();
-
-            return base.Initialize();
         }
 
         #endregion Methods

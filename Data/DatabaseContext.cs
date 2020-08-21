@@ -1,5 +1,5 @@
-﻿// project=Data, file=DatabaseContext.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=Data, file=DatabaseContext.cs, creation=2020:6:28 Copyright (c) 2020 tuke
+// productions. All rights reserved.
 namespace Data
 {
     using Data.Models;
@@ -15,30 +15,42 @@ namespace Data
     {
         #region DataSets
 
-        public DbSet<VehiclesModel> Vehicles { get; set; }
-        public DbSet<MotorModel> Motor { get; set; }
-        public DbSet<EinlassModel> MotorEinlass { get; set; }
-        public DbSet<AuslassModel> MotorAuslass { get; set; }
-        public DbSet<UeberstroemerModel> MotorUeberstroemer { get; set; }
-        public DbSet<VergaserModel> Vergaser { get; set; }
         public DbSet<AuspuffModel> Auspuff { get; set; }
+
         public DbSet<DynoModel> Dyno { get; set; }
-        public DbSet<EnvironmentModel> Environment { get; set; }
-        public DbSet<DynoAudioModel> DynoAudio { get; set; }
+
         public DbSet<DynoNmModel> Dyno_nm { get; set; }
+
         public DbSet<DynoPSModel> Dyno_ps { get; set; }
 
+        public DbSet<DynoAudioModel> DynoAudio { get; set; }
+
+        public DbSet<EnvironmentModel> Environment { get; set; }
+
+        public DbSet<MotorModel> Motor { get; set; }
+
+        public DbSet<AuslassModel> MotorAuslass { get; set; }
+
+        public DbSet<EinlassModel> MotorEinlass { get; set; }
+
+        public DbSet<UeberstroemerModel> MotorUeberstroemer { get; set; }
+
         public DbSet<TuningModel> Tuning { get; set; }
+
         public DbSet<TuningPSModel> Tuning_ps { get; set; }
 
-        public DbSet<SettingsModel> Settings { get; set; }
+        public DbSet<VehiclesModel> Vehicles { get; set; }
+
+        public DbSet<VergaserModel> Vergaser { get; set; }
+
+        //public DbSet<SettingsModel> Settings { get; set; }
 
         #endregion DataSets
 
         /// <summary>
         /// Datenbank-Kontext
         /// </summary>
-        /// <see cref="DatabaseContext"/>
+        /// <see cref="DatabaseContext" />
         public DatabaseContext()
         {
             // aktuell halten
@@ -96,8 +108,8 @@ namespace Data
                 new EnvironmentModel { Id = 3, Name = "Herbst", TemperaturT = 10, LuftdruckP = 1010 },
                 new EnvironmentModel { Id = 4, Name = "Winter", TemperaturT = 1, LuftdruckP = 1010 });
 
-            modelBuilder.Entity<SettingsModel>().HasData(
-               new SettingsModel { Id = 1, DarkMode = false, PrimaryColor = "teal", SecondaryColor = "cyan" });
+            //modelBuilder.Entity<SettingsModel>().HasData(
+            //   new SettingsModel { Id = 1, DarkMode = false, PrimaryColor = "teal", SecondaryColor = "cyan" });
 
             modelBuilder.Entity<MotorModel>().HasData(
                 new MotorModel { Id = 1, Name = "Rh 50 II", HubL = 42.0, PleulL = null, DeachsierungL = null, BohrungD = 38.0, ResonanzU = 5000.0, HubraumV = 47600.0, BrennraumV = null, KurbelgehaeuseV = 142800.0 },

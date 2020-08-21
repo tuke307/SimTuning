@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=Functions.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=Functions.cs, creation=2020:7:31 Copyright (c) 2020 tuke
+// productions. All rights reserved.
 using Data;
 using SkiaSharp;
 using System;
@@ -18,55 +18,13 @@ namespace SimTuning.Core.Business
     {
         #region variables
 
-        private const int Keysize = 128;
-
-        // This constant determines the number of iterations for the password bytes generation function.
+        // This constant determines the number of iterations for the password bytes
+        // generation function.
         private const int DerivationIterations = 1000;
 
-        #endregion variables
+        private const int Keysize = 128;
 
-        /// <summary>
-        /// Encrypts the specified plain text.
-        /// </summary>
-        /// <param name="plainText">The plain text.</param>
-        /// <param name="passPhrase">The pass phrase.</param>
-        /// <returns></returns>
-        public static string Encrypt(string plainText, string passPhrase)
-        {
-            // Salt and IV is randomly generated each time, but is preprended to encrypted cipher text
-            // so that the same Salt and IV values can be used when decrypting.
-            var saltStringBytes = Generate128BitsOfRandomEntropy();
-            var ivStringBytes = Generate128BitsOfRandomEntropy();
-            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-            using (var password = new Rfc2898DeriveBytes(passPhrase.ToString(), saltStringBytes, DerivationIterations))
-            {
-                var keyBytes = password.GetBytes(Keysize / 8);
-                using (var symmetricKey = new RijndaelManaged())
-                {
-                    symmetricKey.BlockSize = 128;
-                    symmetricKey.Mode = CipherMode.CBC;
-                    symmetricKey.Padding = PaddingMode.PKCS7;
-                    using (var encryptor = symmetricKey.CreateEncryptor(keyBytes, ivStringBytes))
-                    {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
-                            {
-                                cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
-                                cryptoStream.FlushFinalBlock();
-                                // Create the final bytes as a concatenation of the random salt bytes, the random iv bytes and the cipher bytes.
-                                var cipherTextBytes = saltStringBytes;
-                                cipherTextBytes = cipherTextBytes.Concat(ivStringBytes).ToArray();
-                                cipherTextBytes = cipherTextBytes.Concat(memoryStream.ToArray()).ToArray();
-                                memoryStream.Close();
-                                cryptoStream.Close();
-                                return Convert.ToBase64String(cipherTextBytes);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        #endregion variables
 
         /// <summary>
         /// Decrypts the specified cipher text.
@@ -76,14 +34,17 @@ namespace SimTuning.Core.Business
         /// <returns></returns>
         public static string Decrypt(string cipherText, string passPhrase)
         {
-            // Get the complete stream of bytes that represent:
-            // [32 bytes of Salt] + [16 bytes of IV] + [n bytes of CipherText]
+            // Get the complete stream of bytes that represent: [32 bytes of Salt] + [16
+            // bytes of IV] + [n bytes of CipherText]
             var cipherTextBytesWithSaltAndIv = Convert.FromBase64String(cipherText);
-            // Get the saltbytes by extracting the first 16 bytes from the supplied cipherText bytes.
+            // Get the saltbytes by extracting the first 16 bytes from the supplied
+            // cipherText bytes.
             var saltStringBytes = cipherTextBytesWithSaltAndIv.Take(Keysize / 8).ToArray();
-            // Get the IV bytes by extracting the next 16 bytes from the supplied cipherText bytes.
+            // Get the IV bytes by extracting the next 16 bytes from the supplied
+            // cipherText bytes.
             var ivStringBytes = cipherTextBytesWithSaltAndIv.Skip(Keysize / 8).Take(Keysize / 8).ToArray();
-            // Get the actual cipher text bytes by removing the first 64 bytes from the cipherText string.
+            // Get the actual cipher text bytes by removing the first 64 bytes from the
+            // cipherText string.
             var cipherTextBytes = cipherTextBytesWithSaltAndIv.Skip((Keysize / 8) * 2).Take(cipherTextBytesWithSaltAndIv.Length - ((Keysize / 8) * 2)).ToArray();
 
             using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
@@ -113,21 +74,46 @@ namespace SimTuning.Core.Business
         }
 
         /// <summary>
-        /// Saves the login credentials.
+        /// Encrypts the specified plain text.
         /// </summary>
-        /// <param name="email">The email.</param>
-        /// <param name="password">The password.</param>
-        public static void SaveLoginCredentials(string email, SecureString password)
+        /// <param name="plainText">The plain text.</param>
+        /// <param name="passPhrase">The pass phrase.</param>
+        /// <returns></returns>
+        public static string Encrypt(string plainText, string passPhrase)
         {
-            //speichern der daten
-            using (var db = new DatabaseContext())
+            // Salt and IV is randomly generated each time, but is preprended to encrypted
+            // cipher text so that the same Salt and IV values can be used when
+            // decrypting.
+            var saltStringBytes = Generate128BitsOfRandomEntropy();
+            var ivStringBytes = Generate128BitsOfRandomEntropy();
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            using (var password = new Rfc2898DeriveBytes(passPhrase.ToString(), saltStringBytes, DerivationIterations))
             {
-                var settings = db.Settings.ToList().Last();
-                if (settings != null)
+                var keyBytes = password.GetBytes(Keysize / 8);
+                using (var symmetricKey = new RijndaelManaged())
                 {
-                    settings.Mail = Functions.Encrypt(email, Constants.user_authent);
-                    settings.Password = Functions.Encrypt(Converts.SecureStringToString(password), Constants.user_authent);
-                    db.SaveChanges();
+                    symmetricKey.BlockSize = 128;
+                    symmetricKey.Mode = CipherMode.CBC;
+                    symmetricKey.Padding = PaddingMode.PKCS7;
+                    using (var encryptor = symmetricKey.CreateEncryptor(keyBytes, ivStringBytes))
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                            {
+                                cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+                                cryptoStream.FlushFinalBlock();
+                                // Create the final bytes as a concatenation of the random
+                                // salt bytes, the random iv bytes and the cipher bytes.
+                                var cipherTextBytes = saltStringBytes;
+                                cipherTextBytes = cipherTextBytes.Concat(ivStringBytes).ToArray();
+                                cipherTextBytes = cipherTextBytes.Concat(memoryStream.ToArray()).ToArray();
+                                memoryStream.Close();
+                                cryptoStream.Close();
+                                return Convert.ToBase64String(cipherTextBytes);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -139,20 +125,50 @@ namespace SimTuning.Core.Business
         /// <param name="password">The password.</param>
         public static void GetLoginCredentials(out string email, out SecureString password)
         {
-            using (var db = new DatabaseContext())
+            if (!String.IsNullOrEmpty(User.Default.Mail) && !String.IsNullOrEmpty(User.Default.Password))
             {
-                var settings = db.Settings.ToList().Last()/*OrderByDescending(s => s.Id).FirstOrDefault()*/;
-                if (settings != null && settings.Mail != null && settings.Password != null)
-                {
-                    email = Functions.Decrypt(settings.Mail, Constants.user_authent);
-                    password = Converts.StringToSecureString(Functions.Decrypt(settings.Password, Constants.user_authent));
-                }
-                else
-                {
-                    email = null;
-                    password = null;
-                }
+                email = Functions.Decrypt(User.Default.Mail, Constants.user_authent);
+                password = Converts.StringToSecureString(Functions.Decrypt(User.Default.Password, Constants.user_authent));
             }
+            else
+            {
+                email = null;
+                password = null;
+            }
+        }
+
+        /// <summary>
+        /// Rotiert die SKBitmap.
+        /// </summary>
+        /// <param name="bitmap">The bitmap.</param>
+        /// <param name="degrees">The degrees.</param>
+        /// <returns>Das gedrehte Bild.</returns>
+        public static SKBitmap RotateBitmap(SKBitmap bitmap, int degrees)
+        {
+            var rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+
+            var surface = new SKCanvas(rotated);
+
+            surface.Translate(rotated.Width / 2, rotated.Height / 2);
+            surface.RotateDegrees(degrees);
+            surface.Translate(-rotated.Width / 2, -rotated.Height / 2);
+            surface.DrawBitmap(bitmap, 0, 0);
+
+            return rotated;
+        }
+
+        /// <summary>
+        /// Saves the login credentials.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        public static void SaveLoginCredentials(string email, SecureString password)
+        {
+            //speichern der daten
+
+            User.Default.Mail = Functions.Encrypt(email, Constants.user_authent);
+            User.Default.Password = Functions.Encrypt(Converts.SecureStringToString(password), Constants.user_authent);
+            User.Default.Save();
         }
 
         /// <summary>
@@ -174,26 +190,6 @@ namespace SimTuning.Core.Business
                     value.Value,
                     selectedFromUnit.UnitEnumValue,
                     selectedToUnit.UnitEnumValue), 2);
-        }
-
-        /// <summary>
-        /// Rotiert die SKBitmap.
-        /// </summary>
-        /// <param name="bitmap">The bitmap.</param>
-        /// <param name="degrees">The degrees.</param>
-        /// <returns>Das gedrehte Bild.</returns>
-        public static SKBitmap RotateBitmap(SKBitmap bitmap, int degrees)
-        {
-            var rotated = new SKBitmap(bitmap.Width, bitmap.Height);
-
-            var surface = new SKCanvas(rotated);
-
-            surface.Translate(rotated.Width / 2, rotated.Height / 2);
-            surface.RotateDegrees(degrees);
-            surface.Translate(-rotated.Width / 2, -rotated.Height / 2);
-            surface.DrawBitmap(bitmap, 0, 0);
-
-            return rotated;
         }
 
         /// <summary>

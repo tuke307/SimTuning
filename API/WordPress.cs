@@ -1,5 +1,5 @@
-﻿// project=API, file=WordPress.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=API, file=WordPress.cs, creation=2020:6:28 Copyright (c) 2020 tuke productions.
+// All rights reserved.
 using System.Security;
 using System.Threading.Tasks;
 
@@ -20,7 +20,7 @@ namespace API
         /// <param name="email">Die E-Mail des Nutzers.</param>
         /// <param name="password">Das Passwort des Nutzers.</param>
         /// <returns>Nutzerdaten.</returns>
-        public static async Task<User> UserAccount(string email, SecureString password)
+        public static async Task<WordPressPCL.Models.User> UserAccount(string email, SecureString password)
         {
             // Initialize
             var client = new WordPressClient(Constants.WPApiUrl);

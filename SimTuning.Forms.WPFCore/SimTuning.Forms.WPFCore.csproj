@@ -57,4 +57,19 @@
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\SimTuning.Core\SimTuning.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="color.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Color.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Color.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>color.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 </Project>
