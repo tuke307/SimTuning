@@ -2,6 +2,7 @@
 // tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Dyno
 {
+    using MvvmCross;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
@@ -54,7 +55,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         public int DynoTabIndex
         {
             get => _dynoTabIndex;
-            set { SetProperty(ref _dynoTabIndex, value); }
+            set
+            {
+                SetProperty(ref _dynoTabIndex, value);
+            }
         }
 
         #endregion Values

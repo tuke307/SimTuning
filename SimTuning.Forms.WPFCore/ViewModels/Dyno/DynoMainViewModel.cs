@@ -2,8 +2,11 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
+    using MvvmCross;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using MvvmCross.Views;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -12,6 +15,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
     /// <seealso cref="SimTuning.Core.ViewModels.Dyno.MainViewModel" />
     public class DynoMainViewModel : SimTuning.Core.ViewModels.Dyno.MainViewModel
     {
+        private readonly IMvxViewModelLoader _mvxViewModelLoader;
+        private readonly IMvxViewsContainer _mvxViewsContainer;
         private readonly IMvxNavigationService _navigationService;
 
         /// <summary>
@@ -23,6 +28,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             : base(logProvider, navigationService)
         {
             this._navigationService = navigationService;
+
+            _mvxViewsContainer = Mvx.IoCProvider.Resolve<IMvxViewsContainer>();
+            _mvxViewModelLoader = Mvx.IoCProvider.Resolve<IMvxViewModelLoader>();
         }
 
         #region Methods
@@ -54,6 +62,9 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             this._navigationService.Navigate<DynoAudioViewModel>();
             this._navigationService.Navigate<DynoSpectrogramViewModel>();
             this._navigationService.Navigate<DynoDiagnosisViewModel>();
+
+            var presenter = Mvx.IoCProvider.Resolve<IMvxViewsContainer>(); // or inject with IoC
+            //var current = presenter.;
 
             this.DynoTabIndex = 0;
         }

@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=KontoViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=KontoViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 using Data.Models;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
@@ -19,7 +19,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         public SimTuning.Core.Models.UserModel User { get; protected set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="KontoViewModel"/> class.
+        /// Initializes a new instance of the <see cref="KontoViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
@@ -29,15 +29,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         }
 
         #region Methods
-
-        /// <summary>
-        /// Prepares the specified user.
-        /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(SimTuning.Core.Models.UserModel _user)
-        {
-            this.User = _user;
-        }
 
         /// <summary>
         /// Initializes this instance.
@@ -51,19 +42,28 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             return base.Initialize();
         }
 
-        protected virtual void PasswordChanged(object parameter)
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
+        public override void Prepare(SimTuning.Core.Models.UserModel _user)
         {
+            this.User = _user;
         }
 
         protected virtual void ConnectUser()
         {
         }
 
-        protected virtual void RegisterSite()
+        protected virtual void LoginSite(object parameter)
         {
         }
 
-        protected virtual void LoginSite(object parameter)
+        protected virtual void PasswordChanged(object parameter)
+        {
+        }
+
+        protected virtual void RegisterSite()
         {
         }
 
@@ -74,14 +74,18 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         #region Commands
 
         public IMvxAsyncCommand ConnectUserCommand { get; set; }
-        public IMvxCommand RegisterSiteCommand { get; set; }
+
         public IMvxCommand PasswordChangedCommand { get; set; }
+
+        public IMvxCommand RegisterSiteCommand { get; set; }
 
         #endregion Commands
 
-        protected SettingsModel settings;
-
         private string _email;
+
+        private string _firstname;
+
+        private string _lastname;
 
         public string Email
         {
@@ -89,15 +93,11 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             set { SetProperty(ref _email, value); }
         }
 
-        private string _firstname;
-
         public string Firstname
         {
             get => _firstname;
             set { SetProperty(ref _firstname, value); }
         }
-
-        private string _lastname;
 
         public string Lastname
         {

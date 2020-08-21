@@ -27,7 +27,7 @@ namespace SimTuning.Core.ViewModels.Dyno
     /// Dyno-Audio-ViewModel.
     /// </summary>
     /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
-    public class AudioViewModel : MvxNavigationViewModel
+    public class AudioViewModel : MvxNavigationViewModel, ITabViewModel
     {
         public readonly IMediaManager MediaManager;
         protected AudioLogic audioLogic;
@@ -80,6 +80,21 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         public override void Prepare()
         {
+        }
+
+        /// <summary>
+        /// Reloads the DB-data.
+        /// </summary>
+        void ITabViewModel.ReloadData()
+        {
+            using (var db = new DatabaseContext())
+            {
+                try
+                {
+                    Dyno = db.Dyno.Where(d => d.Active == true)/*.Include(v => v.Audio)*/.First();
+                }
+                catch { }
+            }
         }
 
         protected virtual async Task CutBeginn()
