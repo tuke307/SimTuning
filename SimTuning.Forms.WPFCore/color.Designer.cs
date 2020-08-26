@@ -25,7 +25,7 @@ namespace SimTuning.Forms.WPFCore {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Inherit")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Light")]
         public global::MaterialDesignThemes.Wpf.BaseTheme Theme {
             get {
                 return ((global::MaterialDesignThemes.Wpf.BaseTheme)(this["Theme"]));

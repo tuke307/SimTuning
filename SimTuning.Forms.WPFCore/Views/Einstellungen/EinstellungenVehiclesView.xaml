@@ -187,7 +187,7 @@
                                                   IsEditable="False"
                                                   IsEnabled="False"
                                                   DisplayMemberPath="Abbreviation"
-                                                  SelectedItem="{Binding UnitGewicht}"
+                                                  SelectedItem="{Binding Mode=OneWay, Path=UnitGewichtG}"
                                                   ItemsSource="{Binding Path=MassQuantityUnits, Mode=OneTime}">
                                         </ComboBox>
                                     </StackPanel>
@@ -214,7 +214,7 @@
                                                   IsEditable="False"
                                                   IsEnabled="False"
                                                   DisplayMemberPath="Abbreviation"
-                                                  SelectedItem="{Binding UnitFrontA}"
+                                                  SelectedItem="{Binding Mode=OneWay, Path=UnitFrontA}"
                                                   ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                         </ComboBox>
                                     </StackPanel>
@@ -276,7 +276,7 @@
                                                           IsEditable="False"
                                                           IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitHubL}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorHubLUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -298,7 +298,7 @@
                                                           IsEditable="False"
                                                           IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitPleulL}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorPleulLUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -325,7 +325,7 @@
                                                           IsEditable="False"
                                                           IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitKolbenG}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorKolbenGUnit}"
                                                           ItemsSource="{Binding Path=SpeedQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -352,7 +352,7 @@
                                                           IsEditable="False"
                                                           IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitDeachsierungL}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorDeachsierungLUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -379,7 +379,7 @@
                                                           IsEditable="False"
                                                           IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitBohrungD}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorBohrungDUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -423,7 +423,7 @@
                                                           IsEditable="False"
                                                           IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitHubraumV}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorHubraumVUnit}"
                                                           ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -450,7 +450,7 @@
                                                           IsEditable="False"
                                                           IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitBrennraumV}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorBrennraumVUnit}"
                                                           ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -477,7 +477,7 @@
                                                           IsEditable="False"
                                                           IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitKurbelgehaeuseV}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorKurbelgehaeuseVUnit}"
                                                           ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -579,7 +579,7 @@
                                                           IsEditable="False"
                                                           IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitHoeheH}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassHoeheHUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -605,7 +605,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitEinlassB}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassBreiteBUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -631,7 +631,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitEinlassB}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassDurchmesserDUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -657,7 +657,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitEinlassA}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassFlaecheAUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -700,7 +700,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitEinlassA}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassLaengeLUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -726,15 +726,15 @@
                                                 <TreeViewItem Header="Vergaser">
                                                     <StackPanel>
                                                         <StackPanel Orientation="Horizontal"
-                                                        VerticalAlignment="Center"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="5">
+                                                                    VerticalAlignment="Center"
+                                                                    HorizontalAlignment="Left"
+                                                                    Margin="5">
 
                                                             <TextBox materialDesign:HintAssist.IsFloating="true"
-                                                         materialDesign:HintAssist.Hint="Durchmesser"
-                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Einlass.Vergaser.DurchmesserD, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
-                                                         behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                                                         MinWidth="200">
+                                                                     materialDesign:HintAssist.Hint="Durchmesser"
+                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Einlass.Vergaser.DurchmesserD, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                                     behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                                                                     MinWidth="200">
                                                                 <i:Interaction.Triggers>
                                                                     <i:EventTrigger EventName="TextChanged">
                                                                         <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
@@ -743,40 +743,31 @@
                                                             </TextBox>
 
                                                             <ComboBox VerticalAlignment="Bottom"
-                                                          Margin="5 0 0 0"
-                                                          IsSynchronizedWithCurrentItem="True"
-                                                          IsEditable="False"
-                                                          DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitAuslassH}"
-                                                          ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
+                                                                      Margin="5 0 0 0"
+                                                                      IsSynchronizedWithCurrentItem="True"
+                                                                      IsEditable="False"
+                                                                      DisplayMemberPath="Abbreviation"
+                                                                      SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassVergaserDurchmesserDUnit}"
+                                                                      ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                             </ComboBox>
                                                         </StackPanel>
 
                                                         <StackPanel Orientation="Horizontal"
-                                                        VerticalAlignment="Center"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="5">
+                                                                    VerticalAlignment="Center"
+                                                                    HorizontalAlignment="Left"
+                                                                    Margin="5">
 
                                                             <TextBox materialDesign:HintAssist.IsFloating="true"
-                                                         materialDesign:HintAssist.Hint="BenzinLuftF"
-                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Einlass.Vergaser.BenzinLuftF, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
-                                                         behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                                                         MinWidth="200">
+                                                                     materialDesign:HintAssist.Hint="BenzinLuftF"
+                                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Einlass.Vergaser.BenzinLuftF, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                                     behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                                                                     MinWidth="200">
                                                                 <i:Interaction.Triggers>
                                                                     <i:EventTrigger EventName="TextChanged">
                                                                         <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
                                                                     </i:EventTrigger>
                                                                 </i:Interaction.Triggers>
                                                             </TextBox>
-
-                                                            <ComboBox VerticalAlignment="Bottom"
-                                                          Margin="5 0 0 0"
-                                                          IsSynchronizedWithCurrentItem="True"
-                                                          IsEditable="False"
-                                                          DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitAuslassH}"
-                                                          ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
-                                                            </ComboBox>
                                                         </StackPanel>
                                                     </StackPanel>
                                                 </TreeViewItem>
@@ -810,7 +801,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitAuslassH}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorAuslassHoeheHUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -836,7 +827,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitAuslassB}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorAuslassBreiteBUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -862,7 +853,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitAuslassA}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorAuslassFlaecheAUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -889,7 +880,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitAuslassA}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorAuslassLaengeLUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -931,7 +922,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hoehe"
-                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.Hoehe, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.HoeheH, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                     <i:Interaction.Triggers>
@@ -946,7 +937,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitUeberstroemerH}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorUeberstroemerHoeheHUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -957,7 +948,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Breite"
-                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.Breite, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.BreiteB, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                     <i:Interaction.Triggers>
@@ -972,7 +963,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitUeberstroemerB}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorUeberstroemerBreiteBUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -983,7 +974,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Flaeche"
-                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.Flaeche, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Ueberstroemer.FlaecheA, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                     <i:Interaction.Triggers>
@@ -998,7 +989,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding UnitUeberstroemerA}"
+                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorUeberstroemerFlaecheAUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>

@@ -52,6 +52,13 @@ namespace Data.Models
         public double? DeachsierungL { get; set; }
 
         /// <summary>
+        /// Gets or sets the deachsierung l unit.
+        /// </summary>
+        /// <value>The deachsierung l unit.</value>
+        [NotMapped]
+        public UnitsNet.Units.LengthUnit DeachsierungLUnit { get; set; }
+
+        /// <summary>
         /// Gets or sets the einlass.
         /// </summary>
         /// <value>The einlass.</value>

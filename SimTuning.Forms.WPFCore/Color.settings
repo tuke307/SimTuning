@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Theme" Type="MaterialDesignThemes.Wpf.BaseTheme" Scope="User">
-      <Value Profile="(Default)">Inherit</Value>
+      <Value Profile="(Default)">Light</Value>
     </Setting>
     <Setting Name="Primary" Type="MaterialDesignColors.PrimaryColor" Scope="User">
       <Value Profile="(Default)">Teal</Value>

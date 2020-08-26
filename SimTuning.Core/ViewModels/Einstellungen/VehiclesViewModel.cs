@@ -49,26 +49,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
             this.ReloadData();
 
-            this.UnitAnsaugleitungL = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitAuslassA = this.AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareMillimeter)).First();
-            this.UnitAuslassB = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitAuslassH = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitBohrungD = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitBrennraumV = this.VolumeQuantityUnits.Where(x => x.UnitEnumValue.Equals(VolumeUnit.CubicMillimeter)).First();
-            this.UnitDeachsierung = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitEinlassA = this.AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareMillimeter)).First();
-            this.UnitEinlassB = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitEinlassH = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitFrontA = this.AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareMillimeter)).First();
-            this.UnitGewicht = this.MassQuantityUnits.Where(x => x.UnitEnumValue.Equals(MassUnit.Kilogram)).First();
-            this.UnitHub = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitHubraumV = this.VolumeQuantityUnits.Where(x => x.UnitEnumValue.Equals(VolumeUnit.CubicMillimeter)).First();
-            this.UnitKurbelgehaeuseV = this.VolumeQuantityUnits.Where(x => x.UnitEnumValue.Equals(VolumeUnit.CubicMillimeter)).First();
-            this.UnitPleulL = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitUeberstroemerA = this.AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareMillimeter)).First();
-            this.UnitUeberstroemerB = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitUeberstroemerH = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-
             return base.Initialize();
         }
 
@@ -83,6 +63,56 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             base.Prepare();
         }
 
+        private void SetUnits()
+        {
+            this.Vehicle.FrontAUnit = AreaUnit.SquareMillimeter;
+            this.Vehicle.GewichtUnit = MassUnit.Kilogram;
+            this.Vehicle.Motor.Einlass.LaengeLUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Einlass.FlaecheAUnit = AreaUnit.SquareMillimeter;
+            this.Vehicle.Motor.Einlass.BreiteBUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Einlass.HoeheHUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Einlass.Vergaser.DurchmesserDUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.FlaecheAUnit = AreaUnit.SquareMillimeter;
+            this.Vehicle.Motor.Auslass.BreiteBUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.DurchmesserDUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.HoeheHUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.LaengeLUnit = LengthUnit.Millimeter;
+
+            // must be implemented
+            this.Vehicle.Motor.Auslass.Auspuff.AbgasTUnit = TemperatureUnit.DegreeCelsius;
+            this.Vehicle.Motor.Auslass.Auspuff.AbgasVUnit = SpeedUnit.KilometerPerHour;
+            this.Vehicle.Motor.Auslass.Auspuff.KruemmerDUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.KruemmerLUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.DiffusorD1Unit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.DiffusorD2Unit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.DiffusorD3Unit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.DiffusorDUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.DiffusorL1Unit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.DiffusorL2Unit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.DiffusorL3Unit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.DiffusorLUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.MittelteilDUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.MittelteilLUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.GegenkonusDUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.GegenkonusLUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.EndrohrDUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.EndrohrLUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.ResonanzLUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Auslass.Auspuff.GesamtLUnit = LengthUnit.Millimeter;
+
+            this.Vehicle.Motor.Ueberstroemer.FlaecheAUnit = AreaUnit.SquareMillimeter;
+            this.Vehicle.Motor.Ueberstroemer.BreiteBUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.Ueberstroemer.HoeheHUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.BohrungDUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.BrennraumVUnit = VolumeUnit.CubicMillimeter;
+            this.Vehicle.Motor.HubraumVUnit = VolumeUnit.CubicMillimeter;
+            this.Vehicle.Motor.KurbelgehaeuseVUnit = VolumeUnit.CubicMillimeter;
+            this.Vehicle.Motor.KolbenGUnit = SpeedUnit.KilometerPerHour;
+            this.Vehicle.Motor.DeachsierungLUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.HubLUnit = LengthUnit.Millimeter;
+            this.Vehicle.Motor.PleulLUnit = LengthUnit.Millimeter;
+        }
+
         #region Methods
 
         /// <summary>
@@ -90,26 +120,26 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// </summary>
         protected virtual void DeleteVehicle()
         {
-            if (Vehicle.Deletable)
+            if (this.Vehicle.Deletable)
             {
-                //in Datenbank löschen
-                if (Vehicle.Id != 0)
+                // in Datenbank löschen
+                if (this.Vehicle.Id != 0)
                 {
                     using (var db = new Data.DatabaseContext())
                     {
-                        //in Datenbank löschen
-                        db.Vehicles.Remove(Vehicle);
+                        // in Datenbank löschen
+                        db.Vehicles.Remove(this.Vehicle);
 
                         db.SaveChanges();
                     }
 
-                    Vehicles.Remove(Vehicles.Where(v => v.Id == Vehicle.Id).First());
+                    this.Vehicles.Remove(this.Vehicles.Where(v => v.Id == this.Vehicle.Id).First());
                 }
 
-                //in lokaler liste löschen
-                Vehicles.Remove(Vehicle);
+                // in lokaler liste löschen
+                this.Vehicles.Remove(this.Vehicle);
 
-                Vehicle = null;
+                this.Vehicle = null;
             }
         }
 
@@ -118,17 +148,17 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// </summary>
         protected virtual void NewVehicle()
         {
-            //Vordefinieren des neuen Fahrzeugs
-            Vehicles.Add(new Data.Models.VehiclesModel()
+            // Vordefinieren des neuen Fahrzeugs
+            this.Vehicles.Add(new Data.Models.VehiclesModel()
             {
                 Name = "Neues Fahrzeug",
                 Beschreibung = "Erstellt am " + DateTime.Now + " über Fahrzeug-Modul",
-                Deletable = true
+                Deletable = true,
             });
 
-            Vehicle = Vehicles.Last();
+            this.Vehicle = this.Vehicles.Last();
 
-            SaveButton = true;
+            this.SaveButton = true;
         }
 
         /// <summary>
@@ -143,7 +173,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
                 db.SaveChanges();
             }
 
-            SaveButton = false;
+            this.SaveButton = false;
         }
 
         /// <summary>
@@ -155,17 +185,21 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         {
             using (var db = new Data.DatabaseContext())
             {
-                //wenn bereits in Datenbank
+                // wenn bereits in Datenbank
                 if (value.Id != 0)
                 {
-                    //Vehicle+Motor+Dyno
+                    // Vehicle+Motor+Dyno
                     return db.Vehicles
                   .Where(v => v.Id == value.Id)
-                  .Include(v => v.Motor)
-                  .Include(v => v.Motor.Einlass)
-                  .Include(v => v.Motor.Auslass)
-                  .Include(v => v.Motor.Ueberstroemer)
                   .Include(v => v.Dyno)
+                  .Include(v => v.Tuning)
+                  .Include(v => v.Motor)
+                  .Include(v => v.Motor.Auslass)
+                    .ThenInclude(a => a.Auspuff)
+                  .Include(v => v.Motor.Einlass)
+                    .ThenInclude(e => e.Vergaser)
+                  .Include(v => v.Motor.Ueberstroemer)
+
                   .First();
                 }
                 else
@@ -214,34 +248,36 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         public Data.Models.MotorModel Engine
         {
-            get => _engine;
+            get => this._engine;
             set
             {
-                if (Vehicle != null)
+                if (this.Vehicle != null)
                 {
-                    //wenn Vehicle geladen wird; motor setzen für dropdown
-                    if (Vehicle.MotorId.HasValue)
-                        value = Engines.Where(m => m.Id == Vehicle.MotorId.Value).First();
+                    // wenn Vehicle geladen wird; motor setzen für dropdown
+                    if (this.Vehicle.MotorId.HasValue)
+                    {
+                        value = this.Engines.Where(m => m.Id == this.Vehicle.MotorId.Value).First();
+                    }
 
                     if (value != null)
                     {
-                        if (value.Id != Vehicle.MotorId)
+                        if (value.Id != this.Vehicle.MotorId)
                         {
-                            //wenn beim Vehicle ein neuer Motor ausgewählt wird
-                            Vehicle.Motor = value;
-                            RaisePropertyChanged("Vehicle"); // Motor-Werte für UI updaten
+                            // wenn beim Vehicle ein neuer Motor ausgewählt wird
+                            this.Vehicle.Motor = value;
+                            this.RaisePropertyChanged("Vehicle"); // Motor-Werte für UI updaten
                         }
                     }
                 }
 
-                SetProperty(ref _engine, value);
+                this.SetProperty(ref this._engine, value);
             }
         }
 
         public ObservableCollection<Data.Models.MotorModel> Engines
         {
-            get => _engines;
-            set { SetProperty(ref _engines, value); }
+            get => this._engines;
+            set { SetProperty(ref this._engines, value); }
         }
 
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
@@ -256,8 +292,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         public bool SaveButton
         {
-            get => _saveButton;
-            set { SetProperty(ref _saveButton, value); }
+            get => this._saveButton;
+            set { this.SetProperty(ref this._saveButton, value); }
         }
 
         /// <summary>
@@ -278,304 +314,150 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         public Data.Models.VehiclesModel Vehicle
         {
-            get => _vehicle;
+            get => this._vehicle;
             set
             {
                 if (value != null)
                 {
-                    //Laden des kompletten Datensatzes
-                    LoadVehicle(value);
+                    // Laden des kompletten Datensatzes
+                    this.LoadVehicle(value);
                 }
                 else
                 {
-                    //gerade gelöscht => letztes Vehicle neu laden
-                    if (Vehicles.Count != 0)
-                        Vehicle = Vehicles.Last();
+                    // gerade gelöscht => letztes Vehicle neu laden
+                    if (this.Vehicles.Count != 0)
+                    {
+                        this.Vehicle = this.Vehicles.Last();
+                    }
                 }
 
                 //Einfügen
-                SetProperty(ref _vehicle, value);
+                this.SetProperty(ref this._vehicle, value);
 
-                //nix mehr zu speichern
-                SaveButton = false;
+                // Units
+                this.SetUnits();
 
-                //Motor refreshen
-                Engine = null;
+                // nix mehr zu speichern
+                this.SaveButton = false;
+
+                // Motor refreshen
+                this.Engine = null;
             }
         }
 
         public ObservableCollection<Data.Models.VehiclesModel> Vehicles
         {
-            get => _vehicles;
-            set { SetProperty(ref _vehicles, value); }
+            get => this._vehicles;
+            set { SetProperty(ref this._vehicles, value); }
         }
 
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
 
         #region Units
 
-        public UnitListItem _unitEinlassA;
-        public UnitListItem _unitEinlassB;
-        private UnitListItem _unitAnsaugleitungL;
-
-        private UnitListItem _unitAuslassA;
-
-        private UnitListItem _unitAuslassB;
-
-        private UnitListItem _unitAuslassH;
-
-        private UnitListItem _unitBohrungD;
-
-        private UnitListItem _unitBrennraumV;
-
-        private UnitListItem _unitDeachsierung;
-
-        private UnitListItem _unitEinlassH;
-
-        private UnitListItem _unitFrontA;
-
-        private UnitListItem _unitGewicht;
-
-        private UnitListItem _unitHub;
-
-        private UnitListItem _unitHubraumV;
-
-        private UnitListItem _unitKurbelgehaeuseV;
-
-        private UnitListItem _unitPleulL;
-
-        private UnitListItem _unitUeberstroemerA;
-
-        private UnitListItem _unitUeberstroemerB;
-
-        private UnitListItem _unitUeberstroemerH;
-
-        public UnitListItem UnitAnsaugleitungL
+        public UnitListItem VehicleFrontAUnit
         {
-            get => _unitAnsaugleitungL;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Einlass.LaengeL = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.LaengeL, _unitAnsaugleitungL, value);
-
-                SetProperty(ref _unitAnsaugleitungL, value);
-            }
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.FrontAUnit));
         }
 
-        public UnitListItem UnitAuslassA
+        public UnitListItem VehicleGewichtUnit
         {
-            get => _unitAuslassA;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Auslass.FlaecheA = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.FlaecheA, _unitAuslassA, value);
-
-                SetProperty(ref _unitAuslassA, value);
-            }
+            get => this.MassQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.GewichtUnit));
         }
 
-        public UnitListItem UnitAuslassB
+        public UnitListItem VehicleMotorAuslassBreiteBUnit
         {
-            get => _unitAuslassB;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Auslass.BreiteB = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.BreiteB, _unitAuslassB, value);
-
-                SetProperty(ref _unitAuslassB, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.BreiteBUnit));
         }
 
-        public UnitListItem UnitAuslassH
+        public UnitListItem VehicleMotorAuslassFlaecheAUnit
         {
-            get => _unitAuslassH;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Auslass.HoeheH = Business.Functions.UpdateValue(Vehicle.Motor.Auslass.HoeheH, _unitAuslassH, value);
-
-                SetProperty(ref _unitAuslassH, value);
-            }
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.FlaecheAUnit));
         }
 
-        public UnitListItem UnitBohrungD
+        public UnitListItem VehicleMotorAuslassHoeheHUnit
         {
-            get => _unitBohrungD;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.BohrungD = Business.Functions.UpdateValue(Vehicle.Motor.BohrungD, _unitBohrungD, value);
-
-                SetProperty(ref _unitBohrungD, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.HoeheHUnit));
         }
 
-        public UnitListItem UnitBrennraumV
+        public UnitListItem VehicleMotorBohrungDUnit
         {
-            get => _unitBrennraumV;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.BrennraumV = Business.Functions.UpdateValue(Vehicle.Motor.BrennraumV, _unitBrennraumV, value);
-
-                SetProperty(ref _unitBrennraumV, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BohrungDUnit));
         }
 
-        public UnitListItem UnitDeachsierung
+        public UnitListItem VehicleMotorBrennraumVUnit
         {
-            get => _unitDeachsierung;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.DeachsierungL = Business.Functions.UpdateValue(Vehicle.Motor.DeachsierungL, _unitDeachsierung, value);
-
-                SetProperty(ref _unitDeachsierung, value);
-            }
+            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BrennraumVUnit));
         }
 
-        public UnitListItem UnitEinlassA
+        public UnitListItem VehicleMotorDeachsierungLUnit
         {
-            get => _unitEinlassA;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Einlass.FlaecheA = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.FlaecheA, _unitEinlassA, value);
-
-                SetProperty(ref _unitEinlassA, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.DeachsierungLUnit));
         }
 
-        public UnitListItem UnitEinlassB
+        public UnitListItem VehicleMotorEinlassBreiteBUnit
         {
-            get => _unitEinlassB;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Einlass.BreiteB = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.BreiteB, _unitEinlassB, value);
-
-                SetProperty(ref _unitEinlassB, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.BreiteBUnit));
         }
 
-        public UnitListItem UnitEinlassH
+        public UnitListItem VehicleMotorEinlassFlaecheAUnit
         {
-            get => _unitEinlassH;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Einlass.HoeheH = Business.Functions.UpdateValue(Vehicle.Motor.Einlass.HoeheH, _unitEinlassH, value);
-
-                SetProperty(ref _unitEinlassH, value);
-            }
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.FlaecheAUnit));
         }
 
-        public UnitListItem UnitFrontA
+        public UnitListItem VehicleMotorEinlassHoeheHUnit
         {
-            get => _unitFrontA;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.FrontA = Business.Functions.UpdateValue(Vehicle.FrontA, _unitFrontA, value);
-
-                SetProperty(ref _unitFrontA, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.HoeheHUnit));
         }
 
-        public UnitListItem UnitGewicht
+        public UnitListItem VehicleMotorEinlassLaengeLUnit
         {
-            get => _unitGewicht;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Gewicht = Business.Functions.UpdateValue(Vehicle.Gewicht, _unitGewicht, value);
-
-                SetProperty(ref _unitGewicht, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.LaengeLUnit));
         }
 
-        public UnitListItem UnitHub
+        public UnitListItem VehicleMotorEinlassVergaserDurchmesserDUnit
         {
-            get => _unitHub;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.HubL = Business.Functions.UpdateValue(Vehicle.Motor.HubL, _unitHub, value);
-
-                SetProperty(ref _unitHub, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.Vergaser?.DurchmesserDUnit));
         }
 
-        public UnitListItem UnitHubraumV
+        public UnitListItem VehicleMotorHubLUnit
         {
-            get => _unitHubraumV;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.HubraumV = Business.Functions.UpdateValue(Vehicle.Motor.HubraumV, _unitHubraumV, value);
-
-                SetProperty(ref _unitHubraumV, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubLUnit));
         }
 
-        public UnitListItem UnitKurbelgehaeuseV
+        public UnitListItem VehicleMotorHubraumVUnit
         {
-            get => _unitKurbelgehaeuseV;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.BrennraumV = Business.Functions.UpdateValue(Vehicle.Motor.KurbelgehaeuseV, _unitKurbelgehaeuseV, value);
-
-                SetProperty(ref _unitKurbelgehaeuseV, value);
-            }
+            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubraumVUnit));
         }
 
-        public UnitListItem UnitPleulL
+        public UnitListItem VehicleMotorKolbenGUnit
         {
-            get => _unitPleulL;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.PleulL = Business.Functions.UpdateValue(Vehicle.Motor.PleulL, _unitPleulL, value);
-
-                SetProperty(ref _unitPleulL, value);
-            }
+            get => this.SpeedQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KolbenGUnit));
         }
 
-        public UnitListItem UnitUeberstroemerA
+        public UnitListItem VehicleMotorKurbelgehaeuseVUnit
         {
-            get => _unitUeberstroemerA;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Ueberstroemer.FlaecheA = Business.Functions.UpdateValue(Vehicle.Motor.Ueberstroemer.FlaecheA, _unitUeberstroemerA, value);
-
-                SetProperty(ref _unitUeberstroemerA, value);
-            }
+            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KurbelgehaeuseVUnit));
         }
 
-        public UnitListItem UnitUeberstroemerB
+        public UnitListItem VehicleMotorPleulLUnit
         {
-            get => _unitUeberstroemerB;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Ueberstroemer.BreiteB = Business.Functions.UpdateValue(Vehicle.Motor.Ueberstroemer.BreiteB, _unitUeberstroemerB, value);
-
-                SetProperty(ref _unitUeberstroemerB, value);
-            }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.PleulLUnit));
         }
 
-        public UnitListItem UnitUeberstroemerH
+        public UnitListItem VehicleMotorUeberstroemerBreiteBUnit
         {
-            get => _unitUeberstroemerH;
-            set
-            {
-                if (Vehicle != null)
-                    Vehicle.Motor.Ueberstroemer.HoeheH = Business.Functions.UpdateValue(Vehicle.Motor.Ueberstroemer.HoeheH, _unitUeberstroemerH, value);
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.BreiteBUnit));
+        }
 
-                SetProperty(ref _unitUeberstroemerH, value);
-            }
+        public UnitListItem VehicleMotorUeberstroemerFlaecheAUnit
+        {
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.FlaecheAUnit));
+        }
+
+        public UnitListItem VehicleMotorUeberstroemerHoeheHUnit
+        {
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.HoeheHUnit));
         }
 
         #endregion Units
