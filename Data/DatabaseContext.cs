@@ -48,14 +48,14 @@ namespace Data
         #endregion DataSets
 
         /// <summary>
-        /// Datenbank-Kontext
+        /// Datenbank-Kontext.
         /// </summary>
         /// <see cref="DatabaseContext" />
         public DatabaseContext()
         {
             // aktuell halten
             this.Database.Migrate();
-            this.Database.EnsureCreated();
+            //this.Database.EnsureCreated();
         }
 
         /// <summary>
