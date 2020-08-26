@@ -1,33 +1,98 @@
-﻿// project=SimTuning.Core, file=DiagnosisViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using Data;
-using Data.Models;
-using Microsoft.EntityFrameworkCore;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using OxyPlot;
-using SimTuning.Core.ModuleLogic;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using System.Resources;
-using System.Threading.Tasks;
-
+﻿// project=SimTuning.Core, file=DiagnosisViewModel.cs, creation=2020:7:31 Copyright (c)
+// 2020 tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Dyno
 {
+    using Data;
+    using Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using OxyPlot;
+    using SimTuning.Core.ModuleLogic;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Resources;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// DiagnosisViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class DiagnosisViewModel : MvxNavigationViewModel
     {
-        protected DynoLogic dynoLogic;
         protected readonly ResourceManager rm;
+        protected DynoLogic dynoLogic;
 
-        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Gets or sets the insert environment command.
+        /// </summary>
+        /// <value>The insert environment command.</value>
+        public IMvxCommand InsertEnvironmentCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the insert vehicle command.
+        /// </summary>
+        /// <value>The insert vehicle command.</value>
+        public IMvxCommand InsertVehicleCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the refresh plot command.
+        /// </summary>
+        /// <value>The refresh plot command.</value>
+        public IMvxAsyncCommand RefreshPlotCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the show save command.
+        /// </summary>
+        /// <value>The show save command.</value>
+        public IMvxCommand ShowSaveCommand { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagnosisViewModel" /> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        /// <param name="messenger">The messenger.</param>
+        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+                                            : base(logProvider, navigationService)
         {
             this.dynoLogic = new DynoLogic();
 
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
+
+            this.InsertVehicleCommand = new MvxCommand(this.InsertVehicle);
+            this.InsertEnvironmentCommand = new MvxCommand(this.InsertEnvironment);
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            this.ReloadData();
+
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        /// <summary>
+        /// Reloads the data.
+        /// </summary>
+        /// <param name="mvxReloaderMessage">The MVX reloader message.</param>
+        protected void ReloadData(Models.MvxReloaderMessage mvxReloaderMessage = null)
+        {
             using (var db = new DatabaseContext())
             {
                 IList<VehiclesModel> vehicList = db.Vehicles.ToList();
@@ -43,38 +108,42 @@ namespace SimTuning.Core.ViewModels.Dyno
                 }
                 catch { }
             }
-
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
-
-            this.InsertVehicleCommand = new MvxCommand(this.InsertVehicle);
-            this.InsertEnvironmentCommand = new MvxCommand(this.InsertEnvironment);
-        }
-
-        public IMvxAsyncCommand RefreshPlotCommand { get; set; }
-        public IMvxCommand InsertVehicleCommand { get; set; }
-        public IMvxCommand InsertEnvironmentCommand { get; set; }
-        public IMvxCommand ShowSaveCommand { get; set; }
-
-        /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
-        /// </summary>
-        public override void Prepare()
-        {
-        }
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        /// <returns>Initilisierung.</returns>
-        public override Task Initialize()
-        {
-            return base.Initialize();
         }
 
         #region Commands
 
-        public void InsertVehicle()
+        protected virtual void RefreshPlot()
+        {
+            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPSModel> ps, out List<DynoNmModel> nm);
+            this.Dyno.DynoPS = ps;
+            this.Dyno.DynoNm = nm;
+
+            using (var db = new DatabaseContext())
+            {
+                // in Datenbank einfügen
+                db.Dyno.Attach(this.Dyno);
+                db.SaveChanges();
+            }
+
+            this.RaisePropertyChanged("PlotStrength");
+        }
+
+        private void InsertEnvironment()
+        {
+            if (this.HelperEnvironment.LuftdruckP.HasValue)
+            {
+                this.Dyno.Environment.LuftdruckP = HelperEnvironment.LuftdruckP;
+            }
+
+            if (this.HelperEnvironment.TemperaturT.HasValue)
+            {
+                this.Dyno.Environment.TemperaturT = HelperEnvironment.TemperaturT;
+            }
+
+            this.RaisePropertyChanged("Dyno");
+        }
+
+        private void InsertVehicle()
         {
             if (HelperVehicle.Gewicht.HasValue)
                 Dyno.Vehicle.Gewicht = HelperVehicle.Gewicht;
@@ -86,33 +155,6 @@ namespace SimTuning.Core.ViewModels.Dyno
                 Dyno.Vehicle.FrontA = HelperVehicle.FrontA;
 
             RaisePropertyChanged("Dyno");
-        }
-
-        public void InsertEnvironment()
-        {
-            if (HelperEnvironment.LuftdruckP.HasValue)
-                Dyno.Environment.LuftdruckP = HelperEnvironment.LuftdruckP;
-
-            if (HelperEnvironment.TemperaturT.HasValue)
-                Dyno.Environment.TemperaturT = HelperEnvironment.TemperaturT;
-
-            RaisePropertyChanged("Dyno");
-        }
-
-        protected virtual async Task RefreshPlot()
-        {
-            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPSModel> ps, out List<DynoNmModel> nm);
-            this.Dyno.DynoPS = ps;
-            this.Dyno.DynoNm = nm;
-
-            using (var db = new DatabaseContext())
-            {
-                //in Datenbank einfügen
-                db.Dyno.Attach(this.Dyno);
-                db.SaveChanges();
-            }
-
-            await RaisePropertyChanged("PlotStrength");
         }
 
         private void NewEnvironment()
@@ -131,44 +173,19 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region Values
 
-        public PlotModel PlotStrength
-        {
-            get { return dynoLogic.PlotStrength; }
-        }
+        private double? _cw_wert;
 
         private DynoModel _dyno;
 
-        public DynoModel Dyno
-        {
-            get => _dyno;
-            set { SetProperty(ref _dyno, value); }
-        }
+        private double? _frontflaeche;
 
         private double? _gesamtuebersetzung;
 
-        public double? Gesamtuebersetzung
-        {
-            get => _gesamtuebersetzung;
-            set { SetProperty(ref _gesamtuebersetzung, value); }
-        }
-
         private double? _gewicht;
 
-        public double? Gewicht
-        {
-            get => _gewicht;
-            set { SetProperty(ref _gewicht, value); }
-        }
+        private double? _luftdruck;
 
-        private double? _frontflaeche;
-
-        public double? frontflaeche
-        {
-            get => _frontflaeche;
-            set { SetProperty(ref _frontflaeche, value); }
-        }
-
-        private double? _cw_wert;
+        private double? _temperatur;
 
         public double? Cw_wert
         {
@@ -176,15 +193,29 @@ namespace SimTuning.Core.ViewModels.Dyno
             set { SetProperty(ref _cw_wert, value); }
         }
 
-        private double? _temperatur;
-
-        public double? temperatur
+        public DynoModel Dyno
         {
-            get => _temperatur;
-            set { SetProperty(ref _temperatur, value); }
+            get => _dyno;
+            set { SetProperty(ref _dyno, value); }
         }
 
-        private double? _luftdruck;
+        public double? frontflaeche
+        {
+            get => _frontflaeche;
+            set { SetProperty(ref _frontflaeche, value); }
+        }
+
+        public double? Gesamtuebersetzung
+        {
+            get => _gesamtuebersetzung;
+            set { SetProperty(ref _gesamtuebersetzung, value); }
+        }
+
+        public double? Gewicht
+        {
+            get => _gewicht;
+            set { SetProperty(ref _gewicht, value); }
+        }
 
         public double? luftdruck
         {
@@ -192,19 +223,26 @@ namespace SimTuning.Core.ViewModels.Dyno
             set { SetProperty(ref _luftdruck, value); }
         }
 
+        public PlotModel PlotStrength
+        {
+            get { return dynoLogic.PlotStrength; }
+        }
+
+        public double? temperatur
+        {
+            get => _temperatur;
+            set { SetProperty(ref _temperatur, value); }
+        }
+
         #endregion Values
 
         #region Hilfs-Daten
 
+        public Data.Models.VehiclesModel _helperVehicle;
+        private Data.Models.EnvironmentModel _helperEnvironment;
         private ObservableCollection<Data.Models.EnvironmentModel> _helperEnvironments;
 
-        public ObservableCollection<Data.Models.EnvironmentModel> HelperEnvironments
-        {
-            get => _helperEnvironments;
-            set { SetProperty(ref _helperEnvironments, value); }
-        }
-
-        private Data.Models.EnvironmentModel _helperEnvironment;
+        private ObservableCollection<Data.Models.VehiclesModel> _helperVehicles;
 
         public Data.Models.EnvironmentModel HelperEnvironment
         {
@@ -212,20 +250,22 @@ namespace SimTuning.Core.ViewModels.Dyno
             set { SetProperty(ref _helperEnvironment, value); }
         }
 
-        private ObservableCollection<Data.Models.VehiclesModel> _helperVehicles;
-
-        public ObservableCollection<Data.Models.VehiclesModel> HelperVehicles
+        public ObservableCollection<Data.Models.EnvironmentModel> HelperEnvironments
         {
-            get => _helperVehicles;
-            set { SetProperty(ref _helperVehicles, value); }
+            get => _helperEnvironments;
+            set { SetProperty(ref _helperEnvironments, value); }
         }
-
-        public Data.Models.VehiclesModel _helperVehicle;
 
         public Data.Models.VehiclesModel HelperVehicle
         {
             get => _helperVehicle;
             set { SetProperty(ref _helperVehicle, value); }
+        }
+
+        public ObservableCollection<Data.Models.VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
         }
 
         #endregion Hilfs-Daten

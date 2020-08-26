@@ -19,8 +19,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public DynoDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
             // Commands
             this.NewDynoCommand = new MvxCommand(this.NewDyno);

@@ -17,9 +17,7 @@
                    MinWidth="1024"
                    Background="{DynamicResource MaterialDesignPaper}">
     <Grid>
-        <dragablz:TabablzControl FixedHeaderCount="4"
-                                 Grid.Row="0"
-                                 region:MvxContainer.Id="DynoRegion"
+        <dragablz:TabablzControl region:MvxContainer.Id="DynoRegion"
                                  SelectedIndex="{Binding Mode=TwoWay, Path=DynoTabIndex}">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />

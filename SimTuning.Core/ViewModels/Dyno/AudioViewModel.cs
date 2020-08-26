@@ -27,7 +27,7 @@ namespace SimTuning.Core.ViewModels.Dyno
     /// Dyno-Audio-ViewModel.
     /// </summary>
     /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
-    public class AudioViewModel : MvxNavigationViewModel, ITabViewModel
+    public class AudioViewModel : MvxNavigationViewModel
     {
         public readonly IMediaManager MediaManager;
         protected AudioLogic audioLogic;
@@ -39,7 +39,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public AudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        public AudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
             : base(logProvider, navigationService)
         {
             this.audioLogic = new AudioLogic();
@@ -60,16 +60,9 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-            using (var db = new DatabaseContext())
-            {
-                try
-                {
-                    Dyno = db.Dyno.Where(d => d.Active == true)/*.Include(v => v.Audio)*/.First();
-                }
-                catch { }
-            }
+            this.ReloadData();
 
-            //messages
+            // messages
             this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             return base.Initialize();
@@ -85,7 +78,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Reloads the DB-data.
         /// </summary>
-        void ITabViewModel.ReloadData()
+        public void ReloadData(Models.MvxReloaderMessage mvxReloaderMessage = null)
         {
             using (var db = new DatabaseContext())
             {

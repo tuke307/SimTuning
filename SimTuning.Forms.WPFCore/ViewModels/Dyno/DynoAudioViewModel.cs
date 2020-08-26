@@ -8,6 +8,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
     using MvvmCross.Navigation;
     using Plugin.FilePicker;
     using Plugin.FilePicker.Abstractions;
+    using SimTuning.Core.Models;
     using SimTuning.Forms.WPFCore.Business;
     using SimTuning.Forms.WPFCore.Views.Dialog;
     using System.Globalization;
@@ -21,19 +22,19 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
     /// <seealso cref="SimTuning.Core.ViewModels.Dyno.AudioViewModel" />
     public class DynoAudioViewModel : SimTuning.Core.ViewModels.Dyno.AudioViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
+        private readonly MvvmCross.Plugin.Messenger.MvxSubscriptionToken _token;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynoAudioViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
-            this._navigationService = navigationService;
+            _token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
 
-            this.player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
+            //this.player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
 
             // override commands
             this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
@@ -59,37 +60,41 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 
         protected new async Task CutBeginn()
         {
-            if (MediaManager.MediaPlayer == null)
+            if (this.MediaManager.MediaPlayer == null)
+            {
                 return;
+            }
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
             {
-                await base.CutBeginn();
+                await base.CutBeginn().ConfigureAwait(true);
 
                 args.Session.Close();
             }).ConfigureAwait(true);
 
-            await ReloadImageAudioSpectrogram();
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
         protected new async Task CutEnd()
         {
-            if (MediaManager.MediaPlayer == null)
+            if (this.MediaManager.MediaPlayer == null)
+            {
                 return;
+            }
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
             {
-                await base.CutEnd();
+                await base.CutEnd().ConfigureAwait(true);
 
                 args.Session.Close();
             }).ConfigureAwait(true);
 
-            await ReloadImageAudioSpectrogram();
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
         protected override void OpenFile()
         {
-            //initialisieren
+            // initialisieren
             var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
             //MediaManager = CrossSimpleAudioMediaManager.Current;
             MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
@@ -109,9 +114,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "WAVE Audio (*.wav)|*.wav", "MP3 Audio (*.mp3)|*.mp3" }).ConfigureAwait(true);
 
             if (fileData == null)
-                return; // user canceled file picking
 
-            await base.OpenFileDialog(fileData);
+                await base.OpenFileDialog(fileData).ConfigureAwait(true);
 
             if (MediaManager.MediaPlayer != null)
             {

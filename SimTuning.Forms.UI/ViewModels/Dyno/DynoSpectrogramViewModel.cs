@@ -32,8 +32,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
             // override Commands
             this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);

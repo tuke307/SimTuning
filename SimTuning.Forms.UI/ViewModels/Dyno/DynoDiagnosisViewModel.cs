@@ -20,8 +20,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoDiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public DynoDiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
             // override Commands
             this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
@@ -41,7 +41,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await base.RefreshPlot().ConfigureAwait(true);
+            base.RefreshPlot();
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }

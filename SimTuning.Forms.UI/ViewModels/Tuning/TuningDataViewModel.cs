@@ -5,6 +5,7 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using MvvmCross.Plugin.Messenger;
     using SimTuning.Forms.UI.Business;
     using System;
 
@@ -19,8 +20,8 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public TuningDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public TuningDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
             //Commands
             this.NewTuningCommand = new MvxCommand(this.NewTuning);

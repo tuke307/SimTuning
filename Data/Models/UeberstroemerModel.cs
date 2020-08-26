@@ -1,5 +1,5 @@
-﻿// project=Data, file=UeberstroemerModel.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=Data, file=UeberstroemerModel.cs, creation=2020:6:28 Copyright (c) 2020 tuke
+// productions. All rights reserved.
 namespace Data.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
@@ -11,60 +11,67 @@ namespace Data.Models
     public class UeberstroemerModel : BaseEntityModel
     {
         /// <summary>
-        /// Gets or sets the hoehe.
+        /// Gets or sets the anzahl.
         /// </summary>
-        /// <value>
-        /// The hoehe.
-        /// </value>
-        public double? Hoehe { get; set; }
+        /// <value>The anzahl.</value>
+        public double? Anzahl { get; set; }
 
         /// <summary>
         /// Gets or sets the breite.
         /// </summary>
-        /// <value>
-        /// The breite.
-        /// </value>
-        public double? Breite { get; set; }
+        /// <value>The breite.</value>
+        public double? BreiteB { get; set; }
+
+        /// <summary>
+        /// Gets or sets the breite b unit.
+        /// </summary>
+        /// <value>The breite b unit.</value>
+        [NotMapped]
+        public UnitsNet.Units.LengthUnit BreiteBUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the flaeche.
         /// </summary>
-        /// <value>
-        /// The flaeche.
-        /// </value>
-        public double? Flaeche { get; set; }
+        /// <value>The flaeche.</value>
+        public double? FlaecheA { get; set; }
 
         /// <summary>
-        /// Gets or sets the steuerzeit sz.
+        /// Gets or sets the flaeche a unit.
         /// </summary>
-        /// <value>
-        /// The steuerzeit sz.
-        /// </value>
-        public double? SteuerzeitSZ { get; set; }
+        /// <value>The flaeche a unit.</value>
+        [NotMapped]
+        public UnitsNet.Units.AreaUnit FlaecheAUnit { get; set; }
 
         /// <summary>
-        /// Gets or sets the anzahl.
+        /// Gets or sets the hoehe.
         /// </summary>
-        /// <value>
-        /// The anzahl.
-        /// </value>
-        public double? Anzahl { get; set; }
+        /// <value>The hoehe.</value>
+        public double? HoeheH { get; set; }
 
         /// <summary>
-        /// Gets or sets the motor identifier.
+        /// Gets or sets the hoehe h unit.
         /// </summary>
-        /// <value>
-        /// The motor identifier.
-        /// </value>
-        public int MotorId { get; set; }
+        /// <value>The hoehe h unit.</value>
+        [NotMapped]
+        public UnitsNet.Units.LengthUnit HoeheHUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the motor.
         /// </summary>
-        /// <value>
-        /// The motor.
-        /// </value>
+        /// <value>The motor.</value>
         [ForeignKey("MotorId")]
         public virtual MotorModel Motor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the motor identifier.
+        /// </summary>
+        /// <value>The motor identifier.</value>
+        public int MotorId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the steuerzeit sz.
+        /// </summary>
+        /// <value>The steuerzeit sz.</value>
+        public double? SteuerzeitSZ { get; set; }
     }
 }

@@ -1,32 +1,63 @@
-﻿// project=SimTuning.Core, file=DataViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=DataViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
+using Data.Models;
+using Microsoft.EntityFrameworkCore;
+using MvvmCross.Commands;
+using MvvmCross.Logging;
+using MvvmCross.Navigation;
+using MvvmCross.Plugin.Messenger;
+using MvvmCross.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace SimTuning.Core.ViewModels.Dyno
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Data.Models;
-    using Microsoft.EntityFrameworkCore;
-    using MvvmCross.Commands;
-    using MvvmCross.Logging;
-    using MvvmCross.Navigation;
-    using MvvmCross.ViewModels;
-
     /// <summary>
     /// Dyno-Data-ViewModel.
     /// </summary>
     /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class DataViewModel : MvxNavigationViewModel
     {
+        protected readonly IMvxMessenger _messenger;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataViewModel"/> class.
+        /// Initializes a new instance of the <see cref="DataViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        /// <param name="messenger">The messenger.</param>
+        public DataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
             : base(logProvider, navigationService)
+        {
+            this._messenger = messenger;
+
+            this.ShowSaveButtonCommand = new MvxCommand(this.ShowSave);
+        }
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            this.ReloadData();
+
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+        }
+
+        public void ReloadData()
         {
             using (var data = new Data.DatabaseContext())
             {
@@ -38,51 +69,34 @@ namespace SimTuning.Core.ViewModels.Dyno
 
                 this.Dyno = this.Dynos.Where(d => d.Active == true).FirstOrDefault();
             }
-
-            this.ShowSaveButtonCommand = new MvxCommand(this.ShowSave);
-        }
-
-        #region Methods
-
-        /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
-        /// </summary>
-        public override void Prepare()
-        {
         }
 
         /// <summary>
-        /// Initializes this instance.
+        /// Loads the dyno.
         /// </summary>
-        /// <returns>Initilisierung.</returns>
-        public override Task Initialize()
+        /// <param name="dyno">The dyno.</param>
+        /// <returns>geladenes DynoModel.</returns>
+        protected static Data.Models.DynoModel LoadDyno(Data.Models.DynoModel dyno)
         {
-            return base.Initialize();
-        }
-
-        /// <summary>
-        /// Creates new dyno.
-        /// </summary>
-        protected virtual void NewDyno()
-        {
-            // Fahrzeug zurücksetzen
-            this.Vehicle = null;
-
-            DynoModel dyno = new DynoModel()
+            try
             {
-                Name = "Dyno-Durchgang",
-                Beschreibung = "Erstellt am " + DateTime.Now.ToString()
-            };
-
-            // in Collection hinzufügen
-            this.Dynos.Add(dyno);
-
-            // vorauswahl
-            this.Dyno = Dynos.Last();
-            this.CreateNewVehicle = true;
-
-            this.SaveButton = true;
+                using (var data = new Data.DatabaseContext())
+                {
+                    // Vehicle+Dyno laden
+                    return data.Dyno
+                      .Where(v => v.Id == dyno.Id)
+                      .Include(v => v.Vehicle)
+                      .Include(v => v.Audio)
+                      .Include(v => v.DynoNm)
+                      .Include(v => v.DynoPS)
+                      .First();
+                }
+            }
+            catch (Exception)
+            {
+                return dyno;
+                throw;
+            }
         }
 
         /// <summary>
@@ -112,10 +126,26 @@ namespace SimTuning.Core.ViewModels.Dyno
         }
 
         /// <summary>
-        /// Shows the save.
+        /// Creates new dyno.
         /// </summary>
-        protected virtual void ShowSave()
+        protected virtual void NewDyno()
         {
+            // Fahrzeug zurücksetzen
+            this.Vehicle = null;
+
+            DynoModel dyno = new DynoModel()
+            {
+                Name = "Dyno-Durchgang",
+                Beschreibung = "Erstellt am " + DateTime.Now.ToString()
+            };
+
+            // in Collection hinzufügen
+            this.Dynos.Add(dyno);
+
+            // vorauswahl
+            this.Dyno = Dynos.Last();
+            this.CreateNewVehicle = true;
+
             this.SaveButton = true;
         }
 
@@ -189,34 +219,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         }
 
         /// <summary>
-        /// Loads the dyno.
-        /// </summary>
-        /// <param name="dyno">The dyno.</param>
-        /// <returns>geladenes DynoModel.</returns>
-        protected static Data.Models.DynoModel LoadDyno(Data.Models.DynoModel dyno)
-        {
-            try
-            {
-                using (var data = new Data.DatabaseContext())
-                {
-                    // Vehicle+Dyno laden
-                    return data.Dyno
-                      .Where(v => v.Id == dyno.Id)
-                      .Include(v => v.Vehicle)
-                      .Include(v => v.Audio)
-                      .Include(v => v.DynoNm)
-                      .Include(v => v.DynoPS)
-                      .First();
-                }
-            }
-            catch (Exception)
-            {
-                return dyno;
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Sets the active dyno.
         /// </summary>
         /// <param name="dyno">The dyno.</param>
@@ -240,8 +242,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch
             {
-                // z.B. kein Dyno aktiv
-                // z.B. nicht in datenbank
+                // z.B. kein Dyno aktiv z.B. nicht in datenbank
             }
 
             return dyno;
@@ -279,9 +280,16 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch
             {
-                // z.B. kein Dyno aktiv
-                // z.B. nicht in datenbank
+                // z.B. kein Dyno aktiv z.B. nicht in datenbank
             }
+        }
+
+        /// <summary>
+        /// Shows the save.
+        /// </summary>
+        protected virtual void ShowSave()
+        {
+            this.SaveButton = true;
         }
 
         #endregion Methods
@@ -290,58 +298,32 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region Commands
 
-        public IMvxCommand SaveDynoCommand { get; set; }
-        public IMvxCommand ShowSaveButtonCommand { get; set; }
-        public IMvxCommand NewDynoCommand { get; set; }
         public IMvxCommand DeleteDynoCommand { get; set; }
+
+        public IMvxCommand NewDynoCommand { get; set; }
+
+        public IMvxCommand SaveDynoCommand { get; set; }
+
+        public IMvxCommand ShowSaveButtonCommand { get; set; }
 
         #endregion Commands
 
+        private bool _createNewVehicle;
+        private Data.Models.DynoModel _dyno;
+        private ObservableCollection<Data.Models.DynoModel> _dynos;
         private bool _saveButton;
 
-        public bool SaveButton
-        {
-            get => _saveButton;
-            set { SetProperty(ref _saveButton, value); }
-        }
+        private bool _takeExistingVehicle;
 
-        private bool _createNewVehicle;
+        private Data.Models.VehiclesModel _vehicle;
+
+        private ObservableCollection<Data.Models.VehiclesModel> _vehicles;
 
         public bool CreateNewVehicle
         {
             get => _createNewVehicle;
             set { SetProperty(ref _createNewVehicle, value); }
         }
-
-        private bool _takeExistingVehicle;
-
-        public bool TakeExistingVehicle
-        {
-            get => _takeExistingVehicle;
-            set { SetProperty(ref _takeExistingVehicle, value); }
-        }
-
-        private ObservableCollection<Data.Models.VehiclesModel> _vehicles;
-
-        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
-        {
-            get => _vehicles;
-            set { SetProperty(ref _vehicles, value); }
-        }
-
-        private Data.Models.VehiclesModel _vehicle;
-
-        public Data.Models.VehiclesModel Vehicle
-        {
-            get => _vehicle;
-            set
-            {
-                SetProperty(ref _vehicle, value);
-                SaveButton = true;
-            }
-        }
-
-        private Data.Models.DynoModel _dyno;
 
         public Data.Models.DynoModel Dyno
         {
@@ -388,12 +370,38 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
-        private ObservableCollection<Data.Models.DynoModel> _dynos;
-
         public ObservableCollection<Data.Models.DynoModel> Dynos
         {
             get => _dynos;
             set { SetProperty(ref _dynos, value); }
+        }
+
+        public bool SaveButton
+        {
+            get => _saveButton;
+            set { SetProperty(ref _saveButton, value); }
+        }
+
+        public bool TakeExistingVehicle
+        {
+            get => _takeExistingVehicle;
+            set { SetProperty(ref _takeExistingVehicle, value); }
+        }
+
+        public Data.Models.VehiclesModel Vehicle
+        {
+            get => _vehicle;
+            set
+            {
+                SetProperty(ref _vehicle, value);
+                SaveButton = true;
+            }
+        }
+
+        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
+        {
+            get => _vehicles;
+            set { SetProperty(ref _vehicles, value); }
         }
 
         #endregion Values

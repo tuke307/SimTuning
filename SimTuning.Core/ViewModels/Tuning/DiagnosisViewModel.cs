@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=DiagnosisViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=DiagnosisViewModel.cs, creation=2020:7:31 Copyright (c)
+// 2020 tuke productions. All rights reserved.
 using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -26,24 +26,16 @@ namespace SimTuning.Core.ViewModels.Tuning
         private TuningLogic tunigLogic;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DiagnosisViewModel"/> class.
+        /// Initializes a new instance of the <see cref="DiagnosisViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
             : base(logProvider, navigationService)
         {
         }
 
         #region Methods
-
-        /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
-        /// </summary>
-        public override void Prepare()
-        {
-        }
 
         /// <summary>
         /// Initializes this instance.
@@ -77,6 +69,13 @@ namespace SimTuning.Core.ViewModels.Tuning
         }
 
         /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+        }
+
+        /// <summary>
         /// The Tuning Model to load.
         /// </summary>
         /// <param name="tuning">The tuning.</param>
@@ -106,39 +105,22 @@ namespace SimTuning.Core.ViewModels.Tuning
 
         #region Values
 
+        private bool _enable_Tracker;
+        private bool _enable_verschieben;
+        private bool _enable_Zoom;
         private TuningModel _tuning;
 
-        public TuningModel Tuning
+        public bool Enable_Tracker
         {
-            get => _tuning;
-            set { SetProperty(ref _tuning, value); }
-        }
-
-        public PlotModel PlotTuning
-        {
-            get { return tunigLogic.PlotTuning; }
-        }
-
-        public PlotController PlotTuningController
-        {
-            get { return tunigLogic.PlotTuningController; }
-        }
-
-        private bool _enable_Zoom;
-
-        public bool Enable_Zoom
-        {
-            get => _enable_Zoom;
+            get => _enable_Tracker;
             set
             {
-                SetProperty(ref _enable_Zoom, value);
+                SetProperty(ref _enable_Tracker, value);
 
-                if (value == true) { tunigLogic.Controller_zoom_on(); }
-                else { tunigLogic.Controller_zoom_off(); }
+                if (value == true) { tunigLogic.Controller_tracker_on(); }
+                else { tunigLogic.Controller_tracker_off(); }
             }
         }
-
-        private bool _enable_verschieben;
 
         public bool Enable_verschieben
         {
@@ -152,18 +134,32 @@ namespace SimTuning.Core.ViewModels.Tuning
             }
         }
 
-        private bool _enable_Tracker;
-
-        public bool Enable_Tracker
+        public bool Enable_Zoom
         {
-            get => _enable_Tracker;
+            get => _enable_Zoom;
             set
             {
-                SetProperty(ref _enable_Tracker, value);
+                SetProperty(ref _enable_Zoom, value);
 
-                if (value == true) { tunigLogic.Controller_tracker_on(); }
-                else { tunigLogic.Controller_tracker_off(); }
+                if (value == true) { tunigLogic.Controller_zoom_on(); }
+                else { tunigLogic.Controller_zoom_off(); }
             }
+        }
+
+        public PlotModel PlotTuning
+        {
+            get { return tunigLogic.PlotTuning; }
+        }
+
+        public PlotController PlotTuningController
+        {
+            get { return tunigLogic.PlotTuningController; }
+        }
+
+        public TuningModel Tuning
+        {
+            get => _tuning;
+            set { SetProperty(ref _tuning, value); }
         }
 
         #endregion Values

@@ -1,10 +1,11 @@
-﻿// project=SimTuning.Core, file=DataViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=DataViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,33 +17,18 @@ namespace SimTuning.Core.ViewModels.Tuning
 {
     public class DataViewModel : MvxNavigationViewModel
     {
-        public DataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
-        {
-            using (var Data = new Data.DatabaseContext())
-            {
-                IList<Data.Models.VehiclesModel> vehicList = Data.Vehicles.ToList();
-                Vehicles = new ObservableCollection<Data.Models.VehiclesModel>(vehicList);
-
-                IList<Data.Models.TuningModel> TuningList = Data.Tuning.ToList();
-                Tunings = new ObservableCollection<Data.Models.TuningModel>(TuningList);
-
-                Tuning = Tunings.Where(d => d.Active == true).FirstOrDefault();
-            }
-
-            ShowSaveButtonCommand = new MvxCommand(ShowSave);
-        }
-
-        public IMvxCommand SaveTuningCommand { get; set; }
-        public IMvxCommand ShowSaveButtonCommand { get; set; }
-        public IMvxCommand NewTuningCommand { get; set; }
         public IMvxCommand DeleteTuningCommand { get; set; }
 
-        /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
-        /// </summary>
-        public override void Prepare()
+        public IMvxCommand NewTuningCommand { get; set; }
+
+        public IMvxCommand SaveTuningCommand { get; set; }
+
+        public IMvxCommand ShowSaveButtonCommand { get; set; }
+
+        public DataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logProvider, navigationService)
         {
+            this.ShowSaveButtonCommand = new MvxCommand(() => this.SaveButton = true);
         }
 
         /// <summary>
@@ -51,31 +37,35 @@ namespace SimTuning.Core.ViewModels.Tuning
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
+            ReloadData();
+
             return base.Initialize();
         }
 
-        #region Commands
-
-        protected virtual void NewTuning()
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
         {
-            //Fahrzeug zurücksetzen
-            Vehicle = null;
-
-            TuningModel tuning = new TuningModel()
-            {
-                Name = "Tuning-Durchgang",
-                Beschreibung = "Erstellt am " + DateTime.Now.ToString()
-            };
-
-            //in Collection hinzufügen
-            Tunings.Add(tuning);
-
-            //vorauswahl
-            tuning = Tunings.Last();
-            CreateNewVehicle = true;
-
-            SaveButton = true;
+            base.Prepare();
         }
+
+        public void ReloadData()
+        {
+            using (var data = new Data.DatabaseContext())
+            {
+                IList<Data.Models.VehiclesModel> vehicList = data.Vehicles.ToList();
+                this.Vehicles = new ObservableCollection<Data.Models.VehiclesModel>(vehicList);
+
+                IList<Data.Models.TuningModel> TuningList = data.Tuning.ToList();
+                this.Tunings = new
+                ObservableCollection<Data.Models.TuningModel>(TuningList);
+
+                this.Tuning = this.Tunings.Where(d => d.Active == true).FirstOrDefault();
+            }
+        }
+
+        #region Commands
 
         protected virtual bool DeleteTuning()
         {
@@ -109,8 +99,44 @@ namespace SimTuning.Core.ViewModels.Tuning
             }
         }
 
-        protected virtual void ShowSave()
+        protected Data.Models.TuningModel LoadTuning(Data.Models.TuningModel Tuning)
         {
+            try
+            {
+                using (var Data = new Data.DatabaseContext())
+                {
+                    //Vehicle+Tuning laden
+                    return Data.Tuning
+                      .Where(v => v.Id == Tuning.Id)
+                      .Include(v => v.Tuning)
+                      .First();
+                }
+            }
+            catch (Exception)
+            {
+                return Tuning;
+                throw;
+            }
+        }
+
+        protected virtual void NewTuning()
+        {
+            //Fahrzeug zurücksetzen
+            Vehicle = null;
+
+            TuningModel tuning = new TuningModel()
+            {
+                Name = "Tuning-Durchgang",
+                Beschreibung = "Erstellt am " + DateTime.Now.ToString()
+            };
+
+            //in Collection hinzufügen
+            Tunings.Add(tuning);
+
+            //vorauswahl
+            tuning = Tunings.Last();
+            CreateNewVehicle = true;
+
             SaveButton = true;
         }
 
@@ -178,26 +204,6 @@ namespace SimTuning.Core.ViewModels.Tuning
             }
         }
 
-        protected Data.Models.TuningModel LoadTuning(Data.Models.TuningModel Tuning)
-        {
-            try
-            {
-                using (var Data = new Data.DatabaseContext())
-                {
-                    //Vehicle+Tuning laden
-                    return Data.Tuning
-                      .Where(v => v.Id == Tuning.Id)
-                      .Include(v => v.Tuning)
-                      .First();
-                }
-            }
-            catch (Exception)
-            {
-                return Tuning;
-                throw;
-            }
-        }
-
         protected virtual TuningModel SetActiveTuning(TuningModel Tuning)
         {
             try
@@ -258,15 +264,18 @@ namespace SimTuning.Core.ViewModels.Tuning
 
         #region Values
 
+        private bool _createNewVehicle;
         private bool _saveButton;
 
-        public bool SaveButton
-        {
-            get => _saveButton;
-            set { SetProperty(ref _saveButton, value); }
-        }
+        private bool _takeExistingVehicle;
 
-        private bool _createNewVehicle;
+        private Data.Models.TuningModel _tuning;
+
+        private ObservableCollection<Data.Models.TuningModel> _tunings;
+
+        private Data.Models.VehiclesModel _vehicle;
+
+        private ObservableCollection<Data.Models.VehiclesModel> _vehicles;
 
         public bool CreateNewVehicle
         {
@@ -274,35 +283,17 @@ namespace SimTuning.Core.ViewModels.Tuning
             set { SetProperty(ref _createNewVehicle, value); }
         }
 
-        private bool _takeExistingVehicle;
+        public bool SaveButton
+        {
+            get => _saveButton;
+            set { SetProperty(ref _saveButton, value); }
+        }
 
         public bool TakeExistingVehicle
         {
             get => _takeExistingVehicle;
             set { SetProperty(ref _takeExistingVehicle, value); }
         }
-
-        private ObservableCollection<Data.Models.VehiclesModel> _vehicles;
-
-        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
-        {
-            get => _vehicles;
-            set { SetProperty(ref _vehicles, value); }
-        }
-
-        private Data.Models.VehiclesModel _vehicle;
-
-        public Data.Models.VehiclesModel Vehicle
-        {
-            get => _vehicle;
-            set
-            {
-                SetProperty(ref _vehicle, value);
-                SaveButton = true;
-            }
-        }
-
-        private Data.Models.TuningModel _tuning;
 
         public Data.Models.TuningModel Tuning
         {
@@ -349,12 +340,26 @@ namespace SimTuning.Core.ViewModels.Tuning
             }
         }
 
-        private ObservableCollection<Data.Models.TuningModel> _tunings;
-
         public ObservableCollection<Data.Models.TuningModel> Tunings
         {
             get => _tunings;
             set { SetProperty(ref _tunings, value); }
+        }
+
+        public Data.Models.VehiclesModel Vehicle
+        {
+            get => _vehicle;
+            set
+            {
+                SetProperty(ref _vehicle, value);
+                SaveButton = true;
+            }
+        }
+
+        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
+        {
+            get => _vehicles;
+            set { SetProperty(ref _vehicles, value); }
         }
 
         #endregion Values

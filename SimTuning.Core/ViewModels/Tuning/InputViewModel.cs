@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=InputViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=InputViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +18,14 @@ namespace SimTuning.Core.ViewModels.Tuning
     {
         protected ResourceManager rm;
 
-        public InputViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InputViewModel" /> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        /// <param name="messenger">The messenger.</param>
+        public InputViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+            : base(logProvider, navigationService)
         {
             using (var db = new DatabaseContext())
             {
@@ -31,13 +38,8 @@ namespace SimTuning.Core.ViewModels.Tuning
         }
 
         /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
+        /// Prepares this instance. called after construction.
         /// </summary>
-
-        public override void Prepare()
-        {
-        }
 
         /// <summary>
         /// Initializes this instance.
@@ -49,6 +51,10 @@ namespace SimTuning.Core.ViewModels.Tuning
             this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             return base.Initialize();
+        }
+
+        public override void Prepare()
+        {
         }
 
         #region Commands

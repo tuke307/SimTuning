@@ -8,8 +8,6 @@ using SimTuning.Forms.WPFCore.ViewModels.Tuning;
 namespace SimTuning.Forms.WPFCore.Views.Tuning
 {
     [MvxWpfPresenter("PageContent", mvxViewPosition.NewOrExsist)]
-    //[MvxRegionPresentation(RegionName = "PageContent", WindowIdentifier = nameof(MainView))]
-    //[MvxContentPresentation(WindowIdentifier = nameof(MainWindow), StackNavigation = false)]
     public partial class TuningMainView : MvxWpfView<TuningMainViewModel>
     {
         public TuningMainView()

@@ -23,30 +23,5 @@ namespace SimTuning.Forms.WPFCore.Views.Dyno
         {
             this.InitializeComponent();
         }
-
-        //protected override void OnGotFocus(RoutedEventArgs e)
-        //{
-        //    base.OnGotFocus(e);
-        //}
-
-        //protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
-        //{
-        //    base.OnIsKeyboardFocusWithinChanged(e);
-        //}
-
-        //protected override void OnLostFocus(RoutedEventArgs e)
-        //{
-        //    base.OnLostFocus(e);
-        //}
-
-        //protected override void OnPreviewGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
-        //{
-        //    base.OnPreviewGotKeyboardFocus(e);
-        //}
-
-        //protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
-        //{
-        //    base.OnPreviewLostKeyboardFocus(e);
-        //}
     }
 }

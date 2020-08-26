@@ -25,8 +25,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
             // Override commands
             this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);

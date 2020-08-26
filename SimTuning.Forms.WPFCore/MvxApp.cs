@@ -4,8 +4,10 @@ namespace SimTuning.Forms.WPFCore
 {
     using MediaManager;
     using MvvmCross;
+    using MvvmCross.IoC;
+    using MvvmCross.Plugin;
     using MvvmCross.ViewModels;
-    using OxyPlot.Wpf;
+    using SimTuning.Core.Models;
     using System.IO;
 
     /// <summary>
@@ -23,13 +25,27 @@ namespace SimTuning.Forms.WPFCore
             if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
                 Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
 
+            //Mvx.RegisterType<IMvxMessenger, MvxReloaderMessage>();
+            //Mvx.IoCProvider.RegisterSingleton<MvvmCross.Plugin.Messenger.IMvxMessenger>(new Core.Models.MvxReloaderMessage());
+            //Mvx.IoCProvider.Resolve<MvvmCross.Plugin.Messenger.IMvxMessenger>();
+
+            this.CreatableTypes()
+                .EndingWith("Service")
+                .AsInterfaces()
+                .RegisterAsLazySingleton();
+
+            //Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
+
             this.RegisterAppStart<SimTuning.Forms.WPFCore.ViewModels.MainViewModel>();
 
             base.Initialize();
+        }
 
-            //CrossMediaManager.Current.Init(this);
-            //CrossMediaManager.Current.Init();
-            //Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
+        public override void LoadPlugins(IMvxPluginManager pluginManager)
+        {
+            pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
+
+            base.LoadPlugins(pluginManager);
         }
     }
 }

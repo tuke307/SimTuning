@@ -2,24 +2,25 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.ViewModels.Tuning
 {
-    using System.Globalization;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.Forms.WPFCore.Business;
+    using System.Globalization;
 
     /// <summary>
-    ///  WPF-spezifisches Tuning-Diagnose-ViewModel.
+    /// WPF-spezifisches Tuning-Diagnose-ViewModel.
     /// </summary>
     /// <seealso cref="SimTuning.Core.ViewModels.Tuning.DiagnosisViewModel" />
     public class TuningDiagnosisViewModel : SimTuning.Core.ViewModels.Tuning.DiagnosisViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TuningDiagnosisViewModel"/> class.
+        /// Initializes a new instance of the <see cref="TuningDiagnosisViewModel" />
+        /// class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public TuningDiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public TuningDiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
         }
 

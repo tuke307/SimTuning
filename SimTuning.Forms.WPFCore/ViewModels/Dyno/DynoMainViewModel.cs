@@ -3,10 +3,12 @@
 namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
 {
     using MvvmCross;
+    using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using MvvmCross.Views;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -15,8 +17,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
     /// <seealso cref="SimTuning.Core.ViewModels.Dyno.MainViewModel" />
     public class DynoMainViewModel : SimTuning.Core.ViewModels.Dyno.MainViewModel
     {
-        private readonly IMvxViewModelLoader _mvxViewModelLoader;
-        private readonly IMvxViewsContainer _mvxViewsContainer;
         private readonly IMvxNavigationService _navigationService;
 
         /// <summary>
@@ -28,12 +28,16 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             : base(logProvider, navigationService)
         {
             this._navigationService = navigationService;
-
-            _mvxViewsContainer = Mvx.IoCProvider.Resolve<IMvxViewsContainer>();
-            _mvxViewModelLoader = Mvx.IoCProvider.Resolve<IMvxViewModelLoader>();
+            this.ShowInitialViewModelsCommand = new MvxAsyncCommand(this.ShowInitialViewModels);
         }
 
         #region Methods
+
+        /// <summary>
+        /// Gets the show initial view models command.
+        /// </summary>
+        /// <value>The show initial view models command.</value>
+        public IMvxAsyncCommand ShowInitialViewModelsCommand { get; private set; }
 
         /// <summary>
         /// Initializes this instance.
@@ -58,15 +62,20 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         /// </summary>
         public override void ViewAppearing()
         {
-            this._navigationService.Navigate<DynoDataViewModel>();
-            this._navigationService.Navigate<DynoAudioViewModel>();
-            this._navigationService.Navigate<DynoSpectrogramViewModel>();
-            this._navigationService.Navigate<DynoDiagnosisViewModel>();
+            base.ViewAppearing();
 
-            var presenter = Mvx.IoCProvider.Resolve<IMvxViewsContainer>(); // or inject with IoC
-            //var current = presenter.;
-
+            this.ShowInitialViewModelsCommand.Execute();
             this.DynoTabIndex = 0;
+        }
+
+        private Task ShowInitialViewModels()
+        {
+            var tasks = new List<Task>();
+            tasks.Add(this._navigationService.Navigate<DynoDataViewModel>());
+            tasks.Add(this._navigationService.Navigate<DynoAudioViewModel>());
+            tasks.Add(this._navigationService.Navigate<DynoSpectrogramViewModel>());
+            tasks.Add(this._navigationService.Navigate<DynoDiagnosisViewModel>());
+            return Task.WhenAll(tasks);
         }
 
         #endregion Methods
