@@ -11,6 +11,27 @@ namespace Data.Models
     public class UeberstroemerModel : BaseEntityModel
     {
         /// <summary>
+        /// Gets the breite b base unit.
+        /// </summary>
+        /// <value>The breite b base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit BreiteBBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the flaeche a base unit.
+        /// </summary>
+        /// <value>The flaeche a base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.AreaUnit FlaecheABaseUnit { get => UnitsNet.Units.AreaUnit.SquareMillimeter; }
+
+        /// <summary>
+        /// Gets the hoehe h base unit.
+        /// </summary>
+        /// <value>The hoehe h base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit HoeheHBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
         /// Gets or sets the anzahl.
         /// </summary>
         /// <value>The anzahl.</value>

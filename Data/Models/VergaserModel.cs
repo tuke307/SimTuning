@@ -11,6 +11,13 @@ namespace Data.Models
     public class VergaserModel : BaseEntityModel
     {
         /// <summary>
+        /// Gets the durchmesser d base unit.
+        /// </summary>
+        /// <value>The durchmesser d base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DurchmesserDBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
         /// Gets or sets the benzin luft f.
         /// </summary>
         /// <value>The benzin luft f.</value>

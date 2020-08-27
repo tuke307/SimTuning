@@ -11,6 +11,41 @@ namespace Data.Models
     public class EinlassModel : BaseEntityModel
     {
         /// <summary>
+        /// Gets the breite b base unit.
+        /// </summary>
+        /// <value>The breite b base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit BreiteBBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the durchmesser d base unit.
+        /// </summary>
+        /// <value>The durchmesser d base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DurchmesserDBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the flaeche a base unit.
+        /// </summary>
+        /// <value>The flaeche a base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.AreaUnit FlaecheABaseUnit { get => UnitsNet.Units.AreaUnit.SquareMillimeter; }
+
+        /// <summary>
+        /// Gets the hoehe h base unit.
+        /// </summary>
+        /// <value>The hoehe h base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit HoeheHBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the laenge base unit.
+        /// </summary>
+        /// <value>The laenge base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit LaengeBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
         /// Gets or sets the breite b.
         /// </summary>
         /// <value>The breite b.</value>

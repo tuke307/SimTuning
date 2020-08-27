@@ -12,6 +12,20 @@ namespace Data.Models
     public class VehiclesModel : BaseEntityModel
     {
         /// <summary>
+        /// Gets the front a base unit.
+        /// </summary>
+        /// <value>The front a base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.AreaUnit FrontABaseUnit { get => UnitsNet.Units.AreaUnit.SquareMeter; }
+
+        /// <summary>
+        /// Gets the gewicht base unit.
+        /// </summary>
+        /// <value>The gewicht base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.MassUnit GewichtBaseUnit { get => UnitsNet.Units.MassUnit.Kilogram; }
+
+        /// <summary>
         /// Gets or sets the beschreibung.
         /// </summary>
         /// <value>The beschreibung.</value>

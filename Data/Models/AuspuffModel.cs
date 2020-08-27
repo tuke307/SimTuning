@@ -11,6 +11,146 @@ namespace Data.Models
     public class AuspuffModel : BaseEntityModel
     {
         /// <summary>
+        /// Gets the abgas t base unit.
+        /// </summary>
+        /// <value>The abgas t base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.TemperatureUnit AbgasTBaseUnit { get => UnitsNet.Units.TemperatureUnit.DegreeCelsius; }
+
+        /// <summary>
+        /// Gets the abgas v base unit.
+        /// </summary>
+        /// <value>The abgas v base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.SpeedUnit AbgasVBaseUnit { get => UnitsNet.Units.SpeedUnit.MeterPerSecond; }
+
+        /// <summary>
+        /// Gets the diffusor d1 base unit.
+        /// </summary>
+        /// <value>The diffusor d1 base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DiffusorD1BaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the diffusor d2 base unit.
+        /// </summary>
+        /// <value>The diffusor d2 base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DiffusorD2BaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the diffusor d3 base unit.
+        /// </summary>
+        /// <value>The diffusor d3 base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DiffusorD3BaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the diffusor d base unit.
+        /// </summary>
+        /// <value>The diffusor d base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DiffusorDBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the diffusor l1 base unit.
+        /// </summary>
+        /// <value>The diffusor l1 base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DiffusorL1BaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the diffusor l2 base unit.
+        /// </summary>
+        /// <value>The diffusor l2 base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DiffusorL2BaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the diffusor l3 base unit.
+        /// </summary>
+        /// <value>The diffusor l3 base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DiffusorL3BaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the diffusor l base unit.
+        /// </summary>
+        /// <value>The diffusor l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DiffusorLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the endrohr d base unit.
+        /// </summary>
+        /// <value>The endrohr d base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit EndrohrDBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the endrohr l base unit.
+        /// </summary>
+        /// <value>The endrohr l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit EndrohrLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the gegenkonus d base unit.
+        /// </summary>
+        /// <value>The gegenkonus d base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit GegenkonusDBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the gegenkonus l base unit.
+        /// </summary>
+        /// <value>The gegenkonus l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit GegenkonusLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the gesamt l base unit.
+        /// </summary>
+        /// <value>The gesamt l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit GesamtLBaseUnit { get => UnitsNet.Units.LengthUnit.Centimeter; }
+
+        /// <summary>
+        /// Gets the kruemmer d base unit.
+        /// </summary>
+        /// <value>The kruemmer d base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit KruemmerDBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the kruemmer l base unit.
+        /// </summary>
+        /// <value>The kruemmer l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit KruemmerLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the mittelteil base unit.
+        /// </summary>
+        /// <value>The mittelteil base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit MittelteilBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the mittelteil l base unit.
+        /// </summary>
+        /// <value>The mittelteil l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit MittelteilLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the resonanz l base unit.
+        /// </summary>
+        /// <value>The resonanz l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit ResonanzLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
         /// Gets or sets the abgas t.
         /// </summary>
         /// <value>The abgas t.</value>

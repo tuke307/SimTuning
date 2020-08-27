@@ -13,6 +13,13 @@ namespace Data.Models
     public class EnvironmentModel : BaseEntityModel
     {
         /// <summary>
+        /// Gets the temperatur t base unit.
+        /// </summary>
+        /// <value>The temperatur t base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.TemperatureUnit TemperaturTBaseUnit { get => UnitsNet.Units.TemperatureUnit.DegreeCelsius; }
+
+        /// <summary>
         /// Gets or sets the dyno.
         /// </summary>
         /// <value>The dyno.</value>

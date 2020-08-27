@@ -355,109 +355,426 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         #region Units
 
+        public double? VehicleFrontA
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
+        }
+
         public UnitListItem VehicleFrontAUnit
         {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.FrontAUnit));
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.FrontAUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleFrontA);
+            }
+        }
+
+        public double? VehicleGewicht
+        {
+            get => this.Vehicle?.Gewicht;
+            set
+            {
+                this.Vehicle.Gewicht = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleGewichtUnit
         {
-            get => this.MassQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.GewichtUnit));
+            get => this.MassQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.GewichtUnit)) ?? this.MassQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.GewichtBaseUnit));
+            set
+            {
+                this.Vehicle.GewichtUnit = (UnitsNet.Units.MassUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleGewicht);
+            }
+        }
+
+        public double? VehicleMotorAuslassBreiteB
+        {
+            get => this.Vehicle?.Motor?.Auslass?.BreiteB;
+            set
+            {
+                this.Vehicle.Motor.Auslass.BreiteB = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorAuslassBreiteBUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.BreiteBUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.BreiteBUnit)) ?? this.LengthQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.AuslassModel.BreiteBBaseUnit));
+            set
+            {
+                this.Vehicle.Motor.Auslass.BreiteBUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorAuslassBreiteB);
+            }
+        }
+
+        public double? VehicleMotorAuslassFlaecheA
+        {
+            get => this.Vehicle?.Motor?.Auslass?.FlaecheA;
+            set
+            {
+                this.Vehicle.Motor.Auslass.FlaecheA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorAuslassFlaecheAUnit
         {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.FlaecheAUnit));
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.FlaecheAUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.AuslassModel.FlaecheABaseUnit));
+            set
+            {
+                this.Vehicle.Motor.Auslass.FlaecheAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorAuslassFlaecheA);
+            }
+        }
+
+        public double? VehicleMotorAuslassHoeheH
+        {
+            get => this.Vehicle?.Motor?.Auslass?.HoeheH;
+            set
+            {
+                this.Vehicle.Motor.Auslass.HoeheH = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorAuslassHoeheHUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.HoeheHUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.HoeheHUnit)) ?? this.LengthQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.AuslassModel.HoeheHBaseUnit));
+            set
+            {
+                this.Vehicle.Motor.Auslass.HoeheHUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorAuslassHoeheH);
+            }
+        }
+
+        public double? VehicleMotorBohrungD
+        {
+            get => this.Vehicle?.Motor?.BohrungD;
+            set
+            {
+                this.Vehicle.Motor.BohrungD = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorBohrungDUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BohrungDUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BohrungDUnit)) ?? this.LengthQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.MotorModel.BohrungDBaseUnit));
+            set
+            {
+                this.Vehicle.Motor.BohrungDUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorBohrungD);
+            }
+        }
+
+        public double? VehicleMotorBrennraumV
+        {
+            get => this.Vehicle?.Motor?.BrennraumV;
+            set
+            {
+                this.Vehicle.Motor.BrennraumV = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorBrennraumVUnit
         {
-            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BrennraumVUnit));
+            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BrennraumVUnit)) ?? this.VolumeQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.MotorModel.BrennraumVBaseUnit));
+            set
+            {
+                this.Vehicle.Motor.BrennraumVUnit = (UnitsNet.Units.VolumeUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorBrennraumV);
+            }
+        }
+
+        public double? VehicleMotorDeachsierungL
+        {
+            get => this.Vehicle?.Motor?.DeachsierungL;
+            set
+            {
+                this.Vehicle.Motor.DeachsierungL = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorDeachsierungLUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.DeachsierungLUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.DeachsierungLUnit)) ?? this.LengthQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.MotorModel.DeachsierungLBaseUnit));
+            set
+            {
+                this.Vehicle.Motor.DeachsierungLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorDeachsierungL);
+            }
+        }
+
+        public double? VehicleMotorEinlassBreiteB
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorEinlassBreiteBUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.BreiteBUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.BreiteBUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorEinlassBreiteB);
+            }
+        }
+
+        public double? VehicleMotorEinlassFlaecheA
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorEinlassFlaecheAUnit
         {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.FlaecheAUnit));
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.FlaecheAUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorEinlassFlaecheA);
+            }
+        }
+
+        public double? VehicleMotorEinlassHoeheH
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorEinlassHoeheHUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.HoeheHUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.HoeheHUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorEinlassHoeheH);
+            }
+        }
+
+        public double? VehicleMotorEinlassLaengeL
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorEinlassLaengeLUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.LaengeLUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.LaengeLUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorEinlassLaengeL);
+            }
+        }
+
+        public double? VehicleMotorEinlassVergaserDurchmesserD
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorEinlassVergaserDurchmesserDUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.Vergaser?.DurchmesserDUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.Vergaser?.DurchmesserDUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorEinlassVergaserDurchmesserD);
+            }
+        }
+
+        public double? VehicleMotorHubL
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorHubLUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubLUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubLUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorHubL);
+            }
+        }
+
+        public double? VehicleMotorHubraumV
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorHubraumVUnit
         {
-            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubraumVUnit));
+            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubraumVUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorHubraumV);
+            }
+        }
+
+        public double? VehicleMotorKolbenG
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorKolbenGUnit
         {
-            get => this.SpeedQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KolbenGUnit));
+            get => this.SpeedQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KolbenGUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorKolbenG);
+            }
+        }
+
+        public double? VehicleMotorKurbelgehaeuseV
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorKurbelgehaeuseVUnit
         {
-            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KurbelgehaeuseVUnit));
+            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KurbelgehaeuseVUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorKurbelgehaeuseV);
+            }
+        }
+
+        public double? VehicleMotorPleulL
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorPleulLUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.PleulLUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.PleulLUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorPleulL);
+            }
+        }
+
+        public double? VehicleMotorUeberstroemerBreiteB
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorUeberstroemerBreiteBUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.BreiteBUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.BreiteBUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorUeberstroemerBreiteB);
+            }
+        }
+
+        public double? VehicleMotorUeberstroemerFlaecheA
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorUeberstroemerFlaecheAUnit
         {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.FlaecheAUnit));
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.FlaecheAUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorUeberstroemerFlaecheA);
+            }
+        }
+
+        public double? VehicleMotorUeberstroemerHoeheH
+        {
+            get => this.Vehicle?.FrontA;
+            set
+            {
+                this.Vehicle.FrontA = value;
+                this.SaveButton = true;
+            }
         }
 
         public UnitListItem VehicleMotorUeberstroemerHoeheHUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.HoeheHUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.HoeheHUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            set
+            {
+                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => VehicleMotorUeberstroemerHoeheH);
+            }
         }
 
         #endregion Units

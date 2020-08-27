@@ -13,6 +13,62 @@ namespace Data.Models
     public class MotorModel : BaseEntityModel
     {
         /// <summary>
+        /// Gets the bohrung d base unit.
+        /// </summary>
+        /// <value>The bohrung d base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit BohrungDBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the brennraum v base unit.
+        /// </summary>
+        /// <value>The brennraum v base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.VolumeUnit BrennraumVBaseUnit { get => UnitsNet.Units.VolumeUnit.CubicMillimeter; }
+
+        /// <summary>
+        /// Gets the deachsierung l base unit.
+        /// </summary>
+        /// <value>The deachsierung l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DeachsierungLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the hub l base unit.
+        /// </summary>
+        /// <value>The hub l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit HubLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the hubraum v base unit.
+        /// </summary>
+        /// <value>The hubraum v base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.VolumeUnit HubraumVBaseUnit { get => UnitsNet.Units.VolumeUnit.CubicMillimeter; }
+
+        /// <summary>
+        /// Gets the kolben g base unit.
+        /// </summary>
+        /// <value>The kolben g base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.SpeedUnit KolbenGBaseUnit { get => UnitsNet.Units.SpeedUnit.MeterPerSecond; }
+
+        /// <summary>
+        /// Gets the kurbelgehaeuse v base unit.
+        /// </summary>
+        /// <value>The kurbelgehaeuse v base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.VolumeUnit KurbelgehaeuseVBaseUnit { get => UnitsNet.Units.VolumeUnit.CubicMillimeter; }
+
+        /// <summary>
+        /// Gets the pleul l base unit.
+        /// </summary>
+        /// <value>The pleul l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit PleulLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
         /// Gets or sets the auslass.
         /// </summary>
         /// <value>The auslass.</value>

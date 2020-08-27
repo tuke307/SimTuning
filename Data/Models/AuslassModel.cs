@@ -2,6 +2,8 @@
 // productions. All rights reserved.
 namespace Data.Models
 {
+    using Microsoft.EntityFrameworkCore.Storage;
+    using System;
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
@@ -10,6 +12,41 @@ namespace Data.Models
     /// <seealso cref="Data.Models.BaseEntityModel" />
     public class AuslassModel : BaseEntityModel
     {
+        /// <summary>
+        /// Gets the breite b base unit.
+        /// </summary>
+        /// <value>The breite b base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit BreiteBBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the durchmesser d base unit.
+        /// </summary>
+        /// <value>The durchmesser d base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit DurchmesserDBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the flaeche a base unit.
+        /// </summary>
+        /// <value>The flaeche a base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit FlaecheABaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the hoehe h base unit.
+        /// </summary>
+        /// <value>The hoehe h base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit HoeheHBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
+        /// Gets the laenge l base unit.
+        /// </summary>
+        /// <value>The laenge l base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit LaengeLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
         /// <summary>
         /// Gets or sets the auspuff.
         /// </summary>
@@ -27,7 +64,20 @@ namespace Data.Models
         /// </summary>
         /// <value>The breite b unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit BreiteBUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? BreiteBUnit
+        {
+            get => this._BreiteBUnit ?? BreiteBBaseUnit;
+            set
+            {
+                this.BreiteB = Math.Round(
+                    UnitsNet.UnitConverter.Convert(
+                    this.BreiteB.Value,
+                    this._BreiteBUnit,
+                    value), 2);
+
+                this._BreiteBUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the durchmesser d.
@@ -99,5 +149,12 @@ namespace Data.Models
         /// </summary>
         /// <value>The steuerzeit sz.</value>
         public double? SteuerzeitSZ { get; set; }
+
+        /// <summary>
+        /// Gets or sets the breite b unit.
+        /// </summary>
+        /// <value>The breite b unit.</value>
+        [NotMapped]
+        private UnitsNet.Units.LengthUnit? _BreiteBUnit { get; set; }
     }
 }
