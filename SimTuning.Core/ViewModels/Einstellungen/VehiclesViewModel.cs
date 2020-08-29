@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
 using UnitsNet.Units;
@@ -38,6 +39,16 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             this.SpeedQuantityUnits = new SpeedQuantity();
 
             this.ShowSaveButtonCommand = new MvxCommand(() => this.SaveButton = true);
+
+            //string list = string.Empty;
+            //var test = this.GetType().GetProperties();
+
+            //foreach (var item in test)
+            //{
+            //    list += "RaisePropertyChanged(() => " + item.Name + ");";
+            //}
+
+            //Console.WriteLine("");
         }
 
         /// <summary>
@@ -163,6 +174,77 @@ namespace SimTuning.Core.ViewModels.Einstellungen
                     return value;
                 }
             }
+        }
+
+        private void ChangeProperties()
+        {
+            //this.RaisePropertyChanged(() => Engine);
+            //this.RaisePropertyChanged(() => Engines);
+
+            this.RaisePropertyChanged(() => VehicleBeschreibung);
+            this.RaisePropertyChanged(() => VehicleCw);
+            this.RaisePropertyChanged(() => VehicleDynoAudio);
+            this.RaisePropertyChanged(() => VehicleDynoBeschreibung);
+            this.RaisePropertyChanged(() => VehicleDynoDynoNm);
+            this.RaisePropertyChanged(() => VehicleDynoDynoPS);
+            this.RaisePropertyChanged(() => VehicleDynoName);
+            this.RaisePropertyChanged(() => VehicleFrontA);
+            this.RaisePropertyChanged(() => VehicleFrontAUnit);
+            this.RaisePropertyChanged(() => VehicleGewicht);
+            this.RaisePropertyChanged(() => VehicleGewichtUnit);
+            this.RaisePropertyChanged(() => VehicleMotorAuslassBreiteB);
+            this.RaisePropertyChanged(() => VehicleMotorAuslassBreiteBUnit);
+            this.RaisePropertyChanged(() => VehicleMotorAuslassFlaecheA);
+            this.RaisePropertyChanged(() => VehicleMotorAuslassFlaecheAUnit);
+            this.RaisePropertyChanged(() => VehicleMotorAuslassHoeheH);
+            this.RaisePropertyChanged(() => VehicleMotorAuslassHoeheHUnit);
+            this.RaisePropertyChanged(() => VehicleMotorAuslassSteuerzeitSZ);
+            this.RaisePropertyChanged(() => VehicleMotorBohrungD);
+            this.RaisePropertyChanged(() => VehicleMotorBohrungDUnit);
+            this.RaisePropertyChanged(() => VehicleMotorBrennraumV);
+            this.RaisePropertyChanged(() => VehicleMotorBrennraumVUnit);
+            this.RaisePropertyChanged(() => VehicleMotorDeachsierungL);
+            this.RaisePropertyChanged(() => VehicleMotorDeachsierungLUnit);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassBreiteB);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassBreiteBUnit);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassFlaecheA);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassFlaecheAUnit);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassHoeheH);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassHoeheHUnit);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassLaengeL);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassLaengeLUnit);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassLuftBedarf);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassSteuerzeitSZ);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassVergaserBenzinLuftF);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassVergaserDurchmesserD);
+            this.RaisePropertyChanged(() => VehicleMotorEinlassVergaserDurchmesserDUnit);
+            this.RaisePropertyChanged(() => VehicleMotorHeizwertU);
+            this.RaisePropertyChanged(() => VehicleMotorHubL);
+            this.RaisePropertyChanged(() => VehicleMotorHubLUnit);
+            this.RaisePropertyChanged(() => VehicleMotorHubraumV);
+            this.RaisePropertyChanged(() => VehicleMotorHubraumVUnit);
+            this.RaisePropertyChanged(() => VehicleMotorKolbenG);
+            this.RaisePropertyChanged(() => VehicleMotorKolbenGUnit);
+            this.RaisePropertyChanged(() => VehicleMotorKurbelgehaeuseV);
+            this.RaisePropertyChanged(() => VehicleMotorKurbelgehaeuseVUnit);
+            this.RaisePropertyChanged(() => VehicleMotorName);
+            this.RaisePropertyChanged(() => VehicleMotorPleulL);
+            this.RaisePropertyChanged(() => VehicleMotorPleulLUnit);
+            this.RaisePropertyChanged(() => VehicleMotorResonanzU);
+            this.RaisePropertyChanged(() => VehicleMotorUeberstroemerAnzahl);
+            this.RaisePropertyChanged(() => VehicleMotorUeberstroemerBreiteB);
+            this.RaisePropertyChanged(() => VehicleMotorUeberstroemerBreiteBUnit);
+            this.RaisePropertyChanged(() => VehicleMotorUeberstroemerFlaecheA);
+            this.RaisePropertyChanged(() => VehicleMotorUeberstroemerFlaecheAUnit);
+            this.RaisePropertyChanged(() => VehicleMotorUeberstroemerHoeheH);
+            this.RaisePropertyChanged(() => VehicleMotorUeberstroemerHoeheHUnit);
+            this.RaisePropertyChanged(() => VehicleMotorUeberstroemerSteuerzeitSZ);
+            this.RaisePropertyChanged(() => VehicleMotorVerdichtungV);
+            this.RaisePropertyChanged(() => VehicleMotorZuendzeitpunkt);
+            this.RaisePropertyChanged(() => VehicleMotorZylinderAnz);
+            this.RaisePropertyChanged(() => VehicleName);
+
+            this.RaisePropertyChanged(() => VehicleUebersetzung);
         }
 
         /// <summary>
@@ -327,6 +409,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
                 // Motor refreshen
                 this.Engine = null;
+
+                ChangeProperties();
             }
         }
 
@@ -339,6 +423,11 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Beschreibung;
             set
             {
+                if (this.Vehicle == null)
+                {
+                    return;
+                }
+
                 this.Vehicle.Beschreibung = value;
                 this.SaveButton = true;
             }
@@ -353,6 +442,11 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Cw;
             set
             {
+                if (this.Vehicle == null)
+                {
+                    return;
+                }
+
                 this.Vehicle.Cw = value;
                 this.SaveButton = true;
             }
@@ -376,6 +470,11 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Dyno?.Beschreibung;
             set
             {
+                if (this.Vehicle?.Dyno == null)
+                {
+                    return;
+                }
+
                 this.Vehicle.Dyno.Beschreibung = value;
                 this.SaveButton = true;
             }
@@ -408,6 +507,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Dyno?.Name;
             set
             {
+                if (this.Vehicle?.Dyno == null)
+                {
+                    return;
+                }
                 this.Vehicle.Dyno.Name = value;
                 this.SaveButton = true;
             }
@@ -422,6 +525,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.FrontA;
             set
             {
+                if (this.Vehicle == null)
+                {
+                    return;
+                }
                 this.Vehicle.FrontA = value;
                 this.SaveButton = true;
             }
@@ -436,6 +543,11 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.FrontAUnit));
             set
             {
+                if (this.Vehicle == null)
+                {
+                    return;
+                }
+
                 this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleFrontA);
             }
@@ -450,6 +562,11 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Gewicht;
             set
             {
+                if (this.Vehicle == null)
+                {
+                    return;
+                }
+
                 this.Vehicle.Gewicht = value;
                 this.SaveButton = true;
             }
@@ -464,8 +581,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.MassQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.GewichtUnit));
             set
             {
+                if (this.Vehicle == null)
+                {
+                    return;
+                }
+
                 this.Vehicle.GewichtUnit = (UnitsNet.Units.MassUnit)value?.UnitEnumValue;
-                this.RaisePropertyChanged(() => VehicleGewicht);
+                this.RaisePropertyChanged(() => this.VehicleGewicht);
             }
         }
 
@@ -478,6 +600,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Auslass?.BreiteB;
             set
             {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Auslass.BreiteB = value;
                 this.SaveButton = true;
             }
@@ -492,6 +618,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.BreiteBUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Auslass.BreiteBUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorAuslassBreiteB);
             }
@@ -506,6 +636,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Auslass?.FlaecheA;
             set
             {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Auslass.FlaecheA = value;
                 this.SaveButton = true;
             }
@@ -520,6 +654,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.FlaecheAUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Auslass.FlaecheAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorAuslassFlaecheA);
             }
@@ -534,6 +672,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Auslass?.HoeheH;
             set
             {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Auslass.HoeheH = value;
                 this.SaveButton = true;
             }
@@ -548,6 +690,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.HoeheHUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Auslass.HoeheHUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorAuslassHoeheH);
             }
@@ -562,6 +708,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Auslass?.SteuerzeitSZ;
             set
             {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Auslass.SteuerzeitSZ = value;
                 this.SaveButton = true;
             }
@@ -576,6 +726,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.BohrungD;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.BohrungD = value;
                 this.SaveButton = true;
             }
@@ -590,6 +744,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BohrungDUnit));
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.BohrungDUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorBohrungD);
             }
@@ -604,6 +762,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.BrennraumV;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.BrennraumV = value;
                 this.SaveButton = true;
             }
@@ -618,6 +780,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BrennraumVUnit));
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.BrennraumVUnit = (UnitsNet.Units.VolumeUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorBrennraumV);
             }
@@ -632,6 +798,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.DeachsierungL;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.DeachsierungL = value;
                 this.SaveButton = true;
             }
@@ -646,6 +816,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.DeachsierungLUnit));
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.DeachsierungLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorDeachsierungL);
             }
@@ -660,6 +834,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Einlass?.BreiteB;
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.BreiteB = value;
                 this.SaveButton = true;
             }
@@ -674,6 +852,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.BreiteBUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.BreiteBUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorEinlassBreiteB);
             }
@@ -688,6 +870,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Einlass?.FlaecheA;
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.FlaecheA = value;
                 this.SaveButton = true;
             }
@@ -702,6 +888,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.FlaecheAUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.FlaecheAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorEinlassFlaecheA);
             }
@@ -716,6 +906,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Einlass?.HoeheH;
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.HoeheH = value;
                 this.SaveButton = true;
             }
@@ -730,6 +924,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.HoeheHUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.HoeheHUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorEinlassHoeheH);
             }
@@ -744,6 +942,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Einlass?.LaengeL;
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.LaengeL = value;
                 this.SaveButton = true;
             }
@@ -758,6 +960,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.LaengeLUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.LaengeLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorEinlassLaengeL);
             }
@@ -772,6 +978,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Einlass?.LuftBedarf;
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.LuftBedarf = value;
                 this.SaveButton = true;
             }
@@ -786,6 +996,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Einlass?.SteuerzeitSZ;
             set
             {
+                if (this.Vehicle?.Motor?.Einlass == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.SteuerzeitSZ = value;
                 this.SaveButton = true;
             }
@@ -800,6 +1014,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Einlass?.Vergaser?.BenzinLuftF;
             set
             {
+                if (this.Vehicle?.Motor?.Einlass?.Vergaser == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.Vergaser.BenzinLuftF = value;
                 this.SaveButton = true;
             }
@@ -814,6 +1032,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Einlass?.Vergaser?.DurchmesserD;
             set
             {
+                if (this.Vehicle?.Motor?.Einlass?.Vergaser == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Einlass.Vergaser.DurchmesserD = value;
                 this.SaveButton = true;
             }
@@ -828,8 +1050,17 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.Vergaser?.DurchmesserDUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Einlass?.Vergaser == null)
+                {
+                    return;
+                }
+                if (this.Vehicle?.Motor?.Einlass?.Vergaser == null)
+                {
+                    return;
+                }
+
                 this.Vehicle.Motor.Einlass.Vergaser.DurchmesserDUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
-                this.RaisePropertyChanged(() => VehicleMotorEinlassVergaserDurchmesserD);
+                this.RaisePropertyChanged(() => this.VehicleMotorEinlassVergaserDurchmesserD);
             }
         }
 
@@ -842,6 +1073,11 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.HeizwertU;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
+
                 this.Vehicle.Motor.HeizwertU = value;
                 this.SaveButton = true;
             }
@@ -856,6 +1092,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.HubL;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.HubL = value;
                 this.SaveButton = true;
             }
@@ -870,8 +1110,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubLUnit));
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
+
                 this.Vehicle.Motor.HubLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
-                this.RaisePropertyChanged(() => VehicleMotorHubL);
+                this.RaisePropertyChanged(() => this.VehicleMotorHubL);
             }
         }
 
@@ -884,6 +1129,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.HubraumV;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.HubraumV = value;
                 this.SaveButton = true;
             }
@@ -898,6 +1147,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubraumVUnit));
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.HubraumVUnit = (UnitsNet.Units.VolumeUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorHubraumV);
             }
@@ -912,6 +1165,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.KolbenG;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.KolbenG = value;
                 this.SaveButton = true;
             }
@@ -926,6 +1183,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.SpeedQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KolbenGUnit));
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.KolbenGUnit = (UnitsNet.Units.SpeedUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorKolbenG);
             }
@@ -940,6 +1201,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.KurbelgehaeuseV;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.KurbelgehaeuseV = value;
                 this.SaveButton = true;
             }
@@ -955,6 +1220,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.KurbelgehaeuseVUnit = (UnitsNet.Units.VolumeUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorKurbelgehaeuseV);
             }
@@ -969,6 +1238,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Name;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Name = value;
                 this.SaveButton = true;
             }
@@ -983,6 +1256,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.PleulL;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.PleulL = value;
                 this.SaveButton = true;
             }
@@ -997,6 +1274,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.PleulLUnit));
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.PleulLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorPleulL);
             }
@@ -1011,6 +1292,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.ResonanzU;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.ResonanzU = value;
                 this.SaveButton = true;
             }
@@ -1025,6 +1310,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Ueberstroemer?.Anzahl;
             set
             {
+                if (this.Vehicle?.Motor?.Ueberstroemer == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Ueberstroemer.Anzahl = value;
                 this.SaveButton = true;
             }
@@ -1039,6 +1328,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Ueberstroemer?.BreiteB;
             set
             {
+                if (this.Vehicle?.Motor?.Ueberstroemer == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Ueberstroemer.BreiteB = value;
                 this.SaveButton = true;
             }
@@ -1054,6 +1347,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
             set
             {
+                if (this.Vehicle?.Motor?.Ueberstroemer == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Ueberstroemer.BreiteBUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorUeberstroemerBreiteB);
             }
@@ -1068,6 +1365,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Ueberstroemer?.FlaecheA;
             set
             {
+                if (this.Vehicle?.Motor?.Ueberstroemer == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Ueberstroemer.FlaecheA = value;
                 this.SaveButton = true;
             }
@@ -1082,6 +1383,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.FlaecheAUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Ueberstroemer == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Ueberstroemer.FlaecheAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorUeberstroemerFlaecheA);
             }
@@ -1096,6 +1401,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Ueberstroemer?.HoeheH;
             set
             {
+                if (this.Vehicle?.Motor?.Ueberstroemer == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Ueberstroemer.HoeheH = value;
                 this.SaveButton = true;
             }
@@ -1110,6 +1419,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.HoeheHUnit));
             set
             {
+                if (this.Vehicle?.Motor?.Ueberstroemer == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Ueberstroemer.HoeheHUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorUeberstroemerHoeheH);
             }
@@ -1124,6 +1437,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Ueberstroemer?.SteuerzeitSZ;
             set
             {
+                if (this.Vehicle?.Motor?.Ueberstroemer == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Ueberstroemer.SteuerzeitSZ = value;
                 this.SaveButton = true;
             }
@@ -1138,6 +1455,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.VerdichtungV;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.VerdichtungV = value;
                 this.SaveButton = true;
             }
@@ -1152,6 +1473,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.Zuendzeitpunkt;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.Zuendzeitpunkt = value;
                 this.SaveButton = true;
             }
@@ -1166,6 +1491,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Motor?.ZylinderAnz;
             set
             {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
                 this.Vehicle.Motor.ZylinderAnz = value;
                 this.SaveButton = true;
             }
@@ -1180,6 +1509,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Name;
             set
             {
+                if (this.Vehicle == null)
+                {
+                    return;
+                }
                 this.Vehicle.Name = value;
                 this.SaveButton = true;
             }
@@ -1192,7 +1525,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         public ObservableCollection<Data.Models.VehiclesModel> Vehicles
         {
             get => this._vehicles;
-            set { SetProperty(ref this._vehicles, value); }
+            set => this.SetProperty(ref this._vehicles, value);
         }
 
         /// <summary>
@@ -1204,6 +1537,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             get => this.Vehicle?.Uebersetzung;
             set
             {
+                if (this.Vehicle == null)
+                {
+                    return;
+                }
                 this.Vehicle.Uebersetzung = value;
                 this.SaveButton = true;
             }

@@ -13,8 +13,8 @@ namespace Data.Models
     /// <seealso cref="Data.Models.BaseEntityModel" />
     public class AuslassModel : BaseEntityModel
     {
-        [NotMapped]
-        private LengthUnit? _DurchmesserDUnit;
+        //[NotMapped]
+        //private LengthUnit? _DurchmesserDUnit;
 
         /// <summary>
         /// Gets the breite b base unit.
@@ -68,29 +68,25 @@ namespace Data.Models
         /// </summary>
         /// <value>The breite b unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? BreiteBUnit
-        {
-            get => this._BreiteBUnit ?? BreiteBBaseUnit;
-            set
-            {
-                UnitsNet.UnitConverter.TryConvert(
-                this.BreiteB.Value,
-                this._BreiteBUnit,
-                value,
-                out double convertedValue);
+        public UnitsNet.Units.LengthUnit? BreiteBUnit { get; set; }
 
-                if (UnitSettings.Default.RoundOnUnitChange)
-                {
-                    this.BreiteB = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
-                }
-                else
-                {
-                    this.BreiteB = convertedValue;
-                }
+        //{
+        //    get => this._BreiteBUnit ?? BreiteBBaseUnit;
+        //    set
+        //    {
+        //        UnitsNet.UnitConverter.TryConvert(
+        //        this.BreiteB.Value,
+        //        this._BreiteBUnit,
+        //        value,
+        //        out double convertedValue);
 
-                this._BreiteBUnit = value;
-            }
-        }
+        // if (UnitSettings.Default.RoundOnUnitChange) { this.BreiteB =
+        // Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy); } else {
+        // this.BreiteB = convertedValue; }
+
+        //        this._BreiteBUnit = value;
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the durchmesser d.
@@ -103,29 +99,25 @@ namespace Data.Models
         /// </summary>
         /// <value>The durchmesser d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? DurchmesserDUnit
-        {
-            get => this._DurchmesserDUnit ?? DurchmesserDBaseUnit;
-            set
-            {
-                UnitsNet.UnitConverter.TryConvert(
-                this.DurchmesserD.Value,
-                this._BreiteBUnit,
-                value,
-                out double convertedValue);
+        public UnitsNet.Units.LengthUnit? DurchmesserDUnit { get; set; }
 
-                if (UnitSettings.Default.RoundOnUnitChange)
-                {
-                    this.DurchmesserD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
-                }
-                else
-                {
-                    this.DurchmesserD = convertedValue;
-                }
+        //{
+        //get => this._DurchmesserDUnit ?? DurchmesserDBaseUnit;
+        //set
+        //{
+        //    UnitsNet.UnitConverter.TryConvert(
+        //    this.DurchmesserD.Value,
+        //    this._BreiteBUnit,
+        //    value,
+        //    out double convertedValue);
 
-                this._DurchmesserDUnit = value;
-            }
-        }
+        // if (UnitSettings.Default.RoundOnUnitChange) { this.DurchmesserD =
+        // Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy); } else {
+        // this.DurchmesserD = convertedValue; }
+
+        //    this._DurchmesserDUnit = value;
+        //}
+        //}
 
         /// <summary>
         /// Gets or sets the flaeche a.
@@ -189,7 +181,7 @@ namespace Data.Models
         /// Gets or sets the breite b unit.
         /// </summary>
         /// <value>The breite b unit.</value>
-        [NotMapped]
-        private UnitsNet.Units.LengthUnit? _BreiteBUnit { get; set; }
+        //[NotMapped]
+        //private UnitsNet.Units.LengthUnit? _BreiteBUnit { get; set; }
     }
 }

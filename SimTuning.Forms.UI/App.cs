@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.UI, file=App.cs, creation=2020:6:30
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.UI, file=App.cs, creation=2020:6:30 Copyright (c) 2020 tuke
+// productions. All rights reserved.
 namespace SimTuning.Forms.UI
 {
     using MediaManager;
@@ -17,7 +17,7 @@ namespace SimTuning.Forms.UI
         /// </summary>
         public override void Initialize()
         {
-            Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
+            //Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
 
             // CrossMediaManager.Current.Library.Providers.Add(new MediaItemProvider());
 

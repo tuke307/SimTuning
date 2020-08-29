@@ -144,7 +144,7 @@
                                                 Margin="5">
                                         <TextBox materialDesign:HintAssist.IsFloating="true"
                                                  materialDesign:HintAssist.Hint="Gesamtuebersetzung"
-                                                 Text="{Binding Mode=TwoWay, Path=VehicleUebersetzung, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                 Text="{Binding Mode=TwoWay, Path=VehicleUebersetzung, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                  MinWidth="200">
                                         </TextBox>
@@ -156,7 +156,7 @@
                                                 Margin="5">
                                         <TextBox materialDesign:HintAssist.IsFloating="true"
                                                  materialDesign:HintAssist.Hint="Gewicht"
-                                                 Text="{Binding Mode=TwoWay, Path=VehicleGewicht, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                 Text="{Binding Mode=TwoWay, Path=VehicleGewicht, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                  MinWidth="200">
                                         </TextBox>
@@ -177,7 +177,7 @@
                                                 Margin="5">
                                         <TextBox materialDesign:HintAssist.IsFloating="true"
                                                  materialDesign:HintAssist.Hint="Frontflaeche"
-                                                 Text="{Binding Mode=TwoWay, Path=VehicleFrontA, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                 Text="{Binding Mode=TwoWay, Path=VehicleFrontA, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                  MinWidth="200">
                                         </TextBox>
@@ -200,7 +200,7 @@
 
                                         <TextBox materialDesign:HintAssist.IsFloating="true"
                                                  materialDesign:HintAssist.Hint="cw-Wert"
-                                                 Text="{Binding Path=VehicleCw, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                 Text="{Binding Path=VehicleCw, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                  MinWidth="200">
                                         </TextBox>
@@ -236,7 +236,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hub"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHubL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHubL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -257,7 +257,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Pleullaenge"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorPleulL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorPleulL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -278,7 +278,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Kolben-Geschwindikeit"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorKolbenG, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorKolbenG, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -299,7 +299,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Deachsierung"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -320,7 +320,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Bohrung"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorBohrungD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorBohrungD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -342,7 +342,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Resonanzdrehzahl"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -354,7 +354,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hubraum Volumen"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHubraumV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHubraumV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -375,7 +375,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Brennraum Volumen"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorBrennraumV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorBrennraumV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -396,7 +396,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Kurbelgehaeuse Volumen"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -418,7 +418,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Verdichtungsverhältnis"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorVerdichtungV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorVerdichtungV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -431,7 +431,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Zylinder-Anzahl"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorZylinderAnz, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorZylinderAnz, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -444,7 +444,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Zündzeitpunkt"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorZuendzeitpunkt, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorZuendzeitpunkt, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -457,7 +457,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Heizwert"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHeizwertU, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHeizwertU, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -476,7 +476,7 @@
 
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hoehe"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheH, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheH, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -497,7 +497,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Breite"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteB, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteB, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -518,7 +518,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Durchmesser"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -539,7 +539,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Flaeche"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheA, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheA, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -561,7 +561,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Steuerzeit"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassSteuerzeitSZ, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassSteuerzeitSZ, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -573,7 +573,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Länge"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -584,7 +584,7 @@
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
                                                           SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeLUnit}"
-                                                          ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
+                                                          ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
 
@@ -595,12 +595,13 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="LuftBedarf"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLuftBedarf, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLuftBedarf, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
                                             </StackPanel>
 
+                                            <!--Vergaser-->
                                             <TreeView>
                                                 <TreeViewItem Header="Vergaser">
                                                     <StackPanel>
@@ -611,7 +612,7 @@
 
                                                             <TextBox materialDesign:HintAssist.IsFloating="true"
                                                                      materialDesign:HintAssist.Hint="Durchmesser"
-                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                                      MinWidth="200">
                                                             </TextBox>
@@ -634,7 +635,7 @@
 
                                                             <TextBox materialDesign:HintAssist.IsFloating="true"
                                                                      materialDesign:HintAssist.Hint="BenzinLuftF"
-                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserBenzinLuftF, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserBenzinLuftF, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                                      MinWidth="200">
                                                             </TextBox>
@@ -656,7 +657,7 @@
 
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hoehe"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheH, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheH, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -677,7 +678,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Breite"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteB, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteB, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -698,7 +699,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Flaeche"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheA, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheA, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -720,7 +721,7 @@
 
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Länge"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -731,7 +732,7 @@
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
                                                           SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeLUnit}"
-                                                          ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
+                                                          ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
 
@@ -743,12 +744,13 @@
 
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Steuerzeit"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassSteuerzeitSZ, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassSteuerzeitSZ, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
                                             </StackPanel>
 
+                                            <!--Auspuff-->
                                             <TreeView>
                                                 <TreeViewItem Header="Auspuff">
                                                     <StackPanel>
@@ -768,7 +770,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hoehe"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheH, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheH, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -789,7 +791,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Breite"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteB, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteB, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -810,7 +812,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Flaeche"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheA, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheA, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -832,7 +834,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Anzahl"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerAnzahl, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerAnzahl, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -845,7 +847,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Steuerzeit"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerSteuerzeitSZ, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerSteuerzeitSZ, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
