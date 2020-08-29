@@ -96,16 +96,11 @@
                     <TextBox Grid.Row="0"
                              Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                              materialDesign:HintAssist.Hint="Name"
-                             Text="{Binding Mode=TwoWay, Path=VehicleName, UpdateSourceTrigger=LostFocus}"
+                             Text="{Binding Mode=TwoWay, Path=VehicleName, UpdateSourceTrigger=PropertyChanged}"
                              TextWrapping="Wrap"
                              MinWidth="250"
                              MinHeight="30"
                              Margin="5">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
                     </TextBox>
 
                     <TextBox Grid.Row="1"
@@ -113,16 +108,11 @@
                              materialDesign:HintAssist.Hint="Beschreibung"
                              VerticalScrollBarVisibility="Auto"
                              AcceptsReturn="True"
-                             Text="{Binding Mode=TwoWay, Path=VehicleBeschreibung, UpdateSourceTrigger=LostFocus}"
+                             Text="{Binding Mode=TwoWay, Path=VehicleBeschreibung, UpdateSourceTrigger=PropertyChanged}"
                              TextWrapping="Wrap"
                              MinWidth="250"
                              MinHeight="150"
                              Margin="5">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
                     </TextBox>
 
                     <Button Grid.Row="2"
@@ -147,20 +137,16 @@
                         <TreeView>
                             <TreeViewItem Header="Allgemein">
                                 <StackPanel>
+                                    <!--VehicleUebersetzung ohne Unit-->
                                     <StackPanel Orientation="Horizontal"
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Left"
                                                 Margin="5">
                                         <TextBox materialDesign:HintAssist.IsFloating="true"
                                                  materialDesign:HintAssist.Hint="Gesamtuebersetzung"
-                                                 Text="{Binding Mode=TwoWay, Path=VehicleUebersetzung, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                 Text="{Binding Mode=TwoWay, Path=VehicleUebersetzung, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                  MinWidth="200">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="TextChanged">
-                                                    <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
                                         </TextBox>
                                     </StackPanel>
 
@@ -170,23 +156,17 @@
                                                 Margin="5">
                                         <TextBox materialDesign:HintAssist.IsFloating="true"
                                                  materialDesign:HintAssist.Hint="Gewicht"
-                                                 Text="{Binding Mode=TwoWay, Path=VehicleGewicht, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                 Text="{Binding Mode=TwoWay, Path=VehicleGewicht, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                  MinWidth="200">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="TextChanged">
-                                                    <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
                                         </TextBox>
 
                                         <ComboBox VerticalAlignment="Bottom"
                                                   Margin="5 0 0 0"
                                                   IsSynchronizedWithCurrentItem="True"
                                                   IsEditable="False"
-                                                  IsEnabled="False"
                                                   DisplayMemberPath="Abbreviation"
-                                                  SelectedItem="{Binding Mode=OneWay, Path=UnitGewichtG}"
+                                                  SelectedItem="{Binding Mode=TwoWay, Path=VehicleGewichtUnit}"
                                                   ItemsSource="{Binding Path=MassQuantityUnits, Mode=OneTime}">
                                         </ComboBox>
                                     </StackPanel>
@@ -197,27 +177,22 @@
                                                 Margin="5">
                                         <TextBox materialDesign:HintAssist.IsFloating="true"
                                                  materialDesign:HintAssist.Hint="Frontflaeche"
-                                                 Text="{Binding Mode=TwoWay, Path=VehicleFrontA, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                 Text="{Binding Mode=TwoWay, Path=VehicleFrontA, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                  MinWidth="200">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="TextChanged">
-                                                    <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
                                         </TextBox>
 
                                         <ComboBox VerticalAlignment="Bottom"
                                                   Margin="5 0 0 0"
                                                   IsSynchronizedWithCurrentItem="True"
                                                   IsEditable="False"
-                                                  IsEnabled="False"
                                                   DisplayMemberPath="Abbreviation"
-                                                  SelectedItem="{Binding Mode=OneWay, Path=UnitFrontA}"
+                                                  SelectedItem="{Binding Mode=TwoWay, Path=VehicleFrontAUnit}"
                                                   ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                         </ComboBox>
                                     </StackPanel>
 
+                                    <!--VehicleCw ohne Unit-->
                                     <StackPanel Orientation="Horizontal"
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Left"
@@ -225,14 +200,9 @@
 
                                         <TextBox materialDesign:HintAssist.IsFloating="true"
                                                  materialDesign:HintAssist.Hint="cw-Wert"
-                                                 Text="{Binding Path=VehicleCw, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                 Text="{Binding Path=VehicleCw, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                  MinWidth="200">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="TextChanged">
-                                                    <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
                                         </TextBox>
                                     </StackPanel>
                                 </StackPanel>
@@ -249,6 +219,13 @@
                                           DisplayMemberPath="Name"
                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 
+                                <TextBox materialDesign:HintAssist.IsFloating="true"
+                                         materialDesign:HintAssist.Hint="Name"
+                                         Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorName, UpdateSourceTrigger=PropertyChanged}"
+                                         behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                                         MinWidth="250">
+                                </TextBox>
                                 <TreeView>
                                     <TreeViewItem Header="Daten">
                                         <StackPanel>
@@ -259,23 +236,17 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hub"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHubL, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHubL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
                                                           Margin="5 0 0 0"
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
-                                                          IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorHubLUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorHubLUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -286,7 +257,7 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Pleullaenge"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorPleulL, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorPleulL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
                                                 </TextBox>
@@ -295,9 +266,8 @@
                                                           Margin="5 0 0 0"
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
-                                                          IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorPleulLUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorPleulLUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -308,23 +278,17 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Kolben-Geschwindikeit"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorKolbenG, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorKolbenG, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
                                                           Margin="5 0 0 0"
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
-                                                          IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorKolbenGUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorKolbenGUnit}"
                                                           ItemsSource="{Binding Path=SpeedQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -335,23 +299,17 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Deachsierung"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungL, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
                                                           Margin="5 0 0 0"
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
-                                                          IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorDeachsierungLUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungLUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -362,41 +320,31 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Bohrung"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorBohrungD, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorBohrungD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
                                                           Margin="5 0 0 0"
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
-                                                          IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorBohrungDUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorBohrungDUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorResonanzU ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Resonanzdrehzahl"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
 
@@ -406,23 +354,17 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hubraum Volumen"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHubraumV, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHubraumV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
                                                           Margin="5 0 0 0"
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
-                                                          IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorHubraumVUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorHubraumVUnit}"
                                                           ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -433,23 +375,17 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Brennraum Volumen"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorBrennraumV, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorBrennraumV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
                                                           Margin="5 0 0 0"
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
-                                                          IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorBrennraumVUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorBrennraumVUnit}"
                                                           ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -460,92 +396,70 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Kurbelgehaeuse Volumen"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseV, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
                                                           Margin="5 0 0 0"
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
-                                                          IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorKurbelgehaeuseVUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseVUnit}"
                                                           ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorVerdichtungV ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Verdichtungsverhältnis"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorVerdichtungV, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorVerdichtungV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorZylinderAnz ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Zylinder-Anzahl"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorZylinderAnz, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorZylinderAnz, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorZuendzeitpunkt ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Zündzeitpunkt"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorZuendzeitpunkt, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorZuendzeitpunkt, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorHeizwertU ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Heizwert"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHeizwertU, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorHeizwertU, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
                                         </StackPanel>
@@ -562,23 +476,17 @@
 
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hoehe"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheH, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheH, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
                                                           Margin="5 0 0 0"
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
-                                                          IsEnabled="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassHoeheHUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheHUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -589,14 +497,9 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Breite"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteB, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteB, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -604,7 +507,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassBreiteBUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteBUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -615,14 +518,9 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Durchmesser"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -630,7 +528,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassDurchmesserDUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserDUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -641,14 +539,9 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Flaeche"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheA, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheA, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -656,25 +549,21 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassFlaecheAUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheAUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorEinlassSteuerzeitSZ ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Steuerzeit"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassSteuerzeitSZ, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassSteuerzeitSZ, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
 
@@ -684,14 +573,9 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Länge"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeL, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -699,25 +583,21 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassLaengeLUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeLUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorEinlassLuftBedarf ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="LuftBedarf"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLuftBedarf, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLuftBedarf, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
 
@@ -731,14 +611,9 @@
 
                                                             <TextBox materialDesign:HintAssist.IsFloating="true"
                                                                      materialDesign:HintAssist.Hint="Durchmesser"
-                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserD, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                                      MinWidth="200">
-                                                                <i:Interaction.Triggers>
-                                                                    <i:EventTrigger EventName="TextChanged">
-                                                                        <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                                    </i:EventTrigger>
-                                                                </i:Interaction.Triggers>
                                                             </TextBox>
 
                                                             <ComboBox VerticalAlignment="Bottom"
@@ -746,11 +621,12 @@
                                                                       IsSynchronizedWithCurrentItem="True"
                                                                       IsEditable="False"
                                                                       DisplayMemberPath="Abbreviation"
-                                                                      SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorEinlassVergaserDurchmesserDUnit}"
+                                                                      SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserDUnit}"
                                                                       ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                             </ComboBox>
                                                         </StackPanel>
 
+                                                        <!--VehicleMotorEinlassVergaserBenzinLuftF ohne Unit-->
                                                         <StackPanel Orientation="Horizontal"
                                                                     VerticalAlignment="Center"
                                                                     HorizontalAlignment="Left"
@@ -758,14 +634,9 @@
 
                                                             <TextBox materialDesign:HintAssist.IsFloating="true"
                                                                      materialDesign:HintAssist.Hint="BenzinLuftF"
-                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserBenzinLuftF, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserBenzinLuftF, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                                      MinWidth="200">
-                                                                <i:Interaction.Triggers>
-                                                                    <i:EventTrigger EventName="TextChanged">
-                                                                        <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                                    </i:EventTrigger>
-                                                                </i:Interaction.Triggers>
                                                             </TextBox>
                                                         </StackPanel>
                                                     </StackPanel>
@@ -785,14 +656,9 @@
 
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hoehe"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheH, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheH, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -800,7 +666,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorAuslassHoeheHUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheHUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -811,14 +677,9 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Breite"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteB, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteB, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -826,7 +687,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorAuslassBreiteBUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteBUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -837,14 +698,9 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Flaeche"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheA, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheA, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -852,7 +708,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorAuslassFlaecheAUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheAUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -864,14 +720,9 @@
 
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Länge"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeL, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -879,11 +730,12 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorAuslassLaengeLUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeLUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorAuslassSteuerzeitSZ ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
@@ -891,14 +743,9 @@
 
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Steuerzeit"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassSteuerzeitSZ, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassSteuerzeitSZ, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
 
@@ -921,14 +768,9 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Hoehe"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheH, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheH, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -936,7 +778,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorUeberstroemerHoeheHUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheHUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -947,14 +789,9 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Breite"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteB, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteB, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -962,7 +799,7 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorUeberstroemerBreiteBUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteBUnit}"
                                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
@@ -973,14 +810,9 @@
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Flaeche"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheA, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheA, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
 
                                                 <ComboBox VerticalAlignment="Bottom"
@@ -988,42 +820,34 @@
                                                           IsSynchronizedWithCurrentItem="True"
                                                           IsEditable="False"
                                                           DisplayMemberPath="Abbreviation"
-                                                          SelectedItem="{Binding Mode=OneWay, Path=VehicleMotorUeberstroemerFlaecheAUnit}"
+                                                          SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheAUnit}"
                                                           ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                                                 </ComboBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorUeberstroemerAnzahl ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Anzahl"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerAnzahl, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerAnzahl, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
 
+                                            <!--VehicleMotorUeberstroemerSteuerzeitSZ ohne Unit-->
                                             <StackPanel Orientation="Horizontal"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Left"
                                                         Margin="5">
                                                 <TextBox materialDesign:HintAssist.IsFloating="true"
                                                          materialDesign:HintAssist.Hint="Steuerzeit"
-                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerSteuerzeitSZ, UpdateSourceTrigger=LostFocus, StringFormat={}{##.##}}"
+                                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerSteuerzeitSZ, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
                                                          behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                                          MinWidth="200">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
                                                 </TextBox>
                                             </StackPanel>
                                         </StackPanel>
@@ -1037,33 +861,23 @@
                                 <StackPanel>
                                     <TextBox materialDesign:HintAssist.IsFloating="true"
                                              materialDesign:HintAssist.Hint="Name"
-                                             Text="{Binding Mode=TwoWay, Path=VehicleDynoName, UpdateSourceTrigger=LostFocus}"
+                                             Text="{Binding Mode=TwoWay, Path=VehicleDynoName, UpdateSourceTrigger=PropertyChanged}"
                                              HorizontalAlignment="Left"
                                              VerticalAlignment="Center"
                                              MinWidth="200"
                                              MinHeight="30"
                                              Margin="5">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
                                     </TextBox>
 
                                     <TextBox materialDesign:HintAssist.IsFloating="true"
                                              materialDesign:HintAssist.Hint="Beschreibung"
-                                             Text="{Binding Mode=TwoWay, Path=VehicleDynoBeschreibung, UpdateSourceTrigger=LostFocus}"
+                                             Text="{Binding Mode=TwoWay, Path=VehicleDynoBeschreibung, UpdateSourceTrigger=PropertyChanged}"
                                              HorizontalAlignment="Left"
                                              VerticalAlignment="Center"
                                              TextWrapping="Wrap"
                                              MinWidth="200"
                                              MinHeight="30"
                                              Margin="5">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding ShowSaveButtonCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
                                     </TextBox>
 
                                     <TreeView>

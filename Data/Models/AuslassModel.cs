@@ -5,6 +5,7 @@ namespace Data.Models
     using Microsoft.EntityFrameworkCore.Storage;
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
+    using UnitsNet.Units;
 
     /// <summary>
     /// AuslassModel.
@@ -12,6 +13,9 @@ namespace Data.Models
     /// <seealso cref="Data.Models.BaseEntityModel" />
     public class AuslassModel : BaseEntityModel
     {
+        [NotMapped]
+        private LengthUnit? _DurchmesserDUnit;
+
         /// <summary>
         /// Gets the breite b base unit.
         /// </summary>
@@ -69,11 +73,20 @@ namespace Data.Models
             get => this._BreiteBUnit ?? BreiteBBaseUnit;
             set
             {
-                this.BreiteB = Math.Round(
-                    UnitsNet.UnitConverter.Convert(
-                    this.BreiteB.Value,
-                    this._BreiteBUnit,
-                    value), 2);
+                UnitsNet.UnitConverter.TryConvert(
+                this.BreiteB.Value,
+                this._BreiteBUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.BreiteB = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.BreiteB = convertedValue;
+                }
 
                 this._BreiteBUnit = value;
             }
@@ -90,7 +103,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The durchmesser d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DurchmesserDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? DurchmesserDUnit
+        {
+            get => this._DurchmesserDUnit ?? DurchmesserDBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DurchmesserD.Value,
+                this._BreiteBUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DurchmesserD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DurchmesserD = convertedValue;
+                }
+
+                this._DurchmesserDUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the flaeche a.

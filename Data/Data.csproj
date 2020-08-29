@@ -28,7 +28,21 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="UnitsNet" Version="4.69.0" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="UnitSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UnitSettings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="UnitSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>UnitSettings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

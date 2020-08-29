@@ -7,6 +7,7 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Resources;
@@ -61,56 +62,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             this.User = _user;
 
             base.Prepare();
-        }
-
-        private void SetUnits()
-        {
-            this.Vehicle.FrontAUnit = AreaUnit.SquareMillimeter;
-            this.Vehicle.GewichtUnit = MassUnit.Kilogram;
-            this.Vehicle.Motor.Einlass.LaengeLUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Einlass.FlaecheAUnit = AreaUnit.SquareMillimeter;
-            this.Vehicle.Motor.Einlass.BreiteBUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Einlass.HoeheHUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Einlass.Vergaser.DurchmesserDUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.FlaecheAUnit = AreaUnit.SquareMillimeter;
-            this.Vehicle.Motor.Auslass.BreiteBUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.DurchmesserDUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.HoeheHUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.LaengeLUnit = LengthUnit.Millimeter;
-
-            // must be implemented
-            this.Vehicle.Motor.Auslass.Auspuff.AbgasTUnit = TemperatureUnit.DegreeCelsius;
-            this.Vehicle.Motor.Auslass.Auspuff.AbgasVUnit = SpeedUnit.KilometerPerHour;
-            this.Vehicle.Motor.Auslass.Auspuff.KruemmerDUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.KruemmerLUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.DiffusorD1Unit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.DiffusorD2Unit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.DiffusorD3Unit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.DiffusorDUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.DiffusorL1Unit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.DiffusorL2Unit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.DiffusorL3Unit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.DiffusorLUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.MittelteilDUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.MittelteilLUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.GegenkonusDUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.GegenkonusLUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.EndrohrDUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.EndrohrLUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.ResonanzLUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Auslass.Auspuff.GesamtLUnit = LengthUnit.Millimeter;
-
-            this.Vehicle.Motor.Ueberstroemer.FlaecheAUnit = AreaUnit.SquareMillimeter;
-            this.Vehicle.Motor.Ueberstroemer.BreiteBUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.Ueberstroemer.HoeheHUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.BohrungDUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.BrennraumVUnit = VolumeUnit.CubicMillimeter;
-            this.Vehicle.Motor.HubraumVUnit = VolumeUnit.CubicMillimeter;
-            this.Vehicle.Motor.KurbelgehaeuseVUnit = VolumeUnit.CubicMillimeter;
-            this.Vehicle.Motor.KolbenGUnit = SpeedUnit.KilometerPerHour;
-            this.Vehicle.Motor.DeachsierungLUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.HubLUnit = LengthUnit.Millimeter;
-            this.Vehicle.Motor.PleulLUnit = LengthUnit.Millimeter;
         }
 
         #region Methods
@@ -181,7 +132,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        private Data.Models.VehiclesModel LoadVehicle(Data.Models.VehiclesModel value)
+        private static Data.Models.VehiclesModel LoadVehicle(Data.Models.VehiclesModel value)
         {
             using (var db = new Data.DatabaseContext())
             {
@@ -189,18 +140,23 @@ namespace SimTuning.Core.ViewModels.Einstellungen
                 if (value.Id != 0)
                 {
                     // Vehicle+Motor+Dyno
-                    return db.Vehicles
+                    var vehicle = db.Vehicles
+                  //.Single(v => v.Id == value.Id);
                   .Where(v => v.Id == value.Id)
-                  .Include(v => v.Dyno)
-                  .Include(v => v.Tuning)
-                  .Include(v => v.Motor)
-                  .Include(v => v.Motor.Auslass)
-                    .ThenInclude(a => a.Auspuff)
-                  .Include(v => v.Motor.Einlass)
-                    .ThenInclude(e => e.Vergaser)
-                  .Include(v => v.Motor.Ueberstroemer)
+                    .Include(v => v.Dyno)
+                    .Include(v => v.Tuning)
+                    .Include(v => v.Motor)
+                    .Include(v => v.Motor.Auslass)
+                      .ThenInclude(a => a.Auspuff)
+                    .Include(v => v.Motor.Einlass)
+                      .ThenInclude(e => e.Vergaser)
+                    .Include(v => v.Motor.Ueberstroemer)
+                    .First();
+                    //db.Entry(vehicle)
+                    //    .Reference(b => b.Dyno)
+                    //    .Load();
 
-                  .First();
+                    return vehicle;
                 }
                 else
                 {
@@ -246,6 +202,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <value>The delete vehicle command.</value>
         public IMvxCommand DeleteVehicleCommand { get; set; }
 
+        /// <summary>
+        /// Gets or sets the engine.
+        /// </summary>
+        /// <value>The engine.</value>
         public Data.Models.MotorModel Engine
         {
             get => this._engine;
@@ -274,14 +234,26 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the engines.
+        /// </summary>
+        /// <value>The engines.</value>
         public ObservableCollection<Data.Models.MotorModel> Engines
         {
             get => this._engines;
             set { SetProperty(ref this._engines, value); }
         }
 
+        /// <summary>
+        /// Gets the length quantity units.
+        /// </summary>
+        /// <value>The length quantity units.</value>
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
+        /// <summary>
+        /// Gets the mass quantity units.
+        /// </summary>
+        /// <value>The mass quantity units.</value>
         public ObservableCollection<UnitListItem> MassQuantityUnits { get; }
 
         /// <summary>
@@ -290,10 +262,14 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <value>The new vehicle command.</value>
         public IMvxCommand NewVehicleCommand { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [save button].
+        /// </summary>
+        /// <value><c>true</c> if [save button]; otherwise, <c>false</c>.</value>
         public bool SaveButton
         {
             get => this._saveButton;
-            set { this.SetProperty(ref this._saveButton, value); }
+            set => this.SetProperty(ref this._saveButton, value);
         }
 
         /// <summary>
@@ -308,10 +284,22 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <value>The show save button command.</value>
         public IMvxCommand ShowSaveButtonCommand { get; set; }
 
+        /// <summary>
+        /// Gets the speed quantity units.
+        /// </summary>
+        /// <value>The speed quantity units.</value>
         public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; }
 
+        /// <summary>
+        /// Gets or sets the user.
+        /// </summary>
+        /// <value>The user.</value>
         public UserModel User { get; protected set; }
 
+        /// <summary>
+        /// Gets or sets the vehicle.
+        /// </summary>
+        /// <value>The vehicle.</value>
         public Data.Models.VehiclesModel Vehicle
         {
             get => this._vehicle;
@@ -320,7 +308,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
                 if (value != null)
                 {
                     // Laden des kompletten Datensatzes
-                    this.LoadVehicle(value);
+                    LoadVehicle(value);
                 }
                 else
                 {
@@ -334,9 +322,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
                 //Einfügen
                 this.SetProperty(ref this._vehicle, value);
 
-                // Units
-                this.SetUnits();
-
                 // nix mehr zu speichern
                 this.SaveButton = false;
 
@@ -345,16 +330,93 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
-        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
+        /// <summary>
+        /// Gets or sets the vehicle beschreibung.
+        /// </summary>
+        /// <value>The vehicle beschreibung.</value>
+        public string VehicleBeschreibung
         {
-            get => this._vehicles;
-            set { SetProperty(ref this._vehicles, value); }
+            get => this.Vehicle?.Beschreibung;
+            set
+            {
+                this.Vehicle.Beschreibung = value;
+                this.SaveButton = true;
+            }
         }
 
-        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
+        /// <summary>
+        /// Gets or sets the vehicle cw.
+        /// </summary>
+        /// <value>The vehicle cw.</value>
+        public double? VehicleCw
+        {
+            get => this.Vehicle?.Cw;
+            set
+            {
+                this.Vehicle.Cw = value;
+                this.SaveButton = true;
+            }
+        }
 
-        #region Units
+        /// <summary>
+        /// Gets the vehicle dyno audio.
+        /// </summary>
+        /// <value>The vehicle dyno audio.</value>
+        public ObservableCollection<Data.Models.DynoAudioModel> VehicleDynoAudio
+        {
+            get => new ObservableCollection<Data.Models.DynoAudioModel>(this.Vehicle?.Dyno?.Audio);
+        }
 
+        /// <summary>
+        /// Gets or sets the vehicle dyno beschreibung.
+        /// </summary>
+        /// <value>The vehicle dyno beschreibung.</value>
+        public string VehicleDynoBeschreibung
+        {
+            get => this.Vehicle?.Dyno?.Beschreibung;
+            set
+            {
+                this.Vehicle.Dyno.Beschreibung = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets the vehicle dyno dyno nm.
+        /// </summary>
+        /// <value>The vehicle dyno dyno nm.</value>
+        public ObservableCollection<Data.Models.DynoNmModel> VehicleDynoDynoNm
+        {
+            get => new ObservableCollection<Data.Models.DynoNmModel>(this.Vehicle?.Dyno?.DynoNm);
+        }
+
+        /// <summary>
+        /// Gets the vehicle dyno dyno ps.
+        /// </summary>
+        /// <value>The vehicle dyno dyno ps.</value>
+        public ObservableCollection<Data.Models.DynoPSModel> VehicleDynoDynoPS
+        {
+            get => new ObservableCollection<Data.Models.DynoPSModel>(this.Vehicle?.Dyno?.DynoPS);
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the vehicle dyno.
+        /// </summary>
+        /// <value>The name of the vehicle dyno.</value>
+        public string VehicleDynoName
+        {
+            get => this.Vehicle?.Dyno?.Name;
+            set
+            {
+                this.Vehicle.Dyno.Name = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle front a.
+        /// </summary>
+        /// <value>The vehicle front a.</value>
         public double? VehicleFrontA
         {
             get => this.Vehicle?.FrontA;
@@ -365,9 +427,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle front a unit.
+        /// </summary>
+        /// <value>The vehicle front a unit.</value>
         public UnitListItem VehicleFrontAUnit
         {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.FrontAUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.FrontAUnit));
             set
             {
                 this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
@@ -375,6 +441,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle gewicht.
+        /// </summary>
+        /// <value>The vehicle gewicht.</value>
         public double? VehicleGewicht
         {
             get => this.Vehicle?.Gewicht;
@@ -385,9 +455,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle gewicht unit.
+        /// </summary>
+        /// <value>The vehicle gewicht unit.</value>
         public UnitListItem VehicleGewichtUnit
         {
-            get => this.MassQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.GewichtUnit)) ?? this.MassQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.GewichtBaseUnit));
+            get => this.MassQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.GewichtUnit));
             set
             {
                 this.Vehicle.GewichtUnit = (UnitsNet.Units.MassUnit)value?.UnitEnumValue;
@@ -395,6 +469,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass breite b.
+        /// </summary>
+        /// <value>The vehicle motor auslass breite b.</value>
         public double? VehicleMotorAuslassBreiteB
         {
             get => this.Vehicle?.Motor?.Auslass?.BreiteB;
@@ -405,9 +483,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass breite b unit.
+        /// </summary>
+        /// <value>The vehicle motor auslass breite b unit.</value>
         public UnitListItem VehicleMotorAuslassBreiteBUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.BreiteBUnit)) ?? this.LengthQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.AuslassModel.BreiteBBaseUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.BreiteBUnit));
             set
             {
                 this.Vehicle.Motor.Auslass.BreiteBUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
@@ -415,6 +497,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass flaeche a.
+        /// </summary>
+        /// <value>The vehicle motor auslass flaeche a.</value>
         public double? VehicleMotorAuslassFlaecheA
         {
             get => this.Vehicle?.Motor?.Auslass?.FlaecheA;
@@ -425,9 +511,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass flaeche a unit.
+        /// </summary>
+        /// <value>The vehicle motor auslass flaeche a unit.</value>
         public UnitListItem VehicleMotorAuslassFlaecheAUnit
         {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.FlaecheAUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.AuslassModel.FlaecheABaseUnit));
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.FlaecheAUnit));
             set
             {
                 this.Vehicle.Motor.Auslass.FlaecheAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
@@ -435,6 +525,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass hoehe h.
+        /// </summary>
+        /// <value>The vehicle motor auslass hoehe h.</value>
         public double? VehicleMotorAuslassHoeheH
         {
             get => this.Vehicle?.Motor?.Auslass?.HoeheH;
@@ -445,9 +539,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass hoehe h unit.
+        /// </summary>
+        /// <value>The vehicle motor auslass hoehe h unit.</value>
         public UnitListItem VehicleMotorAuslassHoeheHUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.HoeheHUnit)) ?? this.LengthQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.AuslassModel.HoeheHBaseUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.HoeheHUnit));
             set
             {
                 this.Vehicle.Motor.Auslass.HoeheHUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
@@ -455,6 +553,24 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass steuerzeit sz.
+        /// </summary>
+        /// <value>The vehicle motor auslass steuerzeit sz.</value>
+        public double? VehicleMotorAuslassSteuerzeitSZ
+        {
+            get => this.Vehicle?.Motor?.Auslass?.SteuerzeitSZ;
+            set
+            {
+                this.Vehicle.Motor.Auslass.SteuerzeitSZ = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor bohrung d.
+        /// </summary>
+        /// <value>The vehicle motor bohrung d.</value>
         public double? VehicleMotorBohrungD
         {
             get => this.Vehicle?.Motor?.BohrungD;
@@ -465,9 +581,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor bohrung d unit.
+        /// </summary>
+        /// <value>The vehicle motor bohrung d unit.</value>
         public UnitListItem VehicleMotorBohrungDUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BohrungDUnit)) ?? this.LengthQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.MotorModel.BohrungDBaseUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BohrungDUnit));
             set
             {
                 this.Vehicle.Motor.BohrungDUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
@@ -475,6 +595,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor brennraum v.
+        /// </summary>
+        /// <value>The vehicle motor brennraum v.</value>
         public double? VehicleMotorBrennraumV
         {
             get => this.Vehicle?.Motor?.BrennraumV;
@@ -485,9 +609,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor brennraum v unit.
+        /// </summary>
+        /// <value>The vehicle motor brennraum v unit.</value>
         public UnitListItem VehicleMotorBrennraumVUnit
         {
-            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BrennraumVUnit)) ?? this.VolumeQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.MotorModel.BrennraumVBaseUnit));
+            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.BrennraumVUnit));
             set
             {
                 this.Vehicle.Motor.BrennraumVUnit = (UnitsNet.Units.VolumeUnit)value?.UnitEnumValue;
@@ -495,6 +623,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor deachsierung l.
+        /// </summary>
+        /// <value>The vehicle motor deachsierung l.</value>
         public double? VehicleMotorDeachsierungL
         {
             get => this.Vehicle?.Motor?.DeachsierungL;
@@ -505,9 +637,13 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor deachsierung l unit.
+        /// </summary>
+        /// <value>The vehicle motor deachsierung l unit.</value>
         public UnitListItem VehicleMotorDeachsierungLUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.DeachsierungLUnit)) ?? this.LengthQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.MotorModel.DeachsierungLBaseUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.DeachsierungLUnit));
             set
             {
                 this.Vehicle.Motor.DeachsierungLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
@@ -515,269 +651,569 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass breite b.
+        /// </summary>
+        /// <value>The vehicle motor einlass breite b.</value>
         public double? VehicleMotorEinlassBreiteB
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.Einlass?.BreiteB;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.Einlass.BreiteB = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass breite b unit.
+        /// </summary>
+        /// <value>The vehicle motor einlass breite b unit.</value>
         public UnitListItem VehicleMotorEinlassBreiteBUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.BreiteBUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.BreiteBUnit));
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.Einlass.BreiteBUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorEinlassBreiteB);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass flaeche a.
+        /// </summary>
+        /// <value>The vehicle motor einlass flaeche a.</value>
         public double? VehicleMotorEinlassFlaecheA
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.Einlass?.FlaecheA;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.Einlass.FlaecheA = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass flaeche a unit.
+        /// </summary>
+        /// <value>The vehicle motor einlass flaeche a unit.</value>
         public UnitListItem VehicleMotorEinlassFlaecheAUnit
         {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.FlaecheAUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.FlaecheAUnit));
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.Einlass.FlaecheAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorEinlassFlaecheA);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass hoehe h.
+        /// </summary>
+        /// <value>The vehicle motor einlass hoehe h.</value>
         public double? VehicleMotorEinlassHoeheH
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.Einlass?.HoeheH;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.Einlass.HoeheH = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass hoehe h unit.
+        /// </summary>
+        /// <value>The vehicle motor einlass hoehe h unit.</value>
         public UnitListItem VehicleMotorEinlassHoeheHUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.HoeheHUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.HoeheHUnit));
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.Einlass.HoeheHUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorEinlassHoeheH);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass laenge l.
+        /// </summary>
+        /// <value>The vehicle motor einlass laenge l.</value>
         public double? VehicleMotorEinlassLaengeL
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.Einlass?.LaengeL;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.Einlass.LaengeL = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass laenge l unit.
+        /// </summary>
+        /// <value>The vehicle motor einlass laenge l unit.</value>
         public UnitListItem VehicleMotorEinlassLaengeLUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.LaengeLUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.LaengeLUnit));
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.Einlass.LaengeLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorEinlassLaengeL);
             }
         }
 
-        public double? VehicleMotorEinlassVergaserDurchmesserD
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass luft bedarf.
+        /// </summary>
+        /// <value>The vehicle motor einlass luft bedarf.</value>
+        public double? VehicleMotorEinlassLuftBedarf
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.Einlass?.LuftBedarf;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.Einlass.LuftBedarf = value;
                 this.SaveButton = true;
             }
         }
 
-        public UnitListItem VehicleMotorEinlassVergaserDurchmesserDUnit
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass steuerzeit sz.
+        /// </summary>
+        /// <value>The vehicle motor einlass steuerzeit sz.</value>
+        public double? VehicleMotorEinlassSteuerzeitSZ
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.Vergaser?.DurchmesserDUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.Vehicle?.Motor?.Einlass?.SteuerzeitSZ;
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.Einlass.SteuerzeitSZ = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass vergaser benzin luft f.
+        /// </summary>
+        /// <value>The vehicle motor einlass vergaser benzin luft f.</value>
+        public double? VehicleMotorEinlassVergaserBenzinLuftF
+        {
+            get => this.Vehicle?.Motor?.Einlass?.Vergaser?.BenzinLuftF;
+            set
+            {
+                this.Vehicle.Motor.Einlass.Vergaser.BenzinLuftF = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass vergaser durchmesser d.
+        /// </summary>
+        /// <value>The vehicle motor einlass vergaser durchmesser d.</value>
+        public double? VehicleMotorEinlassVergaserDurchmesserD
+        {
+            get => this.Vehicle?.Motor?.Einlass?.Vergaser?.DurchmesserD;
+            set
+            {
+                this.Vehicle.Motor.Einlass.Vergaser.DurchmesserD = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor einlass vergaser durchmesser d unit.
+        /// </summary>
+        /// <value>The vehicle motor einlass vergaser durchmesser d unit.</value>
+        public UnitListItem VehicleMotorEinlassVergaserDurchmesserDUnit
+        {
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Einlass?.Vergaser?.DurchmesserDUnit));
+            set
+            {
+                this.Vehicle.Motor.Einlass.Vergaser.DurchmesserDUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorEinlassVergaserDurchmesserD);
             }
         }
 
-        public double? VehicleMotorHubL
+        /// <summary>
+        /// Gets or sets the vehicle motor heizwert u.
+        /// </summary>
+        /// <value>The vehicle motor heizwert u.</value>
+        public double? VehicleMotorHeizwertU
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.HeizwertU;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.HeizwertU = value;
                 this.SaveButton = true;
             }
         }
 
-        public UnitListItem VehicleMotorHubLUnit
+        /// <summary>
+        /// Gets or sets the vehicle motor hub l.
+        /// </summary>
+        /// <value>The vehicle motor hub l.</value>
+        public double? VehicleMotorHubL
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubLUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.Vehicle?.Motor?.HubL;
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.HubL = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor hub l unit.
+        /// </summary>
+        /// <value>The vehicle motor hub l unit.</value>
+        public UnitListItem VehicleMotorHubLUnit
+        {
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubLUnit));
+            set
+            {
+                this.Vehicle.Motor.HubLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorHubL);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor hubraum v.
+        /// </summary>
+        /// <value>The vehicle motor hubraum v.</value>
         public double? VehicleMotorHubraumV
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.HubraumV;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.HubraumV = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor hubraum v unit.
+        /// </summary>
+        /// <value>The vehicle motor hubraum v unit.</value>
         public UnitListItem VehicleMotorHubraumVUnit
         {
-            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubraumVUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubraumVUnit));
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.HubraumVUnit = (UnitsNet.Units.VolumeUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorHubraumV);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor kolben g.
+        /// </summary>
+        /// <value>The vehicle motor kolben g.</value>
         public double? VehicleMotorKolbenG
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.KolbenG;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.KolbenG = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor kolben g unit.
+        /// </summary>
+        /// <value>The vehicle motor kolben g unit.</value>
         public UnitListItem VehicleMotorKolbenGUnit
         {
-            get => this.SpeedQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KolbenGUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.SpeedQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KolbenGUnit));
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.KolbenGUnit = (UnitsNet.Units.SpeedUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorKolbenG);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor kurbelgehaeuse v.
+        /// </summary>
+        /// <value>The vehicle motor kurbelgehaeuse v.</value>
         public double? VehicleMotorKurbelgehaeuseV
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.KurbelgehaeuseV;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.KurbelgehaeuseV = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor kurbelgehaeuse v unit.
+        /// </summary>
+        /// <value>The vehicle motor kurbelgehaeuse v unit.</value>
         public UnitListItem VehicleMotorKurbelgehaeuseVUnit
         {
-            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KurbelgehaeuseVUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.VolumeQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.KurbelgehaeuseVUnit));
 
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.KurbelgehaeuseVUnit = (UnitsNet.Units.VolumeUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorKurbelgehaeuseV);
             }
         }
 
-        public double? VehicleMotorPleulL
+        /// <summary>
+        /// Gets or sets the name of the vehicle motor.
+        /// </summary>
+        /// <value>The name of the vehicle motor.</value>
+        public string VehicleMotorName
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.Name;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.Name = value;
                 this.SaveButton = true;
             }
         }
 
-        public UnitListItem VehicleMotorPleulLUnit
+        /// <summary>
+        /// Gets or sets the vehicle motor pleul l.
+        /// </summary>
+        /// <value>The vehicle motor pleul l.</value>
+        public double? VehicleMotorPleulL
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.PleulLUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.Vehicle?.Motor?.PleulL;
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.PleulL = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor pleul l unit.
+        /// </summary>
+        /// <value>The vehicle motor pleul l unit.</value>
+        public UnitListItem VehicleMotorPleulLUnit
+        {
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.PleulLUnit));
+            set
+            {
+                this.Vehicle.Motor.PleulLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorPleulL);
             }
         }
 
-        public double? VehicleMotorUeberstroemerBreiteB
+        /// <summary>
+        /// Gets or sets the vehicle motor resonanz u.
+        /// </summary>
+        /// <value>The vehicle motor resonanz u.</value>
+        public double? VehicleMotorResonanzU
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.ResonanzU;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.ResonanzU = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor ueberstroemer anzahl.
+        /// </summary>
+        /// <value>The vehicle motor ueberstroemer anzahl.</value>
+        public double? VehicleMotorUeberstroemerAnzahl
+        {
+            get => this.Vehicle?.Motor?.Ueberstroemer?.Anzahl;
+            set
+            {
+                this.Vehicle.Motor.Ueberstroemer.Anzahl = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor ueberstroemer breite b.
+        /// </summary>
+        /// <value>The vehicle motor ueberstroemer breite b.</value>
+        public double? VehicleMotorUeberstroemerBreiteB
+        {
+            get => this.Vehicle?.Motor?.Ueberstroemer?.BreiteB;
+            set
+            {
+                this.Vehicle.Motor.Ueberstroemer.BreiteB = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor ueberstroemer breite b unit.
+        /// </summary>
+        /// <value>The vehicle motor ueberstroemer breite b unit.</value>
         public UnitListItem VehicleMotorUeberstroemerBreiteBUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.BreiteBUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.BreiteBUnit));
 
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.Ueberstroemer.BreiteBUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorUeberstroemerBreiteB);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor ueberstroemer flaeche a.
+        /// </summary>
+        /// <value>The vehicle motor ueberstroemer flaeche a.</value>
         public double? VehicleMotorUeberstroemerFlaecheA
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.Ueberstroemer?.FlaecheA;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.Ueberstroemer.FlaecheA = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor ueberstroemer flaeche a unit.
+        /// </summary>
+        /// <value>The vehicle motor ueberstroemer flaeche a unit.</value>
         public UnitListItem VehicleMotorUeberstroemerFlaecheAUnit
         {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.FlaecheAUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.FlaecheAUnit));
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.Ueberstroemer.FlaecheAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorUeberstroemerFlaecheA);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor ueberstroemer hoehe h.
+        /// </summary>
+        /// <value>The vehicle motor ueberstroemer hoehe h.</value>
         public double? VehicleMotorUeberstroemerHoeheH
         {
-            get => this.Vehicle?.FrontA;
+            get => this.Vehicle?.Motor?.Ueberstroemer?.HoeheH;
             set
             {
-                this.Vehicle.FrontA = value;
+                this.Vehicle.Motor.Ueberstroemer.HoeheH = value;
                 this.SaveButton = true;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vehicle motor ueberstroemer hoehe h unit.
+        /// </summary>
+        /// <value>The vehicle motor ueberstroemer hoehe h unit.</value>
         public UnitListItem VehicleMotorUeberstroemerHoeheHUnit
         {
-            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.HoeheHUnit)) ?? this.AreaQuantityUnits.Single(x => x.UnitEnumValue.Equals(Data.Models.VehiclesModel.FrontABaseUnit));
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Ueberstroemer?.HoeheHUnit));
             set
             {
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.Vehicle.Motor.Ueberstroemer.HoeheHUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => VehicleMotorUeberstroemerHoeheH);
             }
         }
 
-        #endregion Units
+        /// <summary>
+        /// Gets or sets the vehicle motor ueberstroemer steuerzeit sz.
+        /// </summary>
+        /// <value>The vehicle motor ueberstroemer steuerzeit sz.</value>
+        public double? VehicleMotorUeberstroemerSteuerzeitSZ
+        {
+            get => this.Vehicle?.Motor?.Ueberstroemer?.SteuerzeitSZ;
+            set
+            {
+                this.Vehicle.Motor.Ueberstroemer.SteuerzeitSZ = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor verdichtung v.
+        /// </summary>
+        /// <value>The vehicle motor verdichtung v.</value>
+        public double? VehicleMotorVerdichtungV
+        {
+            get => this.Vehicle?.Motor?.VerdichtungV;
+            set
+            {
+                this.Vehicle.Motor.VerdichtungV = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor zuendzeitpunkt.
+        /// </summary>
+        /// <value>The vehicle motor zuendzeitpunkt.</value>
+        public double? VehicleMotorZuendzeitpunkt
+        {
+            get => this.Vehicle?.Motor?.Zuendzeitpunkt;
+            set
+            {
+                this.Vehicle.Motor.Zuendzeitpunkt = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor zylinder anz.
+        /// </summary>
+        /// <value>The vehicle motor zylinder anz.</value>
+        public double? VehicleMotorZylinderAnz
+        {
+            get => this.Vehicle?.Motor?.ZylinderAnz;
+            set
+            {
+                this.Vehicle.Motor.ZylinderAnz = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the vehicle.
+        /// </summary>
+        /// <value>The name of the vehicle.</value>
+        public string VehicleName
+        {
+            get => this.Vehicle?.Name;
+            set
+            {
+                this.Vehicle.Name = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicles.
+        /// </summary>
+        /// <value>The vehicles.</value>
+        public ObservableCollection<Data.Models.VehiclesModel> Vehicles
+        {
+            get => this._vehicles;
+            set { SetProperty(ref this._vehicles, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle uebersetzung.
+        /// </summary>
+        /// <value>The vehicle uebersetzung.</value>
+        public double? VehicleUebersetzung
+        {
+            get => this.Vehicle?.Uebersetzung;
+            set
+            {
+                this.Vehicle.Uebersetzung = value;
+                this.SaveButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets the volume quantity units.
+        /// </summary>
+        /// <value>The volume quantity units.</value>
+        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
 
         #endregion Values
     }

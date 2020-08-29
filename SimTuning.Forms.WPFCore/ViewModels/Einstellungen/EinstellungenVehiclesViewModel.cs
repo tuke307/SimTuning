@@ -1,16 +1,16 @@
-﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenVehiclesViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenVehiclesViewModel.cs,
+// creation=2020:7:31 Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
-    using System.Threading.Tasks;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.Core.Models;
     using SimTuning.Forms.WPFCore.Business;
+    using System.Threading.Tasks;
 
     /// <summary>
-    ///  WPF-spezifisches Einstellungen-Update-ViewModel.
+    /// WPF-spezifisches Einstellungen-Update-ViewModel.
     /// </summary>
     /// <seealso cref="SimTuning.Core.ViewModels.Einstellungen.VehiclesViewModel" />
     public class EinstellungenVehiclesViewModel : SimTuning.Core.ViewModels.Einstellungen.VehiclesViewModel
@@ -18,7 +18,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
         private bool firstTime = true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EinstellungenVehiclesViewModel"/> class.
+        /// Initializes a new instance of the <see cref="EinstellungenVehiclesViewModel"
+        /// /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
@@ -33,15 +34,6 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
         #region Methods
 
         /// <summary>
-        /// Prepares the specified user.
-        /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(UserModel _user)
-        {
-            base.Prepare(_user);
-        }
-
-        /// <summary>
         /// Initializes this instance.
         /// </summary>
         /// <returns>Initilisierung.</returns>
@@ -51,46 +43,21 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
         }
 
         /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
+        public override void Prepare(UserModel _user)
+        {
+            base.Prepare(_user);
+        }
+
+        /// <summary>
         /// Views the appeared.
         /// </summary>
         public override void ViewAppeared()
         {
             base.ViewAppeared();
             this.firstTime = false;
-        }
-
-        /// <summary>
-        /// Determines whether this instance can execute.
-        /// </summary>
-        /// <returns>
-        ///   <c>true</c> if this instance can execute; otherwise, <c>false</c>.
-        /// </returns>
-        private bool CanExecute()
-        {
-            if (!this.User.LicenseValid)
-            {
-                if (!firstTime)
-                {
-                    Functions.ShowSnackbarDialog("Kaufe die Pro Version um Presets zu ändern");
-                }
-            }
-
-            return this.User.LicenseValid;
-        }
-
-        /// <summary>
-        /// Creates new vehicle.
-        /// </summary>
-        protected override void NewVehicle()
-        {
-            try
-            {
-                base.NewVehicle();
-            }
-            catch
-            {
-                Functions.ShowSnackbarDialog("Fehler beim erstellen");
-            }
         }
 
         /// <summary>
@@ -109,6 +76,21 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
         }
 
         /// <summary>
+        /// Creates new vehicle.
+        /// </summary>
+        protected override void NewVehicle()
+        {
+            try
+            {
+                base.NewVehicle();
+            }
+            catch
+            {
+                Functions.ShowSnackbarDialog("Fehler beim erstellen");
+            }
+        }
+
+        /// <summary>
         /// Saves the vehicle.
         /// </summary>
         protected override void SaveVehicle()
@@ -121,6 +103,25 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             {
                 Functions.ShowSnackbarDialog("Fehler beim speichern");
             }
+        }
+
+        /// <summary>
+        /// Determines whether this instance can execute.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if this instance can execute; otherwise, <c>false</c>.
+        /// </returns>
+        private bool CanExecute()
+        {
+            if (!this.User.LicenseValid)
+            {
+                if (!firstTime)
+                {
+                    Functions.ShowSnackbarDialog("Kaufe die Pro Version um Presets zu ändern");
+                }
+            }
+
+            return this.User.LicenseValid;
         }
 
         #endregion Methods
