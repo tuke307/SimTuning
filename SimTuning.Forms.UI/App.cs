@@ -17,7 +17,7 @@ namespace SimTuning.Forms.UI
         /// </summary>
         public override void Initialize()
         {
-            //Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
+            Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
 
             // CrossMediaManager.Current.Library.Providers.Add(new MediaItemProvider());
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=SimTuning.Forms.WPFCore, file=RessourceChanges.cs, creation=2020:8:26
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;

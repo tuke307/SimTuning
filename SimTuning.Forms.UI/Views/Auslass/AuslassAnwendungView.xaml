@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:MvxContentPage  x:TypeArguments="viewModels:AuslassAnwendungViewModel"
                        xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Auslass;assembly=SimTuning.Forms.UI"
-                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                        xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
+                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Auslass;assembly=SimTuning.Forms.UI"
+                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                        BackgroundColor="{DynamicResource MaterialDesignPaper}"
                        Title="Anwendung"
                        x:Class="SimTuning.Forms.UI.Views.Auslass.AuslassAnwendungView">
 
     <ContentPage.Resources>
-        <behaviors:NegateBooleanConverter x:Key="Inverter" />
+        <behaviors:InvertedBoolConverter x:Key="Inverter" />
     </ContentPage.Resources>
 
     <ScrollView>

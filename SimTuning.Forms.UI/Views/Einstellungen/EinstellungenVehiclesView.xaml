@@ -78,10 +78,14 @@
                                                         Margin="5">
                             </material:MaterialTextField>
 
-                            <material:MaterialTextField Placeholder="Beschreibung"
+                            <Editor Placeholder="Beschreibung"
+                                    Text="{Binding Mode=TwoWay, Path=VehicleBeschreibung}"
+                                    Margin="5">
+                            </Editor>
+                            <!--<material:MaterialTextField Placeholder="Beschreibung"
                                                         Text="{Binding Mode=TwoWay, Path=VehicleBeschreibung}"
                                                         Margin="5">
-                            </material:MaterialTextField>
+                            </material:MaterialTextField>-->
                         </StackLayout>
 
                         <material:MaterialButton Grid.Column="1"
@@ -703,10 +707,14 @@
                                                                 WidthRequest="200">
                                     </material:MaterialTextField>
 
-                                    <material:MaterialTextField Placeholder="Beschreibung"
+                                    <Editor Placeholder="Beschreibung"
+                                            Text="{Binding Mode=TwoWay, Path=VehicleDynoBeschreibung}"
+                                            WidthRequest="200">
+                                    </Editor>
+                                    <!--<material:MaterialTextField Placeholder="Beschreibung"
                                                                 Text="{Binding Mode=TwoWay, Path=VehicleDynoBeschreibung}"
                                                                 WidthRequest="200">
-                                    </material:MaterialTextField>
+                                    </material:MaterialTextField>-->
 
                                     <!--Audio-->
                                     <expandable:ExpandableView>

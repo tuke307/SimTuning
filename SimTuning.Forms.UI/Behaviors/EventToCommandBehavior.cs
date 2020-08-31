@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.UI, file=EventToCommandBehavior.cs, creation=2020:7:31
+﻿// project=SimTuning.Forms.UI, file=EventToCommandBehavior.cs, creation=2020:7:27
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.Behaviors
 {

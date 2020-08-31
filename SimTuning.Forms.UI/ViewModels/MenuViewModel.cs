@@ -1,8 +1,7 @@
-﻿// project=SimTuning.Forms.UI, file=MenuViewModel.cs, creation=2020:7:2
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.UI, file=MenuViewModel.cs, creation=2020:7:2 Copyright (c) 2020
+// tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels
 {
-    using System.Threading.Tasks;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
@@ -16,6 +15,7 @@ namespace SimTuning.Forms.UI.ViewModels
     using SimTuning.Forms.UI.ViewModels.Home;
     using SimTuning.Forms.UI.ViewModels.Motor;
     using SimTuning.Forms.UI.ViewModels.Tuning;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// MenuViewModel.
@@ -26,11 +26,12 @@ namespace SimTuning.Forms.UI.ViewModels
         private readonly IMvxNavigationService _navigationService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MenuViewModel"/> class.
+        /// Initializes a new instance of the <see cref="MenuViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
             this._navigationService = navigationService;
 
@@ -59,7 +60,9 @@ namespace SimTuning.Forms.UI.ViewModels
         /// <summary>
         /// Logins the user.
         /// </summary>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <returns>
+        /// A <see cref="Task" /> representing the asynchronous operation.
+        /// </returns>
         protected new async Task LoginUser()
         {
             var result = await API.Login.UserLoginAsync().ConfigureAwait(true);

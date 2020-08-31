@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.WPFCore, file=MvxCloseViewCommand.cs, creation=2020:7:31
+﻿// project=SimTuning.Forms.WPFCore, file=MvxCloseViewCommand.cs, creation=2020:7:30
 // Copyright (c) 2020 tuke productions. All rights reserved.
 using System;
 using System.Windows;

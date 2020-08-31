@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.WPFCore, file=DialogLoadingView.xaml.cs, creation=2020:8:3
+﻿// project=SimTuning.Forms.WPFCore, file=DialogLoadingView.xaml.cs, creation=2020:7:30
 // Copyright (c) 2020 tuke productions. All rights reserved.
 using System.Windows;
 using System.Windows.Controls;

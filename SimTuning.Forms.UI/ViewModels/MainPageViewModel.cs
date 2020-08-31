@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.UI, file=MainPageViewModel.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.UI, file=MainPageViewModel.cs, creation=2020:6:28 Copyright (c)
+// 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels
 {
     using MvvmCross.Commands;
@@ -16,11 +16,12 @@ namespace SimTuning.Forms.UI.ViewModels
         private readonly IMvxNavigationService _navigationService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainPageViewModel"/> class.
+        /// Initializes a new instance of the <see cref="MainPageViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MainPageViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public MainPageViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
             this._navigationService = navigationService;
 
@@ -28,6 +29,9 @@ namespace SimTuning.Forms.UI.ViewModels
             this.ShowMenuViewModelCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MenuViewModel>());
         }
 
+        /// <summary>
+        /// Views the appeared.
+        /// </summary>
         public override void ViewAppeared()
         {
             base.ViewAppeared();

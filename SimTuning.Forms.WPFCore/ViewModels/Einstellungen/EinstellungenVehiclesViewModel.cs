@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenVehiclesViewModel.cs,
-// creation=2020:7:31 Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenVehiclesViewModel.cs, creation=2020:7:30
+// Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
     using MvvmCross.Commands;

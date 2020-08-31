@@ -1,17 +1,17 @@
-﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoAudioView"
-                       x:TypeArguments="viewModels:DynoAudioViewModel"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       Title="Audio"
-                       xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                       xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Dyno.DynoAudioView"
+                      x:TypeArguments="viewModels:DynoAudioViewModel"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
+                      xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      Title="Audio"
+                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
 
     <views:MvxContentPage.Resources>
-        <behaviors:NegateBooleanConverter x:Key="inverter" />
+        <behaviors:InvertedBoolConverter x:Key="inverter" />
     </views:MvxContentPage.Resources>
 
     <Grid>

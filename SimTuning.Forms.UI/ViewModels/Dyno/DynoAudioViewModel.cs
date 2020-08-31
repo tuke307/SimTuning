@@ -43,10 +43,10 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         protected new async Task CutBeginn()
         {
-            if (this.player == null)
-            {
-                return;
-            }
+            //if (this.player == null)
+            //{
+            //    return;
+            //}
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
@@ -62,10 +62,10 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         protected new async Task CutEnd()
         {
-            if (this.player == null)
-            {
-                return;
-            }
+            //if (this.player == null)
+            //{
+            //return;
+            //}
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
@@ -95,16 +95,16 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             await base.OpenFileDialog(fileData).ConfigureAwait(true);
 
-            if (this.player != null)
-            {
-                await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
+            //if (this.player != null)
+            //{
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
 
-                this.BadgeFileOpen = true;
-            }
+            this.BadgeFileOpen = true;
+            //}
         }
 
         /// <summary>
-        /// Aktualisiert das Spectrogram-Bild der Audio Datei
+        /// Aktualisiert das Spectrogram-Bild der Audio Datei.
         /// </summary>
         /// <returns></returns>
         protected new async Task ReloadImageAudioSpectrogram()

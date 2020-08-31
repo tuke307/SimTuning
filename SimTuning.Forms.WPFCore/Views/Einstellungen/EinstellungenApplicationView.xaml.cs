@@ -1,4 +1,6 @@
-﻿namespace SimTuning.Forms.WPFCore.Views.Einstellungen
+﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenApplicationView.xaml.cs, creation=2020:8:31
+// Copyright (c) 2020 tuke productions. All rights reserved.
+namespace SimTuning.Forms.WPFCore.Views.Einstellungen
 {
     using MvvmCross.Platforms.Wpf.Views;
     using SimTuning.Forms.WPFCore.Region;

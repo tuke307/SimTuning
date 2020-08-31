@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.WPFCore, file=MainWindow.xaml.cs, creation=2020:8:3 Copyright
-// (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.WPFCore, file=MainWindow.xaml.cs, creation=2020:7:9
+// Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.Views
 {
     using MediaManager;

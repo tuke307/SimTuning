@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenAussehenView.xaml.cs, creation=2020:7:31
+﻿// project=SimTuning.Forms.WPFCore, file=EinstellungenAussehenView.xaml.cs, creation=2020:7:7
 // Copyright (c) 2020 tuke productions. All rights reserved.
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;

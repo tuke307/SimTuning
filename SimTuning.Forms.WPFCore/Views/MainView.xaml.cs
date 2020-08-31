@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.WPFCore, file=MainView.xaml.cs, creation=2020:7:31
+﻿// project=SimTuning.Forms.WPFCore, file=MainView.xaml.cs, creation=2020:7:7
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.Views
 {
