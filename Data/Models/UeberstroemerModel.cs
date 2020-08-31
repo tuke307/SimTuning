@@ -2,7 +2,9 @@
 // productions. All rights reserved.
 namespace Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations.Schema;
+    using UnitsNet.Units;
 
     /// <summary>
     /// ÜberströmerModel.
@@ -48,7 +50,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The breite b unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit BreiteBUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? BreiteBUnit
+        {
+            get => this._BreiteBUnit ?? BreiteBBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.BreiteB.Value,
+                this._BreiteBUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.BreiteB = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.BreiteB = convertedValue;
+                }
+
+                this._BreiteBUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the flaeche.
@@ -61,7 +85,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The flaeche a unit.</value>
         [NotMapped]
-        public UnitsNet.Units.AreaUnit FlaecheAUnit { get; set; }
+        public UnitsNet.Units.AreaUnit? FlaecheAUnit
+        {
+            get => this._FlaecheAUnit ?? FlaecheABaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.FlaecheA.Value,
+                this._FlaecheAUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.FlaecheA = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.FlaecheA = convertedValue;
+                }
+
+                this._FlaecheAUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the hoehe.
@@ -74,7 +120,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The hoehe h unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit HoeheHUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? HoeheHUnit
+        {
+            get => this._HoeheHUnit ?? HoeheHBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.HoeheH.Value,
+                this._HoeheHUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.HoeheH = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.HoeheH = convertedValue;
+                }
+
+                this._HoeheHUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the motor.
@@ -94,5 +162,26 @@ namespace Data.Models
         /// </summary>
         /// <value>The steuerzeit sz.</value>
         public double? SteuerzeitSZ { get; set; }
+
+        /// <summary>
+        /// Gets or sets the breite b unit.
+        /// </summary>
+        /// <value>The breite b unit.</value>
+        [NotMapped]
+        private LengthUnit? _BreiteBUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flaeche a unit.
+        /// </summary>
+        /// <value>The flaeche a unit.</value>
+        [NotMapped]
+        private AreaUnit? _FlaecheAUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hoehe h unit.
+        /// </summary>
+        /// <value>The hoehe h unit.</value>
+        [NotMapped]
+        private LengthUnit? _HoeheHUnit { get; set; }
     }
 }

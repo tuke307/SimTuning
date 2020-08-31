@@ -2,14 +2,14 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.Core.Models;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     /// <summary>
-    ///  WPF-spezifisches Einstellungen-Main-ViewModel.
+    /// WPF-spezifisches Einstellungen-Main-ViewModel.
     /// </summary>
     /// <seealso cref="SimTuning.Core.ViewModels.Einstellungen.MainViewModel" />
     public class EinstellungenMainViewModel : SimTuning.Core.ViewModels.Einstellungen.MainViewModel
@@ -17,7 +17,8 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
         private readonly IMvxNavigationService _navigationService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EinstellungenMainViewModel"/> class.
+        /// Initializes a new instance of the <see cref="EinstellungenMainViewModel" />
+        /// class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
@@ -30,21 +31,21 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
         #region Methods
 
         /// <summary>
-        /// Prepares the specified user.
-        /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(SimTuning.Core.Models.UserModel _user)
-        {
-            base.Prepare(_user);
-        }
-
-        /// <summary>
         /// Initializes this instance.
         /// </summary>
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="_user">The user.</param>
+        public override void Prepare(SimTuning.Core.Models.UserModel _user)
+        {
+            base.Prepare(_user);
         }
 
         /// <summary>
@@ -56,6 +57,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Einstellungen
             this._navigationService.Navigate<EinstellungenUpdateViewModel>();
             this._navigationService.Navigate<EinstellungenVehiclesViewModel, UserModel>(User);
             this._navigationService.Navigate<EinstellungenKontoViewModel, UserModel>(User);
+            this._navigationService.Navigate<EinstellungenApplicationViewModel, UserModel>(User);
 
             this.EinstellungenTabIndex = 0;
         }

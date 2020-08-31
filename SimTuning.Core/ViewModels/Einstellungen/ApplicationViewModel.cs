@@ -1,37 +1,27 @@
-﻿// project=SimTuning.Core, file=AussehenViewModel.cs, creation=2020:7:31 Copyright (c)
-// 2020 tuke productions. All rights reserved.
-namespace SimTuning.Core.ViewModels.Einstellungen
+﻿namespace SimTuning.Core.ViewModels.Einstellungen
 {
-    using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using SimTuning.Core.Models;
-    using System.Resources;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// AussehenViewModel.
+    /// ApplicationViewModel.
     /// </summary>
     /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel{SimTuning.Core.Models.UserModel}" />
-    public class AussehenViewModel : MvxNavigationViewModel<UserModel>
+    public class ApplicationViewModel : MvxNavigationViewModel<UserModel>
     {
-        public UserModel User;
-        protected ResourceManager rm;
-
-        public IMvxCommand ApplyAccentCommand { get; set; }
-
-        public IMvxCommand ApplyPrimaryCommand { get; set; }
+        public UserModel User { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AussehenViewModel" /> class.
+        /// Initializes a new instance of the <see cref="ApplicationViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public AussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        public ApplicationViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
             : base(logProvider, navigationService)
         {
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
         }
 
         /// <summary>

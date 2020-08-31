@@ -3,6 +3,7 @@
 namespace Data.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
+    using UnitsNet.Units;
 
     /// <summary>
     /// AuspuffModel.
@@ -15,7 +16,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The abgas t base unit.</value>
         [NotMapped]
-        public static UnitsNet.Units.TemperatureUnit AbgasTBaseUnit { get => UnitsNet.Units.TemperatureUnit.DegreeCelsius; }
+        public static TemperatureUnit AbgasTBaseUnit { get => UnitsNet.Units.TemperatureUnit.DegreeCelsius; }
 
         /// <summary>
         /// Gets the abgas v base unit.
@@ -161,7 +162,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The abgas t unit.</value>
         [NotMapped]
-        public UnitsNet.Units.TemperatureUnit AbgasTUnit { get; set; }
+        public UnitsNet.Units.TemperatureUnit? AbgasTUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the abgas v.
@@ -174,7 +175,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The abgas v unit.</value>
         [NotMapped]
-        public UnitsNet.Units.SpeedUnit AbgasVUnit { get; set; }
+        public UnitsNet.Units.SpeedUnit? AbgasVUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the auslass.
@@ -206,7 +207,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor d1 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DiffusorD1Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorD1Unit { get; set; }
 
         /// <summary>
         /// Gets or sets the diffusor d2.
@@ -219,7 +220,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor d2 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DiffusorD2Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorD2Unit { get; set; }
 
         /// <summary>
         /// Gets or sets the diffusor d3.
@@ -232,14 +233,14 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor d3 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DiffusorD3Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorD3Unit { get; set; }
 
         /// <summary>
         /// Gets or sets the diffusor d unit.
         /// </summary>
         /// <value>The diffusor d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DiffusorDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorDUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the diffusor l.
@@ -258,7 +259,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor l1 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DiffusorL1Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorL1Unit { get; set; }
 
         /// <summary>
         /// Gets or sets the diffusor l2.
@@ -271,7 +272,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor l2 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DiffusorL2Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorL2Unit { get; set; }
 
         /// <summary>
         /// Gets or sets the diffusor l3.
@@ -284,14 +285,14 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor l3 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DiffusorL3Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorL3Unit { get; set; }
 
         /// <summary>
         /// Gets or sets the diffusor l unit.
         /// </summary>
         /// <value>The diffusor l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DiffusorLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorLUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the diffusor stage.
@@ -334,7 +335,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The endrohr d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit EndrohrDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? EndrohrDUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the endrohr l.
@@ -347,7 +348,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The endrohr l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit EndrohrLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? EndrohrLUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the gegenkonus d.
@@ -360,7 +361,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The gegenkonus d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit GegenkonusDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? GegenkonusDUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the gegenkonus l.
@@ -373,7 +374,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The gegenkonus l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit GegenkonusLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? GegenkonusLUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the gegen konus w.
@@ -392,7 +393,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The gesamt l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit GesamtLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? GesamtLUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the kruemmer d.
@@ -405,7 +406,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The kruemmer d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit KruemmerDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? KruemmerDUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the kruemmer f.
@@ -424,7 +425,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The kruemmer l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit KruemmerLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? KruemmerLUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the kruemmer w.
@@ -443,7 +444,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The mittelteil d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit MittelteilDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? MittelteilDUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the mittelteil f.
@@ -462,7 +463,7 @@ namespace Data.Models
         /// </summary>
         /// <value>The mittelteil l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit MittelteilLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? MittelteilLUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the resonanz l.
@@ -475,6 +476,6 @@ namespace Data.Models
         /// </summary>
         /// <value>The resonanz l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit ResonanzLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? ResonanzLUnit { get; set; }
     }
 }

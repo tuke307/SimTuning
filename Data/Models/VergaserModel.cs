@@ -2,7 +2,9 @@
 // productions. All rights reserved.
 namespace Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations.Schema;
+    using UnitsNet.Units;
 
     /// <summary>
     /// VergaserModel.
@@ -34,7 +36,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The durchmesser d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DurchmesserDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? DurchmesserDUnit
+        {
+            get => this._DurchmesserDUnit ?? DurchmesserDBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DurchmesserD.Value,
+                this._DurchmesserDUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DurchmesserD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DurchmesserD = convertedValue;
+                }
+
+                this._DurchmesserDUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the einlass.
@@ -48,5 +72,12 @@ namespace Data.Models
         /// </summary>
         /// <value>The einlass identifier.</value>
         public int EinlassId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the durchmesser d unit.
+        /// </summary>
+        /// <value>The durchmesser d unit.</value>
+        [NotMapped]
+        private LengthUnit? _DurchmesserDUnit { get; set; }
     }
 }

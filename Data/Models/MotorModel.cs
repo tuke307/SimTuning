@@ -2,9 +2,11 @@
 // productions. All rights reserved.
 namespace Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using UnitsNet.Units;
 
     /// <summary>
     /// MotorModel.
@@ -86,7 +88,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The bohrung d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit BohrungDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? BohrungDUnit
+        {
+            get => this._BohrungDUnit ?? BohrungDBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.BohrungD.Value,
+                this._BohrungDUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.BohrungD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.BohrungD = convertedValue;
+                }
+
+                this._BohrungDUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the brennraum v.
@@ -99,7 +123,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The brennraum v unit.</value>
         [NotMapped]
-        public UnitsNet.Units.VolumeUnit BrennraumVUnit { get; set; }
+        public UnitsNet.Units.VolumeUnit? BrennraumVUnit
+        {
+            get => this._BrennraumVUnit ?? BrennraumVBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.BrennraumV.Value,
+                this._BrennraumVUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.BrennraumV = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.BrennraumV = convertedValue;
+                }
+
+                this._BrennraumVUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the deachsierung l.
@@ -112,7 +158,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The deachsierung l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DeachsierungLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? DeachsierungLUnit
+        {
+            get => this._DeachsierungLUnit ?? DeachsierungLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DeachsierungL.Value,
+                this._DeachsierungLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DeachsierungL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DeachsierungL = convertedValue;
+                }
+
+                this._DeachsierungLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the einlass.
@@ -138,7 +206,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The hub l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit HubLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? HubLUnit
+        {
+            get => this._HubLUnit ?? HubLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.HubL.Value,
+                this._HubLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.HubL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.HubL = convertedValue;
+                }
+
+                this._HubLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the hubraum v.
@@ -151,7 +241,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The hubraum v unit.</value>
         [NotMapped]
-        public UnitsNet.Units.VolumeUnit HubraumVUnit { get; set; }
+        public UnitsNet.Units.VolumeUnit? HubraumVUnit
+        {
+            get => this._HubraumVUnit ?? HubraumVBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.HubraumV.Value,
+                this._HubraumVUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.HubraumV = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.HubraumV = convertedValue;
+                }
+
+                this._HubraumVUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the kolben g.
@@ -164,7 +276,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The kolben g unit.</value>
         [NotMapped]
-        public UnitsNet.Units.SpeedUnit KolbenGUnit { get; set; }
+        public UnitsNet.Units.SpeedUnit? KolbenGUnit
+        {
+            get => this._KolbenGUnit ?? KolbenGBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.KolbenG.Value,
+                this._KolbenGUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.KolbenG = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.KolbenG = convertedValue;
+                }
+
+                this._KolbenGUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the kurbelgehaeuse v.
@@ -177,7 +311,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The kurbelgehaeuse v unit.</value>
         [NotMapped]
-        public UnitsNet.Units.VolumeUnit KurbelgehaeuseVUnit { get; set; }
+        public UnitsNet.Units.VolumeUnit? KurbelgehaeuseVUnit
+        {
+            get => this._KurbelgehaeuseVUnit ?? KurbelgehaeuseVBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.KurbelgehaeuseV.Value,
+                this._KurbelgehaeuseVUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.KurbelgehaeuseV = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.KurbelgehaeuseV = convertedValue;
+                }
+
+                this._KurbelgehaeuseVUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name.
@@ -197,7 +353,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The pleul l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit PleulLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? PleulLUnit
+        {
+            get => this._PleulLUnit ?? PleulLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.PleulL.Value,
+                this._PleulLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.PleulL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.PleulL = convertedValue;
+                }
+
+                this._PleulLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the resonanz u.
@@ -235,5 +413,61 @@ namespace Data.Models
         /// </summary>
         /// <value>The zylinder anz.</value>
         public double? ZylinderAnz { get; set; }
+
+        /// <summary>
+        /// Gets or sets the bohrung d unit.
+        /// </summary>
+        /// <value>The bohrung d unit.</value>
+        [NotMapped]
+        private LengthUnit? _BohrungDUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the brennraum v unit.
+        /// </summary>
+        /// <value>The brennraum v unit.</value>
+        [NotMapped]
+        private VolumeUnit? _BrennraumVUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the deachsierung l unit.
+        /// </summary>
+        /// <value>The deachsierung l unit.</value>
+        [NotMapped]
+        private LengthUnit? _DeachsierungLUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hub l unit.
+        /// </summary>
+        /// <value>The hub l unit.</value>
+        [NotMapped]
+        private LengthUnit? _HubLUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hubraum v unit.
+        /// </summary>
+        /// <value>The hubraum v unit.</value>
+        [NotMapped]
+        private VolumeUnit? _HubraumVUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the kolben g unit.
+        /// </summary>
+        /// <value>The kolben g unit.</value>
+        [NotMapped]
+        private SpeedUnit? _KolbenGUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the kurbelgehaeuse v unit.
+        /// </summary>
+        /// <value>The kurbelgehaeuse v unit.</value>
+        [NotMapped]
+        private VolumeUnit? _KurbelgehaeuseVUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pleul l unit.
+        /// </summary>
+        /// <value>The pleul l unit.</value>
+        [NotMapped]
+        private LengthUnit? _PleulLUnit { get; set; }
     }
 }

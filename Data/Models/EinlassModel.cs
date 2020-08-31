@@ -2,7 +2,9 @@
 // productions. All rights reserved.
 namespace Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations.Schema;
+    using UnitsNet.Units;
 
     /// <summary>
     /// EinlassModel.
@@ -46,6 +48,13 @@ namespace Data.Models
         public static UnitsNet.Units.LengthUnit LaengeBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
 
         /// <summary>
+        /// Gets or sets the laenge l base unit.
+        /// </summary>
+        /// <value>The laenge l base unit.</value>
+        [NotMapped]
+        public static LengthUnit LaengeLBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
         /// Gets or sets the breite b.
         /// </summary>
         /// <value>The breite b.</value>
@@ -56,7 +65,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The breite b unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit BreiteBUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? BreiteBUnit
+        {
+            get => this._BreiteBUnit ?? BreiteBBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.BreiteB.Value,
+                this._BreiteBUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.BreiteB = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.BreiteB = convertedValue;
+                }
+
+                this._BreiteBUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the durchmesser d.
@@ -65,7 +96,29 @@ namespace Data.Models
         public double? DurchmesserD { get; set; }
 
         [NotMapped]
-        public UnitsNet.Units.LengthUnit DurchmesserDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? DurchmesserDUnit
+        {
+            get => this._DurchmesserDUnit ?? DurchmesserDBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DurchmesserD.Value,
+                this._DurchmesserDUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DurchmesserD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DurchmesserD = convertedValue;
+                }
+
+                this._DurchmesserDUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the flaeche a.
@@ -78,7 +131,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The flaeche a unit.</value>
         [NotMapped]
-        public UnitsNet.Units.AreaUnit FlaecheAUnit { get; set; }
+        public UnitsNet.Units.AreaUnit? FlaecheAUnit
+        {
+            get => this._FlaecheAUnit ?? FlaecheABaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.FlaecheA.Value,
+                this._FlaecheAUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.FlaecheA = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.FlaecheA = convertedValue;
+                }
+
+                this._FlaecheAUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the hoehe h.
@@ -91,7 +166,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The hoehe h unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit HoeheHUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? HoeheHUnit
+        {
+            get => this._HoeheHUnit ?? HoeheHBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.HoeheH.Value,
+                this._HoeheHUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.HoeheH = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.HoeheH = convertedValue;
+                }
+
+                this._HoeheHUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the laenge l.
@@ -104,7 +201,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The laenge l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit LaengeLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? LaengeLUnit
+        {
+            get => this._LaengeLUnit ?? LaengeLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.LaengeL.Value,
+                this._LaengeLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.LaengeL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.LaengeL = convertedValue;
+                }
+
+                this._LaengeLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the luft bedarf.
@@ -136,5 +255,40 @@ namespace Data.Models
         /// </summary>
         /// <value>The vergaser.</value>
         public virtual VergaserModel Vergaser { get; set; }
+
+        /// <summary>
+        /// Gets or sets the breite b unit.
+        /// </summary>
+        /// <value>The breite b unit.</value>
+        [NotMapped]
+        private LengthUnit? _BreiteBUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the durchmesser d unit.
+        /// </summary>
+        /// <value>The durchmesser d unit.</value>
+        [NotMapped]
+        private LengthUnit? _DurchmesserDUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flaeche a unit.
+        /// </summary>
+        /// <value>The flaeche a unit.</value>
+        [NotMapped]
+        private AreaUnit? _FlaecheAUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hoehe h unit.
+        /// </summary>
+        /// <value>The hoehe h unit.</value>
+        [NotMapped]
+        private LengthUnit? _HoeheHUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the laenge l unit.
+        /// </summary>
+        /// <value>The laenge l unit.</value>
+        [NotMapped]
+        private LengthUnit? _LaengeLUnit { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
     using MvvmCross.Navigation;
     using Plugin.FilePicker;
     using Plugin.FilePicker.Abstractions;
+    using Plugin.SimpleAudioPlayer;
     using SimTuning.Core.Models;
     using SimTuning.Forms.WPFCore.Business;
     using SimTuning.Forms.WPFCore.Views.Dialog;
@@ -98,9 +99,7 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
             var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
             //MediaManager = CrossSimpleAudioMediaManager.Current;
             MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
-            //ISimpleAudioPlayer player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
-            //player.Load(stream);
-            //player.Play();
+
             stream.Dispose();
 
             base.OpenFile();
@@ -109,13 +108,18 @@ namespace SimTuning.Forms.WPFCore.ViewModels.Dyno
         protected new async Task OpenFileDialog()
         {
             if (!CheckDynoDataAsync().Result)
+            {
                 return;
+            }
 
             FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "WAVE Audio (*.wav)|*.wav", "MP3 Audio (*.mp3)|*.mp3" }).ConfigureAwait(true);
 
             if (fileData == null)
+            {
+                return;
+            }
 
-                await base.OpenFileDialog(fileData).ConfigureAwait(true);
+            await base.OpenFileDialog(fileData).ConfigureAwait(true);
 
             if (MediaManager.MediaPlayer != null)
             {

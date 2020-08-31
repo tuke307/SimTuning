@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="UnitSettings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>UnitSettings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

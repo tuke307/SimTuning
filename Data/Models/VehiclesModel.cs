@@ -2,8 +2,10 @@
 // productions. All rights reserved.
 namespace Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using UnitsNet.Units;
 
     /// <summary>
     /// FahrzeugModel.
@@ -62,7 +64,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The front a unit.</value>
         [NotMapped]
-        public UnitsNet.Units.AreaUnit FrontAUnit { get; set; }
+        public UnitsNet.Units.AreaUnit? FrontAUnit
+        {
+            get => this._FrontAUnit ?? FrontABaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.FrontA.Value,
+                this._FrontAUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.FrontA = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.FrontA = convertedValue;
+                }
+
+                this._FrontAUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the gewicht.
@@ -75,7 +99,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The unit gewicht.</value>
         [NotMapped]
-        public UnitsNet.Units.MassUnit GewichtUnit { get; set; }
+        public UnitsNet.Units.MassUnit? GewichtUnit
+        {
+            get => this._GewichtUnit ?? GewichtBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.Gewicht.Value,
+                this._GewichtUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.Gewicht = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.Gewicht = convertedValue;
+                }
+
+                this._GewichtUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the motor.
@@ -108,5 +154,19 @@ namespace Data.Models
         /// </summary>
         /// <value>The uebersetzung.</value>
         public double? Uebersetzung { get; set; }
+
+        /// <summary>
+        /// Gets or sets the front a unit.
+        /// </summary>
+        /// <value>The front a unit.</value>
+        [NotMapped]
+        private AreaUnit? _FrontAUnit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the gewicht unit.
+        /// </summary>
+        /// <value>The gewicht unit.</value>
+        [NotMapped]
+        private MassUnit? _GewichtUnit { get; set; }
     }
 }

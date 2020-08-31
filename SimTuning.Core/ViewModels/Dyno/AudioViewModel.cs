@@ -31,7 +31,7 @@ namespace SimTuning.Core.ViewModels.Dyno
     {
         public readonly IMediaManager MediaManager;
         protected AudioLogic audioLogic;
-        protected ISimpleAudioPlayer player/* = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current*/;
+
         protected ResourceManager rm;
 
         /// <summary>
