@@ -1,12 +1,14 @@
-﻿// project=SimTuning.Forms.UI, file=FormsApp.xaml.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.UI, file=FormsApp.xaml.cs, creation=2020:6:28 Copyright (c)
+// 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI
 {
+    using Data;
+    using Microsoft.EntityFrameworkCore;
+    using Plugin.DeviceInfo;
     using System;
     using System.Globalization;
     using System.IO;
     using System.Resources;
-    using Plugin.DeviceInfo;
 
     /// <summary>
     /// FormsApp.
@@ -17,7 +19,7 @@ namespace SimTuning.Forms.UI
         private readonly ResourceManager rm;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormsApp"/> class.
+        /// Initializes a new instance of the <see cref="FormsApp" /> class.
         /// </summary>
         public FormsApp()
         {
@@ -42,11 +44,17 @@ namespace SimTuning.Forms.UI
                 default:
                     throw new NotImplementedException(message: rm.GetString("ERR_NOSUPPORT", CultureInfo.CurrentCulture));
             }
+
+            using (var db = new DatabaseContext())
+            {
+                db.Database.EnsureCreated();
+                db.Database.Migrate();
+            }
         }
 
-        protected override void OnStart()
+        protected override void OnResume()
         {
-            base.OnStart();
+            base.OnResume();
         }
 
         protected override void OnSleep()
@@ -54,9 +62,9 @@ namespace SimTuning.Forms.UI
             base.OnSleep();
         }
 
-        protected override void OnResume()
+        protected override void OnStart()
         {
-            base.OnResume();
+            base.OnStart();
         }
     }
 }

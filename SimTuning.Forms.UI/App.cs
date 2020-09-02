@@ -19,8 +19,6 @@ namespace SimTuning.Forms.UI
         {
             Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
 
-            // CrossMediaManager.Current.Library.Providers.Add(new MediaItemProvider());
-
             this.RegisterAppStart<MainPageViewModel>();
         }
     }

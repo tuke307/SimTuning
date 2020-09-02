@@ -30,7 +30,7 @@
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1364" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.43-beta" />
-    <PackageReference Include="XF.Material" Version="1.6.6" />
+    <PackageReference Include="XF.Material" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>

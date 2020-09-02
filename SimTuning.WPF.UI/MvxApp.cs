@@ -2,13 +2,16 @@
 // productions. All rights reserved.
 namespace SimTuning.WPF.UI
 {
+    using Data;
     using MediaManager;
+    using Microsoft.EntityFrameworkCore;
     using MvvmCross;
     using MvvmCross.IoC;
     using MvvmCross.Plugin;
     using MvvmCross.ViewModels;
     using SimTuning.Core.Models;
     using System.IO;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// WPF-Specific App Start.
@@ -22,12 +25,13 @@ namespace SimTuning.WPF.UI
 
             Data.Constants.DatabasePath = Path.Combine(SimTuning.Core.Constants.FileDirectory, Data.Constants.DatabaseName);
 
+            using (var db = new DatabaseContext())
+            {
+                db.Database.Migrate();
+            }
+
             if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
                 Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
-
-            //Mvx.RegisterType<IMvxMessenger, MvxReloaderMessage>();
-            //Mvx.IoCProvider.RegisterSingleton<MvvmCross.Plugin.Messenger.IMvxMessenger>(new Core.Models.MvxReloaderMessage());
-            //Mvx.IoCProvider.Resolve<MvvmCross.Plugin.Messenger.IMvxMessenger>();
 
             this.CreatableTypes()
                 .EndingWith("Service")

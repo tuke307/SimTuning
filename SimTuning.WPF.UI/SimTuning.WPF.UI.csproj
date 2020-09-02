@@ -4,6 +4,7 @@
     <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>..\Solution Items\Code Rules.ruleset</CodeAnalysisRuleSet>
+    <AssemblyName>SimTuning.WPF.UI</AssemblyName>
   </PropertyGroup>
 
   <Import Project="$(ProjectDir)netcore.targets" Condition=" $(TargetFramework.StartsWith('netcoreapp3'))" />
@@ -32,7 +33,6 @@
     <PackageReference Include="Plugin.MediaManager" Version="1.0.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7" />
   </ItemGroup>
 
   <ItemGroup>

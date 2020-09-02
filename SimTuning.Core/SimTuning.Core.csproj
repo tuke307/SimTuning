@@ -26,7 +26,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-    <PackageReference Include="UnitsNet" Version="4.69.0" />
+    <PackageReference Include="UnitsNet" Version="4.70.0" />
     <PackageReference Include="WooCommerceNET" Version="0.8.2" />
     <PackageReference Include="WordPressPCL" Version="1.7.1" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.43-beta" />
