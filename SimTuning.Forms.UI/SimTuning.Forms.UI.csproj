@@ -4,17 +4,14 @@
     <LangVersion>latest</LangVersion>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <CodeAnalysisRuleSet>..\Solution Items\Code Rules.ruleset</CodeAnalysisRuleSet>
-    <ApplicationIcon></ApplicationIcon>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
     <OldToolsVersion>Current</OldToolsVersion>
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="ExpandableView" Version="1.0.10" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
@@ -35,6 +32,7 @@
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.43-beta" />
     <PackageReference Include="XF.Material" Version="1.6.6" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\API\API.csproj" />
     <ProjectReference Include="..\SimTuning.Core\SimTuning.Core.csproj" />
@@ -113,6 +111,7 @@
       <DependentUpon>TuningDiagnosisView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Components\MenuOptionView.xaml">
       <Generator>MSBuild:Compile</Generator>

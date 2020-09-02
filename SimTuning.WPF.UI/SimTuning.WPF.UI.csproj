@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <CodeAnalysisRuleSet>..\Solution Items\Code Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <Import Project="$(ProjectDir)netcore.targets" Condition=" $(TargetFramework.StartsWith('netcoreapp3'))" />
+   
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netcoreapp3')) ">
+    <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net47')) ">
+    <PackageReference Include="Dragablz" Version="0.0.3.203" />
+    
+
+  </ItemGroup>
+
+ 
+  <ItemGroup>
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.6.2" />
+    <PackageReference Include="MaterialDesignColors" Version="1.2.6" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
+    <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.43-beta" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="MvvmCross" Version="7.0.0" />
+    <PackageReference Include="MvvmCross.Platforms.Wpf" Version="7.0.0" />
+    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="7.0.0" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
+    <PackageReference Include="Plugin.MediaManager" Version="1.0.1" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\API\API.csproj" />
+    <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\SimTuning.Core\SimTuning.Core.csproj" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Compile Update="color.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Color.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Color.settings">
+      <LastGenOutput>color.Designer.cs</LastGenOutput>
+      <Generator>SettingsSingleFileGenerator</Generator>
+    </None>
+    
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\T.meissner\.nuget\packages\skiasharp\2.80.1\buildTransitive\net462\..\..\runtimes\win-arm64\native\libSkiaSharp.dll" />
+  </ItemGroup>
+
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('net47')) ">
+     <None Remove="Dialog\DialogLoadingView.xaml" />
+     <None Remove="Dialog\DialogSnackbarView.xaml" />
+    
+    <Page Include="Dialog\DialogLoadingView.xaml" />  
+    <Page Include="Dialog\DialogSnackbarView.xaml" />
+  </ItemGroup>
+
+  
+</Project>
