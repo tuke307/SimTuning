@@ -8,6 +8,52 @@ namespace Spectrogram
 {
     internal class Image
     {
+        public static SKBitmap ApplyColormap(SKBitmap bmp, Colormap colormap)
+        {
+            //farbtabellen erstellen
+            byte[] atable = new byte[256];
+            byte[] rtable = new byte[256];
+            byte[] gtable = new byte[256];
+            byte[] btable = new byte[256];
+
+            //Map erstellen
+            ColorMap colorMap = new ColorMap(colormap.ToString());
+
+            //farben zuweisen
+            var colors = colorMap.Colors().ToList();
+
+            //farbtabellen zuweisen
+            for (int i = 0; i < 256; i++)
+            {
+                atable[i] = (byte)255;
+                rtable[i] = colors[i][0];
+                gtable[i] = colors[i][1];
+                btable[i] = colors[i][2];
+            }
+
+            //Colormap anwenden
+            var coloredBitmap = new SKBitmap(bmp.Width, bmp.Height);
+
+            var surface = new SKCanvas(coloredBitmap);
+            SKPaint paint = new SKPaint();
+            paint.ColorFilter = SKColorFilter.CreateTable(rtable, rtable, gtable, btable);
+
+            surface.Translate(coloredBitmap.Width / 2, coloredBitmap.Height / 2);
+            surface.DrawBitmap(bmp, bmp.Width, bmp.Height, paint: paint);
+
+            return coloredBitmap;
+
+            //using (var image = SKImage.FromBitmap(bmp))
+            //using (var data = image.Encode())
+            //{
+            //    // save the data to a stream
+            //    using (var stream = File.OpenWrite("C:\\Users\\Tony\\Desktop\\image.png"))
+            //    {
+            //        data.SaveTo(stream);
+            //    }
+            //}
+        }
+
         public static SKBitmap BitmapFromFFTs(float[][] ffts, Settings.DisplaySettings displaySettings)
         {
             if (ffts == null || ffts.Length == 0)
@@ -63,55 +109,9 @@ namespace Spectrogram
             bmp.SetPixels(pix);
 
             //Colormap
-            bmp = ApplyColormap(bmp, displaySettings.colormap);
+            //bmp = ApplyColormap(bmp, displaySettings.colormap);
 
             return bmp;
-        }
-
-        public static SKBitmap ApplyColormap(SKBitmap bmp, Colormap colormap)
-        {
-            //farbtabellen erstellen
-            byte[] atable = new byte[256];
-            byte[] rtable = new byte[256];
-            byte[] gtable = new byte[256];
-            byte[] btable = new byte[256];
-
-            //Map erstellen
-            ColorMap colorMap = new ColorMap(colormap.ToString());
-
-            //farben zuweisen
-            var colors = colorMap.Colors().ToList();
-
-            //farbtabellen zuweisen
-            for (int i = 0; i < 256; i++)
-            {
-                atable[i] = (byte)255;
-                rtable[i] = colors[i][0];
-                gtable[i] = colors[i][1];
-                btable[i] = colors[i][2];
-            }
-
-            //Colormap anwenden
-            var coloredBitmap = new SKBitmap(bmp.Width, bmp.Height);
-
-            var surface = new SKCanvas(coloredBitmap);
-            SKPaint paint = new SKPaint();
-            paint.ColorFilter = SKColorFilter.CreateTable(rtable, rtable, gtable, btable);
-
-            surface.Translate(coloredBitmap.Width / 2, coloredBitmap.Height / 2);
-            surface.DrawBitmap(bmp, bmp.Width, bmp.Height, paint: paint);
-
-            return coloredBitmap;
-
-            //using (var image = SKImage.FromBitmap(bmp))
-            //using (var data = image.Encode())
-            //{
-            //    // save the data to a stream
-            //    using (var stream = File.OpenWrite("C:\\Users\\Tony\\Desktop\\image.png"))
-            //    {
-            //        data.SaveTo(stream);
-            //    }
-            //}
         }
     }
 }

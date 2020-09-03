@@ -114,8 +114,8 @@ namespace SimTuning.Core.ViewModels.Dyno
             //MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
             //stream.Dispose();
 
-            this.MediaManager.PositionChanged += Current_PositionChanged;
-            RaisePropertyChanged(() => AudioMaximum);
+            //this.MediaManager.PositionChanged += Current_PositionChanged;
+            //RaisePropertyChanged(() => AudioMaximum);
             //Task t = Task.Run(() =>
             //{
             //    Task.Delay(1000).Wait();

@@ -223,7 +223,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         public string Graph
         {
             get => _graph;
-            set { SetProperty(ref _graph, value); }
+            set { SetProperty(ref _graph, value); SpecificGraphCommand.Execute(); }
         }
 
         public List<string> Graphs

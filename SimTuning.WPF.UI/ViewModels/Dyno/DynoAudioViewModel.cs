@@ -97,9 +97,9 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             // initialisieren
             var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
             //MediaManager = CrossSimpleAudioMediaManager.Current;
-            MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
+            //MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
 
-            stream.Dispose();
+            //stream.Dispose();
 
             base.OpenFile();
         }
@@ -120,24 +120,24 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await base.OpenFileDialog(fileData).ConfigureAwait(true);
 
-            if (MediaManager.MediaPlayer != null)
-            {
-                await ReloadImageAudioSpectrogram();
+            //if (MediaManager.MediaPlayer != null)
+            //{
+            await this.ReloadImageAudioSpectrogram();
 
-                BadgeFileOpen = true;
-            }
+            BadgeFileOpen = true;
+            //}
         }
 
-        protected new async Task ReloadImageAudioSpectrogram()
+        protected new Task ReloadImageAudioSpectrogram()
         {
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", delegate (object sender, DialogOpenedEventArgs args)
-            {
-                Stream stream = base.ReloadImageAudioSpectrogram();
-                PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                ImageAudioFile = decoder.Frames[0];
+            return DialogHost.Show(new DialogLoadingView(), "DialogLoading", delegate (object sender, DialogOpenedEventArgs args)
+             {
+                 Stream stream = base.ReloadImageAudioSpectrogram();
+                 PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                 ImageAudioFile = decoder.Frames[0];
 
-                args.Session.Close();
-            }).ConfigureAwait(true);
+                 args.Session.Close();
+             });
         }
 
         private async Task<bool> CheckDynoDataAsync()
