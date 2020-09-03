@@ -13,6 +13,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
     using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Media.Imaging;
 
     /// <summary>
@@ -55,9 +56,9 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return;
             }
 
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                await base.FilterPlot().ConfigureAwait(true);
+                base.FilterPlot().Wait();
 
                 args.Session.Close();
             }).ConfigureAwait(true);
@@ -73,9 +74,9 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return;
             }
 
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                await base.RefreshPlot();
+                base.RefreshPlot().Wait();
 
                 args.Session.Close();
             }).ConfigureAwait(true);
@@ -91,14 +92,14 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return;
             }
 
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
-            {
-                Stream stream = base.ReloadImageAudioSpectrogram();
-                PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                DisplayedImage = decoder.Frames[0];
+            _ = Task.Run(async () => await DialogHost.Show(new DialogLoadingView(), "DialogLoading").ConfigureAwait(false));
+            //_ = DialogHost.Show(new DialogLoadingView(), "DialogLoading");
 
-                args.Session.Close();
-            }).ConfigureAwait(true);
+            Stream stream = base.ReloadImageAudioSpectrogram();
+            PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+            DisplayedImage = decoder.Frames[0];
+
+            DialogHost.CloseDialogCommand.Execute(null, null);
         }
 
         /// <summary>
@@ -106,9 +107,9 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// </summary>
         protected new async Task SpecificGraph()
         {
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                await base.SpecificGraph().ConfigureAwait(true);
+                base.SpecificGraph().Wait();
 
                 args.Session.Close();
             }).ConfigureAwait(true);

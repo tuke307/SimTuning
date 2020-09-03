@@ -11,10 +11,13 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
     using SimTuning.Core.Models;
     using SimTuning.WPF.UI.Business;
     using SimTuning.WPF.UI.Dialog;
+    using System;
     using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Media.Imaging;
+    using System.Windows.Threading;
 
     /// <summary>
     /// WPF-spezifisches Dyno-Audio-ViewModel.
@@ -122,22 +125,25 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             //if (MediaManager.MediaPlayer != null)
             //{
-            await this.ReloadImageAudioSpectrogram();
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
 
             BadgeFileOpen = true;
             //}
         }
 
-        protected new Task ReloadImageAudioSpectrogram()
+        protected new async Task ReloadImageAudioSpectrogram()
         {
-            return DialogHost.Show(new DialogLoadingView(), "DialogLoading", delegate (object sender, DialogOpenedEventArgs args)
-             {
-                 Stream stream = base.ReloadImageAudioSpectrogram();
-                 PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                 ImageAudioFile = decoder.Frames[0];
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Stream stream = base.ReloadImageAudioSpectrogram();
+                    PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                    ImageAudioFile = decoder.Frames[0];
+                });
 
-                 args.Session.Close();
-             });
+                args.Session.Close();
+            });
         }
 
         private async Task<bool> CheckDynoDataAsync()
