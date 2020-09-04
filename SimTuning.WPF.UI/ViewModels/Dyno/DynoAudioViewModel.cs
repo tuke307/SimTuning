@@ -17,7 +17,6 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Media.Imaging;
-    using System.Windows.Threading;
 
     /// <summary>
     /// WPF-spezifisches Dyno-Audio-ViewModel.
@@ -68,11 +67,14 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return;
             }
 
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                await base.CutBeginn().ConfigureAwait(true);
+                Task.Run(async () =>
+                {
+                    await base.CutBeginn().ConfigureAwait(true);
 
-                args.Session.Close();
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
             }).ConfigureAwait(true);
 
             await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
@@ -85,11 +87,14 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return;
             }
 
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                await base.CutEnd().ConfigureAwait(true);
+                _ = Task.Run(async () =>
+                  {
+                      await base.CutEnd().ConfigureAwait(true);
 
-                args.Session.Close();
+                      Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                  });
             }).ConfigureAwait(true);
 
             await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
@@ -125,24 +130,24 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             //if (MediaManager.MediaPlayer != null)
             //{
-            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
+            await this.ReloadImageAudioSpectrogram();
 
             BadgeFileOpen = true;
             //}
         }
 
-        protected new async Task ReloadImageAudioSpectrogram()
+        protected new Task ReloadImageAudioSpectrogram()
         {
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
+            return DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                Task.Run(() =>
                 {
                     Stream stream = base.ReloadImageAudioSpectrogram();
                     PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                    ImageAudioFile = decoder.Frames[0];
-                });
+                    this.ImageAudioFile = decoder.Frames[0];
 
-                args.Session.Close();
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
             });
         }
 

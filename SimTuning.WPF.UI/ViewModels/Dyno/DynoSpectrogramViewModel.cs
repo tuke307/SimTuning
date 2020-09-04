@@ -22,8 +22,6 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
     /// <seealso cref="SimTuning.Core.ViewModels.Dyno.SpectrogramViewModel" />
     public class DynoSpectrogramViewModel : SimTuning.Core.ViewModels.Dyno.SpectrogramViewModel
     {
-        private readonly MvxSubscriptionToken _token;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DynoSpectrogramViewModel" />
         /// class.
@@ -58,9 +56,12 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                base.FilterPlot().Wait();
+                Task.Run(async () =>
+                {
+                    await base.FilterPlot().ConfigureAwait(true);
 
-                args.Session.Close();
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
             }).ConfigureAwait(true);
         }
 
@@ -76,9 +77,11 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                base.RefreshPlot().Wait();
-
-                args.Session.Close();
+                Application.Current.Dispatcher.Invoke(async () =>
+                {
+                    await base.RefreshPlot().ConfigureAwait(true);
+                    args.Session.Close();
+                });
             }).ConfigureAwait(true);
         }
 
@@ -92,26 +95,33 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return;
             }
 
-            _ = Task.Run(async () => await DialogHost.Show(new DialogLoadingView(), "DialogLoading").ConfigureAwait(false));
-            //_ = DialogHost.Show(new DialogLoadingView(), "DialogLoading");
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
+            {
+                Task.Run(() =>
+                {
+                    Stream stream = base.ReloadImageAudioSpectrogram();
+                    PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                    this.DisplayedImage = decoder.Frames[0];
 
-            Stream stream = base.ReloadImageAudioSpectrogram();
-            PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-            DisplayedImage = decoder.Frames[0];
-
-            DialogHost.CloseDialogCommand.Execute(null, null);
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
+            }).ConfigureAwait(true);
         }
 
         /// <summary>
         /// Specifics the graph.
+        /// TODO: geht nicht mehr!
         /// </summary>
         protected new async Task SpecificGraph()
         {
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                base.SpecificGraph().Wait();
+                Task.Run(async () =>
+                {
+                    await base.SpecificGraph().ConfigureAwait(true);
 
-                args.Session.Close();
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
             }).ConfigureAwait(true);
         }
 
@@ -136,6 +146,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
         #region Values
 
+        private readonly MvxSubscriptionToken _token;
         private BitmapSource _displayedImage;
 
         public BitmapSource DisplayedImage

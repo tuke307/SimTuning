@@ -1,39 +1,37 @@
 ﻿// project=SimTuning.Core, file=SpectrogramViewModel.cs, creation=2020:7:31 Copyright (c)
 // 2020 tuke productions. All rights reserved.
-using Data;
-using Data.Models;
-using Microsoft.EntityFrameworkCore;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using OxyPlot;
-using SimTuning.Core.ModuleLogic;
-using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Resources;
-using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
 {
+    using Data;
+    using Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using OxyPlot;
+    using SimTuning.Core.ModuleLogic;
+    using SkiaSharp;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Resources;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// SpectrogramViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class SpectrogramViewModel : MvxNavigationViewModel
     {
-        protected readonly AudioLogic audioLogic;
-
-        protected readonly DynoLogic dynoLogic;
-        protected readonly ResourceManager rm;
-
-        public IMvxAsyncCommand FilterPlotCommand { get; set; }
-
-        public IMvxAsyncCommand RefreshPlotCommand { get; set; }
-
-        public IMvxAsyncCommand RefreshSpectrogramCommand { get; set; }
-
-        public IMvxAsyncCommand SpecificGraphCommand { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpectrogramViewModel" /> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        /// <param name="messenger">The messenger.</param>
         public SpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
             : base(logProvider, navigationService)
         {
@@ -58,6 +56,8 @@ namespace SimTuning.Core.ViewModels.Dyno
             this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
         }
 
+        #region Methods
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -76,6 +76,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
         }
 
+        /// <summary>
+        /// Reloads the data.
+        /// </summary>
+        /// <param name="mvxReloaderMessage">The MVX reloader message.</param>
         public void ReloadData(Models.MvxReloaderMessage mvxReloaderMessage = null)
         {
             using (var db = new DatabaseContext())
@@ -88,23 +92,28 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
-        #region Commands
-
+        /// <summary>
+        /// Filters the plot.
+        /// </summary>
         protected virtual async Task FilterPlot()
         {
-            Graphs = null;
+            //Graphs = null;
             Graph = null;
 
             dynoLogic.PlotRotionalSpeed(audioLogic.SpectrogramAudio, true);
 
-            Graphs = dynoLogic.PlotAudio.Series.Select(x => x.Title).ToList();
+            //Graphs = dynoLogic.PlotAudio.Series.Select(x => x.Title).ToList();
+            await this.RaisePropertyChanged(() => Graphs);
 
-            await RaisePropertyChanged("PlotAudio");
+            await RaisePropertyChanged(() => PlotAudio);
         }
 
+        /// <summary>
+        /// Refreshes the plot.
+        /// </summary>
         protected virtual async Task RefreshPlot()
         {
-            Graphs = null;
+            //Graphs = null;
             Graph = null;
 
             try
@@ -117,6 +126,10 @@ namespace SimTuning.Core.ViewModels.Dyno
             await RaisePropertyChanged("PlotAudio");
         }
 
+        /// <summary>
+        /// Reloads the image audio spectrogram.
+        /// </summary>
+        /// <returns></returns>
         protected Stream ReloadImageAudioSpectrogram()
         {
             Normal_Refresh = true;
@@ -128,6 +141,9 @@ namespace SimTuning.Core.ViewModels.Dyno
             return stream;
         }
 
+        /// <summary>
+        /// Specifics the graph.
+        /// </summary>
         protected virtual async Task SpecificGraph()
         {
             if (Graphs == null || Graph == null)
@@ -143,16 +159,20 @@ namespace SimTuning.Core.ViewModels.Dyno
                 db.SaveChanges();
             }
 
-            await RaisePropertyChanged("PlotAudio");
+            await RaisePropertyChanged(() => PlotAudio);
         }
 
-        #endregion Commands
+        #endregion Methods
 
         #region Values
 
+        #region private
+
+        protected readonly AudioLogic audioLogic;
+        protected readonly DynoLogic dynoLogic;
+        protected readonly ResourceManager rm;
         private bool _badge_Refresh;
 
-        //0 schwarz, 1 weiß, 2 blau, 3 grün, 4 lila
         private Spectrogram.Colormap _colormap;
 
         private List<Spectrogram.Colormap> _colormaps;
@@ -164,8 +184,6 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         private string _graph;
 
-        private List<string> _graphs;
-
         private double _intensity;
 
         private List<double> _intensitys;
@@ -174,15 +192,24 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         private string _quality;
 
-        //0 schlecht, 1 mittel, 2 gut, 3 sehr gut
         private List<string> _qualitys;
 
+        #endregion private
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [badge refresh].
+        /// </summary>
+        /// <value><c>true</c> if [badge refresh]; otherwise, <c>false</c>.</value>
         public bool Badge_Refresh
         {
             get => _badge_Refresh;
-            set { SetProperty(ref _badge_Refresh, value); }
+            set => SetProperty(ref _badge_Refresh, value);
         }
 
+        /// <summary>
+        /// Gets or sets the colormap.
+        /// </summary>
+        /// <value>The colormap.</value>
         public Spectrogram.Colormap Colormap
         {
             get => _colormap;
@@ -196,76 +223,156 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
+        /// <summary>
+        /// Gets or sets the colormaps.
+        /// </summary>
+        /// <value>The colormaps.</value>
         public List<Spectrogram.Colormap> Colormaps
         {
             get => _colormaps;
-            set { SetProperty(ref _colormaps, value); }
+            set => SetProperty(ref _colormaps, value);
         }
 
+        /// <summary>
+        /// Gets or sets the dyno.
+        /// </summary>
+        /// <value>The dyno.</value>
         public DynoModel Dyno
         {
             get => _dyno;
-            set { SetProperty(ref _dyno, value); }
+            set => SetProperty(ref _dyno, value);
         }
 
+        /// <summary>
+        /// Gets or sets the filter plot command.
+        /// </summary>
+        /// <value>The filter plot command.</value>
+        public IMvxAsyncCommand FilterPlotCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the frequenzbeginn.
+        /// </summary>
+        /// <value>The frequenzbeginn.</value>
         public int Frequenzbeginn
         {
             get => _frequenzbeginn;
-            set { SetProperty(ref _frequenzbeginn, value); }
+            set => SetProperty(ref _frequenzbeginn, value);
         }
 
+        /// <summary>
+        /// Gets or sets the frequenzende.
+        /// </summary>
+        /// <value>The frequenzende.</value>
         public int Frequenzende
         {
             get => _frequenzende;
-            set { SetProperty(ref _frequenzende, value); }
+            set => SetProperty(ref _frequenzende, value);
         }
 
+        /// <summary>
+        /// Gets or sets the graph.
+        /// </summary>
+        /// <value>The graph.</value>
         public string Graph
         {
             get => _graph;
-            set { SetProperty(ref _graph, value); SpecificGraphCommand.Execute(); }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                SetProperty(ref _graph, value);
+                SpecificGraphCommand.Execute();
+            }
         }
 
+        /// <summary>
+        /// Gets the graphs.
+        /// </summary>
+        /// <value>The graphs.</value>
         public List<string> Graphs
         {
-            get => _graphs;
-            set { SetProperty(ref _graphs, value); }
+            get => this.dynoLogic?.PlotAudio?.Series?.Select(x => x.Title).ToList();
         }
 
+        /// <summary>
+        /// Gets or sets the intensity.
+        /// </summary>
+        /// <value>The intensity.</value>
         public double Intensity
         {
             get => _intensity;
-            set { SetProperty(ref _intensity, value); }
+            set => SetProperty(ref _intensity, value);
         }
 
+        /// <summary>
+        /// Gets or sets the intensitys.
+        /// </summary>
+        /// <value>The intensitys.</value>
         public List<double> Intensitys
         {
             get => _intensitys;
-            set { SetProperty(ref _intensitys, value); }
+            set => SetProperty(ref _intensitys, value);
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [normal refresh].
+        /// </summary>
+        /// <value><c>true</c> if [normal refresh]; otherwise, <c>false</c>.</value>
         public bool Normal_Refresh
         {
             get => _normal_Refresh;
-            set { SetProperty(ref _normal_Refresh, value); }
+            set => SetProperty(ref _normal_Refresh, value);
         }
 
+        /// <summary>
+        /// Gets the plot audio.
+        /// </summary>
+        /// <value>The plot audio.</value>
         public PlotModel PlotAudio
         {
             get { return dynoLogic.PlotAudio; }
         }
 
+        /// <summary>
+        /// Gets or sets the quality.
+        /// </summary>
+        /// <value>The quality.</value>
         public string Quality
         {
             get => _quality;
-            set { SetProperty(ref _quality, value); }
+            set => SetProperty(ref _quality, value);
         }
 
+        /// <summary>
+        /// Gets or sets the qualitys. 0 schlecht, 1 mittel, 2 gut, 3 sehr gut
+        /// </summary>
+        /// <value>The qualitys.</value>
         public List<string> Qualitys
         {
             get => _qualitys;
-            set { SetProperty(ref _qualitys, value); }
+            set => SetProperty(ref _qualitys, value);
         }
+
+        /// <summary>
+        /// Gets or sets the refresh plot command.
+        /// </summary>
+        /// <value>The refresh plot command.</value>
+        public IMvxAsyncCommand RefreshPlotCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the refresh spectrogram command.
+        /// </summary>
+        /// <value>The refresh spectrogram command.</value>
+        public IMvxAsyncCommand RefreshSpectrogramCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the specific graph command.
+        /// </summary>
+        /// <value>The specific graph command.</value>
+        public IMvxAsyncCommand SpecificGraphCommand { get; set; }
 
         #endregion Values
     }

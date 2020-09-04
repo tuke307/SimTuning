@@ -12,6 +12,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
     using SimTuning.WPF.UI.Dialog;
     using System.Globalization;
     using System.Threading.Tasks;
+    using System.Windows;
 
     /// <summary>
     /// WPF-spezifisches Dyno-Diagnose-ViewModel.
@@ -44,11 +45,14 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return;
             }
 
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", async delegate (object sender, DialogOpenedEventArgs args)
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                base.RefreshPlot();
+                Task.Run(() =>
+                {
+                    base.RefreshPlot();
 
-                args.Session.Close();
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
             }).ConfigureAwait(true);
         }
 

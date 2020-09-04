@@ -16,12 +16,12 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   x:TypeArguments="viewModels:DynoSpectrogramViewModel"
                   mc:Ignorable="d"
                   region:MvxContainer.Header="Spectrogram"
-                   Name="DynoSpectrogram"
-                   Background="{DynamicResource MaterialDesignPaper}"
-                   d:DesignWidth="2020"
-                   d:DesignHeight="550"
-                   MinWidth="1024"
-                   MinHeight="550">
+                  Name="DynoSpectrogram"
+                  Background="{DynamicResource MaterialDesignPaper}"
+                  d:DesignWidth="2020"
+                  d:DesignHeight="550"
+                  MinWidth="1024"
+                  MinHeight="550">
 
     <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}"
                   HorizontalScrollBarVisibility="Visible"
@@ -218,8 +218,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                   VerticalAlignment="Bottom"
                                   materialDesign:HintAssist.Hint="Graphauswahl"
                                   ToolTip="Wähle den Graphen aus, der am besten passt"
-                                  SelectedItem="{Binding Graph}"
-                                  ItemsSource="{Binding Graphs}"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Graph}"
+                                  ItemsSource="{Binding Mode=OneWay, Path=Graphs}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
