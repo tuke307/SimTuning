@@ -39,7 +39,7 @@ namespace SimTuning.WPF.UI
                 .RegisterAsLazySingleton();
 
 #if NET472
-            Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
+            CrossMediaManager.Current.Init();
 #endif
             this.RegisterAppStart<SimTuning.WPF.UI.ViewModels.MainViewModel>();
 

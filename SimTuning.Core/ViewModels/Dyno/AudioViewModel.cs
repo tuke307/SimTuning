@@ -91,7 +91,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             TrimAudio(AudioPosition.Value, 0);
 
-            OpenFile();
+            OpenFileAsync();
 
             await RaisePropertyChanged("AudioPosition");
         }
@@ -103,7 +103,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             TrimAudio(0, AudioPosition.Value);
 
-            OpenFile();
+            OpenFileAsync();
 
             await RaisePropertyChanged("AudioPosition");
         }
@@ -111,16 +111,19 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Opens the file.
         /// </summary>
-        protected virtual void OpenFile()
+        protected virtual async Task OpenFileAsync()
         {
             ////initialisieren
-            //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
-            ////MediaManager = CrossSimpleAudioMediaManager.Current;
-            //MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
-            //stream.Dispose();
+            var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
 
-            //this.MediaManager.PositionChanged += Current_PositionChanged;
-            //RaisePropertyChanged(() => AudioMaximum);
+            //For initializing
+            await this.MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
+            await PauseAsync();
+
+            stream.Dispose();
+
+            this.MediaManager.PositionChanged += this.Current_PositionChanged;
+            this.RaisePropertyChanged(() => this.AudioMaximum);
             //Task t = Task.Run(() =>
             //{
             //    Task.Delay(1000).Wait();
@@ -135,7 +138,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             //wenn Datei ausgewählt
             if (SimTuning.Core.Business.AudioUtils.AudioCopy(fileData.FileName, fileData.GetStream()))
-                OpenFile();
+                OpenFileAsync();
         }
 
         /// <summary>
@@ -143,8 +146,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         protected virtual async Task PauseAsync()
         {
-            if (MediaManager != null)
-                await MediaManager.Pause();
+            if (this.MediaManager != null)
+            {
+                await this.MediaManager.Pause();
+            }
         }
 
         /// <summary>
@@ -153,9 +158,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <returns></returns>
         protected virtual async Task PlayAsync()
         {
-            //if (MediaManager != null)
-            //{
-            await MediaManager.Play();
+            if (this.MediaManager != null)
+            {
+                await this.MediaManager.Play();
+            }
 
             //Position aktualisieren
             //Task t = Task.Run(() =>
@@ -187,9 +193,9 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <returns></returns>
         protected virtual async Task StopAsync()
         {
-            if (MediaManager.MediaPlayer != null)
+            if (this.MediaManager.MediaPlayer != null)
             {
-                await MediaManager.Stop();
+                await this.MediaManager.Stop();
                 //AudioPosition = 0;
                 //RaisePropertyChanged("AudioPosition");
             }
@@ -228,35 +234,10 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
-        private void Current_BufferingChanged(object sender, BufferedChangedEventArgs e)
-        {
-            Log.Debug($"Total buffered time is {e.Buffered};");
-        }
-
-        private void Current_MediaItemChanged(object sender, MediaItemEventArgs e)
-        {
-            Log.Debug($"Media item changed, new item title: {e.MediaItem.Title};");
-        }
-
-        private void Current_MediaItemFailed(object sender, MediaItemFailedEventArgs e)
-        {
-            Log.Debug($"Media item failed: {e.MediaItem.Title}, Message: {e.Message}, Exception: {e.Exeption?.ToString()};");
-        }
-
-        private void Current_MediaItemFinished(object sender, MediaItemEventArgs e)
-        {
-            Log.Debug($"Media item finished: {e.MediaItem.Title};");
-        }
-
         private void Current_PositionChanged(object sender, PositionChangedEventArgs e)
         {
             Log.Debug($"Current position is {e.Position};");
             RaisePropertyChanged(() => AudioPosition);
-        }
-
-        private void Current_StatusChanged(object sender, StateChangedEventArgs e)
-        {
-            //Log.Debug($"Status changed: {System.Enum.GetName(typeof(MediaManager), e.State)};");
         }
 
         #endregion Methods
@@ -305,7 +286,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region private
 
-        protected readonly IMediaManager MediaManager;
+        protected readonly IMediaManager MediaManager = CrossMediaManager.Current;
         protected AudioLogic audioLogic;
         protected ResourceManager rm;
         private bool _badgeFileOpen;

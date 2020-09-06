@@ -237,8 +237,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                           HorizontalAlignment="Center"
                           materialDesign:HintAssist.Hint="Fahrzeug"
                           IsEditable="False"
-                          SelectedItem="{Binding  HelperVehicle}"
-                          ItemsSource="{Binding  HelperVehicles}"
+                          SelectedItem="{Binding  Mode=TwoWay, Path=HelperVehicle}"
+                          ItemsSource="{Binding  Mode=OneTime, Path=HelperVehicles}"
                           DisplayMemberPath="Name"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 

@@ -82,6 +82,9 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
+        /// <summary>
+        /// Cuts the end.
+        /// </summary>
         protected new async Task CutEnd()
         {
             if (this.MediaManager.MediaPlayer == null)
@@ -102,7 +105,10 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
-        protected override void OpenFile()
+        /// <summary>
+        /// Opens the file.
+        /// </summary>
+        protected override async Task OpenFileAsync()
         {
             // initialisieren
             var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
@@ -111,7 +117,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             //stream.Dispose();
 
-            base.OpenFile();
+            await base.OpenFileAsync();
         }
 
         /// <summary>

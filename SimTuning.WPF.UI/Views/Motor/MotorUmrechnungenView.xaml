@@ -15,12 +15,12 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   x:TypeArguments="viewModels:MotorUmrechnungViewModel"
                   mc:Ignorable="d"
                   region:MvxContainer.Header="Umrechnung"
-                   Name="MotorUmrechnung"
-                   MinWidth="1024"
-                   MinHeight="550"
-                   d:DesignWidth="1024"
-                   d:DesignHeight="550"
-                   Background="{DynamicResource MaterialDesignPaper}">
+                  Name="MotorUmrechnung"
+                  MinWidth="1024"
+                  MinHeight="550"
+                  d:DesignWidth="1024"
+                  d:DesignHeight="550"
+                  Background="{DynamicResource MaterialDesignPaper}">
     <views:MvxWpfView.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -246,8 +246,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                           HorizontalAlignment="Center"
                           materialDesign:HintAssist.Hint="Fahrzeug"
                           IsEditable="False"
-                          SelectedItem="{Binding  HelperVehicle}"
-                          ItemsSource="{Binding  HelperVehicles}"
+                          SelectedItem="{Binding Mode=TwoWay, Path=HelperVehicle}"
+                          ItemsSource="{Binding Mode=OneTime, Path=HelperVehicles}"
                           DisplayMemberPath="Name"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           Width="120">
@@ -287,7 +287,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="1"
                              Margin="10,0,0,0"
                              Width="25" />
-                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Pleullaenge}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.PleulL}"
                              IsEnabled="False"
                              Grid.Row="1"
                              Grid.Column="1"

@@ -15,10 +15,10 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   x:TypeArguments="viewModels:MotorSteuerdiagrammViewModel"
                   mc:Ignorable="d"
                   region:MvxContainer.Header="Steuerdiagramm"
-                   Name="MotorSteuerdiagramm"
-                   MinHeight="550"
-                   MinWidth="1024"
-                   Background="{DynamicResource MaterialDesignPaper}">
+                  Name="MotorSteuerdiagramm"
+                  MinHeight="550"
+                  MinWidth="1024"
+                  Background="{DynamicResource MaterialDesignPaper}">
     <views:MvxWpfView.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -97,8 +97,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                           HorizontalAlignment="Center"
                           materialDesign:HintAssist.Hint="Fahrzeug"
                           IsEditable="False"
-                          SelectedItem="{Binding  HelperVehicle}"
-                          ItemsSource="{Binding  HelperVehicles}"
+                          SelectedItem="{Binding  Mode=TwoWay, Path=HelperVehicle}"
+                          ItemsSource="{Binding  Mode=OneTime, Path=HelperVehicles}"
                           DisplayMemberPath="Name"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           Width="100" />
@@ -329,8 +329,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                           HorizontalAlignment="Center"
                           materialDesign:HintAssist.Hint="Konfiguration"
                           IsEditable="False"
-                          SelectedItem="{Binding MotorSteuerzeit}"
-                          ItemsSource="{Binding MotorSteuerzeiten}"
+                          SelectedItem="{Binding Mode=TwoWay, Path=MotorSteuerzeit}"
+                          ItemsSource="{Binding Mode=OneTime, Path=MotorSteuerzeiten}"
                           DisplayMemberPath="Name"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           Width="100" />

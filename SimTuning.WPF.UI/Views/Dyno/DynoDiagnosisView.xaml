@@ -16,12 +16,12 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   x:TypeArguments="viewModels:DynoDiagnosisViewModel"
                   mc:Ignorable="d"
                   region:MvxContainer.Header="Diagnose"
-                   Name="DynoDiagnosis"
-                   Background="{DynamicResource MaterialDesignPaper}"
-                   d:DesignWidth="1200"
-                   d:DesignHeight="550"
-                   MinWidth="1024"
-                   MinHeight="550">
+                  Name="DynoDiagnosis"
+                  Background="{DynamicResource MaterialDesignPaper}"
+                  d:DesignWidth="1200"
+                  d:DesignHeight="550"
+                  MinWidth="1024"
+                  MinHeight="550">
     <views:MvxWpfView.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -54,7 +54,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                       materialDesign:ShadowAssist.ShadowDepth="Depth3"
                       BorderThickness="0.3">
                 <Grid>
-                    <oxy:PlotView Model="{Binding PlotStrength}"
+                    <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotStrength}"
                                   Background="{DynamicResource MaterialDesignPaper}" />
                 </Grid>
             </GroupBox>
@@ -83,7 +83,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Gesamtübersetzung"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Uebersetzung, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoVehicleUebersetzung, StringFormat={}{##.##}}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -95,7 +95,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Gewicht"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Gewicht, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoVehicleGewicht, StringFormat={}{##.##}}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -115,7 +115,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Frontfläche"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Frontflaeche, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoVehicleFrontA, StringFormat={}{##.##}}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -135,7 +135,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="cw"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Cw, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoVehicleCw, StringFormat={}{##.##}}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -147,7 +147,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Temperatur"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Dyno.Environment.TemperaturT, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoEnvironmentTemperaturT, StringFormat={}{##.##}}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -167,7 +167,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Luftdruck"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Dyno.Environment.LuftdruckP, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoEnvironmentLuftdruckP, StringFormat={}{##.##}}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -296,8 +296,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                   HorizontalAlignment="Center"
                                   materialDesign:HintAssist.Hint="Fahrzeug"
                                   IsEditable="False"
-                                  SelectedItem="{Binding  HelperVehicle}"
-                                  ItemsSource="{Binding  HelperVehicles}"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=HelperVehicle}"
+                                  ItemsSource="{Binding Mode=OneTime, Path=HelperVehicles}"
                                   DisplayMemberPath="Name"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                   Width="100" />
@@ -357,8 +357,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                   HorizontalAlignment="Center"
                                   materialDesign:HintAssist.Hint="Jahreszeit"
                                   IsEditable="False"
-                                  SelectedItem="{Binding  HelperEnvironment}"
-                                  ItemsSource="{Binding  HelperEnvironments}"
+                                  SelectedItem="{Binding  Mode=TwoWay, Path=HelperEnvironment}"
+                                  ItemsSource="{Binding  Mode=OneTime, Path=HelperEnvironments}"
                                   DisplayMemberPath="Name"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                   Width="100" />

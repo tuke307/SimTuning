@@ -1,34 +1,36 @@
 ﻿// project=SimTuning.Core, file=UmrechnungViewModel.cs, creation=2020:7:31 Copyright (c)
 // 2020 tuke productions. All rights reserved.
-using Data;
-using Data.Models;
-using Microsoft.EntityFrameworkCore;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using SimTuning.Core.Models;
-using SimTuning.Core.ModuleLogic;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using UnitsNet.Units;
-
 namespace SimTuning.Core.ViewModels.Motor
 {
+    using Data;
+    using Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using SimTuning.Core.Models;
+    using SimTuning.Core.ModuleLogic;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using UnitsNet.Units;
+
+    /// <summary>
+    /// UmrechnungViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class UmrechnungViewModel : MvxNavigationViewModel
     {
-        public IMvxCommand InsertDataCommand { get; set; }
-
-        public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
-
-        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
-
-        public UmrechnungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UmrechnungViewModel" /> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public UmrechnungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
-            this.
-
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
 
@@ -38,20 +40,22 @@ namespace SimTuning.Core.ViewModels.Motor
             UnitHubR = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
             UnitPleulL = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
 
-            //using (var db = new DatabaseContext())
-            //{
-            //    IList<VehiclesModel> vehicList = db.Vehicles
-            //        .Include(vehicles => vehicles.Motor)
-            //        .Include(vehicles => vehicles.Motor.Einlass)
-            //        .Include(vehicles => vehicles.Motor.Auslass)
-            //        .Include(vehicles => vehicles.Motor.Ueberstroemer)
-            //        .ToList();
+            using (var db = new DatabaseContext())
+            {
+                IList<VehiclesModel> vehicList = db.Vehicles
+                    .Include(vehicles => vehicles.Motor)
+                    .Include(vehicles => vehicles.Motor.Einlass)
+                    .Include(vehicles => vehicles.Motor.Auslass)
+                    .Include(vehicles => vehicles.Motor.Ueberstroemer)
+                    .ToList();
 
-            //    HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
-            //}
+                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
+            }
 
             InsertDataCommand = new MvxCommand(InsertData);
         }
+
+        #region Methods
 
         /// <summary>
         /// Initializes this instance.
@@ -69,8 +73,9 @@ namespace SimTuning.Core.ViewModels.Motor
         {
         }
 
-        #region Commands
-
+        /// <summary>
+        /// Inserts the data.
+        /// </summary>
         protected void InsertData()
         {
             if (HelperVehicle.Motor.HubL.HasValue)
@@ -83,6 +88,9 @@ namespace SimTuning.Core.ViewModels.Motor
                 Deachsierung = HelperVehicle.Motor.DeachsierungL;
         }
 
+        /// <summary>
+        /// Refreshes the hubradius.
+        /// </summary>
         private void Refresh_hubradius()
         {
             if (Hub.HasValue && PleulL.HasValue && Deachsierung.HasValue)
@@ -100,6 +108,9 @@ namespace SimTuning.Core.ViewModels.Motor
                      LengthUnit.Millimeter));
         }
 
+        /// <summary>
+        /// Refreshes the kwgrad.
+        /// </summary>
         private void Refresh_kwgrad()
         {
             if (PleulL.HasValue && HubR.HasValue && Deachsierung.HasValue && Steuerzeit.HasValue)
@@ -119,6 +130,9 @@ namespace SimTuning.Core.ViewModels.Motor
                       Steuerzeit.Value);
         }
 
+        /// <summary>
+        /// Refreshes the unterschied.
+        /// </summary>
         private void Refresh_Unterschied()
         {
             if (VorherSteuerzeit.HasValue && NachherSteuerzeit.HasValue && PleulL.HasValue && HubR.HasValue && Deachsierung.HasValue && (Kolbenoberkante_checked || Kolbenunterkante_checked))
@@ -154,9 +168,11 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
-        #endregion Commands
+        #endregion Methods
 
         #region Values
+
+        #region private
 
         private double? _abstandOTlength;
         private double? _deachsierung;
@@ -201,12 +217,22 @@ namespace SimTuning.Core.ViewModels.Motor
 
         private double? _vorherSteuerzeit;
 
+        #endregion private
+
+        /// <summary>
+        /// Gets or sets the abstand o tlength.
+        /// </summary>
+        /// <value>The abstand o tlength.</value>
         public double? AbstandOTlength
         {
             get => _abstandOTlength;
             set { SetProperty(ref _abstandOTlength, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the deachsierung.
+        /// </summary>
+        /// <value>The deachsierung.</value>
         public double? Deachsierung
         {
             get => _deachsierung;
@@ -217,18 +243,30 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the helper vehicle.
+        /// </summary>
+        /// <value>The helper vehicle.</value>
         public VehiclesModel HelperVehicle
         {
             get => _helperVehicle;
             set { SetProperty(ref _helperVehicle, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the helper vehicles.
+        /// </summary>
+        /// <value>The helper vehicles.</value>
         public ObservableCollection<VehiclesModel> HelperVehicles
         {
             get => _helperVehicles;
             set { SetProperty(ref _helperVehicles, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the hub.
+        /// </summary>
+        /// <value>The hub.</value>
         public double? Hub
         {
             get => _hub;
@@ -239,12 +277,28 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the hub r.
+        /// </summary>
+        /// <value>The hub r.</value>
         public double? HubR
         {
             get => _hubR;
             set { SetProperty(ref _hubR, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the insert data command.
+        /// </summary>
+        /// <value>The insert data command.</value>
+        public IMvxCommand InsertDataCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [kolbenoberkante checked].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [kolbenoberkante checked]; otherwise, <c>false</c>.
+        /// </value>
         public bool Kolbenoberkante_checked
         {
             get => _kolbenoberkante_checked;
@@ -255,6 +309,12 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [kolbenunterkante checked].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [kolbenunterkante checked]; otherwise, <c>false</c>.
+        /// </value>
         public bool Kolbenunterkante_checked
         {
             get => _kolbenunterkante_checked;
@@ -265,18 +325,36 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets the length quantity units.
+        /// </summary>
+        /// <value>The length quantity units.</value>
+        public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
+
+        /// <summary>
+        /// Gets or sets the nachher steuerwinkel oeffnet.
+        /// </summary>
+        /// <value>The nachher steuerwinkel oeffnet.</value>
         public double? NachherSteuerwinkelOeffnet
         {
             get => _nachherSteuerwinkelOeffnet;
             set { SetProperty(ref _nachherSteuerwinkelOeffnet, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the nachher steuerwinkel schließt.
+        /// </summary>
+        /// <value>The nachher steuerwinkel schließt.</value>
         public double? NachherSteuerwinkelSchließt
         {
             get => _nachherSteuerwinkelSchließt;
             set { SetProperty(ref _nachherSteuerwinkelSchließt, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the nachher steuerzeit.
+        /// </summary>
+        /// <value>The nachher steuerzeit.</value>
         public double? NachherSteuerzeit
         {
             get => _nachherSteuerzeit;
@@ -287,6 +365,10 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the pleul l.
+        /// </summary>
+        /// <value>The pleul l.</value>
         public double? PleulL
         {
             get => _pleulL;
@@ -297,6 +379,10 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the steuerzeit.
+        /// </summary>
+        /// <value>The steuerzeit.</value>
         public double? Steuerzeit
         {
             get => _steuerzeit;
@@ -307,6 +393,10 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the unit abstand o tlength.
+        /// </summary>
+        /// <value>The unit abstand o tlength.</value>
         public UnitListItem UnitAbstandOTlength
         {
             get => _unitAbstandOTlength;
@@ -318,6 +408,10 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the unit deachsierung.
+        /// </summary>
+        /// <value>The unit deachsierung.</value>
         public UnitListItem UnitDeachsierung
         {
             get => _unitDeachsierung;
@@ -329,6 +423,10 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the unit hub.
+        /// </summary>
+        /// <value>The unit hub.</value>
         public UnitListItem UnitHub
         {
             get => _unitHub;
@@ -340,6 +438,10 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the unit hub r.
+        /// </summary>
+        /// <value>The unit hub r.</value>
         public UnitListItem UnitHubR
         {
             get => _unitHubR;
@@ -351,6 +453,10 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the unit pleul l.
+        /// </summary>
+        /// <value>The unit pleul l.</value>
         public UnitListItem UnitPleulL
         {
             get => _unitPleulL;
@@ -362,30 +468,56 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
+        /// <summary>
+        /// Gets or sets the unterschied grad.
+        /// </summary>
+        /// <value>The unterschied grad.</value>
         public double? Unterschied_grad
         {
             get => _unterschied_grad;
             set { SetProperty(ref _unterschied_grad, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the unterschied mm.
+        /// </summary>
+        /// <value>The unterschied mm.</value>
         public double? Unterschied_mm
         {
             get => _unterschied_mm;
             set { SetProperty(ref _unterschied_mm, value); }
         }
 
+        /// <summary>
+        /// Gets the volume quantity units.
+        /// </summary>
+        /// <value>The volume quantity units.</value>
+        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
+
+        /// <summary>
+        /// Gets or sets the vorher steuerwinkel oeffnet.
+        /// </summary>
+        /// <value>The vorher steuerwinkel oeffnet.</value>
         public double? VorherSteuerwinkelOeffnet
         {
             get => _vorherSteuerwinkelOeffnet;
             set { SetProperty(ref _vorherSteuerwinkelOeffnet, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the vorher steuerwinkel schließt.
+        /// </summary>
+        /// <value>The vorher steuerwinkel schließt.</value>
         public double? VorherSteuerwinkelSchließt
         {
             get => _vorherSteuerwinkelSchließt;
             set { SetProperty(ref _vorherSteuerwinkelSchließt, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the vorher steuerzeit.
+        /// </summary>
+        /// <value>The vorher steuerzeit.</value>
         public double? VorherSteuerzeit
         {
             get => _vorherSteuerzeit;

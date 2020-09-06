@@ -125,7 +125,7 @@ namespace SimTuning.Core.ViewModels.Dyno
                 db.SaveChanges();
             }
 
-            this.RaisePropertyChanged("PlotStrength");
+            this.RaisePropertyChanged(() => PlotStrength);
         }
 
         private void InsertEnvironment()
@@ -140,7 +140,7 @@ namespace SimTuning.Core.ViewModels.Dyno
                 this.Dyno.Environment.TemperaturT = HelperEnvironment.TemperaturT;
             }
 
-            this.RaisePropertyChanged("Dyno");
+            this.RaisePropertyChanged(() => Dyno);
         }
 
         private void InsertVehicle()
@@ -154,7 +154,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             if (HelperVehicle.FrontA.HasValue)
                 Dyno.Vehicle.FrontA = HelperVehicle.FrontA;
 
-            RaisePropertyChanged("Dyno");
+            RaisePropertyChanged(() => Dyno);
         }
 
         private void NewEnvironment()
@@ -173,65 +173,47 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region Values
 
-        private double? _cw_wert;
-
         private DynoModel _dyno;
-
-        private double? _frontflaeche;
-
-        private double? _gesamtuebersetzung;
-
-        private double? _gewicht;
-
-        private double? _luftdruck;
-
-        private double? _temperatur;
-
-        public double? Cw_wert
-        {
-            get => _cw_wert;
-            set { SetProperty(ref _cw_wert, value); }
-        }
 
         public DynoModel Dyno
         {
             get => _dyno;
-            set { SetProperty(ref _dyno, value); }
+            set => SetProperty(ref _dyno, value);
         }
 
-        public double? frontflaeche
+        public double? DynoEnvironmentLuftdruckP
         {
-            get => _frontflaeche;
-            set { SetProperty(ref _frontflaeche, value); }
+            get => Dyno.Environment.LuftdruckP;
         }
 
-        public double? Gesamtuebersetzung
+        public double? DynoEnvironmentTemperaturT
         {
-            get => _gesamtuebersetzung;
-            set { SetProperty(ref _gesamtuebersetzung, value); }
+            get => Dyno.Environment.TemperaturT;
         }
 
-        public double? Gewicht
+        public double? DynoVehicleCw
         {
-            get => _gewicht;
-            set { SetProperty(ref _gewicht, value); }
+            get => Dyno?.Vehicle?.Cw;
         }
 
-        public double? luftdruck
+        public double? DynoVehicleFrontA
         {
-            get => _luftdruck;
-            set { SetProperty(ref _luftdruck, value); }
+            get => Dyno?.Vehicle?.FrontA;
+        }
+
+        public double? DynoVehicleGewicht
+        {
+            get => Dyno.Vehicle.Gewicht;
+        }
+
+        public double? DynoVehicleUebersetzung
+        {
+            get => Dyno.Vehicle.Uebersetzung;
         }
 
         public PlotModel PlotStrength
         {
             get { return dynoLogic.PlotStrength; }
-        }
-
-        public double? temperatur
-        {
-            get => _temperatur;
-            set { SetProperty(ref _temperatur, value); }
         }
 
         #endregion Values

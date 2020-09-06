@@ -64,7 +64,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                           BorderThickness="0.3">
                     <Grid>
                         <Image Stretch="Fill"
-                               Source="{Binding DisplayedImage}"></Image>
+                               Source="{Binding Mode=OneWay, Path=DisplayedImage}"></Image>
                     </Grid>
                 </GroupBox>
 
@@ -86,8 +86,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         <ComboBox Grid.Row="0"
                                   materialDesign:HintAssist.Hint="Colormap"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  SelectedItem="{Binding Colormap}"
-                                  ItemsSource="{Binding Colormaps}"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Colormap}"
+                                  ItemsSource="{Binding Mode=OneTime, Path=Colormaps}"
                                   VerticalAlignment="Center">
                         </ComboBox>
 
@@ -96,8 +96,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                   materialDesign:HintAssist.Hint="Intensität"
                                   IsEditable="True"
                                   ToolTip="Stelle die Intensität so ein, dass fast nur noch die Punkte der Drehzhahlkurven zu sehen sind"
-                                  ItemsSource="{Binding Intensitys}"
-                                  SelectedItem="{Binding Intensity}"
+                                  ItemsSource="{Binding Mode=OneTime, Path=Intensitys}"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Intensity}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                   VerticalAlignment="Center">
                         </ComboBox>
@@ -106,8 +106,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         <ComboBox Grid.Row="2"
                                   materialDesign:HintAssist.Hint="Qualität"
                                   ToolTip="Auflösungsqaulität des Spektrums"
-                                  SelectedItem="{Binding Quality}"
-                                  ItemsSource="{Binding Qualitys}"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Quality}"
+                                  ItemsSource="{Binding Mode=OneTime, Path=Qualitys}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                   VerticalAlignment="Center">
                         </ComboBox>
@@ -121,11 +121,11 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Center">
-                                <TextBox Text="{Binding Frequenzbeginn}"
+                                <TextBox Text="{Binding Mode=TwoWay, Path=Frequenzbeginn}"
                                          MinWidth="50" />
                                 <Label Content="-"
                                        Margin="10 0 10 0" />
-                                <TextBox Text="{Binding Frequenzende}"
+                                <TextBox Text="{Binding Mode=TwoWay, Path=Frequenzende}"
                                          VerticalAlignment="Top"
                                          MinWidth="50" />
                             </StackPanel>
@@ -179,7 +179,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                           materialDesign:ShadowAssist.ShadowDepth="Depth3"
                           BorderThickness="0.3">
                     <Grid>
-                        <oxy:PlotView Model="{Binding PlotAudio}"
+                        <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotAudio}"
                                       Background="{DynamicResource MaterialDesignPaper}" />
                     </Grid>
                 </GroupBox>

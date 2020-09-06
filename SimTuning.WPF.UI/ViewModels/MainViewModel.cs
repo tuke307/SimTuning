@@ -39,7 +39,7 @@ namespace SimTuning.WPF.UI.ViewModels
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-            //ApplicationChanges.LoadColors();
+            ApplicationChanges.LoadColors();
 
             return base.Initialize();
         }

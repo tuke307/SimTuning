@@ -110,17 +110,19 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
         /// <summary>
         /// Specifics the graph.
-        /// TODO: geht nicht mehr!
+        /// TODO: geht nicht mehr!.
         /// </summary>
         protected new async Task SpecificGraph()
         {
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    await base.SpecificGraph().ConfigureAwait(true);
-
-                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                    Application.Current.Dispatcher.Invoke(async () =>
+                    {
+                        await base.SpecificGraph();
+                        args.Session.Close();
+                    });
                 });
             }).ConfigureAwait(true);
         }

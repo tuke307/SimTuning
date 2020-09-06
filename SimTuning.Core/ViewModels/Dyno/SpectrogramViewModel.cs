@@ -103,9 +103,9 @@ namespace SimTuning.Core.ViewModels.Dyno
             dynoLogic.PlotRotionalSpeed(audioLogic.SpectrogramAudio, true);
 
             //Graphs = dynoLogic.PlotAudio.Series.Select(x => x.Title).ToList();
-            await this.RaisePropertyChanged(() => Graphs);
+            await this.RaisePropertyChanged(() => this.Graphs);
 
-            await RaisePropertyChanged(() => PlotAudio);
+            await this.RaisePropertyChanged(() => this.PlotAudio);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             catch
             { }
 
-            await RaisePropertyChanged("PlotAudio");
+            await RaisePropertyChanged(() => this.PlotAudio);
         }
 
         /// <summary>
@@ -147,10 +147,12 @@ namespace SimTuning.Core.ViewModels.Dyno
         protected virtual async Task SpecificGraph()
         {
             if (Graphs == null || Graph == null)
+            {
                 return;
+            }
 
-            dynoLogic.AreaRegression(Graphs.IndexOf(Graph));
-            Dyno.Audio = dynoLogic.Dyno.Audio;
+            this.dynoLogic.AreaRegression(Graphs.IndexOf(Graph));
+            this.Dyno.Audio = this.dynoLogic.Dyno.Audio;
 
             using (var db = new DatabaseContext())
             {
@@ -159,7 +161,7 @@ namespace SimTuning.Core.ViewModels.Dyno
                 db.SaveChanges();
             }
 
-            await RaisePropertyChanged(() => PlotAudio);
+            await this.RaisePropertyChanged(() => PlotAudio);
         }
 
         #endregion Methods
@@ -333,7 +335,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <value>The plot audio.</value>
         public PlotModel PlotAudio
         {
-            get { return dynoLogic.PlotAudio; }
+            get => dynoLogic.PlotAudio;
         }
 
         /// <summary>
