@@ -1,37 +1,32 @@
 ﻿// project=SimTuning.Core, file=AudioViewModel.cs, creation=2020:7:31 Copyright (c) 2020
 // tuke productions. All rights reserved.
-using Data;
-using Data.Models;
-using MediaManager;
-using MediaManager.Library;
-using MediaManager.Media;
-using MediaManager.Playback;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using Plugin.FilePicker.Abstractions;
-using SimTuning.Core.ModuleLogic;
-using SkiaSharp;
-using System;
-using System.IO;
-using System.Linq;
-using System.Resources;
-using System.Threading.Tasks;
-
 namespace SimTuning.Core.ViewModels.Dyno
 {
+    using Data;
+    using Data.Models;
+    using MediaManager;
+    using MediaManager.Library;
+    using MediaManager.Media;
+    using MediaManager.Playback;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using Plugin.FilePicker.Abstractions;
+    using SimTuning.Core.ModuleLogic;
+    using SkiaSharp;
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Resources;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Dyno-Audio-ViewModel.
     /// </summary>
     /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class AudioViewModel : MvxNavigationViewModel
     {
-        public readonly IMediaManager MediaManager;
-        protected AudioLogic audioLogic;
-
-        protected ResourceManager rm;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AudioViewModel" /> class.
         /// </summary>
@@ -71,6 +66,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         public override void Prepare()
         {
+            base.Prepare();
         }
 
         /// <summary>
@@ -88,6 +84,9 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
+        /// <summary>
+        /// Cuts the beginn.
+        /// </summary>
         protected virtual async Task CutBeginn()
         {
             TrimAudio(AudioPosition.Value, 0);
@@ -97,6 +96,9 @@ namespace SimTuning.Core.ViewModels.Dyno
             await RaisePropertyChanged("AudioPosition");
         }
 
+        /// <summary>
+        /// Cuts the end.
+        /// </summary>
         protected virtual async Task CutEnd()
         {
             TrimAudio(0, AudioPosition.Value);
@@ -106,6 +108,9 @@ namespace SimTuning.Core.ViewModels.Dyno
             await RaisePropertyChanged("AudioPosition");
         }
 
+        /// <summary>
+        /// Opens the file.
+        /// </summary>
         protected virtual void OpenFile()
         {
             ////initialisieren
@@ -133,12 +138,19 @@ namespace SimTuning.Core.ViewModels.Dyno
                 OpenFile();
         }
 
+        /// <summary>
+        /// Pauses the asynchronous.
+        /// </summary>
         protected virtual async Task PauseAsync()
         {
             if (MediaManager != null)
                 await MediaManager.Pause();
         }
 
+        /// <summary>
+        /// Plays the asynchronous.
+        /// </summary>
+        /// <returns></returns>
         protected virtual async Task PlayAsync()
         {
             //if (MediaManager != null)
@@ -157,6 +169,10 @@ namespace SimTuning.Core.ViewModels.Dyno
             //}
         }
 
+        /// <summary>
+        /// Reloads the image audio spectrogram.
+        /// </summary>
+        /// <returns></returns>
         protected Stream ReloadImageAudioSpectrogram()
         {
             SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Core.Constants.AudioFilePath);
@@ -165,6 +181,10 @@ namespace SimTuning.Core.ViewModels.Dyno
             return stream;
         }
 
+        /// <summary>
+        /// Stops the asynchronous.
+        /// </summary>
+        /// <returns></returns>
         protected virtual async Task StopAsync()
         {
             if (MediaManager.MediaPlayer != null)
@@ -283,10 +303,21 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #endregion Commands
 
+        #region private
+
+        protected readonly IMediaManager MediaManager;
+        protected AudioLogic audioLogic;
+        protected ResourceManager rm;
         private bool _badgeFileOpen;
 
         private DynoModel _dyno;
 
+        #endregion private
+
+        /// <summary>
+        /// Gets the audio maximum.
+        /// </summary>
+        /// <value>The audio maximum.</value>
         public double? AudioMaximum
         {
             get
@@ -298,6 +329,10 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
+        /// <summary>
+        /// Gets or sets the audio position.
+        /// </summary>
+        /// <value>The audio position.</value>
         public double? AudioPosition
         {
             get
@@ -316,28 +351,54 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [badge file open].
+        /// </summary>
+        /// <value><c>true</c> if [badge file open]; otherwise, <c>false</c>.</value>
         public bool BadgeFileOpen
         {
             get => _badgeFileOpen;
             set { SetProperty(ref _badgeFileOpen, value); }
         }
 
+        /// <summary>
+        /// Gets the buffered.
+        /// </summary>
+        /// <value>The buffered.</value>
         public int Buffered => Convert.ToInt32(MediaManager.Buffered.TotalSeconds);
 
+        /// <summary>
+        /// Gets the current.
+        /// </summary>
+        /// <value>The current.</value>
         public IMediaItem Current => MediaManager.Queue.Current;
 
+        /// <summary>
+        /// Gets the current subtitle.
+        /// </summary>
+        /// <value>The current subtitle.</value>
         public string CurrentSubtitle => Current.DisplaySubtitle;
 
+        /// <summary>
+        /// Gets the current title.
+        /// </summary>
+        /// <value>The current title.</value>
         public string CurrentTitle => Current.DisplayTitle;
 
         //public string TotalDuration => MediaManager.Duration.ToString(@"mm\:ss");
         //public string TotalPlayed => MediaManager.Position.ToString(@"mm\:ss");
+
+        /// <summary> Gets or sets the dyno. <value>The dyno.</value>
         public DynoModel Dyno
         {
             get => _dyno;
             set { SetProperty(ref _dyno, value); }
         }
 
+        /// <summary>
+        /// Gets the floated position.
+        /// </summary>
+        /// <value>The floated position.</value>
         public float FloatedPosition => (float)AudioPosition / (float)AudioMaximum;
 
         #endregion Values

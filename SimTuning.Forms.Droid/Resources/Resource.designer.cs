@@ -18417,6 +18417,7 @@ namespace SimTuning.Forms.Droid
 			global::XF.Material.Resource.Drawable.tooltip_frame_dark = global::SimTuning.Forms.Droid.Resource.Drawable.tooltip_frame_dark;
 			global::XF.Material.Resource.Drawable.tooltip_frame_light = global::SimTuning.Forms.Droid.Resource.Drawable.tooltip_frame_light;
 			global::XF.Material.Resource.Drawable.xf_arrow_dropdown = global::SimTuning.Forms.Droid.Resource.Drawable.xf_arrow_dropdown;
+			global::XF.Material.Resource.Drawable.xf_arrow_right = global::SimTuning.Forms.Droid.Resource.Drawable.xf_arrow_right;
 			global::XF.Material.Resource.Drawable.xf_check = global::SimTuning.Forms.Droid.Resource.Drawable.xf_check;
 			global::XF.Material.Resource.Drawable.xf_checkbox_selected = global::SimTuning.Forms.Droid.Resource.Drawable.xf_checkbox_selected;
 			global::XF.Material.Resource.Drawable.xf_checkbox_unselected = global::SimTuning.Forms.Droid.Resource.Drawable.xf_checkbox_unselected;
@@ -24712,25 +24713,28 @@ namespace SimTuning.Forms.Droid
 			public const int xf_arrow_dropdown = 2131165604;
 			
 			// aapt resource value: 0x7F0701A5
-			public const int xf_check = 2131165605;
+			public const int xf_arrow_right = 2131165605;
 			
 			// aapt resource value: 0x7F0701A6
-			public const int xf_checkbox_selected = 2131165606;
+			public const int xf_check = 2131165606;
 			
 			// aapt resource value: 0x7F0701A7
-			public const int xf_checkbox_unselected = 2131165607;
+			public const int xf_checkbox_selected = 2131165607;
 			
 			// aapt resource value: 0x7F0701A8
-			public const int xf_clear = 2131165608;
+			public const int xf_checkbox_unselected = 2131165608;
 			
 			// aapt resource value: 0x7F0701A9
-			public const int xf_error = 2131165609;
+			public const int xf_clear = 2131165609;
 			
 			// aapt resource value: 0x7F0701AA
-			public const int xf_radio_button_selected = 2131165610;
+			public const int xf_error = 2131165610;
 			
 			// aapt resource value: 0x7F0701AB
-			public const int xf_radio_button_unselected = 2131165611;
+			public const int xf_radio_button_selected = 2131165611;
+			
+			// aapt resource value: 0x7F0701AC
+			public const int xf_radio_button_unselected = 2131165612;
 			
 			static Drawable()
 			{

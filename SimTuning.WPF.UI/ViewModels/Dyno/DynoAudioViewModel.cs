@@ -11,7 +11,6 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
     using SimTuning.Core.Models;
     using SimTuning.WPF.UI.Business;
     using SimTuning.WPF.UI.Dialog;
-    using System;
     using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
@@ -58,8 +57,11 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
         #endregion Values
 
-        #region Commands
+        #region Methods
 
+        /// <summary>
+        /// Cuts the beginn.
+        /// </summary>
         protected new async Task CutBeginn()
         {
             if (this.MediaManager.MediaPlayer == null)
@@ -112,9 +114,12 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             base.OpenFile();
         }
 
+        /// <summary>
+        /// Opens the file dialog.
+        /// </summary>
         protected new async Task OpenFileDialog()
         {
-            if (!CheckDynoDataAsync().Result)
+            if (!this.CheckDynoDataAsync().Result)
             {
                 return;
             }
@@ -136,6 +141,10 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             //}
         }
 
+        /// <summary>
+        /// Reloads the image audio spectrogram.
+        /// </summary>
+        /// <returns></returns>
         protected new Task ReloadImageAudioSpectrogram()
         {
             return DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
@@ -151,6 +160,10 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             });
         }
 
+        /// <summary>
+        /// Checks the dyno data asynchronous.
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> CheckDynoDataAsync()
         {
             if (this.Dyno == null)
@@ -159,9 +172,12 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
                 return false;
             }
-            else { return true; }
+            else
+            {
+                return true;
+            }
         }
 
-        #endregion Commands
+        #endregion Methods
     }
 }
