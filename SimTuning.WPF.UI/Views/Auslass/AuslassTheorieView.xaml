@@ -1,5 +1,5 @@
 ﻿<!--
-project=SimTuning.WPF.UI, file=AuslassTheorieView.xaml, creation=2020:7:7
+project=SimTuning.WPF.UI, file=AuslassTheorieView.xaml, creation=2020:9:7
 Copyright (c) 2020 tuke productions. All rights reserved.
 -->
 <views:MvxWpfView x:Class="SimTuning.WPF.UI.Views.Auslass.AuslassTheorieView"

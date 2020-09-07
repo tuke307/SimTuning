@@ -10,6 +10,8 @@ namespace SimTuning.Core.ViewModels.Dyno
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using OxyPlot;
+    using SimTuning.Core.Models;
+    using SimTuning.Core.Models.Quantity;
     using SimTuning.Core.ModuleLogic;
     using System;
     using System.Collections.Generic;
@@ -24,33 +26,6 @@ namespace SimTuning.Core.ViewModels.Dyno
     /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class DiagnosisViewModel : MvxNavigationViewModel
     {
-        protected readonly ResourceManager rm;
-        protected DynoLogic dynoLogic;
-
-        /// <summary>
-        /// Gets or sets the insert environment command.
-        /// </summary>
-        /// <value>The insert environment command.</value>
-        public IMvxCommand InsertEnvironmentCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the insert vehicle command.
-        /// </summary>
-        /// <value>The insert vehicle command.</value>
-        public IMvxCommand InsertVehicleCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the refresh plot command.
-        /// </summary>
-        /// <value>The refresh plot command.</value>
-        public IMvxAsyncCommand RefreshPlotCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the show save command.
-        /// </summary>
-        /// <value>The show save command.</value>
-        public IMvxCommand ShowSaveCommand { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DiagnosisViewModel" /> class.
         /// </summary>
@@ -62,11 +37,18 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             this.dynoLogic = new DynoLogic();
 
+            this.AreaQuantityUnits = new AreaQuantity();
+            this.TemperatureQuantityUnits = new TemperatureQuantity();
+            this.PressureQuantityUnits = new PressureQuantity();
+            this.MassQuantityUnits = new MassQuantity();
+
             this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             this.InsertVehicleCommand = new MvxCommand(this.InsertVehicle);
             this.InsertEnvironmentCommand = new MvxCommand(this.InsertEnvironment);
         }
+
+        #region Methods
 
         /// <summary>
         /// Initializes this instance.
@@ -85,6 +67,25 @@ namespace SimTuning.Core.ViewModels.Dyno
         public override void Prepare()
         {
             base.Prepare();
+        }
+
+        /// <summary>
+        /// Refreshes the plot.
+        /// </summary>
+        protected virtual void RefreshPlot()
+        {
+            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPSModel> ps, out List<DynoNmModel> nm);
+            this.Dyno.DynoPS = ps;
+            this.Dyno.DynoNm = nm;
+
+            using (var db = new DatabaseContext())
+            {
+                // in Datenbank einfügen
+                db.Dyno.Attach(this.Dyno);
+                db.SaveChanges();
+            }
+
+            this.RaisePropertyChanged(() => this.PlotStrength);
         }
 
         /// <summary>
@@ -110,53 +111,51 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
-        #region Commands
-
-        protected virtual void RefreshPlot()
-        {
-            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPSModel> ps, out List<DynoNmModel> nm);
-            this.Dyno.DynoPS = ps;
-            this.Dyno.DynoNm = nm;
-
-            using (var db = new DatabaseContext())
-            {
-                // in Datenbank einfügen
-                db.Dyno.Attach(this.Dyno);
-                db.SaveChanges();
-            }
-
-            this.RaisePropertyChanged(() => PlotStrength);
-        }
-
+        /// <summary>
+        /// Inserts the environment.
+        /// </summary>
         private void InsertEnvironment()
         {
             if (this.HelperEnvironment.LuftdruckP.HasValue)
             {
-                this.Dyno.Environment.LuftdruckP = HelperEnvironment.LuftdruckP;
+                this.DynoEnvironmentLuftdruckP = this.HelperEnvironment.LuftdruckP;
+                this.RaisePropertyChanged(() => this.DynoEnvironmentLuftdruckP);
             }
 
             if (this.HelperEnvironment.TemperaturT.HasValue)
             {
-                this.Dyno.Environment.TemperaturT = HelperEnvironment.TemperaturT;
+                this.DynoEnvironmentTemperaturT = this.HelperEnvironment.TemperaturT;
+                this.RaisePropertyChanged(() => this.DynoEnvironmentTemperaturT);
             }
-
-            this.RaisePropertyChanged(() => Dyno);
         }
 
+        /// <summary>
+        /// Inserts the vehicle.
+        /// </summary>
         private void InsertVehicle()
         {
-            if (HelperVehicle.Gewicht.HasValue)
-                Dyno.Vehicle.Gewicht = HelperVehicle.Gewicht;
+            if (this.HelperVehicle.Gewicht.HasValue)
+            {
+                this.DynoVehicleGewicht = this.HelperVehicle.Gewicht;
+                this.RaisePropertyChanged(() => this.DynoVehicleGewicht);
+            }
 
-            if (HelperVehicle.Cw.HasValue)
-                Dyno.Vehicle.Cw = HelperVehicle.Cw;
+            if (this.HelperVehicle.Cw.HasValue)
+            {
+                this.DynoVehicleCw = this.HelperVehicle.Cw;
+                this.RaisePropertyChanged(() => this.DynoVehicleCw);
+            }
 
-            if (HelperVehicle.FrontA.HasValue)
-                Dyno.Vehicle.FrontA = HelperVehicle.FrontA;
-
-            RaisePropertyChanged(() => Dyno);
+            if (this.HelperVehicle.FrontA.HasValue)
+            {
+                this.DynoVehicleFrontA = this.HelperVehicle.FrontA;
+                this.RaisePropertyChanged(() => this.DynoVehicleFrontA);
+            }
         }
 
+        /// <summary>
+        /// Creates new environment.
+        /// </summary>
         private void NewEnvironment()
         {
             if (this.Dyno.Environment == null)
@@ -169,11 +168,16 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
-        #endregion Commands
+        #endregion Methods
 
         #region Values
 
+        protected readonly ResourceManager rm;
+        protected DynoLogic dynoLogic;
+
         private DynoModel _dyno;
+
+        public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
 
         public DynoModel Dyno
         {
@@ -183,40 +187,182 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         public double? DynoEnvironmentLuftdruckP
         {
-            get => Dyno.Environment.LuftdruckP;
+            get => Dyno?.Environment?.LuftdruckP;
+            set
+            {
+                if (this.Dyno?.Environment == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Environment.LuftdruckP = value;
+            }
+        }
+
+        public UnitListItem DynoEnvironmentLuftdruckPUnit
+        {
+            get => this.PressureQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Dyno?.Environment?.LuftdruckPUnit));
+            set
+            {
+                if (this.Dyno?.Environment == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Environment.LuftdruckPUnit = (UnitsNet.Units.PressureUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.DynoEnvironmentLuftdruckP);
+            }
         }
 
         public double? DynoEnvironmentTemperaturT
         {
-            get => Dyno.Environment.TemperaturT;
+            get => Dyno?.Environment?.TemperaturT;
+            set
+            {
+                if (this.Dyno?.Environment == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Environment.TemperaturT = value;
+            }
+        }
+
+        public UnitListItem DynoEnvironmentTemperaturTUnit
+        {
+            get => this.TemperatureQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Dyno?.Environment?.TemperaturTUnit));
+            set
+            {
+                if (this.Dyno?.Environment == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Environment.TemperaturTUnit = (UnitsNet.Units.TemperatureUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.DynoEnvironmentTemperaturT);
+            }
         }
 
         public double? DynoVehicleCw
         {
             get => Dyno?.Vehicle?.Cw;
+            set
+            {
+                if (this.Dyno?.Vehicle == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Vehicle.Cw = value;
+            }
         }
 
         public double? DynoVehicleFrontA
         {
             get => Dyno?.Vehicle?.FrontA;
+            set
+            {
+                if (this.Dyno?.Vehicle == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Vehicle.FrontA = value;
+            }
+        }
+
+        public UnitListItem DynoVehicleFrontAUnit
+        {
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Dyno?.Vehicle?.FrontAUnit));
+            set
+            {
+                if (this.Dyno?.Vehicle == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.DynoVehicleFrontAUnit);
+            }
         }
 
         public double? DynoVehicleGewicht
         {
-            get => Dyno.Vehicle.Gewicht;
+            get => Dyno?.Vehicle?.Gewicht;
+            set
+            {
+                if (this.Dyno?.Vehicle == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Vehicle.Gewicht = value;
+            }
+        }
+
+        public UnitListItem DynoVehicleGewichtUnit
+        {
+            get => this.MassQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Dyno?.Vehicle?.GewichtUnit));
+            set
+            {
+                if (this.Dyno?.Vehicle == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Vehicle.GewichtUnit = (UnitsNet.Units.MassUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.DynoVehicleGewicht);
+            }
         }
 
         public double? DynoVehicleUebersetzung
         {
-            get => Dyno.Vehicle.Uebersetzung;
+            get => Dyno?.Vehicle?.Uebersetzung;
+            set
+            {
+                if (this.Dyno?.Vehicle == null)
+                {
+                    return;
+                }
+
+                this.Dyno.Vehicle.Uebersetzung = value;
+            }
         }
+
+        /// <summary>
+        /// Gets or sets the insert environment command.
+        /// </summary>
+        /// <value>The insert environment command.</value>
+        public IMvxCommand InsertEnvironmentCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the insert vehicle command.
+        /// </summary>
+        /// <value>The insert vehicle command.</value>
+        public IMvxCommand InsertVehicleCommand { get; set; }
+
+        public ObservableCollection<UnitListItem> MassQuantityUnits { get; }
 
         public PlotModel PlotStrength
         {
-            get { return dynoLogic.PlotStrength; }
+            get => dynoLogic.PlotStrength;
         }
 
-        #endregion Values
+        public ObservableCollection<UnitListItem> PressureQuantityUnits { get; }
+
+        /// <summary>
+        /// Gets or sets the refresh plot command.
+        /// </summary>
+        /// <value>The refresh plot command.</value>
+        public IMvxAsyncCommand RefreshPlotCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the show save command.
+        /// </summary>
+        /// <value>The show save command.</value>
+        public IMvxCommand ShowSaveCommand { get; set; }
+
+        public ObservableCollection<UnitListItem> TemperatureQuantityUnits { get; }
 
         #region Hilfs-Daten
 
@@ -251,5 +397,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         }
 
         #endregion Hilfs-Daten
+
+        #endregion Values
     }
 }

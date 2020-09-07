@@ -17,8 +17,6 @@ namespace SimTuning.Forms.UI
         /// </summary>
         public override void Initialize()
         {
-            Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
-
             this.RegisterAppStart<MainPageViewModel>();
         }
     }

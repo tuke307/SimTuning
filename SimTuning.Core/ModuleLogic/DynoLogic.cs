@@ -266,11 +266,18 @@ namespace SimTuning.Core.ModuleLogic
 
         /// <summary>
         /// Definiert den Graph für den Graph der Regression eines Bereichs.
+        /// TODO: keine neuerstellung des plots
         /// </summary>
         private void PlotAreaRegression(int choice)
         {
-            this.PlotAudio.Series.Clear();
+            this.PlotAudio = new PlotModel();
+
+            //Achsen
+            this.PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            this.PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            //this.PlotAudio.Series.Clear();
             this.PlotAudio.IsLegendVisible = false;
+            //this.PlotAudio.InvalidatePlot(true);
 
             Func<double, double> polyF = (x) => this.function[0] + (this.function[1] * x) + (this.function[2] * Math.Pow(x, 2)) + ((this.function[3] * Math.Pow(x, 3)) + (this.function[4] * Math.Pow(x, 4)));
 

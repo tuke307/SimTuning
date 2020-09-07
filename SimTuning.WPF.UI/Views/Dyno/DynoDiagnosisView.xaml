@@ -83,7 +83,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Gesamtübersetzung"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoVehicleUebersetzung, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoVehicleUebersetzung, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -95,7 +95,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Gewicht"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoVehicleGewicht, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoVehicleGewicht, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -103,19 +103,22 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Width="120">
                     </TextBox>
 
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               Margin="10 15 0 0">
-                        <Run>kg</Run>
-                    </TextBlock>
+                    <ComboBox VerticalAlignment="Bottom"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              Margin="5 0 0 0"
+                              IsSynchronizedWithCurrentItem="True"
+                              IsEditable="False"
+                              DisplayMemberPath="Abbreviation"
+                              SelectedItem="{Binding Mode=TwoWay, Path=DynoVehicleGewichtUnit}"
+                              ItemsSource="{Binding Path=MassQuantityUnits, Mode=OneTime}">
+                    </ComboBox>
 
                     <TextBox Grid.Row="2"
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Frontfläche"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoVehicleFrontA, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoVehicleFrontA, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -123,19 +126,22 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Width="120">
                     </TextBox>
 
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               Margin="10 15 0 0">
-                        cm<Run Text="&#x00B2;" />
-                    </TextBlock>
+                    <ComboBox VerticalAlignment="Bottom"
+                              Grid.Row="2"
+                              Grid.Column="1"
+                              Margin="5 0 0 0"
+                              IsSynchronizedWithCurrentItem="True"
+                              IsEditable="False"
+                              DisplayMemberPath="Abbreviation"
+                              SelectedItem="{Binding Mode=TwoWay, Path=DynoVehicleFrontAUnit}"
+                              ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
+                    </ComboBox>
 
                     <TextBox Grid.Row="3"
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="cw"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoVehicleCw, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoVehicleCw, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -147,7 +153,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Temperatur"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoEnvironmentTemperaturT, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoEnvironmentTemperaturT, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -155,19 +161,22 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Width="120">
                     </TextBox>
 
-                    <TextBlock Grid.Row="4"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               Margin="10 15 0 0">
-                        <Run>°C</Run>
-                    </TextBlock>
+                    <ComboBox VerticalAlignment="Bottom"
+                              Grid.Row="4"
+                              Grid.Column="1"
+                              Margin="5 0 0 0"
+                              IsSynchronizedWithCurrentItem="True"
+                              IsEditable="False"
+                              DisplayMemberPath="Abbreviation"
+                              SelectedItem="{Binding Mode=TwoWay, Path=DynoEnvironmentTemperaturTUnit}"
+                              ItemsSource="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}">
+                    </ComboBox>
 
                     <TextBox Grid.Row="5"
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Luftdruck"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoEnvironmentLuftdruckP, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=DynoEnvironmentLuftdruckP, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -175,13 +184,16 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Width="120">
                     </TextBox>
 
-                    <TextBlock Grid.Row="5"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               Margin="10 15 0 0">
-                        <Run>mbar</Run>
-                    </TextBlock>
+                    <ComboBox VerticalAlignment="Bottom"
+                              Grid.Row="5"
+                              Grid.Column="1"
+                              Margin="5 0 0 0"
+                              IsSynchronizedWithCurrentItem="True"
+                              IsEditable="False"
+                              DisplayMemberPath="Abbreviation"
+                              SelectedItem="{Binding Mode=TwoWay, Path=DynoEnvironmentLuftdruckPUnit}"
+                              ItemsSource="{Binding Path=PressureQuantityUnits, Mode=OneTime}">
+                    </ComboBox>
 
                     <!--Refresh-->
                     <Button Grid.Row="6"
@@ -258,7 +270,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                VerticalAlignment="Center"
                                FontWeight="Normal"
                                Margin="10 0 0 0" />
-                        <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Frontflaeche}"
+                        <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.FrontA}"
                                Grid.Row="3"
                                Grid.Column="1"
                                HorizontalAlignment="Left"

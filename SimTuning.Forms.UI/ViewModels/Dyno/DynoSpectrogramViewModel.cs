@@ -103,7 +103,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await base.SpecificGraph().ConfigureAwait(true);
+            base.SpecificGraph();
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }

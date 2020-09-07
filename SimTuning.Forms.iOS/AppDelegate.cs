@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.iOS, file=AppDelegate.cs, creation=2020:7:1
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.iOS, file=AppDelegate.cs, creation=2020:7:1 Copyright (c) 2020
+// tuke productions. All rights reserved.
 using Foundation;
 using MvvmCross.Platforms.Ios.Core;
 using SimTuning.Forms.UI;

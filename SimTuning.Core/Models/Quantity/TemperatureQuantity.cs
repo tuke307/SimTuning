@@ -1,6 +1,6 @@
-﻿// project=SimTuning.Core, file=DurationQuantity.cs, creation=2020:7:31 Copyright (c) 2020
-// tuke productions. All rights reserved.
-namespace SimTuning.Core.Models
+﻿// project=SimTuning.Core, file=TemperatureQuantity.cs, creation=2020:9:7 Copyright (c)
+// 2020 tuke productions. All rights reserved.
+namespace SimTuning.Core.Models.Quantity
 {
     using System;
     using System.Collections.ObjectModel;
@@ -8,17 +8,17 @@ namespace SimTuning.Core.Models
     using UnitsNet;
 
     /// <summary>
-    /// DurationQuantity.
+    /// TemperatureQuantity
     /// </summary>
     /// <seealso cref="System.Collections.ObjectModel.ObservableCollection{SimTuning.Core.UnitListItem}" />
-    public class DurationQuantity : ObservableCollection<UnitListItem>
+    public class TemperatureQuantity : ObservableCollection<UnitListItem>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DurationQuantity" /> class.
+        /// Initializes a new instance of the <see cref="TemperatureQuantity" /> class.
         /// </summary>
-        public DurationQuantity() : base()
+        public TemperatureQuantity() : base()
         {
-            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Duration);
+            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Temperature);
 
             foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
             {

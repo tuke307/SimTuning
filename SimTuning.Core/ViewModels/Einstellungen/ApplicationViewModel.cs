@@ -1,4 +1,6 @@
-﻿namespace SimTuning.Core.ViewModels.Einstellungen
+﻿// project=SimTuning.Core, file=ApplicationViewModel.cs, creation=2020:9:2 Copyright (c)
+// 2020 tuke productions. All rights reserved.
+namespace SimTuning.Core.ViewModels.Einstellungen
 {
     using MvvmCross.Logging;
     using MvvmCross.Navigation;

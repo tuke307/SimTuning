@@ -1,4 +1,4 @@
-﻿// project=SimTuning.WPF.UI, file=RessourceChanges.cs, creation=2020:8:26 Copyright (c)
+﻿// project=SimTuning.WPF.UI, file=RessourceChanges.cs, creation=2020:9:2 Copyright (c)
 // 2020 tuke productions. All rights reserved.
 using System;
 using System.Collections.Generic;

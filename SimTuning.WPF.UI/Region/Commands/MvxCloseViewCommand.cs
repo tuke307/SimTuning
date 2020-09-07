@@ -1,4 +1,4 @@
-﻿// project=SimTuning.WPF.UI, file=MvxCloseViewCommand.cs, creation=2020:7:30 Copyright (c)
+﻿// project=SimTuning.WPF.UI, file=MvxCloseViewCommand.cs, creation=2020:9:2 Copyright (c)
 // 2020 tuke productions. All rights reserved.
 using MvvmCross;
 using System;

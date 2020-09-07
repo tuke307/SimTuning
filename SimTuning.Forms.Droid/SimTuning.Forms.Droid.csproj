@@ -11,7 +11,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SimTuning.Forms.Droid</RootNamespace>
-    <AssemblyName>SimTuning.Forms.Droid</AssemblyName>
+    <AssemblyName>SimTuning</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <Deterministic>True</Deterministic>
     <AndroidApplication>True</AndroidApplication>
@@ -113,13 +113,13 @@
       <Version>28.0.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.MediaRouter">
-      <Version>1.1.0.2</Version>
+      <Version>1.1.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>4.8.0.1364</Version>
     </PackageReference>
     <PackageReference Include="XF.Material">
-      <Version>1.7.0</Version>
+      <Version>1.7.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿// project=SimTuning.WPF.UI, file=DialogSnackbarView.xaml.cs, creation=2020:7:30 Copyright
+﻿// project=SimTuning.WPF.UI, file=DialogSnackbarView.xaml.cs, creation=2020:9:2 Copyright
 // (c) 2020 tuke productions. All rights reserved.
 using System.Windows.Controls;
 

@@ -1,5 +1,5 @@
-﻿// project=SimTuning.WPF.UI, file=DynoSpectrogramViewModel.cs, creation=2020:7:30
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.WPF.UI, file=DynoSpectrogramViewModel.cs, creation=2020:9:2 Copyright
+// (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.ViewModels.Dyno
 {
     using MaterialDesignThemes.Wpf;
@@ -110,21 +110,20 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
         /// <summary>
         /// Specifics the graph.
-        /// TODO: geht nicht mehr!.
         /// </summary>
-        protected new async Task SpecificGraph()
+        protected new Task SpecificGraph()
         {
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
-            {
-                Task.Run(() =>
-                {
-                    Application.Current.Dispatcher.Invoke(async () =>
-                    {
-                        await base.SpecificGraph();
-                        args.Session.Close();
-                    });
-                });
-            }).ConfigureAwait(true);
+            return DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
+             {
+                 Task.Run(() =>
+                 {
+                     Application.Current.Dispatcher.Invoke(() =>
+                 {
+                     base.SpecificGraph();
+                     args.Session.Close();
+                 });
+                 });
+             });
         }
 
         /// <summary>

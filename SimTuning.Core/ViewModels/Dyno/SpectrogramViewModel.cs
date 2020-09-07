@@ -1,6 +1,5 @@
 ﻿// project=SimTuning.Core, file=SpectrogramViewModel.cs, creation=2020:7:31 Copyright (c)
 // 2020 tuke productions. All rights reserved.
-
 namespace SimTuning.Core.ViewModels.Dyno
 {
     using Data;
@@ -98,7 +97,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         protected virtual async Task FilterPlot()
         {
             //Graphs = null;
-            Graph = null;
+            //Graph = null;
 
             dynoLogic.PlotRotionalSpeed(audioLogic.SpectrogramAudio, true);
 
@@ -114,7 +113,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         protected virtual async Task RefreshPlot()
         {
             //Graphs = null;
-            Graph = null;
+            //Graph = null;
 
             try
             {
@@ -144,24 +143,24 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Specifics the graph.
         /// </summary>
-        protected virtual async Task SpecificGraph()
+        protected virtual void SpecificGraph()
         {
-            if (Graphs == null || Graph == null)
+            if (this.Graphs == null || this.Graph == null)
             {
                 return;
             }
 
-            this.dynoLogic.AreaRegression(Graphs.IndexOf(Graph));
+            this.dynoLogic.AreaRegression(this.Graphs.IndexOf(this.Graph));
             this.Dyno.Audio = this.dynoLogic.Dyno.Audio;
 
             using (var db = new DatabaseContext())
             {
-                //in Datenbank einfügen
+                // in Datenbank einfügen
                 db.Dyno.Update(Dyno);
                 db.SaveChanges();
             }
 
-            await this.RaisePropertyChanged(() => PlotAudio);
+            this.RaisePropertyChanged(() => this.PlotAudio);
         }
 
         #endregion Methods

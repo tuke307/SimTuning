@@ -1,13 +1,13 @@
-﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDiagnosisView"
-                       x:TypeArguments="viewModels:DynoDiagnosisViewModel"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       Title="Diagnose"
-                       xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDiagnosisView"
+                      x:TypeArguments="viewModels:DynoDiagnosisViewModel"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      Title="Diagnose"
+                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <ScrollView>
         <StackLayout>
 
@@ -42,66 +42,82 @@
 
                     <material:MaterialTextField Placeholder="Gesamtübersetzung"
                                                 InputType="Numeric"
-                                                Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Uebersetzung}"
+                                                Text="{Binding Mode=TwoWay, Path=DynoVehicleUebersetzung}"
                                                 WidthRequest="250">
                     </material:MaterialTextField>
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Gewicht"
                                                     InputType="Numeric"
-                                                    Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Gewicht}"
+                                                    Text="{Binding Mode=TwoWay, Path=DynoVehicleGewicht}"
                                                     WidthRequest="250">
                         </material:MaterialTextField>
 
-                        <material:MaterialLabel Margin="10, 0, 0, 0"
-                                                VerticalOptions="Center">
-                            kg
-                        </material:MaterialLabel>
+                        <material:MaterialTextField InputType="Choice"
+                                                    VerticalOptions="Center"
+                                                    FloatingPlaceholderEnabled="False"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=MassQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding Mode=TwoWay, Path=DynoVehicleGewichtUnit}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Frontfläche"
                                                     InputType="Numeric"
-                                                    Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Frontflaeche}"
+                                                    Text="{Binding Mode=TwoWay, Path=DynoVehicleFrontA}"
                                                     WidthRequest="250">
                         </material:MaterialTextField>
 
-                        <material:MaterialLabel VerticalOptions="Center"
-                                                Margin="10, 0, 0, 0">
-                            cm²
-                        </material:MaterialLabel>
+                        <material:MaterialTextField InputType="Choice"
+                                                    VerticalOptions="Center"
+                                                    FloatingPlaceholderEnabled="False"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding Mode=TwoWay, Path=DynoVehicleFrontAUnit}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
                     </StackLayout>
 
                     <material:MaterialTextField Placeholder="cw"
                                                 InputType="Numeric"
-                                                Text="{Binding Mode=TwoWay, Path=Dyno.Vehicle.Cw}"
+                                                Text="{Binding Mode=TwoWay, Path=DynoVehicleCw}"
                                                 WidthRequest="250">
                     </material:MaterialTextField>
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Temperatur"
                                                     InputType="Numeric"
-                                                    Text="{Binding Mode=TwoWay, Path=Dyno.Environment.TemperaturT}"
+                                                    Text="{Binding Mode=TwoWay, Path=DynoEnvironmentTemperaturT}"
                                                     WidthRequest="250">
                         </material:MaterialTextField>
 
-                        <material:MaterialLabel VerticalOptions="Center"
-                                                Margin="10, 0, 0, 0">
-                            °C
-                        </material:MaterialLabel>
+                        <material:MaterialTextField InputType="Choice"
+                                                    VerticalOptions="Center"
+                                                    FloatingPlaceholderEnabled="False"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding Mode=TwoWay, Path=DynoEnvironmentTemperaturTUnit}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Luftdruck"
                                                     InputType="Numeric"
-                                                    Text="{Binding Mode=TwoWay, Path=Dyno.Environment.LuftdruckP}"
+                                                    Text="{Binding Mode=TwoWay, Path=DynoEnvironmentLuftdruckP}"
                                                     WidthRequest="250">
                         </material:MaterialTextField>
 
-                        <material:MaterialLabel VerticalOptions="Center"
-                                                Margin="10, 0, 0, 0">
-                            mbar
-                        </material:MaterialLabel>
+                        <material:MaterialTextField InputType="Choice"
+                                                    VerticalOptions="Center"
+                                                    FloatingPlaceholderEnabled="False"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=PressureQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding Mode=TwoWay, Path=DynoEnvironmentLuftdruckPUnit}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
                     </StackLayout>
 
                     <!--Refresh-->
@@ -126,8 +142,8 @@
 
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
-                                                Choices="{Binding HelperVehicles}"
-                                                SelectedChoice="{Binding HelperVehicle}"
+                                                Choices="{Binding Mode=OneTime, Path=HelperVehicles}"
+                                                SelectedChoice="{Binding Mode=TwoWay, Path=HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>
 
@@ -227,8 +243,8 @@
 
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Umwelt"
-                                                Choices="{Binding  HelperEnvironments}"
-                                                SelectedChoice="{Binding  HelperEnvironment}"
+                                                Choices="{Binding Mode=OneTime, Path=HelperEnvironments}"
+                                                SelectedChoice="{Binding  Mode=TwoWay, Path=HelperEnvironment}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>
 

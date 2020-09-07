@@ -3,11 +3,8 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using MediaManager;
-using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.Forms.Platforms.Android.Views;
-using SimTuning.Forms.UI;
 
 namespace SimTuning.Forms.Droid
 {
