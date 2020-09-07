@@ -106,6 +106,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         /// <summary>
         /// Opens the file.
+        /// TODO: stream anstatt uri
         /// </summary>
         /// <returns>
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
@@ -114,13 +115,13 @@ namespace SimTuning.Core.ViewModels.Dyno
         protected virtual async Task OpenFileAsync()
         {
             // initialisieren
-            var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
+            //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
 
             this.MediaManager.PositionChanged += this.Current_PositionChanged;
-            await this.MediaManager.Play(stream, Core.Constants.AudioFile).ConfigureAwait(true);
-            this.PauseCommand.Execute();
+            await this.MediaManager.Play(SimTuning.Core.Constants.AudioFilePath).ConfigureAwait(true);
+            this.StopCommand.Execute();
 
-            stream.Dispose();
+            //stream.Dispose();
 
             await this.RaisePropertyChanged(() => this.AudioMaximum).ConfigureAwait(true);
         }
@@ -189,7 +190,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         private void Current_PositionChanged(object sender, PositionChangedEventArgs e)
         {
             Log.Debug($"Current position is {e.Position};");
-            RaisePropertyChanged(() => AudioPosition);
+            RaisePropertyChanged(() => this.AudioPosition);
         }
 
         #endregion Methods
@@ -253,13 +254,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <value>The audio maximum.</value>
         public double? AudioMaximum
         {
-            get
-            {
-                if (MediaManager != null)
-                    return MediaManager.Duration.TotalSeconds;
-                else
-                    return null;
-            }
+            get => this.MediaManager.Duration.TotalSeconds;
         }
 
         /// <summary>
@@ -268,7 +263,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <value>The audio position.</value>
         public double? AudioPosition
         {
-            get => MediaManager?.Position.TotalSeconds;
+            get => this.MediaManager?.Position.TotalSeconds;
             set
             {
                 if (MediaManager.MediaPlayer != null)

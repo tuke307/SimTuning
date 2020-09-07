@@ -139,12 +139,9 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await base.OpenFileDialog(fileData).ConfigureAwait(true);
 
-            //if (MediaManager.MediaPlayer != null)
-            //{
             await this.ReloadImageAudioSpectrogram();
 
             BadgeFileOpen = true;
-            //}
         }
 
         /// <summary>
