@@ -21,7 +21,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
     <views:MvxWpfView.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/SimTuning.Wpf.UI;component/ThemeResource.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </views:MvxWpfView.Resources>

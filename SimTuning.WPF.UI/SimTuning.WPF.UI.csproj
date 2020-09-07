@@ -70,7 +70,6 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net47')) ">
     <None Remove="Dialog\DialogLoadingView.xaml" />
     <None Remove="Dialog\DialogSnackbarView.xaml" />
-    <None Remove="ThemeResource.xaml" />
     <None Remove="Views\Auslass\AuslassAnwendungView.xaml" />
     <None Remove="Views\Auslass\AuslassMainView.xaml" />
     <None Remove="Views\Auslass\AuslassTheorieView.xaml" />
@@ -200,11 +199,6 @@
     <Page Include="Views\Tuning\TuningMainView.xaml">
       
     </Page>
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Resource Include="ThemeResource.xaml" />
   </ItemGroup>
 
 

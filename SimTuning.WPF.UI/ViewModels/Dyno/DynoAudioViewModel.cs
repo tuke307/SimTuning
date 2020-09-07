@@ -108,17 +108,17 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// <summary>
         /// Opens the file.
         /// </summary>
-        protected override async Task OpenFileAsync()
-        {
-            // initialisieren
-            var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
-            //MediaManager = CrossSimpleAudioMediaManager.Current;
-            //MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
+        //protected override async Task OpenFileAsync()
+        //{
+        //    // initialisieren
+        //    //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
+        //    //MediaManager = CrossSimpleAudioMediaManager.Current;
+        //    //MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
 
-            //stream.Dispose();
+        // //stream.Dispose();
 
-            await base.OpenFileAsync();
-        }
+        //    await base.OpenFileAsync();
+        //}
 
         /// <summary>
         /// Opens the file dialog.

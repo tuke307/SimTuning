@@ -38,9 +38,9 @@ namespace SimTuning.Core.ViewModels.Dyno
             this.audioLogic = new AudioLogic();
             this.BadgeFileOpen = false;
 
-            this.StopCommand = new MvxAsyncCommand(this.StopAsync);
-            this.PauseCommand = new MvxAsyncCommand(this.PauseAsync);
-            this.PlayCommand = new MvxAsyncCommand(this.PlayAsync);
+            this.StopCommand = new MvxAsyncCommand(this.MediaManager.Stop);
+            this.PauseCommand = new MvxAsyncCommand(this.MediaManager.Pause);
+            this.PlayCommand = new MvxAsyncCommand(this.MediaManager.PlayPause);
 
             // this.MediaManager.PositionChanged += Current_PositionChanged;
         }
@@ -89,11 +89,9 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         protected virtual async Task CutBeginn()
         {
-            TrimAudio(AudioPosition.Value, 0);
+            this.TrimAudio(this.AudioPosition.Value, 0);
 
-            OpenFileAsync();
-
-            await RaisePropertyChanged("AudioPosition");
+            await this.OpenFileAsync();
         }
 
         /// <summary>
@@ -101,78 +99,46 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         protected virtual async Task CutEnd()
         {
-            TrimAudio(0, AudioPosition.Value);
+            this.TrimAudio(0, AudioPosition.Value);
 
-            OpenFileAsync();
-
-            await RaisePropertyChanged("AudioPosition");
+            await this.OpenFileAsync();
         }
 
         /// <summary>
         /// Opens the file.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected virtual async Task OpenFileAsync()
         {
-            ////initialisieren
+            // initialisieren
             var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
 
-            //For initializing
-            await this.MediaManager.Play(stream, SimTuning.Core.Constants.AudioFile);
-            await PauseAsync();
+            this.MediaManager.PositionChanged += this.Current_PositionChanged;
+            await this.MediaManager.Play(stream, Core.Constants.AudioFile).ConfigureAwait(true);
+            this.PauseCommand.Execute();
 
             stream.Dispose();
 
-            this.MediaManager.PositionChanged += this.Current_PositionChanged;
-            this.RaisePropertyChanged(() => this.AudioMaximum);
-            //Task t = Task.Run(() =>
-            //{
-            //    Task.Delay(1000).Wait();
-            //    RaisePropertyChanged(() => AudioMaximum);
-            //});
+            await this.RaisePropertyChanged(() => this.AudioMaximum).ConfigureAwait(true);
         }
 
         /// <summary>
         /// Opens the file dialog.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected virtual async Task OpenFileDialog(FileData fileData)
         {
-            //wenn Datei ausgewählt
+            // wenn Datei ausgewählt
             if (SimTuning.Core.Business.AudioUtils.AudioCopy(fileData.FileName, fileData.GetStream()))
-                OpenFileAsync();
-        }
-
-        /// <summary>
-        /// Pauses the asynchronous.
-        /// </summary>
-        protected virtual async Task PauseAsync()
-        {
-            if (this.MediaManager != null)
             {
-                await this.MediaManager.Pause();
+                await this.OpenFileAsync().ConfigureAwait(true);
             }
-        }
-
-        /// <summary>
-        /// Plays the asynchronous.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual async Task PlayAsync()
-        {
-            if (this.MediaManager != null)
-            {
-                await this.MediaManager.Play();
-            }
-
-            //Position aktualisieren
-            //Task t = Task.Run(() =>
-            //{
-            //    while (MediaManager.IsPlaying())
-            //    {
-            //        //AudioPosition = MediaManager.CurrentPosition;
-            //        RaisePropertyChanged("AudioPosition");
-            //    }
-            //});
-            //}
         }
 
         /// <summary>
@@ -185,20 +151,6 @@ namespace SimTuning.Core.ViewModels.Dyno
             Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(spec);
 
             return stream;
-        }
-
-        /// <summary>
-        /// Stops the asynchronous.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual async Task StopAsync()
-        {
-            if (this.MediaManager.MediaPlayer != null)
-            {
-                await this.MediaManager.Stop();
-                //AudioPosition = 0;
-                //RaisePropertyChanged("AudioPosition");
-            }
         }
 
         /// <summary>
@@ -316,13 +268,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <value>The audio position.</value>
         public double? AudioPosition
         {
-            get
-            {
-                if (MediaManager != null)
-                    return MediaManager.Position.TotalSeconds;
-                else
-                    return null;
-            }
+            get => MediaManager?.Position.TotalSeconds;
             set
             {
                 if (MediaManager.MediaPlayer != null)
