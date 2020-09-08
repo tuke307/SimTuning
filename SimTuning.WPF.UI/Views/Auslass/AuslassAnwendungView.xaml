@@ -55,7 +55,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     ToolTip="Richtwert: 540-560 m/s">
                             <TextBox materialDesign:HintAssist.Hint="Schallgeschwindigkeit"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.AbgasV}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffAbgasV}"
                                      Width="125">
                             </TextBox>
 
@@ -63,7 +63,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                       Margin="5 0 0 0"
                                       IsEditable="False"
                                       DisplayMemberPath="Abbreviation"
-                                      SelectedItem="{Binding UnitSchallG}"
+                                      SelectedItem="{Binding VehicleMotorAuslassAuspuffAbgasVUnit}"
                                       ItemsSource="{Binding Path=SpeedQuantityUnits, Mode=OneTime}">
                             </ComboBox>
 
@@ -80,7 +80,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     ToolTip="Bei dieser Drehzahl soll die Maximalleistung erreicht werden">
                             <TextBox materialDesign:HintAssist.Hint="Resonanzdrehzahl"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.ResonanzD}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU}"
                                      Width="125">
                             </TextBox>
 
@@ -97,7 +97,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     ToolTip="Innendurchmesser des Auslassflansches. Als Faustregel sollte die Fläche des Flansches etwa 1,1 - 1,5 mal die Fläche des Auslassfensters sein">
                             <TextBox materialDesign:HintAssist.Hint="Auslass Durchmesser"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.DurchmesserD}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassDurchmesserD}"
                                      Width="125">
                             </TextBox>
 
@@ -106,7 +106,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                       IsSynchronizedWithCurrentItem="True"
                                       IsEditable="False"
                                       DisplayMemberPath="Abbreviation"
-                                      SelectedItem="{Binding UnitAuslassD}"
+                                      SelectedItem="{Binding VehicleMotorAuslassDurchmesserDUnit}"
                                       ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                             </ComboBox>
                             <!--<TextBlock HorizontalAlignment="Left"
@@ -122,7 +122,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     ToolTip="Ab Kolbenhemd">
                             <TextBox materialDesign:HintAssist.Hint="Auslass-Kanal Länge"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.LaengeL}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeL}"
                                      Width="125">
                             </TextBox>
                             <ComboBox VerticalAlignment="Bottom"
@@ -130,7 +130,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                       IsSynchronizedWithCurrentItem="True"
                                       IsEditable="False"
                                       DisplayMemberPath="Abbreviation"
-                                      SelectedItem="{Binding UnitAuslassL}"
+                                      SelectedItem="{Binding VehicleMotorAuslassLaengeLUnit}"
                                       ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                             </ComboBox>
                             <!--<TextBlock HorizontalAlignment="Left"
@@ -145,7 +145,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Auslass-Steuerzeit"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.SteuerzeitSZ}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassSteuerzeitSZ}"
                                      Width="125">
                             </TextBox>
 
@@ -161,7 +161,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Auslass-Fläche"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.FlaecheA}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheA}"
                                      Width="125">
                             </TextBox>
                             <ComboBox VerticalAlignment="Bottom"
@@ -169,7 +169,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                       IsSynchronizedWithCurrentItem="True"
                                       IsEditable="False"
                                       DisplayMemberPath="Abbreviation"
-                                      SelectedItem="{Binding UnitAuslassF}"
+                                      SelectedItem="{Binding VehicleMotorAuslassFlaecheAUnit}"
                                       ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                             </ComboBox>
                             <!--<TextBlock HorizontalAlignment="Left"
@@ -260,7 +260,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                     HorizontalAlignment="Left">
                                             <TextBox materialDesign:HintAssist.Hint="Winkel"
                                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.DiffusorW1}"
+                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffDiffusorW1}"
                                                      Width="50" />
 
                                             <TextBlock HorizontalAlignment="Left"
@@ -309,7 +309,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                     HorizontalAlignment="Left">
                                             <TextBox materialDesign:HintAssist.Hint="Winkel"
                                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.DiffusorW1}"
+                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffDiffusorW1}"
                                                      Width="50" />
 
                                             <TextBlock HorizontalAlignment="Left"
@@ -339,7 +339,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                     HorizontalAlignment="Left">
                                             <TextBox materialDesign:HintAssist.Hint="Winkel"
                                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.DiffusorW2}"
+                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffDiffusorW2}"
                                                      Width="50" />
 
                                             <TextBlock HorizontalAlignment="Left"
@@ -387,7 +387,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                     HorizontalAlignment="Left">
                                             <TextBox materialDesign:HintAssist.Hint="Winkel"
                                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.DiffusorW1}"
+                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffDiffusorW1}"
                                                      Width="50" />
 
                                             <TextBlock HorizontalAlignment="Left"
@@ -417,7 +417,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                     HorizontalAlignment="Left">
                                             <TextBox materialDesign:HintAssist.Hint="Winkel"
                                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.DiffusorW2}"
+                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffDiffusorW2}"
                                                      Width="50" />
 
                                             <TextBlock HorizontalAlignment="Left"
@@ -447,7 +447,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                     HorizontalAlignment="Left">
                                             <TextBox materialDesign:HintAssist.Hint="Winkel"
                                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.DiffusorW3}"
+                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffDiffusorW3}"
                                                      Width="50" />
 
                                             <TextBlock HorizontalAlignment="Left"
@@ -491,7 +491,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                         Orientation="Horizontal"
                                         Minimum="6"
                                         Maximum="12"
-                                        Value="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.KruemmerF, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                        Value="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffKruemmerF, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                         behaviours:NumberOnlyBehaviour.IsEnabled="True">
                                 </Slider>
 
@@ -505,7 +505,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     ToolTip="Sofern der Krümmer bereits konisch sein soll, haben sich Winkel zwischen 1,1-1,4° bewährt. Winkel unterhalb 1,1° sind nützlich bei Diffusorwinkeln zwischen 2,8 und 3,25°">
                             <TextBox materialDesign:HintAssist.Hint="Krümmer Winkel"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.KruemmerW, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffKruemmerW, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      Width="125">
                             </TextBox>
@@ -542,7 +542,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     Orientation="Horizontal"
                                     Minimum="2"
                                     Maximum="3"
-                                    Value="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.MittelteilF, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                    Value="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffMittelteilF, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                     behaviours:NumberOnlyBehaviour.IsEnabled="True">
                             </Slider>
 
@@ -570,7 +570,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                         HorizontalAlignment="Left">
                                 <TextBox materialDesign:HintAssist.Hint="GegenKonus Winkel"
                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.GegenKonusW}"
+                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffGegenKonusW}"
                                          Width="125" />
 
                                 <TextBlock HorizontalAlignment="Left"
@@ -592,14 +592,14 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                         HorizontalAlignment="Left">
                                 <TextBox materialDesign:HintAssist.Hint="Endrohr Durchmesser"
                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.EndrohrD}"
+                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffEndrohrD}"
                                          Width="125" />
                                 <ComboBox VerticalAlignment="Bottom"
                                           Margin="5 0 0 0"
                                           IsSynchronizedWithCurrentItem="True"
                                           IsEditable="False"
                                           DisplayMemberPath="Abbreviation"
-                                          SelectedItem="{Binding UnitEndrohrD}"
+                                          SelectedItem="{Binding VehicleMotorAuslassAuspuffEndrohrDUnit}"
                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                 </ComboBox>
                                 <!--<TextBlock HorizontalAlignment="Left"
@@ -614,14 +614,15 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                         HorizontalAlignment="Left">
                                 <TextBox materialDesign:HintAssist.Hint="Endrohr Laenge"
                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                         Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.EndrohrL}"
+                                         Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffEndrohrL}"
                                          Width="125" />
+
                                 <ComboBox VerticalAlignment="Bottom"
                                           Margin="5 0 0 0"
                                           IsSynchronizedWithCurrentItem="True"
                                           IsEditable="False"
                                           DisplayMemberPath="Abbreviation"
-                                          SelectedItem="{Binding UnitEndrohrL}"
+                                          SelectedItem="{Binding VehicleMotorAuslassAuspuffEndrohrLUnit}"
                                           ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                                 </ComboBox>
                                 <!--<TextBlock HorizontalAlignment="Left"
@@ -678,7 +679,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="D1"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.KruemmerD}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffKruemmerD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -695,7 +696,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="LK"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.KruemmerL}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffKruemmerL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -712,7 +713,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="D2"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.DiffusorD}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffDiffusorD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -729,7 +730,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="LD"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.DiffusorL}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffDiffusorL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -746,7 +747,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="D3"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.MittelteilD}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffMittelteilD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -763,7 +764,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="LM"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.MittelteilL}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffMittelteilL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -780,7 +781,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="D4"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.GegenkonusD}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffGegenkonusD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -797,7 +798,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="LG"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.GegenkonusL}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffGegenkonusL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -814,7 +815,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="LE"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.EndrohrL}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffEndrohrL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -831,7 +832,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="Gesamtlänge"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.GesamtL}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffGesamtL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"
@@ -848,7 +849,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="Resonanzlänge"
                                      IsEnabled="False"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Vehicle.Motor.Auslass.Auspuff.ResonanzL}"
+                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffResonanzL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      Width="105" />
 
                             <TextBlock HorizontalAlignment="Left"

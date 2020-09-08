@@ -50,7 +50,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Zylinder-Anzahl"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.ZylinderAnz, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.ZylinderAnz, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -61,7 +61,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Hub"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.HubL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.HubL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -78,7 +78,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Bohrung"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.BohrungD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.BohrungD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -95,7 +95,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Pleuellänge"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.PleulL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.PleulL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -112,7 +112,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Verdichtungsverhältnis"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.VerdichtungV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.VerdichtungV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -123,7 +123,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Kraftstoff Luftgemisch"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.Vergaser.BenzinLuftGemisch, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.Vergaser.BenzinLuftGemisch, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -135,7 +135,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <TextBox materialDesign:HintAssist.Hint="Kanalausarbeitung (Faktor)"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.KanalausarbeitungF, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.KanalausarbeitungF, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      MinWidth="150">
                             </TextBox>
                         </StackPanel>
@@ -153,7 +153,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Steurwinkel"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Ueberstroemer.SteuerwinkelSW, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Ueberstroemer.SteuerwinkelSW, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -178,7 +178,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Kanallänge"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.LaengeL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.LaengeL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -195,7 +195,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Vergaserdurchmesser"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Vergaser.DurchmesserD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Vergaser.DurchmesserD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -213,7 +213,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         <TextBox materialDesign:HintAssist.Hint="Venturifaktor"
 
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=TwoWay, Path=TuningInput.KurbelgehauseV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding Mode=TwoWay, Path=TuningInput.KurbelgehauseV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  MinWidth="150">
                         </TextBox>
@@ -224,7 +224,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Abgasgeschwindigkeit"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.AbgasV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.AbgasV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -241,7 +241,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Steuerwinkel"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.SteuerwinkelSW, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.SteuerwinkelSW, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -258,7 +258,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Kanalbreite Zylinderwand"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.BreiteB, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.BreiteB, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -281,7 +281,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Auspufflänge"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auspuff.LaengeL, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auspuff.LaengeL, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -299,7 +299,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                             <TextBox materialDesign:HintAssist.Hint="Abgastemperatur"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.AbgasT, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.AbgasT, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150" />
 
@@ -313,7 +313,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Steuerwinkel"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.SteuerwinkelSW, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.SteuerwinkelSW, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -330,7 +330,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Kanalbreite Zylinderwand"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.BreiteB, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.BreiteB, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -347,7 +347,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     HorizontalAlignment="Left">
                             <TextBox materialDesign:HintAssist.Hint="Resonanzbreite"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.ResonanzU, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                     Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Auslass.ResonanzU, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                      behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                      MinWidth="150">
                             </TextBox>
@@ -374,7 +374,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                         <TextBox materialDesign:HintAssist.Hint="Zündzeitpunkt v. OT"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Zuendzeitpunkt, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Zuendzeitpunkt, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  MinWidth="150" />
 
@@ -388,7 +388,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                 HorizontalAlignment="Left">
                         <TextBox materialDesign:HintAssist.Hint="Drehzahl für Diagramme"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=TwoWay, Path=Tuning.DiagrammeU, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding Mode=TwoWay, Path=Tuning.DiagrammeU, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  MinWidth="150">
                         </TextBox>
@@ -405,7 +405,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                 HorizontalAlignment="Left">
                         <TextBox materialDesign:HintAssist.Hint="unterer Heizwert"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.Heizwert, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.Heizwert, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  MinWidth="150">
                         </TextBox>
@@ -422,7 +422,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                 HorizontalAlignment="Left">
                         <TextBox materialDesign:HintAssist.Hint="Mindestluftbedarf"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.LuftBedarf, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding Mode=TwoWay, Path=Tuning.Vehicle.Motor.Einlass.LuftBedarf, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  MinWidth="150">
                         </TextBox>
@@ -448,7 +448,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                 HorizontalAlignment="Left">
                         <TextBox materialDesign:HintAssist.Hint="Umgebungstemperatur"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=TwoWay, Path=Tuning.Environment.TemperaturT, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding Mode=TwoWay, Path=Tuning.Environment.TemperaturT, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  MinWidth="150">
                         </TextBox>

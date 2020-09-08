@@ -62,7 +62,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Hubraum Volumen"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Hubvolumen, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=Hubvolumen, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="120">
                     </TextBox>
@@ -91,7 +91,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Resonanzdrehzahl"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Resonanzdrehzahl, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=Resonanzdrehzahl, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="120">
                     </TextBox>
@@ -154,7 +154,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Ø Vergaser"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=OneWay, Path=Vergasergroeße, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=OneWay, Path=Vergasergroeße, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="120">
                     </TextBox>

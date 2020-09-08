@@ -15,10 +15,10 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   x:TypeArguments="viewModels:EinlassKanalViewModel"
                   mc:Ignorable="d"
                   region:MvxContainer.Header="Kanal"
-                   Name="EinlassKanal"
-                   Background="{DynamicResource MaterialDesignPaper}"
-                   MinWidth="1024"
-                   MinHeight="550">
+                  Name="EinlassKanal"
+                  Background="{DynamicResource MaterialDesignPaper}"
+                  MinWidth="1024"
+                  MinHeight="550">
     <views:MvxWpfView.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -142,7 +142,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Einlass-Fläche"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=EinlassA, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=EinlassA, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              MinWidth="150">
                     </TextBox>
 
@@ -169,7 +169,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Margin="50 0 0 0">
                     <TextBox materialDesign:HintAssist.Hint="Einlass-Steuerwinkel"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Einlasssteuerwinkel, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=Einlasssteuerwinkel, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="150">
                     </TextBox>
@@ -189,7 +189,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Margin="50 0 0 0">
                     <TextBox materialDesign:HintAssist.Hint="Resonanzdrehzahl"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Resonanzdrehzahl, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=Resonanzdrehzahl, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="150">
                     </TextBox>
@@ -209,7 +209,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Margin="50 0 0 0">
                     <TextBox materialDesign:HintAssist.Hint="Kurbelgehäusevolumen"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=KurbelgehauseV, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=KurbelgehauseV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="150">
                     </TextBox>
@@ -242,7 +242,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Margin="50 0 0 0">
                     <TextBox materialDesign:HintAssist.Hint="Ansaugleitungsdurchmesser"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=AnsaugleitungD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=AnsaugleitungD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="150">
                     </TextBox>

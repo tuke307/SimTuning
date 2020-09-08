@@ -67,7 +67,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Ø Krümmer"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=KruemmerD, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=KruemmerD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="105">
                     </TextBox>
@@ -104,7 +104,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Orientation="Horizontal"
                             Minimum="6"
                             Maximum="12"
-                            Value="{Binding Mode=TwoWay, Path=DrehmomentF, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                            Value="{Binding Mode=TwoWay, Path=DrehmomentF, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                             behaviours:NumberOnlyBehaviour.IsEnabled="True">
                     </Slider>
 
@@ -168,7 +168,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Ausslass Steuerwinkel"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding AusslassSteuerwinkel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding AusslassSteuerwinkel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Width="150" />
 
@@ -188,7 +188,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Abgastemperatur"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding AbgasT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding AbgasT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Width="150" />
 
@@ -208,7 +208,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Resonanzdrehzahl"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding ResonanzDrehzahl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding ResonanzDrehzahl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Width="150" />
 
@@ -229,7 +229,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              materialDesign:HintAssist.FloatingScale="1.1"
                              IsEnabled="False"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Path=ResonanzL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                             Text="{Binding Path=ResonanzL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Width="105" />
 
@@ -275,7 +275,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                  materialDesign:HintAssist.FloatingScale="1.1"
                                  IsEnabled="False"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding KruemmerSpannneD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding KruemmerSpannneD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  MinWidth="105" />
 
@@ -294,7 +294,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         <TextBox materialDesign:HintAssist.Hint="Auslassfläche"
                                  materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding AuslassA, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding AuslassA, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  MinWidth="105" />
 
@@ -334,7 +334,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                  materialDesign:HintAssist.FloatingScale="1.1"
                                  IsEnabled="False"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding AbgasV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding AbgasV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  Width="105" />
 
@@ -359,7 +359,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         <TextBox materialDesign:HintAssist.Hint="Temperatur"
                                  materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding ModAbgasT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{##.##}}"
+                                 Text="{Binding ModAbgasT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  Width="105" />
 
@@ -418,7 +418,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                            VerticalAlignment="Top"
                            FontWeight="Normal" />
 
-                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Auslass.Flaeche}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Auslass.FlaecheA}"
                              Grid.Row="0"
                              Grid.Column="1"
                              IsEnabled="False"

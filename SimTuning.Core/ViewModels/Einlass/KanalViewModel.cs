@@ -1,39 +1,58 @@
-﻿// project=SimTuning.Core, file=KanalViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using Data;
-using Data.Models;
-using Microsoft.EntityFrameworkCore;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using SimTuning.Core.Models;
-using SimTuning.Core.ModuleLogic;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using UnitsNet.Units;
-
+﻿// project=SimTuning.Core, file=KanalViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Einlass
 {
+    using Data;
+    using Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using SimTuning.Core.Models;
+    using SimTuning.Core.ModuleLogic;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using UnitsNet.Units;
+
+    /// <summary>
+    /// KanalViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class KanalViewModel : MvxNavigationViewModel
     {
+        /// <summary>
+        /// Gets the area quantity units.
+        /// </summary>
+        /// <value>The area quantity units.</value>
         public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
-        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
+
+        /// <summary>
+        /// Gets or sets the insert data command.
+        /// </summary>
+        /// <value>The insert data command.</value>
+        public IMvxCommand InsertDataCommand { get; set; }
+
+        /// <summary>
+        /// Gets the length quantity units.
+        /// </summary>
+        /// <value>The length quantity units.</value>
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
-        public KanalViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
-        {
-            AreaQuantityUnits = new AreaQuantity();
-            VolumeQuantityUnits = new VolumeQuantity();
-            LengthQuantityUnits = new LengthQuantity();
+        /// <summary>
+        /// Gets the volume quantity units.
+        /// </summary>
+        /// <value>The volume quantity units.</value>
+        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
 
-            //Vorausgewählte Einheiten
-            UnitEinlassA = AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareMillimeter)).First();
-            UnitKurbelgehauseV = VolumeQuantityUnits.Where(x => x.UnitEnumValue.Equals(VolumeUnit.CubicCentimeter)).First();
-            UnitAnsaugleitungD = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Centimeter)).First();
-            UnitResonanzlaenge = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Centimeter)).First();
+        public KanalViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
+        {
+            this.AreaQuantityUnits = new AreaQuantity();
+            this.VolumeQuantityUnits = new VolumeQuantity();
+            this.LengthQuantityUnits = new LengthQuantity();
 
             using (var db = new DatabaseContext())
             {
@@ -44,20 +63,10 @@ namespace SimTuning.Core.ViewModels.Einlass
                     .Include(vehicles => vehicles.Motor.Ueberstroemer)
                     .ToList();
 
-                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                this.HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
 
-            InsertDataCommand = new MvxCommand(InsertData);
-        }
-
-        public IMvxCommand InsertDataCommand { get; set; }
-
-        /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
-        /// </summary>
-        public override void Prepare()
-        {
+            this.InsertDataCommand = new MvxCommand(this.InsertData);
         }
 
         /// <summary>
@@ -69,29 +78,49 @@ namespace SimTuning.Core.ViewModels.Einlass
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+        }
+
         #region Commands
 
-        public void InsertData()
+        /// <summary>
+        /// Inserts the data.
+        /// </summary>
+        private void InsertData()
         {
-            if (HelperVehicle.Motor.Einlass.FlaecheA.HasValue)
-                EinlassA = HelperVehicle.Motor.Einlass.FlaecheA;
+            if (this.HelperVehicle.Motor.Einlass.FlaecheA.HasValue)
+            {
+                this.EinlassA = this.HelperVehicle.Motor.Einlass.FlaecheA;
+            }
 
-            if (HelperVehicle.Motor.Einlass.SteuerzeitSZ.HasValue)
-                Einlasssteuerwinkel = HelperVehicle.Motor.Einlass.SteuerzeitSZ;
+            if (this.HelperVehicle.Motor.Einlass.SteuerzeitSZ.HasValue)
+            {
+                this.Einlasssteuerwinkel = this.HelperVehicle.Motor.Einlass.SteuerzeitSZ;
+            }
 
-            if (HelperVehicle.Motor.ResonanzU.HasValue)
-                Resonanzdrehzahl = HelperVehicle.Motor.ResonanzU;
+            if (this.HelperVehicle.Motor.ResonanzU.HasValue)
+            {
+                this.Resonanzdrehzahl = this.HelperVehicle.Motor.ResonanzU;
+            }
 
-            if (HelperVehicle.Motor.KurbelgehaeuseV.HasValue)
-                KurbelgehauseV = HelperVehicle.Motor.KurbelgehaeuseV;
+            if (this.HelperVehicle.Motor.KurbelgehaeuseV.HasValue)
+            {
+                this.KurbelgehauseV = this.HelperVehicle.Motor.KurbelgehaeuseV;
+            }
 
-            if (HelperVehicle.Motor.Einlass.LaengeL.HasValue)
-                AnsaugleitungD = HelperVehicle.Motor.Einlass.LaengeL;
+            if (this.HelperVehicle.Motor.Einlass.LaengeL.HasValue)
+            {
+                this.AnsaugleitungD = this.HelperVehicle.Motor.Einlass.LaengeL;
+            }
         }
 
         private void RefreshResonanzlaenge()
         {
-            if (EinlassA.HasValue && Einlasssteuerwinkel.HasValue && KurbelgehauseV.HasValue && Resonanzdrehzahl.HasValue && AnsaugleitungD.HasValue)
+            if (this.EinlassA.HasValue && Einlasssteuerwinkel.HasValue && KurbelgehauseV.HasValue && Resonanzdrehzahl.HasValue && AnsaugleitungD.HasValue)
             {
                 Resonanzlaenge = EinlassLogic.GetResonanceLength(
                     UnitsNet.UnitConverter.Convert(EinlassA.Value, UnitEinlassA.UnitEnumValue, AreaUnit.SquareCentimeter),
@@ -106,57 +135,35 @@ namespace SimTuning.Core.ViewModels.Einlass
 
         #region Values
 
+        private double? _ansaugleitungD;
+        private double? _einlassA;
+        private double? _einlasssteuerwinkel;
+        private VehiclesModel _helperVehicle;
         private ObservableCollection<VehiclesModel> _helperVehicles;
 
-        public ObservableCollection<VehiclesModel> HelperVehicles
-        {
-            get => _helperVehicles;
-            set { SetProperty(ref _helperVehicles, value); }
-        }
+        private double? _kurbelgehauseV;
 
-        private VehiclesModel _helperVehicle;
-
-        public VehiclesModel HelperVehicle
-        {
-            get => _helperVehicle;
-            set { SetProperty(ref _helperVehicle, value); }
-        }
-
-        private UnitListItem _unitResonanzlaenge;
-
-        public UnitListItem UnitResonanzlaenge
-        {
-            get => _unitResonanzlaenge;
-            set
-            {
-                Resonanzlaenge = Business.Functions.UpdateValue(Resonanzlaenge, _unitResonanzlaenge, value);
-
-                SetProperty(ref _unitResonanzlaenge, value);
-            }
-        }
+        private double? _resonanzdrehzahl;
 
         private double? _resonanzlaenge;
 
-        public double? Resonanzlaenge
-        {
-            get => _resonanzlaenge;
-            set { SetProperty(ref _resonanzlaenge, value); }
-        }
+        private UnitListItem _unitAnsaugleitungD;
 
         private UnitListItem _unitEinlassA;
 
-        public UnitListItem UnitEinlassA
+        private UnitListItem _unitKurbelgehauseV;
+
+        private UnitListItem _unitResonanzlaenge;
+
+        public double? AnsaugleitungD
         {
-            get => _unitEinlassA;
+            get => _ansaugleitungD;
             set
             {
-                EinlassA = Business.Functions.UpdateValue(EinlassA, UnitEinlassA, value);
-
-                SetProperty(ref _unitEinlassA, value);
+                SetProperty(ref _ansaugleitungD, value);
+                RefreshResonanzlaenge();
             }
         }
-
-        private double? _einlassA;
 
         public double? EinlassA
         {
@@ -168,8 +175,6 @@ namespace SimTuning.Core.ViewModels.Einlass
             }
         }
 
-        private double? _einlasssteuerwinkel;
-
         public double? Einlasssteuerwinkel
         {
             get => _einlasssteuerwinkel;
@@ -180,32 +185,17 @@ namespace SimTuning.Core.ViewModels.Einlass
             }
         }
 
-        private double? _resonanzdrehzahl;
-
-        public double? Resonanzdrehzahl
+        public VehiclesModel HelperVehicle
         {
-            get => _resonanzdrehzahl;
-            set
-            {
-                SetProperty(ref _resonanzdrehzahl, value);
-                RefreshResonanzlaenge();
-            }
+            get => _helperVehicle;
+            set { SetProperty(ref _helperVehicle, value); }
         }
 
-        private UnitListItem _unitKurbelgehauseV;
-
-        public UnitListItem UnitKurbelgehauseV
+        public ObservableCollection<VehiclesModel> HelperVehicles
         {
-            get => _unitKurbelgehauseV;
-            set
-            {
-                KurbelgehauseV = Business.Functions.UpdateValue(KurbelgehauseV, _unitKurbelgehauseV, value);
-
-                SetProperty(ref _unitKurbelgehauseV, value);
-            }
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
         }
-
-        private double? _kurbelgehauseV;
 
         public double? KurbelgehauseV
         {
@@ -217,7 +207,21 @@ namespace SimTuning.Core.ViewModels.Einlass
             }
         }
 
-        private UnitListItem _unitAnsaugleitungD;
+        public double? Resonanzdrehzahl
+        {
+            get => _resonanzdrehzahl;
+            set
+            {
+                SetProperty(ref _resonanzdrehzahl, value);
+                RefreshResonanzlaenge();
+            }
+        }
+
+        public double? Resonanzlaenge
+        {
+            get => _resonanzlaenge;
+            set { SetProperty(ref _resonanzlaenge, value); }
+        }
 
         public UnitListItem UnitAnsaugleitungD
         {
@@ -230,15 +234,36 @@ namespace SimTuning.Core.ViewModels.Einlass
             }
         }
 
-        private double? _ansaugleitungD;
-
-        public double? AnsaugleitungD
+        public UnitListItem UnitEinlassA
         {
-            get => _ansaugleitungD;
+            get => _unitEinlassA;
             set
             {
-                SetProperty(ref _ansaugleitungD, value);
-                RefreshResonanzlaenge();
+                EinlassA = Business.Functions.UpdateValue(EinlassA, UnitEinlassA, value);
+
+                SetProperty(ref _unitEinlassA, value);
+            }
+        }
+
+        public UnitListItem UnitKurbelgehauseV
+        {
+            get => _unitKurbelgehauseV;
+            set
+            {
+                KurbelgehauseV = Business.Functions.UpdateValue(KurbelgehauseV, _unitKurbelgehauseV, value);
+
+                SetProperty(ref _unitKurbelgehauseV, value);
+            }
+        }
+
+        public UnitListItem UnitResonanzlaenge
+        {
+            get => _unitResonanzlaenge;
+            set
+            {
+                Resonanzlaenge = Business.Functions.UpdateValue(Resonanzlaenge, _unitResonanzlaenge, value);
+
+                SetProperty(ref _unitResonanzlaenge, value);
             }
         }
 

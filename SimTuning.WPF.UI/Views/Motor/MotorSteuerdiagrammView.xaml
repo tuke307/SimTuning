@@ -165,7 +165,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                            VerticalAlignment="Center" />
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
-                             Text="{Binding Mode=TwoWay, Path=Einlass_Steuerzeit, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=Einlass_Steuerzeit, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Left"
                              TextWrapping="Wrap"
@@ -174,7 +174,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              FontWeight="Bold" />
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
-                             Text="{Binding Mode=TwoWay, Path=Auslass_Steuerzeit, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=Auslass_Steuerzeit, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Left"
                              TextWrapping="Wrap"
@@ -183,7 +183,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              FontWeight="Bold" />
                     <TextBox Grid.Row="3"
                              Grid.Column="1"
-                             Text="{Binding Mode=TwoWay, Path=Ueberstroemer_Steuerzeit, StringFormat={}{##.##}}"
+                             Text="{Binding Mode=TwoWay, Path=Ueberstroemer_Steuerzeit, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              HorizontalAlignment="Left"
                              TextWrapping="Wrap"

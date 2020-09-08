@@ -61,7 +61,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Orientation="Horizontal"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                    <TextBox Text="{Binding BrennraumV, StringFormat={}{##.##}}"
+                    <TextBox Text="{Binding BrennraumV, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="125"
                              materialDesign:HintAssist.Hint="Brennraum-Volumen"
@@ -86,7 +86,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Orientation="Horizontal"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                    <TextBox Text="{Binding BohrungD, StringFormat={}{##.##}}"
+                    <TextBox Text="{Binding BohrungD, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="125"
                              ToolTip="Der Durchmesser der Zylinder-Bohrung, dies ist je nach Schleifmaß unteschiedlich"
@@ -115,7 +115,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Hubraum-Volumen"
                              MinWidth="125"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding HubraumV, StringFormat={}{##.##}}"
+                             Text="{Binding HubraumV, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True" />
 
                     <ComboBox VerticalAlignment="Bottom"
