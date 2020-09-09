@@ -119,7 +119,7 @@
       <Version>4.8.0.1364</Version>
     </PackageReference>
     <PackageReference Include="XF.Material">
-      <Version>1.7.2</Version>
+      <Version>1.7.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
