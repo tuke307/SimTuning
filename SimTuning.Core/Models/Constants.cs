@@ -2,7 +2,6 @@
 // productions. All rights reserved.
 namespace SimTuning.Core
 {
-    using Plugin.DeviceInfo.Abstractions;
     using System;
     using System.IO;
 
