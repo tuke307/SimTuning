@@ -9,7 +9,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
   </style>
 
   <!-- Base application theme. -->
-  <style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+  <style name="MainTheme.Base"
+         parent="Theme.AppCompat.Light.DarkActionBar">
     <!--If you are using revision 22.1 please use just windowNoTitle. Without android:-->
     <item name="windowNoTitle">true</item>
     <!--We will be using the toolbar so no need to show ActionBar-->
@@ -23,13 +24,5 @@ Copyright (c) 2020 tuke productions. All rights reserved.
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-  </style>
-
-  <style name="MainTheme.Splash" parent="MainTheme.Base">
-    <item name="android:windowBackground">@layout/splashscreen</item>
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowFullscreen">false</item>
-    <item name="android:windowContentOverlay">@null</item>
-    <item name="android:windowActionBar">true</item>
   </style>
 </resources>

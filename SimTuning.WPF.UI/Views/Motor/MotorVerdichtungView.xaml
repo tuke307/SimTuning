@@ -61,7 +61,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Orientation="Horizontal"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                    <TextBox Text="{Binding BrennraumV, ConverterCulture='de-DE', StringFormat=N}"
+                    <TextBox Text="{Binding VehicleMotorBrennraumV, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="125"
                              materialDesign:HintAssist.Hint="Brennraum-Volumen"
@@ -71,7 +71,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitBrennraumV}"
+                              SelectedItem="{Binding VehicleMotorBrennraumVUnit}"
                               ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}">
                     </ComboBox>
                     <!--<TextBlock HorizontalAlignment="Left"
@@ -86,7 +86,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Orientation="Horizontal"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                    <TextBox Text="{Binding BohrungD, ConverterCulture='de-DE', StringFormat=N}"
+                    <TextBox Text="{Binding VehicleMotorBohrungD, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="125"
                              ToolTip="Der Durchmesser der Zylinder-Bohrung, dies ist je nach Schleifmaß unteschiedlich"
@@ -97,7 +97,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitBohrungD}"
+                              SelectedItem="{Binding VehicleMotorBohrungDUnit}"
                               ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                     </ComboBox>
                     <!--<TextBlock HorizontalAlignment="Left"
@@ -115,14 +115,14 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Hubraum-Volumen"
                              MinWidth="125"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding HubraumV, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding VehicleMotorHubraumV, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True" />
 
                     <ComboBox VerticalAlignment="Bottom"
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitHubraumV}"
+                              SelectedItem="{Binding VehicleMotorHubraumVUnit}"
                               ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}">
                     </ComboBox>
                     <!--<TextBlock HorizontalAlignment="Left"
@@ -156,7 +156,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                        Grid.Row="0"
                        Grid.Column="0"
                        Grid.ColumnSpan="2" />
-                <TextBox Text="{Binding derzeitige_verdichtung}"
+                <TextBox Text="{Binding DerzeitigeVerdichtung}"
                          Grid.Row="1"
                          Grid.Column="0"
                          IsEnabled="False"
@@ -205,7 +205,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                     Alu Zylinder Luftgekühlt: 1:14
                                     Alu Zylinder Wassergekühlt: 1:16"
                           SelectedItem="{Binding Mode=TwoWay, Path=Zielverdichtung}"
-                          ItemsSource="{Binding Mode=TwoWay, Path=Zielverdichtungen}"
+                          ItemsSource="{Binding Mode=OneTime, Path=Zielverdichtungen}"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                 </ComboBox>
 
@@ -235,7 +235,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitAbdrehenLength}"
+                              SelectedItem="{Binding AbdrehenLengthUnit}"
                               ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                     </ComboBox>
 
@@ -303,7 +303,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              IsEnabled="False"
                              FontWeight="Normal" />
 
-                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Bohrung}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.BohrungD}"
                              Grid.Row="1"
                              Grid.Column="1"
                              IsEnabled="False"

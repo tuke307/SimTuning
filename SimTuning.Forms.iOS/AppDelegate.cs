@@ -1,17 +1,19 @@
 ﻿// project=SimTuning.Forms.iOS, file=AppDelegate.cs, creation=2020:7:1 Copyright (c) 2020
 // tuke productions. All rights reserved.
-using Foundation;
-using MvvmCross.Platforms.Ios.Core;
-using SimTuning.Forms.UI;
-using UIKit;
-
 namespace SimTuning.Forms.iOS
 {
-    [Register(nameof(AppDelegate))]
-    public class AppDelegate : MvxApplicationDelegate<MvxIosSetup<App>, App>
-    {
-        public override UIWindow Window { get; set; }
+    using Foundation;
+    using MvvmCross.Forms.Platforms.Ios.Core;
+    using SimTuning.Forms.UI;
+    using UIKit;
 
+    /// <summary>
+    /// AppDelegate.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Forms.Platforms.Ios.Core.MvxFormsApplicationDelegate{MvvmCross.Forms.Platforms.Ios.Core.MvxFormsIosSetup{SimTuning.Forms.UI.App, SimTuning.Forms.UI.FormsApp}, SimTuning.Forms.UI.App, SimTuning.Forms.UI.FormsApp}" />
+    [Register(nameof(AppDelegate))]
+    public class AppDelegate : MvxFormsApplicationDelegate<MvxFormsIosSetup<App, FormsApp>, App, FormsApp>
+    {
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             var result = base.FinishedLaunching(application, launchOptions);

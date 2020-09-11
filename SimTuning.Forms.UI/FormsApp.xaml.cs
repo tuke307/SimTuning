@@ -47,7 +47,7 @@ namespace SimTuning.Forms.UI
 
             using (var db = new DatabaseContext())
             {
-                db.Database.EnsureCreated();
+                //db.Database.EnsureCreated();
                 db.Database.Migrate();
             }
         }

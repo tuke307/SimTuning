@@ -43,22 +43,34 @@ namespace SimTuning.WPF.UI.ViewModels.Motor
 
         #region Values
 
-        private double? _auslass_Steuerzeit;
-        private double? _einlass_Steuerzeit;
         private BitmapSource _steuerzeiten_Rad;
 
-        private double? _ueberstroemer_Steuerzeit;
-
-        public override double? Auslass_Steuerzeit
+        /// <summary>
+        /// Gets or sets the steuerzeit auslass.
+        /// </summary>
+        /// <value>The steuerzeit auslass.</value>
+        public override double? SteuerzeitAuslass
         {
-            get => _auslass_Steuerzeit;
-            set { SetProperty(ref _auslass_Steuerzeit, value); RefreshSteuerzeit(); }
+            get => base.SteuerzeitAuslass;
+            set
+            {
+                base.SteuerzeitAuslass = value;
+                this.RefreshSteuerzeit();
+            }
         }
 
-        public override double? Einlass_Steuerzeit
+        /// <summary>
+        /// Gets or sets the steuerzeit einlass.
+        /// </summary>
+        /// <value>The steuerzeit einlass.</value>
+        public override double? SteuerzeitEinlass
         {
-            get => _einlass_Steuerzeit;
-            set { SetProperty(ref _einlass_Steuerzeit, value); RefreshSteuerzeit(); }
+            get => base.SteuerzeitEinlass;
+            set
+            {
+                base.SteuerzeitEinlass = value;
+                this.RefreshSteuerzeit();
+            }
         }
 
         public BitmapSource Steuerzeiten_Rad
@@ -67,10 +79,18 @@ namespace SimTuning.WPF.UI.ViewModels.Motor
             private set => SetProperty(ref _steuerzeiten_Rad, value);
         }
 
-        public override double? Ueberstroemer_Steuerzeit
+        /// <summary>
+        /// Gets or sets the steuerzeit ueberstroemer.
+        /// </summary>
+        /// <value>The steuerzeit ueberstroemer.</value>
+        public override double? SteuerzeitUeberstroemer
         {
-            get => _ueberstroemer_Steuerzeit;
-            set { SetProperty(ref _ueberstroemer_Steuerzeit, value); RefreshSteuerzeit(); }
+            get => base.SteuerzeitUeberstroemer;
+            set
+            {
+                base.SteuerzeitUeberstroemer = value;
+                this.RefreshSteuerzeit();
+            }
         }
 
         #endregion Values
