@@ -10,6 +10,7 @@ namespace SimTuning.WPF.UI
     using MvvmCross.Plugin;
     using MvvmCross.ViewModels;
     using SimTuning.Core.Models;
+    using System;
     using System.IO;
     using System.Threading.Tasks;
 
@@ -21,17 +22,18 @@ namespace SimTuning.WPF.UI
     {
         public override void Initialize()
         {
-            SimTuning.Core.Constants.Platform = Plugin.DeviceInfo.Abstractions.Platform.Windows;
-
+            SimTuning.Core.Constants.FileDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning"); // appdata-local-simtunig
             Data.Constants.DatabasePath = Path.Combine(SimTuning.Core.Constants.FileDirectory, Data.Constants.DatabaseName);
+
+            if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
+            {
+                Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
+            }
 
             using (var db = new DatabaseContext())
             {
                 db.Database.Migrate();
             }
-
-            if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
-                Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
 
             this.CreatableTypes()
                 .EndingWith("Service")
