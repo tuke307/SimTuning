@@ -7,4 +7,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
 	<application android:allowBackup="true" android:label="SimTuning" android:supportsRtl="true" android:icon="@mipmap/logo"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

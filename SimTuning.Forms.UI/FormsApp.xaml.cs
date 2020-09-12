@@ -4,11 +4,8 @@ namespace SimTuning.Forms.UI
 {
     using Data;
     using Microsoft.EntityFrameworkCore;
-    using Plugin.DeviceInfo;
     using System;
-    using System.Globalization;
     using System.IO;
-    using System.Resources;
 
     /// <summary>
     /// FormsApp.
@@ -35,7 +32,7 @@ namespace SimTuning.Forms.UI
             }
 
             // fix with android 10
-            if (!File.Exists(Constants.DatabasePath)) File.Create(Constants.DatabasePath);
+            //if (!File.Exists(Constants.DatabasePath)) File.Create(Constants.DatabasePath);
 
             using (var db = new DatabaseContext())
             {

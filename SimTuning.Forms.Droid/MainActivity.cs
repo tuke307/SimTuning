@@ -24,6 +24,29 @@ namespace SimTuning.Forms.Droid
     public class MainActivity : MvxFormsAppCompatActivity<MvxFormsAndroidSetup<App, FormsApp>, App, FormsApp>
     {
         /// <summary>
+        /// To be added.
+        /// </summary>
+        /// <param name="requestCode"></param>
+        /// <param name="permissions"></param>
+        /// <param name="grantResults"></param>
+        /// <remarks>
+        /// Portions of this page are modifications based on work created and shared by
+        /// the <format type="text/html"><a
+        /// href="https://developers.google.com/terms/site-policies" title="Android Open
+        /// Source Project">Android Open Source Project</a></format> and used according to
+        /// terms described in the  <format type="text/html"><a
+        /// href="https://creativecommons.org/licenses/by/2.5/" title="Creative Commons
+        /// 2.5 Attribution License">Creative Commons 2.5 Attribution
+        /// License.</a></format>
+        /// </remarks>
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        /// <summary>
         /// Called when [create].
         /// </summary>
         /// <param name="bundle">The bundle.</param>
