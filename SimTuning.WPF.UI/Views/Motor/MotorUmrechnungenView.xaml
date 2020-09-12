@@ -64,7 +64,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             HorizontalAlignment="Center">
                     <TextBox materialDesign:HintAssist.Hint="Hub"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Hub, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=VehicleMotorHubL, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Width="105">
                     </TextBox>
@@ -73,7 +73,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitHub}"
+                              SelectedItem="{Binding Path=VehicleMotorHubLUnit}"
                               ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                     </ComboBox>
                     <!--<TextBlock HorizontalAlignment="Left"
@@ -90,7 +90,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             HorizontalAlignment="Center">
                     <TextBox materialDesign:HintAssist.Hint="Pleullänge"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=PleulL, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=VehicleMotorPleulL, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Width="105">
                     </TextBox>
@@ -99,7 +99,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitPleulL}"
+                              SelectedItem="{Binding Path=VehicleMotorPleulLUnit}"
                               ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                     </ComboBox>
                     <!--<TextBlock HorizontalAlignment="Left"
@@ -116,7 +116,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             HorizontalAlignment="Center">
                     <TextBox materialDesign:HintAssist.Hint="Deachsierung"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Deachsierung, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungL, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Width="105">
                     </TextBox>
@@ -125,7 +125,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitDeachsierung}"
+                              SelectedItem="{Binding Path=VehicleMotorDeachsierungLUnit}"
                               ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                     </ComboBox>
                     <!--<TextBlock HorizontalAlignment="Left"
@@ -142,7 +142,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             HorizontalAlignment="Center">
                     <TextBox materialDesign:HintAssist.Hint="Hubradius"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=OneWay, Path=HubR, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=OneWay, Path=VehicleMotorHubR, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Width="105">
                     </TextBox>
@@ -151,7 +151,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitHubR}"
+                              SelectedItem="{Binding Path=VehicleMotorHubRUnit}"
                               ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                     </ComboBox>
                     <!--<TextBlock HorizontalAlignment="Left"
@@ -187,7 +187,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Abstand vom OT"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Steuerzeit, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=DegreeDifferenceToOT, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              IsEnabled="True" />
 
@@ -206,14 +206,14 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Abstand vom OT"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=OneWay, Path=AbstandOTlength}"
+                             Text="{Binding Mode=OneWay, Path=LengthDifferenceToOT}"
                              IsEnabled="false" />
 
                     <ComboBox VerticalAlignment="Bottom"
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitAbstandOTlength}"
+                              SelectedItem="{Binding LengthDifferenceToOTUnit}"
                               ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                     </ComboBox>
                     <!--<TextBlock HorizontalAlignment="Left"
@@ -357,14 +357,14 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="vorher"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=vorher_steuerzeit, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=SteuerzeitVorher, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              TextWrapping="Wrap" />
 
                     <TextBox materialDesign:HintAssist.Hint="nachher"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=nachher_steuerzeit, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=SteuerzeitNachher, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              TextWrapping="Wrap" />
                 </StackPanel>
@@ -376,14 +376,14 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                            Content="Steuerung über:">
                     </Label>
 
-                    <RadioButton IsChecked="{Binding Mode=OneWayToSource, Path=kolbenunterkante_checked, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
+                    <RadioButton IsChecked="{Binding Mode=OneWayToSource, Path=KolbenunterkanteChecked, UpdateSourceTrigger=PropertyChanged}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  Content="Kolben-unterkante"
                                  Style="{StaticResource MaterialDesignRadioButton}"
                                  ToolTip="Der Einlass wird normalerweise von der Kolbenunterkante gesteuert">
                     </RadioButton>
 
-                    <RadioButton IsChecked="{Binding Mode=OneWayToSource, Path=kolbenoberkante_checked, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
+                    <RadioButton IsChecked="{Binding Mode=OneWayToSource, Path=KolbenoberkanteChecked, UpdateSourceTrigger=PropertyChanged}"
                                  behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                  Content="Kolben-oberkante"
                                  Style="{StaticResource MaterialDesignRadioButton}"
@@ -398,24 +398,28 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                     <StackPanel Orientation="Horizontal">
                         <Label Content="öffnet"
-                               Margin="0,0,20,0"></Label>
-                        <Label Content="schließt"></Label>
+                               Margin="0,0,20,0"
+                               MinWidth="50"></Label>
+                        <Label Content="schließt"
+                               MinWidth="50"></Label>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <TextBox materialDesign:HintAssist.Hint="vorher"
                                  materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=OneWay, Path=vorher_steuerwinkel_oeffnet}"
+                                 Text="{Binding Mode=OneWay, Path=SteuerwinkelVorherOeffnet}"
                                  IsEnabled="False"
-                                 Margin="0,0,30,0">
+                                 MinWidth="50"
+                                 Margin="0,0,20,0">
                         </TextBox>
 
                         <TextBox materialDesign:HintAssist.Hint="vorher"
                                  materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=OneWay, Path=vorher_steuerwinkel_schließt}"
+                                 Text="{Binding Mode=OneWay, Path=SteuerwinkelVorherSchließt}"
                                  IsEnabled="False"
+                                 MinWidth="50"
                                  TextWrapping="Wrap">
                         </TextBox>
                     </StackPanel>
@@ -424,16 +428,18 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         <TextBox materialDesign:HintAssist.Hint="nachher"
                                  materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=OneWay, Path=nachher_steuerwinkel_oeffnet}"
+                                 Text="{Binding Mode=OneWay, Path=SteuerwinkelNachherOeffnet}"
                                  IsEnabled="False"
+                                 MinWidth="50"
                                  Margin="0,0,20,0">
                         </TextBox>
 
                         <TextBox materialDesign:HintAssist.Hint="nachher"
                                  materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Mode=OneWay, Path=nachher_steuerwinkel_schließt}"
+                                 Text="{Binding Mode=OneWay, Path=SteuerwinkelNachherSchließt}"
                                  IsEnabled="False"
+                                 MinWidth="50"
                                  TextWrapping="Wrap">
                         </TextBox>
                     </StackPanel>
@@ -450,7 +456,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Unterschied"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=OneWay, Path=unterschied_grad}"
+                             Text="{Binding Mode=OneWay, Path=DifferenceDegree}"
                              IsEnabled="false" />
 
                     <TextBlock HorizontalAlignment="Left"
@@ -470,14 +476,16 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Unterschied"
                              materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=OneWay, Path=unterschied_mm}"
+                             Text="{Binding Mode=OneWay, Path=DifferenceLength}"
                              IsEnabled="false" />
 
-                    <TextBlock HorizontalAlignment="Left"
-                               VerticalAlignment="Bottom"
-                               Margin="10 0 0 0">
-                        <Run>mm</Run>
-                    </TextBlock>
+                    <ComboBox VerticalAlignment="Bottom"
+                              Margin="5 0 0 0"
+                              IsEditable="False"
+                              DisplayMemberPath="Abbreviation"
+                              SelectedItem="{Binding DifferenceLengthUnit}"
+                              ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
+                    </ComboBox>
                 </StackPanel>
             </Grid>
         </GroupBox>

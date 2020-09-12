@@ -31,28 +31,25 @@ namespace SimTuning.Core.ViewModels.Motor
         public UmrechnungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
             : base(logProvider, navigationService)
         {
-            VolumeQuantityUnits = new VolumeQuantity();
-            LengthQuantityUnits = new LengthQuantity();
+            this.VolumeQuantityUnits = new VolumeQuantity();
+            this.LengthQuantityUnits = new LengthQuantity();
 
-            UnitAbstandOTlength = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            UnitDeachsierung = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            UnitHub = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            UnitHubR = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            UnitPleulL = LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            // vordefinieren der nicht model werte
+            // TODO: den rest der unmodelt.units definieren!
+            this.DifferenceLengthUnit = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            this.UnitAbstandOTlength = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            this.VehicleMotorHubRUnit = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
 
             using (var db = new DatabaseContext())
             {
                 IList<VehiclesModel> vehicList = db.Vehicles
                     .Include(vehicles => vehicles.Motor)
-                    .Include(vehicles => vehicles.Motor.Einlass)
-                    .Include(vehicles => vehicles.Motor.Auslass)
-                    .Include(vehicles => vehicles.Motor.Ueberstroemer)
                     .ToList();
 
-                HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
+                this.HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
             }
 
-            InsertDataCommand = new MvxCommand(InsertData);
+            this.InsertDataCommand = new MvxCommand(this.InsertData);
         }
 
         #region Methods
@@ -63,6 +60,10 @@ namespace SimTuning.Core.ViewModels.Motor
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
+            // Vehicle Creation
+            this.Vehicle = new VehiclesModel();
+            this.Vehicle.Motor = new MotorModel();
+
             return base.Initialize();
         }
 
@@ -78,93 +79,106 @@ namespace SimTuning.Core.ViewModels.Motor
         /// </summary>
         protected void InsertData()
         {
-            if (HelperVehicle.Motor.HubL.HasValue)
-                Hub = HelperVehicle.Motor.HubL;
+            if (this.HelperVehicle.Motor.HubL.HasValue)
+            {
+                this.VehicleMotorHubL = this.HelperVehicle.Motor.HubL;
+                this.RaisePropertyChanged(() => this.VehicleMotorHubL);
+            }
 
-            if (HelperVehicle.Motor.PleulL.HasValue)
-                PleulL = HelperVehicle.Motor.PleulL;
+            if (this.HelperVehicle.Motor.PleulL.HasValue)
+            {
+                this.VehicleMotorPleulL = this.HelperVehicle.Motor.PleulL;
+                this.RaisePropertyChanged(() => this.VehicleMotorPleulL);
+            }
 
-            if (HelperVehicle.Motor.DeachsierungL.HasValue)
-                Deachsierung = HelperVehicle.Motor.DeachsierungL;
-        }
-
-        /// <summary>
-        /// Refreshes the hubradius.
-        /// </summary>
-        private void Refresh_hubradius()
-        {
-            if (Hub.HasValue && PleulL.HasValue && Deachsierung.HasValue)
-                HubR = EngineLogic.GetStrokeRadius(
-                     UnitsNet.UnitConverter.Convert(Hub.Value,
-                     UnitHub.UnitEnumValue,
-                     LengthUnit.Millimeter),
-
-                     UnitsNet.UnitConverter.Convert(PleulL.Value,
-                     UnitPleulL.UnitEnumValue,
-                     LengthUnit.Millimeter),
-
-                     UnitsNet.UnitConverter.Convert(Deachsierung.Value,
-                     UnitDeachsierung.UnitEnumValue,
-                     LengthUnit.Millimeter));
-        }
-
-        /// <summary>
-        /// Refreshes the kwgrad.
-        /// </summary>
-        private void Refresh_kwgrad()
-        {
-            if (PleulL.HasValue && HubR.HasValue && Deachsierung.HasValue && Steuerzeit.HasValue)
-                AbstandOTlength = EngineLogic.GetDistanceToOT(
-                      UnitsNet.UnitConverter.Convert(PleulL.Value,
-                      UnitPleulL.UnitEnumValue,
-                      LengthUnit.Millimeter),
-
-                      UnitsNet.UnitConverter.Convert(HubR.Value,
-                      UnitHubR.UnitEnumValue,
-                      LengthUnit.Millimeter),
-
-                      UnitsNet.UnitConverter.Convert(Deachsierung.Value,
-                      UnitDeachsierung.UnitEnumValue,
-                      LengthUnit.Millimeter),
-
-                      Steuerzeit.Value);
+            if (this.HelperVehicle.Motor.DeachsierungL.HasValue)
+            {
+                this.VehicleMotorDeachsierungL = this.HelperVehicle.Motor.DeachsierungL;
+                this.RaisePropertyChanged(() => this.VehicleMotorDeachsierungL);
+            }
         }
 
         /// <summary>
         /// Refreshes the unterschied.
         /// </summary>
-        private void Refresh_Unterschied()
+        private void RefreshDifference()
         {
-            if (VorherSteuerzeit.HasValue && NachherSteuerzeit.HasValue && PleulL.HasValue && HubR.HasValue && Deachsierung.HasValue && (Kolbenoberkante_checked || Kolbenunterkante_checked))
+            if (this.SteuerzeitVorher.HasValue && this.SteuerzeitNachher.HasValue && this.VehicleMotorPleulL.HasValue && this.VehicleMotorHubR.HasValue && this.VehicleMotorDeachsierungL.HasValue && (KolbenoberkanteChecked || KolbenunterkanteChecked))
             {
                 List<double> steuerwinkel = new List<double>();
-                steuerwinkel.AddRange(EngineLogic.GetSteuerwinkel(VorherSteuerzeit.Value, NachherSteuerzeit.Value, Kolbenoberkante_checked, Kolbenunterkante_checked));
+                steuerwinkel.AddRange(EngineLogic.GetSteuerwinkel(this.SteuerzeitVorher.Value, this.SteuerzeitNachher.Value, this.KolbenoberkanteChecked, this.KolbenunterkanteChecked));
 
-                VorherSteuerwinkelOeffnet = steuerwinkel[0];
-                VorherSteuerwinkelSchließt = steuerwinkel[1];
-                NachherSteuerwinkelOeffnet = steuerwinkel[2];
-                NachherSteuerwinkelSchließt = steuerwinkel[3];
+                this.SteuerwinkelVorherOeffnet = steuerwinkel[0];
+                this.SteuerwinkelVorherSchließt = steuerwinkel[1];
+                this.SteuerwinkelNachherOeffnet = steuerwinkel[2];
+                this.NachherSteuerwinkelSchließt = steuerwinkel[3];
 
-                Unterschied_grad = EngineLogic.GetPortTimingDifference(false, VorherSteuerzeit.Value, NachherSteuerzeit.Value);
+                this.DifferenceDegree = EngineLogic.GetPortTimingDifference(false, this.SteuerzeitVorher.Value, this.SteuerzeitNachher.Value);
 
-                //verbessern und durschnitt aus öffnen und schließen bilden
-                Unterschied_mm = EngineLogic.GetPortTimingDifference(
+                // TODO: verbessern und durschnitt aus öffnen und schließen bilden
+                this.DifferenceLength = EngineLogic.GetPortTimingDifference(
                     true,
+                    this.SteuerwinkelVorherOeffnet.Value,
+                    this.SteuerwinkelNachherOeffnet.Value,
+                    UnitsNet.UnitConverter.Convert(
+                         this.VehicleMotorPleulL.Value,
+                         this.VehicleMotorPleulLUnit.UnitEnumValue,
+                         MotorModel.PleulLBaseUnit),
+                    UnitsNet.UnitConverter.Convert(
+                         this.VehicleMotorHubR.Value,
+                         this.VehicleMotorHubRUnit.UnitEnumValue,
+                         LengthUnit.Millimeter),
+                    UnitsNet.UnitConverter.Convert(
+                         this.VehicleMotorDeachsierungL.Value,
+                         this.VehicleMotorDeachsierungLUnit.UnitEnumValue,
+                         MotorModel.DeachsierungLBaseUnit));
+            }
+        }
 
-                    this.VorherSteuerwinkelOeffnet.Value,
-                    this.NachherSteuerwinkelOeffnet.Value,
+        /// <summary>
+        /// Refreshes the kwgrad.
+        /// </summary>
+        private void RefreshDifferenceToOT()
+        {
+            if (this.VehicleMotorPleulL.HasValue && this.VehicleMotorHubR.HasValue && this.VehicleMotorDeachsierungL.HasValue && this.DegreeDifferenceToOT.HasValue)
+            {
+                this.LengthDifferenceToOT = EngineLogic.GetDistanceToOT(
+                      UnitsNet.UnitConverter.Convert(
+                          this.VehicleMotorPleulL.Value,
+                          this.VehicleMotorPleulLUnit.UnitEnumValue,
+                          MotorModel.PleulLBaseUnit),
+                      UnitsNet.UnitConverter.Convert(
+                          this.VehicleMotorHubR.Value,
+                          this.VehicleMotorHubRUnit.UnitEnumValue,
+                          LengthUnit.Millimeter),
+                      UnitsNet.UnitConverter.Convert(
+                          this.VehicleMotorDeachsierungL.Value,
+                          this.VehicleMotorDeachsierungLUnit.UnitEnumValue,
+                          MotorModel.DeachsierungLBaseUnit),
+                      this.DegreeDifferenceToOT.Value);
+            }
+        }
 
-                     UnitsNet.UnitConverter.Convert(PleulL.Value,
-                    UnitPleulL.UnitEnumValue,
-                    LengthUnit.Millimeter),
-
-                     UnitsNet.UnitConverter.Convert(HubR.Value,
-                    UnitHubR.UnitEnumValue,
-                    LengthUnit.Millimeter),
-
-                     UnitsNet.UnitConverter.Convert(Deachsierung.Value,
-                    UnitDeachsierung.UnitEnumValue,
-                    LengthUnit.Millimeter));
+        /// <summary>
+        /// Refreshes the hubradius.
+        /// </summary>
+        private void RefreshHubradius()
+        {
+            if (this.VehicleMotorHubL.HasValue && this.VehicleMotorPleulL.HasValue && this.VehicleMotorDeachsierungL.HasValue)
+            {
+                this.VehicleMotorHubR = EngineLogic.GetStrokeRadius(
+                     UnitsNet.UnitConverter.Convert(
+                         this.VehicleMotorHubL.Value,
+                         this.VehicleMotorHubLUnit.UnitEnumValue,
+                         MotorModel.HubLBaseUnit),
+                     UnitsNet.UnitConverter.Convert(
+                         this.VehicleMotorPleulL.Value,
+                         this.VehicleMotorPleulLUnit.UnitEnumValue,
+                         MotorModel.PleulLBaseUnit),
+                     UnitsNet.UnitConverter.Convert(
+                         this.VehicleMotorDeachsierungL.Value,
+                         this.VehicleMotorDeachsierungLUnit.UnitEnumValue,
+                         MotorModel.DeachsierungLBaseUnit));
             }
         }
 
@@ -174,74 +188,62 @@ namespace SimTuning.Core.ViewModels.Motor
 
         #region private
 
-        private double? _abstandOTlength;
-        private double? _deachsierung;
+        private double? _degreeDifferenceToOT;
+        private double? _differenceDegree;
+        private double? _differenceLength;
         private VehiclesModel _helperVehicle;
         private ObservableCollection<VehiclesModel> _helperVehicles;
-
-        private double? _hub;
-
-        private double? _hubR;
-
-        private bool _kolbenoberkante_checked;
-
-        private bool _kolbenunterkante_checked;
-
-        private double? _nachherSteuerwinkelOeffnet;
-
+        private bool _kolbenoberkanteChecked;
+        private bool _kolbenunterkanteChecked;
+        private double? _lengthDifferenceToOT;
         private double? _nachherSteuerwinkelSchließt;
-
-        private double? _nachherSteuerzeit;
-
-        private double? _pleulL;
-
-        private double? _steuerzeit;
-
+        private double? _steuerwinkelNachherOeffnet;
+        private double? _steuerwinkelVorherOeffnet;
+        private double? _steuerwinkelVorherSchließt;
+        private double? _steuerzeitNachher;
+        private double? _steuerzeitVorher;
         private UnitListItem _unitAbstandOTlength;
-
-        private UnitListItem _unitDeachsierung;
-
-        private UnitListItem _unitHub;
-
-        private UnitListItem _unitHubR;
-
-        private UnitListItem _unitPleulL;
-
-        private double? _unterschied_grad;
-
-        private double? _unterschied_mm;
-
-        private double? _vorherSteuerwinkelOeffnet;
-
-        private double? _vorherSteuerwinkelSchließt;
-
-        private double? _vorherSteuerzeit;
+        private VehiclesModel _vehicle;
+        private double? _vehicleMotorHubR;
+        private UnitListItem _vehicleMotorHubRUnit;
 
         #endregion private
 
         /// <summary>
-        /// Gets or sets the abstand o tlength.
+        /// Gets or sets the steuerzeit.
         /// </summary>
-        /// <value>The abstand o tlength.</value>
-        public double? AbstandOTlength
+        /// <value>The steuerzeit.</value>
+        public double? DegreeDifferenceToOT
         {
-            get => _abstandOTlength;
-            set { SetProperty(ref _abstandOTlength, value); }
+            get => this._degreeDifferenceToOT;
+            set
+            {
+                this.SetProperty(ref this._degreeDifferenceToOT, value);
+                this.RefreshDifferenceToOT();
+            }
         }
 
         /// <summary>
-        /// Gets or sets the deachsierung.
+        /// Gets or sets the unterschied grad.
         /// </summary>
-        /// <value>The deachsierung.</value>
-        public double? Deachsierung
+        /// <value>The unterschied grad.</value>
+        public double? DifferenceDegree
         {
-            get => _deachsierung;
-            set
-            {
-                SetProperty(ref _deachsierung, value);
-                Refresh_hubradius();
-            }
+            get => this._differenceDegree;
+            set => this.SetProperty(ref this._differenceDegree, value);
         }
+
+        /// <summary>
+        /// Gets or sets the unterschied mm.
+        /// </summary>
+        /// <value>The unterschied mm.</value>
+        public double? DifferenceLength
+        {
+            get => this._differenceLength;
+            set => this.SetProperty(ref this._differenceLength, value);
+        }
+
+        public UnitListItem DifferenceLengthUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the helper vehicle.
@@ -249,8 +251,8 @@ namespace SimTuning.Core.ViewModels.Motor
         /// <value>The helper vehicle.</value>
         public VehiclesModel HelperVehicle
         {
-            get => _helperVehicle;
-            set { SetProperty(ref _helperVehicle, value); }
+            get => this._helperVehicle;
+            set => SetProperty(ref _helperVehicle, value);
         }
 
         /// <summary>
@@ -261,30 +263,6 @@ namespace SimTuning.Core.ViewModels.Motor
         {
             get => _helperVehicles;
             set { SetProperty(ref _helperVehicles, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the hub.
-        /// </summary>
-        /// <value>The hub.</value>
-        public double? Hub
-        {
-            get => _hub;
-            set
-            {
-                SetProperty(ref _hub, value);
-                Refresh_hubradius();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the hub r.
-        /// </summary>
-        /// <value>The hub r.</value>
-        public double? HubR
-        {
-            get => _hubR;
-            set { SetProperty(ref _hubR, value); }
         }
 
         /// <summary>
@@ -299,13 +277,13 @@ namespace SimTuning.Core.ViewModels.Motor
         /// <value>
         /// <c>true</c> if [kolbenoberkante checked]; otherwise, <c>false</c>.
         /// </value>
-        public bool Kolbenoberkante_checked
+        public bool KolbenoberkanteChecked
         {
-            get => _kolbenoberkante_checked;
+            get => this._kolbenoberkanteChecked;
             set
             {
-                SetProperty(ref _kolbenoberkante_checked, value);
-                Refresh_Unterschied();
+                this.SetProperty(ref this._kolbenoberkanteChecked, value);
+                this.RefreshDifference();
             }
         }
 
@@ -315,15 +293,27 @@ namespace SimTuning.Core.ViewModels.Motor
         /// <value>
         /// <c>true</c> if [kolbenunterkante checked]; otherwise, <c>false</c>.
         /// </value>
-        public bool Kolbenunterkante_checked
+        public bool KolbenunterkanteChecked
         {
-            get => _kolbenunterkante_checked;
+            get => this._kolbenunterkanteChecked;
             set
             {
-                SetProperty(ref _kolbenunterkante_checked, value);
-                Refresh_Unterschied();
+                this.SetProperty(ref this._kolbenunterkanteChecked, value);
+                this.RefreshDifference();
             }
         }
+
+        /// <summary>
+        /// Gets or sets the abstand o tlength.
+        /// </summary>
+        /// <value>The abstand o tlength.</value>
+        public double? LengthDifferenceToOT
+        {
+            get => this._lengthDifferenceToOT;
+            set => this.SetProperty(ref this._lengthDifferenceToOT, value);
+        }
+
+        public UnitListItem LengthDifferenceToOTUnit { get; set; }
 
         /// <summary>
         /// Gets the length quantity units.
@@ -332,64 +322,70 @@ namespace SimTuning.Core.ViewModels.Motor
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
         /// <summary>
-        /// Gets or sets the nachher steuerwinkel oeffnet.
-        /// </summary>
-        /// <value>The nachher steuerwinkel oeffnet.</value>
-        public double? NachherSteuerwinkelOeffnet
-        {
-            get => _nachherSteuerwinkelOeffnet;
-            set { SetProperty(ref _nachherSteuerwinkelOeffnet, value); }
-        }
-
-        /// <summary>
         /// Gets or sets the nachher steuerwinkel schließt.
         /// </summary>
         /// <value>The nachher steuerwinkel schließt.</value>
         public double? NachherSteuerwinkelSchließt
         {
-            get => _nachherSteuerwinkelSchließt;
-            set { SetProperty(ref _nachherSteuerwinkelSchließt, value); }
+            get => this._nachherSteuerwinkelSchließt;
+            set => this.SetProperty(ref this._nachherSteuerwinkelSchließt, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the nachher steuerwinkel oeffnet.
+        /// </summary>
+        /// <value>The nachher steuerwinkel oeffnet.</value>
+        public double? SteuerwinkelNachherOeffnet
+        {
+            get => this._steuerwinkelNachherOeffnet;
+            set => this.SetProperty(ref this._steuerwinkelNachherOeffnet, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the vorher steuerwinkel oeffnet.
+        /// </summary>
+        /// <value>The vorher steuerwinkel oeffnet.</value>
+        public double? SteuerwinkelVorherOeffnet
+        {
+            get => this._steuerwinkelVorherOeffnet;
+            set => this.SetProperty(ref this._steuerwinkelVorherOeffnet, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the vorher steuerwinkel schließt.
+        /// </summary>
+        /// <value>The vorher steuerwinkel schließt.</value>
+        public double? SteuerwinkelVorherSchließt
+        {
+            get => this._steuerwinkelVorherSchließt;
+            set => this.SetProperty(ref this._steuerwinkelVorherSchließt, value);
         }
 
         /// <summary>
         /// Gets or sets the nachher steuerzeit.
         /// </summary>
         /// <value>The nachher steuerzeit.</value>
-        public double? NachherSteuerzeit
+        public double? SteuerzeitNachher
         {
-            get => _nachherSteuerzeit;
+            get => this._steuerzeitNachher;
             set
             {
-                SetProperty(ref _nachherSteuerzeit, value);
-                Refresh_Unterschied();
+                this.SetProperty(ref this._steuerzeitNachher, value);
+                this.RefreshDifference();
             }
         }
 
         /// <summary>
-        /// Gets or sets the pleul l.
+        /// Gets or sets the vorher steuerzeit.
         /// </summary>
-        /// <value>The pleul l.</value>
-        public double? PleulL
+        /// <value>The vorher steuerzeit.</value>
+        public double? SteuerzeitVorher
         {
-            get => _pleulL;
+            get => this._steuerzeitVorher;
             set
             {
-                SetProperty(ref _pleulL, value);
-                Refresh_hubradius();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the steuerzeit.
-        /// </summary>
-        /// <value>The steuerzeit.</value>
-        public double? Steuerzeit
-        {
-            get => _steuerzeit;
-            set
-            {
-                SetProperty(ref _steuerzeit, value);
-                Refresh_kwgrad();
+                this.SetProperty(ref this._steuerzeitVorher, value);
+                this.RefreshDifference();
             }
         }
 
@@ -399,93 +395,134 @@ namespace SimTuning.Core.ViewModels.Motor
         /// <value>The unit abstand o tlength.</value>
         public UnitListItem UnitAbstandOTlength
         {
-            get => _unitAbstandOTlength;
+            get => this._unitAbstandOTlength;
             set
             {
-                AbstandOTlength = Business.Functions.UpdateValue(AbstandOTlength, _unitAbstandOTlength, value);
+                this.LengthDifferenceToOT = Business.Functions.UpdateValue(this.LengthDifferenceToOT, this._unitAbstandOTlength, value);
 
-                SetProperty(ref _unitAbstandOTlength, value);
+                this.SetProperty(ref this._unitAbstandOTlength, value);
+            }
+        }
+
+        public VehiclesModel Vehicle
+        {
+            get => this._vehicle;
+            set => SetProperty(ref _vehicle, value);
+        }
+
+        public double? VehicleMotorDeachsierungL
+        {
+            get => this.Vehicle?.Motor.DeachsierungL;
+            set
+            {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.DeachsierungL = value;
+                this.RefreshHubradius();
+            }
+        }
+
+        public UnitListItem VehicleMotorDeachsierungLUnit
+        {
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.DeachsierungLUnit));
+            set
+            {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.DeachsierungLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.VehicleMotorDeachsierungL);
+            }
+        }
+
+        public double? VehicleMotorHubL
+        {
+            get => this.Vehicle?.Motor.HubL;
+            set
+            {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.HubL = value;
+                this.RefreshHubradius();
+            }
+        }
+
+        public UnitListItem VehicleMotorHubLUnit
+        {
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.HubLUnit));
+            set
+            {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.HubLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.VehicleMotorHubL);
             }
         }
 
         /// <summary>
-        /// Gets or sets the unit deachsierung.
+        /// Gets or sets the hub r.
         /// </summary>
-        /// <value>The unit deachsierung.</value>
-        public UnitListItem UnitDeachsierung
+        /// <value>The hub r.</value>
+        public double? VehicleMotorHubR
         {
-            get => _unitDeachsierung;
-            set
-            {
-                Deachsierung = Business.Functions.UpdateValue(Deachsierung, _unitDeachsierung, value);
-
-                SetProperty(ref _unitDeachsierung, value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the unit hub.
-        /// </summary>
-        /// <value>The unit hub.</value>
-        public UnitListItem UnitHub
-        {
-            get => _unitHub;
-            set
-            {
-                Hub = Business.Functions.UpdateValue(Hub, _unitHub, value);
-
-                SetProperty(ref _unitHub, value);
-            }
+            get => _vehicleMotorHubR;
+            set => SetProperty(ref _vehicleMotorHubR, value);
         }
 
         /// <summary>
         /// Gets or sets the unit hub r.
         /// </summary>
         /// <value>The unit hub r.</value>
-        public UnitListItem UnitHubR
+        public UnitListItem VehicleMotorHubRUnit
         {
-            get => _unitHubR;
+            get => this._vehicleMotorHubRUnit;
             set
             {
-                HubR = Business.Functions.UpdateValue(HubR, _unitHubR, value);
+                this.VehicleMotorHubR = Business.Functions.UpdateValue(this.VehicleMotorHubR, this._vehicleMotorHubRUnit, value);
 
-                SetProperty(ref _unitHubR, value);
+                SetProperty(ref this._vehicleMotorHubRUnit, value);
             }
         }
 
-        /// <summary>
-        /// Gets or sets the unit pleul l.
-        /// </summary>
-        /// <value>The unit pleul l.</value>
-        public UnitListItem UnitPleulL
+        public double? VehicleMotorPleulL
         {
-            get => _unitPleulL;
+            get => this.Vehicle?.Motor.PleulL;
             set
             {
-                PleulL = Business.Functions.UpdateValue(PleulL, _unitPleulL, value);
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
 
-                SetProperty(ref _unitPleulL, value);
+                this.Vehicle.Motor.PleulL = value;
+                this.RefreshHubradius();
             }
         }
 
-        /// <summary>
-        /// Gets or sets the unterschied grad.
-        /// </summary>
-        /// <value>The unterschied grad.</value>
-        public double? Unterschied_grad
+        public UnitListItem VehicleMotorPleulLUnit
         {
-            get => _unterschied_grad;
-            set { SetProperty(ref _unterschied_grad, value); }
-        }
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.PleulLUnit));
+            set
+            {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
 
-        /// <summary>
-        /// Gets or sets the unterschied mm.
-        /// </summary>
-        /// <value>The unterschied mm.</value>
-        public double? Unterschied_mm
-        {
-            get => _unterschied_mm;
-            set { SetProperty(ref _unterschied_mm, value); }
+                this.Vehicle.Motor.PleulLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.VehicleMotorPleulL);
+            }
         }
 
         /// <summary>
@@ -493,40 +530,6 @@ namespace SimTuning.Core.ViewModels.Motor
         /// </summary>
         /// <value>The volume quantity units.</value>
         public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
-
-        /// <summary>
-        /// Gets or sets the vorher steuerwinkel oeffnet.
-        /// </summary>
-        /// <value>The vorher steuerwinkel oeffnet.</value>
-        public double? VorherSteuerwinkelOeffnet
-        {
-            get => _vorherSteuerwinkelOeffnet;
-            set { SetProperty(ref _vorherSteuerwinkelOeffnet, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the vorher steuerwinkel schließt.
-        /// </summary>
-        /// <value>The vorher steuerwinkel schließt.</value>
-        public double? VorherSteuerwinkelSchließt
-        {
-            get => _vorherSteuerwinkelSchließt;
-            set { SetProperty(ref _vorherSteuerwinkelSchließt, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the vorher steuerzeit.
-        /// </summary>
-        /// <value>The vorher steuerzeit.</value>
-        public double? VorherSteuerzeit
-        {
-            get => _vorherSteuerzeit;
-            set
-            {
-                SetProperty(ref _vorherSteuerzeit, value);
-                Refresh_Unterschied();
-            }
-        }
 
         #endregion Values
     }

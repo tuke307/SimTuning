@@ -1,12 +1,12 @@
-﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                       x:Class="SimTuning.Forms.UI.Views.Motor.MotorUmrechnungenView"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       x:TypeArguments="viewModels:MotorUmrechnungenViewModel"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       Title="Umrechnungen"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Motor.MotorUmrechnungenView"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      x:TypeArguments="viewModels:MotorUmrechnungenViewModel"
+                      Title="Umrechnungen"
+                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
 
     <ScrollView>
         <StackLayout>
@@ -25,7 +25,7 @@
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Hub"
-                                                    Text="{Binding Mode=TwoWay, Path=Hub}"
+                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorHubL}"
                                                     WidthRequest="250"
                                                     InputType="Numeric">
                         </material:MaterialTextField>
@@ -34,7 +34,7 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding UnitHub}"
+                                                    SelectedChoice="{Binding Path=VehicleMotorHubLUnit}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -45,7 +45,7 @@
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Pleullänge"
-                                                    Text="{Binding Mode=TwoWay, Path=PleulL}"
+                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorPleulL}"
                                                     WidthRequest="250"
                                                     InputType="Numeric">
                         </material:MaterialTextField>
@@ -54,7 +54,7 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding UnitPleulL}"
+                                                    SelectedChoice="{Binding Path=VehicleMotorPleulLUnit}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -65,7 +65,7 @@
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Deachsierung"
-                                                    Text="{Binding Mode=TwoWay, Path=Deachsierung}"
+                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungL}"
                                                     WidthRequest="250"
                                                     InputType="Numeric">
                         </material:MaterialTextField>
@@ -74,7 +74,7 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding UnitDeachsierung}"
+                                                    SelectedChoice="{Binding Path=VehicleMotorDeachsierungLUnit}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -85,7 +85,7 @@
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Hubradius"
-                                                    Text="{Binding Mode=OneWay, Path=HubR}"
+                                                    Text="{Binding Mode=OneWay, Path=VehicleMotorHubR}"
                                                     IsEnabled="False"
                                                     WidthRequest="250"
                                                     InputType="Numeric">
@@ -95,7 +95,7 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding UnitHubR}"
+                                                    SelectedChoice="{Binding Path=VehicleMotorHubRUnit}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -121,7 +121,7 @@
                     <StackLayout Orientation="Horizontal"
                                  Grid.Row="0">
                         <material:MaterialTextField Placeholder="Abstand vom OT"
-                                                    Text="{Binding Mode=TwoWay, Path=Steuerzeit}"
+                                                    Text="{Binding Mode=TwoWay, Path=DegreeDifferenceToOT}"
                                                     IsEnabled="True"
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
@@ -135,7 +135,7 @@
                     <StackLayout Orientation="Horizontal"
                                  Grid.Row="1">
                         <material:MaterialTextField Placeholder="Abstand vom OT"
-                                                    Text="{Binding Mode=OneWay, Path=AbstandOTlength}"
+                                                    Text="{Binding Mode=OneWay, Path=LengthDifferenceToOT}"
                                                     IsEnabled="false"
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
@@ -144,7 +144,7 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding UnitAbstandOTlength}"
+                                                    SelectedChoice="{Binding Path=LengthDifferenceToOTUnit}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -170,11 +170,11 @@
                     <material:MaterialLabel Text="Steuerzeit:"></material:MaterialLabel>
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="vorher"
-                                                    Text="{Binding Mode=TwoWay, Path=vorher_steuerzeit}"
+                                                    Text="{Binding Mode=TwoWay, Path=SteuerzeitVorher}"
                                                     WidthRequest="150"
                                                     InputType="Numeric" />
                         <material:MaterialTextField Placeholder="nachher"
-                                                    Text="{Binding Mode=TwoWay, Path=nachher_steuerzeit}"
+                                                    Text="{Binding Mode=TwoWay, Path=SteuerzeitNachher}"
                                                     WidthRequest="150"
                                                     InputType="Numeric" />
                     </StackLayout>
@@ -185,7 +185,7 @@
                     </material:MaterialLabel>
 
                     <material:MaterialRadioButton  x:Name="RB1"
-                                                   IsSelected="{Binding Mode=OneWayToSource, Path=kolbenunterkante_checked}"
+                                                   IsSelected="{Binding Mode=OneWayToSource, Path=KolbenunterkanteChecked}"
                                                    Text="Kolben-unterkante">
                         <material:MaterialRadioButton.Triggers>
                             <DataTrigger TargetType="material:MaterialRadioButton"
@@ -198,7 +198,7 @@
                     </material:MaterialRadioButton>
 
                     <material:MaterialRadioButton x:Name="RB2"
-                                                  IsSelected="{Binding Mode=OneWayToSource, Path=kolbenoberkante_checked}"
+                                                  IsSelected="{Binding Mode=OneWayToSource, Path=KolbenoberkanteChecked}"
                                                   Text="Kolben-oberkante"
                                                   Margin="0, -20, 0, 0">
                         <material:MaterialRadioButton.Triggers>
@@ -224,14 +224,14 @@
                             <material:MaterialLabel Text="öffnet"></material:MaterialLabel>
                             <material:MaterialTextField Placeholder="vorher"
                                                         Grid.Column="0"
-                                                        Text="{Binding Mode=OneWay, Path=vorher_steuerwinkel_oeffnet}"
+                                                        Text="{Binding Mode=OneWay, Path=SteuerwinkelVorherOeffnet}"
                                                         IsEnabled="False"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
 
                             <material:MaterialTextField Placeholder="nachher"
                                                         Grid.Column="0"
-                                                        Text="{Binding Mode=OneWay, Path=nachher_steuerwinkel_oeffnet}"
+                                                        Text="{Binding Mode=OneWay, Path=SteuerwinkelNachherOeffnet}"
                                                         IsEnabled="False"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -242,14 +242,14 @@
 
                             <material:MaterialTextField Placeholder="vorher"
                                                         Grid.Column="1"
-                                                        Text="{Binding Mode=OneWay, Path=vorher_steuerwinkel_schließt}"
+                                                        Text="{Binding Mode=OneWay, Path=SteuerwinkelNachherOeffnet}"
                                                         IsEnabled="False"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
 
                             <material:MaterialTextField Placeholder="nachher"
                                                         Grid.Column="1"
-                                                        Text="{Binding Mode=OneWay, Path=nachher_steuerwinkel_schließt}"
+                                                        Text="{Binding Mode=OneWay, Path=SteuerwinkelNachherSchließt}"
                                                         IsEnabled="False"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -260,7 +260,7 @@
                     <StackLayout Orientation="Horizontal"
                                  Margin="0, 20, 0, 0">
                         <material:MaterialTextField Placeholder="Unterschied"
-                                                    Text="{Binding Mode=OneWay, Path=unterschied_grad}"
+                                                    Text="{Binding Mode=OneWay, Path=DifferenceDegree}"
                                                     WidthRequest="250"
                                                     IsEnabled="false"
                                                     InputType="Numeric" />
@@ -273,7 +273,7 @@
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Unterschied"
-                                                    Text="{Binding Mode=OneWay, Path=unterschied_mm}"
+                                                    Text="{Binding Mode=OneWay, Path=DifferenceLength}"
                                                     WidthRequest="250"
                                                     IsEnabled="false"
                                                     InputType="Numeric" />
@@ -301,8 +301,8 @@
 
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
-                                                Choices="{Binding HelperVehicles}"
-                                                SelectedChoice="{Binding HelperVehicle}"
+                                                Choices="{Binding Mode=OneTime, Path=HelperVehicles}"
+                                                SelectedChoice="{Binding Mode=TwoWay, Path=HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>
 
@@ -350,7 +350,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="1"
                                      Grid.Column="1">
-                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Pleullaenge}"
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.PleulL}"
                                                         IsEnabled="False"
                                                         Placeholder=" "
                                                         FloatingPlaceholderEnabled="False"
