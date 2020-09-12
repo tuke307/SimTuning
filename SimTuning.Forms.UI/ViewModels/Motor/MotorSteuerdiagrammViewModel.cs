@@ -13,38 +13,6 @@ namespace SimTuning.Forms.UI.ViewModels.Motor
     /// <seealso cref="SimTuning.Core.ViewModels.Motor.SteuerdiagrammViewModel" />
     public class MotorSteuerdiagrammViewModel : SimTuning.Core.ViewModels.Motor.SteuerdiagrammViewModel
     {
-        private double? _auslass_Steuerzeit;
-
-        private double? _einlass_Steuerzeit;
-
-        private ImageSource _portTimingCircle;
-
-        private double? _ueberstroemer_Steuerzeit;
-
-        public override double? Auslass_Steuerzeit
-        {
-            get => _auslass_Steuerzeit;
-            set { SetProperty(ref _auslass_Steuerzeit, value); RefreshSteuerzeit(); }
-        }
-
-        public override double? Einlass_Steuerzeit
-        {
-            get => _einlass_Steuerzeit;
-            set { SetProperty(ref _einlass_Steuerzeit, value); RefreshSteuerzeit(); }
-        }
-
-        public ImageSource PortTimingCircle
-        {
-            get => _portTimingCircle;
-            private set => SetProperty(ref _portTimingCircle, value);
-        }
-
-        public override double? Ueberstroemer_Steuerzeit
-        {
-            get => _ueberstroemer_Steuerzeit;
-            set { SetProperty(ref _ueberstroemer_Steuerzeit, value); RefreshSteuerzeit(); }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MotorSteuerdiagrammViewModel" />
         /// class.
@@ -67,5 +35,59 @@ namespace SimTuning.Forms.UI.ViewModels.Motor
                 this.PortTimingCircle = ImageSource.FromStream(() => stream);
             }
         }
+
+        #region Values
+
+        private ImageSource _portTimingCircle;
+
+        public ImageSource PortTimingCircle
+        {
+            get => _portTimingCircle;
+            private set => SetProperty(ref _portTimingCircle, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the steuerzeit auslass.
+        /// </summary>
+        /// <value>The steuerzeit auslass.</value>
+        public override double? SteuerzeitAuslass
+        {
+            get => base.SteuerzeitAuslass;
+            set
+            {
+                base.SteuerzeitAuslass = value;
+                this.RefreshSteuerzeit();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the steuerzeit einlass.
+        /// </summary>
+        /// <value>The steuerzeit einlass.</value>
+        public override double? SteuerzeitEinlass
+        {
+            get => base.SteuerzeitEinlass;
+            set
+            {
+                base.SteuerzeitEinlass = value;
+                this.RefreshSteuerzeit();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the steuerzeit ueberstroemer.
+        /// </summary>
+        /// <value>The steuerzeit ueberstroemer.</value>
+        public override double? SteuerzeitUeberstroemer
+        {
+            get => base.SteuerzeitUeberstroemer;
+            set
+            {
+                base.SteuerzeitUeberstroemer = value;
+                this.RefreshSteuerzeit();
+            }
+        }
+
+        #endregion Values
     }
 }

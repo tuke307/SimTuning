@@ -2,7 +2,6 @@
 // productions. All rights reserved.
 namespace SimTuning.Core
 {
-    using Plugin.DeviceInfo.Abstractions;
     using System;
     using System.IO;
 
@@ -34,34 +33,9 @@ namespace SimTuning.Core
         }
 
         /// <summary>
-        /// Gets the file directory.
+        /// Gets or sets the file directory.
         /// </summary>
         /// <value>The file directory.</value>
-        public static string FileDirectory
-        {
-            get
-            {
-                switch (Constants.Platform)
-                {
-                    case Plugin.DeviceInfo.Abstractions.Platform.Windows:
-                        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning"); // appdata-local-simtunig
-
-                    case Plugin.DeviceInfo.Abstractions.Platform.iOS:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.Personal); // interner speicher
-
-                    case Plugin.DeviceInfo.Abstractions.Platform.Android:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.Personal); // interner speicher
-
-                    default:
-                        return null;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the platform.
-        /// </summary>
-        /// <value>The platform.</value>
-        public static Platform Platform { get; set; }
+        public static string FileDirectory { get; set; }
     }
 }

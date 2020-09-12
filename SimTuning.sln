@@ -27,13 +27,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimTuning.WPFCore.App", "Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimTuning.WPF.App", "SimTuning.WPF.App\SimTuning.WPF.App.csproj", "{CB0AB137-854B-447E-BC0E-8B03E5FC5327}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimTuning.WPF.UI", "SimTuning.WPF.UI\SimTuning.WPF.UI.csproj", "{17930B76-A1B2-4D9F-9BCF-54459B11467C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimTuning.WPF.UI", "SimTuning.WPF.UI\SimTuning.WPF.UI.csproj", "{17930B76-A1B2-4D9F-9BCF-54459B11467C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DC045AF-3BC3-4D5C-AAE5-A94BDE8EB93C}"
 	ProjectSection(SolutionItems) = preProject
 		Code Rules.ruleset = Code Rules.ruleset
 		CodeMaid.config = CodeMaid.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimTuning.iOS", "SimTuning.iOS\SimTuning.iOS.csproj", "{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -382,6 +384,24 @@ Global
 		{17930B76-A1B2-4D9F-9BCF-54459B11467C}.Release|x64.Build.0 = Release|Any CPU
 		{17930B76-A1B2-4D9F-9BCF-54459B11467C}.Release|x86.ActiveCfg = Release|Any CPU
 		{17930B76-A1B2-4D9F-9BCF-54459B11467C}.Release|x86.Build.0 = Release|Any CPU
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Debug|ARM.ActiveCfg = Debug|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Debug|ARM64.ActiveCfg = Debug|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Debug|iPhone.Build.0 = Debug|iPhone
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Debug|x64.ActiveCfg = Debug|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Debug|x86.ActiveCfg = Debug|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Release|ARM.ActiveCfg = Release|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Release|ARM64.ActiveCfg = Release|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Release|iPhone.ActiveCfg = Release|iPhone
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Release|iPhone.Build.0 = Release|iPhone
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Release|x64.ActiveCfg = Release|iPhoneSimulator
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682}.Release|x86.ActiveCfg = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -398,6 +418,7 @@ Global
 		{565440DB-EF7E-4E1E-97BE-2C20588FFB89} = {EFB30EE1-E0D0-4CE1-991B-0C83F345C8E6}
 		{CB0AB137-854B-447E-BC0E-8B03E5FC5327} = {EFB30EE1-E0D0-4CE1-991B-0C83F345C8E6}
 		{17930B76-A1B2-4D9F-9BCF-54459B11467C} = {88DA4224-64D7-40FA-93BB-EFE09529A353}
+		{89A828C7-A9DF-4C0B-95E1-B94C90AB6682} = {88DA4224-64D7-40FA-93BB-EFE09529A353}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E7E3547-8AC3-4C8F-A67D-9B6EAECCD744}

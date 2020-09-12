@@ -1,9 +1,12 @@
 ﻿// project=SimTuning.Forms.iOS, file=Main.cs, creation=2020:7:1 Copyright (c) 2020 tuke
 // productions. All rights reserved.
-using UIKit;
-
 namespace SimTuning.Forms.iOS
 {
+    using UIKit;
+
+    /// <summary>
+    /// Application.
+    /// </summary>
     public class Application
     {
         // This is the main entry point of the application.

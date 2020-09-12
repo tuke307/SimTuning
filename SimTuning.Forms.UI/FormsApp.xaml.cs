@@ -16,8 +16,6 @@ namespace SimTuning.Forms.UI
     /// <seealso cref="Xamarin.Forms.Application" />
     public partial class FormsApp : Xamarin.Forms.Application
     {
-        private readonly ResourceManager rm;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FormsApp" /> class.
         /// </summary>
@@ -25,29 +23,22 @@ namespace SimTuning.Forms.UI
         {
             this.InitializeComponent();
 
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
-
             XF.Material.Forms.Material.Init(this, "Material.Configuration");
 
-            SimTuning.Core.Constants.Platform = CrossDeviceInfo.Current.Platform;
+            // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
+            SimTuning.Core.Constants.FileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            Data.Constants.DatabasePath = Path.Combine(SimTuning.Core.Constants.FileDirectory, Data.Constants.DatabaseName);
 
-            switch (SimTuning.Core.Constants.Platform)
+            if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
             {
-                case Plugin.DeviceInfo.Abstractions.Platform.iOS:
-                    Data.Constants.DatabasePath = Path.Combine(SimTuning.Core.Constants.FileDirectory, Data.Constants.DatabaseName);
-                    break;
-
-                case Plugin.DeviceInfo.Abstractions.Platform.Android:
-                    Data.Constants.DatabasePath = Path.Combine(SimTuning.Core.Constants.FileDirectory, Data.Constants.DatabaseName);
-                    break;
-
-                default:
-                    throw new NotImplementedException(message: rm.GetString("ERR_NOSUPPORT", CultureInfo.CurrentCulture));
+                Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
             }
+
+            // fix with android 10
+            if (!File.Exists(Constants.DatabasePath)) File.Create(Constants.DatabasePath);
 
             using (var db = new DatabaseContext())
             {
-                db.Database.EnsureCreated();
                 db.Database.Migrate();
             }
         }
