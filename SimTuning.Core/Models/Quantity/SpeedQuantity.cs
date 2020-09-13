@@ -3,9 +3,11 @@
 namespace SimTuning.Core.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using UnitsNet;
+    using UnitsNet.Units;
 
     /// <summary>
     /// SpeedQuantity.
@@ -16,13 +18,34 @@ namespace SimTuning.Core.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SpeedQuantity" /> class.
         /// </summary>
-        public SpeedQuantity() : base()
+        public SpeedQuantity()
+            : base()
         {
-            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Speed);
-
-            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
+            var customSpeedUnits = new List<Enum>()
             {
-                Add(new UnitListItem(unitValue));
+                SpeedUnit.MillimeterPerMinute,
+                SpeedUnit.DecimeterPerMinute,
+                SpeedUnit.CentimeterPerMinute,
+                SpeedUnit.DecimeterPerMinute,
+                SpeedUnit.MeterPerMinute,
+                SpeedUnit.KilometerPerMinute,
+
+                SpeedUnit.MillimeterPerSecond,
+                SpeedUnit.DecimeterPerSecond,
+                SpeedUnit.CentimeterPerSecond,
+                SpeedUnit.DecimeterPerSecond,
+                SpeedUnit.MeterPerSecond,
+                SpeedUnit.KilometerPerSecond,
+
+                SpeedUnit.MillimeterPerHour,
+                SpeedUnit.CentimeterPerHour,
+                SpeedUnit.MeterPerHour,
+                SpeedUnit.KilometerPerHour,
+            };
+
+            foreach (Enum unitValue in customSpeedUnits)
+            {
+                this.Add(new UnitListItem(unitValue));
             }
         }
     }

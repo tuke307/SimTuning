@@ -3,12 +3,12 @@
 namespace SimTuning.Core.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
-    using UnitsNet;
+    using UnitsNet.Units;
 
     /// <summary>
-    /// MassQuantity
+    /// MassQuantity.
     /// </summary>
     /// <seealso cref="System.Collections.ObjectModel.ObservableCollection{SimTuning.Core.UnitListItem}" />
     public class MassQuantity : ObservableCollection<UnitListItem>
@@ -16,13 +16,21 @@ namespace SimTuning.Core.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="MassQuantity" /> class.
         /// </summary>
-        public MassQuantity() : base()
+        public MassQuantity()
+            : base()
         {
-            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Mass);
-
-            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
+            var customMassUnits = new List<Enum>()
             {
-                Add(new UnitListItem(unitValue));
+                MassUnit.Milligram,
+                MassUnit.Gram,
+                MassUnit.Decigram,
+                MassUnit.Kilogram,
+                MassUnit.Tonne,
+            };
+
+            foreach (Enum unitValue in customMassUnits)
+            {
+                this.Add(new UnitListItem(unitValue));
             }
         }
     }

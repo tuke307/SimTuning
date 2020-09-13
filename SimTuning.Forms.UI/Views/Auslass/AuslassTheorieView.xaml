@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:MvxContentPage x:TypeArguments="viewModels:AuslassTheorieViewModel"
-                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Auslass;assembly=SimTuning.Forms.UI"
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Auslass;assembly=SimTuning.Forms.UI"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       BackgroundColor="{DynamicResource MaterialDesignPaper}"
                       Title="Theorie"
@@ -29,7 +29,7 @@
                         <StackLayout Orientation="Horizontal">
 
                             <material:MaterialTextField Placeholder="Ø Krümmer"
-                                                        Text="{Binding Mode=TwoWay, Path=KruemmerD}"
+                                                        Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffKruemmerD}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -38,7 +38,7 @@
                                                         FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                        SelectedChoice="{Binding UnitKruemmerD}"
+                                                        SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffKruemmerDUnit}"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
                             <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -70,7 +70,7 @@
 
                         <Slider Maximum="12"
                                 Minimum="6"
-                                Value="{Binding Mode=TwoWay, Path=DrehmomentF}"
+                                Value="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffKruemmerF}"
                                 HorizontalOptions="FillAndExpand"
                                 Margin="0, -10, 0, 10">
                         </Slider>
@@ -78,7 +78,7 @@
                         <StackLayout Orientation="Horizontal">
                             <material:MaterialTextField Placeholder="Krümmerlänge"
                                                         IsEnabled="False"
-                                                        Text="{Binding Mode=TwoWay, Path=KruemmerL}"
+                                                        Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffKruemmerL}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -87,7 +87,7 @@
                                                         FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                        SelectedChoice="{Binding UnitKruemmerL}"
+                                                        SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffKruemmerLUnit}"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
                             <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -115,7 +115,7 @@
                     <StackLayout Orientation="Horizontal">
 
                         <material:MaterialTextField Placeholder="Auslassfläche"
-                                                    Text="{Binding Path=AuslassA, Mode=TwoWay}"
+                                                    Text="{Binding Path=VehicleMotorAuslassFlaecheA, Mode=TwoWay}"
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
 
@@ -123,7 +123,7 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding UnitAuslassA}"
+                                                    SelectedChoice="{Binding VehicleMotorAuslassFlaecheAUnit}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -162,7 +162,7 @@
                     <StackLayout Orientation="Horizontal">
 
                         <material:MaterialTextField Placeholder="Temperatur"
-                                                    Text="{Binding Path=ModAbgasT, Mode=TwoWay}"
+                                                    Text="{Binding Path=ModAuspuffAbgasT, Mode=TwoWay}"
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
 
@@ -170,13 +170,21 @@
                                                 VerticalOptions="Center">
                             °C
                         </material:MaterialLabel>
+
+                        <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding Path=ModAuspuffAbgasTUnit}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal">
 
                         <material:MaterialTextField Placeholder="Geschwindigkeit"
                                                     IsEnabled="False"
-                                                    Text="{Binding AbgasV, Mode=TwoWay}"
+                                                    Text="{Binding Path=ModAuspuffAbgasV, Mode=TwoWay}"
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
 
@@ -184,7 +192,7 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding UnitAbgasV}"
+                                                    SelectedChoice="{Binding ModAuspuffAbgasVUnit}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -209,7 +217,7 @@
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Ausslass Steuerwinkel"
-                                                    Text="{Binding Path=AusslassSteuerwinkel, Mode=TwoWay}"
+                                                    Text="{Binding Path=VehicleMotorAuslassSteuerzeitSZ, Mode=TwoWay}"
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
 
@@ -222,20 +230,23 @@
                     <StackLayout Orientation="Horizontal">
 
                         <material:MaterialTextField Placeholder="Abgastemperatur"
-                                                    Text="{Binding Path=AbgasT, Mode=TwoWay}"
+                                                    Text="{Binding Path=VehicleMotorAuslassAuspuffAbgasT, Mode=TwoWay}"
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
 
-                        <material:MaterialLabel Margin="5, 0, 0, 0"
-                                                VerticalOptions="Center">
-                            °C
-                        </material:MaterialLabel>
+                        <material:MaterialTextField InputType="Choice"
+                                                    FloatingPlaceholderEnabled="False"
+                                                    Margin="5, 0, 0, 0"
+                                                    Choices="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}"
+                                                    SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffAbgasTUnit}"
+                                                    ChoicesBindingName="Abbreviation">
+                        </material:MaterialTextField>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal">
 
                         <material:MaterialTextField Placeholder="Resonanzdrehzahl"
-                                                    Text="{Binding Path=ResonanzDrehzahl, Mode=TwoWay}"
+                                                    Text="{Binding Path=VehicleMotorResonanzU, Mode=TwoWay}"
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
 
@@ -248,7 +259,7 @@
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Resonanzlänge"
                                                     IsEnabled="False"
-                                                    Text="{Binding Path=ResonanzL, Mode=TwoWay}"
+                                                    Text="{Binding Path=VehicleMotorAuslassAuspuffResonanzL, Mode=TwoWay}"
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
 
@@ -256,7 +267,7 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding UnitResonanzL}"
+                                                    SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffResonanzLUnit}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -312,7 +323,7 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="0"
                                      Grid.Column="1">
-                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Auslass.Flaeche}"
+                            <material:MaterialTextField Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Auslass.FlaecheA}"
                                                         Placeholder=" "
                                                         IsEnabled="False"
                                                         WidthRequest="100"

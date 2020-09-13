@@ -21,23 +21,6 @@ namespace SimTuning.Forms.UI
             this.InitializeComponent();
 
             XF.Material.Forms.Material.Init(this, "Material.Configuration");
-
-            // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
-            SimTuning.Core.Constants.FileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            Data.Constants.DatabasePath = Path.Combine(SimTuning.Core.Constants.FileDirectory, Data.Constants.DatabaseName);
-
-            if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
-            {
-                Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
-            }
-
-            // fix with android 10
-            //if (!File.Exists(Constants.DatabasePath)) File.Create(Constants.DatabasePath);
-
-            using (var db = new DatabaseContext())
-            {
-                db.Database.Migrate();
-            }
         }
 
         protected override void OnResume()

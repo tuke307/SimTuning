@@ -31,7 +31,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-    <PackageReference Include="UnitsNet" Version="4.70.0" />
+    <PackageReference Include="UnitsNet" Version="4.70.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="UnitSettings.Designer.cs">

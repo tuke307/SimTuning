@@ -2,6 +2,7 @@
 // productions. All rights reserved.
 namespace Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations.Schema;
     using UnitsNet.Units;
 
@@ -11,6 +12,66 @@ namespace Data.Models
     /// <seealso cref="Data.Models.BaseEntityModel" />
     public class AuspuffModel : BaseEntityModel
     {
+        [NotMapped]
+        private TemperatureUnit? _AbgasTUnit;
+
+        [NotMapped]
+        private SpeedUnit? _AbgasVUnit;
+
+        [NotMapped]
+        private LengthUnit? _DiffusorD1Unit;
+
+        [NotMapped]
+        private LengthUnit? _DiffusorD2Unit;
+
+        [NotMapped]
+        private LengthUnit? _DiffusorD3Unit;
+
+        [NotMapped]
+        private LengthUnit? _DiffusorDUnit;
+
+        [NotMapped]
+        private LengthUnit? _DiffusorL1Unit;
+
+        [NotMapped]
+        private LengthUnit? _DiffusorL2Unit;
+
+        [NotMapped]
+        private LengthUnit? _DiffusorL3Unit;
+
+        [NotMapped]
+        private LengthUnit? _DiffusorLUnit;
+
+        [NotMapped]
+        private LengthUnit? _EndrohrDUnit;
+
+        [NotMapped]
+        private LengthUnit? _EndrohrLUnit;
+
+        [NotMapped]
+        private LengthUnit? _GegenkonusDUnit;
+
+        [NotMapped]
+        private LengthUnit? _GegenkonusLUnit;
+
+        [NotMapped]
+        private LengthUnit? _GesamtLUnit;
+
+        [NotMapped]
+        private LengthUnit? _KruemmerDUnit;
+
+        [NotMapped]
+        private LengthUnit? _KruemmerLUnit;
+
+        [NotMapped]
+        private LengthUnit? _MittelteilDUnit;
+
+        [NotMapped]
+        private LengthUnit? _MittelteilLUnit;
+
+        [NotMapped]
+        private LengthUnit? _ResonanzLUnit;
+
         /// <summary>
         /// Gets the abgas t base unit.
         /// </summary>
@@ -138,6 +199,13 @@ namespace Data.Models
         public static UnitsNet.Units.LengthUnit MittelteilBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
 
         /// <summary>
+        /// Gets the mittelteil d base unit.
+        /// </summary>
+        /// <value>The mittelteil d base unit.</value>
+        [NotMapped]
+        public static UnitsNet.Units.LengthUnit MittelteilDBaseUnit { get => UnitsNet.Units.LengthUnit.Millimeter; }
+
+        /// <summary>
         /// Gets the mittelteil l base unit.
         /// </summary>
         /// <value>The mittelteil l base unit.</value>
@@ -162,7 +230,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The abgas t unit.</value>
         [NotMapped]
-        public UnitsNet.Units.TemperatureUnit? AbgasTUnit { get; set; }
+        public UnitsNet.Units.TemperatureUnit? AbgasTUnit
+        {
+            get => this._AbgasTUnit ?? AbgasTBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.AbgasT.Value,
+                this._AbgasTUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.AbgasT = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.AbgasT = convertedValue;
+                }
+
+                this._AbgasTUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the abgas v.
@@ -175,7 +265,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The abgas v unit.</value>
         [NotMapped]
-        public UnitsNet.Units.SpeedUnit? AbgasVUnit { get; set; }
+        public UnitsNet.Units.SpeedUnit? AbgasVUnit
+        {
+            get => this._AbgasVUnit ?? AbgasVBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.AbgasV.Value,
+                this._AbgasVUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.AbgasV = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.AbgasV = convertedValue;
+                }
+
+                this._AbgasVUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the auslass.
@@ -207,7 +319,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor d1 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? DiffusorD1Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorD1Unit
+        {
+            get => this._DiffusorD1Unit ?? DiffusorD1BaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DiffusorD1.Value,
+                this._DiffusorD1Unit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DiffusorD1 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DiffusorD1 = convertedValue;
+                }
+
+                this._DiffusorD1Unit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the diffusor d2.
@@ -220,7 +354,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor d2 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? DiffusorD2Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorD2Unit
+        {
+            get => this._DiffusorD2Unit ?? DiffusorD2BaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DiffusorD2.Value,
+                this._DiffusorD2Unit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DiffusorD2 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DiffusorD2 = convertedValue;
+                }
+
+                this._DiffusorD2Unit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the diffusor d3.
@@ -233,14 +389,58 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor d3 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? DiffusorD3Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorD3Unit
+        {
+            get => this._DiffusorD3Unit ?? DiffusorD3BaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DiffusorD3.Value,
+                this._DiffusorD3Unit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DiffusorD3 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DiffusorD3 = convertedValue;
+                }
+
+                this._DiffusorD3Unit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the diffusor d unit.
         /// </summary>
         /// <value>The diffusor d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? DiffusorDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorDUnit
+        {
+            get => this._DiffusorDUnit ?? DiffusorDBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DiffusorD.Value,
+                this._DiffusorDUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DiffusorD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DiffusorD = convertedValue;
+                }
+
+                this._DiffusorDUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the diffusor l.
@@ -259,7 +459,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor l1 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? DiffusorL1Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorL1Unit
+        {
+            get => this._DiffusorL1Unit ?? DiffusorL1BaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DiffusorL1.Value,
+                this._DiffusorL1Unit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DiffusorL1 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DiffusorL1 = convertedValue;
+                }
+
+                this._DiffusorL1Unit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the diffusor l2.
@@ -272,7 +494,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor l2 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? DiffusorL2Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorL2Unit
+        {
+            get => this._DiffusorL2Unit ?? DiffusorL2BaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DiffusorL2.Value,
+                this._DiffusorL2Unit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DiffusorL2 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DiffusorL2 = convertedValue;
+                }
+
+                this._DiffusorL2Unit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the diffusor l3.
@@ -285,14 +529,58 @@ namespace Data.Models
         /// </summary>
         /// <value>The diffusor l3 unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? DiffusorL3Unit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorL3Unit
+        {
+            get => this._DiffusorL3Unit ?? DiffusorL3BaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DiffusorL3.Value,
+                this._DiffusorL3Unit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DiffusorL3 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DiffusorL3 = convertedValue;
+                }
+
+                this._DiffusorL3Unit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the diffusor l unit.
         /// </summary>
         /// <value>The diffusor l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? DiffusorLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? DiffusorLUnit
+        {
+            get => this._DiffusorLUnit ?? DiffusorLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.DiffusorL.Value,
+                this._DiffusorLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.DiffusorL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.DiffusorL = convertedValue;
+                }
+
+                this._DiffusorLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the diffusor stage.
@@ -335,7 +623,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The endrohr d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? EndrohrDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? EndrohrDUnit
+        {
+            get => this._EndrohrDUnit ?? EndrohrDBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.EndrohrD.Value,
+                this._EndrohrDUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.EndrohrD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.EndrohrD = convertedValue;
+                }
+
+                this._EndrohrDUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the endrohr l.
@@ -348,7 +658,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The endrohr l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? EndrohrLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? EndrohrLUnit
+        {
+            get => this._EndrohrLUnit ?? EndrohrLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.EndrohrL.Value,
+                this._EndrohrLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.EndrohrL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.EndrohrL = convertedValue;
+                }
+
+                this._EndrohrLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the gegenkonus d.
@@ -361,7 +693,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The gegenkonus d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? GegenkonusDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? GegenkonusDUnit
+        {
+            get => this._GegenkonusDUnit ?? GegenkonusDBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.GegenkonusD.Value,
+                this._GegenkonusDUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.GegenkonusD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.GegenkonusD = convertedValue;
+                }
+
+                this._GegenkonusDUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the gegenkonus l.
@@ -374,7 +728,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The gegenkonus l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? GegenkonusLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? GegenkonusLUnit
+        {
+            get => this._GegenkonusLUnit ?? GegenkonusLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.GegenkonusL.Value,
+                this._GegenkonusLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.GegenkonusL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.GegenkonusL = convertedValue;
+                }
+
+                this._GegenkonusLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the gegen konus w.
@@ -393,7 +769,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The gesamt l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? GesamtLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? GesamtLUnit
+        {
+            get => this._GesamtLUnit ?? GesamtLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.GesamtL.Value,
+                this._GesamtLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.GesamtL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.GesamtL = convertedValue;
+                }
+
+                this._GesamtLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the kruemmer d.
@@ -406,7 +804,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The kruemmer d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? KruemmerDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? KruemmerDUnit
+        {
+            get => this._KruemmerDUnit ?? KruemmerDBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.KruemmerD.Value,
+                this._KruemmerDUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.KruemmerD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.KruemmerD = convertedValue;
+                }
+
+                this._KruemmerDUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the kruemmer f.
@@ -425,7 +845,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The kruemmer l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? KruemmerLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? KruemmerLUnit
+        {
+            get => this._KruemmerLUnit ?? KruemmerLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.KruemmerL.Value,
+                this._KruemmerLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.KruemmerL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.KruemmerL = convertedValue;
+                }
+
+                this._KruemmerLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the kruemmer w.
@@ -444,7 +886,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The mittelteil d unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? MittelteilDUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? MittelteilDUnit
+        {
+            get => this._MittelteilDUnit ?? MittelteilDBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.MittelteilD.Value,
+                this._MittelteilDUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.MittelteilD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.MittelteilD = convertedValue;
+                }
+
+                this._MittelteilDUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the mittelteil f.
@@ -463,7 +927,29 @@ namespace Data.Models
         /// </summary>
         /// <value>The mittelteil l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? MittelteilLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? MittelteilLUnit
+        {
+            get => this._MittelteilLUnit ?? MittelteilLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.MittelteilL.Value,
+                this._MittelteilLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.MittelteilL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.MittelteilL = convertedValue;
+                }
+
+                this._MittelteilLUnit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the resonanz l.
@@ -476,6 +962,28 @@ namespace Data.Models
         /// </summary>
         /// <value>The resonanz l unit.</value>
         [NotMapped]
-        public UnitsNet.Units.LengthUnit? ResonanzLUnit { get; set; }
+        public UnitsNet.Units.LengthUnit? ResonanzLUnit
+        {
+            get => this._ResonanzLUnit ?? ResonanzLBaseUnit;
+            set
+            {
+                UnitsNet.UnitConverter.TryConvert(
+                this.ResonanzL.Value,
+                this._ResonanzLUnit,
+                value,
+                out double convertedValue);
+
+                if (UnitSettings.Default.RoundOnUnitChange)
+                {
+                    this.ResonanzL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                }
+                else
+                {
+                    this.ResonanzL = convertedValue;
+                }
+
+                this._ResonanzLUnit = value;
+            }
+        }
     }
 }

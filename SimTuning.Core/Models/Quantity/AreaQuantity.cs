@@ -3,9 +3,9 @@
 namespace SimTuning.Core.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
-    using UnitsNet;
+    using UnitsNet.Units;
 
     /// <summary>
     /// AreaQuantity.
@@ -16,13 +16,20 @@ namespace SimTuning.Core.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AreaQuantity" /> class.
         /// </summary>
-        public AreaQuantity() : base()
+        public AreaQuantity()
+            : base()
         {
-            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Area);
-
-            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
+            var customAreaUnits = new List<Enum>()
             {
-                Add(new UnitListItem(unitValue));
+                AreaUnit.SquareMillimeter,
+                AreaUnit.SquareCentimeter,
+                AreaUnit.SquareDecimeter,
+                AreaUnit.SquareMeter,
+            };
+
+            foreach (Enum unitValue in customAreaUnits)
+            {
+                this.Add(new UnitListItem(unitValue));
             }
         }
     }

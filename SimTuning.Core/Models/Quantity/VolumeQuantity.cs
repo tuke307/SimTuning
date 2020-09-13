@@ -3,9 +3,9 @@
 namespace SimTuning.Core.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
-    using UnitsNet;
+    using UnitsNet.Units;
 
     /// <summary>
     /// VolumeQuantity.
@@ -16,13 +16,22 @@ namespace SimTuning.Core.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="VolumeQuantity" /> class.
         /// </summary>
-        public VolumeQuantity() : base()
+        public VolumeQuantity()
+            : base()
         {
-            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Volume);
-
-            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
+            var customVolumeUnits = new List<Enum>()
             {
-                Add(new UnitListItem(unitValue));
+                VolumeUnit.CubicMicrometer,
+                VolumeUnit.CubicMillimeter,
+                VolumeUnit.CubicCentimeter,
+                VolumeUnit.CubicDecimeter,
+                VolumeUnit.Milliliter,
+                VolumeUnit.Liter,
+            };
+
+            foreach (Enum unitValue in customVolumeUnits)
+            {
+                this.Add(new UnitListItem(unitValue));
             }
         }
     }

@@ -3,9 +3,9 @@
 namespace SimTuning.Core.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
-    using UnitsNet;
+    using UnitsNet.Units;
 
     /// <summary>
     /// DurationQuantity.
@@ -16,13 +16,20 @@ namespace SimTuning.Core.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="DurationQuantity" /> class.
         /// </summary>
-        public DurationQuantity() : base()
+        public DurationQuantity()
+            : base()
         {
-            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Duration);
-
-            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
+            var customDurationUnits = new List<Enum>()
             {
-                Add(new UnitListItem(unitValue));
+                DurationUnit.Millisecond,
+                DurationUnit.Second,
+                DurationUnit.Hour,
+                DurationUnit.Day,
+            };
+
+            foreach (Enum unitValue in customDurationUnits)
+            {
+                this.Add(new UnitListItem(unitValue));
             }
         }
     }

@@ -3,9 +3,9 @@
 namespace SimTuning.Core.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
-    using UnitsNet;
+    using UnitsNet.Units;
 
     /// <summary>
     /// LengthQuantity.
@@ -16,13 +16,22 @@ namespace SimTuning.Core.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="LengthQuantity" /> class.
         /// </summary>
-        public LengthQuantity() : base()
+        public LengthQuantity()
+            : base()
         {
-            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Length);
-
-            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
+            var customLengthUnits = new List<Enum>()
             {
-                Add(new UnitListItem(unitValue));
+                LengthUnit.Micrometer,
+                LengthUnit.Millimeter,
+                LengthUnit.Centimeter,
+                LengthUnit.Decimeter,
+                LengthUnit.Meter,
+                LengthUnit.Kilometer,
+            };
+
+            foreach (Enum unitValue in customLengthUnits)
+            {
+                this.Add(new UnitListItem(unitValue));
             }
         }
     }

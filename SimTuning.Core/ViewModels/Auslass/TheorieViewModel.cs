@@ -1,34 +1,31 @@
-﻿// project=SimTuning.Core, file=TheorieViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using Data;
-using Data.Models;
-using Microsoft.EntityFrameworkCore;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using SimTuning.Core.Models;
-using SimTuning.Core.ModuleLogic;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using UnitsNet.Units;
-
+﻿// project=SimTuning.Core, file=TheorieViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Auslass
 {
+    using Data;
+    using Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using SimTuning.Core.Models;
+    using SimTuning.Core.Models.Quantity;
+    using SimTuning.Core.ModuleLogic;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using UnitsNet.Units;
+
     /// <summary>
     /// Einlass-Theorie-ViewModel.
     /// </summary>
     /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class TheorieViewModel : MvxNavigationViewModel
     {
-        public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
-        public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
-        public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; }
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="TheorieViewModel"/> class.
+        /// Initializes a new instance of the <see cref="TheorieViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
@@ -38,12 +35,15 @@ namespace SimTuning.Core.ViewModels.Auslass
             this.AreaQuantityUnits = new AreaQuantity();
             this.LengthQuantityUnits = new LengthQuantity();
             this.SpeedQuantityUnits = new SpeedQuantity();
+            this.TemperatureQuantityUnits = new TemperatureQuantity();
 
-            this.UnitAbgasV = this.SpeedQuantityUnits.Where(x => x.UnitEnumValue.Equals(SpeedUnit.MeterPerSecond)).First();
-            this.UnitAuslassA = this.AreaQuantityUnits.Where(x => x.UnitEnumValue.Equals(AreaUnit.SquareCentimeter)).First();
-            this.UnitKruemmerD = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
-            this.UnitKruemmerL = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Centimeter)).First();
-            this.UnitResonanzL = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Centimeter)).First();
+            // Vehicle Creation
+            this.Vehicle = new VehiclesModel();
+            this.Vehicle.Motor = new MotorModel();
+            this.Vehicle.Motor.Auslass = new AuslassModel();
+            this.Vehicle.Motor.Auslass.Auspuff = new AuspuffModel();
+
+            this.ModAuspuff = new AuspuffModel();
 
             using (var db = new DatabaseContext())
             {
@@ -62,14 +62,6 @@ namespace SimTuning.Core.ViewModels.Auslass
         #region Methods
 
         /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
-        /// </summary>
-        public override void Prepare()
-        {
-        }
-
-        /// <summary>
         /// Initializes this instance.
         /// </summary>
         /// <returns>Initilisierung.</returns>
@@ -79,68 +71,33 @@ namespace SimTuning.Core.ViewModels.Auslass
         }
 
         /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+        }
+
+        /// <summary>
         /// Inserts the data.
         /// </summary>
         protected virtual void InsertData()
         {
             if (this.HelperVehicle.Motor.Auslass.FlaecheA.HasValue)
             {
-                this.AuslassA = this.HelperVehicle.Motor.Auslass.FlaecheA;
+                this.VehicleMotorAuslassFlaecheA = this.HelperVehicle.Motor.Auslass.FlaecheA;
+                this.RaisePropertyChanged(() => this.VehicleMotorAuslassFlaecheA);
             }
 
             if (this.HelperVehicle.Motor.ResonanzU.HasValue)
             {
-                this.ResonanzDrehzahl = this.HelperVehicle.Motor.ResonanzU;
+                this.VehicleMotorResonanzU = this.HelperVehicle.Motor.ResonanzU;
+                this.RaisePropertyChanged(() => this.VehicleMotorResonanzU);
             }
 
             if (this.HelperVehicle.Motor.Auslass.SteuerzeitSZ.HasValue)
             {
-                this.AusslassSteuerwinkel = this.HelperVehicle.Motor.Auslass.SteuerzeitSZ;
-            }
-        }
-
-        /// <summary>
-        /// Refreshes the kruemmer l.
-        /// </summary>
-        private void Refresh_KruemmerL()
-        {
-            if (this.KruemmerD.HasValue)
-            {
-                if (!this.DrehmomentF.HasValue)
-                {
-                    this.DrehmomentF = 9;
-                }
-
-                this.KruemmerL = AuslassLogic.GetManifoldLength(
-                     UnitsNet.UnitConverter.Convert(this.KruemmerD.Value,
-                     this.UnitKruemmerD.UnitEnumValue,
-                     LengthUnit.Millimeter),
-
-                     this.DrehmomentF.Value,
-
-                     0);
-            }
-        }
-
-        /// <summary>
-        /// Refreshes the kruemmer d.
-        /// </summary>
-        private void Refresh_KruemmerD()
-        {
-            if (this.AuslassA.HasValue)
-            {
-                this.KruemmerSpannneD =
-                    AuslassLogic.GetManifoldDiameter(
-                    UnitsNet.UnitConverter.Convert(this.AuslassA.Value,
-                    this.UnitAuslassA.UnitEnumValue,
-                    AreaUnit.SquareCentimeter), 10)
-                    +
-                    " - "
-                    +
-                    AuslassLogic.GetManifoldDiameter(
-                    UnitsNet.UnitConverter.Convert(this.AuslassA.Value,
-                    this.UnitAuslassA.UnitEnumValue,
-                    AreaUnit.SquareCentimeter), 20);
+                this.VehicleMotorAuslassSteuerzeitSZ = this.HelperVehicle.Motor.Auslass.SteuerzeitSZ;
+                this.RaisePropertyChanged(() => this.VehicleMotorAuslassSteuerzeitSZ);
             }
         }
 
@@ -149,9 +106,52 @@ namespace SimTuning.Core.ViewModels.Auslass
         /// </summary>
         private void Refresh_AuspuffGeschwindigkeit()
         {
-            if (this.ModAbgasT.HasValue)
+            if (this.ModAuspuffAbgasT.HasValue)
             {
-                this.AbgasV = AuslassLogic.GetGasVelocity(this.ModAbgasT.Value);
+                this.ModAuspuffAbgasV = AuslassLogic.GetGasVelocity(this.ModAuspuffAbgasT.Value);
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the kruemmer d.
+        /// </summary>
+        private void Refresh_KruemmerD()
+        {
+            if (this.VehicleMotorAuslassFlaecheA.HasValue)
+            {
+                this.KruemmerSpannneD =
+                    AuslassLogic.GetManifoldDiameter(
+                    UnitsNet.UnitConverter.Convert(
+                        this.VehicleMotorAuslassFlaecheA.Value,
+                        this.VehicleMotorAuslassFlaecheAUnit.UnitEnumValue,
+                        AreaUnit.SquareCentimeter), 10)
+                    +
+                    " - "
+                    +
+                    AuslassLogic.GetManifoldDiameter(
+                    UnitsNet.UnitConverter.Convert(
+                        this.VehicleMotorAuslassFlaecheA.Value,
+                        this.VehicleMotorAuslassFlaecheAUnit.UnitEnumValue,
+                        AreaUnit.SquareCentimeter), 20);
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the kruemmer l.
+        /// </summary>
+        private void Refresh_KruemmerL()
+        {
+            if (this.VehicleMotorAuslassAuspuffKruemmerD.HasValue && this.VehicleMotorAuslassAuspuffKruemmerF.HasValue)
+            {
+                this.VehicleMotorAuslassAuspuffKruemmerL = AuslassLogic.GetManifoldLength(
+                     UnitsNet.UnitConverter.Convert(
+                         this.VehicleMotorAuslassAuspuffKruemmerD.Value,
+                         this.VehicleMotorAuslassAuspuffKruemmerDUnit.UnitEnumValue,
+                         LengthUnit.Millimeter),
+                     this.VehicleMotorAuslassAuspuffKruemmerF.Value,
+                     0);
+
+                this.RaisePropertyChanged(() => this.VehicleMotorAuslassAuspuffKruemmerL);
             }
         }
 
@@ -160,9 +160,10 @@ namespace SimTuning.Core.ViewModels.Auslass
         /// </summary>
         private void Refresh_Resonanzlaenge()
         {
-            if (this.AusslassSteuerwinkel.HasValue && this.AbgasT.HasValue && this.ResonanzDrehzahl.HasValue)
+            if (this.VehicleMotorAuslassSteuerzeitSZ.HasValue && this.VehicleMotorAuslassAuspuffAbgasT.HasValue && this.VehicleMotorResonanzU.HasValue)
             {
-                this.ResonanzL = AuslassLogic.GetResonanceLength(this.AusslassSteuerwinkel.Value, this.AbgasT.Value, this.ResonanzDrehzahl.Value);
+                this.VehicleMotorAuslassAuspuffResonanzL = AuslassLogic.GetResonanceLength(this.VehicleMotorAuslassSteuerzeitSZ.Value, this.VehicleMotorAuslassAuspuffAbgasT.Value, this.VehicleMotorResonanzU.Value);
+                this.RaisePropertyChanged(() => this.VehicleMotorAuslassAuspuffResonanzL);
             }
         }
 
@@ -176,201 +177,406 @@ namespace SimTuning.Core.ViewModels.Auslass
 
         #endregion Commands
 
-        #region Hilfsdaten
-
-        private ObservableCollection<VehiclesModel> _helperVehicles;
-
-        public ObservableCollection<VehiclesModel> HelperVehicles
-        {
-            get => _helperVehicles;
-            set { SetProperty(ref _helperVehicles, value); }
-        }
-
         private VehiclesModel _helperVehicle;
-
-        public VehiclesModel HelperVehicle
-        {
-            get => _helperVehicle;
-            set { SetProperty(ref _helperVehicle, value); }
-        }
-
-        #endregion Hilfsdaten
+        private ObservableCollection<VehiclesModel> _helperVehicles;
 
         private string _kruemmerSpannneD;
 
+        private AuspuffModel _modAuspuff;
+        private VehiclesModel _vehicle;
+
+        /// <summary>
+        /// Gets the area quantity units.
+        /// </summary>
+        /// <value>The area quantity units.</value>
+        public ObservableCollection<UnitListItem> AreaQuantityUnits { get; }
+
+        /// <summary>
+        /// Gets or sets the helper vehicle.
+        /// </summary>
+        /// <value>The helper vehicle.</value>
+        public VehiclesModel HelperVehicle
+        {
+            get => _helperVehicle;
+            set => SetProperty(ref _helperVehicle, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the helper vehicles.
+        /// </summary>
+        /// <value>The helper vehicles.</value>
+        public ObservableCollection<VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set => SetProperty(ref _helperVehicles, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the kruemmer spannne d.
+        /// </summary>
+        /// <value>The kruemmer spannne d.</value>
         public string KruemmerSpannneD
         {
-            get => _kruemmerSpannneD;
-            set { SetProperty(ref _kruemmerSpannneD, value); }
+            get => this._kruemmerSpannneD;
+            set => this.SetProperty(ref this._kruemmerSpannneD, value);
         }
 
-        private UnitListItem _unitAuslassA;
+        /// <summary>
+        /// Gets the length quantity units.
+        /// </summary>
+        /// <value>The length quantity units.</value>
+        public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
-        public UnitListItem UnitAuslassA
+        /// <summary>
+        /// Gets or sets the mod auspuff.
+        /// </summary>
+        /// <value>The mod auspuff.</value>
+        public AuspuffModel ModAuspuff
         {
-            get => _unitAuslassA;
+            get => this._modAuspuff;
+            set => this.SetProperty(ref this._modAuspuff, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the mod abgas t.
+        /// </summary>
+        /// <value>The mod abgas t.</value>
+        public double? ModAuspuffAbgasT
+        {
+            get => this.ModAuspuff?.AbgasT;
             set
             {
-                AuslassA = Business.Functions.UpdateValue(AuslassA, _unitAuslassA, value);
+                if (this.ModAuspuff == null)
+                {
+                    return;
+                }
 
-                SetProperty(ref _unitAuslassA, value);
+                this.ModAuspuff.AbgasT = value;
+                this.Refresh_AuspuffGeschwindigkeit();
             }
         }
 
-        private double? _auslassA;
-
-        public double? AuslassA
+        /// <summary>
+        /// Gets or sets the mod auspuff abgas t unit.
+        /// </summary>
+        /// <value>The mod auspuff abgas t unit.</value>
+        public UnitListItem ModAuspuffAbgasTUnit
         {
-            get => _auslassA;
-            set { SetProperty(ref _auslassA, value); }
-        }
-
-        private UnitListItem _unitKruemmerD;
-
-        public UnitListItem UnitKruemmerD
-        {
-            get => _unitKruemmerD;
+            get => this.TemperatureQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.ModAuspuff.AbgasTUnit));
             set
             {
-                KruemmerD = Business.Functions.UpdateValue(KruemmerD, _unitKruemmerD, value);
+                if (this.ModAuspuff == null)
+                {
+                    return;
+                }
 
-                SetProperty(ref _unitKruemmerD, value);
+                this.ModAuspuff.AbgasTUnit = (UnitsNet.Units.TemperatureUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.ModAuspuffAbgasT);
             }
         }
 
-        private double? _kruemmerD;
-
-        public double? KruemmerD
+        /// <summary>
+        /// Gets or sets the mod abgas v.
+        /// </summary>
+        /// <value>The mod abgas v.</value>
+        public double? ModAuspuffAbgasV
         {
-            get => _kruemmerD;
+            get => this.ModAuspuff?.AbgasV;
             set
             {
-                SetProperty(ref _kruemmerD, value);
-                Refresh_KruemmerL();
+                if (this.ModAuspuff == null)
+                {
+                    return;
+                }
+
+                this.ModAuspuff.AbgasV = value;
             }
         }
 
-        private double? _drehmomentF;
-
-        public double? DrehmomentF
+        /// <summary>
+        /// Gets or sets the mod abgas v unit.
+        /// </summary>
+        /// <value>The mod abgas v unit.</value>
+        public UnitListItem ModAuspuffAbgasVUnit
         {
-            get => _drehmomentF;
+            get => this.SpeedQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.ModAuspuff.AbgasVUnit));
             set
             {
-                SetProperty(ref _drehmomentF, value);
-                Refresh_KruemmerL();
+                if (this.ModAuspuff == null)
+                {
+                    return;
+                }
+
+                this.ModAuspuff.AbgasVUnit = (UnitsNet.Units.SpeedUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.ModAuspuffAbgasV);
             }
         }
 
-        private UnitListItem _unitKruemmerL;
+        /// <summary>
+        /// Gets the speed quantity units.
+        /// </summary>
+        /// <value>The speed quantity units.</value>
+        public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; }
 
-        public UnitListItem UnitKruemmerL
+        /// <summary>
+        /// Gets the temperature quantity units.
+        /// </summary>
+        /// <value>The temperature quantity units.</value>
+        public ObservableCollection<UnitListItem> TemperatureQuantityUnits { get; }
+
+        /// <summary>
+        /// Gets or sets the vehicle.
+        /// </summary>
+        /// <value>The vehicle.</value>
+        public VehiclesModel Vehicle
         {
-            get => _unitKruemmerL;
+            get => this._vehicle;
+            set => this.SetProperty(ref this._vehicle, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass auspuff abgas t.
+        /// </summary>
+        /// <value>The vehicle motor auslass auspuff abgas t.</value>
+        public double? VehicleMotorAuslassAuspuffAbgasT
+        {
+            get => this.Vehicle?.Motor?.Auslass?.Auspuff?.AbgasT;
             set
             {
-                KruemmerL = Business.Functions.UpdateValue(KruemmerL, _unitKruemmerL, value);
+                if (this.Vehicle?.Motor?.Auslass?.Auspuff == null)
+                {
+                    return;
+                }
 
-                SetProperty(ref _unitKruemmerL, value);
+                this.Vehicle.Motor.Auslass.Auspuff.AbgasT = value;
+                this.Refresh_Resonanzlaenge();
             }
         }
 
-        private double? _kruemmerL;
-
-        public double? KruemmerL
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass auspuff abgas t unit.
+        /// </summary>
+        /// <value>The vehicle motor auslass auspuff abgas t unit.</value>
+        public UnitListItem VehicleMotorAuslassAuspuffAbgasTUnit
         {
-            get => _kruemmerL;
-            set { SetProperty(ref _kruemmerL, value); }
-        }
-
-        private double? _modAbgasT;
-
-        public double? ModAbgasT
-        {
-            get => _modAbgasT;
+            get => this.TemperatureQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.Auspuff?.AbgasTUnit));
             set
             {
-                SetProperty(ref _modAbgasT, value);
-                Refresh_AuspuffGeschwindigkeit();
+                if (this.Vehicle?.Motor?.Auslass?.Auspuff == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.Auslass.Auspuff.AbgasTUnit = (UnitsNet.Units.TemperatureUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.VehicleMotorAuslassAuspuffAbgasT);
             }
         }
 
-        private UnitListItem _unitAbgasV;
-
-        public UnitListItem UnitAbgasV
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass auspuff kruemmer d.
+        /// </summary>
+        /// <value>The vehicle motor auslass auspuff kruemmer d.</value>
+        public double? VehicleMotorAuslassAuspuffKruemmerD
         {
-            get => _unitAbgasV;
+            get => this.Vehicle?.Motor?.Auslass?.Auspuff?.KruemmerD;
             set
             {
-                AbgasV = Business.Functions.UpdateValue(AbgasV, _unitAbgasV, value);
+                if (this.Vehicle?.Motor?.Auslass?.Auspuff == null)
+                {
+                    return;
+                }
 
-                SetProperty(ref _unitAbgasV, value);
+                this.Vehicle.Motor.Auslass.Auspuff.KruemmerD = value;
+                this.Refresh_KruemmerL();
             }
         }
 
-        private double? _abgasV;
-
-        public double? AbgasV
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass auspuff kruemmer d unit.
+        /// </summary>
+        /// <value>The vehicle motor auslass auspuff kruemmer d unit.</value>
+        public UnitListItem VehicleMotorAuslassAuspuffKruemmerDUnit
         {
-            get => _abgasV;
-            set { SetProperty(ref _abgasV, value); }
-        }
-
-        private double? _abgasT;
-
-        public double? AbgasT
-        {
-            get => _abgasT;
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.Auspuff?.KruemmerDUnit));
             set
             {
-                SetProperty(ref _abgasT, value);
-                Refresh_Resonanzlaenge();
+                if (this.Vehicle?.Motor?.Auslass?.Auspuff == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.Auslass.Auspuff.KruemmerDUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.VehicleMotorAuslassAuspuffKruemmerD);
             }
         }
 
-        private double? _ausslassSteuerwinkel;
-
-        public double? AusslassSteuerwinkel
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass auspuff kruemmer f.
+        /// </summary>
+        /// <value>The vehicle motor auslass auspuff kruemmer f.</value>
+        public double? VehicleMotorAuslassAuspuffKruemmerF
         {
-            get => _ausslassSteuerwinkel;
+            get => this.Vehicle?.Motor?.Auslass?.Auspuff?.KruemmerF;
             set
             {
-                SetProperty(ref _ausslassSteuerwinkel, value);
-                Refresh_Resonanzlaenge();
+                if (this.Vehicle?.Motor?.Auslass?.Auspuff == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.Auslass.Auspuff.KruemmerF = value;
+                this.Refresh_KruemmerL();
             }
         }
 
-        private double? _resonanzDrehzahl;
-
-        public double? ResonanzDrehzahl
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass auspuff kruemmer l.
+        /// </summary>
+        /// <value>The vehicle motor auslass auspuff kruemmer l.</value>
+        public double? VehicleMotorAuslassAuspuffKruemmerL
         {
-            get => _resonanzDrehzahl;
+            get => this.Vehicle?.Motor?.Auslass?.Auspuff?.KruemmerL;
             set
             {
-                SetProperty(ref _resonanzDrehzahl, value);
-                Refresh_Resonanzlaenge();
+                if (this.Vehicle?.Motor?.Auslass?.Auspuff == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.Auslass.Auspuff.KruemmerL = value;
             }
         }
 
-        private UnitListItem _unitResonanzL;
-
-        public UnitListItem UnitResonanzL
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass auspuff kruemmer ld unit.
+        /// </summary>
+        /// <value>The vehicle motor auslass auspuff kruemmer ld unit.</value>
+        public UnitListItem VehicleMotorAuslassAuspuffKruemmerLUnit
         {
-            get => _unitAuslassA;
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.Auspuff?.KruemmerLUnit));
             set
             {
-                ResonanzL = Business.Functions.UpdateValue(ResonanzL, _unitResonanzL, value);
+                if (this.Vehicle?.Motor?.Auslass?.Auspuff == null)
+                {
+                    return;
+                }
 
-                SetProperty(ref _unitResonanzL, value);
+                this.Vehicle.Motor.Auslass.Auspuff.KruemmerLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.VehicleMotorAuslassAuspuffKruemmerL);
             }
         }
 
-        private double? _resonanzL;
-
-        public double? ResonanzL
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass auspuff resonanz l.
+        /// </summary>
+        /// <value>The vehicle motor auslass auspuff resonanz l.</value>
+        public double? VehicleMotorAuslassAuspuffResonanzL
         {
-            get => _resonanzL;
-            set { SetProperty(ref _resonanzL, value); }
+            get => this.Vehicle?.Motor?.Auslass?.Auspuff?.ResonanzL;
+            set
+            {
+                if (this.Vehicle?.Motor?.Auslass?.Auspuff == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.Auslass.Auspuff.ResonanzL = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass auspuff resonanz l unit.
+        /// </summary>
+        /// <value>The vehicle motor auslass auspuff resonanz l unit.</value>
+        public UnitListItem VehicleMotorAuslassAuspuffResonanzLUnit
+        {
+            get => this.LengthQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.Auspuff?.ResonanzLUnit));
+            set
+            {
+                if (this.Vehicle?.Motor?.Auslass?.Auspuff == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.Auslass.Auspuff.ResonanzLUnit = (UnitsNet.Units.LengthUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.VehicleMotorAuslassAuspuffResonanzL);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass flaeche a.
+        /// </summary>
+        /// <value>The vehicle motor auslass flaeche a.</value>
+        public double? VehicleMotorAuslassFlaecheA
+        {
+            get => this.Vehicle?.Motor?.Auslass?.FlaecheA;
+            set
+            {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
+
+                this.Refresh_KruemmerD();
+                this.Vehicle.Motor.Auslass.FlaecheA = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass flaeche a unit.
+        /// </summary>
+        /// <value>The vehicle motor auslass flaeche a unit.</value>
+        public UnitListItem VehicleMotorAuslassFlaecheAUnit
+        {
+            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.Motor?.Auslass?.FlaecheAUnit));
+            set
+            {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.Auslass.FlaecheAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+                this.RaisePropertyChanged(() => this.VehicleMotorAuslassFlaecheA);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor auslass steuerzeit sz.
+        /// </summary>
+        /// <value>The vehicle motor auslass steuerzeit sz.</value>
+        public double? VehicleMotorAuslassSteuerzeitSZ
+        {
+            get => this.Vehicle?.Motor?.Auslass?.SteuerzeitSZ;
+            set
+            {
+                if (this.Vehicle?.Motor?.Auslass == null)
+                {
+                    return;
+                }
+
+                this.Refresh_Resonanzlaenge();
+                this.Vehicle.Motor.Auslass.SteuerzeitSZ = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vehicle motor resonanz u.
+        /// </summary>
+        /// <value>The vehicle motor resonanz u.</value>
+        public double? VehicleMotorResonanzU
+        {
+            get => this.Vehicle?.Motor?.ResonanzU;
+            set
+            {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
+
+                this.Refresh_Resonanzlaenge();
+                this.Vehicle.Motor.ResonanzU = value;
+            }
         }
 
         #endregion Values

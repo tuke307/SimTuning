@@ -2,6 +2,8 @@
 // tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels
 {
+    using Data;
+    using Microsoft.EntityFrameworkCore;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
@@ -15,6 +17,8 @@ namespace SimTuning.Forms.UI.ViewModels
     using SimTuning.Forms.UI.ViewModels.Home;
     using SimTuning.Forms.UI.ViewModels.Motor;
     using SimTuning.Forms.UI.ViewModels.Tuning;
+    using System;
+    using System.IO;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -47,6 +51,28 @@ namespace SimTuning.Forms.UI.ViewModels
 
         #region Methods
 
+        public override Task Initialize()
+        {
+            _ = Functions.CheckAndRequestStorageReadPermission();
+            _ = Functions.CheckAndRequestStorageWritePermission();
+
+            // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
+            SimTuning.Core.Constants.FileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            Data.Constants.DatabasePath = Path.Combine(SimTuning.Core.Constants.FileDirectory, Data.Constants.DatabaseName);
+
+            if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
+            {
+                Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
+            }
+
+            using (var db = new DatabaseContext())
+            {
+                db.Database.Migrate();
+            }
+
+            return base.Initialize();
+        }
+
         /// <summary>
         /// Views the appeared.
         /// </summary>
@@ -54,7 +80,8 @@ namespace SimTuning.Forms.UI.ViewModels
         {
             base.ViewAppeared();
 
-            this.LoginUserCommand.Execute();
+            // TODO: FIX configuration manager is not supported!!!!
+            //this.LoginUserCommand.Execute();
         }
 
         /// <summary>

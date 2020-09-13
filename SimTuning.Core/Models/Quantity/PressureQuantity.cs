@@ -3,9 +3,9 @@
 namespace SimTuning.Core.Models.Quantity
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
-    using UnitsNet;
+    using UnitsNet.Units;
 
     /// <summary>
     /// PressureQuantity.
@@ -16,13 +16,26 @@ namespace SimTuning.Core.Models.Quantity
         /// <summary>
         /// Initializes a new instance of the <see cref="PressureQuantity" /> class.
         /// </summary>
-        public PressureQuantity() : base()
+        public PressureQuantity()
+            : base()
         {
-            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Pressure);
-
-            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
+            var customPressureUnits = new List<Enum>()
             {
-                Add(new UnitListItem(unitValue));
+                PressureUnit.Millibar,
+                PressureUnit.Bar,
+                PressureUnit.Kilobar,
+                PressureUnit.Megabar,
+
+                PressureUnit.Millipascal,
+                PressureUnit.Pascal,
+                PressureUnit.Kilopascal,
+                PressureUnit.Hectopascal,
+                PressureUnit.Megapascal,
+            };
+
+            foreach (Enum unitValue in customPressureUnits)
+            {
+                this.Add(new UnitListItem(unitValue));
             }
         }
     }

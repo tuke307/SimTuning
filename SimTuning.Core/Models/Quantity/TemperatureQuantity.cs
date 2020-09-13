@@ -3,12 +3,12 @@
 namespace SimTuning.Core.Models.Quantity
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
-    using UnitsNet;
+    using UnitsNet.Units;
 
     /// <summary>
-    /// TemperatureQuantity
+    /// TemperatureQuantity.
     /// </summary>
     /// <seealso cref="System.Collections.ObjectModel.ObservableCollection{SimTuning.Core.UnitListItem}" />
     public class TemperatureQuantity : ObservableCollection<UnitListItem>
@@ -16,13 +16,19 @@ namespace SimTuning.Core.Models.Quantity
         /// <summary>
         /// Initializes a new instance of the <see cref="TemperatureQuantity" /> class.
         /// </summary>
-        public TemperatureQuantity() : base()
+        public TemperatureQuantity()
+            : base()
         {
-            QuantityInfo quantityInfo = UnitsNet.Quantity.GetInfo(QuantityType.Temperature);
-
-            foreach (Enum unitValue in quantityInfo.UnitInfos.Select(x => x.Value) /*quantityInfo.Units*/)
+            var customTemperatureUnits = new List<Enum>()
             {
-                Add(new UnitListItem(unitValue));
+                TemperatureUnit.DegreeCelsius,
+                TemperatureUnit.DegreeFahrenheit,
+                TemperatureUnit.Kelvin,
+            };
+
+            foreach (Enum unitValue in customTemperatureUnits)
+            {
+                this.Add(new UnitListItem(unitValue));
             }
         }
     }
