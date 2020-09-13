@@ -1,12 +1,12 @@
-﻿// project=API, file=Login.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=API, file=Login.cs, creation=2020:6:28 Copyright (c) 2020 tuke productions. All
+// rights reserved.
 namespace API
 {
+    using SimTuning.Core.Models;
     using System;
     using System.Collections.Generic;
     using System.Security;
     using System.Threading.Tasks;
-    using SimTuning.Core.Models;
     using WordPressPCL.Models;
 
     /// <summary>
@@ -20,17 +20,21 @@ namespace API
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
         /// <returns>UserModel userModel, output messages for user.</returns>
-        public static async Task<(UserModel, List<string>)> UserLoginAsync(string email = null, SecureString password = null)
+        public static async Task<(WordPressPCL.Models.User, WooCommerceNET.WooCommerce.Legacy.Order, bool, bool, List<string>)> UserLoginAsync(string email = null, SecureString password = null)
         {
             // default
-            UserModel userModel = new UserModel();
+            WooCommerceNET.WooCommerce.Legacy.Order order = null;
+            WordPressPCL.Models.User user = null;
+            bool licenseValid = false;
+            bool userValid = false;
+
             List<string> messages = new List<string>();
 
             // admin start
             if (email == "admin123")
             {
-                userModel.LicenseValid = true;
-                userModel.UserValid = true;
+                licenseValid = true;
+                userValid = true;
                 messages.Add("ADMIN LOGIN");
                 goto Finish;
             }
@@ -64,11 +68,11 @@ namespace API
             }
 
             // User-Daten von Wordpress holen
-            userModel.User = await WordPress.UserAccount(email, password).ConfigureAwait(true);
-            if (userModel.User != null)
+            user = await WordPress.UserAccount(email, password).ConfigureAwait(true);
+            if (user != null)
             {
                 messages.Add("Erfolgreich eingeloggt");
-                userModel.UserValid = true;
+                userValid = true;
             }
             else
             {
@@ -76,11 +80,11 @@ namespace API
                 goto Finish;
             }
 
-            userModel.Order = await WooCommerce.UserLicense(userModel.User.Id).ConfigureAwait(true);
-            if (userModel.Order != null)
+            order = await WooCommerce.UserLicense(user.Id).ConfigureAwait(true);
+            if (order != null)
             {
                 messages.Add("PRO Version");
-                userModel.LicenseValid = true;
+                licenseValid = true;
             }
             else
             {
@@ -91,7 +95,7 @@ namespace API
             SimTuning.Core.Business.Functions.SaveLoginCredentials(email, password);
 
         Finish:
-            return (userModel, messages);
+            return (user, order, userValid, licenseValid, messages);
         }
     }
 }

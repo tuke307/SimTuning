@@ -51,10 +51,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(UserModel _user)
+        /// <param name="">The user.</param>
+        public override void Prepare()
         {
-            base.Prepare(_user);
+            base.Prepare();
         }
 
         /// <summary>
@@ -63,9 +63,12 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         protected new async Task ConnectUser()
         {
             var result = await API.Login.UserLoginAsync(email: this.Email, password: Core.Business.Converts.StringToSecureString(this.Password)).ConfigureAwait(true);
-            this.User = result.Item1;
+            SimTuning.Core.UserSettings.User = result.Item1;
+            SimTuning.Core.UserSettings.Order = result.Item2;
+            SimTuning.Core.UserSettings.UserValid = result.Item3;
+            SimTuning.Core.UserSettings.LicenseValid = result.Item4;
 
-            Functions.ShowSnackbarDialog(result.Item2);
+            Functions.ShowSnackbarDialog(result.Item5);
         }
 
         /// <summary>

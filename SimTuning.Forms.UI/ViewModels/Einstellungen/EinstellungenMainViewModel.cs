@@ -31,8 +31,8 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// </summary>
         public override void ViewAppearing()
         {
-            this._navigationService.Navigate<EinstellungenVehiclesViewModel, UserModel>(this.User);
-            this._navigationService.Navigate<EinstellungenKontoViewModel, UserModel>(this.User);
+            this._navigationService.Navigate<EinstellungenVehiclesViewModel>();
+            this._navigationService.Navigate<EinstellungenKontoViewModel>();
         }
     }
 }

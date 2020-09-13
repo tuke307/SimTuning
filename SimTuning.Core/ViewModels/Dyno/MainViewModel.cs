@@ -11,11 +11,9 @@ namespace SimTuning.Core.ViewModels.Dyno
     /// <summary>
     /// Dyno-Main-ViewModel.
     /// </summary>
-    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel{SimTuning.Core.Models.UserModel}" />
-    public class MainViewModel : MvxNavigationViewModel<SimTuning.Core.Models.UserModel>
-    {
-        public SimTuning.Core.Models.UserModel User { get; protected set; }
 
+    public class MainViewModel : MvxNavigationViewModel
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel" /> class.
         /// </summary>
@@ -40,10 +38,9 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(SimTuning.Core.Models.UserModel _user)
+        /// <param name="">The user.</param>
+        public override void Prepare()
         {
-            this.User = _user;
         }
 
         #endregion Methods

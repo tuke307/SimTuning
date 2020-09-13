@@ -5,6 +5,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using SimTuning.Core;
     using SimTuning.Core.Models;
     using SimTuning.Forms.UI.Business;
     using System;
@@ -43,10 +44,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(UserModel _user)
+        /// <param name="">The user.</param>
+        public override void Prepare()
         {
-            base.Prepare(_user);
+            base.Prepare();
         }
 
         /// <summary>
@@ -102,12 +103,12 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// </returns>
         private bool CanExecute()
         {
-            if (!this.User.LicenseValid)
+            if (!UserSettings.LicenseValid)
             {
                 Functions.ShowSnackbarDialog(this.rm.GetString("MES_PRO", CultureInfo.CurrentCulture));
             }
 
-            return this.User.LicenseValid;
+            return UserSettings.LicenseValid;
         }
     }
 }

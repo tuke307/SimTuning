@@ -21,8 +21,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
     /// <summary>
     /// VehiclesViewModel.
     /// </summary>
-    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel{SimTuning.Core.Models.UserModel}" />
-    public class VehiclesViewModel : MvxNavigationViewModel<UserModel>
+
+    public class VehiclesViewModel : MvxNavigationViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VehiclesViewModel" /> class.
@@ -67,11 +67,9 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(UserModel _user)
+        /// <param name="">The user.</param>
+        public override void Prepare()
         {
-            this.User = _user;
-
             base.Prepare();
         }
 
@@ -371,12 +369,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// </summary>
         /// <value>The speed quantity units.</value>
         public ObservableCollection<UnitListItem> SpeedQuantityUnits { get; }
-
-        /// <summary>
-        /// Gets or sets the user.
-        /// </summary>
-        /// <value>The user.</value>
-        public UserModel User { get; protected set; }
 
         /// <summary>
         /// Gets or sets the vehicle.

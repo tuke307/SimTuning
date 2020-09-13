@@ -118,7 +118,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
 
             this.MediaManager.PositionChanged += this.Current_PositionChanged;
-            await this.MediaManager.Play(SimTuning.Core.Constants.AudioFilePath).ConfigureAwait(true);
+            await this.MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
             this.StopCommand.Execute();
 
             //stream.Dispose();
@@ -148,7 +148,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <returns></returns>
         protected Stream ReloadImageAudioSpectrogram()
         {
-            SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Core.Constants.AudioFilePath);
+            SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Core.GeneralSettings.AudioFilePath);
             Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(spec);
 
             return stream;
@@ -170,17 +170,17 @@ namespace SimTuning.Core.ViewModels.Dyno
             //FileStream fsSource = new FileStream(SimTuning.Core.Constants.AudioFilePath, FileMode.Open, FileAccess.Read);
 
             if (cutStart > 0)
-                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(cutStart), TimeSpan.FromSeconds(0), outStream: ref cuttedFileStream, inPath: SimTuning.Core.Constants.AudioFilePath);
+                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(cutStart), TimeSpan.FromSeconds(0), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioFilePath);
             else if (cutEnd > 0)
-                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(cutEnd), outStream: ref cuttedFileStream, inPath: SimTuning.Core.Constants.AudioFilePath);
+                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(cutEnd), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioFilePath);
 
             //löscht alte Datei
-            File.Delete(SimTuning.Core.Constants.AudioFilePath);
+            File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
 
             //neue gecuttete temp-Datei für alte Datei ersetzen
             //File.Create(tempFile, SimTuning.Core.Constants.AudioFilePath);
 
-            using (var fileStream = File.Create(SimTuning.Core.Constants.AudioFilePath))
+            using (var fileStream = File.Create(SimTuning.Core.GeneralSettings.AudioFilePath))
             {
                 cuttedFileStream.Seek(0, SeekOrigin.Begin);
                 cuttedFileStream.CopyTo(fileStream);

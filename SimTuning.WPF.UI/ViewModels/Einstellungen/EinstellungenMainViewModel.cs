@@ -42,10 +42,10 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(SimTuning.Core.Models.UserModel _user)
+        /// <param name="">The user.</param>
+        public override void Prepare()
         {
-            base.Prepare(_user);
+            base.Prepare();
         }
 
         /// <summary>
@@ -53,11 +53,11 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// </summary>
         public override void ViewAppearing()
         {
-            this._navigationService.Navigate<EinstellungenAussehenViewModel, UserModel>(User);
+            this._navigationService.Navigate<EinstellungenAussehenViewModel>();
             this._navigationService.Navigate<EinstellungenUpdateViewModel>();
-            this._navigationService.Navigate<EinstellungenVehiclesViewModel, UserModel>(User);
-            this._navigationService.Navigate<EinstellungenKontoViewModel, UserModel>(User);
-            this._navigationService.Navigate<EinstellungenApplicationViewModel, UserModel>(User);
+            this._navigationService.Navigate<EinstellungenVehiclesViewModel>();
+            this._navigationService.Navigate<EinstellungenKontoViewModel>();
+            this._navigationService.Navigate<EinstellungenApplicationViewModel>();
 
             this.EinstellungenTabIndex = 0;
         }

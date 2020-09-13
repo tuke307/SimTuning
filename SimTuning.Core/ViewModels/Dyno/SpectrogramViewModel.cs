@@ -134,7 +134,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             Normal_Refresh = true;
             Badge_Refresh = false;
 
-            SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Core.Constants.AudioFilePath, Quality, Intensity, Colormap, Frequenzbeginn / 60, Frequenzende / 60);
+            SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Core.GeneralSettings.AudioFilePath, Quality, Intensity, Colormap, Frequenzbeginn / 60, Frequenzende / 60);
             Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(spec);
 
             return stream;

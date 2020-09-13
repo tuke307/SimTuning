@@ -2,17 +2,10 @@
 // productions. All rights reserved.
 namespace SimTuning.WPF.UI
 {
-    using Data;
     using MediaManager;
-    using Microsoft.EntityFrameworkCore;
-    using MvvmCross;
     using MvvmCross.IoC;
     using MvvmCross.Plugin;
     using MvvmCross.ViewModels;
-    using SimTuning.Core.Models;
-    using System;
-    using System.IO;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// WPF-Specific App Start.
@@ -22,23 +15,12 @@ namespace SimTuning.WPF.UI
     {
         public override void Initialize()
         {
-            SimTuning.Core.Constants.FileDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning"); // appdata-local-simtunig
-            Data.Constants.DatabasePath = Path.Combine(SimTuning.Core.Constants.FileDirectory, Data.Constants.DatabaseName);
-
-            if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
-            {
-                Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
-            }
-
-            using (var db = new DatabaseContext())
-            {
-                db.Database.Migrate();
-            }
-
             this.CreatableTypes()
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
+
+            MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
 
 #if NET472
             CrossMediaManager.Current.Init();

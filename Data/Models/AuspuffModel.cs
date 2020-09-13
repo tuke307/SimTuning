@@ -241,9 +241,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.AbgasT = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.AbgasT = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -276,9 +276,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.AbgasV = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.AbgasV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -330,9 +330,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DiffusorD1 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DiffusorD1 = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -365,9 +365,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DiffusorD2 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DiffusorD2 = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -400,9 +400,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DiffusorD3 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DiffusorD3 = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -429,9 +429,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DiffusorD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DiffusorD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -470,9 +470,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DiffusorL1 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DiffusorL1 = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -505,9 +505,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DiffusorL2 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DiffusorL2 = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -540,9 +540,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DiffusorL3 = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DiffusorL3 = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -569,9 +569,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DiffusorL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DiffusorL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -634,9 +634,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.EndrohrD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.EndrohrD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -669,9 +669,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.EndrohrL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.EndrohrL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -704,9 +704,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.GegenkonusD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.GegenkonusD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -739,9 +739,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.GegenkonusL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.GegenkonusL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -780,9 +780,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.GesamtL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.GesamtL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -815,9 +815,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.KruemmerD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.KruemmerD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -856,9 +856,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.KruemmerL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.KruemmerL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -897,9 +897,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.MittelteilD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.MittelteilD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -938,9 +938,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.MittelteilL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.MittelteilL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -973,9 +973,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.ResonanzL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.ResonanzL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {

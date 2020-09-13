@@ -52,10 +52,6 @@ namespace Data
         /// </summary>
         public DatabaseContext()
         {
-            //this.Database.EnsureCreated(); // gibt fehler!!!
-
-            // aktuell halten
-            //this.Database.Migrate();
         }
 
         /// <summary>
@@ -91,7 +87,7 @@ namespace Data
         /// <param name="options">Optionen.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite($"Filename={Constants.DatabasePath}");
+            options.UseSqlite($"Filename={DatabaseSettings.DatabasePath}");
         }
 
         /// <summary>

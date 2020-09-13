@@ -47,9 +47,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DurchmesserD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DurchmesserD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {

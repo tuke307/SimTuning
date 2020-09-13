@@ -11,11 +11,9 @@ namespace SimTuning.Core.ViewModels.Einstellungen
     /// <summary>
     /// ApplicationViewModel.
     /// </summary>
-    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel{SimTuning.Core.Models.UserModel}" />
-    public class ApplicationViewModel : MvxNavigationViewModel<UserModel>
-    {
-        public UserModel User { get; private set; }
 
+    public class ApplicationViewModel : MvxNavigationViewModel
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationViewModel" /> class.
         /// </summary>
@@ -35,9 +33,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             return base.Initialize();
         }
 
-        public override void Prepare(UserModel _user)
+        public override void Prepare()
         {
-            User = _user;
         }
     }
 }

@@ -125,10 +125,10 @@ namespace SimTuning.Core.Business
         /// <param name="password">The password.</param>
         public static void GetLoginCredentials(out string email, out SecureString password)
         {
-            if (!String.IsNullOrEmpty(User.Default.Mail) && !String.IsNullOrEmpty(User.Default.Password))
+            if (!String.IsNullOrEmpty(UserSettings.Mail) && !String.IsNullOrEmpty(UserSettings.Password))
             {
-                email = Functions.Decrypt(User.Default.Mail, Constants.user_authent);
-                password = Converts.StringToSecureString(Functions.Decrypt(User.Default.Password, Constants.user_authent));
+                email = Functions.Decrypt(UserSettings.Mail, GeneralSettings.UserAuthent);
+                password = Converts.StringToSecureString(Functions.Decrypt(UserSettings.Password, GeneralSettings.UserAuthent));
             }
             else
             {
@@ -164,11 +164,9 @@ namespace SimTuning.Core.Business
         /// <param name="password">The password.</param>
         public static void SaveLoginCredentials(string email, SecureString password)
         {
-            //speichern der daten
-
-            User.Default.Mail = Functions.Encrypt(email, Constants.user_authent);
-            User.Default.Password = Functions.Encrypt(Converts.SecureStringToString(password), Constants.user_authent);
-            User.Default.Save();
+            // speichern der daten
+            UserSettings.Mail = Functions.Encrypt(email, GeneralSettings.UserAuthent);
+            UserSettings.Password = Functions.Encrypt(Converts.SecureStringToString(password), GeneralSettings.UserAuthent);
         }
 
         /// <summary>

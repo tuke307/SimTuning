@@ -13,10 +13,9 @@ namespace SimTuning.Core.ViewModels.Einstellungen
     /// <summary>
     /// AussehenViewModel.
     /// </summary>
-    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel{SimTuning.Core.Models.UserModel}" />
-    public class AussehenViewModel : MvxNavigationViewModel<UserModel>
+
+    public class AussehenViewModel : MvxNavigationViewModel
     {
-        public UserModel User;
         protected ResourceManager rm;
 
         public IMvxCommand ApplyAccentCommand { get; set; }
@@ -43,9 +42,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             return base.Initialize();
         }
 
-        public override void Prepare(UserModel _user)
+        public override void Prepare()
         {
-            User = _user;
         }
     }
 }

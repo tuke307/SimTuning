@@ -26,7 +26,7 @@ namespace SimTuning.WPF.UI.Business
 
         public static bool IsDarkTheme()
         {
-            if (Color.Default.Theme == MaterialDesignThemes.Wpf.BaseTheme.Dark)
+            if (ColorSettings.Theme == MaterialDesignThemes.Wpf.BaseTheme.Dark)
                 return true;
             else
                 return false;
@@ -37,42 +37,36 @@ namespace SimTuning.WPF.UI.Business
             var appChanges = new RessourceChanges();
 
             appChanges.Colors(
-                primaryColor: Color.Default.Primary.ToString(),
-                secondaryColor: Color.Default.Secondary.ToString(),
-                baseTheme: Color.Default.Theme.ToString());
+                primaryColor: ColorSettings.Primary.ToString(),
+                secondaryColor: ColorSettings.Secondary.ToString(),
+                baseTheme: ColorSettings.Theme.ToString());
         }
 
         public static void SetAccent(Swatch acccent_color)
         {
-            Color.Default.Secondary = (MaterialDesignColors.SecondaryColor)Enum.Parse(typeof(MaterialDesignColors.SecondaryColor), acccent_color.Name);
-
-            Color.Default.Save();
+            ColorSettings.Secondary = (MaterialDesignColors.SecondaryColor)Enum.Parse(typeof(MaterialDesignColors.SecondaryColor), acccent_color.Name);
 
             var appChanges = new RessourceChanges();
 
-            appChanges.Colors(secondaryColor: Color.Default.Secondary.ToString());
+            appChanges.Colors(secondaryColor: ColorSettings.Secondary.ToString());
         }
 
         public static void SetBaseTheme(bool base_color)
         {
-            Color.Default.Theme = ApplicationChanges.BoolToBaseTheme(base_color);
-
-            Color.Default.Save();
+            ColorSettings.Theme = ApplicationChanges.BoolToBaseTheme(base_color);
 
             var appChanges = new RessourceChanges();
 
-            appChanges.Colors(baseTheme: Color.Default.Theme.ToString());
+            appChanges.Colors(baseTheme: ColorSettings.Theme.ToString());
         }
 
         public static void SetPrimary(Swatch primary_color)
         {
-            Color.Default.Primary = (MaterialDesignColors.PrimaryColor)Enum.Parse(typeof(MaterialDesignColors.PrimaryColor), primary_color.ToString(), true);
-
-            Color.Default.Save();
+            ColorSettings.Primary = (MaterialDesignColors.PrimaryColor)Enum.Parse(typeof(MaterialDesignColors.PrimaryColor), primary_color.ToString(), true);
 
             var appChanges = new RessourceChanges();
 
-            appChanges.Colors(primaryColor: Color.Default.Primary.ToString());
+            appChanges.Colors(primaryColor: ColorSettings.Primary.ToString());
         }
     }
 }

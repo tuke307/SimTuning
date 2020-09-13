@@ -43,10 +43,10 @@ namespace SimTuning.WPF.UI.ViewModels.Auslass
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(SimTuning.Core.Models.UserModel _user)
+        /// <param name="">The user.</param>
+        public override void Prepare()
         {
-            base.Prepare(_user);
+            base.Prepare();
         }
 
         public override void ViewAppearing()

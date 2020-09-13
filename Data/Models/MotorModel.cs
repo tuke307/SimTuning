@@ -99,9 +99,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.BohrungD = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.BohrungD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -134,9 +134,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.BrennraumV = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.BrennraumV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -169,9 +169,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.DeachsierungL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.DeachsierungL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -217,9 +217,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.HubL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.HubL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -252,9 +252,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.HubraumV = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.HubraumV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -287,9 +287,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.KolbenG = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.KolbenG = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -322,9 +322,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.KurbelgehaeuseV = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.KurbelgehaeuseV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -364,9 +364,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.PleulL = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.PleulL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {

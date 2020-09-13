@@ -5,13 +5,14 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:d="http://xamarin.com/schemas/2014/forms/design"
                      xmlns:view="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                     xmlns:local="clr-namespace:SimTuning.Core;assembly=SimTuning.Core"
                      xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
                      xmlns:component="clr-namespace:SimTuning.Forms.UI.Components"
                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels"
                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                      mc:Ignorable="d"
-                      Title="Menu"
-                      x:Class="SimTuning.Forms.UI.Views.MenuView">
+                     Title="Menu"
+                     x:Class="SimTuning.Forms.UI.Views.MenuView">
     <view:MvxContentPage.Resources>
         <!--CONVERTER-->
         <behaviors:InvertedBoolConverter x:Key="Inverter" />
@@ -55,7 +56,7 @@
                                        TintColor="DarkGreen"
                                        WidthRequest="40"
                                        HeightRequest="40"
-                                       IsVisible="{Binding Mode=OneWay, Path=UserValid}">
+                                       IsVisible="{Binding Source={x:Static local:UserSettings.UserValid}}">
                 </material:MaterialIcon>
 
                 <!--LIZENZ-->
@@ -72,7 +73,7 @@
                                        TintColor="DarkGreen"
                                        WidthRequest="25"
                                        HeightRequest="25"
-                                       IsVisible="{Binding Mode=OneWay, Path=LicenseValid}">
+                                       IsVisible="{Binding Source={x:Static local:UserSettings.LicenseValid}}">
                 </material:MaterialIcon>
             </StackLayout>
         </Grid>

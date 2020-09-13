@@ -61,9 +61,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.BreiteB = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.BreiteB = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -96,9 +96,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.FlaecheA = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.FlaecheA = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -131,9 +131,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.HoeheH = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.HoeheH = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {

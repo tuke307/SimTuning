@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=MainViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=MainViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -10,13 +10,11 @@ namespace SimTuning.Core.ViewModels.Auslass
     /// <summary>
     /// Auslass-Main-ViewModel.
     /// </summary>
-    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel{SimTuning.Core.Models.UserModel}" />
-    public class MainViewModel : MvxNavigationViewModel<SimTuning.Core.Models.UserModel>
-    {
-        public SimTuning.Core.Models.UserModel User { get; protected set; }
 
+    public class MainViewModel : MvxNavigationViewModel
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainViewModel"/> class.
+        /// Initializes a new instance of the <see cref="MainViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
@@ -28,21 +26,20 @@ namespace SimTuning.Core.ViewModels.Auslass
         #region Methods
 
         /// <summary>
-        /// Prepares the specified user.
-        /// </summary>
-        /// <param name="_user">The user.</param>
-        public override void Prepare(SimTuning.Core.Models.UserModel _user)
-        {
-            this.User = _user;
-        }
-
-        /// <summary>
         /// Initializes this instance.
         /// </summary>
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares the specified user.
+        /// </summary>
+        /// <param name="">The user.</param>
+        public override void Prepare()
+        {
         }
 
         #endregion Methods

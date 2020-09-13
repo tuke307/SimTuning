@@ -56,9 +56,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.LuftdruckP = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.LuftdruckP = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {
@@ -98,9 +98,9 @@ namespace Data.Models
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.Default.RoundOnUnitChange)
+                if (UnitSettings.RoundOnUnitChange)
                 {
-                    this.TemperaturT = Math.Round(convertedValue, UnitSettings.Default.RoundingAccuracy);
+                    this.TemperaturT = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
                 }
                 else
                 {

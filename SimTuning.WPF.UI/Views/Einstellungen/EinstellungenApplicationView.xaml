@@ -38,7 +38,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
             <StackPanel Orientation="Horizontal">
                 <CheckBox Margin="10"
                           Style="{StaticResource MaterialDesignCheckBox}"
-                          IsChecked="{Binding Source={x:Static local:UnitSettings.Default}, Path=RoundOnUnitChange, Mode=TwoWay}">
+                          IsChecked="{Binding Source={x:Static local:UnitSettings.RoundOnUnitChange}}">
                 </CheckBox>
 
                 <Label VerticalAlignment="Center">
@@ -48,21 +48,12 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
             <TextBox Margin="10"
                      Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                     Text="{Binding Source={x:Static local:UnitSettings.Default}, Path=RoundingAccuracy, Mode=TwoWay}"
+                     Text="{Binding Source={x:Static local:UnitSettings.RoundingAccuracy}}"
                      materialDesign:HintAssist.Hint="Kommastellen beim Runden"
                      IsManipulationEnabled="False" />
 
             <Separator Margin="0 10 0 10"
                        Style="{StaticResource MaterialDesignSeparator}" />
         </StackPanel>
-
-        <Button Grid.Row="1"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Margin="20"
-                Click="Button_Click"
-                Content="speichern"
-                ToolTip="neuen Kunden auswählen">
-        </Button>
     </Grid>
 </views:MvxWpfView>

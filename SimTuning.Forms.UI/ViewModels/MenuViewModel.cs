@@ -7,6 +7,7 @@ namespace SimTuning.Forms.UI.ViewModels
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using SimTuning.Core;
     using SimTuning.Core.Models;
     using SimTuning.Forms.UI.Business;
     using SimTuning.Forms.UI.ViewModels.Auslass;
@@ -40,12 +41,12 @@ namespace SimTuning.Forms.UI.ViewModels
             this._navigationService = navigationService;
 
             this.ShowHomeCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<HomeMainViewModel>());
-            this.ShowEinlassCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinlassMainViewModel, UserModel>(this.User));
-            this.ShowAuslassCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<AuslassMainViewModel, UserModel>(this.User));
-            this.ShowMotorCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<MotorMainViewModel, UserModel>(this.User));
+            this.ShowEinlassCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinlassMainViewModel>());
+            this.ShowAuslassCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<AuslassMainViewModel>());
+            this.ShowMotorCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<MotorMainViewModel>());
             this.ShowDynoCommand = new MvxAsyncCommand(this.ShowDyno);
             this.ShowTuningCommand = new MvxAsyncCommand(this.ShowTuning);
-            this.ShowEinstellungenCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinstellungenMainViewModel, UserModel>(this.User));
+            this.ShowEinstellungenCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinstellungenMainViewModel>());
             this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
         }
 
@@ -57,12 +58,16 @@ namespace SimTuning.Forms.UI.ViewModels
             _ = Functions.CheckAndRequestStorageWritePermission();
 
             // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
-            SimTuning.Core.Constants.FileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            Data.Constants.DatabasePath = Path.Combine(SimTuning.Core.Constants.FileDirectory, Data.Constants.DatabaseName);
+            SimTuning.Core.GeneralSettings.FileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-            if (!Directory.Exists(SimTuning.Core.Constants.FileDirectory))
+            if (string.IsNullOrEmpty(Data.DatabaseSettings.DatabasePath))
             {
-                Directory.CreateDirectory(SimTuning.Core.Constants.FileDirectory);
+                Data.DatabaseSettings.DatabasePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, Data.DatabaseSettings.DatabaseName);
+            }
+
+            if (!Directory.Exists(SimTuning.Core.GeneralSettings.FileDirectory))
+            {
+                Directory.CreateDirectory(SimTuning.Core.GeneralSettings.FileDirectory);
             }
 
             using (var db = new DatabaseContext())
@@ -81,7 +86,7 @@ namespace SimTuning.Forms.UI.ViewModels
             base.ViewAppeared();
 
             // TODO: FIX configuration manager is not supported!!!!
-            //this.LoginUserCommand.Execute();
+            this.LoginUserCommand.Execute();
         }
 
         /// <summary>
@@ -93,9 +98,12 @@ namespace SimTuning.Forms.UI.ViewModels
         protected new async Task LoginUser()
         {
             var result = await API.Login.UserLoginAsync().ConfigureAwait(true);
-            this.User = result.Item1;
+            SimTuning.Core.UserSettings.User = result.Item1;
+            SimTuning.Core.UserSettings.Order = result.Item2;
+            SimTuning.Core.UserSettings.UserValid = result.Item3;
+            SimTuning.Core.UserSettings.LicenseValid = result.Item4;
 
-            Functions.ShowSnackbarDialog(result.Item2);
+            Functions.ShowSnackbarDialog(result.Item5);
         }
 
         /// <summary>
@@ -103,9 +111,9 @@ namespace SimTuning.Forms.UI.ViewModels
         /// </summary>
         private async Task ShowDyno()
         {
-            if (this.User.LicenseValid)
+            if (UserSettings.LicenseValid)
             {
-                await this._navigationService.Navigate<DynoMainViewModel, UserModel>(this.User).ConfigureAwait(true);
+                await this._navigationService.Navigate<DynoMainViewModel>().ConfigureAwait(true);
             }
             else
             {
@@ -118,9 +126,9 @@ namespace SimTuning.Forms.UI.ViewModels
         /// </summary>
         private async Task ShowTuning()
         {
-            if (this.User.LicenseValid)
+            if (UserSettings.LicenseValid)
             {
-                await this._navigationService.Navigate<TuningMainViewModel, UserModel>(this.User).ConfigureAwait(true);
+                await this._navigationService.Navigate<TuningMainViewModel>().ConfigureAwait(true);
             }
             else
             {

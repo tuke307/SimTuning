@@ -2,9 +2,12 @@
 // tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.ViewModels
 {
+    using Data;
+    using Microsoft.EntityFrameworkCore;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using SimTuning.Core;
     using SimTuning.Core.Models;
     using SimTuning.WPF.UI.ViewModels.Auslass;
     using SimTuning.WPF.UI.ViewModels.Demo;
@@ -14,6 +17,8 @@ namespace SimTuning.WPF.UI.ViewModels
     using SimTuning.WPF.UI.ViewModels.Home;
     using SimTuning.WPF.UI.ViewModels.Motor;
     using SimTuning.WPF.UI.ViewModels.Tuning;
+    using System;
+    using System.IO;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -31,21 +36,21 @@ namespace SimTuning.WPF.UI.ViewModels
         /// <param name="navigationService">The navigation service.</param>
         public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
-            _navigationService = navigationService;
+            this._navigationService = navigationService;
 
-            ShowHomeCommand = new MvxAsyncCommand(() => _navigationService.Navigate<HomeMainViewModel>());
+            this.ShowHomeCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<HomeMainViewModel>());
 
-            ShowEinlassCommand = new MvxAsyncCommand(() => _navigationService.Navigate<EinlassMainViewModel, UserModel>(User));
+            this.ShowEinlassCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinlassMainViewModel>());
 
-            ShowAuslassCommand = new MvxAsyncCommand(() => _navigationService.Navigate<AuslassMainViewModel, UserModel>(User));
+            this.ShowAuslassCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<AuslassMainViewModel>());
 
-            ShowMotorCommand = new MvxAsyncCommand(() => _navigationService.Navigate<MotorMainViewModel, UserModel>(User));
+            this.ShowMotorCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<MotorMainViewModel>());
 
-            ShowDynoCommand = new MvxAsyncCommand(ShowDyno);
+            this.ShowDynoCommand = new MvxAsyncCommand(this.ShowDyno);
 
-            ShowTuningCommand = new MvxAsyncCommand(ShowTuning);
+            this.ShowTuningCommand = new MvxAsyncCommand(this.ShowTuning);
 
-            ShowEinstellungenCommand = new MvxAsyncCommand(() => _navigationService.Navigate<EinstellungenMainViewModel, UserModel>(User));
+            this.ShowEinstellungenCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinstellungenMainViewModel>());
 
             this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
         }
@@ -58,6 +63,23 @@ namespace SimTuning.WPF.UI.ViewModels
         /// <returns>Initialisierung.</returns>
         public override Task Initialize()
         {
+            SimTuning.Core.GeneralSettings.FileDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning"); // appdata-local-simtunig
+
+            if (string.IsNullOrEmpty(Data.DatabaseSettings.DatabasePath))
+            {
+                Data.DatabaseSettings.DatabasePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, Data.DatabaseSettings.DatabaseName);
+            }
+
+            if (!Directory.Exists(SimTuning.Core.GeneralSettings.FileDirectory))
+            {
+                Directory.CreateDirectory(SimTuning.Core.GeneralSettings.FileDirectory);
+            }
+
+            using (var db = new DatabaseContext())
+            {
+                db.Database.Migrate();
+            }
+
             return base.Initialize();
         }
 
@@ -77,9 +99,12 @@ namespace SimTuning.WPF.UI.ViewModels
         protected new async Task LoginUser()
         {
             var result = await API.Login.UserLoginAsync().ConfigureAwait(true);
-            this.User = result.Item1;
+            SimTuning.Core.UserSettings.User = result.Item1;
+            SimTuning.Core.UserSettings.Order = result.Item2;
+            SimTuning.Core.UserSettings.UserValid = result.Item3;
+            SimTuning.Core.UserSettings.LicenseValid = result.Item4;
 
-            Business.Functions.ShowSnackbarDialog(result.Item2);
+            Business.Functions.ShowSnackbarDialog(result.Item4);
         }
 
         /// <summary>
@@ -87,9 +112,9 @@ namespace SimTuning.WPF.UI.ViewModels
         /// </summary>
         private async Task ShowDyno()
         {
-            if (User.LicenseValid)
+            if (UserSettings.LicenseValid)
             {
-                await _navigationService.Navigate<DynoMainViewModel, UserModel>(User);
+                await _navigationService.Navigate<DynoMainViewModel>();
             }
             else
             {
@@ -102,9 +127,9 @@ namespace SimTuning.WPF.UI.ViewModels
         /// </summary>
         private async Task ShowTuning()
         {
-            if (User.LicenseValid)
+            if (UserSettings.LicenseValid)
             {
-                await _navigationService.Navigate<TuningMainViewModel, UserModel>(User);
+                await _navigationService.Navigate<TuningMainViewModel>();
             }
             else
             {
