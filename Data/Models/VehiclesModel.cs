@@ -69,19 +69,22 @@ namespace Data.Models
             get => this._FrontAUnit ?? FrontABaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.FrontA.Value,
-                this._FrontAUnit,
-                value,
-                out double convertedValue);
+                if (this.FrontA.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+                                  this.FrontA.Value,
+                                  this.FrontAUnit,
+                                  value,
+                                  out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.FrontA = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.FrontA = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.FrontA = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.FrontA = convertedValue;
+                    }
                 }
 
                 this._FrontAUnit = value;
@@ -104,11 +107,14 @@ namespace Data.Models
             get => this._GewichtUnit ?? GewichtBaseUnit;
             set
             {
+                if (this.Gewicht.HasValue)
+                {
+                }
                 UnitsNet.UnitConverter.TryConvert(
-                this.Gewicht.Value,
-                this._GewichtUnit,
-                value,
-                out double convertedValue);
+               this.Gewicht.Value,
+               this.GewichtUnit,
+               value,
+               out double convertedValue);
 
                 if (UnitSettings.RoundOnUnitChange)
                 {

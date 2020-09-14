@@ -14,6 +14,54 @@ namespace SimTuning.Forms.UI.Business
     public static class Functions
     {
         /// <summary>
+        /// Checks the and request location when in use permission.
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<PermissionStatus> CheckAndRequestLocationWhenInUsePermission()
+        {
+            var locationWhenInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>().ConfigureAwait(true);
+
+            if (locationWhenInUse != PermissionStatus.Granted)
+            {
+                locationWhenInUse = await Permissions.RequestAsync<Permissions.LocationWhenInUse>().ConfigureAwait(true);
+            }
+
+            return locationWhenInUse;
+        }
+
+        /// <summary>
+        /// Checks the and request microphone permission.
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<PermissionStatus> CheckAndRequestMicrophonePermission()
+        {
+            var microphone = await Permissions.CheckStatusAsync<Permissions.Microphone>().ConfigureAwait(true);
+
+            if (microphone != PermissionStatus.Granted)
+            {
+                microphone = await Permissions.RequestAsync<Permissions.Microphone>().ConfigureAwait(true);
+            }
+
+            return microphone;
+        }
+
+        /// <summary>
+        /// Checks the and request network state permission.
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<PermissionStatus> CheckAndRequestNetworkStatePermission()
+        {
+            var networkState = await Permissions.CheckStatusAsync<Permissions.NetworkState>().ConfigureAwait(true);
+
+            if (networkState != PermissionStatus.Granted)
+            {
+                networkState = await Permissions.RequestAsync<Permissions.NetworkState>().ConfigureAwait(true);
+            }
+
+            return networkState;
+        }
+
+        /// <summary>
         /// Checks the and request storage read permission.
         /// </summary>
         /// <returns></returns>

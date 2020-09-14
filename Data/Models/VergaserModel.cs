@@ -41,19 +41,22 @@ namespace Data.Models
             get => this._DurchmesserDUnit ?? DurchmesserDBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.DurchmesserD.Value,
-                this._DurchmesserDUnit,
-                value,
-                out double convertedValue);
+                if (this.DurchmesserD.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+                                   this.DurchmesserD.Value,
+                                   this.DurchmesserDUnit,
+                                   value,
+                                   out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.DurchmesserD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.DurchmesserD = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.DurchmesserD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.DurchmesserD = convertedValue;
+                    }
                 }
 
                 this._DurchmesserDUnit = value;

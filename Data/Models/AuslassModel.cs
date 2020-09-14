@@ -69,19 +69,22 @@ namespace Data.Models
             get => this._BreiteBUnit ?? BreiteBBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.BreiteB.Value,
-                this._BreiteBUnit,
-                value,
-                out double convertedValue);
+                if (this.BreiteB.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+               this.BreiteB.Value,
+               this.BreiteBUnit,
+               value,
+               out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.BreiteB = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.BreiteB = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.BreiteB = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.BreiteB = convertedValue;
+                    }
                 }
 
                 this._BreiteBUnit = value;
@@ -104,19 +107,22 @@ namespace Data.Models
             get => this._DurchmesserDUnit ?? DurchmesserDBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.DurchmesserD.Value,
-                this._DurchmesserDUnit,
-                value,
-                out double convertedValue);
+                if (this.DurchmesserD.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+               this.DurchmesserD.Value,
+               this.DurchmesserDUnit,
+               value,
+               out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.DurchmesserD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.DurchmesserD = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.DurchmesserD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.DurchmesserD = convertedValue;
+                    }
                 }
 
                 this._DurchmesserDUnit = value;
@@ -139,19 +145,22 @@ namespace Data.Models
             get => this._FlaecheAUnit ?? FlaecheABaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
+                if (this.FlaecheA.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
                 this.FlaecheA.Value,
-                this._FlaecheAUnit,
+                this.FlaecheAUnit,
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.FlaecheA = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.FlaecheA = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.FlaecheA = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.FlaecheA = convertedValue;
+                    }
                 }
 
                 this._FlaecheAUnit = value;
@@ -174,19 +183,22 @@ namespace Data.Models
             get => this._HoeheHUnit ?? HoeheHBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
+                if (this.HoeheH.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
                 this.HoeheH.Value,
-                this._HoeheHUnit,
+                this.HoeheHUnit,
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.HoeheH = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.HoeheH = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.HoeheH = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.HoeheH = convertedValue;
+                    }
                 }
 
                 this._HoeheHUnit = value;
@@ -209,19 +221,22 @@ namespace Data.Models
             get => this._LaengeLUnit ?? LaengeLBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
+                if (this.LaengeL.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
                 this.LaengeL.Value,
-                this._LaengeLUnit,
+                this.LaengeLUnit,
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.LaengeL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.LaengeL = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.LaengeL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.LaengeL = convertedValue;
+                    }
                 }
 
                 this._LaengeLUnit = value;

@@ -93,19 +93,22 @@ namespace Data.Models
             get => this._BohrungDUnit ?? BohrungDBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.BohrungD.Value,
-                this._BohrungDUnit,
-                value,
-                out double convertedValue);
+                if (this.BohrungD.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+              this.BohrungD.Value,
+              this.BohrungDUnit,
+              value,
+              out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.BohrungD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.BohrungD = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.BohrungD = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.BohrungD = convertedValue;
+                    }
                 }
 
                 this._BohrungDUnit = value;
@@ -128,19 +131,22 @@ namespace Data.Models
             get => this._BrennraumVUnit ?? BrennraumVBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.BrennraumV.Value,
-                this._BrennraumVUnit,
-                value,
-                out double convertedValue);
+                if (this.BrennraumV.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+                                    this.BrennraumV.Value,
+                                    this.BrennraumVUnit,
+                                    value,
+                                    out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.BrennraumV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.BrennraumV = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.BrennraumV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.BrennraumV = convertedValue;
+                    }
                 }
 
                 this._BrennraumVUnit = value;
@@ -163,19 +169,22 @@ namespace Data.Models
             get => this._DeachsierungLUnit ?? DeachsierungLBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.DeachsierungL.Value,
-                this._DeachsierungLUnit,
-                value,
-                out double convertedValue);
+                if (this.DeachsierungL.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+               this.DeachsierungL.Value,
+               this.DeachsierungLUnit,
+               value,
+               out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.DeachsierungL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.DeachsierungL = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.DeachsierungL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.DeachsierungL = convertedValue;
+                    }
                 }
 
                 this._DeachsierungLUnit = value;
@@ -211,19 +220,22 @@ namespace Data.Models
             get => this._HubLUnit ?? HubLBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.HubL.Value,
-                this._HubLUnit,
-                value,
-                out double convertedValue);
+                if (this.HubL.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+               this.HubL.Value,
+               this.HubLUnit,
+               value,
+               out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.HubL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.HubL = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.HubL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.HubL = convertedValue;
+                    }
                 }
 
                 this._HubLUnit = value;
@@ -246,19 +258,22 @@ namespace Data.Models
             get => this._HubraumVUnit ?? HubraumVBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
+                if (this.HubraumV.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
                 this.HubraumV.Value,
-                this._HubraumVUnit,
+                this.HubraumVUnit,
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.HubraumV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.HubraumV = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.HubraumV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.HubraumV = convertedValue;
+                    }
                 }
 
                 this._HubraumVUnit = value;
@@ -281,19 +296,22 @@ namespace Data.Models
             get => this._KolbenGUnit ?? KolbenGBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
+                if (this.KolbenG.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
                 this.KolbenG.Value,
-                this._KolbenGUnit,
+                this.KolbenGUnit,
                 value,
                 out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.KolbenG = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.KolbenG = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.KolbenG = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.KolbenG = convertedValue;
+                    }
                 }
 
                 this._KolbenGUnit = value;
@@ -316,19 +334,22 @@ namespace Data.Models
             get => this._KurbelgehaeuseVUnit ?? KurbelgehaeuseVBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.KurbelgehaeuseV.Value,
-                this._KurbelgehaeuseVUnit,
-                value,
-                out double convertedValue);
+                if (this.KurbelgehaeuseV.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+               this.KurbelgehaeuseV.Value,
+               this.KurbelgehaeuseVUnit,
+               value,
+               out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.KurbelgehaeuseV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.KurbelgehaeuseV = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.KurbelgehaeuseV = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.KurbelgehaeuseV = convertedValue;
+                    }
                 }
 
                 this._KurbelgehaeuseVUnit = value;
@@ -358,19 +379,22 @@ namespace Data.Models
             get => this._PleulLUnit ?? PleulLBaseUnit;
             set
             {
-                UnitsNet.UnitConverter.TryConvert(
-                this.PleulL.Value,
-                this._PleulLUnit,
-                value,
-                out double convertedValue);
+                if (this.PleulL.HasValue)
+                {
+                    UnitsNet.UnitConverter.TryConvert(
+                                   this.PleulL.Value,
+                                   this.PleulLUnit,
+                                   value,
+                                   out double convertedValue);
 
-                if (UnitSettings.RoundOnUnitChange)
-                {
-                    this.PleulL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                }
-                else
-                {
-                    this.PleulL = convertedValue;
+                    if (UnitSettings.RoundOnUnitChange)
+                    {
+                        this.PleulL = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
+                    }
+                    else
+                    {
+                        this.PleulL = convertedValue;
+                    }
                 }
 
                 this._PleulLUnit = value;
