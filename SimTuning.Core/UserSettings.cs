@@ -7,23 +7,28 @@
     /// <summary>
     /// UserSettings.
     /// </summary>
-    public static class UserSettings
+    public class UserSettings
     {
-        private static bool _LicenseValid;
+        private static WooCommerceNET.WooCommerce.Legacy.Order? _order;
 
-        private static bool Valid;
+        private static WordPressPCL.Models.User? _user;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [license valid].
+        /// Gets a value indicating whether [license valid].
         /// </summary>
         /// <value><c>true</c> if [license valid]; otherwise, <c>false</c>.</value>
         public static bool LicenseValid
         {
-            get => _LicenseValid;
-            set
+            get
             {
-                _LicenseValid = value;
-                OnStaticPropertyChanged("LicenseValid");
+                if (UserSettings.Order != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -48,7 +53,15 @@
         /// Gets or sets the order.
         /// </summary>
         /// <value>The order.</value>
-        public static WooCommerceNET.WooCommerce.Legacy.Order? Order { get; set; }
+        public static WooCommerceNET.WooCommerce.Legacy.Order? Order
+        {
+            get => _order;
+            set
+            {
+                _order = value;
+                OnStaticPropertyChanged(nameof(LicenseValid));
+            }
+        }
 
         /// <summary>
         /// Gets or sets the password.
@@ -88,24 +101,40 @@
         /// Gets or sets the user.
         /// </summary>
         /// <value>The user.</value>
-        public static WordPressPCL.Models.User? User { get; set; }
+        public static WordPressPCL.Models.User? User
+        {
+            get => _user;
+            set
+            {
+                _user = value;
+                OnStaticPropertyChanged(nameof(UserValid));
+            }
+        }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [user valid].
+        /// Gets a value indicating whether [user valid].
         /// </summary>
         /// <value><c>true</c> if [user valid]; otherwise, <c>false</c>.</value>
         public static bool UserValid
         {
-            get => Valid;
-            set
+            get
             {
-                Valid = value;
-                OnStaticPropertyChanged("UserValid");
+                if (UserSettings.User != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
         private static ISettings AppSettings => CrossSettings.Current;
 
+        /// <summary>
+        /// Occurs when [static property changed].
+        /// </summary>
         public static event PropertyChangedEventHandler StaticPropertyChanged;
 
         private static void OnStaticPropertyChanged(string propertyName)

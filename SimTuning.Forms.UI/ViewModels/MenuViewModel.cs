@@ -54,8 +54,8 @@ namespace SimTuning.Forms.UI.ViewModels
 
         public override Task Initialize()
         {
-            _ = Functions.CheckAndRequestStorageReadPermission();
-            _ = Functions.CheckAndRequestStorageWritePermission();
+            Functions.CheckAndRequestStorageReadPermission();
+            Functions.CheckAndRequestStorageWritePermission();
 
             // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
             SimTuning.Core.GeneralSettings.FileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -100,10 +100,8 @@ namespace SimTuning.Forms.UI.ViewModels
             var result = await API.Login.UserLoginAsync().ConfigureAwait(true);
             SimTuning.Core.UserSettings.User = result.Item1;
             SimTuning.Core.UserSettings.Order = result.Item2;
-            SimTuning.Core.UserSettings.UserValid = result.Item3;
-            SimTuning.Core.UserSettings.LicenseValid = result.Item4;
 
-            Functions.ShowSnackbarDialog(result.Item5);
+            Functions.ShowSnackbarDialog(result.Item3);
         }
 
         /// <summary>

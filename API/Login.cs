@@ -20,21 +20,17 @@ namespace API
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
         /// <returns>UserModel userModel, output messages for user.</returns>
-        public static async Task<(WordPressPCL.Models.User, WooCommerceNET.WooCommerce.Legacy.Order, bool, bool, List<string>)> UserLoginAsync(string email = null, SecureString password = null)
+        public static async Task<(WordPressPCL.Models.User, WooCommerceNET.WooCommerce.Legacy.Order, List<string>)> UserLoginAsync(string email = null, SecureString password = null)
         {
             // default
             WooCommerceNET.WooCommerce.Legacy.Order order = null;
             WordPressPCL.Models.User user = null;
-            bool licenseValid = false;
-            bool userValid = false;
 
             List<string> messages = new List<string>();
 
             // admin start
             if (email == "admin123")
             {
-                licenseValid = true;
-                userValid = true;
                 messages.Add("ADMIN LOGIN");
                 goto Finish;
             }
@@ -72,7 +68,6 @@ namespace API
             if (user != null)
             {
                 messages.Add("Erfolgreich eingeloggt");
-                userValid = true;
             }
             else
             {
@@ -84,7 +79,6 @@ namespace API
             if (order != null)
             {
                 messages.Add("PRO Version");
-                licenseValid = true;
             }
             else
             {
@@ -95,7 +89,7 @@ namespace API
             SimTuning.Core.Business.Functions.SaveLoginCredentials(email, password);
 
         Finish:
-            return (user, order, userValid, licenseValid, messages);
+            return (user, order, messages);
         }
     }
 }

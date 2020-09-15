@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      x:TypeArguments="viewModels:DynoSettingsViewModel"
+                      x:Class="SimTuning.Forms.UI.Views.Dyno.DynoSettingsView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0">
+            <material:MaterialLabel Text="1. Beschleunigung"
+                                    TypeScale="H5" />
+
+            <StackLayout Orientation="Horizontal">
+                <material:MaterialLabel Text="Start:" />
+
+                <material:MaterialTextField InputType="Numeric"
+                                            IsEnabled="False"
+                                            Text="0" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <material:MaterialLabel Text="Ende:" />
+
+                <material:MaterialTextField InputType="Numeric"
+                                            Text="{Binding Mode=TwoWay, Path=EndAcceleration}" />
+            </StackLayout>
+        </StackLayout>
+        <StackLayout Grid.Row="1">
+
+            <material:MaterialLabel Text="2. Ausrollen"
+                                    TypeScale="H5" />
+
+            <StackLayout Orientation="Horizontal">
+                <material:MaterialLabel Text="Start:" />
+
+                <material:MaterialTextField InputType="Numeric"
+                                            IsEnabled="False"
+                                            Text="{Binding Mode=OneWay, Path=EndAcceleration}" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <material:MaterialLabel Text="Ende:" />
+
+                <material:MaterialTextField InputType="Numeric"
+                                            IsEnabled="False"
+                                            Text="0" />
+            </StackLayout>
+        </StackLayout>
+
+        <material:MaterialIconButton ButtonType="Elevated"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Command="{Binding NavigateToAcceleration}" />
+    </Grid>
+</views:MvxContentPage>

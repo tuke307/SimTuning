@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      x:Class="SimTuning.Forms.UI.Views.Dyno.DynoRuntimeView"
+                      x:TypeArguments="viewModels:DynoRuntimeViewModel"
+                      BackgroundColor="{Binding Path=BackgroundColor, Mode=OneWay}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <material:MaterialLabel Grid.Column="0"
+                                    Text="0 km/h" />
+            <material:MaterialLabel Grid.Column="1"
+                                    Text="{Binding Mode=TwoWay, Path=EndAcceleration}" />
+        </Grid>
+
+        <material:MaterialLabel Grid.Row="1"
+                                Text="{Binding Path=Speed, Mode=OneWay}"
+                                TypeScale="H5" />
+        <material:MaterialLabel Grid.Row="2"
+                                Text="{Binding Path=CurrentState, Mode=OneWay}"
+                                TypeScale="H5" />
+        <material:MaterialLabel Grid.Row="3"
+                                Text="{Binding Path=Timer, Mode=OneWay}"
+                                TypeScale="H5" />
+    </Grid>
+</views:MvxContentPage>

@@ -16,6 +16,8 @@
     <view:MvxContentPage.Resources>
         <!--CONVERTER-->
         <behaviors:InvertedBoolConverter x:Key="Inverter" />
+
+        <local:UserSettings x:Key="userSettings" />
     </view:MvxContentPage.Resources>
 
     <Grid>
@@ -56,7 +58,7 @@
                                        TintColor="DarkGreen"
                                        WidthRequest="40"
                                        HeightRequest="40"
-                                       IsVisible="{Binding Source={x:Static local:UserSettings.UserValid}}">
+                                       IsVisible="{Binding Source={StaticResource userSettings}, Path=UserValid, Mode=OneWay}">
                 </material:MaterialIcon>
 
                 <!--LIZENZ-->
@@ -73,7 +75,7 @@
                                        TintColor="DarkGreen"
                                        WidthRequest="25"
                                        HeightRequest="25"
-                                       IsVisible="{Binding Source={x:Static local:UserSettings.LicenseValid}}">
+                                       IsVisible="{Binding Source={StaticResource userSettings}, Path=LicenseValid, Mode=OneWay}">
                 </material:MaterialIcon>
             </StackLayout>
         </Grid>

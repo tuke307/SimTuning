@@ -109,6 +109,7 @@ namespace SimTuning.Core.ViewModels.Auslass
             if (this.ModAuspuffAbgasT.HasValue)
             {
                 this.ModAuspuffAbgasV = AuslassLogic.GetGasVelocity(this.ModAuspuffAbgasT.Value);
+                this.RaisePropertyChanged(() => this.ModAuspuffAbgasV);
             }
         }
 

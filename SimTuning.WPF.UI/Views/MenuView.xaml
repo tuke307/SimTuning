@@ -35,6 +35,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                            Converter1="{StaticResource Inverter}"
                                            Converter2="{StaticResource BoolToVis}">
             </behaviours:CombiningConverter>
+
+            <local:UserSettings x:Key="userSettings" />
         </ResourceDictionary>
     </views:MvxWpfView.Resources>
 
@@ -210,7 +212,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                      Grid.Column="3"
                                                      Foreground="DarkGreen"
                                                      ToolTip="Account ist eingeloggt"
-                                                     Visibility="{Binding Source={x:Static local:UserSettings.UserValid}, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                                     Visibility="{Binding Source={StaticResource userSettings}, Path=UserValid, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                      Kind="DriversLicenseOutline"
                                                      Height="20"
                                                      Width="20" />
@@ -231,7 +233,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Center"
                                                      ToolTip="Lizenz vorhanden"
-                                                     Visibility="{Binding Source={x:Static local:UserSettings.LicenseValid}, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                                     Visibility="{Binding Source={StaticResource userSettings}, Path=LicenseValid, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                      Grid.Row="1"
                                                      Grid.Column="3"
                                                      Foreground="DarkGreen"

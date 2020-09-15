@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:local="clr-namespace:Data;assembly=Data"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      x:TypeArguments="viewModels:EinstellungenApplicationViewModel"
+                      x:Class="SimTuning.Forms.UI.Views.Einstellungen.EinstellungenApplicationView">
+    <views:MvxContentPage.Resources>
+        <ResourceDictionary>
+            <local:UnitSettings x:Key="unitSettings" />
+        </ResourceDictionary>
+    </views:MvxContentPage.Resources>
+    <Grid>
+        <material:MaterialCheckbox Text="Runden beim Einheiten Wechsel"
+                                   IsSelected="{Binding Source={StaticResource unitSettings}, Path=RoundOnUnitChange, Mode=TwoWay}" />
+
+        <material:MaterialTextField Text="{Binding Source={StaticResource unitSettings}, Path=RoundingAccuracy, Mode=TwoWay}" />
+    </Grid>
+</views:MvxContentPage>

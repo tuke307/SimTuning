@@ -20,8 +20,6 @@ namespace SimTuning.WPF.UI
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
-
 #if NET472
             CrossMediaManager.Current.Init();
 #endif
@@ -33,6 +31,7 @@ namespace SimTuning.WPF.UI
         public override void LoadPlugins(IMvxPluginManager pluginManager)
         {
             pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
+            //pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Location.Platforms.Wpf.Plugin>();
 
             base.LoadPlugins(pluginManager);
         }

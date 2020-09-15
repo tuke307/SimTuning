@@ -77,7 +77,7 @@ namespace SimTuning.WPF.UI.ViewModels
 
             using (var db = new DatabaseContext())
             {
-                db.Database.Migrate();
+                 db.Database.Migrate();
             }
 
             return base.Initialize();
@@ -101,10 +101,8 @@ namespace SimTuning.WPF.UI.ViewModels
             var result = await API.Login.UserLoginAsync().ConfigureAwait(true);
             SimTuning.Core.UserSettings.User = result.Item1;
             SimTuning.Core.UserSettings.Order = result.Item2;
-            SimTuning.Core.UserSettings.UserValid = result.Item3;
-            SimTuning.Core.UserSettings.LicenseValid = result.Item4;
 
-            Business.Functions.ShowSnackbarDialog(result.Item4);
+            Business.Functions.ShowSnackbarDialog(result.Item3);
         }
 
         /// <summary>

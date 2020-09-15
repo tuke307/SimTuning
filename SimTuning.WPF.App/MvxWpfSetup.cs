@@ -1,5 +1,6 @@
 ﻿// project=SimTuning.WPF.UI, file=MvxWpfSetup.cs, creation=2020:7:30 Copyright (c) 2020
 // tuke productions. All rights reserved.
+using MvvmCross.IoC;
 using MvvmCross.Platforms.Wpf.Presenters;
 using MvvmCross.ViewModels;
 using SimTuning.WPF.UI.Region;
@@ -23,6 +24,13 @@ namespace SimTuning.WPF.App
         protected override IMvxWpfViewPresenter CreateViewPresenter(ContentControl root)
         {
             return new MvxWpfPresenter(root);
+        }
+
+        protected override void InitializeFirstChance()
+        {
+            MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
+
+            base.InitializeFirstChance();
         }
     }
 }

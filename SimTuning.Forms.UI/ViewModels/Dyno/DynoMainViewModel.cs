@@ -4,7 +4,6 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
-    using SimTuning.Core.Models;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -62,9 +61,9 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             var tasks = new List<Task>
             {
                 this._navigationService.Navigate<DynoDataViewModel>(),
-               this. _navigationService.Navigate<DynoAudioViewModel>(),
+                this._navigationService.Navigate<DynoAudioViewModel>(),
                 this._navigationService.Navigate<DynoSpectrogramViewModel>(),
-                this._navigationService.Navigate<DynoDiagnosisViewModel>()
+                this._navigationService.Navigate<DynoDiagnosisViewModel>(),
             };
             return Task.WhenAll(tasks);
         }

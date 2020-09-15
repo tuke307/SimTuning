@@ -6,7 +6,6 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
-    using SimTuning.Core.Models;
     using SimTuning.WPF.UI.Business;
     using System.Security;
     using System.Threading.Tasks;
@@ -64,10 +63,8 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
             var result = await Login.UserLoginAsync(email: Email, password: Password).ConfigureAwait(true);
             SimTuning.Core.UserSettings.User = result.Item1;
             SimTuning.Core.UserSettings.Order = result.Item2;
-            SimTuning.Core.UserSettings.UserValid = result.Item3;
-            SimTuning.Core.UserSettings.LicenseValid = result.Item4;
 
-            Functions.ShowSnackbarDialog(result.Item4);
+            Functions.ShowSnackbarDialog(result.Item3);
         }
 
         /// <summary>

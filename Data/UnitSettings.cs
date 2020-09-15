@@ -6,8 +6,10 @@
     /// <summary>
     /// UnitSettings.
     /// </summary>
-    public static class UnitSettings
+    public class UnitSettings
     {
+        private const string unitFile = "unit";
+
         /// <summary>
         /// Gets or sets the rounding accuracy.
         /// </summary>
@@ -16,12 +18,12 @@
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(RoundingAccuracy), 2);
+                return AppSettings.GetValueOrDefault(nameof(RoundingAccuracy), 2, unitFile);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(RoundingAccuracy), value);
+                AppSettings.AddOrUpdateValue(nameof(RoundingAccuracy), value, unitFile);
             }
         }
 
@@ -33,12 +35,12 @@
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(RoundOnUnitChange), true);
+                return AppSettings.GetValueOrDefault(nameof(RoundOnUnitChange), true, unitFile);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(RoundOnUnitChange), value);
+                AppSettings.AddOrUpdateValue(nameof(RoundOnUnitChange), value, unitFile);
             }
         }
 
