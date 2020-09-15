@@ -9,9 +9,12 @@
     /// </summary>
     public class UserSettings
     {
-        private static WooCommerceNET.WooCommerce.Legacy.Order? _order;
+        // Singleton
+        //public static UserSettings Current = new UserSettings();
 
-        private static WordPressPCL.Models.User? _user;
+        private static WooCommerceNET.WooCommerce.Legacy.Order _order;
+
+        private static WordPressPCL.Models.User _user;
 
         /// <summary>
         /// Gets a value indicating whether [license valid].
@@ -21,7 +24,7 @@
         {
             get
             {
-                if (UserSettings.Order != null)
+                if (Order != null)
                 {
                     return true;
                 }
@@ -53,13 +56,13 @@
         /// Gets or sets the order.
         /// </summary>
         /// <value>The order.</value>
-        public static WooCommerceNET.WooCommerce.Legacy.Order? Order
+        public static WooCommerceNET.WooCommerce.Legacy.Order Order
         {
             get => _order;
             set
             {
                 _order = value;
-                OnStaticPropertyChanged(nameof(LicenseValid));
+                OnPropertyChanged(nameof(LicenseValid));
             }
         }
 
@@ -101,13 +104,13 @@
         /// Gets or sets the user.
         /// </summary>
         /// <value>The user.</value>
-        public static WordPressPCL.Models.User? User
+        public static WordPressPCL.Models.User User
         {
             get => _user;
             set
             {
                 _user = value;
-                OnStaticPropertyChanged(nameof(UserValid));
+                OnPropertyChanged(nameof(UserValid));
             }
         }
 
@@ -119,7 +122,7 @@
         {
             get
             {
-                if (UserSettings.User != null)
+                if (User != null)
                 {
                     return true;
                 }
@@ -135,11 +138,11 @@
         /// <summary>
         /// Occurs when [static property changed].
         /// </summary>
-        public static event PropertyChangedEventHandler StaticPropertyChanged;
+        public static event PropertyChangedEventHandler PropertyChanged;
 
-        private static void OnStaticPropertyChanged(string propertyName)
+        private static void OnPropertyChanged(string propertyName)
         {
-            StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(null, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -39,6 +39,7 @@
                                                         Margin="5, 0, 0, 0"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                         SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffKruemmerDUnit}"
+                                                        LeadingIcon="ic_chevron_down_black_18dp.png"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
                             <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -88,6 +89,7 @@
                                                         Margin="5, 0, 0, 0"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                         SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffKruemmerLUnit}"
+                                                        LeadingIcon="ic_chevron_down_black_18dp.png"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
                             <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -124,6 +126,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding VehicleMotorAuslassFlaecheAUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -176,6 +179,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Path=ModAuspuffAbgasTUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -193,6 +197,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding ModAuspuffAbgasVUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -239,6 +244,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffAbgasTUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -268,6 +274,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffResonanzLUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"

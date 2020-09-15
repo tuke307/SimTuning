@@ -34,7 +34,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     WidthRequest="100"
                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding VehicleMotorBrennraumVUnit}"
+                                                    SelectedChoice="{Binding VehicleMotorBrennraumVUnit}" LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -50,7 +50,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     WidthRequest="100"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding VehicleMotorBohrungDUnit}"
+                                                    SelectedChoice="{Binding VehicleMotorBohrungDUnit}" LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -66,7 +66,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     WidthRequest="100"
                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding VehicleMotorHubraumVUnit}"
+                                                    SelectedChoice="{Binding VehicleMotorHubraumVUnit}" LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -153,7 +153,7 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding AbdrehenLengthUnit}"
+                                                    SelectedChoice="{Binding AbdrehenLengthUnit}" LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Grid.Column="2"

@@ -59,6 +59,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=MassQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=DynoVehicleGewichtUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -76,6 +77,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=DynoVehicleFrontAUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -99,6 +101,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=DynoEnvironmentTemperaturTUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -116,6 +119,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=PressureQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=DynoEnvironmentLuftdruckPUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>

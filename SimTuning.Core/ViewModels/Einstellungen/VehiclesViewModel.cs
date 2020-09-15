@@ -321,7 +321,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         public ObservableCollection<Data.Models.MotorModel> Engines
         {
             get => this._engines;
-            set { SetProperty(ref this._engines, value); }
+            set => SetProperty(ref this._engines, value);
         }
 
         /// <summary>
@@ -450,7 +450,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <value>The vehicle dyno audio.</value>
         public ObservableCollection<Data.Models.DynoAudioModel> VehicleDynoAudio
         {
-            get => new ObservableCollection<Data.Models.DynoAudioModel>(this.Vehicle?.Dyno?.Audio);
+            get => this.Vehicle?.Dyno?.Audio == null ? new ObservableCollection<Data.Models.DynoAudioModel>() : new ObservableCollection<Data.Models.DynoAudioModel>(this.Vehicle.Dyno.Audio);
         }
 
         /// <summary>
@@ -478,7 +478,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <value>The vehicle dyno dyno nm.</value>
         public ObservableCollection<Data.Models.DynoNmModel> VehicleDynoDynoNm
         {
-            get => new ObservableCollection<Data.Models.DynoNmModel>(this.Vehicle?.Dyno?.DynoNm);
+            get => this.Vehicle?.Dyno?.DynoNm == null ? new ObservableCollection<Data.Models.DynoNmModel>() : new ObservableCollection<Data.Models.DynoNmModel>(this.Vehicle?.Dyno?.DynoNm);
         }
 
         /// <summary>
@@ -487,7 +487,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <value>The vehicle dyno dyno ps.</value>
         public ObservableCollection<Data.Models.DynoPSModel> VehicleDynoDynoPS
         {
-            get => new ObservableCollection<Data.Models.DynoPSModel>(this.Vehicle?.Dyno?.DynoPS);
+            get => this.Vehicle?.Dyno?.DynoPS == null ? new ObservableCollection<Data.Models.DynoPSModel>() : new ObservableCollection<Data.Models.DynoPSModel>(this.Vehicle?.Dyno?.DynoPS);
         }
 
         /// <summary>

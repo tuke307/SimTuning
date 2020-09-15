@@ -14,6 +14,10 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
     /// <seealso cref="SimTuning.Core.ViewModels.Dyno.DataViewModel" />
     public class DynoDataViewModel : SimTuning.Core.ViewModels.Dyno.DataViewModel
     {
+        public IMvxAsyncCommand CloseCommand { get; private set; }
+
+        public IMvxAsyncCommand ShowSettingsCommand { get; private set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DynoDataViewModel" /> class.
         /// </summary>
@@ -26,6 +30,9 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             this.NewDynoCommand = new MvxCommand(this.NewDyno);
             this.DeleteDynoCommand = new MvxCommand(this.DeleteDyno);
             this.SaveDynoCommand = new MvxCommand(this.SaveDyno);
+
+            ShowSettingsCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoSettingsViewModel>());
+            CloseCommand = new MvxAsyncCommand(async () => await NavigationService.Close(this));
         }
 
         /// <summary>

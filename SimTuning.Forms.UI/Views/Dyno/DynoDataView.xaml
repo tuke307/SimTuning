@@ -1,19 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       x:TypeArguments="viewModels:DynoDataViewModel"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                       xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
-                       mc:Ignorable="d"
-                       Title="Datensatz"
-                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDataView"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                      xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      x:TypeArguments="viewModels:DynoDataViewModel"
+                      mc:Ignorable="d"
+                      Title="Datensatz"
+                      x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDataView"
+                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <ScrollView>
         <StackLayout>
+            <material:MaterialButton Margin="15"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Start"
+                                     ImageSource="ic_arrow_back_black_18dp.png"
+                                     Command="{Binding CloseCommand}"
+                                     WidthRequest="100"
+                                     HeightRequest="60">
+            </material:MaterialButton>
 
             <Frame Margin="10"
                    VerticalOptions="CenterAndExpand">
@@ -123,14 +131,15 @@
 
                         <StackLayout Grid.Column="0">
                             <material:MaterialTextField Placeholder="Name"
-                                                        Text="{Binding Mode=TwoWay, Path=Dyno.Name}"
+                                                        Text="{Binding Mode=TwoWay, Path=DynoName}"
                                                         Margin="5">
                             </material:MaterialTextField>
 
-                            <material:MaterialTextField Placeholder="Beschreibung"
-                                                        Text="{Binding Mode=TwoWay, Path=Dyno.Beschreibung}"
-                                                        Margin="5">
-                            </material:MaterialTextField>
+                            <Editor Placeholder="Beschreibung"
+                                    Text="{Binding Mode=TwoWay, Path=DynoBeschreibung}"
+                                    HeightRequest="150"
+                                    Margin="5">
+                            </Editor>
                         </StackLayout>
 
                         <material:MaterialButton Grid.Column="1"
@@ -239,6 +248,15 @@
                     </expandable:ExpandableView>
                 </StackLayout>
             </Frame>
+
+            <material:MaterialButton Margin="15"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="End"
+                                     ImageSource="ic_play_arrow_black_18dp.png"
+                                     Command="{Binding ShowSettingsCommand}"
+                                     WidthRequest="100"
+                                     HeightRequest="60">
+            </material:MaterialButton>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

@@ -8,55 +8,95 @@
                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoSettingsView">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <StackLayout Grid.Row="0">
-            <material:MaterialLabel Text="1. Beschleunigung"
-                                    TypeScale="H5" />
-
-            <StackLayout Orientation="Horizontal">
-                <material:MaterialLabel Text="Start:" />
-
-                <material:MaterialTextField InputType="Numeric"
-                                            IsEnabled="False"
-                                            Text="0" />
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal">
-                <material:MaterialLabel Text="Ende:" />
-
-                <material:MaterialTextField InputType="Numeric"
-                                            Text="{Binding Mode=TwoWay, Path=EndAcceleration}" />
-            </StackLayout>
-        </StackLayout>
-        <StackLayout Grid.Row="1">
-
-            <material:MaterialLabel Text="2. Ausrollen"
-                                    TypeScale="H5" />
-
-            <StackLayout Orientation="Horizontal">
-                <material:MaterialLabel Text="Start:" />
-
-                <material:MaterialTextField InputType="Numeric"
-                                            IsEnabled="False"
-                                            Text="{Binding Mode=OneWay, Path=EndAcceleration}" />
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal">
-                <material:MaterialLabel Text="Ende:" />
-
-                <material:MaterialTextField InputType="Numeric"
-                                            IsEnabled="False"
-                                            Text="0" />
-            </StackLayout>
-        </StackLayout>
-
-        <material:MaterialIconButton ButtonType="Elevated"
-                                     HorizontalOptions="Center"
+        <!--<material:MaterialIconButton Grid.Row="0" WidthRequest="100"
+                                     HeightRequest="60"
+                                     Margin="15"
+                                     ButtonType="Elevated"
+                                     HorizontalOptions="Start"
                                      VerticalOptions="Center"
-                                     Command="{Binding NavigateToAcceleration}" />
+                                     Image="ic_arrow_back_black_18dp.png"
+                                     Command="{Binding CloseCommand}" />-->
+
+        <Frame Margin="10"
+               VerticalOptions="CenterAndExpand"
+               Grid.Row="1">
+            <StackLayout>
+                <material:MaterialLabel Text="1. Beschleunigung"
+                                        FontSize="Medium"
+                                        FontAttributes="Bold" />
+
+                <BoxView Color="Gray"
+                         HeightRequest="2"
+                         HorizontalOptions="Fill"
+                         Margin="0, 0, 0, 5" />
+
+                <StackLayout Orientation="Horizontal">
+                    <material:MaterialLabel Text="Start:"
+                                            VerticalOptions="FillAndExpand" />
+
+                    <material:MaterialTextField InputType="Numeric"
+                                                IsEnabled="False"
+                                                Text="0 km/h"
+                                                FloatingPlaceholderEnabled="False" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <material:MaterialLabel Text="Ende:" />
+
+                    <material:MaterialTextField InputType="Numeric"
+                                                Text="{Binding Mode=TwoWay, Path=EndAcceleration}"
+                                                FloatingPlaceholderEnabled="False" />
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+
+        <Frame Margin="10"
+               VerticalOptions="CenterAndExpand"
+               Grid.Row="2">
+            <StackLayout>
+                <material:MaterialLabel Text="2. Ausrollen"
+                                        FontSize="Medium"
+                                        FontAttributes="Bold" />
+
+                <BoxView Color="Gray"
+                         HeightRequest="2"
+                         HorizontalOptions="Fill"
+                         Margin="0, 0, 0, 5" />
+
+                <StackLayout Orientation="Horizontal">
+                    <material:MaterialLabel Text="Start:" />
+
+                    <material:MaterialTextField InputType="Numeric"
+                                                IsEnabled="False"
+                                                Text="{Binding Mode=OneWay, Path=EndAcceleration}"
+                                                FloatingPlaceholderEnabled="False" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <material:MaterialLabel Text="Ende:" />
+
+                    <material:MaterialTextField InputType="Numeric"
+                                                IsEnabled="False"
+                                                Text="0 km/h"
+                                                FloatingPlaceholderEnabled="False" />
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+
+        <material:MaterialIconButton Grid.Row="3"
+                                     WidthRequest="100"
+                                     HeightRequest="60"
+                                     Margin="15"
+                                     ButtonType="Elevated"
+                                     HorizontalOptions="End"
+                                     VerticalOptions="Center"
+                                     Image="ic_play_arrow_black_18dp.png"
+                                     Command="{Binding ShowAccelerationCommand}" />
     </Grid>
 </views:MvxContentPage>

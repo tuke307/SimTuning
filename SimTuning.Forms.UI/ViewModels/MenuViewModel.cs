@@ -70,6 +70,12 @@ namespace SimTuning.Forms.UI.ViewModels
                 Directory.CreateDirectory(SimTuning.Core.GeneralSettings.FileDirectory);
             }
 
+            // since android 10, database has to be created
+            if (!File.Exists(Data.DatabaseSettings.DatabasePath))
+            {
+                File.Create(Data.DatabaseSettings.DatabasePath);
+            }
+
             using (var db = new DatabaseContext())
             {
                 db.Database.Migrate();
@@ -111,11 +117,13 @@ namespace SimTuning.Forms.UI.ViewModels
         {
             if (UserSettings.LicenseValid)
             {
-                await this._navigationService.Navigate<DynoMainViewModel>().ConfigureAwait(true);
+                await this._navigationService.Navigate</*DynoMainViewModel*/DynoDataViewModel>().ConfigureAwait(true);
             }
             else
             {
-                await this._navigationService.Navigate<DemoMainViewModel>().ConfigureAwait(true);
+                //TODO: for testing
+                await this._navigationService.Navigate</*DynoMainViewModel*/DynoDataViewModel>().ConfigureAwait(true);
+                //await this._navigationService.Navigate<DemoMainViewModel>().ConfigureAwait(true);
             }
         }
 

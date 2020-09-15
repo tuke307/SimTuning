@@ -1,12 +1,19 @@
-﻿using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels.Dyno;
-using Xamarin.Forms.Xaml;
-
-namespace SimTuning.Forms.UI.Views.Dyno
+﻿namespace SimTuning.Forms.UI.Views.Dyno
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+    using MvvmCross.Forms.Presenters.Attributes;
+    using MvvmCross.Forms.Views;
+    using SimTuning.Forms.UI.ViewModels.Dyno;
+
+    /// <summary>
+    /// DynoRuntimeView.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Dyno.DynoRuntimeViewModel}" />
+    [MvxModalPresentation]
     public partial class DynoRuntimeView : MvxContentPage<DynoRuntimeViewModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynoRuntimeView" /> class.
+        /// </summary>
         public DynoRuntimeView()
         {
             InitializeComponent();

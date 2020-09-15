@@ -13,28 +13,72 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <!--<material:MaterialIconButton Grid.Row="0"
+                                     WidthRequest="100"
+                                     HeightRequest="60"
+                                     Margin="15"
+                                     ButtonType="Elevated"
+                                     HorizontalOptions="Start"
+                                     VerticalOptions="Center"
+                                     Image="ic_arrow_back_black_18dp.png"
+                                     Command="{Binding CloseCommand}" />-->
+
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <material:MaterialLabel Grid.Column="0"
-                                    Text="0 km/h" />
+                                    Text="0 km/h"
+                                    HorizontalOptions="End"
+                                    Margin="0, 0, 20, 0" />
             <material:MaterialLabel Grid.Column="1"
-                                    Text="{Binding Mode=TwoWay, Path=EndAcceleration}" />
+                                    HorizontalOptions="Start"
+                                    Margin="20, 0, 0, 0"
+                                    Text="{Binding Mode=OneWay, Path=EndAcceleration}" />
         </Grid>
 
-        <material:MaterialLabel Grid.Row="1"
+        <material:MaterialLabel Grid.Row="2"
+                                HorizontalOptions="Center"
                                 Text="{Binding Path=Speed, Mode=OneWay}"
                                 TypeScale="H5" />
-        <material:MaterialLabel Grid.Row="2"
+        <material:MaterialLabel Grid.Row="3"
+                                HorizontalOptions="Center"
                                 Text="{Binding Path=CurrentState, Mode=OneWay}"
                                 TypeScale="H5" />
-        <material:MaterialLabel Grid.Row="3"
+        <material:MaterialLabel Grid.Row="4"
+                                HorizontalOptions="Center"
                                 Text="{Binding Path=Timer, Mode=OneWay}"
                                 TypeScale="H5" />
+
+        <StackLayout  Grid.Row="5"
+                      Orientation="Horizontal"
+                      HorizontalOptions="Center">
+            <material:MaterialButton Text="Start"
+                                     ButtonType="Elevated"
+                                     VerticalOptions="Center"
+                                     Image="ic_play_arrow_black_18dp.png"
+                                     Command="{Binding StartTrackingCommand}" />
+
+            <material:MaterialButton Text="Reset"
+                                     ButtonType="Elevated"
+                                     VerticalOptions="Center"
+                                     Image="ic_refresh_black_18dp.png"
+                                     Command="{Binding ResetTrackingCommand}" />
+        </StackLayout>
+
+        <material:MaterialIconButton Grid.Row="6"
+                                     WidthRequest="100"
+                                     HeightRequest="60"
+                                     Margin="15"
+                                     ButtonType="Elevated"
+                                     HorizontalOptions="End"
+                                     VerticalOptions="Center"
+                                     Image="ic_play_arrow_black_18dp.png"
+                                     Command="{Binding ShowAudioCommand}" />
     </Grid>
 </views:MvxContentPage>

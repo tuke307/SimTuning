@@ -80,7 +80,8 @@
 
                             <Editor Placeholder="Beschreibung"
                                     Text="{Binding Mode=TwoWay, Path=VehicleBeschreibung}"
-                                    Margin="5">
+                                    Margin="5"
+                                    HeightRequest="150">
                             </Editor>
                             <!--<material:MaterialTextField Placeholder="Beschreibung"
                                                         Text="{Binding Mode=TwoWay, Path=VehicleBeschreibung}"
@@ -95,7 +96,7 @@
                                                  ImageSource="ic_save_black_18dp.png"
                                                  IsEnabled="{Binding Mode=OneWay, Path=SaveButton}"
                                                  Command="{Binding SaveVehicleCommand}"
-                                                 WidthRequest="200"
+                                                 WidthRequest="250"
                                                  HeightRequest="60">
                         </material:MaterialButton>
                     </Grid>
@@ -113,16 +114,18 @@
                             <DataTemplate>
                                 <StackLayout Margin="20, 0, 0, 0">
                                     <StackLayout Orientation="Horizontal">
-                                        <material:MaterialTextField Placeholder="Gesamtuebersetzung"
+                                        <material:MaterialTextField Placeholder="Gesamtübersetzung"
+                                                                    InputType="Numeric"
                                                                     Text="{Binding Mode=TwoWay, Path=VehicleUebersetzung}"
-                                                                    WidthRequest="200">
+                                                                    WidthRequest="250">
                                         </material:MaterialTextField>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal">
                                         <material:MaterialTextField Placeholder="Gewicht"
                                                                     Text="{Binding Mode=TwoWay, Path=VehicleGewicht}"
-                                                                    WidthRequest="200">
+                                                                    WidthRequest="250"
+                                                                    InputType="Numeric">
                                         </material:MaterialTextField>
 
                                         <material:MaterialTextField InputType="Choice"
@@ -130,14 +133,17 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=MassQuantityUnits, Mode=OneTime}"
                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleGewichtUnit}"
+                                                                    VerticalOptions="EndAndExpand"
+                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal">
-                                        <material:MaterialTextField Placeholder="Frontflaeche"
+                                        <material:MaterialTextField Placeholder="Frontfläche"
                                                                     Text="{Binding Mode=TwoWay, Path=VehicleFrontA}"
-                                                                    WidthRequest="200">
+                                                                    WidthRequest="250"
+                                                                    InputType="Numeric">
                                         </material:MaterialTextField>
 
                                         <material:MaterialTextField InputType="Choice"
@@ -145,6 +151,7 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleFrontAUnit}"
+                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
@@ -152,7 +159,8 @@
                                     <StackLayout Orientation="Horizontal">
                                         <material:MaterialTextField Placeholder="cw-Wert"
                                                                     Text="{Binding Path=VehicleCw}"
-                                                                    WidthRequest="200">
+                                                                    WidthRequest="250"
+                                                                    InputType="Numeric">
                                         </material:MaterialTextField>
                                     </StackLayout>
                                 </StackLayout>
@@ -178,12 +186,14 @@
                                                                 Placeholder="Motor"
                                                                 Choices="{Binding Engines}"
                                                                 SelectedChoice="{Binding Engine}"
+                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 ChoicesBindingName="Name">
                                     </material:MaterialTextField>
 
                                     <material:MaterialTextField Placeholder="Name"
                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorName}"
-                                                                WidthRequest="200">
+                                                                WidthRequest="250"
+                                                                InputType="Numeric">
                                     </material:MaterialTextField>
 
                                     <!--Daten-->
@@ -202,7 +212,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Hub"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorHubL}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -210,14 +221,16 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorHubLUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
 
                                                     <StackLayout Orientation="Horizontal">
-                                                        <material:MaterialTextField Placeholder="Pleullaenge"
+                                                        <material:MaterialTextField Placeholder="Pleuellänge"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorPleulL}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -225,6 +238,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorPleulLUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -232,7 +246,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Kolben-Geschwindikeit"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorKolbenG}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -240,6 +255,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorKolbenGUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -247,7 +263,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Deachsierung"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungL}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -255,6 +272,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungLUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -262,7 +280,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Bohrung"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorBohrungD}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -270,6 +289,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorBohrungDUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -277,13 +297,15 @@
                                                     <!--VehicleMotorResonanzU ohne Unit-->
                                                     <material:MaterialTextField Placeholder="Resonanzdrehzahl"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
 
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Hubraum Volumen"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorHubraumV}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -291,6 +313,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorHubraumVUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -298,7 +321,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Brennraum Volumen"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorBrennraumV}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
 
                                                             <material:MaterialTextField.Behaviors>
                                                                 <local:EventToCommandBehavior EventName="TextChanged"
@@ -311,6 +335,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding VehicleMotorBrennraumVUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -318,7 +343,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Kurbelgehaeuse Volumen"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseV}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
 
                                                             <material:MaterialTextField.Behaviors>
                                                                 <local:EventToCommandBehavior EventName="TextChanged"
@@ -331,6 +357,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding VehicleMotorKurbelgehaeuseVUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -338,25 +365,29 @@
                                                     <!--VehicleMotorVerdichtungV ohne Unit-->
                                                     <material:MaterialTextField Placeholder="Verdichtungsverhältnis"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorVerdichtungV}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
 
                                                     <!--VehicleMotorZylinderAnz ohne Unit-->
                                                     <material:MaterialTextField Placeholder="Zylinder-Anzahl"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorZylinderAnz}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
 
                                                     <!--VehicleMotorZuendzeitpunkt ohne Unit-->
                                                     <material:MaterialTextField Placeholder="Zündzeitpunkt"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorZuendzeitpunkt}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
 
                                                     <!--VehicleMotorHeizwertU ohne Unit-->
                                                     <material:MaterialTextField Placeholder="Heizwert"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorHeizwertU}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
                                                 </StackLayout>
                                             </DataTemplate>
@@ -378,7 +409,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Hoehe"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheH}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -386,6 +418,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheHUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -393,7 +426,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Breite"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteB}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -401,6 +435,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteBUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -408,7 +443,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Durchmesser"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -416,6 +452,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserDUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -423,7 +460,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Flaeche"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheA}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -431,6 +469,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheAUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -438,13 +477,15 @@
                                                     <!--VehicleMotorEinlassSteuerzeitSZ ohne Unit-->
                                                     <material:MaterialTextField Placeholder="Steuerzeit"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassSteuerzeitSZ}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
 
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Länge"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeL}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -452,6 +493,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeLUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -459,7 +501,8 @@
                                                     <!--VehicleMotorEinlassLuftBedarf ohne Unit-->
                                                     <material:MaterialTextField Placeholder="LuftBedarf"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLuftBedarf}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
 
                                                     <!--Vergaser-->
@@ -477,7 +520,8 @@
                                                                     <StackLayout Orientation="Horizontal">
                                                                         <material:MaterialTextField Placeholder="Durchmesser"
                                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserD}"
-                                                                                                    WidthRequest="200">
+                                                                                                    WidthRequest="250"
+                                                                                                    InputType="Numeric">
                                                                         </material:MaterialTextField>
 
                                                                         <material:MaterialTextField InputType="Choice"
@@ -485,6 +529,7 @@
                                                                                                     Margin="5, 0, 0, 0"
                                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserDUnit}"
+                                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                                     ChoicesBindingName="Abbreviation">
                                                                         </material:MaterialTextField>
                                                                     </StackLayout>
@@ -492,7 +537,8 @@
                                                                     <!--VehicleMotorEinlassLuftBedarf ohne Unit-->
                                                                     <material:MaterialTextField Placeholder="BenzinLuftF"
                                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserBenzinLuftF}"
-                                                                                                WidthRequest="200">
+                                                                                                WidthRequest="250"
+                                                                                                InputType="Numeric">
                                                                     </material:MaterialTextField>
                                                                 </StackLayout>
                                                             </DataTemplate>
@@ -518,7 +564,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Hoehe"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheH}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -526,6 +573,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheHUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -533,7 +581,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Breite"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteB}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -541,6 +590,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteBUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -548,7 +598,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Flaeche"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheA}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
 
                                                             <material:MaterialTextField.Behaviors>
                                                                 <local:EventToCommandBehavior EventName="TextChanged"
@@ -561,6 +612,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheAUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -568,7 +620,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Länge"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeL}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
 
                                                             <material:MaterialTextField.Behaviors>
                                                                 <local:EventToCommandBehavior EventName="TextChanged"
@@ -581,6 +634,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeLUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -588,7 +642,8 @@
                                                     <!--VehicleMotorAuslassSteuerzeitSZ ohne Unit-->
                                                     <material:MaterialTextField Placeholder="Steuerzeit"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassSteuerzeitSZ}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
 
                                                     <!--Auspuff-->
@@ -627,7 +682,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Hoehe"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheH}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -635,6 +691,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheHUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -642,7 +699,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Breite"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteB}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -650,6 +708,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteBUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -657,7 +716,8 @@
                                                     <StackLayout Orientation="Horizontal">
                                                         <material:MaterialTextField Placeholder="Flaeche"
                                                                                     Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheA}"
-                                                                                    WidthRequest="200">
+                                                                                    WidthRequest="250"
+                                                                                    InputType="Numeric">
                                                         </material:MaterialTextField>
 
                                                         <material:MaterialTextField InputType="Choice"
@@ -665,6 +725,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheAUnit}"
+                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -672,13 +733,15 @@
                                                     <!--VehicleMotorUeberstroemerAnzahl ohne Unit-->
                                                     <material:MaterialTextField Placeholder="Anzahl"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerAnzahl}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
 
                                                     <!--VehicleMotorUeberstroemerSteuerzeitSZ ohne Unit-->
                                                     <material:MaterialTextField Placeholder="Steuerzeit"
                                                                                 Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerSteuerzeitSZ}"
-                                                                                WidthRequest="200">
+                                                                                WidthRequest="250"
+                                                                                InputType="Numeric">
                                                     </material:MaterialTextField>
                                                 </StackLayout>
                                             </DataTemplate>
@@ -704,16 +767,18 @@
 
                                     <material:MaterialTextField Placeholder="Name"
                                                                 Text="{Binding Mode=TwoWay, Path=VehicleDynoName}"
-                                                                WidthRequest="200">
+                                                                WidthRequest="250"
+                                                                InputType="Numeric">
                                     </material:MaterialTextField>
 
                                     <Editor Placeholder="Beschreibung"
                                             Text="{Binding Mode=TwoWay, Path=VehicleDynoBeschreibung}"
-                                            WidthRequest="200">
+                                            WidthRequest="250"
+                                            HeightRequest="150">
                                     </Editor>
                                     <!--<material:MaterialTextField Placeholder="Beschreibung"
                                                                 Text="{Binding Mode=TwoWay, Path=VehicleDynoBeschreibung}"
-                                                                WidthRequest="200">
+                                                                WidthRequest="250" InputType="Numeric">
                                     </material:MaterialTextField>-->
 
                                     <!--Audio-->
