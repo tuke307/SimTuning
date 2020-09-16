@@ -12,7 +12,7 @@
     <ScrollView>
         <StackLayout>
 
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Spectrogram"
                                             FontSize="Medium"
@@ -30,10 +30,10 @@
                            HorizontalOptions="FillAndExpand">
                     </Image>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--EINSTELLUNGEN-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Spectrogram-Einstellungen"
                                             FontSize="Medium"
@@ -105,10 +105,10 @@
                                              Command="{Binding RefreshSpectrogramCommand}">
                     </material:MaterialButton>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--1. Group box Plot-->
-            <Frame   Margin="10">
+            <material:MaterialCard   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Graph"
                                             FontSize="Medium"
@@ -122,10 +122,10 @@
                     <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotAudio}"
                                   HeightRequest="400" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--2. group box-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Graph-Einstellungen"
                                             FontSize="Medium"
@@ -159,7 +159,7 @@
                         </material:MaterialTextField.Behaviors>-->
                     </material:MaterialTextField>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

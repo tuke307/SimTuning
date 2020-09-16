@@ -11,7 +11,7 @@
     <ScrollView>
         <StackLayout>
             <!--MOTOR-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Motor"
                                             FontSize="Medium"
@@ -105,11 +105,11 @@
                     <!--ÜBERSTRÖMER-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     Überströmer
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -129,11 +129,11 @@
                     <!--Einlass-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     Einlass
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -225,11 +225,11 @@
                     <!--AUSLASS-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     Auslass
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -310,10 +310,10 @@
                         </expandable:ExpandableView.SecondaryViewTemplate>
                     </expandable:ExpandableView>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--WEITERES-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Weiteres"
                                             FontSize="Medium"
@@ -372,7 +372,7 @@
                         </material:MaterialTextField>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

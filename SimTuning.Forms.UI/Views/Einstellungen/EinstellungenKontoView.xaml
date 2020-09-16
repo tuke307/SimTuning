@@ -9,7 +9,7 @@
                        BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <StackLayout>
 
-        <Frame Margin="10">
+        <material:MaterialCard Margin="10">
             <StackLayout>
                 <material:MaterialLabel Text="Anmelden"
                                         FontSize="Medium"
@@ -53,6 +53,6 @@
                     </material:MaterialButton>
                 </Grid>
             </StackLayout>
-        </Frame>
+        </material:MaterialCard>
     </StackLayout>
 </views:MvxContentPage>

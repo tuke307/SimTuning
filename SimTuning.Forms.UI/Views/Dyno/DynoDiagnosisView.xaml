@@ -12,7 +12,7 @@
         <StackLayout>
 
             <!--Plot-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Graph"
                                             FontSize="Medium"
@@ -26,10 +26,10 @@
                     <oxy:PlotView Model="{Binding PlotStrength}"
                                   HeightRequest="300" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Einstellungen-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Einstellungen"
                                             FontSize="Medium"
@@ -130,10 +130,10 @@
                                              Command="{Binding RefreshPlotCommand}">
                     </material:MaterialButton>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Hilfe-Fahrzeug-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"
@@ -231,10 +231,10 @@
                                              Command="{Binding InsertVehicleCommand}"
                                              WidthRequest="90" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Hilfe-Environment-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"
@@ -304,7 +304,7 @@
                                              Command="{Binding InsertEnvironmentCommand}"
                                              WidthRequest="90" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

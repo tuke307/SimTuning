@@ -7,11 +7,11 @@
                        xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                        BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <StackLayout VerticalOptions="Center">
-        <Frame Margin="10">
+        <material:MaterialCard Margin="10">
             <material:MaterialLabel>
                 Kauf die Pro-Version um dieses Modul öffnen zu können
             </material:MaterialLabel>
-        </Frame>
+        </material:MaterialCard>
 
         <material:MaterialButton Command="{Binding OpenWebsiteCommand}"
                                  Text="Website"

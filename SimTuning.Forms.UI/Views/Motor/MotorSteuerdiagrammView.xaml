@@ -12,7 +12,7 @@
         <StackLayout>
 
             <!--Steuerzeiten Rad-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Diagramm"
                                             FontSize="Medium"
@@ -144,10 +144,10 @@
                                                     InputType="Numeric" />
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Fahrzeug-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Fahrzeg Steuerzeiten"
                                             FontSize="Medium"
@@ -243,10 +243,10 @@
                                              HorizontalOptions="Center"
                                              WidthRequest="90" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Tuning Presets-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Richtwerte Steuerzeiten"
                                             FontSize="Medium"
@@ -341,7 +341,7 @@
                                              HorizontalOptions="Center"
                                              WidthRequest="90" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

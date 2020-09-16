@@ -23,9 +23,9 @@
                                      Image="ic_arrow_back_black_18dp.png"
                                      Command="{Binding CloseCommand}" />-->
 
-        <Frame Margin="10"
-               VerticalOptions="CenterAndExpand"
-               Grid.Row="1">
+        <material:MaterialCard Margin="10"
+                               VerticalOptions="CenterAndExpand"
+                               Grid.Row="1">
             <StackLayout>
                 <material:MaterialLabel Text="1. Beschleunigung"
                                         FontSize="Medium"
@@ -54,11 +54,11 @@
                                                 FloatingPlaceholderEnabled="False" />
                 </StackLayout>
             </StackLayout>
-        </Frame>
+        </material:MaterialCard>
 
-        <Frame Margin="10"
-               VerticalOptions="CenterAndExpand"
-               Grid.Row="2">
+        <material:MaterialCard Margin="10"
+                               VerticalOptions="CenterAndExpand"
+                               Grid.Row="2">
             <StackLayout>
                 <material:MaterialLabel Text="2. Ausrollen"
                                         FontSize="Medium"
@@ -87,7 +87,7 @@
                                                 FloatingPlaceholderEnabled="False" />
                 </StackLayout>
             </StackLayout>
-        </Frame>
+        </material:MaterialCard>
 
         <material:MaterialIconButton Grid.Row="3"
                                      WidthRequest="100"

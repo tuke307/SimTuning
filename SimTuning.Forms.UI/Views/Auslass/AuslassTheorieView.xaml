@@ -12,7 +12,7 @@
         <StackLayout>
 
             <!--LÄNGE-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Krümmer-Länge"
@@ -99,10 +99,10 @@
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--DURCHMESSER-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Krümmer-Durchmesser"
@@ -148,9 +148,9 @@
                         </material:MaterialLabel>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Abgastemperatur"
@@ -206,9 +206,9 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Resonanzlänge"
@@ -283,9 +283,9 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"
@@ -387,7 +387,7 @@
                                              HorizontalOptions="Center"
                                              Margin="10" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

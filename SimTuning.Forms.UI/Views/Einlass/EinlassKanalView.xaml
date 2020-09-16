@@ -11,7 +11,7 @@
         <StackLayout>
 
             <!--Einlass Resonanzlänge-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Einlass-Resonanzlänge"
                                             TypeScale="H5" />
@@ -131,10 +131,10 @@
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Hilfe-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             TypeScale="H5" />
@@ -280,7 +280,7 @@
                                              HorizontalOptions="Center"
                                              Margin="10" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

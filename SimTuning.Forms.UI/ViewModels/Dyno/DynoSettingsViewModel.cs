@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using System.Threading.Tasks;
 
 namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
@@ -11,5 +12,26 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             ShowAccelerationCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoRuntimeViewModel>());
         }
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        #endregion Methods
     }
 }

@@ -15,8 +15,8 @@
     <ScrollView>
         <StackLayout>
 
-            <Frame Margin="10"
-                   VerticalOptions="CenterAndExpand">
+            <material:MaterialCard Margin="10"
+                                   VerticalOptions="CenterAndExpand">
                 <StackLayout>
                     <material:MaterialLabel Text="Auswahl"
                                             FontSize="Medium"
@@ -103,9 +103,9 @@
                         </material:MaterialTextField>
                     </Grid>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
@@ -148,11 +148,11 @@
                     <!--Audio-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     Audio
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -179,11 +179,11 @@
                     <!--PS-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     PS
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -210,11 +210,11 @@
                     <!--Nm-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     Nm
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -238,7 +238,7 @@
                         </expandable:ExpandableView.SecondaryViewTemplate>
                     </expandable:ExpandableView>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

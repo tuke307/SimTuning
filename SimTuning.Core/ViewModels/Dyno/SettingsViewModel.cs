@@ -4,6 +4,7 @@
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// SettingsViewModel.
@@ -20,6 +21,27 @@
                                     : base(logProvider, navigationService)
         {
         }
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        #endregion Methods
 
         #region Values
 

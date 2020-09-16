@@ -12,7 +12,7 @@
         <StackLayout>
 
             <!--Vergasergröße-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Vergasergröße"
                                             FontSize="Medium"
@@ -76,10 +76,10 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Hauptdüsendurchmesser-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hauptdüsendurchmesser"
                                             FontSize="Medium"
@@ -130,10 +130,10 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Hilfe-->
-            <Frame Margin="10,10,10,10">
+            <material:MaterialCard Margin="10,10,10,10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"
@@ -212,7 +212,7 @@
                                              HorizontalOptions="Center"
                                              Margin="10" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

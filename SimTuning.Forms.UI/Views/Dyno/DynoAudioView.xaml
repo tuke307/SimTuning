@@ -21,8 +21,8 @@
         </Grid.RowDefinitions>
 
         <!--EINSTELLUNGEN-->
-        <Frame Margin="10"
-               Grid.Row="0">
+        <material:MaterialCard Margin="10"
+                               Grid.Row="0">
 
             <StackLayout>
                 <Grid>
@@ -65,11 +65,11 @@
                                          MaxValue="{Binding Mode=OneWay, Path=AudioMaximum}">
                 </material:MaterialSlider>
             </StackLayout>
-        </Frame>
+        </material:MaterialCard>
 
         <!--BILD-->
-        <Frame Margin="10"
-               Grid.Row="1">
+        <material:MaterialCard Margin="10"
+                               Grid.Row="1">
             <StackLayout>
                 <Image Source="{Binding Mode=OneWay, Path=ImageAudioSpectrogram}"
                        HeightRequest="350"
@@ -105,6 +105,6 @@
                     </StackLayout>
                 </Grid>
             </StackLayout>
-        </Frame>
+        </material:MaterialCard>
     </Grid>
 </views:MvxContentPage>

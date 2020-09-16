@@ -12,7 +12,7 @@
         <StackLayout>
 
             <!--GRUNDLEGENDES-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Grundlegendes"
                                             FontSize="Medium"
@@ -34,7 +34,8 @@
                                                     Margin="5, 0, 0, 0"
                                                     WidthRequest="100"
                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding VehicleMotorBrennraumVUnit}" LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    SelectedChoice="{Binding VehicleMotorBrennraumVUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -50,7 +51,8 @@
                                                     Margin="5, 0, 0, 0"
                                                     WidthRequest="100"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding VehicleMotorBohrungDUnit}" LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    SelectedChoice="{Binding VehicleMotorBohrungDUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -66,15 +68,16 @@
                                                     Margin="5, 0, 0, 0"
                                                     WidthRequest="100"
                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding VehicleMotorHubraumVUnit}" LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    SelectedChoice="{Binding VehicleMotorHubraumVUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--VERHÄLTNIS-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Verdichtungsverhältnis"
                                             FontSize="Medium"
@@ -100,10 +103,10 @@
                                                 Margin="5, 0, 0, 0" />
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--ERHÖHEN-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Verdichtung erhöhen"
                                             FontSize="Medium"
@@ -153,7 +156,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                    SelectedChoice="{Binding AbdrehenLengthUnit}" LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    SelectedChoice="{Binding AbdrehenLengthUnit}"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Grid.Column="2"
@@ -163,10 +167,10 @@
                         </material:MaterialLabel>-->
                     </Grid>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!---->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfswerte"
                                             FontSize="Medium"
@@ -268,7 +272,7 @@
                                                  WidthRequest="90" />
                     </Grid>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

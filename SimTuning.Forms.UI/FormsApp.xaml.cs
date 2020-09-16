@@ -2,11 +2,7 @@
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI
 {
-    using Data;
-    using Microsoft.EntityFrameworkCore;
     using MvvmCross.IoC;
-    using System;
-    using System.IO;
 
     /// <summary>
     /// FormsApp.

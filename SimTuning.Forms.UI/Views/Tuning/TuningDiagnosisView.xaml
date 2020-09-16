@@ -14,7 +14,7 @@
         <StackLayout>
 
             <!--Daten-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
@@ -140,11 +140,11 @@
                     <!--EINLASS-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     EINLASS
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -219,11 +219,11 @@
                     <!--ÜBERSTRÖMER-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     ÜBERSTRÖMER
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -283,11 +283,11 @@
                     <!--AUSLASS-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     AUSLASS
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -328,9 +328,9 @@
                         </expandable:ExpandableView.SecondaryViewTemplate>
                     </expandable:ExpandableView>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Graph"
                                             FontSize="Medium"
@@ -368,7 +368,7 @@
                         </material:MaterialCheckbox>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

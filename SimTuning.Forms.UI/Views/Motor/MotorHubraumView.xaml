@@ -11,7 +11,7 @@
         <StackLayout>
 
             <!--GRUNDLEGENDES-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Grundlegende Daten"
                                             FontSize="Medium"
@@ -62,10 +62,10 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--BOHRUNG-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Bohrung"
                                             FontSize="Medium"
@@ -97,10 +97,10 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--KOLBEN-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Kolben"
                                             FontSize="Medium"
@@ -154,10 +154,10 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--HILFE-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfswerte"
                                             FontSize="Medium"
@@ -295,7 +295,7 @@
                         </StackLayout>
                     </Grid>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

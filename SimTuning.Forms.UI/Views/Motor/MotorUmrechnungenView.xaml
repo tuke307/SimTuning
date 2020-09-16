@@ -12,7 +12,7 @@
         <StackLayout>
 
             <!--GRUNDLEGENDES-->
-            <Frame  Margin="10">
+            <material:MaterialCard  Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Grundlegende Daten"
                                             FontSize="Medium"
@@ -108,10 +108,10 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--UMRECHNUNG-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Umrechnung"
                                             FontSize="Medium"
@@ -158,10 +158,10 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--STEUERZEIT-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Steuerzeit erhöhen"
                                             FontSize="Medium"
@@ -289,10 +289,10 @@
                         </material:MaterialLabel>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--HILFSDATEN-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
 
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfswerte"
@@ -393,7 +393,7 @@
                                              WidthRequest="90"
                                              Margin="10" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

@@ -9,8 +9,8 @@
                       BackgroundColor="{Binding Path=BackgroundColor, Mode=OneWay}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="3*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
@@ -26,52 +26,92 @@
                                      Image="ic_arrow_back_black_18dp.png"
                                      Command="{Binding CloseCommand}" />-->
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <material:MaterialCard Grid.Row="1"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Elevation="3"
+                               HeightRequest="200"
+                               WidthRequest="250">
 
-            <material:MaterialLabel Grid.Column="0"
-                                    Text="0 km/h"
-                                    HorizontalOptions="End"
-                                    Margin="0, 0, 20, 0" />
-            <material:MaterialLabel Grid.Column="1"
-                                    HorizontalOptions="Start"
-                                    Margin="20, 0, 0, 0"
-                                    Text="{Binding Mode=OneWay, Path=EndAcceleration}" />
-        </Grid>
+            <Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackLayout Grid.Column="0"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="Start">
+                        <material:MaterialLabel Text="0" />
+                        <material:MaterialLabel Text="km/h" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="1"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="End">
+                        <material:MaterialLabel Text="{Binding Mode=OneWay, Path=EndAcceleration}" />
+
+                        <material:MaterialLabel Text="km/h" />
+                    </StackLayout>
+                </Grid>
+
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center">
+
+                    <material:MaterialLabel Text="{Binding Path=Speed, Mode=OneWay}"
+                                            TypeScale="H1" />
+
+                    <material:MaterialLabel Text="km/h"
+                                            TypeScale="H4" />
+                </StackLayout>
+            </Grid>
+        </material:MaterialCard>
 
         <material:MaterialLabel Grid.Row="2"
                                 HorizontalOptions="Center"
-                                Text="{Binding Path=Speed, Mode=OneWay}"
-                                TypeScale="H5" />
-        <material:MaterialLabel Grid.Row="3"
-                                HorizontalOptions="Center"
                                 Text="{Binding Path=CurrentState, Mode=OneWay}"
                                 TypeScale="H5" />
-        <material:MaterialLabel Grid.Row="4"
-                                HorizontalOptions="Center"
-                                Text="{Binding Path=Timer, Mode=OneWay}"
-                                TypeScale="H5" />
 
-        <StackLayout  Grid.Row="5"
+        <StackLayout Grid.Row="3"
+                     HorizontalOptions="Center"
+                     Orientation="Horizontal">
+            <material:MaterialLabel  Text="{Binding Path=Timer, Mode=OneWay}"
+                                     TypeScale="H2"
+                                     VerticalOptions="End" />
+
+            <material:MaterialLabel Text="ms"
+                                    TypeScale="H4"
+                                    VerticalOptions="End" />
+        </StackLayout>
+
+        <StackLayout  Grid.Row="4"
                       Orientation="Horizontal"
                       HorizontalOptions="Center">
             <material:MaterialButton Text="Start"
                                      ButtonType="Elevated"
                                      VerticalOptions="Center"
+                                     WidthRequest="125"
                                      Image="ic_play_arrow_black_18dp.png"
-                                     Command="{Binding StartTrackingCommand}" />
+                                     Command="{Binding StartAccelerationCommand}" />
 
             <material:MaterialButton Text="Reset"
                                      ButtonType="Elevated"
                                      VerticalOptions="Center"
+                                     WidthRequest="125"
                                      Image="ic_refresh_black_18dp.png"
-                                     Command="{Binding ResetTrackingCommand}" />
+                                     Command="{Binding ResetAccelerationCommand}" />
+
+            <material:MaterialButton Text="Stop"
+                                     ButtonType="Elevated"
+                                     VerticalOptions="Center"
+                                     WidthRequest="125"
+                                     Image="ic_refresh_black_18dp.png"
+                                     Command="{Binding StopAccelerationCommand}" />
         </StackLayout>
 
-        <material:MaterialIconButton Grid.Row="6"
+        <material:MaterialIconButton Grid.Row="5"
                                      WidthRequest="100"
                                      HeightRequest="60"
                                      Margin="15"

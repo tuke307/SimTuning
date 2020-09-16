@@ -23,8 +23,8 @@
                                      HeightRequest="60">
             </material:MaterialButton>
 
-            <Frame Margin="10"
-                   VerticalOptions="CenterAndExpand">
+            <material:MaterialCard Margin="10"
+                                   VerticalOptions="Center">
                 <StackLayout>
                     <material:MaterialLabel Text="Auswahl"
                                             FontSize="Medium"
@@ -104,6 +104,7 @@
                                                     InputType="Choice"
                                                     FloatingPlaceholderEnabled="False"
                                                     Placeholder="Fahrzeug"
+                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     IsEnabled="{Binding Source={x:Reference Name=RB2}, Path=IsSelected}"
                                                     Choices="{Binding Mode=TwoWay, Path=Vehicles}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=Vehicle}"
@@ -111,9 +112,9 @@
                         </material:MaterialTextField>
                     </Grid>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
@@ -157,11 +158,11 @@
                     <!--Audio-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     Audio
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -169,6 +170,7 @@
                                              Margin="20, 0, 0, 0">
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
+                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="X"
                                                                 Choices="{Binding Dyno.Audio}"
                                                                 ChoicesBindingName="X">
@@ -176,6 +178,7 @@
 
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
+                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="Y"
                                                                 Choices="{Binding Dyno.Audio}"
                                                                 ChoicesBindingName="Y">
@@ -188,11 +191,11 @@
                     <!--PS-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     PS
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -200,6 +203,7 @@
                                              Margin="20, 0, 0, 0">
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
+                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="X"
                                                                 Choices="{Binding Dyno.DynoPS}"
                                                                 ChoicesBindingName="X">
@@ -207,6 +211,7 @@
 
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
+                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="Y"
                                                                 Choices="{Binding Dyno.DynoPS}"
                                                                 ChoicesBindingName="Y">
@@ -219,11 +224,11 @@
                     <!--Nm-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <Frame>
+                            <material:MaterialCard>
                                 <material:MaterialLabel>
                                     Nm
                                 </material:MaterialLabel>
-                            </Frame>
+                            </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
                         <expandable:ExpandableView.SecondaryViewTemplate>
                             <DataTemplate>
@@ -231,6 +236,7 @@
                                              Margin="20, 0, 0, 0">
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
+                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="X"
                                                                 Choices="{Binding Dyno.DynoNm}"
                                                                 ChoicesBindingName="X">
@@ -238,6 +244,7 @@
 
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
+                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="Y"
                                                                 Choices="{Binding Dyno.DynoNm}"
                                                                 ChoicesBindingName="Y">
@@ -247,7 +254,7 @@
                         </expandable:ExpandableView.SecondaryViewTemplate>
                     </expandable:ExpandableView>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <material:MaterialButton Margin="15"
                                      VerticalOptions="Center"

@@ -18,7 +18,7 @@
         <StackLayout>
 
             <!--DATEN-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
@@ -139,10 +139,10 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Krümmer-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Krümmer"
                                             FontSize="Medium"
@@ -192,10 +192,10 @@
                         </material:MaterialLabel>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Mittelteil-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Mittelteil"
                                             FontSize="Medium"
@@ -232,10 +232,10 @@
                                              Value="{Binding Mode=TwoWay, Path=VehicleMotorAuslassAuspuffMittelteilF}">
                     </material:MaterialSlider>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Gegenkonus-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Gegenkonus"
                                             FontSize="Medium"
@@ -259,10 +259,10 @@
                         </material:MaterialLabel>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--Endrohr-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Winkel"
                                             FontSize="Medium"
@@ -315,10 +315,10 @@
                         </material:MaterialLabel>-->
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--DIFFUSOR-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Diffusor"
@@ -558,10 +558,10 @@
                         </StackLayout>
                     </Grid>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
             <!--ERGEBNIS-->
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Ergebnis"
@@ -736,9 +736,9 @@
                         </material:MaterialLabel>
                     </StackLayout>
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
 
-            <Frame Margin="10">
+            <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"
@@ -840,7 +840,7 @@
                                              HorizontalOptions="Center"
                                              Margin="10" />
                 </StackLayout>
-            </Frame>
+            </material:MaterialCard>
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>
