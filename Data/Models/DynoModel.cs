@@ -2,14 +2,12 @@
 // productions. All rights reserved.
 namespace Data.Models
 {
-    using MvvmCross.Plugin.Location;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// DynoModel.
-    /// TODO: create migration!!!
     /// </summary>
     /// <seealso cref="Data.Models.BaseEntityModel" />
     public class DynoModel : BaseEntityModel
@@ -48,7 +46,7 @@ namespace Data.Models
         /// Gets or sets the end acceleration.
         /// </summary>
         /// <value>The end acceleration.</value>
-        public int EndAcceleration { get; set; }
+        public int? EndAcceleration { get; set; }
 
         /// <summary>
         /// Gets or sets the environment.
@@ -60,7 +58,7 @@ namespace Data.Models
         /// Gets or sets the location.
         /// </summary>
         /// <value>The location.</value>
-        public virtual IList<MvxGeoLocation> Location { get; set; }
+        public virtual IList<LocationModel> Location { get; set; }
 
         /// <summary>
         /// Gets or sets the name.

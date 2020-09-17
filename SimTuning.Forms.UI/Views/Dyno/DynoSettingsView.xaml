@@ -42,16 +42,20 @@
 
                     <material:MaterialTextField InputType="Numeric"
                                                 IsEnabled="False"
-                                                Text="0 km/h"
+                                                WidthRequest="150"
+                                                Text="0"
                                                 FloatingPlaceholderEnabled="False" />
+                    <material:MaterialLabel Text="km/h" />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">
                     <material:MaterialLabel Text="Ende:" />
 
                     <material:MaterialTextField InputType="Numeric"
+                                                WidthRequest="150"
                                                 Text="{Binding Mode=TwoWay, Path=EndAcceleration}"
                                                 FloatingPlaceholderEnabled="False" />
+                    <material:MaterialLabel Text="km/h" />
                 </StackLayout>
             </StackLayout>
         </material:MaterialCard>
@@ -74,8 +78,11 @@
 
                     <material:MaterialTextField InputType="Numeric"
                                                 IsEnabled="False"
+                                                WidthRequest="150"
                                                 Text="{Binding Mode=OneWay, Path=EndAcceleration}"
                                                 FloatingPlaceholderEnabled="False" />
+
+                    <material:MaterialLabel Text="km/h" />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">
@@ -83,8 +90,10 @@
 
                     <material:MaterialTextField InputType="Numeric"
                                                 IsEnabled="False"
-                                                Text="0 km/h"
+                                                Text="0"
+                                                WidthRequest="150"
                                                 FloatingPlaceholderEnabled="False" />
+                    <material:MaterialLabel Text="km/h" />
                 </StackLayout>
             </StackLayout>
         </material:MaterialCard>

@@ -6,7 +6,6 @@ namespace SimTuning.Core.ViewModels.Dyno
     using Data.Models;
     using MediaManager;
     using MediaManager.Library;
-    using MediaManager.Media;
     using MediaManager.Playback;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
@@ -74,13 +73,16 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         public void ReloadData(Models.MvxReloaderMessage mvxReloaderMessage = null)
         {
-            using (var db = new DatabaseContext())
+            try
             {
-                try
+                using (var db = new DatabaseContext())
                 {
-                    Dyno = db.Dyno.Where(d => d.Active == true)/*.Include(v => v.Audio)*/.First();
+                    this.Dyno = db.Dyno.Single(d => d.Active == true); // .Include(v => v.Audio)
                 }
-                catch { }
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
             }
         }
 
@@ -189,8 +191,8 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         private void Current_PositionChanged(object sender, PositionChangedEventArgs e)
         {
-            Log.Debug($"Current position is {e.Position};");
-            RaisePropertyChanged(() => this.AudioPosition);
+            this.Log.Debug($"Current position is {e.Position};");
+            this.RaisePropertyChanged(() => this.AudioPosition);
         }
 
         #endregion Methods

@@ -38,7 +38,6 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="">The user.</param>
         public override void Prepare()
         {
             base.Prepare();
@@ -60,7 +59,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             var tasks = new List<Task>
             {
-                this._navigationService.Navigate<DynoDataViewModel>(),
+                //this._navigationService.Navigate<DynoDataViewModel>(),
                 this._navigationService.Navigate<DynoAudioViewModel>(),
                 this._navigationService.Navigate<DynoSpectrogramViewModel>(),
                 this._navigationService.Navigate<DynoDiagnosisViewModel>(),

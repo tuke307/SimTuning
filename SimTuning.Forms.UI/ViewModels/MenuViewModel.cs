@@ -70,10 +70,11 @@ namespace SimTuning.Forms.UI.ViewModels
                 Directory.CreateDirectory(SimTuning.Core.GeneralSettings.FileDirectory);
             }
 
-            // since android 10, database has to be created
+            // since android 10, database has to be created at the first time
             if (!File.Exists(Data.DatabaseSettings.DatabasePath))
             {
-                File.Create(Data.DatabaseSettings.DatabasePath);
+                var fs = File.Create(Data.DatabaseSettings.DatabasePath);
+                fs.Dispose();
             }
 
             using (var db = new DatabaseContext())
@@ -91,7 +92,6 @@ namespace SimTuning.Forms.UI.ViewModels
         {
             base.ViewAppeared();
 
-            // TODO: FIX configuration manager is not supported!!!!
             this.LoginUserCommand.Execute();
         }
 

@@ -39,6 +39,23 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         #region Methods
 
         /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        /// <summary>
         /// Cuts the beginn.
         /// </summary>
         protected new async Task CutBeginn()

@@ -1,14 +1,15 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using MvvmCross.Plugin.Messenger;
 using System.Threading.Tasks;
 
 namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     public class DynoSettingsViewModel : SimTuning.Core.ViewModels.Dyno.SettingsViewModel
     {
-        public DynoSettingsViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public DynoSettingsViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
             ShowAccelerationCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoRuntimeViewModel>());
         }

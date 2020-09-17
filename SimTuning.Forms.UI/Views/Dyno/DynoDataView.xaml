@@ -67,48 +67,55 @@
 
                     <Grid Margin="0, 20, 0, 0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.5*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                        <StackLayout Grid.Column="0">
-                            <material:MaterialRadioButton x:Name="RB1"
-                                                          Text="neues Fahrzeug erstellen"
-                                                          IsSelected="{Binding Mode=TwoWay, Path=CreateNewVehicle}">
-                                <material:MaterialRadioButton.Triggers>
-                                    <DataTrigger TargetType="material:MaterialRadioButton"
-                                                 Binding="{Binding Source={x:Reference RB2},Path=IsSelected}"
-                                                 Value="true">
-                                        <Setter Property="IsSelected"
-                                                Value="false" />
-                                    </DataTrigger>
-                                </material:MaterialRadioButton.Triggers>
-                            </material:MaterialRadioButton>
+                        <material:MaterialRadioButton x:Name="RB1"
+                                                      Grid.Column="0"
+                                                      Grid.Row="0"
+                                                      Text="neues Fahrzeug erstellen"
+                                                      IsSelected="{Binding Mode=TwoWay, Path=CreateNewVehicle}">
+                            <material:MaterialRadioButton.Triggers>
+                                <DataTrigger TargetType="material:MaterialRadioButton"
+                                             Binding="{Binding Source={x:Reference RB2},Path=IsSelected}"
+                                             Value="true">
+                                    <Setter Property="IsSelected"
+                                            Value="false" />
+                                </DataTrigger>
+                            </material:MaterialRadioButton.Triggers>
+                        </material:MaterialRadioButton>
 
-                            <material:MaterialRadioButton x:Name="RB2"
-                                                          Text="vorhandenes Fahrzeug verknüpfen"
-                                                          IsSelected="{Binding Mode=TwoWay, Path=TakeExistingVehicle}">
-                                <material:MaterialRadioButton.Triggers>
-                                    <DataTrigger TargetType="material:MaterialRadioButton"
-                                                 Binding="{Binding Source={x:Reference RB1},Path=IsSelected}"
-                                                 Value="true">
-                                        <Setter Property="IsSelected"
-                                                Value="false" />
-                                    </DataTrigger>
-                                </material:MaterialRadioButton.Triggers>
-                            </material:MaterialRadioButton>
-                        </StackLayout>
+                        <material:MaterialRadioButton x:Name="RB2"
+                                                      Grid.Column="0"
+                                                      Grid.Row="1"
+                                                      Text="vorhandenes Fahrzeug verknüpfen"
+                                                      IsSelected="{Binding Mode=TwoWay, Path=TakeExistingVehicle}">
+                            <material:MaterialRadioButton.Triggers>
+                                <DataTrigger TargetType="material:MaterialRadioButton"
+                                             Binding="{Binding Source={x:Reference RB1},Path=IsSelected}"
+                                             Value="true">
+                                    <Setter Property="IsSelected"
+                                            Value="false" />
+                                </DataTrigger>
+                            </material:MaterialRadioButton.Triggers>
+                        </material:MaterialRadioButton>
 
-                        <material:MaterialTextField Grid.Column="1"
-                                                    VerticalOptions="End"
-                                                    InputType="Choice"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    Placeholder="Fahrzeug"
-                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
-                                                    IsEnabled="{Binding Source={x:Reference Name=RB2}, Path=IsSelected}"
-                                                    Choices="{Binding Mode=TwoWay, Path=Vehicles}"
-                                                    SelectedChoice="{Binding Mode=TwoWay, Path=Vehicle}"
-                                                    ChoicesBindingName="Name">
+                        <material:MaterialTextField  Grid.Column="1"
+                                                     Grid.Row="1"
+                                                     VerticalOptions="End"
+                                                     InputType="Choice"
+                                                     FloatingPlaceholderEnabled="False"
+                                                     Placeholder="Fahrzeug"
+                                                     LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                     IsEnabled="{Binding Source={x:Reference Name=RB2}, Path=IsSelected}"
+                                                     Choices="{Binding Mode=TwoWay, Path=Vehicles}"
+                                                     SelectedChoice="{Binding Mode=TwoWay, Path=Vehicle}"
+                                                     ChoicesBindingName="Name">
                         </material:MaterialTextField>
                     </Grid>
                 </StackLayout>
@@ -172,6 +179,7 @@
                                                                 FloatingPlaceholderEnabled="False"
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="X"
+                                                                WidthRequest="100"
                                                                 Choices="{Binding Dyno.Audio}"
                                                                 ChoicesBindingName="X">
                                     </material:MaterialTextField>
@@ -180,6 +188,7 @@
                                                                 FloatingPlaceholderEnabled="False"
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="Y"
+                                                                WidthRequest="100"
                                                                 Choices="{Binding Dyno.Audio}"
                                                                 ChoicesBindingName="Y">
                                     </material:MaterialTextField>
@@ -205,6 +214,7 @@
                                                                 FloatingPlaceholderEnabled="False"
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="X"
+                                                                WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoPS}"
                                                                 ChoicesBindingName="X">
                                     </material:MaterialTextField>
@@ -213,6 +223,7 @@
                                                                 FloatingPlaceholderEnabled="False"
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="Y"
+                                                                WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoPS}"
                                                                 ChoicesBindingName="Y">
                                     </material:MaterialTextField>
@@ -238,6 +249,7 @@
                                                                 FloatingPlaceholderEnabled="False"
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="X"
+                                                                WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoNm}"
                                                                 ChoicesBindingName="X">
                                     </material:MaterialTextField>
@@ -246,6 +258,7 @@
                                                                 FloatingPlaceholderEnabled="False"
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="Y"
+                                                                WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoNm}"
                                                                 ChoicesBindingName="Y">
                                     </material:MaterialTextField>

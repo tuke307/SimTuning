@@ -81,13 +81,16 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <param name="mvxReloaderMessage">The MVX reloader message.</param>
         public void ReloadData(Models.MvxReloaderMessage mvxReloaderMessage = null)
         {
-            using (var db = new DatabaseContext())
+            try
             {
-                try
+                using (var db = new DatabaseContext())
                 {
-                    Dyno = db.Dyno.Where(d => d.Active == true).Include(v => v.Audio).First();
+                    this.Dyno = db.Dyno.Single(d => d.Active == true); // .Include(v => v.Audio);
                 }
-                catch { }
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
             }
         }
 

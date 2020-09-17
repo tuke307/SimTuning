@@ -1,14 +1,20 @@
 ﻿namespace SimTuning.Core.ViewModels.Dyno
 {
+    using Data;
+    using Data.Models;
+    using MvvmCross.Base;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Location;
+    using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
     using Plugin.AudioRecorder;
-    using SimTuning.Core.Business;
+    using SimTuning.Core.Models;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Resources;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -23,19 +29,23 @@
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="locationWatcher">The location watcher.</param>
-        public RuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxLocationWatcher locationWatcher)
+        /// <param name="messenger">The messenger.</param>
+        public RuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxLocationWatcher locationWatcher, IMvxMessenger messenger)
                                     : base(logProvider, navigationService)
         {
+            this._token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
+
+            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
+
             this._locationWatcher = locationWatcher;
 
             this.StartAccelerationCommand = new MvxAsyncCommand(this.StartAcceleration);
-
             this.ResetAccelerationCommand = new MvxAsyncCommand(this.ResetAcceleration);
             this.StopAccelerationCommand = new MvxAsyncCommand(this.StopAcceleration);
 
-            mvxCoordinates = new List<MvxCoordinates>();
-
-            recorder = new AudioRecorderService();
+            this.recorder = new AudioRecorderService();
+            this.recorder.FilePath = GeneralSettings.AudioFilePath;
+            this.recorder.PreferredSampleRate = 44100;
         }
 
         #region Methods
@@ -46,6 +56,8 @@
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
+            this.ReloadData();
+
             return base.Initialize();
         }
 
@@ -57,56 +69,138 @@
             base.Prepare();
         }
 
-        private void OnLocationUpdated(MvxGeoLocation obj)
+        /// <summary>
+        /// Reloads the data.
+        /// </summary>
+        /// <param name="mvxReloaderMessage">The MVX reloader message.</param>
+        public virtual void ReloadData(Models.MvxReloaderMessage mvxReloaderMessage = null)
         {
-            this.LastLocation = obj;
-            mvxCoordinates.Add(obj.Coordinates);
-            this.RaisePropertyChanged(() => this.Speed);
-            this.RaisePropertyChanged(() => this.Timer);
-
-            if ((int)this.Speed == EndAcceleration)
+            try
             {
-                CurrentState = secondState;
-                BackgroundColor = blue;
+                using (var db = new DatabaseContext())
+                {
+                    this.Dyno = db.Dyno.Single(d => d.Active == true);
+                }
+
+                this.RaisePropertyChanged(() => this.EndAcceleration);
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
             }
         }
 
+        /// <summary>
+        /// Resets the acceleration.
+        /// </summary>
+        protected virtual async Task ResetAcceleration()
+        {
+            await this.StopAcceleration().ConfigureAwait(true);
+            await this.StopRecording().ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Starts the acceleration.
+        /// </summary>
+        protected virtual async Task StartAcceleration()
+        {
+            await this.StartRecording().ConfigureAwait(true);
+            await this.StartTracking().ConfigureAwait(true);
+
+            this.Dyno.Location = new List<LocationModel>();
+        }
+
+        /// <summary>
+        /// Stops the acceleration.
+        /// </summary>
+        protected virtual async Task StopAcceleration()
+        {
+            this.StopTracking();
+            await this.StopRecording().ConfigureAwait(true);
+
+            using (var db = new Data.DatabaseContext())
+            {
+                db.Dyno.Update(this.Dyno);
+
+                await db.SaveChangesAsync().ConfigureAwait(true);
+            }
+        }
+
+        /// <summary>
+        /// Called when [location updated].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void OnLocationUpdated(MvxGeoLocation obj)
+        {
+            this.LastLocation = obj;
+
+            Task.Run(async () =>
+            {
+                var locationModel = new LocationModel()
+                {
+                    Dyno = this.Dyno,
+                    Latitude = obj.Coordinates.Longitude,
+                    Longitude = obj.Coordinates.Longitude,
+                    Accuracy = obj.Coordinates.Longitude,
+                    Altitude = obj.Coordinates.Longitude,
+                    AltitudeAccuracy = obj.Coordinates.Longitude,
+                    Heading = obj.Coordinates.Longitude,
+                    HeadingAccuracy = obj.Coordinates.Longitude,
+                    Speed = obj.Coordinates.Longitude,
+                };
+
+                using (var db = new Data.DatabaseContext())
+                {
+                    db.Location.Add(locationModel);
+
+                    await db.SaveChangesAsync().ConfigureAwait(true);
+                }
+            });
+
+            this.RaisePropertyChanged(() => this.Speed);
+            this.RaisePropertyChanged(() => this.Timer);
+
+            if ((int)this.Speed == this.EndAcceleration)
+            {
+                this.CurrentState = secondState;
+                this.BackgroundColor = blue;
+            }
+        }
+
+        /// <summary>
+        /// Called when [location update error].
+        /// </summary>
+        /// <param name="obj">The object.</param>
         private void OnLocationUpdateError(MvxLocationError obj)
         {
             this.Log.Warn($"Location Error: {obj.Code} {obj.ToString()}");
         }
 
-        private async Task ResetAcceleration()
-        {
-            await StopAcceleration();
-        }
-
-        private async Task StartAcceleration()
-        {
-            await StartRecording();
-            await StartTracking();
-        }
-
+        /// <summary>
+        /// Starts the recording.
+        /// </summary>
         private async Task StartRecording()
         {
-            if (recorder.IsRecording)
+            if (this.recorder.IsRecording)
             {
-                await StopRecording();
+                await this.StopRecording().ConfigureAwait(true);
             }
 
             // start recording audio
-            var audioRecordTask = await recorder.StartRecording();
+            var audioRecordTask = await this.recorder.StartRecording().ConfigureAwait(true);
 
-            await audioRecordTask;
+            await audioRecordTask.ConfigureAwait(true);
         }
 
+        /// <summary>
+        /// Starts the tracking.
+        /// </summary>
         private async Task StartTracking()
         {
-            if (_locationWatcher.Started)
+            if (this._locationWatcher.Started)
             {
-                await StopAcceleration();
+                await this.StopAcceleration().ConfigureAwait(true);
             }
-            // var status = await RequestPermission(); if (!status) return;
 
             var options = new MvxLocationOptions
             {
@@ -118,23 +212,22 @@
 
             this._locationWatcher.Start(options, this.OnLocationUpdated, this.OnLocationUpdateError);
 
-            CurrentState = firstState;
-            BackgroundColor = green;
+            this.CurrentState = firstState;
+            this.BackgroundColor = green;
         }
 
-        private async Task StopAcceleration()
-        {
-            await StopTracking();
-            await StopRecording();
-        }
-
+        /// <summary>
+        /// Stops the recording.
+        /// </summary>
         private async Task StopRecording()
         {
-            //stop the recording...
-            await recorder.StopRecording();
+            await this.recorder.StopRecording().ConfigureAwait(true);
         }
 
-        private async Task StopTracking()
+        /// <summary>
+        /// Stops the tracking.
+        /// </summary>
+        private void StopTracking()
         {
             this._locationWatcher.Stop();
         }
@@ -177,15 +270,28 @@
 
         #endregion Commands
 
+        protected readonly ResourceManager rm;
         private const string firstState = "Vollgas";
+
         private const string secondState = "Ausrollen";
+
         private static System.Drawing.Color blue = System.Drawing.Color.SkyBlue;
+
         private static System.Drawing.Color green = System.Drawing.Color.DarkSeaGreen;
+
         private readonly IMvxLocationWatcher _locationWatcher;
+
+        private readonly MvxSubscriptionToken _token;
         private System.Drawing.Color _backgroundColor;
+
         private string _currentState;
+
+        private DynoModel _dyno;
+
         private int _endAcceleration;
+
         private MvxGeoLocation _lastLocation;
+
         private AudioRecorderService recorder;
 
         public System.Drawing.Color BackgroundColor
@@ -205,13 +311,22 @@
         }
 
         /// <summary>
+        /// Gets or sets the dyno.
+        /// </summary>
+        /// <value>The dyno.</value>
+        public DynoModel Dyno
+        {
+            get => _dyno;
+            set => SetProperty(ref _dyno, value);
+        }
+
+        /// <summary>
         /// Gets or sets the end acceleration.
         /// </summary>
         /// <value>The end acceleration.</value>
-        public int EndAcceleration
+        public int? EndAcceleration
         {
-            get => _endAcceleration;
-            set => SetProperty(ref _endAcceleration, value);
+            get => Dyno?.EndAcceleration;
         }
 
         /// <summary>
@@ -233,8 +348,6 @@
         {
             get => this.LastLocation?.Timestamp.Millisecond ?? 0;
         }
-
-        protected List<MvxCoordinates> mvxCoordinates { get; set; }
 
         #endregion Values
     }

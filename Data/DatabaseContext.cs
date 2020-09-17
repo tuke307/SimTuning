@@ -19,13 +19,15 @@ namespace Data
 
         public DbSet<DynoModel> Dyno { get; set; }
 
-        public DbSet<DynoNmModel> Dyno_nm { get; set; }
-
-        public DbSet<DynoPSModel> Dyno_ps { get; set; }
-
         public DbSet<DynoAudioModel> DynoAudio { get; set; }
 
+        public DbSet<DynoNmModel> DynoNm { get; set; }
+
+        public DbSet<DynoPSModel> DynoPs { get; set; }
+
         public DbSet<EnvironmentModel> Environment { get; set; }
+
+        public DbSet<LocationModel> Location { get; set; }
 
         public DbSet<MotorModel> Motor { get; set; }
 
@@ -37,13 +39,11 @@ namespace Data
 
         public DbSet<TuningModel> Tuning { get; set; }
 
-        public DbSet<TuningPSModel> Tuning_ps { get; set; }
+        public DbSet<TuningPSModel> TuningPs { get; set; }
 
         public DbSet<VehiclesModel> Vehicles { get; set; }
 
         public DbSet<VergaserModel> Vergaser { get; set; }
-
-        //public DbSet<SettingsModel> Settings { get; set; }
 
         #endregion DataSets
 

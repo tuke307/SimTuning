@@ -7,6 +7,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
     using MvvmCross.Navigation;
     using SimTuning.Forms.UI.Business;
     using System;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// DynoDataViewModel.
@@ -33,6 +34,23 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             ShowSettingsCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoSettingsViewModel>());
             CloseCommand = new MvxAsyncCommand(async () => await NavigationService.Close(this));
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
         }
 
         /// <summary>

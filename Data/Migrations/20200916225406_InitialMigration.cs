@@ -1,6 +1,4 @@
-﻿// project=Data, file=20200826201242_InitialMigration.cs, creation=2020:8:28 Copyright (c)
-// 2020 tuke productions. All rights reserved.
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
 namespace Data.Migrations
@@ -13,19 +11,22 @@ namespace Data.Migrations
                 name: "Auspuff");
 
             migrationBuilder.DropTable(
-                name: "Dyno_nm");
-
-            migrationBuilder.DropTable(
-                name: "Dyno_ps");
-
-            migrationBuilder.DropTable(
                 name: "DynoAudio");
+
+            migrationBuilder.DropTable(
+                name: "DynoNm");
+
+            migrationBuilder.DropTable(
+                name: "DynoPs");
+
+            migrationBuilder.DropTable(
+                name: "Location");
 
             migrationBuilder.DropTable(
                 name: "MotorUeberstroemer");
 
             migrationBuilder.DropTable(
-                name: "Tuning_ps");
+                name: "TuningPs");
 
             migrationBuilder.DropTable(
                 name: "Vergaser");
@@ -60,8 +61,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     LuftdruckP = table.Column<double>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     TemperaturT = table.Column<double>(nullable: true)
@@ -77,8 +78,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     BohrungD = table.Column<double>(nullable: true),
                     BrennraumV = table.Column<double>(nullable: true),
                     DeachsierungL = table.Column<double>(nullable: true),
@@ -105,8 +106,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     BreiteB = table.Column<double>(nullable: true),
                     DurchmesserD = table.Column<double>(nullable: true),
                     FlaecheA = table.Column<double>(nullable: true),
@@ -132,8 +133,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     BreiteB = table.Column<double>(nullable: true),
                     DurchmesserD = table.Column<double>(nullable: true),
                     FlaecheA = table.Column<double>(nullable: true),
@@ -160,8 +161,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     Anzahl = table.Column<double>(nullable: true),
                     BreiteB = table.Column<double>(nullable: true),
                     FlaecheA = table.Column<double>(nullable: true),
@@ -186,8 +187,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     Beschreibung = table.Column<string>(nullable: true),
                     Cw = table.Column<double>(nullable: true),
                     Deletable = table.Column<bool>(nullable: false),
@@ -214,8 +215,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     AbgasT = table.Column<double>(nullable: true),
                     AbgasV = table.Column<double>(nullable: true),
                     AuslassId = table.Column<int>(nullable: false),
@@ -264,8 +265,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     BenzinLuftF = table.Column<double>(nullable: true),
                     DurchmesserD = table.Column<double>(nullable: true),
                     EinlassId = table.Column<int>(nullable: false)
@@ -287,13 +288,14 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Beschreibung = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     Active = table.Column<bool>(nullable: true),
-                    VehicleId = table.Column<int>(nullable: false),
-                    EnvironmentId = table.Column<int>(nullable: true)
+                    Beschreibung = table.Column<string>(nullable: true),
+                    EndAcceleration = table.Column<int>(nullable: true),
+                    EnvironmentId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    VehicleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -318,8 +320,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Beschreibung = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: true),
@@ -345,62 +347,16 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Dyno_nm",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    X = table.Column<double>(nullable: false),
-                    Y = table.Column<double>(nullable: false),
-                    DynoId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dyno_nm", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Dyno_nm_Dyno_DynoId",
-                        column: x => x.DynoId,
-                        principalTable: "Dyno",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Dyno_ps",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    X = table.Column<double>(nullable: false),
-                    Y = table.Column<double>(nullable: false),
-                    DynoId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dyno_ps", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Dyno_ps_Dyno_DynoId",
-                        column: x => x.DynoId,
-                        principalTable: "Dyno",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DynoAudio",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
+                    DynoId = table.Column<int>(nullable: true),
                     X = table.Column<double>(nullable: false),
-                    Y = table.Column<double>(nullable: false),
-                    DynoId = table.Column<int>(nullable: true)
+                    Y = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -414,22 +370,97 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tuning_ps",
+                name: "DynoNm",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
+                    X = table.Column<double>(nullable: false),
+                    Y = table.Column<double>(nullable: false),
+                    DynoId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DynoNm", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DynoNm_Dyno_DynoId",
+                        column: x => x.DynoId,
+                        principalTable: "Dyno",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DynoPs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
+                    X = table.Column<double>(nullable: false),
+                    Y = table.Column<double>(nullable: false),
+                    DynoId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DynoPs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DynoPs_Dyno_DynoId",
+                        column: x => x.DynoId,
+                        principalTable: "Dyno",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Location",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
+                    Accuracy = table.Column<double>(nullable: true),
+                    Altitude = table.Column<double>(nullable: true),
+                    AltitudeAccuracy = table.Column<double>(nullable: true),
+                    DynoId = table.Column<int>(nullable: true),
+                    Heading = table.Column<double>(nullable: true),
+                    HeadingAccuracy = table.Column<double>(nullable: true),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
+                    Speed = table.Column<double>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Location_Dyno_DynoId",
+                        column: x => x.DynoId,
+                        principalTable: "Dyno",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TuningPs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
                     X = table.Column<double>(nullable: false),
                     Y = table.Column<double>(nullable: false),
                     TuningId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tuning_ps", x => x.Id);
+                    table.PrimaryKey("PK_TuningPs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tuning_ps_Tuning_TuningId",
+                        name: "FK_TuningPs_Tuning_TuningId",
                         column: x => x.TuningId,
                         principalTable: "Tuning",
                         principalColumn: "Id",
@@ -439,178 +470,178 @@ namespace Data.Migrations
             migrationBuilder.InsertData(
                 table: "Environment",
                 columns: new[] { "Id", "CreatedDate", "LuftdruckP", "Name", "TemperaturT", "UpdatedDate" },
-                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1010.0, "Frühling", 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 1, null, 1010.0, "Frühling", 10.0, null });
 
             migrationBuilder.InsertData(
                 table: "Environment",
                 columns: new[] { "Id", "CreatedDate", "LuftdruckP", "Name", "TemperaturT", "UpdatedDate" },
-                values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1010.0, "Sommer", 25.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 2, null, 1010.0, "Sommer", 25.0, null });
 
             migrationBuilder.InsertData(
                 table: "Environment",
                 columns: new[] { "Id", "CreatedDate", "LuftdruckP", "Name", "TemperaturT", "UpdatedDate" },
-                values: new object[] { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1010.0, "Herbst", 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 3, null, 1010.0, "Herbst", 10.0, null });
 
             migrationBuilder.InsertData(
                 table: "Environment",
                 columns: new[] { "Id", "CreatedDate", "LuftdruckP", "Name", "TemperaturT", "UpdatedDate" },
-                values: new object[] { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1010.0, "Winter", 1.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 4, null, 1010.0, "Winter", 1.0, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
                 columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 1, 38.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 42.0, 47600.0, null, 142800.0, "Rh 50 II", null, 5000.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                values: new object[] { 1, 38.0, null, null, null, null, 42.0, 47600.0, null, 142800.0, "Rh 50 II", null, 5000.0, null, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
                 columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 2, 38.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 42.0, 47600.0, null, 142800.0, "KRo Rh 50", null, 5500.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                values: new object[] { 2, 38.0, null, null, null, null, 42.0, 47600.0, null, 142800.0, "KRo Rh 50", null, 5500.0, null, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
                 columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 3, 40.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 39.5, 49600.0, null, 148800.0, "M53/1 KFR", null, 5750.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                values: new object[] { 3, 40.0, null, null, null, null, 39.5, 49600.0, null, 148800.0, "M53/1 KFR", null, 5750.0, null, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
                 columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 4, 40.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 39.5, 49600.0, null, 148800.0, "M 53/21 KF", null, 5500.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                values: new object[] { 4, 40.0, null, null, null, null, 39.5, 49600.0, null, 148800.0, "M 53/21 KF", null, 5500.0, null, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
                 columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 5, 38.0, 5880.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.0, null, 44.0, 49900.0, null, 149700.0, "M 541 KF", 95.0, 5500.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                values: new object[] { 5, 38.0, 5880.0, null, 2.0, null, 44.0, 49900.0, null, 149700.0, "M 541 KF", 95.0, 5500.0, null, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Motor",
                 columns: new[] { "Id", "BohrungD", "BrennraumV", "CreatedDate", "DeachsierungL", "HeizwertU", "HubL", "HubraumV", "KolbenG", "KurbelgehaeuseV", "Name", "PleulL", "ResonanzU", "UpdatedDate", "VerdichtungV", "Zuendzeitpunkt", "ZylinderAnz" },
-                values: new object[] { 6, 45.0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 44.0, 49900.0, null, 209700.0, "M 741/1 KF", null, 6000.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null });
+                values: new object[] { 6, 45.0, null, null, null, null, 44.0, 49900.0, null, 209700.0, "M 741/1 KF", null, 6000.0, null, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorAuslass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 1, null, null, null, null, null, null, 1, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorAuslass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 5, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, 5, 145.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 5, null, null, null, null, null, null, 5, 145.0, null });
 
             migrationBuilder.InsertData(
                 table: "MotorAuslass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 4, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, 4, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 4, null, null, null, null, null, null, 4, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorAuslass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 2, null, null, null, null, null, null, 2, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorAuslass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 3, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, 3, 148.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 3, null, null, null, null, null, null, 3, 148.0, null });
 
             migrationBuilder.InsertData(
                 table: "MotorAuslass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 6, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, 6, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 6, null, null, null, null, null, null, 6, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorEinlass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "LuftBedarf", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 4, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 4, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 4, null, null, null, null, null, null, null, 4, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorEinlass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "LuftBedarf", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 5, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 5, 135.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 5, null, null, null, null, null, null, null, 5, 135.0, null });
 
             migrationBuilder.InsertData(
                 table: "MotorEinlass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "LuftBedarf", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 3, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 3, 136.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 3, null, null, null, null, null, null, null, 3, 136.0, null });
 
             migrationBuilder.InsertData(
                 table: "MotorEinlass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "LuftBedarf", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 2, null, null, null, null, null, null, null, 2, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorEinlass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "LuftBedarf", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 6, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 6, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 6, null, null, null, null, null, null, null, 6, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorEinlass",
                 columns: new[] { "Id", "BreiteB", "CreatedDate", "DurchmesserD", "FlaecheA", "HoeheH", "LaengeL", "LuftBedarf", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 1, null, null, null, null, null, null, null, 1, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorUeberstroemer",
                 columns: new[] { "Id", "Anzahl", "BreiteB", "CreatedDate", "FlaecheA", "HoeheH", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 3, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 3, 122.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 3, null, null, null, null, null, 3, 122.0, null });
 
             migrationBuilder.InsertData(
                 table: "MotorUeberstroemer",
                 columns: new[] { "Id", "Anzahl", "BreiteB", "CreatedDate", "FlaecheA", "HoeheH", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 6, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 6, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 6, null, null, null, null, null, 6, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorUeberstroemer",
                 columns: new[] { "Id", "Anzahl", "BreiteB", "CreatedDate", "FlaecheA", "HoeheH", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 1, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 1, null, null, null, null, null, 1, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorUeberstroemer",
                 columns: new[] { "Id", "Anzahl", "BreiteB", "CreatedDate", "FlaecheA", "HoeheH", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 4, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 4, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 4, null, null, null, null, null, 4, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorUeberstroemer",
                 columns: new[] { "Id", "Anzahl", "BreiteB", "CreatedDate", "FlaecheA", "HoeheH", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 2, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 2, null, null, null, null, null, 2, null, null });
 
             migrationBuilder.InsertData(
                 table: "MotorUeberstroemer",
                 columns: new[] { "Id", "Anzahl", "BreiteB", "CreatedDate", "FlaecheA", "HoeheH", "MotorId", "SteuerzeitSZ", "UpdatedDate" },
-                values: new object[] { 5, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 5, 117.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 5, null, null, null, null, null, 5, 117.0, null });
 
             migrationBuilder.InsertData(
                 table: "Vehicles",
                 columns: new[] { "Id", "Beschreibung", "CreatedDate", "Cw", "Deletable", "FrontA", "Gewicht", "MotorId", "Name", "Uebersetzung", "UpdatedDate" },
                 values: new object[] { 5, @"Baujahre: 1980 - 1989
-Stückzahl: 360.600", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.80000000000000004, false, 0.75, 79.5, 5, "S51 B1-4", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+Stückzahl: 360.600", null, 0.80000000000000004, false, 0.75, 79.5, 5, "S51 B1-4", null, null });
 
             migrationBuilder.InsertData(
                 table: "Vehicles",
                 columns: new[] { "Id", "Beschreibung", "CreatedDate", "Cw", "Deletable", "FrontA", "Gewicht", "MotorId", "Name", "Uebersetzung", "UpdatedDate" },
                 values: new object[] { 3, @"Baujahre: 1968 - 1980
-Stückzahl: 375.000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.80000000000000004, false, 0.75, 80.0, 3, "KR 51/1 (F)", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+Stückzahl: 375.000", null, 0.80000000000000004, false, 0.75, 80.0, 3, "KR 51/1 (F)", null, null });
 
             migrationBuilder.InsertData(
                 table: "Vehicles",
                 columns: new[] { "Id", "Beschreibung", "CreatedDate", "Cw", "Deletable", "FrontA", "Gewicht", "MotorId", "Name", "Uebersetzung", "UpdatedDate" },
                 values: new object[] { 2, @"Baujahre: 1959 - 1964
-Stückzahl: 164.500", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.80000000000000004, false, 0.75, 73.0, 2, "KR 50", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+Stückzahl: 164.500", null, 0.80000000000000004, false, 0.75, 73.0, 2, "KR 50", null, null });
 
             migrationBuilder.InsertData(
                 table: "Vehicles",
                 columns: new[] { "Id", "Beschreibung", "CreatedDate", "Cw", "Deletable", "FrontA", "Gewicht", "MotorId", "Name", "Uebersetzung", "UpdatedDate" },
                 values: new object[] { 1, @"Baujahre: 1960 - 1964
-Stückzahl: 515.000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.80000000000000004, false, 0.75, 53.0, 1, "SR 2 E", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+Stückzahl: 515.000", null, 0.80000000000000004, false, 0.75, 53.0, 1, "SR 2 E", null, null });
 
             migrationBuilder.InsertData(
                 table: "Vehicles",
                 columns: new[] { "Id", "Beschreibung", "CreatedDate", "Cw", "Deletable", "FrontA", "Gewicht", "MotorId", "Name", "Uebersetzung", "UpdatedDate" },
                 values: new object[] { 4, @"Baujahre: 1976 - 1980
-Stückzahl: 287.000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.80000000000000004, false, 0.75, 81.0, 4, "S 50 B1", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+Stückzahl: 287.000", null, 0.80000000000000004, false, 0.75, 81.0, 4, "S 50 B1", null, null });
 
             migrationBuilder.InsertData(
                 table: "Vehicles",
                 columns: new[] { "Id", "Beschreibung", "CreatedDate", "Cw", "Deletable", "FrontA", "Gewicht", "MotorId", "Name", "Uebersetzung", "UpdatedDate" },
                 values: new object[] { 6, @"Baujahre: 1984 - 1988
-Stückzahl: 20.000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.80000000000000004, false, 0.75, 84.0, 6, "S 70 C", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+Stückzahl: 20.000", null, 0.80000000000000004, false, 0.75, 84.0, 6, "S 70 C", null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Auspuff_AuslassId",
@@ -630,18 +661,23 @@ Stückzahl: 20.000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dyno_nm_DynoId",
-                table: "Dyno_nm",
-                column: "DynoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Dyno_ps_DynoId",
-                table: "Dyno_ps",
-                column: "DynoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DynoAudio_DynoId",
                 table: "DynoAudio",
+                column: "DynoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DynoNm_DynoId",
+                table: "DynoNm",
+                column: "DynoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DynoPs_DynoId",
+                table: "DynoPs",
+                column: "DynoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Location_DynoId",
+                table: "Location",
                 column: "DynoId");
 
             migrationBuilder.CreateIndex(
@@ -674,8 +710,8 @@ Stückzahl: 20.000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tuning_ps_TuningId",
-                table: "Tuning_ps",
+                name: "IX_TuningPs_TuningId",
+                table: "TuningPs",
                 column: "TuningId");
 
             migrationBuilder.CreateIndex(

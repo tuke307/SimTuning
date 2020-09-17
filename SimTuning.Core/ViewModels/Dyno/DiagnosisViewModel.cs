@@ -94,20 +94,23 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <param name="mvxReloaderMessage">The MVX reloader message.</param>
         protected void ReloadData(Models.MvxReloaderMessage mvxReloaderMessage = null)
         {
-            using (var db = new DatabaseContext())
+            try
             {
-                IList<VehiclesModel> vehicList = db.Vehicles.ToList();
-                this.HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
-
-                IList<EnvironmentModel> environmList = db.Environment.ToList();
-                this.HelperEnvironments = new ObservableCollection<EnvironmentModel>(environmList);
-
-                try
+                using (var db = new DatabaseContext())
                 {
-                    this.Dyno = db.Dyno.Where(d => d.Active == true).Include(v => v.Audio).First();
+                    IList<VehiclesModel> vehicList = db.Vehicles.ToList();
+                    this.HelperVehicles = new ObservableCollection<VehiclesModel>(vehicList);
+
+                    IList<EnvironmentModel> environmList = db.Environment.ToList();
+                    this.HelperEnvironments = new ObservableCollection<EnvironmentModel>(environmList);
+
+                    this.Dyno = db.Dyno.Single(d => d.Active == true); // .Include(v => v.Audio);
                     this.NewEnvironment();
                 }
-                catch { }
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
             }
         }
 

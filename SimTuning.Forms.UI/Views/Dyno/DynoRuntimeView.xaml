@@ -64,7 +64,8 @@
                                             TypeScale="H1" />
 
                     <material:MaterialLabel Text="km/h"
-                                            TypeScale="H4" />
+                                            TypeScale="H4"
+                                            VerticalOptions="Center" />
                 </StackLayout>
             </Grid>
         </material:MaterialCard>
