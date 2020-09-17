@@ -55,7 +55,7 @@ namespace SimTuning.Core.ModuleLogic
         public void AreaRegression(int choice)
         {
             this.Dyno = new DynoModel();
-            this.Dyno.Audio = new List<DynoAudioModel>();
+            this.Dyno.Drehzahl = new List<DrehzahlModel>();
 
             //Regressions-Punkte bilden
             this.function = Fit.Polynomial(plot_data[choice].Select(x => x.X).ToArray(), this.plot_data[choice].Select(x => x.Y).ToArray(), 4).ToList();  // 5 Punkte
@@ -65,10 +65,10 @@ namespace SimTuning.Core.ModuleLogic
             //Audio Werte (X, Y) hinzufügen
             for (int count = 0; count < this.plot_data[0].Count; count++)
             {
-                this.Dyno.Audio.Add(new DynoAudioModel()
+                this.Dyno.Drehzahl.Add(new DrehzahlModel()
                 {
-                    X = this.plot_data[0][count].X,
-                    Y = this.plot_data[0][count].Y
+                    Zeit = this.plot_data[0][count].X,
+                    Drehzahl = this.plot_data[0][count].Y
                 });
             }
         }
@@ -80,12 +80,12 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="plot">The plot.</param>
         /// <param name="ps">The ps.</param>
         /// <param name="nm">The nm.</param>
-        public void CalculateStrengthPlot(DynoModel dyno, out List<DynoPSModel> ps, out List<DynoNmModel> nm)
+        public void CalculateStrengthPlot(DynoModel dyno, out List<DynoPsModel> ps, out List<DynoNmModel> nm)
         {
             this.DefineStrengthPlot();
 
             List<DynoNmModel> dynoNm = new List<DynoNmModel>();
-            List<DynoPSModel> dynoPs = new List<DynoPSModel>();
+            List<DynoPsModel> dynoPs = new List<DynoPsModel>();
 
             // in m
             double radhalbmesser = 0.4064; // 16zoll
@@ -93,12 +93,12 @@ namespace SimTuning.Core.ModuleLogic
             // in kg/m^3
             double luftdichte = dyno.Environment.LuftdruckP.Value / 287.05 * (dyno.Environment.TemperaturT.Value + 273.15); // Gaskonstante 287.05 J/kg*K(trockene Luft), °C in Kelvin umrechnen
 
-            for (int col = 0; col < dyno.Audio.Count; col++)
+            for (int col = 0; col < dyno.Drehzahl.Count; col++)
             {
                 // in 1/min
-                double drehzahl = dyno.Audio[col].Y;
+                double drehzahl = dyno.Drehzahl[col].Drehzahl;
                 // in s
-                double zeit = dyno.Audio[col].X;
+                double zeit = dyno.Drehzahl[col].Zeit;
 
                 // in m/s
                 double geschwindigkeit = (2 * radhalbmesser * Math.PI * drehzahl / (dyno.Vehicle.Uebersetzung.Value * 1000)) / 3.6;
@@ -121,24 +121,24 @@ namespace SimTuning.Core.ModuleLogic
 
                 // (W=F*s) in Nm
                 double Nm = kraft * weg;
-                dynoNm.Add(new DynoNmModel() { X = drehzahl, Y = Nm });
+                dynoNm.Add(new DynoNmModel() { Drehzahl = drehzahl, Nm = Nm });
 
                 // P=W/t (1Ps=1Nm/735.498750000002) in PS
                 double PS = Nm / zeit / 735.498750000002;
-                dynoPs.Add(new DynoPSModel() { X = drehzahl, Y = PS });
+                dynoPs.Add(new DynoPsModel() { Drehzahl = drehzahl, Ps = PS });
             }
 
             OxyPlot.Series.LineSeries leistung_nm = new OxyPlot.Series.LineSeries();
             OxyPlot.Series.LineSeries leistung_ps = new OxyPlot.Series.LineSeries();
 
             // Punkte
-            for (int zaehler = 0; zaehler < dyno.Audio.Count; zaehler++)
+            for (int zaehler = 0; zaehler < dyno.Drehzahl.Count; zaehler++)
             {
                 // Nm
-                leistung_nm.Points.Add(new DataPoint(dynoNm[zaehler].X, dynoNm[zaehler].Y));
+                leistung_nm.Points.Add(new DataPoint(dynoNm[zaehler].Drehzahl, dynoNm[zaehler].Nm));
 
                 //PS
-                leistung_ps.Points.Add(new DataPoint(dynoPs[zaehler].X, dynoPs[zaehler].Y));
+                leistung_ps.Points.Add(new DataPoint(dynoPs[zaehler].Drehzahl, dynoPs[zaehler].Ps));
             }
 
             // Style, Beschriftung

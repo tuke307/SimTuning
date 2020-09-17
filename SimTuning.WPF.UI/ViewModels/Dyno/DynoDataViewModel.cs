@@ -68,13 +68,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             if (!base.SaveDyno())
             {
                 Functions.ShowSnackbarDialog("Fehler beim speichern");
-                return;
             }
-
-            // Refresh aller Dyno-Datensätze im Dyno-Modul
-            var message = new Core.Models.MvxReloaderMessage(this, this.Dyno);
-
-            this._messenger.Publish(message);
         }
 
         #endregion Methods

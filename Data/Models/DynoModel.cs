@@ -19,16 +19,28 @@ namespace Data.Models
         public bool? Active { get; set; }
 
         /// <summary>
-        /// Gets or sets the audio.
+        /// Gets or sets the ausrollen location.
         /// </summary>
-        /// <value>The audio.</value>
-        public virtual IList<DynoAudioModel> Audio { get; set; }
+        /// <value>The ausrollen location.</value>
+        public virtual IList<AusrollenModel> Ausrollen { get; set; }
+
+        /// <summary>
+        /// Gets or sets the beschleunigung location.
+        /// </summary>
+        /// <value>The beschleunigung location.</value>
+        public virtual IList<BeschleunigungModel> Beschleunigung { get; set; }
 
         /// <summary>
         /// Gets or sets the beschreibung.
         /// </summary>
         /// <value>The beschreibung.</value>
         public string Beschreibung { get; set; }
+
+        /// <summary>
+        /// Gets or sets the audio.
+        /// </summary>
+        /// <value>The audio.</value>
+        public virtual IList<DrehzahlModel> Drehzahl { get; set; }
 
         /// <summary>
         /// Gets or sets the dyno nm.
@@ -40,25 +52,13 @@ namespace Data.Models
         /// Gets or sets the dyno ps.
         /// </summary>
         /// <value>The dyno ps.</value>
-        public virtual IList<DynoPSModel> DynoPS { get; set; }
-
-        /// <summary>
-        /// Gets or sets the end acceleration.
-        /// </summary>
-        /// <value>The end acceleration.</value>
-        public int? EndAcceleration { get; set; }
+        public virtual IList<DynoPsModel> DynoPS { get; set; }
 
         /// <summary>
         /// Gets or sets the environment.
         /// </summary>
         /// <value>The environment.</value>
         public virtual EnvironmentModel Environment { get; set; }
-
-        /// <summary>
-        /// Gets or sets the location.
-        /// </summary>
-        /// <value>The location.</value>
-        public virtual IList<LocationModel> Location { get; set; }
 
         /// <summary>
         /// Gets or sets the name.

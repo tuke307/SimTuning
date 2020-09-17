@@ -8,7 +8,7 @@ namespace Data.Models
     /// LocationModel.
     /// </summary>
     /// <seealso cref="Data.Models.BaseEntityModel" />
-    public class LocationModel : BaseEntityModel
+    public class BeschleunigungModel : BaseEntityModel
     {
         /// <summary>
         /// Gets or sets the accuracy.

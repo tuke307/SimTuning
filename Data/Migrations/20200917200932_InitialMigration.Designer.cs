@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200916225406_InitialMigration")]
+    [Migration("20200917200932_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -203,7 +203,99 @@ namespace Data.Migrations
                     b.ToTable("Auspuff");
                 });
 
-            modelBuilder.Entity("Data.Models.DynoAudioModel", b =>
+            modelBuilder.Entity("Data.Models.AusrollenModel", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("Accuracy")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("Altitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("AltitudeAccuracy")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("DynoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("Heading")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("HeadingAccuracy")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("Speed")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DynoId");
+
+                    b.ToTable("Ausrollen");
+                });
+
+            modelBuilder.Entity("Data.Models.BeschleunigungModel", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("Accuracy")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("Altitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("AltitudeAccuracy")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("DynoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("Heading")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("HeadingAccuracy")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("Speed")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DynoId");
+
+                    b.ToTable("Beschleunigung");
+                });
+
+            modelBuilder.Entity("Data.Models.DrehzahlModel", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -212,16 +304,16 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<double>("Drehzahl")
+                        .HasColumnType("REAL");
+
                     b.Property<int?>("DynoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("X")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Y")
+                    b.Property<double>("Zeit")
                         .HasColumnType("REAL");
 
                     b.HasKey("Id");
@@ -245,9 +337,6 @@ namespace Data.Migrations
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("EndAcceleration")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("EnvironmentId")
                         .HasColumnType("INTEGER");
@@ -281,17 +370,17 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<double>("Drehzahl")
+                        .HasColumnType("REAL");
+
                     b.Property<int?>("DynoId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<double>("Nm")
+                        .HasColumnType("REAL");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("TEXT");
-
-                    b.Property<double>("X")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Y")
-                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
@@ -300,7 +389,7 @@ namespace Data.Migrations
                     b.ToTable("DynoNm");
                 });
 
-            modelBuilder.Entity("Data.Models.DynoPSModel", b =>
+            modelBuilder.Entity("Data.Models.DynoPsModel", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -309,17 +398,17 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<double>("Drehzahl")
+                        .HasColumnType("REAL");
+
                     b.Property<int?>("DynoId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<double>("Ps")
+                        .HasColumnType("REAL");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("TEXT");
-
-                    b.Property<double>("X")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Y")
-                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
@@ -461,52 +550,6 @@ namespace Data.Migrations
                             Name = "Winter",
                             TemperaturT = 1.0
                         });
-                });
-
-            modelBuilder.Entity("Data.Models.LocationModel", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double?>("Accuracy")
-                        .HasColumnType("REAL");
-
-                    b.Property<double?>("Altitude")
-                        .HasColumnType("REAL");
-
-                    b.Property<double?>("AltitudeAccuracy")
-                        .HasColumnType("REAL");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("DynoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double?>("Heading")
-                        .HasColumnType("REAL");
-
-                    b.Property<double?>("HeadingAccuracy")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("REAL");
-
-                    b.Property<double?>("Speed")
-                        .HasColumnType("REAL");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DynoId");
-
-                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("Data.Models.MotorModel", b =>
@@ -940,10 +983,24 @@ Stückzahl: 20.000",
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Data.Models.DynoAudioModel", b =>
+            modelBuilder.Entity("Data.Models.AusrollenModel", b =>
                 {
                     b.HasOne("Data.Models.DynoModel", "Dyno")
-                        .WithMany("Audio")
+                        .WithMany("Ausrollen")
+                        .HasForeignKey("DynoId");
+                });
+
+            modelBuilder.Entity("Data.Models.BeschleunigungModel", b =>
+                {
+                    b.HasOne("Data.Models.DynoModel", "Dyno")
+                        .WithMany("Beschleunigung")
+                        .HasForeignKey("DynoId");
+                });
+
+            modelBuilder.Entity("Data.Models.DrehzahlModel", b =>
+                {
+                    b.HasOne("Data.Models.DynoModel", "Dyno")
+                        .WithMany("Drehzahl")
                         .HasForeignKey("DynoId");
                 });
 
@@ -967,7 +1024,7 @@ Stückzahl: 20.000",
                         .HasForeignKey("DynoId");
                 });
 
-            modelBuilder.Entity("Data.Models.DynoPSModel", b =>
+            modelBuilder.Entity("Data.Models.DynoPsModel", b =>
                 {
                     b.HasOne("Data.Models.DynoModel", "Dyno")
                         .WithMany("DynoPS")
@@ -981,13 +1038,6 @@ Stückzahl: 20.000",
                         .HasForeignKey("Data.Models.EinlassModel", "MotorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Data.Models.LocationModel", b =>
-                {
-                    b.HasOne("Data.Models.DynoModel", "Dyno")
-                        .WithMany("Location")
-                        .HasForeignKey("DynoId");
                 });
 
             modelBuilder.Entity("Data.Models.TuningModel", b =>

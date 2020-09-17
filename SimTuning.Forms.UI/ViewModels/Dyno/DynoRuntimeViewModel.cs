@@ -26,7 +26,7 @@
         public DynoRuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxLocationWatcher locationWatcher, IMvxMessenger messenger)
             : base(logProvider, navigationService, locationWatcher, messenger)
         {
-            ShowAudioCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoMainViewModel>());
+            ShowAudioCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoAudioViewModel>());
             CloseCommand = new MvxAsyncCommand(async () => await NavigationService.Close(this));
 
             Functions.CheckAndRequestLocationWhenInUsePermission();
@@ -61,6 +61,11 @@
         /// </returns>
         protected override async Task ResetAcceleration()
         {
+            if (!this.CheckDynoData().Result)
+            {
+                return;
+            }
+
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
             await base.ResetAcceleration().ConfigureAwait(true);
@@ -75,11 +80,16 @@
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected override async Task StartAcceleration()
+        protected override async Task StartBeschleunigung()
         {
+            if (!this.CheckDynoData().Result)
+            {
+                return;
+            }
+
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await base.StartAcceleration().ConfigureAwait(true);
+            await base.StartBeschleunigung().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }
@@ -98,6 +108,24 @@
             await base.StopAcceleration().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Checks the dyno data.
+        /// </summary>
+        /// <returns></returns>
+        private async Task<bool> CheckDynoData()
+        {
+            if (this.Dyno == null)
+            {
+                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         #endregion Methods

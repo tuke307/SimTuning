@@ -17,17 +17,19 @@ namespace Data
 
         public DbSet<AuspuffModel> Auspuff { get; set; }
 
+        public DbSet<AusrollenModel> Ausrollen { get; set; }
+
+        public DbSet<BeschleunigungModel> Beschleunigung { get; set; }
+
         public DbSet<DynoModel> Dyno { get; set; }
 
-        public DbSet<DynoAudioModel> DynoAudio { get; set; }
+        public DbSet<DrehzahlModel> DynoAudio { get; set; }
 
         public DbSet<DynoNmModel> DynoNm { get; set; }
 
-        public DbSet<DynoPSModel> DynoPs { get; set; }
+        public DbSet<DynoPsModel> DynoPs { get; set; }
 
         public DbSet<EnvironmentModel> Environment { get; set; }
-
-        public DbSet<LocationModel> Location { get; set; }
 
         public DbSet<MotorModel> Motor { get; set; }
 

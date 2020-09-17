@@ -38,7 +38,7 @@
                     <ListView HeightRequest="200"
                               ItemsSource="{Binding Mode=TwoWay, Path=Dynos}"
                               SelectedItem="{Binding Mode=TwoWay, Path=Dyno}"
-                              RowHeight="40">
+                              RowHeight="50">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -180,8 +180,8 @@
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="X"
                                                                 WidthRequest="100"
-                                                                Choices="{Binding Dyno.Audio}"
-                                                                ChoicesBindingName="X">
+                                                                Choices="{Binding Dyno.Drehzahl}"
+                                                                ChoicesBindingName="Zeit">
                                     </material:MaterialTextField>
 
                                     <material:MaterialTextField InputType="Choice"
@@ -189,8 +189,8 @@
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="Y"
                                                                 WidthRequest="100"
-                                                                Choices="{Binding Dyno.Audio}"
-                                                                ChoicesBindingName="Y">
+                                                                Choices="{Binding Dyno.Drehzahl}"
+                                                                ChoicesBindingName="Drehzahl">
                                     </material:MaterialTextField>
                                 </StackLayout>
                             </DataTemplate>
@@ -215,8 +215,8 @@
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="X"
                                                                 WidthRequest="100"
-                                                                Choices="{Binding Dyno.DynoPS}"
-                                                                ChoicesBindingName="X">
+                                                                Choices="{Binding Dyno.DynoPs}"
+                                                                ChoicesBindingName="Drehzahl">
                                     </material:MaterialTextField>
 
                                     <material:MaterialTextField InputType="Choice"
@@ -224,8 +224,8 @@
                                                                 LeadingIcon="ic_chevron_down_black_18dp.png"
                                                                 Placeholder="Y"
                                                                 WidthRequest="100"
-                                                                Choices="{Binding Dyno.DynoPS}"
-                                                                ChoicesBindingName="Y">
+                                                                Choices="{Binding Dyno.DynoPs}"
+                                                                ChoicesBindingName="Ps">
                                     </material:MaterialTextField>
                                 </StackLayout>
                             </DataTemplate>
@@ -251,7 +251,7 @@
                                                                 Placeholder="X"
                                                                 WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoNm}"
-                                                                ChoicesBindingName="X">
+                                                                ChoicesBindingName="Drehzahl">
                                     </material:MaterialTextField>
 
                                     <material:MaterialTextField InputType="Choice"
@@ -260,7 +260,7 @@
                                                                 Placeholder="Y"
                                                                 WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoNm}"
-                                                                ChoicesBindingName="Y">
+                                                                ChoicesBindingName="Nm">
                                     </material:MaterialTextField>
                                 </StackLayout>
                             </DataTemplate>

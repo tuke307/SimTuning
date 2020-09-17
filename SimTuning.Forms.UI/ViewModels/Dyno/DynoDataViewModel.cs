@@ -32,7 +32,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             this.DeleteDynoCommand = new MvxCommand(this.DeleteDyno);
             this.SaveDynoCommand = new MvxCommand(this.SaveDyno);
 
-            ShowSettingsCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoSettingsViewModel>());
+            ShowSettingsCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoRuntimeViewModel>());
             CloseCommand = new MvxAsyncCommand(async () => await NavigationService.Close(this));
         }
 

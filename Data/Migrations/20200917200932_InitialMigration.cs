@@ -11,6 +11,12 @@ namespace Data.Migrations
                 name: "Auspuff");
 
             migrationBuilder.DropTable(
+                name: "Ausrollen");
+
+            migrationBuilder.DropTable(
+                name: "Beschleunigung");
+
+            migrationBuilder.DropTable(
                 name: "DynoAudio");
 
             migrationBuilder.DropTable(
@@ -18,9 +24,6 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "DynoPs");
-
-            migrationBuilder.DropTable(
-                name: "Location");
 
             migrationBuilder.DropTable(
                 name: "MotorUeberstroemer");
@@ -292,7 +295,6 @@ namespace Data.Migrations
                     UpdatedDate = table.Column<DateTime>(nullable: true),
                     Active = table.Column<bool>(nullable: true),
                     Beschreibung = table.Column<string>(nullable: true),
-                    EndAcceleration = table.Column<int>(nullable: true),
                     EnvironmentId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     VehicleId = table.Column<int>(nullable: false)
@@ -347,6 +349,64 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ausrollen",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
+                    Accuracy = table.Column<double>(nullable: true),
+                    Altitude = table.Column<double>(nullable: true),
+                    AltitudeAccuracy = table.Column<double>(nullable: true),
+                    DynoId = table.Column<int>(nullable: true),
+                    Heading = table.Column<double>(nullable: true),
+                    HeadingAccuracy = table.Column<double>(nullable: true),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
+                    Speed = table.Column<double>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ausrollen", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ausrollen_Dyno_DynoId",
+                        column: x => x.DynoId,
+                        principalTable: "Dyno",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Beschleunigung",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
+                    Accuracy = table.Column<double>(nullable: true),
+                    Altitude = table.Column<double>(nullable: true),
+                    AltitudeAccuracy = table.Column<double>(nullable: true),
+                    DynoId = table.Column<int>(nullable: true),
+                    Heading = table.Column<double>(nullable: true),
+                    HeadingAccuracy = table.Column<double>(nullable: true),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
+                    Speed = table.Column<double>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Beschleunigung", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Beschleunigung_Dyno_DynoId",
+                        column: x => x.DynoId,
+                        principalTable: "Dyno",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DynoAudio",
                 columns: table => new
                 {
@@ -354,9 +414,9 @@ namespace Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
+                    Drehzahl = table.Column<double>(nullable: false),
                     DynoId = table.Column<int>(nullable: true),
-                    X = table.Column<double>(nullable: false),
-                    Y = table.Column<double>(nullable: false)
+                    Zeit = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -377,9 +437,9 @@ namespace Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
-                    X = table.Column<double>(nullable: false),
-                    Y = table.Column<double>(nullable: false),
-                    DynoId = table.Column<int>(nullable: true)
+                    Drehzahl = table.Column<double>(nullable: false),
+                    DynoId = table.Column<int>(nullable: true),
+                    Nm = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -400,44 +460,15 @@ namespace Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
-                    X = table.Column<double>(nullable: false),
-                    Y = table.Column<double>(nullable: false),
-                    DynoId = table.Column<int>(nullable: true)
+                    Drehzahl = table.Column<double>(nullable: false),
+                    DynoId = table.Column<int>(nullable: true),
+                    Ps = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DynoPs", x => x.Id);
                     table.ForeignKey(
                         name: "FK_DynoPs_Dyno_DynoId",
-                        column: x => x.DynoId,
-                        principalTable: "Dyno",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Location",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CreatedDate = table.Column<DateTime>(nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: true),
-                    Accuracy = table.Column<double>(nullable: true),
-                    Altitude = table.Column<double>(nullable: true),
-                    AltitudeAccuracy = table.Column<double>(nullable: true),
-                    DynoId = table.Column<int>(nullable: true),
-                    Heading = table.Column<double>(nullable: true),
-                    HeadingAccuracy = table.Column<double>(nullable: true),
-                    Latitude = table.Column<double>(nullable: false),
-                    Longitude = table.Column<double>(nullable: false),
-                    Speed = table.Column<double>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Location", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Location_Dyno_DynoId",
                         column: x => x.DynoId,
                         principalTable: "Dyno",
                         principalColumn: "Id",
@@ -650,6 +681,16 @@ Stückzahl: 20.000", null, 0.80000000000000004, false, 0.75, 84.0, 6, "S 70 C", 
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ausrollen_DynoId",
+                table: "Ausrollen",
+                column: "DynoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Beschleunigung_DynoId",
+                table: "Beschleunigung",
+                column: "DynoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Dyno_EnvironmentId",
                 table: "Dyno",
                 column: "EnvironmentId");
@@ -673,11 +714,6 @@ Stückzahl: 20.000", null, 0.80000000000000004, false, 0.75, 84.0, 6, "S 70 C", 
             migrationBuilder.CreateIndex(
                 name: "IX_DynoPs_DynoId",
                 table: "DynoPs",
-                column: "DynoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Location_DynoId",
-                table: "Location",
                 column: "DynoId");
 
             migrationBuilder.CreateIndex(

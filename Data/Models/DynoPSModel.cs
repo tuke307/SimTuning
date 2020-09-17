@@ -1,5 +1,5 @@
-﻿// project=Data, file=DynoPSModel.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=Data, file=DynoPSModel.cs, creation=2020:6:28 Copyright (c) 2020 tuke
+// productions. All rights reserved.
 namespace Data.Models
 {
     using System.ComponentModel.DataAnnotations;
@@ -8,32 +8,26 @@ namespace Data.Models
     /// DynoPS-Model.
     /// </summary>
     /// <seealso cref="Data.Models.BaseEntityModel" />
-    public class DynoPSModel : BaseEntityModel
+    public class DynoPsModel : BaseEntityModel
     {
         /// <summary>
         /// Gets or sets the x.
         /// </summary>
-        /// <value>
-        /// The x.
-        /// </value>
+        /// <value>The x.</value>
         [Required]
-        public double X { get; set; }
-
-        /// <summary>
-        /// Gets or sets the y.
-        /// </summary>
-        /// <value>
-        /// The y.
-        /// </value>
-        [Required]
-        public double Y { get; set; }
+        public double Drehzahl { get; set; }
 
         /// <summary>
         /// Gets or sets the dyno.
         /// </summary>
-        /// <value>
-        /// The dyno.
-        /// </value>
+        /// <value>The dyno.</value>
         public virtual DynoModel Dyno { get; set; }
+
+        /// <summary>
+        /// Gets or sets the y.
+        /// </summary>
+        /// <value>The y.</value>
+        [Required]
+        public double Ps { get; set; }
     }
 }

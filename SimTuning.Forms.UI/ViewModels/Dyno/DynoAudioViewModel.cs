@@ -33,6 +33,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             this.CutBeginnCommand = new MvxAsyncCommand(this.CutBeginn);
             this.CutEndCommand = new MvxAsyncCommand(this.CutEnd);
 
+            ShowSpectrogramCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoSpectrogramViewModel>());
             // datensatz checken CheckDynoData();
         }
 
@@ -163,6 +164,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             get => _imageAudioSpectrogram;
             private set => SetProperty(ref _imageAudioSpectrogram, value);
         }
+
+        public MvxAsyncCommand ShowSpectrogramCommand { get; private set; }
 
         #endregion Values
     }

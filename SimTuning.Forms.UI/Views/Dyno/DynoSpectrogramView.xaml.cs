@@ -6,9 +6,16 @@ using SimTuning.Forms.UI.ViewModels.Dyno;
 
 namespace SimTuning.Forms.UI.Views.Dyno
 {
-    [MvxTabbedPagePresentation(TabbedPosition.Tab)]
+    /// <summary>
+    /// DynoSpectrogramView.
+    /// </summary>
+    //[MvxTabbedPagePresentation(TabbedPosition.Tab)]
+    [MvxModalPresentation]
     public partial class DynoSpectrogramView : MvxContentPage<DynoSpectrogramViewModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynoSpectrogramView" /> class.
+        /// </summary>
         public DynoSpectrogramView()
         {
             InitializeComponent();

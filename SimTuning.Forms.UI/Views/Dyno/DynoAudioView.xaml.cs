@@ -10,7 +10,8 @@ namespace SimTuning.Forms.UI.Views.Dyno
     /// DynoAudioView.
     /// </summary>
     /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Dyno.DynoAudioViewModel}" />
-    [MvxTabbedPagePresentation(TabbedPosition.Tab)]
+    //[MvxTabbedPagePresentation(TabbedPosition.Tab)]
+    [MvxModalPresentation]
     public partial class DynoAudioView : MvxContentPage<DynoAudioViewModel>
     {
         /// <summary>

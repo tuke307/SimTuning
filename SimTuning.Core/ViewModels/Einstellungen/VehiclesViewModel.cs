@@ -448,9 +448,9 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// Gets the vehicle dyno audio.
         /// </summary>
         /// <value>The vehicle dyno audio.</value>
-        public ObservableCollection<Data.Models.DynoAudioModel> VehicleDynoAudio
+        public ObservableCollection<Data.Models.DrehzahlModel> VehicleDynoAudio
         {
-            get => this.Vehicle?.Dyno?.Audio == null ? new ObservableCollection<Data.Models.DynoAudioModel>() : new ObservableCollection<Data.Models.DynoAudioModel>(this.Vehicle.Dyno.Audio);
+            get => this.Vehicle?.Dyno?.Drehzahl == null ? new ObservableCollection<Data.Models.DrehzahlModel>() : new ObservableCollection<Data.Models.DrehzahlModel>(this.Vehicle.Dyno.Drehzahl);
         }
 
         /// <summary>
@@ -485,9 +485,9 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// Gets the vehicle dyno dyno ps.
         /// </summary>
         /// <value>The vehicle dyno dyno ps.</value>
-        public ObservableCollection<Data.Models.DynoPSModel> VehicleDynoDynoPS
+        public ObservableCollection<Data.Models.DynoPsModel> VehicleDynoDynoPS
         {
-            get => this.Vehicle?.Dyno?.DynoPS == null ? new ObservableCollection<Data.Models.DynoPSModel>() : new ObservableCollection<Data.Models.DynoPSModel>(this.Vehicle?.Dyno?.DynoPS);
+            get => this.Vehicle?.Dyno?.DynoPS == null ? new ObservableCollection<Data.Models.DynoPsModel>() : new ObservableCollection<Data.Models.DynoPsModel>(this.Vehicle?.Dyno?.DynoPS);
         }
 
         /// <summary>

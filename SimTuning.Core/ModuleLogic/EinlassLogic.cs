@@ -1,42 +1,41 @@
-﻿// project=SimTuning.Core, file=EinlassLogic.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=EinlassLogic.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 using System;
 
 namespace SimTuning.Core.ModuleLogic
 {
     /// <summary>
-    /// Einlass Logik
+    /// Einlass Logik.
     /// </summary>
     public static class EinlassLogic
     {
         /// <summary>
-        /// Berechnet die Einlass Resonanzlänge von Herzkasten bis Zylinder-Einlass.
+        /// Berechnet den Hauptdüsendurchmesser des Vergasers.
+        /// TODO: FAUSTFORMEL!!!.
         /// </summary>
-        /// <param name="einlassflaeche">Einlassfläche in cm².</param>
-        /// <param name="einlasssteuerwinkel">Einlass-Steuerwinkel.</param>
-        /// <param name="kurbelgehausevolumen">Kurbelgehäuse-Volumen in cm³.</param>
-        /// <param name="resonanzdrehzahl">Resonanzdrehzahl in 1/min.</param>
-        /// <param name="ansaugleitungsdurchmesser">Ansaugleitungs-Durchmesser in cm.</param>
-        /// <returns>Resonanzlänge in cm.</returns>
-        public static double GetResonanceLength(double einlassflaeche, double einlasssteuerwinkel, double kurbelgehausevolumen, double resonanzdrehzahl, double ansaugleitungsdurchmesser)
+        /// <param name="vergasergroeße">The vergasergroeße.</param>
+        /// <param name="widerstandsFaktor">
+        /// Strömungswiderstand-Faktor, Bereich von 0(schlecht) bis 1(beste).
+        /// </param>
+        /// <returns>Hauptdüsendurchmesser in μm.</returns>
+        public static double GetCarburetorMainNozzleDiameter(double vergasergroeße, double widerstandsFaktor = 0.95)
         {
-            double resonanzlaenge = einlassflaeche *
-                                ((3062500 * Math.Pow(einlasssteuerwinkel, 2) / Math.Pow(resonanzdrehzahl, 2) *
-                                kurbelgehausevolumen) -
-                                (1 / ansaugleitungsdurchmesser)) * 10;
+            double hauptduesendurchmesser = vergasergroeße * 5 * widerstandsFaktor;
 
-            resonanzlaenge = Math.Round(resonanzlaenge, 2);
+            hauptduesendurchmesser = Math.Round(hauptduesendurchmesser, 0);
 
-            return resonanzlaenge;
+            return hauptduesendurchmesser;
         }
 
         /// <summary>
         /// Berechnet die Vergasergröße.
-        /// FAUSTFORMEL!!!.
+        /// TODO: FAUSTFORMEL!!!.
         /// </summary>
         /// <param name="hubvolumen">Hubvolumen in cm³.</param>
         /// <param name="resonanzdrehzahl">Resonanzdrehzahl in 1/min.</param>
-        /// <param name="widerstandsFaktor">Strömungswiderstand-Faktor, Bereich von 0(schlecht) bis 1(beste).</param>
+        /// <param name="widerstandsFaktor">
+        /// Strömungswiderstand-Faktor, Bereich von 0(schlecht) bis 1(beste).
+        /// </param>
         /// <returns>Vergasergröße in mm.</returns>
         public static double GetCarburetorSize(double hubvolumen, double resonanzdrehzahl, double widerstandsFaktor = 0.9)
         {
@@ -48,19 +47,26 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Berechnet den Hauptdüsendurchmesser des Vergasers.
-        /// FAUSTFORMEL!!!.
+        /// Berechnet die Einlass Resonanzlänge von Herzkasten bis Zylinder-Einlass.
         /// </summary>
-        /// <param name="vergasergroeße">The vergasergroeße.</param>
-        /// <param name="widerstandsFaktor">Strömungswiderstand-Faktor, Bereich von 0(schlecht) bis 1(beste).</param>
-        /// <returns>Hauptdüsendurchmesser in μm.</returns>
-        public static double GetCarburetorMainNozzleDiameter(double vergasergroeße, double widerstandsFaktor = 0.95)
+        /// <param name="einlassflaeche">Einlassfläche in cm².</param>
+        /// <param name="einlasssteuerwinkel">Einlass-Steuerwinkel.</param>
+        /// <param name="kurbelgehausevolumen">Kurbelgehäuse-Volumen in cm³.</param>
+        /// <param name="resonanzdrehzahl">Resonanzdrehzahl in 1/min.</param>
+        /// <param name="ansaugleitungsdurchmesser">
+        /// Ansaugleitungs-Durchmesser in cm.
+        /// </param>
+        /// <returns>Resonanzlänge in cm.</returns>
+        public static double GetResonanceLength(double einlassflaeche, double einlasssteuerwinkel, double kurbelgehausevolumen, double resonanzdrehzahl, double ansaugleitungsdurchmesser)
         {
-            double hauptduesendurchmesser = vergasergroeße * 5 * widerstandsFaktor;
+            double resonanzlaenge = einlassflaeche *
+                                ((3062500 * Math.Pow(einlasssteuerwinkel, 2) / Math.Pow(resonanzdrehzahl, 2) *
+                                kurbelgehausevolumen) -
+                                (1 / ansaugleitungsdurchmesser)) * 10;
 
-            hauptduesendurchmesser = Math.Round(hauptduesendurchmesser, 0);
+            resonanzlaenge = Math.Round(resonanzlaenge, 2);
 
-            return hauptduesendurchmesser;
+            return resonanzlaenge;
         }
     }
 }

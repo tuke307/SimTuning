@@ -10,8 +10,8 @@ namespace SimTuning.Forms.UI.Views.Dyno
     /// DynoMainView.
     /// </summary>
     /// <seealso cref="MvvmCross.Forms.Views.MvxTabbedPage{SimTuning.Forms.UI.ViewModels.Dyno.DynoMainViewModel}" />
-    [MvxTabbedPagePresentation(TabbedPosition.Root)]
-    [MvxModalPresentation]
+    [MvxTabbedPagePresentation(TabbedPosition.Root, WrapInNavigationPage = true, NoHistory = false)]
+    //[MvxModalPresentation]
     //[MvxMasterDetailPagePresentation(MasterDetailPosition.Detail, WrapInNavigationPage = true, NoHistory = true)]
     public partial class DynoMainView : MvxTabbedPage<DynoMainViewModel>
     {

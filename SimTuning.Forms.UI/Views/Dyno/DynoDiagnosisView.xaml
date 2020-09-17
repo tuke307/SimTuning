@@ -146,6 +146,7 @@
 
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
+                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                 Choices="{Binding Mode=OneTime, Path=HelperVehicles}"
                                                 SelectedChoice="{Binding Mode=TwoWay, Path=HelperVehicle}"
                                                 ChoicesBindingName="Name">
@@ -247,6 +248,7 @@
 
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Umwelt"
+                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                 Choices="{Binding Mode=OneTime, Path=HelperEnvironments}"
                                                 SelectedChoice="{Binding  Mode=TwoWay, Path=HelperEnvironment}"
                                                 ChoicesBindingName="Name">

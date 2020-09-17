@@ -5,6 +5,7 @@
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       x:TypeArguments="viewModels:DynoSettingsViewModel"
+                      Title="Einstellungen"
                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoSettingsView">
     <Grid>
         <Grid.RowDefinitions>
@@ -36,26 +37,31 @@
                          HorizontalOptions="Fill"
                          Margin="0, 0, 0, 5" />
 
+                <material:MaterialLabel FontAttributes="Italic"
+                                        FontSize="Small"
+                                        HorizontalOptions="FillAndExpand"
+                                        Margin="0, 5, 0, 5">
+                    Nehme für diesen durchlauf den höchstmöglichen Gang.
+                    Starte von der minimalsten Geschwindigkeit und Drehzahl(ca. 2000) die in diesem Gang möglich sind.
+                    Nach Beginn der Beschleunigung halte den Gashebel durchgängig gedrückt.
+                </material:MaterialLabel>
+
                 <StackLayout Orientation="Horizontal">
-                    <material:MaterialLabel Text="Start:"
+                    <material:MaterialLabel Text="von"
                                             VerticalOptions="FillAndExpand" />
 
                     <material:MaterialTextField InputType="Numeric"
                                                 IsEnabled="False"
-                                                WidthRequest="150"
-                                                Text="0"
+                                                Text="Minimalgeschw."
                                                 FloatingPlaceholderEnabled="False" />
-                    <material:MaterialLabel Text="km/h" />
-                </StackLayout>
 
-                <StackLayout Orientation="Horizontal">
-                    <material:MaterialLabel Text="Ende:" />
+                    <material:MaterialLabel Text="bis"
+                                            VerticalOptions="FillAndExpand" />
 
                     <material:MaterialTextField InputType="Numeric"
-                                                WidthRequest="150"
-                                                Text="{Binding Mode=TwoWay, Path=EndAcceleration}"
+                                                IsEnabled="False"
+                                                Text="Maximalgeschw."
                                                 FloatingPlaceholderEnabled="False" />
-                    <material:MaterialLabel Text="km/h" />
                 </StackLayout>
             </StackLayout>
         </material:MaterialCard>
@@ -73,39 +79,43 @@
                          HorizontalOptions="Fill"
                          Margin="0, 0, 0, 5" />
 
+                <material:MaterialLabel FontAttributes="Italic"
+                                        FontSize="Small"
+                                        HorizontalOptions="FillAndExpand"
+                                        Margin="0, 5, 0, 5">
+                    Sobald über einen Zeitraum von 10 Sekunden kein signifikanter Geschwindigkeitsanstieg stattfindet beginnt der Countdown für das Ausrollen.
+                    Nach Beginn des Ausrollens halte die Kupplung gedrückt und lass dich bis zum völligen Stillstand ausrollen.
+                </material:MaterialLabel>
+
                 <StackLayout Orientation="Horizontal">
-                    <material:MaterialLabel Text="Start:" />
+                    <material:MaterialLabel Text="von"
+                                            VerticalOptions="FillAndExpand" />
 
                     <material:MaterialTextField InputType="Numeric"
                                                 IsEnabled="False"
-                                                WidthRequest="150"
-                                                Text="{Binding Mode=OneWay, Path=EndAcceleration}"
+                                                Text="Maximalgeschw."
                                                 FloatingPlaceholderEnabled="False" />
 
-                    <material:MaterialLabel Text="km/h" />
-                </StackLayout>
-
-                <StackLayout Orientation="Horizontal">
-                    <material:MaterialLabel Text="Ende:" />
+                    <material:MaterialLabel Text="bis zum"
+                                            VerticalOptions="FillAndExpand" />
 
                     <material:MaterialTextField InputType="Numeric"
                                                 IsEnabled="False"
-                                                Text="0"
-                                                WidthRequest="150"
+                                                Text="Stillstand"
                                                 FloatingPlaceholderEnabled="False" />
-                    <material:MaterialLabel Text="km/h" />
                 </StackLayout>
             </StackLayout>
         </material:MaterialCard>
 
-        <material:MaterialIconButton Grid.Row="3"
-                                     WidthRequest="100"
-                                     HeightRequest="60"
-                                     Margin="15"
-                                     ButtonType="Elevated"
-                                     HorizontalOptions="End"
-                                     VerticalOptions="Center"
-                                     Image="ic_play_arrow_black_18dp.png"
-                                     Command="{Binding ShowAccelerationCommand}" />
+        <material:MaterialButton Grid.Row="3"
+                                 Text="OK"
+                                 WidthRequest="100"
+                                 HeightRequest="60"
+                                 Margin="15"
+                                 ButtonType="Elevated"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="Center"
+                                 Image="ic_play_arrow_black_18dp.png"
+                                 Command="{Binding ShowAccelerationCommand}" />
     </Grid>
 </views:MvxContentPage>

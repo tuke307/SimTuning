@@ -74,7 +74,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         protected virtual void RefreshPlot()
         {
-            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPSModel> ps, out List<DynoNmModel> nm);
+            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPsModel> ps, out List<DynoNmModel> nm);
             this.Dyno.DynoPS = ps;
             this.Dyno.DynoNm = nm;
 

@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=EngineLogic.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=EngineLogic.cs, creation=2020:7:31 Copyright (c) 2020 tuke
+// productions. All rights reserved.
 using SimTuning.Core.Business;
 using SimTuning.Core.Models;
 using SkiaSharp;
@@ -20,33 +20,61 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="primaer">The primaer.</param>
         /// <param name="sekundaer">The sekundaer.</param>
         /// <returns>Übersetzung.</returns>
-        public static double GetTransmission(double getriebe = 0, double primaer = 0, double sekundaer = 0)
-        {
-            double uebersetzung = getriebe * sekundaer * primaer;
+        //public static double GetTransmission(double getriebe = 0, double primaer = 0, double sekundaer = 0)
+        //{
+        //    double uebersetzung = getriebe * sekundaer * primaer;
 
-            return uebersetzung;
-        }
+        //    return uebersetzung;
+        //}
 
         /// <summary>
-        /// bestimmt den halben radius
+        /// Berechnet die Kompression.
         /// </summary>
-        /// <param name="hub">The hub.</param>
-        /// <param name="pleullaenge">The pleullaenge.</param>
-        /// <param name="deachsierung">The deachsierung.</param>
+        /// <param name="hubraum">The hubraum.</param>
+        /// <param name="brennraum">The brennraum.</param>
+        /// <param name="durchmesser">The durchmesser.</param>
         /// <returns></returns>
-        public static double GetStrokeRadius(double hub, double pleullaenge, double deachsierung)
+        public static double GetCompression(double hubraum, double brennraum, double durchmesser)
         {
-            double hubradius = hub *
-                        Math.Sqrt(Math.Abs(Math.Pow(4 * deachsierung, 2) + Math.Pow(hub, 2) - (4 * Math.Pow(pleullaenge, 2)))) /
-                        Math.Sqrt(Math.Abs((4 * Math.Pow(hub, 2)) - (16 * Math.Pow(pleullaenge, 2))));
+            double verdichtung = (hubraum + brennraum) / brennraum;
+            verdichtung = Math.Round(verdichtung, 1);
 
-            hubradius = Math.Round(hubradius, 2);
-
-            return hubradius;
+            return verdichtung;
         }
 
         /// <summary>
-        /// Berechnet Grad vor OT.
+        /// Berechnet den Bohrungs-Durchmesser des Zylinders.
+        /// </summary>
+        /// <param name="hubraum">The hubraum.</param>
+        /// <param name="hub">The hub.</param>
+        /// <returns>Bohrung in mm.</returns>
+        public static double GetCylinderHoleDiameter(double hubraum, double hub)
+        {
+            double durchmesser = 0;
+
+            durchmesser = 2 * Math.Sqrt(hubraum / hub) / Math.Sqrt(Math.PI);
+            durchmesser = Math.Round(durchmesser, 2);
+
+            return durchmesser;
+        }
+
+        /// <summary>
+        /// Berechnet den Hubraum des Zylinders.
+        /// </summary>
+        /// <param name="bohrungsdurchmesser">The bohrungsdurchmesser.</param>
+        /// <param name="hub">The hub.</param>
+        /// <returns>Hubraum in ccm.</returns>
+        public static double GetDisplacement(double bohrungsdurchmesser, double hub)
+        {
+            double hubraum = Math.PI * bohrungsdurchmesser / 4 * hub;
+            hubraum = Math.Round(hubraum, 1);
+
+            return hubraum;
+        }
+
+        /// <summary>
+        /// Berechnet den Abstand des Kolbens in einer bestimmten Position(Steuerwinkel)
+        /// zum OT(Zylinderoberkante).
         /// </summary>
         /// <param name="pleullaenge">The pleullaenge.</param>
         /// <param name="hubradius">The hubradius.</param>
@@ -59,11 +87,11 @@ namespace SimTuning.Core.ModuleLogic
             kwgrad = kwgrad / 180 * Math.PI * 1;
 
             double mmvorot = Math.Sqrt(Math.Pow(pleullaenge + hubradius, 2) - Math.Pow(deachsierung, 2)) -
-                      (hubradius *
-                      Math.Cos(Math.Asin(deachsierung / (pleullaenge + hubradius)) + kwgrad) +
+                      ((hubradius *
+                      Math.Cos(Math.Asin(deachsierung / (pleullaenge + hubradius)) + kwgrad)) +
                       Math.Sqrt(
                       Math.Pow(pleullaenge, 2) -
-                      Math.Pow(Math.Sin(Math.Asin(deachsierung / (pleullaenge + hubradius)) + kwgrad) * hubradius - deachsierung, 2)));
+                      Math.Pow((Math.Sin(Math.Asin(deachsierung / (pleullaenge + hubradius)) + kwgrad) * hubradius) - deachsierung, 2)));
 
             mmvorot = Math.Round(mmvorot, 2);
 
@@ -71,149 +99,77 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Gets the unterschied grad.
+        /// Berechnet das Einbauspiel.
         /// </summary>
-        /// <param name="inmm">Rückgabeeinheit.</param>
-        /// <param name="vorher">The vorher.</param>
-        /// <param name="nachher">The nachher.</param>
-        /// <param name="pleullaenge">The pleullaenge.</param>
-        /// <param name="hubradius">The hubradius.</param>
-        /// <param name="deachsierung">The deachsierung.</param>
-        /// <returns>Differenz in Grad oder mm</returns>
-        public static double GetPortTimingDifference(bool inmm, double vorher, double nachher, double pleullaenge = 0, double hubradius = 0, double deachsierung = 0)
+        /// <param name="diameter">The diameter.</param>
+        /// <returns>die Einbauspiele.</returns>
+        public static GrindingDiametersModel GetGrindingDiameters(double diameter)
         {
-            // umrechnen in mm
-            if (inmm)
-            {
-                vorher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, vorher);
-                nachher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, nachher);
-            }
+            GrindingDiametersModel grindingDiametersModel = new GrindingDiametersModel();
 
-            double differenz = nachher - vorher;
-            differenz = Math.Abs(differenz);
+            grindingDiametersModel.Diameter1 = diameter + 0.2;
+            grindingDiametersModel.Diameter2 = diameter + 0.4;
+            grindingDiametersModel.Diameter3 = diameter + 0.6;
+            grindingDiametersModel.Diameter4 = diameter + 0.8;
 
-            differenz = Math.Round(differenz, 2);
-
-            return differenz;
+            return grindingDiametersModel;
         }
 
         /// <summary>
-        /// Steuerwinkels öffnet.
+        /// Berechnet den Kolben-Durchmesser.
         /// </summary>
-        /// <param name="steuerzeit_einlass">The steuerzeit einlass.</param>
-        /// <param name="steuerzeit_auslass">The steuerzeit auslass.</param>
-        /// <param name="steuerzeit_ueberstroemer">The steuerzeit ueberstroemer.</param>
-        /// <returns></returns>
-        public static double GetSteuerwinkelOeffnet(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
+        /// <param name="bohrungsdurchmesser">The bohrungsdurchmesser.</param>
+        /// <param name="einbauspiel">The einbauspiel.</param>
+        /// <returns>Kolbendurchmesser in mm.</returns>
+        public static double GetPistonDiameter(double bohrungsdurchmesser, double einbauspiel)
         {
-            double steuerwinkel_oeffnet = 0;
+            double durchmesser = 0;
 
-            if (steuerzeit_einlass != 0)
-            {
-                steuerwinkel_oeffnet = 360 - (steuerzeit_einlass / 2);
-            }
-            else if (steuerzeit_auslass != 0)
-            {
-                steuerwinkel_oeffnet = 180 - (steuerzeit_auslass / 2);
-            }
-            else if (steuerzeit_ueberstroemer != 0)
-            {
-                steuerwinkel_oeffnet = 180 - (steuerzeit_ueberstroemer / 2);
-            }
+            durchmesser = bohrungsdurchmesser - (einbauspiel / 100);
 
-            steuerwinkel_oeffnet = Math.Round(steuerwinkel_oeffnet, 2);
-
-            return steuerwinkel_oeffnet;
+            return durchmesser;
         }
 
         /// <summary>
-        /// Steuerwinkels schließt.
+        /// Berechnet die Kolbengeschwindigkeit.
         /// </summary>
-        /// <param name="steuerzeit_einlass">The steuerzeit einlass.</param>
-        /// <param name="steuerzeit_auslass">The steuerzeit auslass.</param>
-        /// <param name="steuerzeit_ueberstroemer">The steuerzeit ueberstroemer.</param>
-        /// <returns></returns>
-        public static double GetSteuerwinkelSchließt(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
+        /// <param name="hub">The hub.</param>
+        /// <param name="drehzahl">The drehzahl.</param>
+        /// <returns>Kolbengeschwindigkeit in m/s.</returns>
+        public static double GetPistonSpeed(double hub, double drehzahl)
         {
-            double steuerwinkel_schließt = 0;
+            double kolbengeschwindigkeit = 0;
 
-            if (steuerzeit_einlass != 0)
-            {
-                steuerwinkel_schließt = steuerzeit_einlass / 2;
-            }
-            else if (steuerzeit_auslass != 0)
-            {
-                steuerwinkel_schließt = 180 + (steuerzeit_auslass / 2);
-            }
-            else if (steuerzeit_ueberstroemer != 0)
-            {
-                steuerwinkel_schließt = 180 + (steuerzeit_ueberstroemer / 2);
-            }
+            kolbengeschwindigkeit = hub * drehzahl / 30;
+            kolbengeschwindigkeit = Math.Round(kolbengeschwindigkeit, 2);
 
-            steuerwinkel_schließt = Math.Round(steuerwinkel_schließt, 2);
-
-            return steuerwinkel_schließt;
+            return kolbengeschwindigkeit;
         }
 
         /// <summary>
-        /// Gets the steuerwinkel.
+        /// Berechnet den Punkt auf einem beliebigen Kreis.
         /// </summary>
-        /// <param name="vorher_steuerzeit">The vorher steuerzeit.</param>
-        /// <param name="nachher_steuerzeit">The nachher steuerzeit.</param>
-        /// <param name="kolbenoberkantekante_checked">if set to <c>true</c> [kolbenoberkantekante checked].</param>
-        /// <param name="kolbenunterkante_checked">if set to <c>true</c> [kolbenunterkante checked].</param>
-        /// <returns></returns>
-        public static List<double> GetSteuerwinkel(double vorher_steuerzeit, double nachher_steuerzeit, bool kolbenoberkantekante_checked, bool kolbenunterkante_checked)
+        /// <param name="angle">The angle.</param>
+        /// <param name="radius">The radius.</param>
+        /// <returns>Punkt auf dem Kreis.</returns>
+        public static SKPoint GetPointOnCircle(double angle, double radius)
         {
-            List<double> steuerwinkel = new List<double>();
+            SKPoint coordinates = new SKPoint();
 
-            //auslass, überströmer
-            if (kolbenunterkante_checked)
+            double x_richtung = radius * Math.Cos(angle * Math.PI / 180);
+            coordinates.X = Convert.ToInt32(radius + x_richtung);
+
+            double y_richtung = radius * Math.Sin(angle * Math.PI / 180);
+            if (y_richtung >= 0)
             {
-                //öffnet vorher
-                steuerwinkel.Add(180 - (vorher_steuerzeit / 2));
-
-                //schließt vorher
-                steuerwinkel.Add(180 + (vorher_steuerzeit / 2));
-
-                //öffnet vorher
-                steuerwinkel.Add(180 - (nachher_steuerzeit / 2));
-
-                //schließt vorher
-                steuerwinkel.Add(180 + (nachher_steuerzeit / 2));
+                coordinates.Y = Convert.ToInt32(radius - y_richtung);
             }
-            //einlass
-            else if (kolbenoberkantekante_checked)
+            else if (y_richtung <= 0)
             {
-                //öffnet nachher
-                steuerwinkel.Add(360 - (vorher_steuerzeit / 2));
-
-                //schließt nachher
-                steuerwinkel.Add(0 + (vorher_steuerzeit / 2));
-
-                //öffnet nachher
-                steuerwinkel.Add(360 - (nachher_steuerzeit / 2));
-
-                //schließt nachher
-                steuerwinkel.Add(0 + (nachher_steuerzeit / 2));
+                coordinates.Y = Convert.ToInt32(radius + Math.Abs(y_richtung));
             }
 
-            return steuerwinkel;
-        }
-
-        /// <summary>
-        /// Vorauslasses the specified steuerwinkel auslass.
-        /// </summary>
-        /// <param name="steuerwinkel_auslass">The steuerwinkel auslass.</param>
-        /// <param name="steuerwinkel_ueberstroemer">The steuerwinkel ueberstroemer.</param>
-        /// <returns></returns>
-        public static double GetVorauslass(double steuerwinkel_auslass, double steuerwinkel_ueberstroemer)
-        {
-            double vorauslass = (steuerwinkel_auslass - steuerwinkel_ueberstroemer) / 2;
-
-            vorauslass = Math.Round(vorauslass, 2);
-
-            return vorauslass;
+            return coordinates;
         }
 
         /// <summary>
@@ -258,6 +214,7 @@ namespace SimTuning.Core.ModuleLogic
                 StrokeWidth = 4,
                 IsAntialias = true
             };
+
             SKPaint greenPen = new SKPaint
             {
                 Style = SKPaintStyle.Stroke,
@@ -336,44 +293,156 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Points the on circle.
+        /// Berechnet die Differenz von zwei Steuerwinkeln .
         /// </summary>
-        /// <param name="angle">The angle.</param>
-        /// <param name="radius">The radius.</param>
-        /// <returns></returns>
-        public static SKPoint GetPointOnCircle(double angle, double radius)
+        /// <param name="inmm">Rückgabeeinheit.</param>
+        /// <param name="vorher">The vorher.</param>
+        /// <param name="nachher">The nachher.</param>
+        /// <param name="pleullaenge">The pleullaenge.</param>
+        /// <param name="hubradius">The hubradius.</param>
+        /// <param name="deachsierung">The deachsierung.</param>
+        /// <returns>Differenz in Grad oder mm.</returns>
+        public static double GetPortTimingDifference(bool inmm, double vorher, double nachher, double pleullaenge = 0, double hubradius = 0, double deachsierung = 0)
         {
-            SKPoint coordinates = new SKPoint();
-
-            double x_richtung = radius * Math.Cos(angle * Math.PI / 180);
-            coordinates.X = Convert.ToInt32(radius + x_richtung);
-
-            double y_richtung = radius * Math.Sin(angle * Math.PI / 180);
-            if (y_richtung >= 0)
+            // umrechnen in mm
+            if (inmm)
             {
-                coordinates.Y = Convert.ToInt32(radius - y_richtung);
-            }
-            else if (y_richtung <= 0)
-            {
-                coordinates.Y = Convert.ToInt32(radius + Math.Abs(y_richtung));
+                vorher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, vorher);
+                nachher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, nachher);
             }
 
-            return coordinates;
+            double differenz = nachher - vorher;
+            differenz = Math.Abs(differenz);
+
+            differenz = Math.Round(differenz, 2);
+
+            return differenz;
         }
 
         /// <summary>
-        /// Gets the verdichtung.
+        /// Berechnet die Steuerwinkel.
         /// </summary>
-        /// <param name="hubraum">The hubraum.</param>
-        /// <param name="brennraum">The brennraum.</param>
-        /// <param name="durchmesser">The durchmesser.</param>
+        /// <param name="vorher_steuerzeit">The vorher steuerzeit.</param>
+        /// <param name="nachher_steuerzeit">The nachher steuerzeit.</param>
+        /// <param name="kolbenoberkantekante_checked">
+        /// if set to <c>true</c> [kolbenoberkantekante checked].
+        /// </param>
+        /// <param name="kolbenunterkante_checked">
+        /// if set to <c>true</c> [kolbenunterkante checked].
+        /// </param>
         /// <returns></returns>
-        public static double GetCompression(double hubraum, double brennraum, double durchmesser)
+        public static List<double> GetSteuerwinkel(double vorher_steuerzeit, double nachher_steuerzeit, bool kolbenoberkantekante_checked, bool kolbenunterkante_checked)
         {
-            double verdichtung = (hubraum + brennraum) / brennraum;
-            verdichtung = Math.Round(verdichtung, 1);
+            List<double> steuerwinkel = new List<double>();
 
-            return verdichtung;
+            //auslass, überströmer
+            if (kolbenunterkante_checked)
+            {
+                //öffnet vorher
+                steuerwinkel.Add(180 - (vorher_steuerzeit / 2));
+
+                //schließt vorher
+                steuerwinkel.Add(180 + (vorher_steuerzeit / 2));
+
+                //öffnet vorher
+                steuerwinkel.Add(180 - (nachher_steuerzeit / 2));
+
+                //schließt vorher
+                steuerwinkel.Add(180 + (nachher_steuerzeit / 2));
+            }
+            //einlass
+            else if (kolbenoberkantekante_checked)
+            {
+                //öffnet nachher
+                steuerwinkel.Add(360 - (vorher_steuerzeit / 2));
+
+                //schließt nachher
+                steuerwinkel.Add(0 + (vorher_steuerzeit / 2));
+
+                //öffnet nachher
+                steuerwinkel.Add(360 - (nachher_steuerzeit / 2));
+
+                //schließt nachher
+                steuerwinkel.Add(0 + (nachher_steuerzeit / 2));
+            }
+
+            return steuerwinkel;
+        }
+
+        /// <summary>
+        /// Steuerwinkels öffnet.
+        /// </summary>
+        /// <param name="steuerzeit_einlass">The steuerzeit einlass.</param>
+        /// <param name="steuerzeit_auslass">The steuerzeit auslass.</param>
+        /// <param name="steuerzeit_ueberstroemer">The steuerzeit ueberstroemer.</param>
+        /// <returns></returns>
+        public static double GetSteuerwinkelOeffnet(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
+        {
+            double steuerwinkel_oeffnet = 0;
+
+            if (steuerzeit_einlass != 0)
+            {
+                steuerwinkel_oeffnet = 360 - (steuerzeit_einlass / 2);
+            }
+            else if (steuerzeit_auslass != 0)
+            {
+                steuerwinkel_oeffnet = 180 - (steuerzeit_auslass / 2);
+            }
+            else if (steuerzeit_ueberstroemer != 0)
+            {
+                steuerwinkel_oeffnet = 180 - (steuerzeit_ueberstroemer / 2);
+            }
+
+            steuerwinkel_oeffnet = Math.Round(steuerwinkel_oeffnet, 2);
+
+            return steuerwinkel_oeffnet;
+        }
+
+        /// <summary>
+        /// Steuerwinkels schließt.
+        /// </summary>
+        /// <param name="steuerzeit_einlass">The steuerzeit einlass.</param>
+        /// <param name="steuerzeit_auslass">The steuerzeit auslass.</param>
+        /// <param name="steuerzeit_ueberstroemer">The steuerzeit ueberstroemer.</param>
+        /// <returns></returns>
+        public static double GetSteuerwinkelSchließt(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
+        {
+            double steuerwinkel_schließt = 0;
+
+            if (steuerzeit_einlass != 0)
+            {
+                steuerwinkel_schließt = steuerzeit_einlass / 2;
+            }
+            else if (steuerzeit_auslass != 0)
+            {
+                steuerwinkel_schließt = 180 + (steuerzeit_auslass / 2);
+            }
+            else if (steuerzeit_ueberstroemer != 0)
+            {
+                steuerwinkel_schließt = 180 + (steuerzeit_ueberstroemer / 2);
+            }
+
+            steuerwinkel_schließt = Math.Round(steuerwinkel_schließt, 2);
+
+            return steuerwinkel_schließt;
+        }
+
+        /// <summary>
+        /// Berechnet den halben Radius.
+        /// </summary>
+        /// <param name="hub">The hub.</param>
+        /// <param name="pleullaenge">The pleullaenge.</param>
+        /// <param name="deachsierung">The deachsierung.</param>
+        /// <returns>Hubradius in mm.</returns>
+        public static double GetStrokeRadius(double hub, double pleullaenge, double deachsierung)
+        {
+            double hubradius = hub *
+                        Math.Sqrt(Math.Abs(Math.Pow(4 * deachsierung, 2) + Math.Pow(hub, 2) - (4 * Math.Pow(pleullaenge, 2)))) /
+                        Math.Sqrt(Math.Abs((4 * Math.Pow(hub, 2)) - (16 * Math.Pow(pleullaenge, 2))));
+
+            hubradius = Math.Round(hubradius, 2);
+
+            return hubradius;
         }
 
         /// <summary>
@@ -383,7 +452,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="brennraum">Brennraum.</param>
         /// <param name="durchmesser">Zylinder-Durchmesser.</param>
         /// <param name="zielVerdichtung">Zielverdichtung.</param>
-        /// <returns>den abzunehmenden Bereich in mm.</returns>
+        /// <returns>abzunehmender Bereich in mm.</returns>
         public static double GetToDecreasingLength(double hubraum, double brennraum, double durchmesser, double zielVerdichtung)
         {
             double abdrehen_mm = 4 * ((brennraum * zielVerdichtung) - brennraum - hubraum) / (Math.PI * ((Math.Pow(durchmesser, 2) * zielVerdichtung) - Math.Pow(durchmesser, 2)));
@@ -393,81 +462,18 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Gets the hubraum.
+        /// Vorauslasses the specified steuerwinkel auslass.
         /// </summary>
-        /// <param name="bohrungsdurchmesser">The bohrungsdurchmesser.</param>
-        /// <param name="hub">The hub.</param>
-        /// <returns></returns>
-        public static double GetDisplacement(double bohrungsdurchmesser, double hub)
+        /// <param name="auslassSW">The steuerwinkel auslass.</param>
+        /// <param name="ueberstroemerSW">The steuerwinkel ueberstroemer.</param>
+        /// <returns>Vorauslass in °KW.</returns>
+        public static double GetVorauslass(double auslassSW, double ueberstroemerSW)
         {
-            double hubraum = Math.PI * bohrungsdurchmesser / 4 * hub;
-            hubraum = Math.Round(hubraum, 1);
+            double vorauslass = (auslassSW - ueberstroemerSW) / 2;
 
-            return hubraum;
-        }
+            vorauslass = Math.Round(vorauslass, 2);
 
-        /// <summary>
-        /// Berechnet den Bohrungs-Durchmesser.
-        /// </summary>
-        /// <param name="hubraum">The hubraum.</param>
-        /// <param name="hub">The hub.</param>
-        /// <returns>Bohrung in mm.</returns>
-        public static double GetCylinderHoleDiameter(double hubraum, double hub)
-        {
-            double durchmesser = 0;
-
-            durchmesser = 2 * Math.Sqrt(hubraum / hub) / Math.Sqrt(Math.PI);
-            durchmesser = Math.Round(durchmesser, 2);
-
-            return durchmesser;
-        }
-
-        /// <summary>
-        /// Gets the kolben durchmesser.
-        /// </summary>
-        /// <param name="bohrungsdurchmesser">The bohrungsdurchmesser.</param>
-        /// <param name="einbauspiel">The einbauspiel.</param>
-        /// <returns></returns>
-        public static double GetPistonDiameter(double bohrungsdurchmesser, double einbauspiel)
-        {
-            double durchmesser = 0;
-
-            durchmesser = bohrungsdurchmesser - (einbauspiel / 100);
-
-            return durchmesser;
-        }
-
-        /// <summary>
-        /// Gets the kolbengeschwindigkeit.
-        /// </summary>
-        /// <param name="hub">The hub.</param>
-        /// <param name="drehzahl">The drehzahl.</param>
-        /// <returns></returns>
-        public static double GetPistonSpeed(double hub, double drehzahl)
-        {
-            double kolbengeschwindigkeit = 0;
-
-            kolbengeschwindigkeit = hub * drehzahl / 30;
-            kolbengeschwindigkeit = Math.Round(kolbengeschwindigkeit, 2);
-
-            return kolbengeschwindigkeit;
-        }
-
-        /// <summary>
-        /// Gets the grinding diameters.
-        /// </summary>
-        /// <param name="diameter">The diameter.</param>
-        /// <returns></returns>
-        public static GrindingDiametersModel GetGrindingDiameters(double diameter)
-        {
-            GrindingDiametersModel grindingDiametersModel = new GrindingDiametersModel();
-
-            grindingDiametersModel.Diameter1 = diameter + 0.2;
-            grindingDiametersModel.Diameter2 = diameter + 0.4;
-            grindingDiametersModel.Diameter3 = diameter + 0.6;
-            grindingDiametersModel.Diameter4 = diameter + 0.8;
-
-            return grindingDiametersModel;
+            return vorauslass;
         }
     }
 }

@@ -99,7 +99,8 @@
                 </component:MenuOptionView>
 
                 <BoxView HorizontalOptions="FillAndExpand"
-                         HeightRequest="2"
+                         HeightRequest="1"
+                         Margin="5"
                          Color="Gray" />
 
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
@@ -133,7 +134,8 @@
                 </component:MenuOptionView>
 
                 <BoxView HorizontalOptions="FillAndExpand"
-                         HeightRequest="2"
+                         HeightRequest="1"
+                         Margin="5"
                          Color="Gray" />
 
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
@@ -157,7 +159,8 @@
                 </component:MenuOptionView>
 
                 <BoxView HorizontalOptions="FillAndExpand"
-                         HeightRequest="2"
+                         HeightRequest="1"
+                         Margin="5"
                          Color="Gray" />
 
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"

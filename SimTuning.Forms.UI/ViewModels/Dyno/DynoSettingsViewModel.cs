@@ -8,8 +8,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     public class DynoSettingsViewModel : SimTuning.Core.ViewModels.Dyno.SettingsViewModel
     {
-        public DynoSettingsViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public DynoSettingsViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
             ShowAccelerationCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoRuntimeViewModel>());
         }

@@ -3,7 +3,6 @@
 namespace SimTuning.Core.ViewModels.Dyno
 {
     using Data.Models;
-    using Microsoft.EntityFrameworkCore;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
@@ -32,7 +31,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             this._messenger = messenger;
 
-            this.ShowSaveButtonCommand = new MvxCommand(this.ShowSave);
+            this.ShowSaveButtonCommand = new MvxCommand(() => this.SaveButton = true);
         }
 
         #region Methods
@@ -126,7 +125,7 @@ namespace SimTuning.Core.ViewModels.Dyno
                     var _dyno = db.Dyno.Find(dyno.Id);
 
                     db.Entry(_dyno).Reference(v => v.Vehicle).Load();
-                    db.Entry(_dyno).Collection(v => v.Audio).Load();
+                    db.Entry(_dyno).Collection(v => v.Drehzahl).Load();
                     db.Entry(_dyno).Collection(v => v.DynoNm).Load();
                     db.Entry(_dyno).Collection(v => v.DynoPS).Load();
 
@@ -145,23 +144,30 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         protected virtual void NewDyno()
         {
-            // Fahrzeug zurücksetzen
-            this.Vehicle = null;
-
-            DynoModel dyno = new DynoModel()
+            try
             {
-                Name = "Dyno-Durchgang",
-                Beschreibung = $"Erstellt am {DateTime.Now}",
-            };
+                // Fahrzeug zurücksetzen
+                this.Vehicle = null;
 
-            // in Collection hinzufügen
-            this.Dynos.Add(dyno);
+                DynoModel dyno = new DynoModel()
+                {
+                    Name = "Dyno-Durchgang",
+                    Beschreibung = $"Erstellt am {DateTime.Now}",
+                };
 
-            // vorauswahl
-            this.Dyno = this.Dynos.Last();
-            this.CreateNewVehicle = true;
+                // in Collection hinzufügen
+                this.Dynos.Add(dyno);
 
-            this.SaveButton = true;
+                // vorauswahl
+                this.Dyno = this.Dynos.Last();
+                this.CreateNewVehicle = true;
+
+                this.SaveButton = true;
+            }
+            catch (Exception exc)
+            {
+                this.Log.WarnException("Fehler beim Löschen des Dyno: ", exc);
+            }
         }
 
         /// <summary>
@@ -170,59 +176,67 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <returns>Status.</returns>
         protected virtual bool SaveDyno()
         {
+            if (this.Dyno == null)
+            {
+                this.SaveButton = false;
+                return false;
+            }
+
             try
             {
-                if (this.Dyno != null)
+                // Vehicle zuweisen
+                if (this.TakeExistingVehicle)
                 {
-                    // Vehicle zuweisen
-                    if (this.TakeExistingVehicle)
+                    // kein Vehicle ausgewählt
+                    if (this.Vehicle == null)
                     {
-                        // kein Vehicle ausgewählt
-                        if (this.Vehicle == null)
-                        {
-                            return false;
-                        }
-
-                        this.Dyno.Vehicle = this.Vehicle;
+                        return false;
                     }
 
-                    // neues Fahrzeug erstellen
-                    else if (this.CreateNewVehicle)
-                    {
-                        Data.Models.VehiclesModel vehicle = new Data.Models.VehiclesModel()
-                        {
-                            Name = "Dyno-Fahrzeug",
-                            Beschreibung = "Erstellt über Dyno-Modul mit der Option 'Neues Fahrzeug erstellen'",
-                            Deletable = true
-                        };
-
-                        using (var data = new Data.DatabaseContext())
-                        {
-                            data.Vehicles.Add(vehicle);
-
-                            data.SaveChanges();
-                        }
-
-                        // neues Vehicle Dyno zuweisen
-                        this.Dyno.Vehicle = vehicle;
-
-                        // Lokaler list hinzufügen und auswählen
-                        this.Vehicles.Add(vehicle);
-
-                        this.Vehicle = this.Vehicles.Last();
-
-                        // Radio buttons zurücksetzen
-                        this.CreateNewVehicle = false;
-                        this.TakeExistingVehicle = true;
-                    }
-
-                    using (var db = new Data.DatabaseContext())
-                    {
-                        db.Dyno.Update(this.Dyno);
-
-                        db.SaveChanges();
-                    }
+                    this.Dyno.Vehicle = this.Vehicle;
                 }
+
+                // neues Fahrzeug erstellen
+                else if (this.CreateNewVehicle)
+                {
+                    Data.Models.VehiclesModel vehicle = new Data.Models.VehiclesModel()
+                    {
+                        Name = "Dyno-Fahrzeug",
+                        Beschreibung = "Erstellt über Dyno-Modul mit der Option 'Neues Fahrzeug erstellen'",
+                        Deletable = true,
+                    };
+
+                    using (var data = new Data.DatabaseContext())
+                    {
+                        data.Vehicles.Add(vehicle);
+
+                        data.SaveChanges();
+                    }
+
+                    // neues Vehicle Dyno zuweisen
+                    this.Dyno.Vehicle = vehicle;
+
+                    // Lokaler list hinzufügen und auswählen
+                    this.Vehicles.Add(vehicle);
+
+                    this.Vehicle = this.Vehicles.Last();
+
+                    // Radio buttons zurücksetzen
+                    this.CreateNewVehicle = false;
+                    this.TakeExistingVehicle = true;
+                }
+
+                using (var db = new Data.DatabaseContext())
+                {
+                    db.Dyno.Update(this.Dyno);
+
+                    db.SaveChanges();
+                }
+
+                // Refresh aller Dyno-Datensätze im Dyno-Modul
+                var message = new Core.Models.MvxReloaderMessage(this, this.Dyno);
+
+                this._messenger.Publish(message);
 
                 this.SaveButton = false;
                 return true;
@@ -244,8 +258,11 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                // Dyno-Datensatz in collection aktiv setzen
-                this.Dynos.Where(d => d == dyno).First().Active = true;
+                // in collection
+                this.Dynos.Single(d => d.Equals(dyno)).Active = true;
+
+                // lokal
+                dyno.Active = true;
 
                 // keine Speicherung für NewDyno()
                 if (dyno.Id == null)
@@ -256,8 +273,6 @@ namespace SimTuning.Core.ViewModels.Dyno
                 // in Database ändern
                 using (var db = new Data.DatabaseContext())
                 {
-                    dyno.Active = true;
-
                     db.Dyno.Update(dyno);
 
                     db.SaveChanges();
@@ -310,14 +325,6 @@ namespace SimTuning.Core.ViewModels.Dyno
 
                 // z.B. keine Werte in Dynos z.B. kein Dyno aktiv z.B. nicht in datenbank
             }
-        }
-
-        /// <summary>
-        /// Shows the save.
-        /// </summary>
-        protected virtual void ShowSave()
-        {
-            this.SaveButton = true;
         }
 
         #endregion Methods
@@ -415,7 +422,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// Gets or sets the dyno beschreibung.
         /// </summary>
         /// <value>The dyno beschreibung.</value>
-        public string? DynoBeschreibung
+        public string DynoBeschreibung
         {
             get => this.Dyno?.Beschreibung;
             set
@@ -433,7 +440,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// Gets or sets the name of the dyno.
         /// </summary>
         /// <value>The name of the dyno.</value>
-        public string? DynoName
+        public string DynoName
         {
             get => this.Dyno?.Name;
             set

@@ -154,7 +154,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
 
             this.dynoLogic.AreaRegression(this.Graphs.IndexOf(this.Graph));
-            this.Dyno.Audio = this.dynoLogic.Dyno.Audio;
+            this.Dyno.Drehzahl = this.dynoLogic.Dyno.Drehzahl;
 
             using (var db = new DatabaseContext())
             {

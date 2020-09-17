@@ -8,8 +8,15 @@ namespace Data.Models
     /// DynoAudio.
     /// </summary>
     /// <seealso cref="Data.Models.BaseEntityModel" />
-    public class DynoAudioModel : BaseEntityModel
+    public class DrehzahlModel : BaseEntityModel
     {
+        /// <summary>
+        /// Gets or sets the drehzahl.
+        /// </summary>
+        /// <value>The drehzahl.</value>
+        [Required]
+        public double Drehzahl { get; set; }
+
         /// <summary>
         /// Gets or sets the dyno.
         /// </summary>
@@ -17,17 +24,10 @@ namespace Data.Models
         public virtual DynoModel Dyno { get; set; }
 
         /// <summary>
-        /// Gets or sets the x.
+        /// Gets or sets the zeit.
         /// </summary>
-        /// <value>The x.</value>
+        /// <value>The zeit.</value>
         [Required]
-        public double X { get; set; }
-
-        /// <summary>
-        /// Gets or sets the y.
-        /// </summary>
-        /// <value>The y.</value>
-        [Required]
-        public double Y { get; set; }
+        public double Zeit { get; set; }
     }
 }

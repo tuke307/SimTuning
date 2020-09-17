@@ -1,33 +1,46 @@
-﻿// project=SimTuning.Core, file=AudioLogic.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using SkiaSharp;
-
+﻿// project=SimTuning.Core, file=AudioLogic.cs, creation=2020:7:31 Copyright (c) 2020 tuke
+// productions. All rights reserved.
 namespace SimTuning.Core.ModuleLogic
 {
+    using SkiaSharp;
+
+    /// <summary>
+    /// AudioLogic.
+    /// </summary>
     public class AudioLogic
     {
         #region variables
 
-        //Daten können sich geholt werden
-        public Spectrogram.Spectrogram SpectrogramAudio { get; private set; }
-
         //pfad
         private string audioFile;
 
-        //Daten
-        private int sampleRate; //meistens 44100
-
-        private double intensity; //Noise filter
-        private int frequenzbeginn;
-        private int frequenzende;
-        private int fftSize; //Qualität der Auflösung = Spalten
-        private Spectrogram.Colormap colormap;
         private SKBitmap bmp;
+
+        private Spectrogram.Colormap colormap;
+
+        private int fftSize;
+
+        private int frequenzbeginn;
+
+        private int frequenzende;
+
+        private double intensity;
+
+        //Daten
+        private int sampleRate;
+
+        //Daten können sich geholt werden
+        public Spectrogram.Spectrogram SpectrogramAudio { get; private set; }
+
+        //meistens 44100
+
+        //Noise filter
+        //Qualität der Auflösung = Spalten
 
         #endregion variables
 
         /// <summary>
-        /// Gets the Spectrogram as a
+        /// Definieren des Frequenz-Spectrogram mit bestimmten Parametern.
         /// </summary>
         /// <param name="_audioFile">The audio file.</param>
         /// <param name="_Quality">The quality.</param>
@@ -35,7 +48,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="_Hintergrundfarbe">The hintergrundfarbe.</param>
         /// <param name="_Frequenzbeginn">The frequenzbeginn.</param>
         /// <param name="_Frequenzende">The frequenzende.</param>
-        /// <returns></returns>
+        /// <returns>Spectrogram.</returns>
         public SKBitmap GetSpectrogram(
             string _audioFile,
             string _Quality = "gut",
@@ -86,7 +99,7 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Definieren des Frequenz-Spectrogram mit bestimmten Parametern
+        /// Erstellt das Frequenz-Spectrogram.
         /// </summary>
         private void Spectogram()
         {

@@ -27,7 +27,7 @@
                     <ListView HeightRequest="200"
                               ItemsSource="{Binding Vehicles}"
                               SelectedItem="{Binding Mode=TwoWay, Path=Vehicle}"
-                              RowHeight="40">
+                              RowHeight="50">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

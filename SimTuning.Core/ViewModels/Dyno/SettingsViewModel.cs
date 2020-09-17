@@ -23,10 +23,9 @@
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public SettingsViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
+        public SettingsViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
                                     : base(logProvider, navigationService)
         {
-            this._token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
         }
 
         #region Methods
@@ -48,61 +47,9 @@
             base.Prepare();
         }
 
-        /// <summary>
-        /// Reloads the data.
-        /// </summary>
-        /// <param name="mvxReloaderMessage">The MVX reloader message.</param>
-        public virtual void ReloadData(MvxReloaderMessage mvxReloaderMessage = null)
-        {
-            try
-            {
-                using (var db = new DatabaseContext())
-                {
-                    this.Dyno = db.Dyno.Single(d => d.Active == true);
-                }
-
-                this.RaisePropertyChanged(() => this.EndAcceleration);
-            }
-            catch (Exception exc)
-            {
-                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
-            }
-        }
-
         #endregion Methods
 
         #region Values
-
-        private readonly MvxSubscriptionToken _token;
-        private DynoModel _dyno;
-
-        /// <summary>
-        /// Gets or sets the dyno.
-        /// </summary>
-        /// <value>The dyno.</value>
-        public DynoModel Dyno
-        {
-            get => _dyno;
-            set => SetProperty(ref _dyno, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the end acceleration.
-        /// </summary>
-        /// <value>The end acceleration.</value>
-        public int? EndAcceleration
-        {
-            get => this.Dyno?.EndAcceleration;
-            set
-            {
-                if (this.Dyno == null)
-                {
-                    return;
-                }
-
-                this.Dyno.EndAcceleration = value;
-            }
-        }
 
         /// <summary>
         /// Gets or sets the show acceleration command.

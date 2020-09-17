@@ -13,8 +13,11 @@
     using SimTuning.Core.Models;
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
+    using System.IO;
     using System.Linq;
     using System.Resources;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -39,16 +42,30 @@
 
             this._locationWatcher = locationWatcher;
 
-            this.StartAccelerationCommand = new MvxAsyncCommand(this.StartAcceleration);
+            // Commands
+            this.StartAccelerationCommand = new MvxAsyncCommand(this.StartBeschleunigung);
             this.ResetAccelerationCommand = new MvxAsyncCommand(this.ResetAcceleration);
             this.StopAccelerationCommand = new MvxAsyncCommand(this.StopAcceleration);
 
+            // Recorder
             this.recorder = new AudioRecorderService();
             this.recorder.FilePath = GeneralSettings.AudioFilePath;
             this.recorder.PreferredSampleRate = 44100;
+
+            // Visibility
+            this.StopAccelerationButtonVis = false;
+            this.ShowAudioButtonVis = false;
+            this.TimerVis = false;
+            this.CountdownVis = false;
+
+            // Anfahren
+            this.CurrentState = preState;
+            this.StartAccelerationButtonVis = true;
         }
 
         #region Methods
+
+        private System.Timers.Timer _timer;
 
         /// <summary>
         /// Initializes this instance.
@@ -81,8 +98,6 @@
                 {
                     this.Dyno = db.Dyno.Single(d => d.Active == true);
                 }
-
-                this.RaisePropertyChanged(() => this.EndAcceleration);
             }
             catch (Exception exc)
             {
@@ -95,19 +110,87 @@
         /// </summary>
         protected virtual async Task ResetAcceleration()
         {
-            await this.StopAcceleration().ConfigureAwait(true);
-            await this.StopRecording().ConfigureAwait(true);
+            try
+            {
+                await this.StopAcceleration().ConfigureAwait(true);
+                await this.StopRecording().ConfigureAwait(true);
+
+                File.Delete(this.recorder.FilePath);
+                this.PageBackColor = System.Drawing.Color.White;
+                this.SpeedBackColor = System.Drawing.Color.White;
+                this.CurrentState = preState;
+                this.StartAccelerationButtonVis = true;
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
+            }
+        }
+
+        /// <summary>
+        /// Starts the ausrollen.
+        /// </summary>
+        protected virtual async Task StartAusrollen()
+        {
+            try
+            {
+                await this.StartRecording().ConfigureAwait(true);
+                await this.StartTracking().ConfigureAwait(true);
+
+                this.Dyno.Ausrollen = new List<AusrollenModel>();
+
+                this.CurrentState = secondState;
+                this.PageBackColor = deepSkyBlue;
+                this.SpeedBackColor = skyBlue;
+
+                this.TimerVis = true;
+                _timer = new System.Timers.Timer();
+                //Trigger event every second
+                _timer.Interval = 100;
+                _timer.Elapsed += OnTimedEvent;
+
+                //count down 5000 ms
+                Countdown = 5000;
+
+                _timer.Enabled = true;
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
+            }
         }
 
         /// <summary>
         /// Starts the acceleration.
         /// </summary>
-        protected virtual async Task StartAcceleration()
+        protected virtual async Task StartBeschleunigung()
         {
-            await this.StartRecording().ConfigureAwait(true);
-            await this.StartTracking().ConfigureAwait(true);
+            try
+            {
+                await this.StartRecording().ConfigureAwait(true);
+                await this.StartTracking().ConfigureAwait(true);
 
-            this.Dyno.Location = new List<LocationModel>();
+                this.Dyno.Beschleunigung = new List<BeschleunigungModel>();
+
+                this.CurrentState = firstState;
+                this.PageBackColor = darkSeaGreen;
+                this.SpeedBackColor = seaGreen;
+
+                this.CountdownVis = true;
+                _timer = new System.Timers.Timer();
+                //Trigger event every second
+                _timer.Interval = 100;
+                _timer.Elapsed += OnTimedEvent;
+
+                //count down 5000 ms
+                Countdown = 5000;
+
+                _timer.Enabled = true;
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
+            }
         }
 
         /// <summary>
@@ -128,6 +211,7 @@
 
         /// <summary>
         /// Called when [location updated].
+        /// TODO: bei keiner Veränderung der Maximalgeschwindigkeit StartAusrollen() beginnen.
         /// </summary>
         /// <param name="obj">The object.</param>
         private void OnLocationUpdated(MvxGeoLocation obj)
@@ -136,7 +220,7 @@
 
             Task.Run(async () =>
             {
-                var locationModel = new LocationModel()
+                var locationModel = new BeschleunigungModel()
                 {
                     Dyno = this.Dyno,
                     Latitude = obj.Coordinates.Longitude,
@@ -151,7 +235,7 @@
 
                 using (var db = new Data.DatabaseContext())
                 {
-                    db.Location.Add(locationModel);
+                    db.Beschleunigung.Add(locationModel);
 
                     await db.SaveChangesAsync().ConfigureAwait(true);
                 }
@@ -159,12 +243,6 @@
 
             this.RaisePropertyChanged(() => this.Speed);
             this.RaisePropertyChanged(() => this.Timer);
-
-            if ((int)this.Speed == this.EndAcceleration)
-            {
-                this.CurrentState = secondState;
-                this.BackgroundColor = blue;
-            }
         }
 
         /// <summary>
@@ -174,6 +252,24 @@
         private void OnLocationUpdateError(MvxLocationError obj)
         {
             this.Log.Warn($"Location Error: {obj.Code} {obj.ToString()}");
+        }
+
+        private void OnTimedEvent(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            // Timer abziehen
+            Countdown -= 100;
+
+            if (Countdown == 0)
+            {
+                _timer.Stop();
+                _timer.Dispose();
+                this.CountdownVis = false;
+
+                if (this.StartAccelerationButtonVis)
+                {
+                    this.StartAccelerationButtonVis = false;
+                }
+            }
         }
 
         /// <summary>
@@ -211,9 +307,6 @@
             };
 
             this._locationWatcher.Start(options, this.OnLocationUpdated, this.OnLocationUpdateError);
-
-            this.CurrentState = firstState;
-            this.BackgroundColor = green;
         }
 
         /// <summary>
@@ -272,32 +365,40 @@
 
         protected readonly ResourceManager rm;
         private const string firstState = "Vollgas";
-
+        private const string preState = "Anfahren";
         private const string secondState = "Ausrollen";
 
-        private static System.Drawing.Color blue = System.Drawing.Color.SkyBlue;
-
-        private static System.Drawing.Color green = System.Drawing.Color.DarkSeaGreen;
-
+        private static System.Drawing.Color darkSeaGreen = System.Drawing.Color.DarkSeaGreen;
+        private static System.Drawing.Color deepSkyBlue = System.Drawing.Color.DeepSkyBlue;
+        private static System.Drawing.Color seaGreen = System.Drawing.Color.SeaGreen;
+        private static System.Drawing.Color skyBlue = System.Drawing.Color.SkyBlue;
         private readonly IMvxLocationWatcher _locationWatcher;
 
         private readonly MvxSubscriptionToken _token;
-        private System.Drawing.Color _backgroundColor;
-
+        private int _countdown;
+        private bool _countdownVis;
         private string _currentState;
-
         private DynoModel _dyno;
-
         private int _endAcceleration;
-
         private MvxGeoLocation _lastLocation;
-
+        private System.Drawing.Color _pageBackColor;
+        private bool _showAudioButtonVis;
+        private Color _speedBackColor;
+        private bool _startAccelerationButtonVis;
+        private bool _stopAccelerationButtonVis;
+        private bool _timerVis;
         private AudioRecorderService recorder;
 
-        public System.Drawing.Color BackgroundColor
+        public int Countdown
         {
-            get => this._backgroundColor;
-            set => this.SetProperty(ref this._backgroundColor, value);
+            get => this._countdown;
+            set => this.SetProperty(ref this._countdown, value);
+        }
+
+        public bool CountdownVis
+        {
+            get => this._countdownVis;
+            set => this.SetProperty(ref this._countdownVis, value);
         }
 
         /// <summary>
@@ -321,15 +422,6 @@
         }
 
         /// <summary>
-        /// Gets or sets the end acceleration.
-        /// </summary>
-        /// <value>The end acceleration.</value>
-        public int? EndAcceleration
-        {
-            get => Dyno?.EndAcceleration;
-        }
-
-        /// <summary>
         /// Gets or sets the last location.
         /// </summary>
         /// <value>The last location.</value>
@@ -339,14 +431,50 @@
             set => this.SetProperty(ref this._lastLocation, value);
         }
 
+        public System.Drawing.Color PageBackColor
+        {
+            get => this._pageBackColor;
+            set => this.SetProperty(ref this._pageBackColor, value);
+        }
+
+        public bool ShowAudioButtonVis
+        {
+            get => this._showAudioButtonVis;
+            set => this.SetProperty(ref this._showAudioButtonVis, value);
+        }
+
         public double? Speed
         {
             get => this.LastLocation?.Coordinates?.Speed ?? 0.00;
         }
 
+        public System.Drawing.Color SpeedBackColor
+        {
+            get => this._speedBackColor;
+            set => this.SetProperty(ref this._speedBackColor, value);
+        }
+
+        public bool StartAccelerationButtonVis
+        {
+            get => this._startAccelerationButtonVis;
+            set => this.SetProperty(ref this._startAccelerationButtonVis, value);
+        }
+
+        public bool StopAccelerationButtonVis
+        {
+            get => this._stopAccelerationButtonVis;
+            set => this.SetProperty(ref this._stopAccelerationButtonVis, value);
+        }
+
         public int? Timer
         {
             get => this.LastLocation?.Timestamp.Millisecond ?? 0;
+        }
+
+        public bool TimerVis
+        {
+            get => this._timerVis;
+            set => this.SetProperty(ref this._timerVis, value);
         }
 
         #endregion Values

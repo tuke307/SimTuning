@@ -47,6 +47,7 @@
                     <!--Colormap-->
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Colormap"
+                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                 Choices="{Binding Mode=OneTime, Path=Colormaps}"
                                                 SelectedChoice="{Binding Mode=TwoWay, Path=Colormap}">
                     </material:MaterialTextField>
@@ -54,6 +55,7 @@
                     <!--Intensität-->
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Intensität"
+                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                 Choices="{Binding Mode=OneTime, Path=Intensitys}"
                                                 SelectedChoice="{Binding Mode=TwoWay, Path=Intensity}">
                     </material:MaterialTextField>
@@ -61,6 +63,7 @@
                     <!--Auflösungsqualität-->
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Qualität"
+                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                 Choices="{Binding Mode=OneTime, Path=Qualitys}"
                                                 SelectedChoice="{Binding Mode=TwoWay, Path=Quality}">
                     </material:MaterialTextField>
@@ -150,6 +153,7 @@
                     <material:MaterialTextField InputType="Choice"
                                                 FloatingPlaceholderEnabled="False"
                                                 Placeholder="Graphauswahl"
+                                                LeadingIcon="ic_chevron_down_black_18dp.png"
                                                 Choices="{Binding Mode=OneWay, Path=Graphs}"
                                                 SelectedChoice="{Binding Mode=TwoWay, Path=Graph}"
                                                 ChoicesBindingName="Name">
@@ -160,6 +164,15 @@
                     </material:MaterialTextField>
                 </StackLayout>
             </material:MaterialCard>
+
+            <material:MaterialIconButton WidthRequest="50"
+                                         HeightRequest="50"
+                                         Margin="15"
+                                         ButtonType="Elevated"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Center"
+                                         Image="ic_play_arrow_black_18dp.png"
+                                         Command="{Binding ShowDiagnosisCommand}" />
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

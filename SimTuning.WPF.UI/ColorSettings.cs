@@ -6,6 +6,7 @@
 
     /// <summary>
     /// ColorSettings.
+    /// TODO: implementing getter.
     /// </summary>
     public static class ColorSettings
     {
@@ -19,12 +20,12 @@
         {
             get
             {
-                return (MaterialDesignColors.PrimaryColor)Enum.Parse(typeof(MaterialDesignColors.PrimaryColor), AppSettings.GetValueOrDefault(nameof(Primary), nameof(MaterialDesignColors.PrimaryColor.Teal), userFile));
+                return MaterialDesignColors.PrimaryColor.Teal;//(MaterialDesignColors.PrimaryColor)AppSettings.GetValueOrDefault(nameof(Primary), (int)MaterialDesignColors.PrimaryColor.Teal, userFile);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(Primary), nameof(value), userFile);
+                AppSettings.AddOrUpdateValue(nameof(Primary), (int)value, userFile);
             }
         }
 
@@ -36,29 +37,29 @@
         {
             get
             {
-                return (MaterialDesignColors.SecondaryColor)Enum.Parse(typeof(MaterialDesignColors.SecondaryColor), AppSettings.GetValueOrDefault(nameof(Secondary), nameof(MaterialDesignColors.SecondaryColor.Cyan), userFile));
+                return MaterialDesignColors.SecondaryColor.Cyan;//(MaterialDesignColors.SecondaryColor)AppSettings.GetValueOrDefault(nameof(Secondary), (int)MaterialDesignColors.SecondaryColor.Cyan, userFile);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(Secondary), nameof(value), userFile);
+                AppSettings.AddOrUpdateValue(nameof(Secondary), (int)value, userFile);
             }
         }
 
         /// <summary>
-        /// Gets or sets the theme. TODO:parsing dosnt work
+        /// Gets or sets the theme.
         /// </summary>
         /// <value>The theme.</value>
         public static MaterialDesignThemes.Wpf.BaseTheme Theme
         {
             get
             {
-                return MaterialDesignThemes.Wpf.BaseTheme.Light;//(MaterialDesignThemes.Wpf.BaseTheme)Enum.Parse(typeof(MaterialDesignThemes.Wpf.BaseTheme), AppSettings.GetValueOrDefault(nameof(Theme), nameof(MaterialDesignThemes.Wpf.BaseTheme.Light), userFile));
+                return MaterialDesignThemes.Wpf.BaseTheme.Light;//(MaterialDesignThemes.Wpf.BaseTheme)AppSettings.GetValueOrDefault(nameof(Theme), (int)MaterialDesignThemes.Wpf.BaseTheme.Light, userFile);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(Theme), nameof(value), userFile);
+                AppSettings.AddOrUpdateValue(nameof(Theme), (int)value, userFile);
             }
         }
 

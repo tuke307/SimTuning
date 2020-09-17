@@ -6,7 +6,8 @@
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoRuntimeView"
                       x:TypeArguments="viewModels:DynoRuntimeViewModel"
-                      BackgroundColor="{Binding Path=BackgroundColor, Mode=OneWay}">
+                      Title="Runtime"
+                      BackgroundColor="{Binding Path=PageBackColor, Mode=TwoWay}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*" />
@@ -31,31 +32,10 @@
                                VerticalOptions="Center"
                                Elevation="3"
                                HeightRequest="200"
-                               WidthRequest="250">
+                               WidthRequest="250"
+                               BackgroundColor="{Binding Path=SpeedBackColor, Mode=TwoWay}">
 
             <Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <StackLayout Grid.Column="0"
-                                 Orientation="Horizontal"
-                                 HorizontalOptions="Start">
-                        <material:MaterialLabel Text="0" />
-                        <material:MaterialLabel Text="km/h" />
-                    </StackLayout>
-
-                    <StackLayout Grid.Column="1"
-                                 Orientation="Horizontal"
-                                 HorizontalOptions="End">
-                        <material:MaterialLabel Text="{Binding Mode=OneWay, Path=EndAcceleration}" />
-
-                        <material:MaterialLabel Text="km/h" />
-                    </StackLayout>
-                </Grid>
-
                 <StackLayout Orientation="Horizontal"
                              HorizontalOptions="Center"
                              VerticalOptions="Center">
@@ -70,14 +50,26 @@
             </Grid>
         </material:MaterialCard>
 
-        <material:MaterialLabel Grid.Row="2"
-                                HorizontalOptions="Center"
-                                Text="{Binding Path=CurrentState, Mode=OneWay}"
-                                TypeScale="H5" />
+        <StackLayout Grid.Row="2">
+            <material:MaterialLabel HorizontalOptions="Center"
+                                    Text="{Binding Path=CurrentState, Mode=OneWay}"
+                                    TypeScale="H3" />
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         IsVisible="{Binding Path=CountdownVis ,Mode=OneWay}">
+                <material:MaterialLabel Text="Start in: "
+                                        TypeScale="H4" />
+
+                <material:MaterialLabel Text="{Binding Path=Countdown, Mode=OneWay}"
+                                        TypeScale="H4" />
+            </StackLayout>
+        </StackLayout>
 
         <StackLayout Grid.Row="3"
                      HorizontalOptions="Center"
-                     Orientation="Horizontal">
+                     Orientation="Horizontal"
+                     IsVisible="{Binding Path=TimerVis, Mode=OneWay}">
             <material:MaterialLabel  Text="{Binding Path=Timer, Mode=OneWay}"
                                      TypeScale="H2"
                                      VerticalOptions="End" />
@@ -91,20 +83,15 @@
                       Orientation="Horizontal"
                       HorizontalOptions="Center">
             <material:MaterialButton Text="Start"
+                                     IsVisible="{Binding StartAccelerationButtonVis}"
                                      ButtonType="Elevated"
                                      VerticalOptions="Center"
                                      WidthRequest="125"
                                      Image="ic_play_arrow_black_18dp.png"
                                      Command="{Binding StartAccelerationCommand}" />
 
-            <material:MaterialButton Text="Reset"
-                                     ButtonType="Elevated"
-                                     VerticalOptions="Center"
-                                     WidthRequest="125"
-                                     Image="ic_refresh_black_18dp.png"
-                                     Command="{Binding ResetAccelerationCommand}" />
-
             <material:MaterialButton Text="Stop"
+                                     IsVisible="{Binding StopAccelerationButtonVis}"
                                      ButtonType="Elevated"
                                      VerticalOptions="Center"
                                      WidthRequest="125"
@@ -113,8 +100,17 @@
         </StackLayout>
 
         <material:MaterialIconButton Grid.Row="5"
+                                     Margin="5"
+                                     ButtonType="Flat"
+                                     VerticalOptions="End"
+                                     HorizontalOptions="Start"
+                                     Image="ic_refresh_black_18dp.png"
+                                     Command="{Binding ResetAccelerationCommand}" />
+
+        <material:MaterialIconButton Grid.Row="5"
                                      WidthRequest="100"
                                      HeightRequest="60"
+                                     IsVisible="{Binding ShowAudioButtonVis}"
                                      Margin="15"
                                      ButtonType="Elevated"
                                      HorizontalOptions="End"
