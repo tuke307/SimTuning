@@ -13,6 +13,9 @@ namespace SimTuning.WPF.UI
     /// <seealso cref="MvvmCross.ViewModels.MvxApplication" />
     public class MvxApp : MvxApplication
     {
+        /// <summary>
+        /// Any initialization steps that can be done in the background
+        /// </summary>
         public override void Initialize()
         {
             this.CreatableTypes()
@@ -28,6 +31,10 @@ namespace SimTuning.WPF.UI
             base.Initialize();
         }
 
+        /// <summary>
+        /// Loads the plugins.
+        /// </summary>
+        /// <param name="pluginManager">The plugin manager.</param>
         public override void LoadPlugins(IMvxPluginManager pluginManager)
         {
             pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
