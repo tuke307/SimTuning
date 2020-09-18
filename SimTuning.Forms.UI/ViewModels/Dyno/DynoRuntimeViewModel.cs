@@ -59,7 +59,7 @@
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected override async Task ResetAcceleration()
+        protected override async Task ResetBeschleunigung()
         {
             if (!this.CheckDynoData().Result)
             {
@@ -68,7 +68,7 @@
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await base.ResetAcceleration().ConfigureAwait(true);
+            await base.ResetBeschleunigung().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }
@@ -101,11 +101,11 @@
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected override async Task StopAcceleration()
+        protected override async Task StopBeschleunigung()
         {
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await base.StopAcceleration().ConfigureAwait(true);
+            await base.StopBeschleunigung().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }

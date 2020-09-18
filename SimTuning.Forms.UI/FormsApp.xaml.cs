@@ -3,6 +3,7 @@
 namespace SimTuning.Forms.UI
 {
     using MvvmCross.IoC;
+    using SimTuning.Core.Models;
 
     /// <summary>
     /// FormsApp.
@@ -17,7 +18,6 @@ namespace SimTuning.Forms.UI
         {
             this.InitializeComponent();
 
-            MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
             XF.Material.Forms.Material.Init(this, "Material.Configuration");
         }
 

@@ -69,8 +69,8 @@
         <StackLayout Grid.Row="3"
                      HorizontalOptions="Center"
                      Orientation="Horizontal"
-                     IsVisible="{Binding Path=TimerVis, Mode=OneWay}">
-            <material:MaterialLabel  Text="{Binding Path=Timer, Mode=OneWay}"
+                     IsVisible="{Binding Path=StopwatchVis, Mode=OneWay}">
+            <material:MaterialLabel  Text="{Binding Path=Stopwatch, Mode=OneWay}"
                                      TypeScale="H2"
                                      VerticalOptions="End" />
 
