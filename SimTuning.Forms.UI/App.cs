@@ -3,10 +3,9 @@
 namespace SimTuning.Forms.UI
 {
     using MediaManager;
-    using MvvmCross;
     using MvvmCross.IoC;
-    using MvvmCross.Plugin;
     using SimTuning.Forms.UI.ViewModels;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// specific application.
@@ -34,15 +33,20 @@ namespace SimTuning.Forms.UI
         }
 
         /// <summary>
-        /// Loads the plugins.
+        /// If the application is restarted (eg primary activity on Android can be
+        /// restarted) this method will be called before Startup is called again.
         /// </summary>
-        /// <param name="pluginManager">The plugin manager.</param>
-        public override void LoadPlugins(IMvxPluginManager pluginManager)
+        public override void Reset()
         {
-            pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
-            //pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Location.Platforms.Wpf.Plugin>();
+            base.Reset();
+        }
 
-            base.LoadPlugins(pluginManager);
+        /// <summary>
+        /// Do any UI bound startup actions here.
+        /// </summary>
+        public override Task Startup()
+        {
+            return base.Startup();
         }
     }
 }

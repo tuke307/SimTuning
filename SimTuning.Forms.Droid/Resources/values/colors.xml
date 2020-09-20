@@ -7,4 +7,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
   <color name="colorPrimary">#3F51B5</color>
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#FF4081</color>
+
+  <color name="splash_background">#FFFFFF</color>
 </resources>

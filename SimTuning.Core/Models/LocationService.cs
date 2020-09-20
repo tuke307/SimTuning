@@ -1,18 +1,12 @@
-﻿using MvvmCross;
-using MvvmCross.Plugin.Location;
+﻿using MvvmCross.Plugin.Location;
 using MvvmCross.Plugin.Messenger;
+using SimTuning.Core.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimTuning.Core.Models
 {
-    public interface ILocationService
-    {
-    }
-
     public class LocationService
-        : ILocationService
+       : ILocationService
     {
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLocationWatcher _watcher;

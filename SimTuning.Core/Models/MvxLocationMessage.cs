@@ -1,7 +1,4 @@
 ﻿using MvvmCross.Plugin.Messenger;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimTuning.Core.Models
 {

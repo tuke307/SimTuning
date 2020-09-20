@@ -2,7 +2,6 @@
 {
     using Data;
     using Data.Models;
-    using MvvmCross.Base;
     using MvvmCross.Commands;
     using MvvmCross.IoC;
     using MvvmCross.Logging;
@@ -19,7 +18,6 @@
     using System.IO;
     using System.Linq;
     using System.Resources;
-    using System.Threading;
     using System.Threading.Tasks;
     using System.Timers;
 
@@ -66,6 +64,8 @@
             // Anfahren
             this.CurrentState = preState;
             this.StartAccelerationButtonVis = true;
+
+            var test = MvxIoCProvider.Instance.Resolve<ILocationService>();
         }
 
         #region Methods

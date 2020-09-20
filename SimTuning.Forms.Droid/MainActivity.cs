@@ -16,12 +16,15 @@ namespace SimTuning.Forms.Droid
     /// <seealso cref="MvvmCross.Forms.Platforms.Android.Views.MvxFormsAppCompatActivity" />
     [Activity(
         Label = "SimTuning",
-        Theme = "@style/MainTheme",
+        Theme = "@style/AppTheme",
         Icon = "@mipmap/logo",
-        MainLauncher = true,
+        //MainLauncher = true, for splashscreen
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         LaunchMode = LaunchMode.SingleTask)]
-    public class MainActivity : MvxFormsAppCompatActivity<MvxFormsAndroidSetup<App, FormsApp>, App, FormsApp>
+    public class MainActivity : MvxFormsAppCompatActivity
+
+    // No Splash Screen with this; MvxFormsAppCompatActivity<MvxFormsAndroidSetup<App,
+    // FormsApp>, App, FormsApp>
     {
         /// <summary>
         /// Called when [create].
