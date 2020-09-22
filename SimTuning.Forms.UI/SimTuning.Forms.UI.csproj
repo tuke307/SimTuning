@@ -56,9 +56,6 @@
     <Compile Update="Views\Dyno\DynoDiagnosisView.xaml.cs">
       <DependentUpon>DynoDiagnosisView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Dyno\DynoAudioView.xaml.cs">
-      <DependentUpon>DynoAudioView.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\Dyno\DynoSpectrogramView.xaml.cs">
       <DependentUpon>DynoSpectrogramView.xaml</DependentUpon>
     </Compile>
@@ -118,6 +115,12 @@
   <ItemGroup>
     <EmbeddedResource Update="Components\MenuOptionView.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Dyno\DynoAusrollenView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Dyno\DynoBeschleunigungView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Dyno\DynoDataView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

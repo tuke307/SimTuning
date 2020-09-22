@@ -28,7 +28,7 @@ namespace SimTuning.Droid
         /// Initializes a new instance of the <see cref="SplashScreen" /> class.
         /// </summary>
         public SplashScreen()
-            : base(Resource.Layout.SplashScreen)
+        //: base(Resource.Layout.SplashScreen)
         {
         }
 

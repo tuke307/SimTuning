@@ -65,7 +65,7 @@
             this.CurrentState = preState;
             this.StartAccelerationButtonVis = true;
 
-            var test = MvxIoCProvider.Instance.Resolve<ILocationService>();
+            //var test = MvxIoCProvider.Instance.Resolve<ILocationService>();
         }
 
         #region Methods
@@ -502,7 +502,7 @@
 
         public string? Stopwatch
         {
-            get => this._stopwatch?.Elapsed.ToString(@"0:mm\:ss\:ff");
+            get => this._stopwatch?.Elapsed.ToString(@":mm\:ss\:ff");
         }
 
         public bool StopwatchVis

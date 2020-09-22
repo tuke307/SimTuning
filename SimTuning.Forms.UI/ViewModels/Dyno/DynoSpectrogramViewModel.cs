@@ -26,7 +26,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             set => SetProperty(ref _displayedImage, value);
         }
 
-        public MvxAsyncCommand ShowDiagnosisCommand { get; private set; }
+        public MvxAsyncCommand ShowBeschleunigungCommand { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynoSpectrogramViewModel" />
@@ -43,7 +43,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
             this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
 
-            ShowDiagnosisCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoDiagnosisViewModel>());
+            ShowBeschleunigungCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoBeschleunigungViewModel>());
             // datensatz checken CheckDynoData();
         }
 

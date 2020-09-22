@@ -16,35 +16,66 @@ namespace SimTuning.Core.ModuleLogic
     {
         #region variables
 
-        private double abstand;
+        /// <summary>
+        /// Array Handling.
+        /// 1. Liste = Graphen, 2. Liste = Punkte.
+        /// </summary>
+        private static readonly List<List<DataPoint>> plotData = new List<List<DataPoint>>();
 
-        private double fft_beginn;
+        /// <summary>
+        /// Spectrogram Data, Liste = Spalten, [] = Zeilen, float = Stärke der Frequenz.
+        /// </summary>
+        private static readonly List<float[]> specData = new List<float[]>();
 
-        private double fft_ende;
+        private static double abstand;
 
-        //Punkte für die Polynomfunktion
-        private List<double> function = new List<double>();
+        private static double fftBeginn;
 
-        private double hzPerFFT;
+        private static double fftEnde;
 
-        //Array Handling
-        private List<List<DataPoint>> plot_data = new List<List<DataPoint>>();
+        /// <summary>
+        /// Punkte für die Polynomfunktion.
+        /// </summary>
+        private static List<double> function = new List<double>();
 
-        //wieviel reihen ein Herz wiederspiegeln
-        private double segmentsPerSecond;
+        private static double hzPerFFT;
 
-        //Spectrogram Data, Liste = Spalten, [] = Zeilen, float = Stärke der Frequenz
-        private List<float[]> spec_data = new List<float[]>();
+        /// <summary>
+        /// wieviel reihen ein Herz wiederspiegeln.
+        /// </summary>
+        private static double segmentsPerSecond;
 
-        private double strongPoint;
+        private static double strongPoint;
 
-        public DynoModel Dyno { get; private set; }
+        /// <summary>
+        /// Gets the dyno.
+        /// </summary>
+        /// <value>The dyno.</value>
+        public static DynoModel Dyno { get; private set; }
 
-        public PlotModel PlotAudio { get; set; }
+        /// <summary>
+        /// Gets or sets the plot audio.
+        /// </summary>
+        /// <value>The plot audio.</value>
+        public static PlotModel PlotAudio { get; set; }
 
-        public PlotModel PlotStrength { get; set; }
+        /// <summary>
+        /// Gets or sets the plot ausrollen.
+        /// </summary>
+        /// <value>The plot ausrollen.</value>
+        public static PlotModel PlotAusrollen { get; set; }
 
-        //1. Liste = Graphen, 2. Liste = Punkte
+        /// <summary>
+        /// Gets or sets the plot beschleunigung.
+        /// </summary>
+        /// <value>The plot beschleunigung.</value>
+        public static PlotModel PlotBeschleunigung { get; set; }
+
+        /// <summary>
+        /// Gets or sets the plot strength.
+        /// </summary>
+        /// <value>The plot strength.</value>
+        public static PlotModel PlotStrength { get; set; }
 
         #endregion variables
 
@@ -52,23 +83,23 @@ namespace SimTuning.Core.ModuleLogic
         /// Bildet eine Regression aus Punkten.
         /// </summary>
         /// <param name="choice">Der zu filternde Graph.</param>
-        public void AreaRegression(int choice)
+        public static void AreaRegression(int choice)
         {
-            this.Dyno = new DynoModel();
-            this.Dyno.Drehzahl = new List<DrehzahlModel>();
+            Dyno = new DynoModel();
+            Dyno.Drehzahl = new List<DrehzahlModel>();
 
             // Regressions-Punkte bilden
-            this.function = Fit.Polynomial(plot_data[choice].Select(x => x.X).ToArray(), this.plot_data[choice].Select(x => x.Y).ToArray(), 4).ToList();  // 5 Punkte
+            function = Fit.Polynomial(plotData[choice].Select(x => x.X).ToArray(), plotData[choice].Select(x => x.Y).ToArray(), 4).ToList();  // 5 Punkte
 
-            this.PlotAreaRegression(choice);
+            PlotAreaRegression(choice);
 
             // Audio Werte (X, Y) hinzufügen
-            for (int count = 0; count < this.plot_data[0].Count; count++)
+            for (int count = 0; count < plotData[0].Count; count++)
             {
-                this.Dyno.Drehzahl.Add(new DrehzahlModel()
+                Dyno.Drehzahl.Add(new DrehzahlModel()
                 {
-                    Zeit = this.plot_data[0][count].X,
-                    Drehzahl = this.plot_data[0][count].Y,
+                    Zeit = plotData[0][count].X,
+                    Drehzahl = plotData[0][count].Y,
                 });
             }
         }
@@ -80,9 +111,9 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="plot">The plot.</param>
         /// <param name="ps">The ps.</param>
         /// <param name="nm">The nm.</param>
-        public void CalculateStrengthPlot(DynoModel dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/)
+        public static void CalculateStrengthPlot(DynoModel dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/)
         {
-            this.DefineStrengthPlot();
+            DefineStrengthPlot();
 
             List<DynoNmModel> dynoNm = new List<DynoNmModel>();
             List<DynoPsModel> dynoPs = new List<DynoPsModel>();
@@ -123,9 +154,9 @@ namespace SimTuning.Core.ModuleLogic
                 //double Nm = kraft * weg;
                 //dynoNm.Add(new DynoNmModel() { Drehzahl = drehzahl, Nm = Nm });
 
-                // P=W/t (1Ps=1Nm/735.498750000002) in PS
-                double PS = Nm / zeit / 735.498750000002;
-                dynoPs.Add(new DynoPsModel() { Drehzahl = drehzahl, Ps = PS });
+                // P=W/t (1Ps=1Nm/735.498750000002) in PS double PS = Nm / zeit /
+                // 735.498750000002;
+                //dynoPs.Add(new DynoPsModel() { Drehzahl = drehzahl, Ps = PS });
             }
 
             //OxyPlot.Series.LineSeries leistung_nm = new OxyPlot.Series.LineSeries();
@@ -148,7 +179,7 @@ namespace SimTuning.Core.ModuleLogic
             leistung_ps.Color = OxyColors.DarkBlue;
 
             // Graphen einfügen PlotStrength.Series.Add(leistung_nm);
-            this.PlotStrength.Series.Add(leistung_ps);
+            PlotStrength.Series.Add(leistung_ps);
 
             // nm = dynoNm;
             ps = dynoPs;
@@ -161,88 +192,88 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="filter">
         /// if set to <c>true</c> [filter] Punkte werden zu Bereichen zugeordnet.
         /// </param>
-        public void PlotRotionalSpeed(Spectrogram.Spectrogram spectrogramAudio, bool filter = false)
+        public static void PlotRotionalSpeed(Spectrogram.Spectrogram spectrogramAudio, bool filter = false)
         {
-            this.spec_data.Clear();
-            this.plot_data.Clear();
+            specData.Clear();
+            plotData.Clear();
 
             #region SpectrogramData
 
             //Daten verarbeiten
-            spec_data.AddRange(spectrogramAudio.FftList);
+            specData.AddRange(spectrogramAudio.FftList);
             hzPerFFT = spectrogramAudio.FftSettings.fftResolution; //FFT-Array-elements pro 1 Hertz-> spec.fftSettings.maxFreq / fftSize
             segmentsPerSecond = spectrogramAudio.FftSettings.segmentsPerSecond; //HORIZONTAL; anzahl spalten pro sekunde
-            fft_beginn = Math.Round(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqLow) / hzPerFFT);
-            fft_ende = Math.Round(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqHigh) / hzPerFFT);
+            fftBeginn = Math.Round(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqLow) / hzPerFFT);
+            fftEnde = Math.Round(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqHigh) / hzPerFFT);
             strongPoint = 350 / spectrogramAudio.DisplaySettings.brightness; //selbst ausgewählt
             abstand = Math.Round(Math.Sqrt(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqHigh - spectrogramAudio.DisplaySettings.freqLow)) / 2); //Hälfte der wurzel des Frequenzbereichs
 
             #endregion SpectrogramData
 
-            this.HotPoints();
+            HotPoints();
 
             if (filter)
             {
-                this.PointAreas();
+                PointAreas();
             }
 
-            this.PointsToRotionalSpeed();
+            PointsToRotionalSpeed();
 
-            this.DefineAudioPlot();
+            DefineAudioPlot();
 
-            this.PlotAreas();
+            PlotAreas();
         }
 
         /// <summary>
         /// Initialisierung des Graphen.
         /// </summary>
-        private void DefineAudioPlot()
+        private static void DefineAudioPlot()
         {
-            this.PlotAudio = new PlotModel();
+            PlotAudio = new PlotModel();
 
             //Achsen
-            this.PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
-            this.PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
 
-            this.PlotAudio.IsLegendVisible = true;
-            this.PlotAudio.LegendPosition = LegendPosition.RightTop;
+            PlotAudio.IsLegendVisible = true;
+            PlotAudio.LegendPosition = LegendPosition.RightTop;
         }
 
         /// <summary>
         /// Initialisierung des Graphen.
         /// </summary>
-        private void DefineStrengthPlot()
+        private static void DefineStrengthPlot()
         {
-            this.PlotStrength = new PlotModel();
+            PlotStrength = new PlotModel();
 
             //Achsen
-            this.PlotStrength.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Bottom });
-            this.PlotStrength.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Leistung in PS", Position = OxyPlot.Axes.AxisPosition.Left });
+            PlotStrength.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Bottom });
+            PlotStrength.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Leistung in PS", Position = OxyPlot.Axes.AxisPosition.Left });
 
             //Achsen
             //PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
             //PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
 
-            this.PlotStrength.IsLegendVisible = true;
-            this.PlotStrength.LegendPosition = LegendPosition.RightTop;
+            PlotStrength.IsLegendVisible = true;
+            PlotStrength.LegendPosition = LegendPosition.RightTop;
         }
 
         /// <summary>
         /// Definiert die Punkte die Punkte die für eine Analyse verwertbar sind
         /// </summary>
-        private void HotPoints()
+        private static void HotPoints()
         {
             List<DataPoint> temp_data = new List<DataPoint>();
 
-            for (int col = 0; col < this.spec_data.Count; col++)
+            for (int col = 0; col < specData.Count; col++)
             {
                 // nur für ausgewählten bereich
                 List<DataPoint> temp_points = new List<DataPoint>();
 
-                for (int row = (int)this.fft_beginn; row <= this.fft_ende; row++)
+                for (int row = (int)fftBeginn; row <= fftEnde; row++)
                 {
                     //Holen der intensivsten Punkte
-                    if (this.spec_data[col][row] >= this.strongPoint)
+                    if (specData[col][row] >= strongPoint)
                     {
                         //row speichern
                         temp_points.Add(new DataPoint(col, row));
@@ -258,7 +289,7 @@ namespace SimTuning.Core.ModuleLogic
 
             if (temp_data.Count > 0)
             {
-                this.plot_data.Add(temp_data);
+                plotData.Add(temp_data);
             }
         }
 
@@ -266,40 +297,40 @@ namespace SimTuning.Core.ModuleLogic
         /// Definiert den Graph für den Graph der Regression eines Bereichs.
         /// TODO: keine neuerstellung des plots
         /// </summary>
-        private void PlotAreaRegression(int choice)
+        private static void PlotAreaRegression(int choice)
         {
-            this.PlotAudio = new PlotModel();
+            PlotAudio = new PlotModel();
 
             //Achsen
-            this.PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
-            this.PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
-            //this.PlotAudio.Series.Clear();
-            this.PlotAudio.IsLegendVisible = false;
-            //this.PlotAudio.InvalidatePlot(true);
+            PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            //PlotAudio.Series.Clear();
+            PlotAudio.IsLegendVisible = false;
+            //PlotAudio.InvalidatePlot(true);
 
-            Func<double, double> polyF = (x) => this.function[0] + (this.function[1] * x) + (this.function[2] * Math.Pow(x, 2)) + ((this.function[3] * Math.Pow(x, 3)) + (this.function[4] * Math.Pow(x, 4)));
+            Func<double, double> polyF = (x) => function[0] + (function[1] * x) + (function[2] * Math.Pow(x, 2)) + ((function[3] * Math.Pow(x, 3)) + (function[4] * Math.Pow(x, 4)));
 
             // Graph
-            OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(polyF, this.plot_data[choice].Select(x => x.X).Min(), this.plot_data[choice].Select(x => x.X).Max(), 100);
+            OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(polyF, plotData[choice].Select(x => x.X).Min(), plotData[choice].Select(x => x.X).Max(), 100);
 
-            this.PlotAudio.Series.Add(functionSeries);
+            PlotAudio.Series.Add(functionSeries);
         }
 
         /// <summary>
         /// Definiert Graph für alle Punkte und den Areas.
         /// </summary>
-        private void PlotAreas()
+        private static void PlotAreas()
         {
-            this.PlotAudio.Series.Clear();
+            PlotAudio.Series.Clear();
 
             // graph
             List<OxyPlot.Series.LineSeries> sound_graph = new List<OxyPlot.Series.LineSeries>();
 
             // spalte einfügen
-            for (int anzahl = 0; anzahl < this.plot_data.Count; anzahl++)
+            for (int anzahl = 0; anzahl < plotData.Count; anzahl++)
             {
                 sound_graph.Add(new OxyPlot.Series.LineSeries { });
-                sound_graph[anzahl].Points.AddRange(plot_data[anzahl]);
+                sound_graph[anzahl].Points.AddRange(plotData[anzahl]);
 
                 // Style
                 sound_graph[anzahl].Title = "Graph " + (anzahl + 1);
@@ -309,22 +340,22 @@ namespace SimTuning.Core.ModuleLogic
                 sound_graph[anzahl].MarkerType = MarkerType.Diamond;
 
                 //Graph einfügen
-                this.PlotAudio.Series.Add(sound_graph[anzahl]);
+                PlotAudio.Series.Add(sound_graph[anzahl]);
             }
         }
 
         /// <summary>
         /// Definieren von Bereichen aus Gesamtpunkten.
         /// </summary>
-        private void PointAreas()
+        private static void PointAreas()
         {
             List<DataPoint> unfiltered_data = new List<DataPoint>();
-            unfiltered_data.AddRange(this.plot_data[0]);
-            this.plot_data.Clear();
+            unfiltered_data.AddRange(plotData[0]);
+            plotData.Clear();
 
             //Dummy hinzufügen
-            this.plot_data.Add(new List<DataPoint>());
-            this.plot_data[0].Add(new DataPoint(0, 0));
+            plotData.Add(new List<DataPoint>());
+            plotData[0].Add(new DataPoint(0, 0));
 
             var maxcol = unfiltered_data.Max(i => i.X);
 
@@ -341,25 +372,25 @@ namespace SimTuning.Core.ModuleLogic
                     if (col_points.Count > 0)
                     {
                         // vergleichen mit hinzugefügten areas
-                        for (int area = 0; area < this.plot_data.Count; area++)
+                        for (int area = 0; area < plotData.Count; area++)
                         {
                             // Horizontal
-                            differenz_horizontal = Math.Abs(col_points[row].X - this.plot_data[area][this.plot_data[area].Count - 1].X);
+                            differenz_horizontal = Math.Abs(col_points[row].X - plotData[area][plotData[area].Count - 1].X);
                             // vertikal
-                            differenz_vertikal = Math.Abs(col_points[row].Y - this.plot_data[area][this.plot_data[area].Count - 1].Y);
+                            differenz_vertikal = Math.Abs(col_points[row].Y - plotData[area][plotData[area].Count - 1].Y);
 
                             // vorhandenem graphen hinzufügen
-                            if (differenz_vertikal <= this.abstand && differenz_horizontal <= 50)
+                            if (differenz_vertikal <= abstand && differenz_horizontal <= 50)
                             {
-                                this.plot_data[area].Add(col_points[row]);
+                                plotData[area].Add(col_points[row]);
                                 break;
                             }
                             else
                             {
                                 // neuen graphen beginnen, wenn nichts gefundnen wurde
-                                if (area == this.plot_data.Count - 1)
+                                if (area == plotData.Count - 1)
                                 {
-                                    this.plot_data.Add(new List<DataPoint>() { col_points[row] });
+                                    plotData.Add(new List<DataPoint>() { col_points[row] });
                                     break;
                                 }
                             }
@@ -369,32 +400,32 @@ namespace SimTuning.Core.ModuleLogic
             }
 
             //dummy löschen
-            plot_data.Remove(plot_data[0]);
+            plotData.Remove(plotData[0]);
         }
 
         /// <summary>
         /// Umrechnen von Hertz in Drehzahl.
         /// </summary>
-        private void PointsToRotionalSpeed()
+        private static void PointsToRotionalSpeed()
         {
             List<List<DataPoint>> temp_plot_data = new List<List<DataPoint>>();
 
             // anzahl graphen
-            for (int area = 0; area < this.plot_data.Count; area++)
+            for (int area = 0; area < plotData.Count; area++)
             {
                 List<DataPoint> temp_list = new List<DataPoint>();
 
                 // Punkt in graphen
-                for (int col = 0; col < this.plot_data[area].Count; col++)
+                for (int col = 0; col < plotData[area].Count; col++)
                 {
-                    temp_list.Add(new DataPoint(Math.Round(this.plot_data[area][col].X / this.segmentsPerSecond, 2), Math.Round(this.plot_data[area][col].Y * this.hzPerFFT * 60)));
+                    temp_list.Add(new DataPoint(Math.Round(plotData[area][col].X / segmentsPerSecond, 2), Math.Round(plotData[area][col].Y * hzPerFFT * 60)));
                 }
 
                 temp_plot_data.Add(temp_list);
             }
 
-            this.plot_data.Clear();
-            this.plot_data.AddRange(temp_plot_data);
+            plotData.Clear();
+            plotData.AddRange(temp_plot_data);
         }
     }
 }

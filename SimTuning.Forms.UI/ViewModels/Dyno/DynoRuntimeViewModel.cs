@@ -26,7 +26,7 @@
         public DynoRuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxLocationWatcher locationWatcher, IMvxMessenger messenger)
             : base(logProvider, navigationService, locationWatcher, messenger)
         {
-            ShowAudioCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoAudioViewModel>());
+            ShowAudioCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoSpectrogramViewModel>());
             CloseCommand = new MvxAsyncCommand(async () => await NavigationService.Close(this));
 
             Functions.CheckAndRequestLocationWhenInUsePermission();

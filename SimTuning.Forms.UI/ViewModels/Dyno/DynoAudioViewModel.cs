@@ -1,172 +1,142 @@
-﻿// project=SimTuning.Forms.UI, file=DynoAudioViewModel.cs, creation=2020:6:28 Copyright
-// (c) 2020 tuke productions. All rights reserved.
-namespace SimTuning.Forms.UI.ViewModels.Dyno
-{
-    using MvvmCross.Commands;
-    using MvvmCross.Logging;
-    using MvvmCross.Navigation;
-    using Plugin.FilePicker;
-    using Plugin.FilePicker.Abstractions;
-    using SimTuning.Forms.UI.Business;
-    using System.Globalization;
-    using System.IO;
-    using System.Threading.Tasks;
-    using Xamarin.Forms;
-    using XF.Material.Forms.UI.Dialogs;
+﻿//// project=SimTuning.Forms.UI, file=DynoAudioViewModel.cs, creation=2020:6:28 Copyright
+//// (c) 2020 tuke productions. All rights reserved.
+//namespace SimTuning.Forms.UI.ViewModels.Dyno
+//{
+//    using MvvmCross.Commands;
+//    using MvvmCross.Logging;
+//    using MvvmCross.Navigation;
+//    using Plugin.FilePicker;
+//    using Plugin.FilePicker.Abstractions;
+//    using SimTuning.Forms.UI.Business;
+//    using System.Globalization;
+//    using System.IO;
+//    using System.Threading.Tasks;
+//    using Xamarin.Forms;
+//    using XF.Material.Forms.UI.Dialogs;
 
-    /// <summary>
-    /// DynoAudioViewModel.
-    /// </summary>
-    /// <seealso cref="SimTuning.Core.ViewModels.Dyno.AudioViewModel" />
-    public class DynoAudioViewModel : SimTuning.Core.ViewModels.Dyno.AudioViewModel
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DynoAudioViewModel" /> class.
-        /// </summary>
-        /// <param name="logProvider">The log provider.</param>
-        /// <param name="navigationService">The navigation service.</param>
-        public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
-        {
-            // Override commands
-            this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
-            this.CutBeginnCommand = new MvxAsyncCommand(this.CutBeginn);
-            this.CutEndCommand = new MvxAsyncCommand(this.CutEnd);
+// ///
+// <summary>
+// /// DynoAudioViewModel. ///
+// </summary>
+// ///
+// <seealso cref="SimTuning.Core.ViewModels.Dyno.AudioViewModel" />
+// public class DynoAudioViewModel : SimTuning.Core.ViewModels.Dyno.AudioViewModel { ///
+// <summary>
+// /// Initializes a new instance of the <see cref="DynoAudioViewModel" /> class. ///
+// </summary>
+// ///
+// <param name="logProvider">The log provider.</param>
+// ///
+// <param name="navigationService">The navigation service.</param>
+// public DynoAudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService
+// navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger) :
+// base(logProvider, navigationService, messenger) { // Override commands
+// this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog); this.CutBeginnCommand
+// = new MvxAsyncCommand(this.CutBeginn); this.CutEndCommand = new
+// MvxAsyncCommand(this.CutEnd);
 
-            ShowSpectrogramCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoSpectrogramViewModel>());
-            // datensatz checken CheckDynoData();
-        }
+// ShowSpectrogramCommand = new MvxAsyncCommand(async () => await
+// NavigationService.Navigate<DynoSpectrogramViewModel>()); // datensatz checken
+// CheckDynoData(); }
 
-        #region Methods
+// #region Methods
 
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        /// <returns>Initilisierung.</returns>
-        public override Task Initialize()
-        {
-            return base.Initialize();
-        }
+// ///
+// <summary>
+// /// Initializes this instance. ///
+// </summary>
+// ///
+// <returns>Initilisierung.</returns>
+// public override Task Initialize() { return base.Initialize(); }
 
-        /// <summary>
-        /// Prepares this instance. called after construction.
-        /// </summary>
-        public override void Prepare()
-        {
-            base.Prepare();
-        }
+// ///
+// <summary>
+// /// Prepares this instance. called after construction. ///
+// </summary>
+// public override void Prepare() { base.Prepare(); }
 
-        /// <summary>
-        /// Cuts the beginn.
-        /// </summary>
-        protected new async Task CutBeginn()
-        {
-            //if (this.player == null)
-            //{
-            //    return;
-            //}
+// ///
+// <summary>
+// /// Cuts the beginn. ///
+// </summary>
+// protected new async Task CutBeginn() { //if (this.player == null) //{ // return; //}
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+// var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
+// this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await base.CutBeginn().ConfigureAwait(true);
+// await base.CutBeginn().ConfigureAwait(true);
 
-            await loadingDialog.DismissAsync().ConfigureAwait(false);
+// await loadingDialog.DismissAsync().ConfigureAwait(false);
 
-            await this.ReloadImageAudioSpectrogram().ConfigureAwait(false);
-        }
+// await this.ReloadImageAudioSpectrogram().ConfigureAwait(false); }
 
-        /// <summary>
-        /// Cuts the end.
-        /// </summary>
-        protected new async Task CutEnd()
-        {
-            //if (this.player == null)
-            //{
-            //return;
-            //}
+// ///
+// <summary>
+// /// Cuts the end. ///
+// </summary>
+// protected new async Task CutEnd() { //if (this.player == null) //{ //return; //}
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+// var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
+// this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await base.CutEnd().ConfigureAwait(true);
+// await base.CutEnd().ConfigureAwait(true);
 
-            await loadingDialog.DismissAsync().ConfigureAwait(false);
+// await loadingDialog.DismissAsync().ConfigureAwait(false);
 
-            await this.ReloadImageAudioSpectrogram().ConfigureAwait(false);
-        }
+// await this.ReloadImageAudioSpectrogram().ConfigureAwait(false); }
 
-        /// <summary>
-        /// Opens the file dialog.
-        /// </summary>
-        protected new async Task OpenFileDialog()
-        {
-            if (!this.CheckDynoData().Result)
-            {
-                return;
-            }
+// ///
+// <summary>
+// /// Opens the file dialog. ///
+// </summary>
+// protected new async Task OpenFileDialog() { if (!this.CheckDynoData().Result) { return;
+// }
 
-            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { ".wav", ".mp3" }).ConfigureAwait(true);
+// FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { ".wav",
+// ".mp3" }).ConfigureAwait(true);
 
-            if (fileData == null)
-            {
-                return; // user canceled file picking
-            }
+// if (fileData == null) { return; // user canceled file picking }
 
-            await base.OpenFileDialog(fileData).ConfigureAwait(true);
+// await base.OpenFileDialog(fileData).ConfigureAwait(true);
 
-            //if (this.player != null)
-            //{
-            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
+// //if (this.player != null) //{ await
+// this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
 
-            this.BadgeFileOpen = true;
-            //}
-        }
+// this.BadgeFileOpen = true; //} }
 
-        /// <summary>
-        /// Aktualisiert das Spectrogram-Bild der Audio Datei.
-        /// </summary>
-        /// <returns></returns>
-        protected new async Task ReloadImageAudioSpectrogram()
-        {
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+// ///
+// <summary>
+// /// Aktualisiert das Spectrogram-Bild der Audio Datei. ///
+// </summary>
+// ///
+// <returns></returns>
+// protected new async Task ReloadImageAudioSpectrogram() { var loadingDialog = await
+// MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD",
+// CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            Stream stream = base.ReloadImageAudioSpectrogram();
-            this.ImageAudioSpectrogram = ImageSource.FromStream(() => stream);
+// Stream stream = base.ReloadImageAudioSpectrogram(); this.ImageAudioSpectrogram =
+// ImageSource.FromStream(() => stream);
 
-            await loadingDialog.DismissAsync().ConfigureAwait(false);
-        }
+// await loadingDialog.DismissAsync().ConfigureAwait(false); }
 
-        /// <summary>
-        /// Checks the dyno data.
-        /// </summary>
-        /// <returns></returns>
-        private async Task<bool> CheckDynoData()
-        {
-            if (this.Dyno == null)
-            {
-                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+// /// <summary> /// Checks the dyno data. /// </summary> /// <returns></returns> private
+// async Task<bool> CheckDynoData() { if (this.Dyno == null) {
+// Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA",
+// CultureInfo.CurrentCulture));
 
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+// return false; } else { return true; } }
 
-        #endregion Methods
+// #endregion Methods
 
-        #region Values
+// #region Values
 
-        private ImageSource _imageAudioSpectrogram;
+// private ImageSource _imageAudioSpectrogram;
 
-        public ImageSource ImageAudioSpectrogram
-        {
-            get => _imageAudioSpectrogram;
-            private set => SetProperty(ref _imageAudioSpectrogram, value);
-        }
+// public ImageSource ImageAudioSpectrogram { get => _imageAudioSpectrogram; private set
+// => SetProperty(ref _imageAudioSpectrogram, value); }
 
-        public MvxAsyncCommand ShowSpectrogramCommand { get; private set; }
+// public MvxAsyncCommand ShowSpectrogramCommand { get; private set; }
 
-        #endregion Values
-    }
-}
+//        #endregion Values
+//    }
+//}

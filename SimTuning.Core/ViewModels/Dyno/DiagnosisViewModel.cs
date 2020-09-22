@@ -35,8 +35,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
                                             : base(logProvider, navigationService)
         {
-            this.dynoLogic = new DynoLogic();
-
             this.AreaQuantityUnits = new AreaQuantity();
             this.TemperatureQuantityUnits = new TemperatureQuantity();
             this.PressureQuantityUnits = new PressureQuantity();
@@ -74,7 +72,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         protected virtual void RefreshPlot()
         {
-            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/);
+            DynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/);
             this.Dyno.DynoPS = ps;
             //this.Dyno.DynoNm = nm;
 
@@ -176,7 +174,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         #region Values
 
         protected readonly ResourceManager rm;
-        protected DynoLogic dynoLogic;
 
         private DynoModel _dyno;
 
@@ -348,7 +345,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         public PlotModel PlotStrength
         {
-            get => dynoLogic.PlotStrength;
+            get => DynoLogic.PlotStrength;
         }
 
         public ObservableCollection<UnitListItem> PressureQuantityUnits { get; }

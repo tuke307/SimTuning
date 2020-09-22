@@ -40,11 +40,11 @@
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
 
-                    <material:MaterialTextField Placeholder="Gesamtübersetzung"
+                    <!--<material:MaterialTextField Placeholder="Gesamtübersetzung"
                                                 InputType="Numeric"
                                                 Text="{Binding Mode=TwoWay, Path=DynoVehicleUebersetzung}"
                                                 WidthRequest="250">
-                    </material:MaterialTextField>
+                    </material:MaterialTextField>-->
 
                     <StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Gewicht"
@@ -64,7 +64,7 @@
                         </material:MaterialTextField>
                     </StackLayout>
 
-                    <StackLayout Orientation="Horizontal">
+                    <!--<StackLayout Orientation="Horizontal">
                         <material:MaterialTextField Placeholder="Frontfläche"
                                                     InputType="Numeric"
                                                     Text="{Binding Mode=TwoWay, Path=DynoVehicleFrontA}"
@@ -122,7 +122,7 @@
                                                     LeadingIcon="ic_chevron_down_black_18dp.png"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
-                    </StackLayout>
+                    </StackLayout>-->
 
                     <!--Refresh-->
                     <material:MaterialButton WidthRequest="75"

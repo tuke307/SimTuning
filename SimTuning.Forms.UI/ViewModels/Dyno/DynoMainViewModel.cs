@@ -60,7 +60,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             var tasks = new List<Task>
             {
                 //this._navigationService.Navigate<DynoDataViewModel>(),
-                this._navigationService.Navigate<DynoAudioViewModel>(),
+                //this._navigationService.Navigate<DynoAudioViewModel>(),
                 this._navigationService.Navigate<DynoSpectrogramViewModel>(),
                 this._navigationService.Navigate<DynoDiagnosisViewModel>(),
             };

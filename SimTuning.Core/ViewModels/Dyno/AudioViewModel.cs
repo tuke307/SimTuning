@@ -34,7 +34,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         public AudioViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
             : base(logProvider, navigationService)
         {
-            this.audioLogic = new AudioLogic();
             this.BadgeFileOpen = false;
 
             this.StopCommand = new MvxAsyncCommand(this.MediaManager.Stop);
@@ -150,7 +149,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <returns></returns>
         protected Stream ReloadImageAudioSpectrogram()
         {
-            SKBitmap spec = audioLogic.GetSpectrogram(SimTuning.Core.GeneralSettings.AudioFilePath);
+            SKBitmap spec = AudioLogic.GetSpectrogram(SimTuning.Core.GeneralSettings.AudioFilePath);
             Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(spec);
 
             return stream;
@@ -242,7 +241,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         #region private
 
         protected readonly IMediaManager MediaManager = CrossMediaManager.Current;
-        protected AudioLogic audioLogic;
         protected ResourceManager rm;
         private bool _badgeFileOpen;
 

@@ -9,9 +9,95 @@
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       Title="Spectrogram"
                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
-    <ScrollView>
-        <StackLayout>
+    <views:MvxContentPage.Resources>
+        <behavior:InvertedBoolConverter x:Key="inverter" />
+    </views:MvxContentPage.Resources>
 
+    <ScrollView>
+
+        <StackLayout>
+            <!--AUDIO PLAYER & CONTROL-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--EINSTELLUNGEN-->
+                <material:MaterialCard Margin="10"
+                                       Grid.Row="0">
+
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <material:MaterialButton Grid.Column="0"
+                                                     ImageSource="ic_file_find_outline_black_18dp.png"
+                                                     Command="{Binding OpenFileCommand}"
+                                                     WidthRequest="90">
+                            </material:MaterialButton>
+
+                            <!--<material:MaterialButton Grid.Row="0"
+                                                 ImageSource="ic_file_find_outline_black_18dp.png"
+                                IsVisible="{Binding Path=IsVisible, Source={x:Reference badge_open}, Converter={StaticResource inverter}}"
+                                Text="Datei auswählen"
+                                Command="{Binding OpenFileCommand}">
+                        </material:MaterialButton>-->
+
+                            <StackLayout Grid.Column="1"
+                                         Orientation="Horizontal"
+                                         Margin="30, 0, 0, 0">
+                                <material:MaterialButton ImageSource="ic_stop_black_18dp.png"
+                                                         Command="{Binding StopCommand}"
+                                                         WidthRequest="70" />
+                                <material:MaterialButton ImageSource="ic_pause_black_18dp.png"
+                                                         Command="{Binding PauseCommand}"
+                                                         WidthRequest="70"
+                                                         Margin="-10, 0, 0, 0" />
+                                <material:MaterialButton ImageSource="ic_play_arrow_black_18dp.png"
+                                                         Command="{Binding PlayCommand}"
+                                                         WidthRequest="70"
+                                                         Margin="-10, 0, 0, 0" />
+                            </StackLayout>
+                        </Grid>
+
+                        <material:MaterialSlider Value="{Binding Mode=TwoWay, Path=AudioPosition}"
+                                                 MinValue="0"
+                                                 MaxValue="{Binding Mode=OneWay, Path=AudioMaximum}">
+                        </material:MaterialSlider>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackLayout Grid.Column="0">
+                                <material:MaterialLabel Text="links schneiden"
+                                                        Margin="10, 0, 0, 0"></material:MaterialLabel>
+
+                                <material:MaterialButton Command="{Binding CutBeginnCommand }"
+                                                         ImageSource="ic_content_cut_black_18dp.png"
+                                                         WidthRequest="70">
+                                </material:MaterialButton>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="1">
+                                <material:MaterialLabel Text="rechts schneiden"
+                                                        Margin="10, 0, 0, 0"></material:MaterialLabel>
+
+                                <material:MaterialButton Command="{Binding CutEndCommand }"
+                                                         ImageSource="ic_content_cut_black_18dp.png"
+                                                         WidthRequest="70">
+                                </material:MaterialButton>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                </material:MaterialCard>
+            </Grid>
             <material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Spectrogram"
@@ -172,7 +258,7 @@
                                          HorizontalOptions="End"
                                          VerticalOptions="Center"
                                          Image="ic_play_arrow_black_18dp.png"
-                                         Command="{Binding ShowDiagnosisCommand}" />
+                                         Command="{Binding ShowBeschleunigungCommand}" />
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

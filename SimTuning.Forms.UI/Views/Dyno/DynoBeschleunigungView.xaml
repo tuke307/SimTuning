@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      x:TypeArguments="viewModels:DynoBeschleunigungViewModel"
+                      x:Class="SimTuning.Forms.UI.Views.Dyno.DynoBeschleunigungView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <material:MaterialCard   Margin="10"
+                                 Grid.Row="0">
+            <StackLayout>
+                <material:MaterialLabel Text="Geschwindigkeit"
+                                        FontSize="Medium"
+                                        FontAttributes="Bold" />
+            </StackLayout>
+        </material:MaterialCard>
+
+        <material:MaterialCard   Margin="10"
+                                 Grid.Row="1">
+            <StackLayout>
+                <material:MaterialLabel Text="Geschwindigkeit"
+                                        FontSize="Medium"
+                                        FontAttributes="Bold" />
+
+                <BoxView Color="Gray"
+                         HeightRequest="2"
+                         HorizontalOptions="Fill"
+                         Margin="0, 0, 0, 5" />
+
+                <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotBeschleunigung}"
+                              HeightRequest="400" />
+            </StackLayout>
+        </material:MaterialCard>
+        <material:MaterialIconButton WidthRequest="50"
+                                     HeightRequest="50"
+                                     Margin="15"
+                                     ButtonType="Elevated"
+                                     HorizontalOptions="End"
+                                     VerticalOptions="Center"
+                                     Image="ic_play_arrow_black_18dp.png"
+                                     Command="{Binding ShowAusrollenCommand}" />
+    </Grid>
+</views:MvxContentPage>

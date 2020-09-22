@@ -7,35 +7,31 @@ namespace SimTuning.Core.ModuleLogic
     /// <summary>
     /// AudioLogic.
     /// </summary>
-    public class AudioLogic
+    public static class AudioLogic
     {
         #region variables
 
-        //pfad
-        private string audioFile;
+        private static string audioFile;
 
-        private SKBitmap bmp;
+        private static SKBitmap bmp;
 
-        private Spectrogram.Colormap colormap;
+        private static Spectrogram.Colormap colormap;
 
-        private int fftSize;
+        private static int fftSize;
 
-        private int frequenzbeginn;
+        private static int frequenzbeginn;
 
-        private int frequenzende;
+        private static int frequenzende;
 
-        private double intensity;
+        private static double intensity;
 
-        //Daten
-        private int sampleRate;
+        private static int sampleRate;
 
-        //Daten können sich geholt werden
-        public Spectrogram.Spectrogram SpectrogramAudio { get; private set; }
-
-        //meistens 44100
-
-        //Noise filter
-        //Qualität der Auflösung = Spalten
+        /// <summary>
+        /// Gets the spectrogram audio.
+        /// </summary>
+        /// <value>The spectrogram audio.</value>
+        public static Spectrogram.Spectrogram SpectrogramAudio { get; private set; }
 
         #endregion variables
 
@@ -49,7 +45,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="_Frequenzbeginn">The frequenzbeginn.</param>
         /// <param name="_Frequenzende">The frequenzende.</param>
         /// <returns>Spectrogram.</returns>
-        public SKBitmap GetSpectrogram(
+        public static SKBitmap GetSpectrogram(
             string _audioFile,
             string _Quality = "gut",
             double _Intensity = 0.75,
@@ -101,7 +97,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <summary>
         /// Erstellt das Frequenz-Spectrogram.
         /// </summary>
-        private void Spectogram()
+        private static void Spectogram()
         {
             // load audio and process FFT
             SpectrogramAudio = new Spectrogram.Spectrogram(

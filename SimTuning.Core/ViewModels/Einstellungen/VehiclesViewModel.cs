@@ -180,14 +180,14 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             //this.RaisePropertyChanged(() => Engines);
 
             this.RaisePropertyChanged(() => VehicleBeschreibung);
-            this.RaisePropertyChanged(() => VehicleCw);
+            // this.RaisePropertyChanged(() => VehicleCw);
             this.RaisePropertyChanged(() => VehicleDynoAudio);
             this.RaisePropertyChanged(() => VehicleDynoBeschreibung);
             this.RaisePropertyChanged(() => VehicleDynoDynoNm);
             this.RaisePropertyChanged(() => VehicleDynoDynoPS);
             this.RaisePropertyChanged(() => VehicleDynoName);
-            this.RaisePropertyChanged(() => VehicleFrontA);
-            this.RaisePropertyChanged(() => VehicleFrontAUnit);
+            //this.RaisePropertyChanged(() => VehicleFrontA);
+            //this.RaisePropertyChanged(() => VehicleFrontAUnit);
             this.RaisePropertyChanged(() => VehicleGewicht);
             this.RaisePropertyChanged(() => VehicleGewichtUnit);
             this.RaisePropertyChanged(() => VehicleMotorAuslassBreiteB);
@@ -242,7 +242,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             this.RaisePropertyChanged(() => VehicleMotorZylinderAnz);
             this.RaisePropertyChanged(() => VehicleName);
 
-            this.RaisePropertyChanged(() => VehicleUebersetzung);
+            //this.RaisePropertyChanged(() => VehicleUebersetzung);
         }
 
         /// <summary>
@@ -429,20 +429,20 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// Gets or sets the vehicle cw.
         /// </summary>
         /// <value>The vehicle cw.</value>
-        public double? VehicleCw
-        {
-            get => this.Vehicle?.Cw;
-            set
-            {
-                if (this.Vehicle == null)
-                {
-                    return;
-                }
+        //public double? VehicleCw
+        //{
+        //    get => this.Vehicle?.Cw;
+        //    set
+        //    {
+        //        if (this.Vehicle == null)
+        //        {
+        //            return;
+        //        }
 
-                this.Vehicle.Cw = value;
-                this.SaveButton = true;
-            }
-        }
+        //        this.Vehicle.Cw = value;
+        //        this.SaveButton = true;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the vehicle dyno audio.
@@ -512,38 +512,38 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// Gets or sets the vehicle front a.
         /// </summary>
         /// <value>The vehicle front a.</value>
-        public double? VehicleFrontA
-        {
-            get => this.Vehicle?.FrontA;
-            set
-            {
-                if (this.Vehicle == null)
-                {
-                    return;
-                }
-                this.Vehicle.FrontA = value;
-                this.SaveButton = true;
-            }
-        }
+        //public double? VehicleFrontA
+        //{
+        //    get => this.Vehicle?.FrontA;
+        //    set
+        //    {
+        //        if (this.Vehicle == null)
+        //        {
+        //            return;
+        //        }
+        //        this.Vehicle.FrontA = value;
+        //        this.SaveButton = true;
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the vehicle front a unit.
         /// </summary>
         /// <value>The vehicle front a unit.</value>
-        public UnitListItem VehicleFrontAUnit
-        {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.FrontAUnit));
-            set
-            {
-                if (this.Vehicle == null)
-                {
-                    return;
-                }
+        //public UnitListItem VehicleFrontAUnit
+        //{
+        //    get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Vehicle?.FrontAUnit));
+        //    set
+        //    {
+        //        if (this.Vehicle == null)
+        //        {
+        //            return;
+        //        }
 
-                this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
-                this.RaisePropertyChanged(() => VehicleFrontA);
-            }
-        }
+        //        this.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+        //        this.RaisePropertyChanged(() => VehicleFrontA);
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the vehicle gewicht.
@@ -1524,19 +1524,19 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// Gets or sets the vehicle uebersetzung.
         /// </summary>
         /// <value>The vehicle uebersetzung.</value>
-        public double? VehicleUebersetzung
-        {
-            get => this.Vehicle?.Uebersetzung;
-            set
-            {
-                if (this.Vehicle == null)
-                {
-                    return;
-                }
-                this.Vehicle.Uebersetzung = value;
-                this.SaveButton = true;
-            }
-        }
+        //public double? VehicleUebersetzung
+        //{
+        //    get => this.Vehicle?.Uebersetzung;
+        //    set
+        //    {
+        //        if (this.Vehicle == null)
+        //        {
+        //            return;
+        //        }
+        //        this.Vehicle.Uebersetzung = value;
+        //        this.SaveButton = true;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the volume quantity units.

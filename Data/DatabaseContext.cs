@@ -118,12 +118,12 @@ namespace Data
                 new MotorModel { Id = 6, Name = "M 741/1 KF", HubL = 44.0, PleulL = null, DeachsierungL = null, BohrungD = 45.0, ResonanzU = 6000.0, HubraumV = 49900.0, BrennraumV = null, KurbelgehaeuseV = 209700.0 });
 
             modelBuilder.Entity<VehiclesModel>().HasData(
-                 new VehiclesModel { Id = 1, MotorId = 1, Name = "SR 2 E", Beschreibung = "Baujahre: 1960 - 1964\nStückzahl: 515.000", Deletable = false, Gewicht = 53.0, FrontA = 0.75, Cw = 0.8 },
-                 new VehiclesModel { Id = 2, MotorId = 2, Name = "KR 50", Beschreibung = "Baujahre: 1959 - 1964\nStückzahl: 164.500", Deletable = false, Gewicht = 73.0, FrontA = 0.75, Cw = 0.8 },
-                 new VehiclesModel { Id = 3, MotorId = 3, Name = "KR 51/1 (F)", Beschreibung = "Baujahre: 1968 - 1980\nStückzahl: 375.000", Deletable = false, Gewicht = 80.0, FrontA = 0.75, Cw = 0.8 },
-                 new VehiclesModel { Id = 4, MotorId = 4, Name = "S 50 B1", Beschreibung = "Baujahre: 1976 - 1980\nStückzahl: 287.000", Deletable = false, Gewicht = 81.0, FrontA = 0.75, Cw = 0.8 },
-                 new VehiclesModel { Id = 5, MotorId = 5, Name = "S51 B1-4", Beschreibung = "Baujahre: 1980 - 1989\nStückzahl: 360.600", Deletable = false, Gewicht = 79.5, FrontA = 0.75, Cw = 0.8/*, Ansaugleitungslaenge = 20*/ },
-                 new VehiclesModel { Id = 6, MotorId = 6, Name = "S 70 C", Beschreibung = "Baujahre: 1984 - 1988\nStückzahl: 20.000", Deletable = false, Gewicht = 84.0, FrontA = 0.75, Cw = 0.8 });
+                 new VehiclesModel { Id = 1, MotorId = 1, Name = "SR 2 E", Beschreibung = "Baujahre: 1960 - 1964\nStückzahl: 515.000", Deletable = false, Gewicht = 53.0 },
+                 new VehiclesModel { Id = 2, MotorId = 2, Name = "KR 50", Beschreibung = "Baujahre: 1959 - 1964\nStückzahl: 164.500", Deletable = false, Gewicht = 73.0 },
+                 new VehiclesModel { Id = 3, MotorId = 3, Name = "KR 51/1 (F)", Beschreibung = "Baujahre: 1968 - 1980\nStückzahl: 375.000", Deletable = false, Gewicht = 80.0 },
+                 new VehiclesModel { Id = 4, MotorId = 4, Name = "S 50 B1", Beschreibung = "Baujahre: 1976 - 1980\nStückzahl: 287.000", Deletable = false, Gewicht = 81.0 },
+                 new VehiclesModel { Id = 5, MotorId = 5, Name = "S51 B1-4", Beschreibung = "Baujahre: 1980 - 1989\nStückzahl: 360.600", Deletable = false, Gewicht = 79.5/*, Ansaugleitungslaenge = 20*/ },
+                 new VehiclesModel { Id = 6, MotorId = 6, Name = "S 70 C", Beschreibung = "Baujahre: 1984 - 1988\nStückzahl: 20.000", Deletable = false, Gewicht = 84.0 });
 
             modelBuilder.Entity<EinlassModel>().HasData(
                 new EinlassModel { Id = 1, MotorId = 1 },
