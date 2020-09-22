@@ -74,9 +74,9 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         protected virtual void RefreshPlot()
         {
-            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPsModel> ps, out List<DynoNmModel> nm);
+            this.dynoLogic.CalculateStrengthPlot(this.Dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/);
             this.Dyno.DynoPS = ps;
-            this.Dyno.DynoNm = nm;
+            //this.Dyno.DynoNm = nm;
 
             using (var db = new DatabaseContext())
             {
@@ -143,17 +143,17 @@ namespace SimTuning.Core.ViewModels.Dyno
                 this.RaisePropertyChanged(() => this.DynoVehicleGewicht);
             }
 
-            if (this.HelperVehicle.Cw.HasValue)
-            {
-                this.DynoVehicleCw = this.HelperVehicle.Cw;
-                this.RaisePropertyChanged(() => this.DynoVehicleCw);
-            }
+            //if (this.HelperVehicle.Cw.HasValue)
+            //{
+            //    this.DynoVehicleCw = this.HelperVehicle.Cw;
+            //    this.RaisePropertyChanged(() => this.DynoVehicleCw);
+            //}
 
-            if (this.HelperVehicle.FrontA.HasValue)
-            {
-                this.DynoVehicleFrontA = this.HelperVehicle.FrontA;
-                this.RaisePropertyChanged(() => this.DynoVehicleFrontA);
-            }
+            //if (this.HelperVehicle.FrontA.HasValue)
+            //{
+            //    this.DynoVehicleFrontA = this.HelperVehicle.FrontA;
+            //    this.RaisePropertyChanged(() => this.DynoVehicleFrontA);
+            //}
         }
 
         /// <summary>
@@ -246,48 +246,48 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
-        public double? DynoVehicleCw
-        {
-            get => Dyno?.Vehicle?.Cw;
-            set
-            {
-                if (this.Dyno?.Vehicle == null)
-                {
-                    return;
-                }
+        //public double? DynoVehicleCw
+        //{
+        //    get => Dyno?.Vehicle?.Cw;
+        //    set
+        //    {
+        //        if (this.Dyno?.Vehicle == null)
+        //        {
+        //            return;
+        //        }
 
-                this.Dyno.Vehicle.Cw = value;
-            }
-        }
+        //        this.Dyno.Vehicle.Cw = value;
+        //    }
+        //}
 
-        public double? DynoVehicleFrontA
-        {
-            get => Dyno?.Vehicle?.FrontA;
-            set
-            {
-                if (this.Dyno?.Vehicle == null)
-                {
-                    return;
-                }
+        //public double? DynoVehicleFrontA
+        //{
+        //    get => Dyno?.Vehicle?.FrontA;
+        //    set
+        //    {
+        //        if (this.Dyno?.Vehicle == null)
+        //        {
+        //            return;
+        //        }
 
-                this.Dyno.Vehicle.FrontA = value;
-            }
-        }
+        //        this.Dyno.Vehicle.FrontA = value;
+        //    }
+        //}
 
-        public UnitListItem DynoVehicleFrontAUnit
-        {
-            get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Dyno?.Vehicle?.FrontAUnit));
-            set
-            {
-                if (this.Dyno?.Vehicle == null)
-                {
-                    return;
-                }
+        //public UnitListItem DynoVehicleFrontAUnit
+        //{
+        //    get => this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(this.Dyno?.Vehicle?.FrontAUnit));
+        //    set
+        //    {
+        //        if (this.Dyno?.Vehicle == null)
+        //        {
+        //            return;
+        //        }
 
-                this.Dyno.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
-                this.RaisePropertyChanged(() => this.DynoVehicleFrontAUnit);
-            }
-        }
+        //        this.Dyno.Vehicle.FrontAUnit = (UnitsNet.Units.AreaUnit)value?.UnitEnumValue;
+        //        this.RaisePropertyChanged(() => this.DynoVehicleFrontAUnit);
+        //    }
+        //}
 
         public double? DynoVehicleGewicht
         {
@@ -318,19 +318,19 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
-        public double? DynoVehicleUebersetzung
-        {
-            get => Dyno?.Vehicle?.Uebersetzung;
-            set
-            {
-                if (this.Dyno?.Vehicle == null)
-                {
-                    return;
-                }
+        //public double? DynoVehicleUebersetzung
+        //{
+        //    get => Dyno?.Vehicle?.Uebersetzung;
+        //    set
+        //    {
+        //        if (this.Dyno?.Vehicle == null)
+        //        {
+        //            return;
+        //        }
 
-                this.Dyno.Vehicle.Uebersetzung = value;
-            }
-        }
+        //        this.Dyno.Vehicle.Uebersetzung = value;
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the insert environment command.

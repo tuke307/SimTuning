@@ -1,5 +1,6 @@
-﻿// project=API, file=WooCommerce.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=API, file=WooCommerce.cs, creation=2020:6:28 Copyright (c) 2020 tuke
+// productions. All rights reserved.
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace API
         /// <summary>
         /// Holt die Bestellung von SimTuning.
         /// </summary>
-        /// <param name="userId">Nutzer bei der, die Bestellung geholt werden soll</param>
+        /// <param name="userId">Nutzer bei der, die Bestellung geholt werden soll.</param>
         /// <returns>Bestellung von SimTuning.</returns>
         public static async Task<WooCommerceNET.WooCommerce.Legacy.Order> UserLicense(int userId)
         {
@@ -36,8 +37,9 @@ namespace API
 
                 return order;
             }
-            catch
+            catch (Exception exc)
             {
+                System.Console.WriteLine("Fehler beim abrufen der Kunden-Bestellungen; " + exc.ToString());
                 return null;
             }
         }

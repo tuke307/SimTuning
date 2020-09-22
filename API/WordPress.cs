@@ -1,5 +1,6 @@
 ﻿// project=API, file=WordPress.cs, creation=2020:6:28 Copyright (c) 2020 tuke productions.
 // All rights reserved.
+using System;
 using System.Security;
 using System.Threading.Tasks;
 
@@ -32,8 +33,10 @@ namespace API
                 var user = await client.Users.GetCurrentUser().ConfigureAwait(true);
                 return user;
             }
-            catch
+            catch (Exception exc)
             {
+                System.Console.WriteLine("Fehler beim abrufen der Kunden-Bestellungen; " + exc.ToString());
+
                 return null;
             }
         }

@@ -51,24 +51,24 @@ namespace SimTuning.Core.ModuleLogic
         /// <summary>
         /// Bildet eine Regression aus Punkten.
         /// </summary>
-        /// <param name="choice">Der zu filternde Graph</param>
+        /// <param name="choice">Der zu filternde Graph.</param>
         public void AreaRegression(int choice)
         {
             this.Dyno = new DynoModel();
             this.Dyno.Drehzahl = new List<DrehzahlModel>();
 
-            //Regressions-Punkte bilden
+            // Regressions-Punkte bilden
             this.function = Fit.Polynomial(plot_data[choice].Select(x => x.X).ToArray(), this.plot_data[choice].Select(x => x.Y).ToArray(), 4).ToList();  // 5 Punkte
 
             this.PlotAreaRegression(choice);
 
-            //Audio Werte (X, Y) hinzufügen
+            // Audio Werte (X, Y) hinzufügen
             for (int count = 0; count < this.plot_data[0].Count; count++)
             {
                 this.Dyno.Drehzahl.Add(new DrehzahlModel()
                 {
                     Zeit = this.plot_data[0][count].X,
-                    Drehzahl = this.plot_data[0][count].Y
+                    Drehzahl = this.plot_data[0][count].Y,
                 });
             }
         }
@@ -80,7 +80,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="plot">The plot.</param>
         /// <param name="ps">The ps.</param>
         /// <param name="nm">The nm.</param>
-        public void CalculateStrengthPlot(DynoModel dyno, out List<DynoPsModel> ps, out List<DynoNmModel> nm)
+        public void CalculateStrengthPlot(DynoModel dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/)
         {
             this.DefineStrengthPlot();
 
@@ -88,10 +88,10 @@ namespace SimTuning.Core.ModuleLogic
             List<DynoPsModel> dynoPs = new List<DynoPsModel>();
 
             // in m
-            double radhalbmesser = 0.4064; // 16zoll
+            //double radhalbmesser = 0.4064; // 16zoll
 
             // in kg/m^3
-            double luftdichte = dyno.Environment.LuftdruckP.Value / 287.05 * (dyno.Environment.TemperaturT.Value + 273.15); // Gaskonstante 287.05 J/kg*K(trockene Luft), °C in Kelvin umrechnen
+            //double luftdichte = dyno.Environment.LuftdruckP.Value / 287.05 * (dyno.Environment.TemperaturT.Value + 273.15); // Gaskonstante 287.05 J/kg*K(trockene Luft), °C in Kelvin umrechnen
 
             for (int col = 0; col < dyno.Drehzahl.Count; col++)
             {
@@ -101,58 +101,56 @@ namespace SimTuning.Core.ModuleLogic
                 double zeit = dyno.Drehzahl[col].Zeit;
 
                 // in m/s
-                double geschwindigkeit = (2 * radhalbmesser * Math.PI * drehzahl / (dyno.Vehicle.Uebersetzung.Value * 1000)) / 3.6;
+                //double geschwindigkeit = (2 * radhalbmesser * Math.PI * drehzahl / (dyno.Vehicle.Uebersetzung.Value * 1000)) / 3.6;
 
-                // (a = v / t) in m/s
-                double beschleunigung = geschwindigkeit / zeit;
+                //// (a = v / t) in m/s
+                //double beschleunigung = geschwindigkeit / zeit;
 
-                // vertikale Kraft (F=m*a) in N
-                double kraft_gewicht = dyno.Vehicle.Gewicht.Value * 9.81;
+                //// vertikale Kraft (F=m*a) in N
+                //double kraft_gewicht = dyno.Vehicle.Gewicht.Value * 9.81;
 
-                // horizontale Kraft
-                double kraft_treibend = dyno.Vehicle.Gewicht.Value * beschleunigung;
-                double kraft_bremsend = (dyno.Vehicle.Cw.Value * dyno.Vehicle.FrontA.Value * luftdichte * Math.Pow(geschwindigkeit, 2)) / 2; //Luftwiderstand
+                //// horizontale Kraft
+                //double kraft_treibend = dyno.Vehicle.Gewicht.Value * beschleunigung;
+                //double kraft_bremsend = (dyno.Vehicle.Cw.Value * dyno.Vehicle.FrontA.Value * luftdichte * Math.Pow(geschwindigkeit, 2)) / 2; //Luftwiderstand
 
-                // GESAMT KRAFT
-                double kraft = Math.Sqrt(Math.Pow(kraft_treibend - kraft_bremsend, 2) + Math.Pow(kraft_gewicht, 2));
+                //// GESAMT KRAFT
+                //double kraft = Math.Sqrt(Math.Pow(kraft_treibend - kraft_bremsend, 2) + Math.Pow(kraft_gewicht, 2));
 
-                // (s=v*t) in m
-                double weg = geschwindigkeit * zeit;
+                //// (s=v*t) in m
+                //double weg = geschwindigkeit * zeit;
 
-                // (W=F*s) in Nm
-                double Nm = kraft * weg;
-                dynoNm.Add(new DynoNmModel() { Drehzahl = drehzahl, Nm = Nm });
+                //// (W=F*s) in Nm
+                //double Nm = kraft * weg;
+                //dynoNm.Add(new DynoNmModel() { Drehzahl = drehzahl, Nm = Nm });
 
                 // P=W/t (1Ps=1Nm/735.498750000002) in PS
                 double PS = Nm / zeit / 735.498750000002;
                 dynoPs.Add(new DynoPsModel() { Drehzahl = drehzahl, Ps = PS });
             }
 
-            OxyPlot.Series.LineSeries leistung_nm = new OxyPlot.Series.LineSeries();
+            //OxyPlot.Series.LineSeries leistung_nm = new OxyPlot.Series.LineSeries();
             OxyPlot.Series.LineSeries leistung_ps = new OxyPlot.Series.LineSeries();
 
             // Punkte
             for (int zaehler = 0; zaehler < dyno.Drehzahl.Count; zaehler++)
             {
-                // Nm
-                leistung_nm.Points.Add(new DataPoint(dynoNm[zaehler].Drehzahl, dynoNm[zaehler].Nm));
+                // Nm leistung_nm.Points.Add(new DataPoint(dynoNm[zaehler].Drehzahl,
+                // dynoNm[zaehler].Nm));
 
-                //PS
+                // PS
                 leistung_ps.Points.Add(new DataPoint(dynoPs[zaehler].Drehzahl, dynoPs[zaehler].Ps));
             }
 
-            // Style, Beschriftung
-            leistung_nm.Title = "Leistung-Nm";
-            leistung_nm.Color = OxyColors.DarkRed;
+            // Style, Beschriftung leistung_nm.Title = "Leistung-Nm"; leistung_nm.Color =
+            // OxyColors.DarkRed;
 
             leistung_ps.Title = "Leistung-PS";
             leistung_ps.Color = OxyColors.DarkBlue;
 
-            // Graphen einfügen
-            PlotStrength.Series.Add(leistung_nm);
-            PlotStrength.Series.Add(leistung_ps);
+            // Graphen einfügen PlotStrength.Series.Add(leistung_nm);
+            this.PlotStrength.Series.Add(leistung_ps);
 
-            nm = dynoNm;
+            // nm = dynoNm;
             ps = dynoPs;
         }
 

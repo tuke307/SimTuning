@@ -17,8 +17,8 @@ namespace Data.Models
         /// Gets the front a base unit.
         /// </summary>
         /// <value>The front a base unit.</value>
-        [NotMapped]
-        public static UnitsNet.Units.AreaUnit FrontABaseUnit { get => UnitsNet.Units.AreaUnit.SquareMeter; }
+        // [NotMapped] public static UnitsNet.Units.AreaUnit FrontABaseUnit { get =>
+        // UnitsNet.Units.AreaUnit.SquareMeter; }
 
         /// <summary>
         /// Gets the gewicht base unit.
@@ -37,7 +37,7 @@ namespace Data.Models
         /// Gets or sets the cw.
         /// </summary>
         /// <value>The cw.</value>
-        public double? Cw { get; set; }
+        //public double? Cw { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="VehiclesModel" /> is
@@ -57,39 +57,32 @@ namespace Data.Models
         /// Gets or sets the front a.
         /// </summary>
         /// <value>The front a.</value>
-        public double? FrontA { get; set; }
+        // public double? FrontA { get; set; }
 
         /// <summary>
         /// Gets or sets the front a unit.
         /// </summary>
         /// <value>The front a unit.</value>
-        [NotMapped]
-        public UnitsNet.Units.AreaUnit? FrontAUnit
-        {
-            get => this._FrontAUnit ?? FrontABaseUnit;
-            set
-            {
-                if (this.FrontA.HasValue)
-                {
-                    UnitsNet.UnitConverter.TryConvert(
-                                  this.FrontA.Value,
-                                  this.FrontAUnit,
-                                  value,
-                                  out double convertedValue);
+        //[NotMapped]
+        //public UnitsNet.Units.AreaUnit? FrontAUnit
+        //{
+        //    get => this._FrontAUnit ?? FrontABaseUnit;
+        //    set
+        //    {
+        //        if (this.FrontA.HasValue)
+        //        {
+        //            UnitsNet.UnitConverter.TryConvert(
+        //                          this.FrontA.Value,
+        //                          this.FrontAUnit,
+        //                          value,
+        //                          out double convertedValue);
 
-                    if (UnitSettings.RoundOnUnitChange)
-                    {
-                        this.FrontA = Math.Round(convertedValue, UnitSettings.RoundingAccuracy);
-                    }
-                    else
-                    {
-                        this.FrontA = convertedValue;
-                    }
-                }
+        // if (UnitSettings.RoundOnUnitChange) { this.FrontA = Math.Round(convertedValue,
+        // UnitSettings.RoundingAccuracy); } else { this.FrontA = convertedValue; } }
 
-                this._FrontAUnit = value;
-            }
-        }
+        //        this._FrontAUnit = value;
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the gewicht.
@@ -159,14 +152,13 @@ namespace Data.Models
         /// Gets or sets the uebersetzung.
         /// </summary>
         /// <value>The uebersetzung.</value>
-        public double? Uebersetzung { get; set; }
+        // public double? Uebersetzung { get; set; }
 
         /// <summary>
         /// Gets or sets the front a unit.
         /// </summary>
         /// <value>The front a unit.</value>
-        [NotMapped]
-        private AreaUnit? _FrontAUnit { get; set; }
+        // [NotMapped] private AreaUnit? _FrontAUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the gewicht unit.
