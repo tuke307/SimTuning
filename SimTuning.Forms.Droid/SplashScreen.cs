@@ -13,6 +13,7 @@ namespace SimTuning.Droid
 
     /// <summary>
     /// SplashScreen.
+    /// TODO: splashscreen.xaml funktioniert nicht.
     /// </summary>
     /// <seealso cref="MvvmCross.Platforms.Android.Views.MvxSplashScreenActivity" />
     [Activity(

@@ -101,6 +101,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Cuts the beginn.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected virtual async Task CutBeginn()
         {
             this.TrimAudio(this.AudioPosition.Value, 0);
@@ -111,6 +115,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Cuts the end.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected virtual async Task CutEnd()
         {
             this.TrimAudio(0, AudioPosition.Value);
@@ -123,20 +131,16 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         protected virtual async Task FilterPlot()
         {
-            //Graphs = null;
-            //Graph = null;
+            DynoLogic.BerechneDrehzahlGraph(true);
 
-            DynoLogic.PlotRotionalSpeed(AudioLogic.SpectrogramAudio, true);
+            await this.RaisePropertyChanged(() => this.Graphs).ConfigureAwait(true);
 
-            //Graphs = DynoLogic.PlotAudio.Series.Select(x => x.Title).ToList();
-            await this.RaisePropertyChanged(() => this.Graphs);
-
-            await this.RaisePropertyChanged(() => this.PlotAudio);
+            await this.RaisePropertyChanged(() => PlotAudio).ConfigureAwait(true);
         }
 
         /// <summary>
         /// Opens the file.
-        /// TODO: stream anstatt uri
+        /// TODO: stream anstatt uri.
         /// </summary>
         /// <returns>
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
@@ -175,19 +179,22 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Refreshes the plot.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected virtual async Task RefreshPlot()
         {
-            //Graphs = null;
-            //Graph = null;
-
             try
             {
-                DynoLogic.PlotRotionalSpeed(AudioLogic.SpectrogramAudio);
+                await Task.Run(() => DynoLogic.BerechneDrehzahlGraph()).ConfigureAwait(true);
             }
-            catch
-            { }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler beim Refresh des Spectrogram: ", exc);
+            }
 
-            await RaisePropertyChanged(() => this.PlotAudio);
+            await this.RaisePropertyChanged(() => PlotAudio).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -221,11 +228,11 @@ namespace SimTuning.Core.ViewModels.Dyno
             using (var db = new DatabaseContext())
             {
                 // in Datenbank einfügen
-                db.Dyno.Update(Dyno);
+                db.Dyno.Update(this.Dyno);
                 db.SaveChanges();
             }
 
-            this.RaisePropertyChanged(() => this.PlotAudio);
+            this.RaisePropertyChanged(() => PlotAudio);
         }
 
         /// <summary>
@@ -363,6 +370,15 @@ namespace SimTuning.Core.ViewModels.Dyno
         private List<string> _qualitys;
 
         #endregion private
+
+        /// <summary>
+        /// Gets the plot audio.
+        /// </summary>
+        /// <value>The plot audio.</value>
+        public static PlotModel PlotAudio
+        {
+            get => DynoLogic.PlotAudio;
+        }
 
         /// <summary>
         /// Gets the audio maximum.
@@ -542,15 +558,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             get => _normal_Refresh;
             set => SetProperty(ref _normal_Refresh, value);
-        }
-
-        /// <summary>
-        /// Gets the plot audio.
-        /// </summary>
-        /// <value>The plot audio.</value>
-        public PlotModel PlotAudio
-        {
-            get => DynoLogic.PlotAudio;
         }
 
         /// <summary>

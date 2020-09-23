@@ -2,6 +2,7 @@
 // productions. All rights reserved.
 using Data.Models;
 using MathNet.Numerics;
+using MediaManager.Playback;
 using OxyPlot;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,9 @@ namespace SimTuning.Core.ModuleLogic
         /// </summary>
         private static readonly List<float[]> specData = new List<float[]>();
 
+        /// <summary>
+        /// TODO: nutzer soll dies einstellen können.
+        /// </summary>
         private static double abstand;
 
         private static double fftBeginn;
@@ -38,13 +42,20 @@ namespace SimTuning.Core.ModuleLogic
         /// </summary>
         private static List<double> function = new List<double>();
 
+        /// <summary>
+        /// FFT-Array-elements pro 1 Hertz.
+        /// </summary>
         private static double hzPerFFT;
 
         /// <summary>
-        /// wieviel reihen ein Herz wiederspiegeln.
+        /// wieviel reihen ein Herz wiederspiegeln. HORIZONTAL; anzahl spalten pro
+        /// sekunde.
         /// </summary>
         private static double segmentsPerSecond;
 
+        /// <summary>
+        /// TODO: nutzer soll dies einstellen können.
+        /// </summary>
         private static double strongPoint;
 
         /// <summary>
@@ -105,17 +116,74 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Plots the data leistung.
+        /// Berechnet.
+        /// TODO: vervollständigen.
+        /// </summary>
+        public static void BerechneAusrollGraph(List<AusrollenModel> ausrollenModels = null)
+        {
+        }
+
+        /// <summary>
+        /// Berechnet.
+        /// TODO: vervollständigen.
+        /// </summary>
+        public static void BerechneBeschleunigungsGraph(List<BeschleunigungModel> beschleunigungModels = null)
+        {
+        }
+
+        /// <summary>
+        /// Gibt das Diagramm aus den Spectogram Daten zurück. vorher muss
+        /// Audio-Spectrogram der Audio bereits einmal berechnet sein mit
+        /// AudioLogic.GetSpectrogram().
+        /// </summary>
+        /// <param name="filter">
+        /// if set to <c>true</c> [filter] Punkte werden zu Bereichen zugeordnet.
+        /// </param>
+        public static void BerechneDrehzahlGraph(bool filter = false)
+        {
+            specData.Clear();
+            plotData.Clear();
+
+            #region SpectrogramData
+
+            // Daten verarbeiten
+            specData.AddRange(AudioLogic.SpectrogramAudio?.FftList);
+            hzPerFFT = AudioLogic.SpectrogramAudio.FftSettings.fftResolution;
+            segmentsPerSecond = AudioLogic.SpectrogramAudio.FftSettings.segmentsPerSecond;
+            fftBeginn = Math.Round(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqLow) / hzPerFFT);
+            fftEnde = Math.Round(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh) / hzPerFFT);
+
+            strongPoint = 350 / AudioLogic.SpectrogramAudio.DisplaySettings.brightness;
+            abstand = Math.Round(Math.Sqrt(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh - AudioLogic.SpectrogramAudio.DisplaySettings.freqLow)) / 2); // Hälfte der wurzel des Frequenzbereichs
+
+            #endregion SpectrogramData
+
+            HotPoints();
+
+            if (filter)
+            {
+                PointAreas();
+            }
+
+            PointsToRotionalSpeed();
+
+            DefineAudioPlot();
+
+            PlotAreas();
+        }
+
+        /// <summary>
+        /// Berechnet.
         /// </summary>
         /// <param name="dyno">The dyno.</param>
         /// <param name="plot">The plot.</param>
         /// <param name="ps">The ps.</param>
         /// <param name="nm">The nm.</param>
-        public static void CalculateStrengthPlot(DynoModel dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/)
+        public static void BerechneLeistungsGraph(DynoModel dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/)
         {
-            DefineStrengthPlot();
+            DefiniereLeistungsGraph();
 
-            List<DynoNmModel> dynoNm = new List<DynoNmModel>();
+            //List<DynoNmModel> dynoNm = new List<DynoNmModel>();
             List<DynoPsModel> dynoPs = new List<DynoPsModel>();
 
             // in m
@@ -186,42 +254,10 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Gibt das Diagramm aus den Spectogram Daten zurück.
+        /// SplineInterpolation.
         /// </summary>
-        /// <param name="spectrogramAudio">Das Spectogram.</param>
-        /// <param name="filter">
-        /// if set to <c>true</c> [filter] Punkte werden zu Bereichen zugeordnet.
-        /// </param>
-        public static void PlotRotionalSpeed(Spectrogram.Spectrogram spectrogramAudio, bool filter = false)
+        public static void SplineInterpolation()
         {
-            specData.Clear();
-            plotData.Clear();
-
-            #region SpectrogramData
-
-            //Daten verarbeiten
-            specData.AddRange(spectrogramAudio.FftList);
-            hzPerFFT = spectrogramAudio.FftSettings.fftResolution; //FFT-Array-elements pro 1 Hertz-> spec.fftSettings.maxFreq / fftSize
-            segmentsPerSecond = spectrogramAudio.FftSettings.segmentsPerSecond; //HORIZONTAL; anzahl spalten pro sekunde
-            fftBeginn = Math.Round(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqLow) / hzPerFFT);
-            fftEnde = Math.Round(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqHigh) / hzPerFFT);
-            strongPoint = 350 / spectrogramAudio.DisplaySettings.brightness; //selbst ausgewählt
-            abstand = Math.Round(Math.Sqrt(Convert.ToDouble(spectrogramAudio.DisplaySettings.freqHigh - spectrogramAudio.DisplaySettings.freqLow)) / 2); //Hälfte der wurzel des Frequenzbereichs
-
-            #endregion SpectrogramData
-
-            HotPoints();
-
-            if (filter)
-            {
-                PointAreas();
-            }
-
-            PointsToRotionalSpeed();
-
-            DefineAudioPlot();
-
-            PlotAreas();
         }
 
         /// <summary>
@@ -242,7 +278,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <summary>
         /// Initialisierung des Graphen.
         /// </summary>
-        private static void DefineStrengthPlot()
+        private static void DefiniereLeistungsGraph()
         {
             PlotStrength = new PlotModel();
 
@@ -259,7 +295,7 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Definiert die Punkte die Punkte die für eine Analyse verwertbar sind
+        /// Definiert die Punkte die Punkte die für eine Analyse verwertbar sind.
         /// </summary>
         private static void HotPoints()
         {
@@ -272,15 +308,15 @@ namespace SimTuning.Core.ModuleLogic
 
                 for (int row = (int)fftBeginn; row <= fftEnde; row++)
                 {
-                    //Holen der intensivsten Punkte
+                    // Holen der intensivsten Punkte
                     if (specData[col][row] >= strongPoint)
                     {
-                        //row speichern
+                        // row speichern
                         temp_points.Add(new DataPoint(col, row));
                     }
                 }
 
-                //gespeicherte Punkte(wenn gefunden) der Liste hinzufügen
+                // gespeicherte Punkte(wenn gefunden) der Liste hinzufügen
                 if (temp_points.Count > 0)
                 {
                     temp_data.AddRange(temp_points);
@@ -295,18 +331,18 @@ namespace SimTuning.Core.ModuleLogic
 
         /// <summary>
         /// Definiert den Graph für den Graph der Regression eines Bereichs.
-        /// TODO: keine neuerstellung des plots
+        /// TODO: keine neuerstellung des plots.
         /// </summary>
         private static void PlotAreaRegression(int choice)
         {
             PlotAudio = new PlotModel();
 
-            //Achsen
+            // Achsen
             PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
             PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
-            //PlotAudio.Series.Clear();
+            // PlotAudio.Series.Clear();
             PlotAudio.IsLegendVisible = false;
-            //PlotAudio.InvalidatePlot(true);
+            // PlotAudio.InvalidatePlot(true);
 
             Func<double, double> polyF = (x) => function[0] + (function[1] * x) + (function[2] * Math.Pow(x, 2)) + ((function[3] * Math.Pow(x, 3)) + (function[4] * Math.Pow(x, 4)));
 
@@ -353,13 +389,13 @@ namespace SimTuning.Core.ModuleLogic
             unfiltered_data.AddRange(plotData[0]);
             plotData.Clear();
 
-            //Dummy hinzufügen
+            // Dummy hinzufügen
             plotData.Add(new List<DataPoint>());
             plotData[0].Add(new DataPoint(0, 0));
 
             var maxcol = unfiltered_data.Max(i => i.X);
 
-            for (int col = 0; col <= maxcol; col++) //X
+            for (int col = 0; col <= maxcol; col++) // X
             {
                 List<DataPoint> col_points = new List<DataPoint>();
 

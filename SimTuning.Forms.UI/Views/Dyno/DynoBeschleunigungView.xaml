@@ -17,16 +17,19 @@
         <material:MaterialCard   Margin="10"
                                  Grid.Row="0">
             <StackLayout>
-                <material:MaterialLabel Text="Geschwindigkeit"
-                                        FontSize="Medium"
-                                        FontAttributes="Bold" />
+                <material:MaterialIconButton Margin="5"
+                                             ButtonType="Elevated"
+                                             HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Image="ic_refresh_black_18dp"
+                                             Command="{Binding RefreshPlotCommand}" />
             </StackLayout>
         </material:MaterialCard>
 
         <material:MaterialCard   Margin="10"
                                  Grid.Row="1">
             <StackLayout>
-                <material:MaterialLabel Text="Geschwindigkeit"
+                <material:MaterialLabel Text="Beschleunigungs-Experiment"
                                         FontSize="Medium"
                                         FontAttributes="Bold" />
 
