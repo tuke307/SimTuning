@@ -378,7 +378,7 @@
         /// Gets or sets the close command.
         /// </summary>
         /// <value>The close command.</value>
-        public IMvxAsyncCommand CloseCommand { get; protected set; }
+        //public IMvxAsyncCommand CloseCommand { get; protected set; }
 
         /// <summary>
         /// Gets or sets the reset tracking command.
@@ -390,7 +390,7 @@
         /// Gets or sets the show audio command.
         /// </summary>
         /// <value>The show audio command.</value>
-        public IMvxAsyncCommand ShowAudioCommand { get; protected set; }
+        public IMvxAsyncCommand ShowSpectrogramCommand { get; protected set; }
 
         /// <summary>
         /// Gets or sets the start tracking command.

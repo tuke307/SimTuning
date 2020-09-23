@@ -110,12 +110,12 @@
         <material:MaterialIconButton Grid.Row="5"
                                      WidthRequest="100"
                                      HeightRequest="60"
-                                     IsVisible="{Binding ShowAudioButtonVis}"
                                      Margin="15"
                                      ButtonType="Elevated"
                                      HorizontalOptions="End"
                                      VerticalOptions="Center"
                                      Image="ic_play_arrow_black_18dp.png"
-                                     Command="{Binding ShowAudioCommand}" />
+                                     Command="{Binding ShowSpectrogramCommand}" />
+        <!--IsVisible="{Binding ShowAudioButtonVis}"-->
     </Grid>
 </views:MvxContentPage>

@@ -26,21 +26,22 @@
         public DynoRuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxLocationWatcher locationWatcher, IMvxMessenger messenger)
             : base(logProvider, navigationService, locationWatcher, messenger)
         {
-            ShowAudioCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoSpectrogramViewModel>());
-            CloseCommand = new MvxAsyncCommand(async () => await NavigationService.Close(this));
-
-            Functions.CheckAndRequestLocationWhenInUsePermission();
-            Functions.CheckAndRequestMicrophonePermission();
+            this.ShowSpectrogramCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoSpectrogramViewModel>());
+            //this.CloseCommand = new MvxAsyncCommand(async () => await this.NavigationService.Close(this));
         }
 
         #region Methods
 
         /// <summary>
         /// Initializes this instance.
+        /// TODO: permission check does not function
         /// </summary>
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
+             Functions.CheckAndRequestLocationWhenInUsePermission().ConfigureAwait(true);
+             Functions.CheckAndRequestMicrophonePermission().ConfigureAwait(true);
+
             return base.Initialize();
         }
 
