@@ -381,12 +381,12 @@ namespace SimTuning.Core.ViewModels.Dyno
         }
 
         /// <summary>
-        /// Gets the audio maximum.
+        /// Gets the audio maximum. wenn 0 dann gibt es Fehler in xamarin anwendung.
         /// </summary>
         /// <value>The audio maximum.</value>
         public double? AudioMaximum
         {
-            get => this.MediaManager.Duration.TotalSeconds;
+            get => this.MediaManager?.Duration.TotalSeconds == 0 ? 100 : this.MediaManager.Duration.TotalSeconds;
         }
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <value>The audio position.</value>
         public double? AudioPosition
         {
-            get => this.MediaManager?.Position.TotalSeconds;
+            get => this.MediaManager?.Position.TotalSeconds ?? 0;
             set
             {
                 if (MediaManager.MediaPlayer != null)

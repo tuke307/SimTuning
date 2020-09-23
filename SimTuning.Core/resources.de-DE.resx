@@ -129,4 +129,10 @@
   <data name="MES_PRO" xml:space="preserve">
     <value>Kaufe die Pro Version um Presets zu ändern</value>
   </data>
+  <data name="ERR_MICROPHONE" xml:space="preserve">
+    <value>Kein Zugriff auf das Mikrofon</value>
+  </data>
+  <data name="ERR_LOCATION" xml:space="preserve">
+    <value>Kein Zugriff auf das GPS</value>
+  </data>
 </root>

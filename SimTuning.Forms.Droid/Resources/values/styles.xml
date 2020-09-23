@@ -28,6 +28,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
   <style name="AppTheme.Splash"
         parent="AppTheme">
+    <item name="android:windowBackground">@color/splash_background</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>
   </style>

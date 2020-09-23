@@ -26,6 +26,10 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             set => SetProperty(ref _displayedImage, value);
         }
 
+        /// <summary>
+        /// Gets the show beschleunigung command.
+        /// </summary>
+        /// <value>The show beschleunigung command.</value>
         public MvxAsyncCommand ShowBeschleunigungCommand { get; private set; }
 
         /// <summary>

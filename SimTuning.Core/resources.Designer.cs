@@ -70,6 +70,24 @@ namespace SimTuning.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No acces to GPS.
+        /// </summary>
+        public static string ERR_LOCATION {
+            get {
+                return ResourceManager.GetString("ERR_LOCATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No access to microphone.
+        /// </summary>
+        public static string ERR_MICROPHONE {
+            get {
+                return ResourceManager.GetString("ERR_MICROPHONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select a record to continue!.
         /// </summary>
         public static string ERR_NODATA {

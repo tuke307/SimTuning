@@ -21,6 +21,7 @@ namespace SimTuning.Forms.UI.ViewModels
     using System;
     using System.IO;
     using System.Threading.Tasks;
+    using Xamarin.Essentials;
 
     /// <summary>
     /// MenuViewModel.
@@ -52,10 +53,14 @@ namespace SimTuning.Forms.UI.ViewModels
 
         #region Methods
 
-        public override Task Initialize()
+        /// <summary>
+        /// Initializes this instance.
+        /// TODO: async weg und permissions anders regeln.
+        /// </summary>
+        public override async Task Initialize()
         {
-            Functions.CheckAndRequestStorageReadPermission();
-            Functions.CheckAndRequestStorageWritePermission();
+            await Functions.GetPermission<Permissions.StorageRead>().ConfigureAwait(true);
+            await Functions.GetPermission<Permissions.StorageWrite>().ConfigureAwait(true);
 
             // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
             SimTuning.Core.GeneralSettings.FileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -82,7 +87,7 @@ namespace SimTuning.Forms.UI.ViewModels
                 db.Database.Migrate();
             }
 
-            return base.Initialize();
+            base.Initialize();
         }
 
         /// <summary>

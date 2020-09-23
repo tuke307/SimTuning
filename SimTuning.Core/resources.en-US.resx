@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ERR_LOCATION" xml:space="preserve">
+    <value>No acces to GPS</value>
+  </data>
+  <data name="ERR_MICROPHONE" xml:space="preserve">
+    <value>No access to microphone</value>
+  </data>
   <data name="ERR_NODATA" xml:space="preserve">
     <value>Please select a record to continue!</value>
   </data>

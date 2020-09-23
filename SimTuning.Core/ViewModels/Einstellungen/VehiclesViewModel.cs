@@ -39,16 +39,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             this.SpeedQuantityUnits = new SpeedQuantity();
 
             this.ShowSaveButtonCommand = new MvxCommand(() => this.SaveButton = true);
-
-            //string list = string.Empty;
-            //var test = this.GetType().GetProperties();
-
-            //foreach (var item in test)
-            //{
-            //    list += "RaisePropertyChanged(() => " + item.Name + ");";
-            //}
-
-            //Console.WriteLine("");
         }
 
         /// <summary>

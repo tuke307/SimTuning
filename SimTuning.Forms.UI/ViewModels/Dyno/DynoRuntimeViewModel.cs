@@ -8,6 +8,7 @@
     using SimTuning.Forms.UI.Business;
     using System.Globalization;
     using System.Threading.Tasks;
+    using Xamarin.Essentials;
     using XF.Material.Forms.UI.Dialogs;
 
     /// <summary>
@@ -39,9 +40,6 @@
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-             Functions.CheckAndRequestLocationWhenInUsePermission().ConfigureAwait(true);
-             Functions.CheckAndRequestMicrophonePermission().ConfigureAwait(true);
-
             return base.Initialize();
         }
 
@@ -62,11 +60,6 @@
         /// </returns>
         protected override async Task ResetBeschleunigung()
         {
-            if (!this.CheckDynoData().Result)
-            {
-                return;
-            }
-
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
             await base.ResetBeschleunigung().ConfigureAwait(true);
@@ -83,7 +76,7 @@
         /// </returns>
         protected override async Task StartBeschleunigung()
         {
-            if (!this.CheckDynoData().Result)
+            if (!await this.CheckDynoData().ConfigureAwait(true))
             {
                 return;
             }
@@ -117,16 +110,30 @@
         /// <returns></returns>
         private async Task<bool> CheckDynoData()
         {
+            var location = await Functions.GetPermission<Permissions.LocationWhenInUse>().ConfigureAwait(true);
+            if (!location)
+            {
+                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_LOCATION", CultureInfo.CurrentCulture));
+
+                return false;
+            }
+
+            var microphone = await Functions.GetPermission<Permissions.Microphone>().ConfigureAwait(true);
+            if (!microphone)
+            {
+                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_MICROPHONE", CultureInfo.CurrentCulture));
+
+                return false;
+            }
+
             if (this.Dyno == null)
             {
                 Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
 
                 return false;
             }
-            else
-            {
-                return true;
-            }
+
+            return true;
         }
 
         #endregion Methods

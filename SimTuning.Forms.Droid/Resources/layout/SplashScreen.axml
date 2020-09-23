@@ -1,18 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-  <item>
-    <color android:color="@color/splash_background" />
-  </item>
-  <item>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width=    "match_parent"
+    android:layout_height=    "match_parent"    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
     <bitmap
-      android:src="@drawable/logo"
-      android:gravity="center" />
-  </item>
-  <item android:bottom="40dp">
+        android:src="@drawable/logo"
+       android:layout_width=    "match_parent"
+    android:layout_height=    "match_parent"  />
+    -->
+  
     <TextView
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:text="Loading...."
          android:gravity="center" />
-  </item>
-</layer-list>
+
+</LinearLayout >
