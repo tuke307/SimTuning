@@ -23,8 +23,9 @@ namespace SimTuning.Forms.UI
                .AsInterfaces()
                .RegisterAsLazySingleton();
 
-            MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
+            MvxIoCProvider.Instance.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
 
+            MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
             CrossMediaManager.Current.Init();
 
             this.RegisterAppStart<MainPageViewModel>();

@@ -317,6 +317,12 @@ namespace SimTuning.Core.ViewModels.Dyno
         public IMvxAsyncCommand PlayCommand { get; set; }
 
         /// <summary>
+        /// Gets or sets the open file command.
+        /// </summary>
+        /// <value>The open file command.</value>
+        public IMvxAsyncCommand RefreshAudioFileCommand { get; set; }
+
+        /// <summary>
         /// Gets or sets the refresh plot command.
         /// </summary>
         /// <value>The refresh plot command.</value>

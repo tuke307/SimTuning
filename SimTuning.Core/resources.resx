@@ -127,6 +127,9 @@
   <data name="ERR_MICROPHONE" xml:space="preserve">
     <value>No access to microphone</value>
   </data>
+  <data name="ERR_NOAUDIOFILE" xml:space="preserve">
+    <value>No recorded audio file was found</value>
+  </data>
   <data name="ERR_NODATA" xml:space="preserve">
     <value>Please select a record to continue!</value>
   </data>

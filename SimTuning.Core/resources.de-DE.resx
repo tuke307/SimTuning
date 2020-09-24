@@ -135,4 +135,7 @@
   <data name="ERR_LOCATION" xml:space="preserve">
     <value>Kein Zugriff auf das GPS</value>
   </data>
+  <data name="ERR_NOAUDIOFILE" xml:space="preserve">
+    <value>Es wurde keine aufgezeichnete Audiodatei gefunden</value>
+  </data>
 </root>

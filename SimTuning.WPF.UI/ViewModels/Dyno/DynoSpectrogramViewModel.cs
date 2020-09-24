@@ -31,13 +31,13 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
             : base(logProvider, navigationService, messenger)
         {
-            _token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
+            this._token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
 
             // override Commands
-            this.FilterPlotCommand = new MvxAsyncCommand(FilterPlot);
-            this.RefreshSpectrogramCommand = new MvxAsyncCommand(ReloadImageAudioSpectrogram);
-            this.RefreshPlotCommand = new MvxAsyncCommand(RefreshPlot);
-            this.SpecificGraphCommand = new MvxAsyncCommand(SpecificGraph);
+            this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);
+            this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
+            this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
+            this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
 
             // datensatz checken CheckDynoData();
         }

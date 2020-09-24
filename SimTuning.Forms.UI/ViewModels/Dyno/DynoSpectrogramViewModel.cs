@@ -46,8 +46,9 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
             this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
             this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
+            this.RefreshAudioFileCommand = new MvxAsyncCommand(this.OpenFileAsync);
 
-            ShowBeschleunigungCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoBeschleunigungViewModel>());
+            this.ShowBeschleunigungCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoBeschleunigungViewModel>());
             // datensatz checken CheckDynoData();
         }
 
@@ -69,6 +70,36 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         }
 
         /// <summary>
+        /// Cuts the beginn.
+        /// </summary>
+        protected new async Task CutBeginn()
+        {
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
+            this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+
+            await base.CutBeginn().ConfigureAwait(true);
+
+            await loadingDialog.DismissAsync().ConfigureAwait(false);
+
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Cuts the end.
+        /// </summary>
+        protected new async Task CutEnd()
+        {
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
+            this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+
+            await base.CutEnd().ConfigureAwait(true);
+
+            await loadingDialog.DismissAsync().ConfigureAwait(false);
+
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Filters the plot.
         /// </summary>
         protected new async Task FilterPlot()
@@ -83,6 +114,22 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             await base.FilterPlot().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
+        }
+
+        protected new async Task OpenFileAsync()
+        {
+            if (!this.CheckDynoData().Result)
+            {
+                return;
+            }
+
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+
+            await base.OpenFileAsync().ConfigureAwait(true);
+
+            await loadingDialog.DismissAsync().ConfigureAwait(false);
+
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
         /// <summary>
@@ -138,16 +185,21 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <returns></returns>
         private async Task<bool> CheckDynoData()
         {
+            if (!File.Exists(SimTuning.Core.GeneralSettings.AudioFilePath))
+            {
+                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NOAUDIOFILE", CultureInfo.CurrentCulture));
+
+                return false;
+            }
+
             if (this.Dyno == null)
             {
                 Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
 
                 return false;
             }
-            else
-            {
-                return true;
-            }
+
+            return true;
         }
     }
 }

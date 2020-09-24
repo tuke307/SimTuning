@@ -88,6 +88,15 @@ namespace SimTuning.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No recorded audio file was found.
+        /// </summary>
+        public static string ERR_NOAUDIOFILE {
+            get {
+                return ResourceManager.GetString("ERR_NOAUDIOFILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select a record to continue!.
         /// </summary>
         public static string ERR_NODATA {
