@@ -7,6 +7,7 @@ namespace SimTuning.WPF.UI.ViewModels
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using MvvmCross.Plugin.Messenger;
     using SimTuning.Core;
     using SimTuning.Core.Models;
     using SimTuning.WPF.UI.ViewModels.Auslass;
@@ -34,7 +35,8 @@ namespace SimTuning.WPF.UI.ViewModels
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
             this._navigationService = navigationService;
 
@@ -53,6 +55,8 @@ namespace SimTuning.WPF.UI.ViewModels
             this.ShowEinstellungenCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinstellungenMainViewModel>());
 
             this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
+
+            this.InitializeDatabase = new MvxAsyncCommand(this.InitializeDatabaseAsync);
         }
 
         #region Methods
@@ -63,22 +67,7 @@ namespace SimTuning.WPF.UI.ViewModels
         /// <returns>Initialisierung.</returns>
         public override Task Initialize()
         {
-            SimTuning.Core.GeneralSettings.FileDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning"); // appdata-local-simtunig
-
-            if (string.IsNullOrEmpty(Data.DatabaseSettings.DatabasePath))
-            {
-                Data.DatabaseSettings.DatabasePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, Data.DatabaseSettings.DatabaseName);
-            }
-
-            if (!Directory.Exists(SimTuning.Core.GeneralSettings.FileDirectory))
-            {
-                Directory.CreateDirectory(SimTuning.Core.GeneralSettings.FileDirectory);
-            }
-
-            using (var db = new DatabaseContext())
-            {
-                 db.Database.Migrate();
-            }
+            this.InitializeDatabase.Execute();
 
             return base.Initialize();
         }
@@ -94,6 +83,28 @@ namespace SimTuning.WPF.UI.ViewModels
         }
 
         /// <summary>
+        /// Initializes the database asynchronous.
+        /// </summary>
+        protected override async Task InitializeDatabaseAsync()
+        {
+            // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
+            SimTuning.Core.GeneralSettings.FileDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning"); // appdata-local-simtuning
+
+            if (string.IsNullOrEmpty(Data.DatabaseSettings.DatabasePath))
+            {
+                Data.DatabaseSettings.DatabasePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, Data.DatabaseSettings.DatabaseName);
+            }
+
+            // appdata-local-simtuning ist anfangs nicht da
+            if (!Directory.Exists(SimTuning.Core.GeneralSettings.FileDirectory))
+            {
+                Directory.CreateDirectory(SimTuning.Core.GeneralSettings.FileDirectory);
+            }
+
+            await base.InitializeDatabaseAsync().ConfigureAwait(true);
+        }
+
+        /// <summary>
         /// Logins the user.
         /// </summary>
         protected new async Task LoginUser()
@@ -103,6 +114,8 @@ namespace SimTuning.WPF.UI.ViewModels
             SimTuning.Core.UserSettings.Order = result.Item2;
 
             Business.Functions.ShowSnackbarDialog(result.Item3);
+
+            this.ReloadUserAsync();
         }
 
         /// <summary>

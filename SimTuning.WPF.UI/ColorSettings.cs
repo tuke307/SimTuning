@@ -2,64 +2,63 @@
 {
     using Plugin.Settings;
     using Plugin.Settings.Abstractions;
-    using System;
 
     /// <summary>
     /// ColorSettings.
-    /// TODO: implementing getter.
     /// </summary>
     public static class ColorSettings
     {
         private const string userFile = "user";
 
         /// <summary>
-        /// Gets or sets the primary.
+        /// Gets or sets the MaterialDesignColors.PrimaryColor.
+        /// TODO: getter geht nicht.
         /// </summary>
         /// <value>The primary.</value>
-        public static MaterialDesignColors.PrimaryColor Primary
+        public static int Primary
         {
             get
             {
-                return MaterialDesignColors.PrimaryColor.Teal;//(MaterialDesignColors.PrimaryColor)AppSettings.GetValueOrDefault(nameof(Primary), (int)MaterialDesignColors.PrimaryColor.Teal, userFile);
+                return /*AppSettings.GetValueOrDefault(nameof(Primary),*/ (int)MaterialDesignColors.PrimaryColor.Teal/*, userFile)*/;
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(Primary), (int)value, userFile);
+                AppSettings.AddOrUpdateValue(nameof(Primary), value, userFile);
             }
         }
 
         /// <summary>
-        /// Gets or sets the secondary.
+        /// Gets or sets the MaterialDesignColors.SecondaryColor.
         /// </summary>
         /// <value>The secondary.</value>
-        public static MaterialDesignColors.SecondaryColor Secondary
+        public static int Secondary
         {
             get
             {
-                return MaterialDesignColors.SecondaryColor.Cyan;//(MaterialDesignColors.SecondaryColor)AppSettings.GetValueOrDefault(nameof(Secondary), (int)MaterialDesignColors.SecondaryColor.Cyan, userFile);
+                return AppSettings.GetValueOrDefault(nameof(Secondary), (int)MaterialDesignColors.SecondaryColor.Cyan, userFile);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(Secondary), (int)value, userFile);
+                AppSettings.AddOrUpdateValue(nameof(Secondary), value, userFile);
             }
         }
 
         /// <summary>
-        /// Gets or sets the theme.
+        /// Gets or sets the MaterialDesignThemes.Wpf.BaseTheme.
         /// </summary>
         /// <value>The theme.</value>
-        public static MaterialDesignThemes.Wpf.BaseTheme Theme
+        public static int Theme
         {
             get
             {
-                return MaterialDesignThemes.Wpf.BaseTheme.Light;//(MaterialDesignThemes.Wpf.BaseTheme)AppSettings.GetValueOrDefault(nameof(Theme), (int)MaterialDesignThemes.Wpf.BaseTheme.Light, userFile);
+                return AppSettings.GetValueOrDefault(nameof(Theme), (int)MaterialDesignThemes.Wpf.BaseTheme.Light, userFile);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(Theme), (int)value, userFile);
+                AppSettings.AddOrUpdateValue(nameof(Theme), value, userFile);
             }
         }
 

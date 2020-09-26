@@ -7,9 +7,11 @@ namespace SimTuning.Core.ViewModels.Dyno
     using MediaManager;
     using MediaManager.Library;
     using MediaManager.Playback;
+    using MediaManager.Player;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
     using OxyPlot;
     using Plugin.FilePicker.Abstractions;
@@ -19,6 +21,7 @@ namespace SimTuning.Core.ViewModels.Dyno
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Resources;
     using System.Threading.Tasks;
 
@@ -34,19 +37,16 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="messenger">The messenger.</param>
-        public SpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+        public SpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger, IMediaManager mediaManager)
             : base(logProvider, navigationService)
         {
+            this.MediaManager = mediaManager;
+
             this.Frequenzbeginn = 3000;
             this.Frequenzende = 12000;
 
-            this.Qualitys = new List<string>() { "schlecht", "mittel", "gut", "sehr gut" };
             this.Quality = this.Qualitys[1]; // mittel
-
-            this.Colormaps = Enum.GetValues(typeof(Spectrogram.Colormap)).Cast<Spectrogram.Colormap>().ToList();
             this.Colormap = this.Colormaps[0]; // viridis
-
-            this.Intensitys = new List<double>() { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0 };
             this.Intensity = this.Intensitys[4]; // 0.5
 
             this.Normal_Refresh = true;
@@ -57,6 +57,9 @@ namespace SimTuning.Core.ViewModels.Dyno
             this.StopCommand = new MvxAsyncCommand(this.MediaManager.Stop);
             this.PauseCommand = new MvxAsyncCommand(this.MediaManager.Pause);
             this.PlayCommand = new MvxAsyncCommand(this.MediaManager.PlayPause);
+
+            this.MediaManager.PositionChanged += this.Current_PositionChanged;
+            mediaManager.StateChanged += this.MediaManager_StateChanged;
         }
 
         #region Methods
@@ -77,6 +80,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         public override void Prepare()
         {
+            base.Prepare();
         }
 
         /// <summary>
@@ -131,16 +135,24 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         protected virtual async Task FilterPlot()
         {
-            DynoLogic.BerechneDrehzahlGraph(true);
+            try
+            {
+                DynoLogic.BerechneDrehzahlGraph(true);
 
-            await this.RaisePropertyChanged(() => this.Graphs).ConfigureAwait(true);
+                await this.RaisePropertyChanged(() => this.Graphs).ConfigureAwait(true);
 
-            await this.RaisePropertyChanged(() => PlotAudio).ConfigureAwait(true);
+                // TODO: Fehler await this.RaisePropertyChanged(() =>
+                // PlotAudio).ConfigureAwait(true);
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler bei FilterPlot: ", exc);
+            }
         }
 
         /// <summary>
         /// Opens the file.
-        /// TODO: stream anstatt uri.
+        /// TODO: play funktioniert nicht, stream anstatt uri.
         /// </summary>
         /// <returns>
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
@@ -148,16 +160,28 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </returns>
         protected virtual async Task OpenFileAsync()
         {
-            // initialisieren
-            //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
+            try
+            {
+                // only for testing
+                //File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
+                WebClient webClient = new WebClient();
+                // https://simtuning.tuke-productions.de/?wpdmdl=10
+                webClient.DownloadFile(new Uri("http://simtuning.tuke-productions.de/wp-content/uploads/2020/09/sample.wav"), SimTuning.Core.GeneralSettings.AudioFilePath);
 
-            this.MediaManager.PositionChanged += this.Current_PositionChanged;
-            await this.MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
-            this.StopCommand.Execute();
+                // initialisieren
+                //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
 
-            //stream.Dispose();
+                //await this.MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
+                this.StopCommand.Execute();
 
-            await this.RaisePropertyChanged(() => this.AudioMaximum).ConfigureAwait(true);
+                //stream.Dispose();
+
+                await this.RaisePropertyChanged(() => this.AudioMaximum).ConfigureAwait(true);
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler bei CutEnd: ", exc);
+            }
         }
 
         /// <summary>
@@ -187,14 +211,17 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                await Task.Run(() => DynoLogic.BerechneDrehzahlGraph()).ConfigureAwait(true);
+                // await Task.Run(() =>
+                // DynoLogic.BerechneDrehzahlGraph()).ConfigureAwait(true);
+                DynoLogic.BerechneDrehzahlGraph();
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler beim Refresh des Spectrogram: ", exc);
+                this.Log.ErrorException("Fehler bei RefreshPlot: ", exc);
             }
 
-            await this.RaisePropertyChanged(() => PlotAudio).ConfigureAwait(true);
+            // TODO: Fehler
+            //await this.RaisePropertyChanged(() => PlotAudio).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -203,13 +230,27 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <returns></returns>
         protected Stream ReloadImageAudioSpectrogram()
         {
-            Normal_Refresh = true;
-            Badge_Refresh = false;
+            try
+            {
+                // Normal_Refresh = true; Badge_Refresh = false;
 
-            SKBitmap spec = AudioLogic.GetSpectrogram(SimTuning.Core.GeneralSettings.AudioFilePath, Quality, Intensity, Colormap, Frequenzbeginn / 60, Frequenzende / 60);
-            Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(spec);
+                SKBitmap spec = AudioLogic.GetSpectrogram(
+                    SimTuning.Core.GeneralSettings.AudioFilePath,
+                    this.Quality,
+                    this.Intensity,
+                    this.Colormap,
+                    this.Frequenzbeginn / 60,
+                    this.Frequenzende / 60);
 
-            return stream;
+                Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(spec);
+
+                return stream;
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler bei ReloadImageAudioSpectrogram: ", exc);
+                return null;
+            }
         }
 
         /// <summary>
@@ -222,17 +263,24 @@ namespace SimTuning.Core.ViewModels.Dyno
                 return;
             }
 
-            DynoLogic.AreaRegression(this.Graphs.IndexOf(this.Graph));
-            this.Dyno.Drehzahl = DynoLogic.Dyno.Drehzahl;
-
-            using (var db = new DatabaseContext())
+            try
             {
-                // in Datenbank einfügen
-                db.Dyno.Update(this.Dyno);
-                db.SaveChanges();
-            }
+                DynoLogic.AreaRegression(this.Graphs.IndexOf(this.Graph));
+                this.Dyno.Drehzahl = DynoLogic.Dyno.Drehzahl;
 
-            this.RaisePropertyChanged(() => PlotAudio);
+                using (var db = new DatabaseContext())
+                {
+                    // in Datenbank einfügen
+                    db.Dyno.Update(this.Dyno);
+                    db.SaveChanges();
+                }
+
+                this.RaisePropertyChanged(() => PlotAudio);
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler bei SpecificGraph: ", exc);
+            }
         }
 
         /// <summary>
@@ -243,35 +291,62 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <param name="cutEnd">The cut end.</param>
         protected virtual void TrimAudio(double cutStart, double cutEnd)
         {
-            MediaManager.Stop();
-            MediaManager.Dispose();
-
-            //string tempFile = Path.Combine(SimTuning.Core.Constants.FileDirectory, "temp.wav");
-            Stream cuttedFileStream = new MemoryStream();
-            //FileStream fsSource = new FileStream(SimTuning.Core.Constants.AudioFilePath, FileMode.Open, FileAccess.Read);
-
-            if (cutStart > 0)
-                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(cutStart), TimeSpan.FromSeconds(0), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioFilePath);
-            else if (cutEnd > 0)
-                SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(cutEnd), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioFilePath);
-
-            //löscht alte Datei
-            File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
-
-            //neue gecuttete temp-Datei für alte Datei ersetzen
-            //File.Create(tempFile, SimTuning.Core.Constants.AudioFilePath);
-
-            using (var fileStream = File.Create(SimTuning.Core.GeneralSettings.AudioFilePath))
+            try
             {
-                cuttedFileStream.Seek(0, SeekOrigin.Begin);
-                cuttedFileStream.CopyTo(fileStream);
+                this.MediaManager.Stop();
+                this.MediaManager.Dispose();
+
+                Stream cuttedFileStream = new MemoryStream();
+
+                if (cutStart > 0)
+                {
+                    SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(cutStart), TimeSpan.FromSeconds(0), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioFilePath);
+                }
+                else if (cutEnd > 0)
+                {
+                    SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(cutEnd), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioFilePath);
+                }
+
+                // löscht alte Datei
+                File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
+
+                // neue gecuttete temp-Datei für alte Datei ersetzen
+                using (var fileStream = File.Create(SimTuning.Core.GeneralSettings.AudioFilePath))
+                {
+                    cuttedFileStream.Seek(0, SeekOrigin.Begin);
+                    cuttedFileStream.CopyTo(fileStream);
+                }
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler bei TrimAudio: ", exc);
             }
         }
 
+        /// <summary>
+        /// Handles the PositionChanged event of the Current control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">
+        /// The <see cref="PositionChangedEventArgs" /> instance containing the event
+        /// data.
+        /// </param>
         private void Current_PositionChanged(object sender, PositionChangedEventArgs e)
         {
             this.Log.Debug($"Current position is {e.Position};");
             this.RaisePropertyChanged(() => this.AudioPosition);
+        }
+
+        /// <summary>
+        /// Handles the StateChanged event of the MediaManager control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">
+        /// The <see cref="StateChangedEventArgs" /> instance containing the event data.
+        /// </param>
+        private void MediaManager_StateChanged(object sender, StateChangedEventArgs e)
+        {
+            Log.Debug($"Status changed: {System.Enum.GetName(typeof(MediaPlayerState), e.State)};");
         }
 
         #endregion Methods
@@ -350,13 +425,14 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region private
 
-        protected readonly IMediaManager MediaManager = CrossMediaManager.Current;
+        protected readonly IMediaManager MediaManager /*= CrossMediaManager.Current*/;
         protected readonly ResourceManager rm;
+        private readonly List<string> _qualitys = new List<string>() { "schlecht", "mittel", "gut", "sehr gut" };
         private bool _badge_Refresh;
 
         private Spectrogram.Colormap _colormap;
 
-        private List<Spectrogram.Colormap> _colormaps;
+        private List<Spectrogram.Colormap> _colormaps = Enum.GetValues(typeof(Spectrogram.Colormap)).Cast<Spectrogram.Colormap>().ToList();
         private DynoModel _dyno;
 
         private int _frequenzbeginn;
@@ -367,13 +443,11 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         private double _intensity;
 
-        private List<double> _intensitys;
+        private List<double> _intensitys = new List<double>() { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0 };
 
         private bool _normal_Refresh;
 
         private string _quality;
-
-        private List<string> _qualitys;
 
         #endregion private
 
@@ -451,7 +525,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         public List<Spectrogram.Colormap> Colormaps
         {
             get => _colormaps;
-            set => SetProperty(ref _colormaps, value);
+            //set => SetProperty(ref _colormaps, value);
         }
 
         /// <summary>
@@ -583,7 +657,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         public List<string> Qualitys
         {
             get => _qualitys;
-            set => SetProperty(ref _qualitys, value);
+            //set => SetProperty(ref _qualitys, value);
         }
 
         #endregion Values

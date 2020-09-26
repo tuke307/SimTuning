@@ -111,7 +111,7 @@
                                                      InputType="Choice"
                                                      FloatingPlaceholderEnabled="False"
                                                      Placeholder="Fahrzeug"
-                                                     LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                     LeadingIcon="chevron_down"
                                                      IsEnabled="{Binding Source={x:Reference Name=RB2}, Path=IsSelected}"
                                                      Choices="{Binding Mode=TwoWay, Path=Vehicles}"
                                                      SelectedChoice="{Binding Mode=TwoWay, Path=Vehicle}"
@@ -150,16 +150,26 @@
                             </Editor>
                         </StackLayout>
 
-                        <material:MaterialButton Grid.Column="1"
-                                                 Margin="15"
-                                                 VerticalOptions="Center"
-                                                 HorizontalOptions="Center"
-                                                 ImageSource="ic_save_black_18dp.png"
-                                                 IsEnabled="{Binding Mode=OneWay, Path=SaveButton}"
-                                                 Command="{Binding SaveDynoCommand}"
-                                                 WidthRequest="100"
-                                                 HeightRequest="60">
-                        </material:MaterialButton>
+                        <StackLayout  Grid.Column="1">
+                            <material:MaterialButton Margin="15"
+                                                     VerticalOptions="Center"
+                                                     HorizontalOptions="Center"
+                                                     ImageSource="content_save"
+                                                     IsEnabled="{Binding Mode=OneWay, Path=SaveButton}"
+                                                     Command="{Binding SaveDynoCommand}"
+                                                     WidthRequest="100"
+                                                     HeightRequest="60">
+                            </material:MaterialButton>
+
+                            <material:MaterialButton Margin="15"
+                                                     VerticalOptions="Center"
+                                                     HorizontalOptions="Center"
+                                                     ImageSource="database_export"
+                                                     Command="{Binding ExportDynoCommand}"
+                                                     WidthRequest="100"
+                                                     HeightRequest="60">
+                            </material:MaterialButton>
+                        </StackLayout>
                     </Grid>
 
                     <!--Audio-->
@@ -177,7 +187,7 @@
                                              Margin="20, 0, 0, 0">
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                LeadingIcon="chevron_down"
                                                                 Placeholder="X"
                                                                 WidthRequest="100"
                                                                 Choices="{Binding Dyno.Drehzahl}"
@@ -186,7 +196,7 @@
 
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                LeadingIcon="chevron_down"
                                                                 Placeholder="Y"
                                                                 WidthRequest="100"
                                                                 Choices="{Binding Dyno.Drehzahl}"
@@ -212,7 +222,7 @@
                                              Margin="20, 0, 0, 0">
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                LeadingIcon="chevron_down"
                                                                 Placeholder="X"
                                                                 WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoPs}"
@@ -221,7 +231,7 @@
 
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                LeadingIcon="chevron_down"
                                                                 Placeholder="Y"
                                                                 WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoPs}"
@@ -247,7 +257,7 @@
                                              Margin="20, 0, 0, 0">
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                LeadingIcon="chevron_down"
                                                                 Placeholder="X"
                                                                 WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoNm}"
@@ -256,7 +266,7 @@
 
                                     <material:MaterialTextField InputType="Choice"
                                                                 FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                LeadingIcon="chevron_down"
                                                                 Placeholder="Y"
                                                                 WidthRequest="100"
                                                                 Choices="{Binding Dyno.DynoNm}"

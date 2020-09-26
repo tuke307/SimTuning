@@ -35,7 +35,6 @@
 
         /// <summary>
         /// Initializes this instance.
-        /// TODO: permission check does not function
         /// </summary>
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()

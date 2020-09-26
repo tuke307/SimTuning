@@ -16,8 +16,6 @@
     <view:MvxContentPage.Resources>
         <!--CONVERTER-->
         <behaviors:InvertedBoolConverter x:Key="Inverter" />
-
-        <local:UserSettings x:Key="userSettings" />
     </view:MvxContentPage.Resources>
 
     <Grid>
@@ -45,37 +43,33 @@
                          VerticalOptions="Start"
                          Orientation="Horizontal">
                 <!--USER-->
-                <material:MaterialIcon Source="ic_card_account_details_outline_black_18dp"
+                <material:MaterialIcon Source="shield_account"
                                        TintColor="DarkRed"
                                        WidthRequest="30"
                                        HeightRequest="30"
-                                       BindingContext="{x:Reference Name=user}"
-                                       IsVisible="{Binding Path=IsVisible, Converter={StaticResource Inverter}}">
+                                       IsVisible="{Binding Path=UserValid, Mode=OneWay, Converter={StaticResource Inverter}}">
                 </material:MaterialIcon>
 
-                <material:MaterialIcon x:Name="user"
-                                       Source="ic_card_account_details_outline_black_18dp"
+                <material:MaterialIcon Source="shield_account"
                                        TintColor="DarkGreen"
-                                       WidthRequest="40"
-                                       HeightRequest="40"
-                                       IsVisible="{Binding Source={StaticResource userSettings}, Path=UserValid, Mode=OneWay}">
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       IsVisible="{Binding Path=UserValid, Mode=OneWay}">
                 </material:MaterialIcon>
 
                 <!--LIZENZ-->
-                <material:MaterialIcon Source="ic_account_key_outline_black_18dp"
+                <material:MaterialIcon Source="shield_key"
                                        TintColor="DarkRed"
-                                       WidthRequest="25"
-                                       HeightRequest="25"
-                                       BindingContext="{x:Reference Name=license}"
-                                       IsVisible="{Binding Path=IsVisible, Converter={StaticResource Inverter}}">
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       IsVisible="{Binding Path=LicenseValid, Mode=OneWay, Converter={StaticResource Inverter}}">
                 </material:MaterialIcon>
 
-                <material:MaterialIcon x:Name="license"
-                                       Source="ic_account_key_outline_black_18dp"
+                <material:MaterialIcon Source="shield_key"
                                        TintColor="DarkGreen"
-                                       WidthRequest="25"
-                                       HeightRequest="25"
-                                       IsVisible="{Binding Source={StaticResource userSettings}, Path=LicenseValid, Mode=OneWay}">
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       IsVisible="{Binding Path=LicenseValid, Mode=OneWay}">
                 </material:MaterialIcon>
             </StackLayout>
         </Grid>

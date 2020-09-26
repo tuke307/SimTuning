@@ -201,21 +201,20 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                      Grid.Column="3"
                                                      Foreground="DarkRed"
                                                      ToolTip="KEIN Account ist eingeloggt"
-                                                     Visibility="{Binding Path=IsVisible, ElementName=user, Converter={StaticResource negatedBoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                                     Kind="DriversLicenseOutline"
-                                                     Height="20"
-                                                     Width="20" />
-                            <materialDesign:PackIcon x:Name="user"
-                                                     VerticalAlignment="Center"
+                                                     Visibility="{Binding Path=UserValid,  Mode=OneWay, Converter={StaticResource negatedBoolToVisibilityConverter}}"
+                                                     Kind="ShieldAccount"
+                                                     Height="25"
+                                                     Width="25" />
+                            <materialDesign:PackIcon VerticalAlignment="Center"
                                                      HorizontalAlignment="Center"
                                                      Grid.Row="0"
                                                      Grid.Column="3"
                                                      Foreground="DarkGreen"
                                                      ToolTip="Account ist eingeloggt"
-                                                     Visibility="{Binding Source={StaticResource userSettings}, Path=UserValid, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                     Kind="DriversLicenseOutline"
-                                                     Height="20"
-                                                     Width="20" />
+                                                     Visibility="{Binding Path=UserValid, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                     Kind="ShieldAccount"
+                                                     Height="25"
+                                                     Width="25" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                     Margin="20 0 0 0">
@@ -225,21 +224,20 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                                      Grid.Column="3"
                                                      Foreground="DarkRed"
                                                      ToolTip="KEINE Lizenz vorhanden"
-                                                     Visibility="{Binding Path=IsVisible, ElementName=license, Converter={StaticResource negatedBoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                                     Kind="UserKeyOutline"
-                                                     Height="20"
-                                                     Width="20" />
-                            <materialDesign:PackIcon x:Name="license"
-                                                     VerticalAlignment="Center"
+                                                     Visibility="{Binding Path=LicenseValid, Mode=OneWay, Converter={StaticResource negatedBoolToVisibilityConverter}}"
+                                                     Kind="ShieldKey"
+                                                     Height="25"
+                                                     Width="25" />
+                            <materialDesign:PackIcon VerticalAlignment="Center"
                                                      HorizontalAlignment="Center"
                                                      ToolTip="Lizenz vorhanden"
-                                                     Visibility="{Binding Source={StaticResource userSettings}, Path=LicenseValid, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                     Visibility="{Binding Path=LicenseValid, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                      Grid.Row="1"
                                                      Grid.Column="3"
                                                      Foreground="DarkGreen"
-                                                     Kind="UserKeyOutline"
-                                                     Height="20"
-                                                     Width="20" />
+                                                     Kind="ShieldKey"
+                                                     Height="25"
+                                                     Width="25" />
                         </StackPanel>
                     </StackPanel>
 

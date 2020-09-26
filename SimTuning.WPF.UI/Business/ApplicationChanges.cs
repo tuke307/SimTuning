@@ -33,7 +33,7 @@ namespace SimTuning.WPF.UI.Business
         /// <returns><c>true</c> if [is dark theme]; otherwise, <c>false</c>.</returns>
         public static bool IsDarkTheme()
         {
-            if (ColorSettings.Theme == MaterialDesignThemes.Wpf.BaseTheme.Dark)
+            if (ColorSettings.Theme == (int)MaterialDesignThemes.Wpf.BaseTheme.Dark)
             {
                 return true;
             }
@@ -51,9 +51,9 @@ namespace SimTuning.WPF.UI.Business
             var appChanges = new RessourceChanges();
 
             appChanges.Colors(
-                primaryColor: ColorSettings.Primary.ToString(),
-                secondaryColor: ColorSettings.Secondary.ToString(),
-                baseTheme: ColorSettings.Theme.ToString());
+                primaryColor: (MaterialDesignColors.PrimaryColor)ColorSettings.Primary,
+                secondaryColor: (MaterialDesignColors.SecondaryColor)ColorSettings.Secondary,
+                baseTheme: (MaterialDesignThemes.Wpf.BaseTheme)ColorSettings.Theme);
         }
 
         /// <summary>
@@ -62,11 +62,11 @@ namespace SimTuning.WPF.UI.Business
         /// <param name="acccent_color">Color of the acccent.</param>
         public static void SetAccent(Swatch acccent_color)
         {
-            ColorSettings.Secondary = (MaterialDesignColors.SecondaryColor)Enum.Parse(typeof(MaterialDesignColors.SecondaryColor), acccent_color.Name);
+            ColorSettings.Secondary = (int)(MaterialDesignColors.SecondaryColor)Enum.Parse(typeof(MaterialDesignColors.SecondaryColor), acccent_color.Name);
 
             var appChanges = new RessourceChanges();
 
-            appChanges.Colors(secondaryColor: ColorSettings.Secondary.ToString());
+            appChanges.Colors(secondaryColor: (MaterialDesignColors.SecondaryColor)ColorSettings.Secondary);
         }
 
         /// <summary>
@@ -75,11 +75,11 @@ namespace SimTuning.WPF.UI.Business
         /// <param name="base_color">if set to <c>true</c> [base color].</param>
         public static void SetBaseTheme(bool base_color)
         {
-            ColorSettings.Theme = ApplicationChanges.BoolToBaseTheme(base_color);
+            ColorSettings.Theme = (int)ApplicationChanges.BoolToBaseTheme(base_color);
 
             var appChanges = new RessourceChanges();
 
-            appChanges.Colors(baseTheme: ColorSettings.Theme.ToString());
+            appChanges.Colors(baseTheme: (MaterialDesignThemes.Wpf.BaseTheme)ColorSettings.Theme);
         }
 
         /// <summary>
@@ -88,11 +88,11 @@ namespace SimTuning.WPF.UI.Business
         /// <param name="primary_color">Color of the primary.</param>
         public static void SetPrimary(Swatch primary_color)
         {
-            ColorSettings.Primary = (MaterialDesignColors.PrimaryColor)Enum.Parse(typeof(MaterialDesignColors.PrimaryColor), primary_color.ToString(), true);
+            ColorSettings.Primary = (int)(MaterialDesignColors.PrimaryColor)Enum.Parse(typeof(MaterialDesignColors.PrimaryColor), primary_color.ToString(), true);
 
             var appChanges = new RessourceChanges();
 
-            appChanges.Colors(primaryColor: ColorSettings.Primary.ToString());
+            appChanges.Colors(primaryColor: (MaterialDesignColors.PrimaryColor)ColorSettings.Primary);
         }
     }
 }

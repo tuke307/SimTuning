@@ -60,8 +60,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                              Margin="40 0 0 0" />
 
                     <TextBox x:Name="EMailTextBox"
-                             materialDesign:HintAssist.Foreground="{StaticResource SecondaryAccentBrush}"
-                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource SecondaryAccentBrush}"
+                             materialDesign:HintAssist.Foreground="{StaticResource SecondaryHueMidBrush}"
+                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource SecondaryHueMidBrush}"
                              materialDesign:HintAssist.Hint="E-Mail"
                              Text="{Binding Mode=TwoWay, Path=Email, UpdateSourceTrigger=PropertyChanged}"
                              HorizontalAlignment="Left"
@@ -84,8 +84,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     </materialDesign:PackIcon>
 
                     <PasswordBox x:Name="PasswordTextBox"
-                                 materialDesign:HintAssist.Foreground="{StaticResource SecondaryAccentBrush}"
-                                 materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource SecondaryAccentBrush}"
+                                 materialDesign:HintAssist.Foreground="{StaticResource SecondaryHueMidBrush}"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource SecondaryHueMidBrush}"
                                  materialDesign:HintAssist.Hint="Passwort"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"

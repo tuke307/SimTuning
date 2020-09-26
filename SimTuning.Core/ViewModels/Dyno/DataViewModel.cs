@@ -8,9 +8,12 @@ namespace SimTuning.Core.ViewModels.Dyno
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
+    using Newtonsoft.Json;
+    using SimTuning.Core.Business;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -32,6 +35,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             this._messenger = messenger;
 
             this.ShowSaveButtonCommand = new MvxCommand(() => this.SaveButton = true);
+            this.ExportDynoCommand = new MvxCommand(this.ExportDyno);
         }
 
         #region Methods
@@ -60,15 +64,22 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         public void ReloadData()
         {
-            using (var db = new Data.DatabaseContext())
+            try
             {
-                IList<Data.Models.VehiclesModel> vehicList = db.Vehicles.ToList();
-                this.Vehicles = new ObservableCollection<Data.Models.VehiclesModel>(vehicList);
+                using (var db = new Data.DatabaseContext())
+                {
+                    IList<Data.Models.VehiclesModel> vehicList = db.Vehicles.ToList();
+                    this.Vehicles = new ObservableCollection<Data.Models.VehiclesModel>(vehicList);
 
-                IList<Data.Models.DynoModel> dynoList = db.Dyno.ToList();
-                this.Dynos = new ObservableCollection<Data.Models.DynoModel>(dynoList);
+                    IList<Data.Models.DynoModel> dynoList = db.Dyno.ToList();
+                    this.Dynos = new ObservableCollection<Data.Models.DynoModel>(dynoList);
 
-                this.Dyno = this.Dynos.Where(d => d.Active == true).FirstOrDefault();
+                    this.Dyno = this.Dynos.Where(d => d.Active == true).FirstOrDefault();
+                }
+            }
+            catch (Exception exc)
+            {
+                this.Log.WarnException("Fehler bei ReloadData: ", exc);
             }
         }
 
@@ -101,7 +112,36 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler beim Löschen des Dyno: ", exc);
+                this.Log.WarnException("Fehler bei DeleteDyno: ", exc);
+            }
+        }
+
+        /// <summary>
+        /// Exports the dyno.
+        /// TODO: test and implement location chooseer
+        /// </summary>
+        protected virtual void ExportDyno()
+        {
+            try
+            {
+                // erstellen der json
+                string json = JsonConvert.SerializeObject(this.Dyno);
+
+                File.WriteAllText(GeneralSettings.DataExportFilePath, json);
+
+                // Dateien die gepackt werden sollen
+                var list = new List<string>()
+                {
+                    GeneralSettings.DataExportFilePath,
+                    GeneralSettings.AudioFilePath,
+                };
+
+                // ZIP archiv erstellen
+                Functions.CreateZipFile(GeneralSettings.DataExportArchivePath, list);
+            }
+            catch (Exception exc)
+            {
+                this.Log.WarnException("Fehler bei ExportDyno: ", exc);
             }
         }
 
@@ -134,7 +174,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler beim Löschen des Dyno: ", exc);
+                this.Log.WarnException("Fehler bei LoadDyno: ", exc);
                 return dyno;
             }
         }
@@ -166,7 +206,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler beim Löschen des Dyno: ", exc);
+                this.Log.WarnException("Fehler bei NewDyno: ", exc);
             }
         }
 
@@ -243,7 +283,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler beim Speichern des Dyno: ", exc);
+                this.Log.WarnException("Fehler bei SaveDyno: ", exc);
 
                 return false;
             }
@@ -280,7 +320,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler beim Aktiv-setzem des Dyno: ", exc);
+                this.Log.WarnException("Fehler bei SetActiveDyno: ", exc);
 
                 // z.B. kein Dyno aktiv z.B. nicht in datenbank
             }
@@ -321,7 +361,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler beim InAktiv-setzen des Dyno", exc);
+                this.Log.WarnException("Fehler bei SetInactiveDyno: ", exc);
 
                 // z.B. keine Werte in Dynos z.B. kein Dyno aktiv z.B. nicht in datenbank
             }
@@ -334,6 +374,8 @@ namespace SimTuning.Core.ViewModels.Dyno
         #region Commands
 
         public IMvxCommand DeleteDynoCommand { get; set; }
+
+        public IMvxCommand ExportDynoCommand { get; set; }
 
         public IMvxCommand NewDynoCommand { get; set; }
 

@@ -5,6 +5,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using MvvmCross.Plugin.Messenger;
     using SimTuning.Core.Models;
     using SimTuning.Forms.UI.Business;
     using System;
@@ -31,8 +32,8 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
             // override commands
             this.ConnectUserCommand = new MvxAsyncCommand(this.ConnectUser);
@@ -67,6 +68,8 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             SimTuning.Core.UserSettings.Order = result.Item2;
 
             Functions.ShowSnackbarDialog(result.Item3);
+
+            base.ConnectUser();
         }
 
         /// <summary>

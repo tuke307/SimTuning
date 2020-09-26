@@ -3,10 +3,13 @@
 namespace SimTuning.WPF.UI.ViewModels.Dyno
 {
     using MaterialDesignThemes.Wpf;
+    using MediaManager;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
+    using Plugin.FilePicker;
+    using Plugin.FilePicker.Abstractions;
     using SimTuning.Core.Models;
     using SimTuning.WPF.UI.Business;
     using SimTuning.WPF.UI.Dialog;
@@ -28,21 +31,71 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger, IMediaManager mediaManager)
+            : base(logProvider, navigationService, messenger, mediaManager)
         {
             this._token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
 
             // override Commands
             this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);
-            this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
+            //this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
             this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
             this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
+
+            this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
+            this.CutBeginnCommand = new MvxAsyncCommand(this.CutBeginn);
+            this.CutEndCommand = new MvxAsyncCommand(this.CutEnd);
 
             // datensatz checken CheckDynoData();
         }
 
         #region Methods
+
+        /// <summary>
+        /// Cuts the beginn.
+        /// </summary>
+        protected new async Task CutBeginn()
+        {
+            if (this.MediaManager.MediaPlayer == null)
+            {
+                return;
+            }
+
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
+            {
+                Task.Run(async () =>
+                {
+                    await base.CutBeginn().ConfigureAwait(true);
+
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
+            }).ConfigureAwait(true);
+
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Cuts the end.
+        /// </summary>
+        protected new async Task CutEnd()
+        {
+            if (this.MediaManager.MediaPlayer == null)
+            {
+                return;
+            }
+
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
+            {
+                _ = Task.Run(async () =>
+                {
+                    await base.CutEnd().ConfigureAwait(true);
+
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
+            }).ConfigureAwait(true);
+
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
+        }
 
         /// <summary>
         /// Filters the plot.
@@ -63,6 +116,35 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                     Application.Current.Dispatcher.Invoke(() => args.Session.Close());
                 });
             }).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Opens the file dialog.
+        /// </summary>
+        protected new async Task OpenFileDialog()
+        {
+            if (!this.CheckDynoData())
+            {
+                return;
+            }
+
+            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "WAVE Audio (*.wav)|*.wav", "MP3 Audio (*.mp3)|*.mp3" }).ConfigureAwait(true);
+
+            if (fileData == null)
+            {
+                return;
+            }
+
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
+            {
+                Application.Current.Dispatcher.Invoke(async () =>
+                {
+                    await base.OpenFileDialog(fileData).ConfigureAwait(true);
+                    args.Session.Close();
+                });
+            }).ConfigureAwait(true);
+
+            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
         /// <summary>

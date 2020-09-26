@@ -828,14 +828,8 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("Cw")
-                        .HasColumnType("REAL");
-
                     b.Property<bool>("Deletable")
                         .HasColumnType("INTEGER");
-
-                    b.Property<double?>("FrontA")
-                        .HasColumnType("REAL");
 
                     b.Property<double?>("Gewicht")
                         .HasColumnType("REAL");
@@ -846,9 +840,6 @@ namespace Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<double?>("Uebersetzung")
-                        .HasColumnType("REAL");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("TEXT");
@@ -865,9 +856,7 @@ namespace Data.Migrations
                             Id = 1,
                             Beschreibung = @"Baujahre: 1960 - 1964
 Stückzahl: 515.000",
-                            Cw = 0.80000000000000004,
                             Deletable = false,
-                            FrontA = 0.75,
                             Gewicht = 53.0,
                             MotorId = 1,
                             Name = "SR 2 E"
@@ -877,9 +866,7 @@ Stückzahl: 515.000",
                             Id = 2,
                             Beschreibung = @"Baujahre: 1959 - 1964
 Stückzahl: 164.500",
-                            Cw = 0.80000000000000004,
                             Deletable = false,
-                            FrontA = 0.75,
                             Gewicht = 73.0,
                             MotorId = 2,
                             Name = "KR 50"
@@ -889,9 +876,7 @@ Stückzahl: 164.500",
                             Id = 3,
                             Beschreibung = @"Baujahre: 1968 - 1980
 Stückzahl: 375.000",
-                            Cw = 0.80000000000000004,
                             Deletable = false,
-                            FrontA = 0.75,
                             Gewicht = 80.0,
                             MotorId = 3,
                             Name = "KR 51/1 (F)"
@@ -901,9 +886,7 @@ Stückzahl: 375.000",
                             Id = 4,
                             Beschreibung = @"Baujahre: 1976 - 1980
 Stückzahl: 287.000",
-                            Cw = 0.80000000000000004,
                             Deletable = false,
-                            FrontA = 0.75,
                             Gewicht = 81.0,
                             MotorId = 4,
                             Name = "S 50 B1"
@@ -913,9 +896,7 @@ Stückzahl: 287.000",
                             Id = 5,
                             Beschreibung = @"Baujahre: 1980 - 1989
 Stückzahl: 360.600",
-                            Cw = 0.80000000000000004,
                             Deletable = false,
-                            FrontA = 0.75,
                             Gewicht = 79.5,
                             MotorId = 5,
                             Name = "S51 B1-4"
@@ -925,9 +906,7 @@ Stückzahl: 360.600",
                             Id = 6,
                             Beschreibung = @"Baujahre: 1984 - 1988
 Stückzahl: 20.000",
-                            Cw = 0.80000000000000004,
                             Deletable = false,
-                            FrontA = 0.75,
                             Gewicht = 84.0,
                             MotorId = 6,
                             Name = "S 70 C"

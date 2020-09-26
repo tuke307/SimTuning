@@ -41,7 +41,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding VehicleMotorAuslassAuspuffAbgasVUnit}"
-                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel VerticalOptions="Center"
@@ -75,7 +75,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding VehicleMotorAuslassDurchmesserDUnit}"
-                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel VerticalOptions="Center"
@@ -96,7 +96,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding VehicleMotorAuslassLaengeLUnit}"
-                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel VerticalOptions="Center"
@@ -130,7 +130,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding VehicleMotorAuslassFlaecheAUnit}"
-                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel VerticalOptions="Center"
@@ -285,7 +285,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding VehicleMotorAuslassAuspuffEndrohrDUnit}"
-                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -306,7 +306,7 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding VehicleMotorAuslassAuspuffEndrohrLUnit}"
-                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                    LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                         <!--<material:MaterialLabel Margin="5, 0, 0, 0"

@@ -2,7 +2,6 @@
 // productions. All rights reserved.
 using Data.Models;
 using MathNet.Numerics;
-using MediaManager.Playback;
 using OxyPlot;
 using System;
 using System.Collections.Generic;
@@ -153,6 +152,7 @@ namespace SimTuning.Core.ModuleLogic
             fftBeginn = Math.Round(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqLow) / hzPerFFT);
             fftEnde = Math.Round(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh) / hzPerFFT);
 
+            // TODO: muss besser werden
             strongPoint = 350 / AudioLogic.SpectrogramAudio.DisplaySettings.brightness;
             abstand = Math.Round(Math.Sqrt(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh - AudioLogic.SpectrogramAudio.DisplaySettings.freqLow)) / 2); // Hälfte der wurzel des Frequenzbereichs
 
@@ -344,7 +344,7 @@ namespace SimTuning.Core.ModuleLogic
             PlotAudio.IsLegendVisible = false;
             // PlotAudio.InvalidatePlot(true);
 
-            Func<double, double> polyF = (x) => function[0] + (function[1] * x) + (function[2] * Math.Pow(x, 2)) + ((function[3] * Math.Pow(x, 3)) + (function[4] * Math.Pow(x, 4)));
+            Func<double, double> polyF = (x) => (function[0] * Math.Pow(x, 0)) + (function[1] * Math.Pow(x, 1)) + (function[2] * Math.Pow(x, 2)) + ((function[3] * Math.Pow(x, 3)) + (function[4] * Math.Pow(x, 4)));
 
             // Graph
             OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(polyF, plotData[choice].Select(x => x.X).Min(), plotData[choice].Select(x => x.X).Max(), 100);

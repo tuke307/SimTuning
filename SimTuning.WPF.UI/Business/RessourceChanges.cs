@@ -18,12 +18,12 @@ namespace SimTuning.WPF.UI.Business
         /// <param name="primaryColor">Color of the primary.</param>
         /// <param name="secondaryColor">Color of the secondary.</param>
         /// <param name="baseTheme">The base theme.</param>
-        public void Colors(string primaryColor = null, string secondaryColor = null, string baseTheme = null)
+        public void Colors(MaterialDesignColors.PrimaryColor? primaryColor = null, MaterialDesignColors.SecondaryColor? secondaryColor = null, MaterialDesignThemes.Wpf.BaseTheme? baseTheme = null)
         {
             int position = 0;
             Uri changes = null;
 
-            if (!string.IsNullOrEmpty(primaryColor))
+            if (primaryColor != null)
             {
                 position = 0;
                 changes = new Uri($"pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor." + primaryColor + ".xaml");
@@ -31,7 +31,7 @@ namespace SimTuning.WPF.UI.Business
                 Application.Current.Resources.MergedDictionaries.Insert(position, new ResourceDictionary() { Source = changes });
             }
 
-            if (!string.IsNullOrEmpty(secondaryColor))
+            if (secondaryColor != null)
             {
                 position = 1;
                 changes = new Uri($"pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor." + secondaryColor + ".xaml");
@@ -39,7 +39,7 @@ namespace SimTuning.WPF.UI.Business
                 Application.Current.Resources.MergedDictionaries.Insert(position, new ResourceDictionary() { Source = changes });
             }
 
-            if (!string.IsNullOrEmpty(baseTheme))
+            if (baseTheme != null)
             {
                 position = 2;
                 changes = new Uri($"pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme." + baseTheme + ".xaml");

@@ -46,6 +46,64 @@ namespace SimTuning.Core
         }
 
         /// <summary>
+        /// Gets or sets the data export archive.
+        /// </summary>
+        /// <value>The data export archive.</value>
+        public static string DataExportArchive
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(nameof(DataExportArchive), "DataExport.zip");
+            }
+
+            set
+            {
+                AppSettings.AddOrUpdateValue(nameof(DataExportArchive), value);
+            }
+        }
+
+        /// <summary>
+        /// Gets the data export archive path.
+        /// </summary>
+        /// <value>The data export archive path.</value>
+        public static string DataExportArchivePath
+        {
+            get
+            {
+                return Path.Combine(FileDirectory, DataExportArchive);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the data export file.
+        /// </summary>
+        /// <value>The data export file.</value>
+        public static string DataExportFile
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(nameof(DataExportFile), "DataExport.json");
+            }
+
+            set
+            {
+                AppSettings.AddOrUpdateValue(nameof(DataExportFile), value);
+            }
+        }
+
+        /// <summary>
+        /// Gets the data export file path.
+        /// </summary>
+        /// <value>The data export file path.</value>
+        public static string DataExportFilePath
+        {
+            get
+            {
+                return Path.Combine(FileDirectory, DataExportFile);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the file directory.
         /// </summary>
         /// <value>The file directory.</value>

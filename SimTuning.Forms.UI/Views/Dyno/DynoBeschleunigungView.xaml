@@ -42,9 +42,11 @@
                               HeightRequest="400" />
             </StackLayout>
         </material:MaterialCard>
+
         <material:MaterialIconButton WidthRequest="50"
                                      HeightRequest="50"
                                      Margin="15"
+                                     Grid.Row="2"
                                      ButtonType="Elevated"
                                      HorizontalOptions="End"
                                      VerticalOptions="Center"

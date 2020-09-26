@@ -2,9 +2,12 @@
 // productions. All rights reserved.
 namespace SimTuning.Core.ViewModels
 {
+    using Data;
+    using Microsoft.EntityFrameworkCore;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
     using SimTuning.Core.Models;
     using System.Threading.Tasks;
@@ -20,9 +23,11 @@ namespace SimTuning.Core.ViewModels
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public Menu(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        /// <param name="messenger">The messenger.</param>
+        public Menu(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
             : base(logProvider, navigationService)
         {
+            this._token = messenger.Subscribe<MvxUserReloadMessage>(this.ReloadUserAsync);
         }
 
         #region Methods
@@ -44,10 +49,20 @@ namespace SimTuning.Core.ViewModels
         }
 
         /// <summary>
-        /// Logins the user.
+        /// Initializes the database asynchronous.
         /// </summary>
-        protected virtual void LoginUser()
+        protected virtual async Task InitializeDatabaseAsync()
         {
+            using (var db = new DatabaseContext())
+            {
+                await db.Database.MigrateAsync().ConfigureAwait(true);
+            }
+        }
+
+        protected virtual void ReloadUserAsync(MvxUserReloadMessage mvxUserReloadMessage = null)
+        {
+            this.RaisePropertyChanged(() => this.LicenseValid).ConfigureAwait(true);
+            this.RaisePropertyChanged(() => this.UserValid).ConfigureAwait(true);
         }
 
         #endregion Methods
@@ -59,6 +74,8 @@ namespace SimTuning.Core.ViewModels
         public MvxCommand ButtonCloseMenu { get; set; }
 
         public MvxCommand ButtonOpenMenu { get; set; }
+
+        public IMvxAsyncCommand InitializeDatabase { get; protected set; }
 
         public IMvxAsyncCommand LoginUserCommand { get; protected set; }
 
@@ -77,6 +94,18 @@ namespace SimTuning.Core.ViewModels
         public IMvxAsyncCommand ShowTuningCommand { get; set; }
 
         #endregion Commands
+
+        private readonly MvxSubscriptionToken _token;
+
+        public bool LicenseValid
+        {
+            get => UserSettings.LicenseValid;
+        }
+
+        public bool UserValid
+        {
+            get => UserSettings.UserValid;
+        }
 
         #endregion Values
     }

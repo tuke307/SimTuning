@@ -93,7 +93,7 @@
                                                  Margin="15"
                                                  VerticalOptions="Center"
                                                  HorizontalOptions="Center"
-                                                 ImageSource="ic_save_black_18dp.png"
+                                                 ImageSource="content_save"
                                                  IsEnabled="{Binding Mode=OneWay, Path=SaveButton}"
                                                  Command="{Binding SaveVehicleCommand}"
                                                  WidthRequest="250"
@@ -134,7 +134,7 @@
                                                                     Choices="{Binding Path=MassQuantityUnits, Mode=OneTime}"
                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleGewichtUnit}"
                                                                     VerticalOptions="EndAndExpand"
-                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                    LeadingIcon="chevron_down"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
@@ -151,7 +151,7 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleFrontAUnit}"
-                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                    LeadingIcon="chevron_down"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
@@ -186,7 +186,7 @@
                                                                 Placeholder="Motor"
                                                                 Choices="{Binding Engines}"
                                                                 SelectedChoice="{Binding Engine}"
-                                                                LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                LeadingIcon="chevron_down"
                                                                 ChoicesBindingName="Name">
                                     </material:MaterialTextField>
 
@@ -221,7 +221,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorHubLUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -238,7 +238,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorPleulLUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -255,7 +255,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorKolbenGUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -272,7 +272,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungLUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -289,7 +289,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorBohrungDUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -313,7 +313,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorHubraumVUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -335,7 +335,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding VehicleMotorBrennraumVUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -357,7 +357,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding VehicleMotorKurbelgehaeuseVUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -418,7 +418,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheHUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -435,7 +435,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteBUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -452,7 +452,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserDUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -469,7 +469,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheAUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -493,7 +493,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeLUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -529,7 +529,7 @@
                                                                                                     Margin="5, 0, 0, 0"
                                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserDUnit}"
-                                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                                    LeadingIcon="chevron_down"
                                                                                                     ChoicesBindingName="Abbreviation">
                                                                         </material:MaterialTextField>
                                                                     </StackLayout>
@@ -573,7 +573,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheHUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -590,7 +590,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteBUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -612,7 +612,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheAUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -634,7 +634,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeLUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -691,7 +691,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheHUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -708,7 +708,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteBUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>
@@ -725,7 +725,7 @@
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheAUnit}"
-                                                                                    LeadingIcon="ic_chevron_down_black_18dp.png"
+                                                                                    LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
                                                         </material:MaterialTextField>
                                                     </StackLayout>

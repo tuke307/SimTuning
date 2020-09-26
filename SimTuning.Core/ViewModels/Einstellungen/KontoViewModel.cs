@@ -4,6 +4,7 @@ using Data.Models;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using System.Security;
 using System.Threading.Tasks;
@@ -21,9 +22,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public KontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        public KontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
             : base(logProvider, navigationService)
         {
+            this._messenger = messenger;
         }
 
         #region Methods
@@ -50,6 +52,9 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         protected virtual void ConnectUser()
         {
+            var message = new Core.Models.MvxUserReloadMessage(this);
+
+            this._messenger.Publish(message);
         }
 
         protected virtual void LoginSite(object parameter)
@@ -78,6 +83,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         #endregion Commands
 
+        protected readonly IMvxMessenger _messenger;
         private string _email;
 
         private string _firstname;

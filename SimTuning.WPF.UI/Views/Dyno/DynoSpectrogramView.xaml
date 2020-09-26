@@ -29,6 +29,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </views:MvxWpfView.Resources>
+
     <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}"
                   HorizontalScrollBarVisibility="Visible"
                   VerticalScrollBarVisibility="Disabled">
@@ -43,10 +44,11 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!--Grid 2. Modul-->
+            <!--Grid 1. Modul-->
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -54,7 +56,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                 </Grid.RowDefinitions>
 
                 <!--1. Group box-->
-                <GroupBox Width="750"
+                <GroupBox MinWidth="725"
                           Grid.Row="0"
                           Grid.Column="0"
                           Header="Spectrogram"
@@ -63,14 +65,131 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                           materialDesign:ShadowAssist.ShadowDepth="Depth3"
                           BorderThickness="0.3">
                     <Grid>
-                        <Image Stretch="Fill"
-                               Source="{Binding Mode=OneWay, Path=DisplayedImage}"></Image>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Row="0"
+                               Source="{Binding Mode=OneWay, Path=DisplayedImage}"
+                               Stretch="Fill">
+                        </Image>
+
+                        <Slider Grid.Row="1"
+                                Margin="0 10 0 10"
+                                Value="{Binding Mode=TwoWay, Path=AudioPosition}"
+                                Maximum="{Binding Mode=OneWay, Path=AudioMaximum}">
+                        </Slider>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox HorizontalAlignment="Center"
+                          Grid.Column="1"
+                          Margin="10"
+                          Header="Audio-Einstellungen">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <materialDesign:Badged x:Name="badge_open"
+                                                   Visibility="{Binding Mode=OneWay, Path=BadgeFileOpen, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                   Badge="{materialDesign:PackIcon CheckboxMarkedCircleOutline}"
+                                                   BadgeColorZoneMode="Accent"
+                                                   Grid.Row="0"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center">
+                                <Button Content="Datei auswählen"
+                                        Command="{Binding OpenFileCommand}"
+                                        ToolTip="Wähle eine Datei auf deiner Festplatte">
+                                </Button>
+                            </materialDesign:Badged>
+
+                            <Button Grid.Row="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding Path=IsVisible, ElementName=badge_open, Converter={StaticResource InverseBoolToVisConverter}}"
+                                    Content="Datei auswählen"
+                                    Command="{Binding OpenFileCommand}"
+                                    ToolTip="Wähle eine Datei auf deiner Festplatte">
+                            </Button>
+
+                            <StackPanel Grid.Row="1"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Center">
+                                <Button Content="{materialDesign:PackIcon Stop}"
+                                        Command="{Binding StopCommand}"
+                                        Margin="2"
+                                        ToolTip="Stop" />
+                                <Button Content="{materialDesign:PackIcon Pause}"
+                                        Command="{Binding PauseCommand}"
+                                        Margin="2"
+                                        ToolTip="Pause" />
+                                <Button Content="{materialDesign:PackIcon Play}"
+                                        Command="{Binding PlayCommand}"
+                                        Margin="2"
+                                        ToolTip="Play" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Label Content="Wegschneiden vom;"
+                                   Grid.Row="0"
+                                   Grid.ColumnSpan="2"
+                                   VerticalContentAlignment="Bottom"></Label>
+
+                            <Label Content="anfang"
+                                   Grid.Row="1"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"></Label>
+
+                            <Button Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{materialDesign:PackIcon Scissors}"
+                                    Command="{Binding CutBeginnCommand }">
+                            </Button>
+
+                            <Label Content="ende"
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"></Label>
+
+                            <Button Grid.Row="2"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{materialDesign:PackIcon Scissors}"
+                                    Command="{Binding CutEndCommand }">
+                            </Button>
+                        </Grid>
                     </Grid>
                 </GroupBox>
 
                 <!--2. group box-->
                 <GroupBox Grid.Row="0"
-                          Grid.Column="1"
+                          Grid.Column="2"
                           Header="Spectrogram-Einstellungen"
                           Margin="10">
                     <Grid>
@@ -158,8 +277,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                 </GroupBox>
             </Grid>
 
-            <!--Grid 3. Modul-->
-            <Grid Grid.Column="2">
+            <!--Grid 2. Modul-->
+            <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="auto" />
@@ -169,7 +288,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <!--1. Group box Plot-->
-                <GroupBox MinWidth="750"
+                <GroupBox MinWidth="725"
                           Margin="10"
                           Grid.Column="0"
                           Grid.Row="0"

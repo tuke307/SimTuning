@@ -33,7 +33,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// </summary>
         private void Get_Changelog()
         {
-            string file = "https://simtuning.tuke-productions.de/download/releasenotes/?wpdmdl=65";
+            string file = "https://simtuning.tuke-productions.de/?wpdmdl=65";
             string fileName = @"releasenotes.rtf";
 
             // Download
@@ -59,7 +59,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// <param name="parameter">The parameter.</param>
         private void StartUpdate(object parameter)
         {
-            AutoUpdater.Start("https://simtuning.tuke-productions.de/download/autoupdater/?wpdmdl=42");
+            AutoUpdater.Start("https://simtuning.tuke-productions.de/?wpdmdl=42");
             AutoUpdater.ReportErrors = true;
             AutoUpdater.HttpUserAgent = "SimTuningDonwloadUpdate";
             AutoUpdater.CheckForUpdateEvent += UpdaterDownloadUpdateEvent;
@@ -71,7 +71,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// <param name="parameter">The parameter.</param>
         private void UpdateCheck(object parameter)
         {
-            AutoUpdater.Start("https://simtuning.tuke-productions.de/download/autoupdater/?wpdmdl=42");
+            AutoUpdater.Start("https://simtuning.tuke-productions.de/?wpdmdl=42");
             AutoUpdater.ReportErrors = true;
             AutoUpdater.HttpUserAgent = "SimTuningUpdateCheck";
             AutoUpdater.CheckForUpdateEvent += UpdaterCheckForUpdateEvent;

@@ -15,10 +15,6 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
     /// <seealso cref="SimTuning.Core.ViewModels.Dyno.DataViewModel" />
     public class DynoDataViewModel : SimTuning.Core.ViewModels.Dyno.DataViewModel
     {
-        public IMvxAsyncCommand CloseCommand { get; private set; }
-
-        public IMvxAsyncCommand ShowSettingsCommand { get; private set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DynoDataViewModel" /> class.
         /// </summary>
@@ -32,9 +28,19 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             this.DeleteDynoCommand = new MvxCommand(this.DeleteDyno);
             this.SaveDynoCommand = new MvxCommand(this.SaveDyno);
 
-            ShowSettingsCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoRuntimeViewModel>());
-            CloseCommand = new MvxAsyncCommand(async () => await NavigationService.Close(this));
+            this.ShowSettingsCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoRuntimeViewModel>());
+            this.CloseCommand = new MvxAsyncCommand(async () => await NavigationService.Close(this));
         }
+
+        #region Values
+
+        public IMvxAsyncCommand CloseCommand { get; private set; }
+
+        public IMvxAsyncCommand ShowSettingsCommand { get; private set; }
+
+        #endregion Values
+
+        #region Methods
 
         /// <summary>
         /// Initializes this instance.
@@ -93,5 +99,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 Functions.ShowSnackbarDialog("Fehler beim speichern");
             }
         }
+
+        #endregion Methods
     }
 }

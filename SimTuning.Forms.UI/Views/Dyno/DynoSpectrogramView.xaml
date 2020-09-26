@@ -28,6 +28,15 @@
                                        Grid.Row="0">
 
                     <StackLayout>
+                        <material:MaterialLabel Text="Audio"
+                                                FontSize="Medium"
+                                                FontAttributes="Bold" />
+
+                        <BoxView Color="Gray"
+                                 HeightRequest="2"
+                                 HorizontalOptions="Fill"
+                                 Margin="0, 0, 0, 5" />
+
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -37,6 +46,7 @@
                             <material:MaterialButton Grid.Column="0"
                                                      ImageSource="ic_refresh_black_18dp"
                                                      Command="{Binding RefreshAudioFileCommand}"
+                                                     CommandParameter="true"
                                                      WidthRequest="90">
                             </material:MaterialButton>
 
@@ -191,7 +201,8 @@
                     <material:MaterialButton HorizontalOptions="Center"
                                              WidthRequest="90"
                                              ImageSource="ic_refresh_black_18dp"
-                                             Command="{Binding RefreshSpectrogramCommand}">
+                                             Command="{Binding RefreshSpectrogramCommand}"
+                                             CommandParameter="false">
                     </material:MaterialButton>
                 </StackLayout>
             </material:MaterialCard>

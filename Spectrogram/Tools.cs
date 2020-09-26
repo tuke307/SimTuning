@@ -13,14 +13,12 @@ namespace Spectrogram
         //    else
         //        Console.WriteLine($"File not found in same folder: {pathFileHere}");
 
-        //    // look for it in the package data folder
-        //    string fileName = System.IO.Path.GetFileName(filePath);
-        //    string pathDataFolder = System.IO.Path.GetFullPath("../../../../data/");
-        //    string pathInDataFolder = System.IO.Path.Combine(pathDataFolder, fileName);
-        //    if (System.IO.File.Exists(pathInDataFolder))
-        //        return pathInDataFolder;
-        //    else
-        //        Console.WriteLine($"File not found in data folder: {pathInDataFolder}");
+        // // look for it in the package data folder string fileName =
+        // System.IO.Path.GetFileName(filePath); string pathDataFolder =
+        // System.IO.Path.GetFullPath("../../../../data/"); string pathInDataFolder =
+        // System.IO.Path.Combine(pathDataFolder, fileName); if
+        // (System.IO.File.Exists(pathInDataFolder)) return pathInDataFolder; else
+        // Console.WriteLine($"File not found in data folder: {pathInDataFolder}");
 
         //    throw new ArgumentException($"Could not locate {filePath}");
         //}
@@ -40,9 +38,15 @@ namespace Spectrogram
         public static float[] ReadWav(string wavFilePath)
         {
             // quick and drity WAV file reader (only for 16-bit signed mono files)
-            //string actualPath = FindFile(wavFilePath);
-            if (wavFilePath == null)
+            if (wavFilePath == null || !System.IO.File.Exists(wavFilePath))
+            {
                 throw new ArgumentException("file not found: " + wavFilePath);
+            }
+            if (!wavFilePath.EndsWith(".wav"))
+            {
+                throw new ArgumentException("file not supported: " + wavFilePath);
+            }
+
             byte[] bytes = System.IO.File.ReadAllBytes(wavFilePath);
 
             return FloatsFromBytesINT16(bytes, skipFirstBytes: 44);

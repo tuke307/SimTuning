@@ -2,9 +2,11 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
+    using MediaManager;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using MvvmCross.Plugin.Messenger;
     using SimTuning.Forms.UI.Business;
     using System.Globalization;
     using System.IO;
@@ -18,6 +20,28 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
     /// <seealso cref="SimTuning.Core.ViewModels.Dyno.SpectrogramViewModel" />
     public class DynoSpectrogramViewModel : SimTuning.Core.ViewModels.Dyno.SpectrogramViewModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynoSpectrogramViewModel" />
+        /// class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger, IMediaManager mediaManager)
+            : base(logProvider, navigationService, messenger, mediaManager)
+        {
+            // override Commands
+            this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);
+            this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
+            this.RefreshAudioFileCommand = new MvxAsyncCommand(this.OpenFileAsync);
+            this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
+            this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
+
+            this.ShowBeschleunigungCommand = new MvxAsyncCommand(() => this.NavigationService.Navigate<DynoBeschleunigungViewModel>());
+            // datensatz checken CheckDynoData();
+        }
+
+        #region Values
+
         private ImageSource _displayedImage;
 
         public ImageSource DisplayedImage
@@ -32,25 +56,9 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <value>The show beschleunigung command.</value>
         public MvxAsyncCommand ShowBeschleunigungCommand { get; private set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DynoSpectrogramViewModel" />
-        /// class.
-        /// </summary>
-        /// <param name="logProvider">The log provider.</param>
-        /// <param name="navigationService">The navigation service.</param>
-        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
-        {
-            // override Commands
-            this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);
-            this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
-            this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
-            this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
-            this.RefreshAudioFileCommand = new MvxAsyncCommand(this.OpenFileAsync);
+        #endregion Values
 
-            this.ShowBeschleunigungCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoBeschleunigungViewModel>());
-            // datensatz checken CheckDynoData();
-        }
+        #region Methods
 
         /// <summary>
         /// Initializes this instance.
@@ -72,8 +80,18 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <summary>
         /// Cuts the beginn.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected new async Task CutBeginn()
         {
+            var check = this.CheckDynoData();
+            if (!check)
+            {
+                return;
+            }
+
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
             this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
@@ -87,8 +105,18 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <summary>
         /// Cuts the end.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected new async Task CutEnd()
         {
+            var check = this.CheckDynoData();
+            if (!check)
+            {
+                return;
+            }
+
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
             this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
@@ -102,9 +130,14 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <summary>
         /// Filters the plot.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected new async Task FilterPlot()
         {
-            if (!this.CheckDynoData().Result)
+            var check = this.CheckDynoData();
+            if (!check)
             {
                 return;
             }
@@ -116,9 +149,18 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             await loadingDialog.DismissAsync().ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Opens the file.
+        /// TODO: play funktioniert nicht, stream anstatt uri.
+        /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected new async Task OpenFileAsync()
         {
-            if (!this.CheckDynoData().Result)
+            var check = this.CheckDynoData();
+            if (!check)
             {
                 return;
             }
@@ -135,9 +177,14 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <summary>
         /// Refreshes the plot.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected new async Task RefreshPlot()
         {
-            if (!this.CheckDynoData().Result)
+            var check = this.CheckDynoData();
+            if (!check)
             {
                 return;
             }
@@ -154,7 +201,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         protected new async Task ReloadImageAudioSpectrogram()
         {
-            if (!this.CheckDynoData().Result)
+            var check = this.CheckDynoData();
+            if (!check)
             {
                 return;
             }
@@ -183,7 +231,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// Checks the dyno data.
         /// </summary>
         /// <returns></returns>
-        private async Task<bool> CheckDynoData()
+        private bool CheckDynoData()
         {
             if (!File.Exists(SimTuning.Core.GeneralSettings.AudioFilePath))
             {
@@ -201,5 +249,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             return true;
         }
+
+        #endregion Methods
     }
 }

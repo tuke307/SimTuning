@@ -28,7 +28,7 @@
     </PackageReference>
     <PackageReference Include="UnitsNet" Version="4.70.1" />
     <PackageReference Include="WooCommerceNET" Version="0.8.2" />
-    <PackageReference Include="WordPressPCL" Version="1.7.1" />
+    <PackageReference Include="WordPressPCL" Version="1.7.2" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.43-beta" />
   </ItemGroup>

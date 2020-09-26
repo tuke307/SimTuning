@@ -7,6 +7,7 @@ namespace SimTuning.Forms.UI.ViewModels
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using MvvmCross.Plugin.Messenger;
     using SimTuning.Core;
     using SimTuning.Core.Models;
     using SimTuning.Forms.UI.Business;
@@ -36,8 +37,8 @@ namespace SimTuning.Forms.UI.ViewModels
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logProvider, navigationService, messenger)
         {
             this._navigationService = navigationService;
 
@@ -49,45 +50,19 @@ namespace SimTuning.Forms.UI.ViewModels
             this.ShowTuningCommand = new MvxAsyncCommand(this.ShowTuning);
             this.ShowEinstellungenCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinstellungenMainViewModel>());
             this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
+            this.InitializeDatabase = new MvxAsyncCommand(this.InitializeDatabaseAsync);
         }
 
         #region Methods
 
         /// <summary>
         /// Initializes this instance.
-        /// TODO: async weg und permissions anders regeln.
         /// </summary>
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            await Functions.GetPermission<Permissions.StorageRead>().ConfigureAwait(true);
-            await Functions.GetPermission<Permissions.StorageWrite>().ConfigureAwait(true);
+            this.InitializeDatabase.ExecuteAsync();
 
-            // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
-            SimTuning.Core.GeneralSettings.FileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
-            if (string.IsNullOrEmpty(Data.DatabaseSettings.DatabasePath))
-            {
-                Data.DatabaseSettings.DatabasePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, Data.DatabaseSettings.DatabaseName);
-            }
-
-            if (!Directory.Exists(SimTuning.Core.GeneralSettings.FileDirectory))
-            {
-                Directory.CreateDirectory(SimTuning.Core.GeneralSettings.FileDirectory);
-            }
-
-            // since android 10, database has to be created at the first time
-            if (!File.Exists(Data.DatabaseSettings.DatabasePath))
-            {
-                var fs = File.Create(Data.DatabaseSettings.DatabasePath);
-                fs.Dispose();
-            }
-
-            using (var db = new DatabaseContext())
-            {
-                db.Database.Migrate();
-            }
-
-            base.Initialize();
+            return base.Initialize();
         }
 
         /// <summary>
@@ -101,18 +76,46 @@ namespace SimTuning.Forms.UI.ViewModels
         }
 
         /// <summary>
+        /// Initializes the database asynchronous.
+        /// </summary>
+        protected override async Task InitializeDatabaseAsync()
+        {
+            await Functions.GetPermission<Permissions.StorageRead>().ConfigureAwait(true);
+            await Functions.GetPermission<Permissions.StorageWrite>().ConfigureAwait(true);
+
+            // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
+            SimTuning.Core.GeneralSettings.FileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            if (string.IsNullOrEmpty(Data.DatabaseSettings.DatabasePath))
+            {
+                Data.DatabaseSettings.DatabasePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, Data.DatabaseSettings.DatabaseName);
+            }
+
+            // since android 10, database has to be created at the first time
+            if (!File.Exists(Data.DatabaseSettings.DatabasePath))
+            {
+                var fs = File.Create(Data.DatabaseSettings.DatabasePath);
+                fs.Dispose();
+            }
+
+            await base.InitializeDatabaseAsync().ConfigureAwait(true);
+        }
+
+        /// <summary>
         /// Logins the user.
         /// </summary>
         /// <returns>
         /// A <see cref="Task" /> representing the asynchronous operation.
         /// </returns>
-        protected new async Task LoginUser()
+        protected async Task LoginUser()
         {
             var result = await API.Login.UserLoginAsync().ConfigureAwait(true);
             SimTuning.Core.UserSettings.User = result.Item1;
             SimTuning.Core.UserSettings.Order = result.Item2;
 
             Functions.ShowSnackbarDialog(result.Item3);
+
+            this.ReloadUserAsync();
         }
 
         /// <summary>
