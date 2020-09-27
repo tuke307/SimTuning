@@ -41,16 +41,35 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         protected new async Task RefreshPlot()
         {
-            //if (!this.CheckDynoData().Result)
-            //{
-            //    return;
-            //}
+            if (!this.CheckDynoData())
+            {
+                return;
+            }
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
             await base.RefreshPlot().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
+        }
+
+        private bool CheckDynoData()
+        {
+            if (this.Dyno == null)
+            {
+                Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
+                return false;
+            }
+
+            if (this.Dyno.Ausrollen == null)
+            {
+                Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

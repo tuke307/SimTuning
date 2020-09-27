@@ -3,7 +3,9 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
+using SimTuning.Core.Business;
 using SimTuning.Core.ViewModels.Dyno;
+using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
@@ -42,16 +44,35 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// </summary>
         protected new async Task RefreshPlot()
         {
-            //if (!this.CheckDynoData().Result)
-            //{
-            //    return;
-            //}
+            if (!this.CheckDynoData())
+            {
+                return;
+            }
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
             await base.RefreshPlot().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
+        }
+
+        private bool CheckDynoData()
+        {
+            if (this.Dyno == null)
+            {
+                Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
+                return false;
+            }
+
+            if (this.Dyno.Beschleunigung == null)
+            {
+                Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

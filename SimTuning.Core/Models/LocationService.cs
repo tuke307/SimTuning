@@ -1,4 +1,6 @@
-﻿using MvvmCross.Plugin.Location;
+﻿using MvvmCross;
+using MvvmCross.Logging;
+using MvvmCross.Plugin.Location;
 using MvvmCross.Plugin.Messenger;
 using SimTuning.Core.Models;
 using System;
@@ -8,13 +10,15 @@ namespace SimTuning.Core.Models
     public class LocationService
        : ILocationService
     {
+        private readonly IMvxLog _log;
         private readonly IMvxMessenger _messenger;
         private readonly IMvxLocationWatcher _watcher;
 
-        public LocationService(IMvxLocationWatcher watcher, IMvxMessenger messenger)
+        public LocationService(IMvxLocationWatcher watcher, IMvxMessenger messenger, IMvxLog log)
         {
             this._watcher = watcher;
             this._messenger = messenger;
+            this._log = log;
 
             var options = new MvxLocationOptions
             {
@@ -29,8 +33,7 @@ namespace SimTuning.Core.Models
 
         private void OnError(MvxLocationError error)
         {
-            // this.Log.Warn($"Location Error: {error.Code} {obj.ToString()}");
-            //Mvx.Error("Seen location error {0}", error.Code);
+            this._log.Warn($"Location Error: {error.Code} {error.ToString()}");
         }
 
         private void OnLocation(MvxGeoLocation location)

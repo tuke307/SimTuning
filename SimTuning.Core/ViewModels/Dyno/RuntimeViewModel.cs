@@ -34,7 +34,7 @@
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="locationWatcher">The location watcher.</param>
         /// <param name="messenger">The messenger.</param>
-        public RuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxLocationWatcher locationWatcher, IMvxMessenger messenger)
+        public RuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, ILocationService locationService, IMvxMessenger messenger)
                                     : base(logProvider, navigationService)
         {
             this._token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
@@ -43,7 +43,7 @@
 
             this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
-            this._locationWatcher = locationWatcher;
+            //this._locationWatcher = locationWatcher;
 
             // Commands
             this.StartAccelerationCommand = new MvxAsyncCommand(this.StartBeschleunigung);
@@ -365,7 +365,7 @@
         /// </summary>
         private void StopTracking()
         {
-            this._locationWatcher.Stop();
+            //this._locationWatcher.Stop();
         }
 
         #endregion Methods
@@ -414,8 +414,10 @@
         private static System.Drawing.Color deepSkyBlue = System.Drawing.Color.DeepSkyBlue;
         private static System.Drawing.Color seaGreen = System.Drawing.Color.SeaGreen;
         private static System.Drawing.Color skyBlue = System.Drawing.Color.SkyBlue;
-        private readonly IMvxLocationWatcher _locationWatcher;
+
+        //private readonly IMvxLocationWatcher _locationWatcher;
         private readonly MvxSubscriptionToken _token;
+
         private int _countdown;
         private bool _countdownVis;
         private string _currentState;

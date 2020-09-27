@@ -69,14 +69,14 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                        Grid.Column="1"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       Content="{Binding Mode=OneWay, Path=Version_now}">
+                       Content="{Binding Mode=OneWay, Path=VersionNow}">
                 </Label>
 
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       Content="{Binding Mode=OneWay, Path=Version_new}">
+                       Content="{Binding Mode=OneWay, Path=VersionNew}">
                 </Label>
 
                 <Button Grid.Row="0"
@@ -116,15 +116,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                 <TreeView>
                     <TreeView.Items>
                         <TreeViewItem Header="Neue Funktionen">
-                            <RichTextBox AcceptsReturn="True"
-                                         IsDocumentEnabled="True"
-                                         IsReadOnly="true"
-                                         VerticalScrollBarVisibility="Auto"
-                                         SpellCheck.IsEnabled="True">
-                                <RichTextBox.Document>
-                                    <FlowDocument DataContext="{Binding RTFtext}"></FlowDocument>
-                                </RichTextBox.Document>
-                            </RichTextBox>
+                            <TextBox Text="{Binding ReleaseNotes}" />
                         </TreeViewItem>
                     </TreeView.Items>
                 </TreeView>

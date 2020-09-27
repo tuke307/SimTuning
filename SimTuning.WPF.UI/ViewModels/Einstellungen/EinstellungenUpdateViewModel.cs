@@ -16,14 +16,17 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
     /// <seealso cref="MvvmCross.ViewModels.MvxViewModel" />
     public class EinstellungenUpdateViewModel : MvxViewModel
     {
+        private static string releasenotesLink = "https://simtuning.tuke-productions.de/wp-content/uploads/releasenotes.txt";
+        private static string updateLink = "https://simtuning.tuke-productions.de/wp-content/uploads/AutoUpdater.xml";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EinstellungenUpdateViewModel" />
         /// class.
         /// </summary>
         public EinstellungenUpdateViewModel()
         {
-            this.UpdateCheckCommand = new MvxCommand<string>(UpdateCheck);
-            this.StartUpdateCommand = new MvxCommand<string>(StartUpdate);
+            this.UpdateCheckCommand = new MvxCommand(this.UpdateCheck);
+            this.StartUpdateCommand = new MvxCommand(this.StartUpdate);
         }
 
         #region Methods
@@ -31,52 +34,47 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// <summary>
         /// Gets the changelog.
         /// </summary>
-        private void Get_Changelog()
+        private void GetChangelog()
         {
-            string file = "https://simtuning.tuke-productions.de/?wpdmdl=65";
-            string fileName = @"releasenotes.rtf";
-
             // Download
-            WebClient myWebClient = new WebClient();
-            myWebClient.DownloadFile(file, fileName);
-
-            // lesen und einfügen
-            if (File.Exists(fileName))
+            using (WebClient webClient = new WebClient())
             {
-                //var flowDocument = new FlowDocument();
-                //var textRange = new TextRange(flowDocument.ContentStart, flowDocument.ContentEnd);
-                //using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                //{
-                //    textRange.Load(fileStream, DataFormats.Rtf);
-                //}
-                //RTFtext = flowDocument;
+                using (Stream responseStream = webClient.OpenRead(releasenotesLink))
+                {
+                    using (Stream fileStream = File.Create(SimTuning.Core.GeneralSettings.ReleaseNotesFilePath))
+                    {
+                        responseStream.CopyTo(fileStream);
+                    }
+                }
             }
+
+            this.ReleaseNotes = System.IO.File.ReadAllText(SimTuning.Core.GeneralSettings.ReleaseNotesFilePath);
         }
 
         /// <summary>
         /// Starts the update.
         /// </summary>
         /// <param name="parameter">The parameter.</param>
-        private void StartUpdate(object parameter)
+        private void StartUpdate()
         {
-            AutoUpdater.Start("https://simtuning.tuke-productions.de/?wpdmdl=42");
+            AutoUpdater.Start(updateLink);
             AutoUpdater.ReportErrors = true;
             AutoUpdater.HttpUserAgent = "SimTuningDonwloadUpdate";
-            AutoUpdater.CheckForUpdateEvent += UpdaterDownloadUpdateEvent;
+            AutoUpdater.CheckForUpdateEvent += this.UpdaterDownloadUpdateEvent;
         }
 
         /// <summary>
         /// Updates the check.
         /// </summary>
         /// <param name="parameter">The parameter.</param>
-        private void UpdateCheck(object parameter)
+        private void UpdateCheck()
         {
-            AutoUpdater.Start("https://simtuning.tuke-productions.de/?wpdmdl=42");
+            AutoUpdater.Start(updateLink);
             AutoUpdater.ReportErrors = true;
             AutoUpdater.HttpUserAgent = "SimTuningUpdateCheck";
-            AutoUpdater.CheckForUpdateEvent += UpdaterCheckForUpdateEvent;
+            AutoUpdater.CheckForUpdateEvent += this.UpdaterCheckForUpdateEvent;
 
-            Get_Changelog();
+            this.GetChangelog();
         }
 
         /// <summary>
@@ -89,12 +87,12 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         {
             if (args != null)
             {
-                Version_new = args.CurrentVersion.ToString();
-                Version_now = args.InstalledVersion.ToString();
+                this.VersionNew = args.CurrentVersion.ToString();
+                this.VersionNow = args.InstalledVersion.ToString();
 
                 if (args.IsUpdateAvailable)
                 {
-                    UpdateButton = true;
+                    this.UpdateButton = true;
                 }
             }
         }
@@ -111,8 +109,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
             {
                 try
                 {
-                    if (AutoUpdater.DownloadUpdate(args))
-                        Application.Current.Shutdown();
+                    AutoUpdater.DownloadUpdate(args);
                 }
                 catch
                 {
@@ -141,26 +138,49 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
 
         #endregion Commands
 
+        private string _releaseNotes;
         private bool _updateButton;
-        private string _version_new;
-        private string _version_now;
+        private string _versionNew;
+        private string _versionNow;
 
+        /// <summary>
+        /// Gets or sets the release notes.
+        /// </summary>
+        /// <value>The release notes.</value>
+        public string ReleaseNotes
+        {
+            get => this._releaseNotes;
+            set => this.SetProperty(ref this._releaseNotes, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [update button].
+        /// </summary>
+        /// <value><c>true</c> if [update button]; otherwise, <c>false</c>.</value>
         public bool UpdateButton
         {
-            get => _updateButton;
-            set => SetProperty(ref _updateButton, value);
+            get => this._updateButton;
+            set => this.SetProperty(ref this._updateButton, value);
         }
 
-        public string Version_new
+        /// <summary>
+        /// Gets or sets the version new.
+        /// </summary>
+        /// <value>The version new.</value>
+        public string VersionNew
         {
-            get => _version_new;
-            set => SetProperty(ref _version_new, value);
+            get => this._versionNew;
+            set => this.SetProperty(ref this._versionNew, value);
         }
 
-        public string Version_now
+        /// <summary>
+        /// Gets or sets the version now.
+        /// </summary>
+        /// <value>The version now.</value>
+        public string VersionNow
         {
-            get => _version_now;
-            set => SetProperty(ref _version_now, value);
+            get => this._versionNow;
+            set => this.SetProperty(ref this._versionNow, value);
         }
 
         #endregion Values

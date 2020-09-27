@@ -96,7 +96,7 @@
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
+                this.Log.ErrorException("Fehler bei ReloadData: ", exc);
             }
         }
 
@@ -106,9 +106,16 @@
         /// <returns></returns>
         protected virtual async Task RefreshPlot()
         {
-            await Task.Run(() => DynoLogic.BerechneAusrollGraph(this.Dyno?.Ausrollen.ToList())).ConfigureAwait(true);
+            try
+            {
+                DynoLogic.BerechneAusrollGraph(this.Dyno?.Ausrollen.ToList());
 
-            await this.RaisePropertyChanged(() => PlotAusrollen).ConfigureAwait(true);
+                await this.RaisePropertyChanged(() => PlotAusrollen).ConfigureAwait(true);
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler bei RefreshPlot: ", exc);
+            }
         }
 
         #endregion Methods

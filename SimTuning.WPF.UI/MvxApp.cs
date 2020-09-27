@@ -18,11 +18,6 @@ namespace SimTuning.WPF.UI
         /// </summary>
         public override void Initialize()
         {
-            this.CreatableTypes()
-                .EndingWith("Service")
-                .AsInterfaces()
-                .RegisterAsLazySingleton();
-
             MvxIoCProvider.Instance.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
 
 #if NET472

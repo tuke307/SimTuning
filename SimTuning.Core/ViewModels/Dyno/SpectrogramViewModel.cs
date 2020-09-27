@@ -141,8 +141,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
                 await this.RaisePropertyChanged(() => this.Graphs).ConfigureAwait(true);
 
-                // TODO: Fehler await this.RaisePropertyChanged(() =>
-                // PlotAudio).ConfigureAwait(true);
+                await this.RaisePropertyChanged(() => this.PlotAudio).ConfigureAwait(true);
             }
             catch (Exception exc)
             {
@@ -164,9 +163,11 @@ namespace SimTuning.Core.ViewModels.Dyno
             {
                 // only for testing
                 //File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
-                WebClient webClient = new WebClient();
-                // https://simtuning.tuke-productions.de/?wpdmdl=10
-                webClient.DownloadFile(new Uri("http://simtuning.tuke-productions.de/wp-content/uploads/2020/09/sample.wav"), SimTuning.Core.GeneralSettings.AudioFilePath);
+
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.DownloadFile(new Uri(samplewaveLink), SimTuning.Core.GeneralSettings.AudioFilePath);
+                }
 
                 // initialisieren
                 //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
@@ -211,17 +212,14 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                // await Task.Run(() =>
-                // DynoLogic.BerechneDrehzahlGraph()).ConfigureAwait(true);
                 DynoLogic.BerechneDrehzahlGraph();
+
+                await this.RaisePropertyChanged(() => this.PlotAudio).ConfigureAwait(true);
             }
             catch (Exception exc)
             {
                 this.Log.ErrorException("Fehler bei RefreshPlot: ", exc);
             }
-
-            // TODO: Fehler
-            //await this.RaisePropertyChanged(() => PlotAudio).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -265,7 +263,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
             try
             {
-                DynoLogic.AreaRegression(this.Graphs.IndexOf(this.Graph));
+                DynoLogic.Regression(this.Graphs.IndexOf(this.Graph));
                 this.Dyno.Drehzahl = DynoLogic.Dyno.Drehzahl;
 
                 using (var db = new DatabaseContext())
@@ -427,7 +425,8 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         protected readonly IMediaManager MediaManager /*= CrossMediaManager.Current*/;
         protected readonly ResourceManager rm;
-        private readonly List<string> _qualitys = new List<string>() { "schlecht", "mittel", "gut", "sehr gut" };
+        private static readonly List<string> _qualitys = new List<string>() { "schlecht", "mittel", "gut", "sehr gut" };
+        private static readonly string samplewaveLink = "http://simtuning.tuke-productions.de/wp-content/uploads/sample.wav" /*"https://simtuning.tuke-productions.de/download/575/"*/ ;
         private bool _badge_Refresh;
 
         private Spectrogram.Colormap _colormap;
@@ -450,15 +449,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         private string _quality;
 
         #endregion private
-
-        /// <summary>
-        /// Gets the plot audio.
-        /// </summary>
-        /// <value>The plot audio.</value>
-        public static PlotModel PlotAudio
-        {
-            get => DynoLogic.PlotAudio;
-        }
 
         /// <summary>
         /// Gets the audio maximum. wenn 0 dann gibt es Fehler in xamarin anwendung.
@@ -638,6 +628,15 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             get => _normal_Refresh;
             set => SetProperty(ref _normal_Refresh, value);
+        }
+
+        /// <summary>
+        /// Gets the plot audio.
+        /// </summary>
+        /// <value>The plot audio.</value>
+        public PlotModel PlotAudio
+        {
+            get => DynoLogic.PlotAudio;
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace SimTuning.Forms.UI
         /// </summary>
         public override void Initialize()
         {
-            this.CreatableTypes()
+            typeof(SimTuning.Core.Models.LocationService).Assembly.CreatableTypes()
                .EndingWith("Service")
                .AsInterfaces()
                .RegisterAsLazySingleton();
@@ -26,7 +26,8 @@ namespace SimTuning.Forms.UI
             MvxIoCProvider.Instance.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
 
             MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
-            CrossMediaManager.Current.Init();
+
+            //CrossMediaManager.Current.Init();
 
             this.RegisterAppStart<MainPageViewModel>();
 

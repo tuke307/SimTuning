@@ -129,9 +129,8 @@ namespace SimTuning.Forms.UI.ViewModels
             }
             else
             {
-                //TODO: for testing
-                await this._navigationService.Navigate</*DynoMainViewModel*/DynoDataViewModel>().ConfigureAwait(true);
-                //await this._navigationService.Navigate<DemoMainViewModel>().ConfigureAwait(true);
+                //await this._navigationService.Navigate</*DynoMainViewModel*/DynoDataViewModel>().ConfigureAwait(true);
+                await this._navigationService.Navigate<DemoMainViewModel>().ConfigureAwait(true);
             }
         }
 

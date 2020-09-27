@@ -67,52 +67,27 @@ namespace SimTuning.Core.ModuleLogic
         /// Gets or sets the plot audio.
         /// </summary>
         /// <value>The plot audio.</value>
-        public static PlotModel PlotAudio { get; set; }
+        public static PlotModel PlotAudio { get; private set; }
 
         /// <summary>
         /// Gets or sets the plot ausrollen.
         /// </summary>
         /// <value>The plot ausrollen.</value>
-        public static PlotModel PlotAusrollen { get; set; }
+        public static PlotModel PlotAusrollen { get; private set; }
 
         /// <summary>
         /// Gets or sets the plot beschleunigung.
         /// </summary>
         /// <value>The plot beschleunigung.</value>
-        public static PlotModel PlotBeschleunigung { get; set; }
+        public static PlotModel PlotBeschleunigung { get; private set; }
 
         /// <summary>
         /// Gets or sets the plot strength.
         /// </summary>
         /// <value>The plot strength.</value>
-        public static PlotModel PlotStrength { get; set; }
+        public static PlotModel PlotStrength { get; private set; }
 
         #endregion variables
-
-        /// <summary>
-        /// Bildet eine Regression aus Punkten.
-        /// </summary>
-        /// <param name="choice">Der zu filternde Graph.</param>
-        public static void AreaRegression(int choice)
-        {
-            Dyno = new DynoModel();
-            Dyno.Drehzahl = new List<DrehzahlModel>();
-
-            // Regressions-Punkte bilden
-            function = Fit.Polynomial(plotData[choice].Select(x => x.X).ToArray(), plotData[choice].Select(x => x.Y).ToArray(), 4).ToList();  // 5 Punkte
-
-            PlotAreaRegression(choice);
-
-            // Audio Werte (X, Y) hinzufügen
-            for (int count = 0; count < plotData[0].Count; count++)
-            {
-                Dyno.Drehzahl.Add(new DrehzahlModel()
-                {
-                    Zeit = plotData[0][count].X,
-                    Drehzahl = plotData[0][count].Y,
-                });
-            }
-        }
 
         /// <summary>
         /// Berechnet.
@@ -120,6 +95,7 @@ namespace SimTuning.Core.ModuleLogic
         /// </summary>
         public static void BerechneAusrollGraph(List<AusrollenModel> ausrollenModels = null)
         {
+            DefiniereAusrollPlot();
         }
 
         /// <summary>
@@ -128,6 +104,7 @@ namespace SimTuning.Core.ModuleLogic
         /// </summary>
         public static void BerechneBeschleunigungsGraph(List<BeschleunigungModel> beschleunigungModels = null)
         {
+            DefiniereBeschleunigungsPlot();
         }
 
         /// <summary>
@@ -167,9 +144,9 @@ namespace SimTuning.Core.ModuleLogic
 
             PointsToRotionalSpeed();
 
-            DefineAudioPlot();
+            DefiniereAudioPlot();
 
-            PlotAreas();
+            LadeAudioPlot();
         }
 
         /// <summary>
@@ -181,7 +158,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="nm">The nm.</param>
         public static void BerechneLeistungsGraph(DynoModel dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/)
         {
-            DefiniereLeistungsGraph();
+            DefiniereLeistungsPlot();
 
             //List<DynoNmModel> dynoNm = new List<DynoNmModel>();
             List<DynoPsModel> dynoPs = new List<DynoPsModel>();
@@ -254,6 +231,31 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
+        /// Bildet eine Regression aus Punkten.
+        /// </summary>
+        /// <param name="choice">Der zu filternde Graph.</param>
+        public static void Regression(int choice)
+        {
+            Dyno = new DynoModel();
+            Dyno.Drehzahl = new List<DrehzahlModel>();
+
+            // Regressions-Punkte bilden
+            function = Fit.Polynomial(plotData[choice].Select(x => x.X).ToArray(), plotData[choice].Select(x => x.Y).ToArray(), 4).ToList();  // 5 Punkte
+
+            PlotAreaRegression(choice);
+
+            // Audio Werte (X, Y) hinzufügen
+            for (int count = 0; count < plotData[0].Count; count++)
+            {
+                Dyno.Drehzahl.Add(new DrehzahlModel()
+                {
+                    Zeit = plotData[0][count].X,
+                    Drehzahl = plotData[0][count].Y,
+                });
+            }
+        }
+
+        /// <summary>
         /// SplineInterpolation.
         /// </summary>
         public static void SplineInterpolation()
@@ -263,11 +265,11 @@ namespace SimTuning.Core.ModuleLogic
         /// <summary>
         /// Initialisierung des Graphen.
         /// </summary>
-        private static void DefineAudioPlot()
+        private static void DefiniereAudioPlot()
         {
             PlotAudio = new PlotModel();
 
-            //Achsen
+            // Achsen
             PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
             PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
 
@@ -276,19 +278,45 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
+        /// Definieres the ausroll plot.
+        /// </summary>
+        private static void DefiniereAusrollPlot()
+        {
+            PlotAusrollen = new PlotModel();
+
+            // Achsen
+            PlotAusrollen.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            PlotAusrollen.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+
+            PlotAusrollen.IsLegendVisible = true;
+            PlotAusrollen.LegendPosition = LegendPosition.RightTop;
+        }
+
+        /// <summary>
+        /// Definieres the beschleunigungs plot.
+        /// </summary>
+        private static void DefiniereBeschleunigungsPlot()
+        {
+            PlotBeschleunigung = new PlotModel();
+
+            // Achsen
+            PlotBeschleunigung.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            PlotBeschleunigung.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+
+            PlotBeschleunigung.IsLegendVisible = true;
+            PlotBeschleunigung.LegendPosition = LegendPosition.RightTop;
+        }
+
+        /// <summary>
         /// Initialisierung des Graphen.
         /// </summary>
-        private static void DefiniereLeistungsGraph()
+        private static void DefiniereLeistungsPlot()
         {
             PlotStrength = new PlotModel();
 
-            //Achsen
+            // Achsen
             PlotStrength.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Bottom });
             PlotStrength.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Leistung in PS", Position = OxyPlot.Axes.AxisPosition.Left });
-
-            //Achsen
-            //PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
-            //PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
 
             PlotStrength.IsLegendVisible = true;
             PlotStrength.LegendPosition = LegendPosition.RightTop;
@@ -330,6 +358,34 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
+        /// Definiert Graph für alle Punkte und den Areas.
+        /// </summary>
+        private static void LadeAudioPlot()
+        {
+            PlotAudio.Series.Clear();
+
+            // graph
+            List<OxyPlot.Series.LineSeries> audioLine = new List<OxyPlot.Series.LineSeries>();
+
+            // spalte einfügen
+            for (int anzahl = 0; anzahl < plotData.Count; anzahl++)
+            {
+                audioLine.Add(new OxyPlot.Series.LineSeries { });
+                audioLine[anzahl].Points.AddRange(plotData[anzahl]);
+
+                // Style
+                audioLine[anzahl].Title = "Graph " + (anzahl + 1);
+                //if (filtered_graph) { sound_graph[anzahl].LineStyle = LineStyle.Automatic; filtered_graph = false; }
+                //else { sound_graph[anzahl].LineStyle = LineStyle.None; }
+                audioLine[anzahl].LineStyle = LineStyle.None;
+                audioLine[anzahl].MarkerType = MarkerType.Diamond;
+
+                //Graph einfügen
+                PlotAudio.Series.Add(audioLine[anzahl]);
+            }
+        }
+
+        /// <summary>
         /// Definiert den Graph für den Graph der Regression eines Bereichs.
         /// TODO: keine neuerstellung des plots.
         /// </summary>
@@ -350,34 +406,6 @@ namespace SimTuning.Core.ModuleLogic
             OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(polyF, plotData[choice].Select(x => x.X).Min(), plotData[choice].Select(x => x.X).Max(), 100);
 
             PlotAudio.Series.Add(functionSeries);
-        }
-
-        /// <summary>
-        /// Definiert Graph für alle Punkte und den Areas.
-        /// </summary>
-        private static void PlotAreas()
-        {
-            PlotAudio.Series.Clear();
-
-            // graph
-            List<OxyPlot.Series.LineSeries> sound_graph = new List<OxyPlot.Series.LineSeries>();
-
-            // spalte einfügen
-            for (int anzahl = 0; anzahl < plotData.Count; anzahl++)
-            {
-                sound_graph.Add(new OxyPlot.Series.LineSeries { });
-                sound_graph[anzahl].Points.AddRange(plotData[anzahl]);
-
-                // Style
-                sound_graph[anzahl].Title = "Graph " + (anzahl + 1);
-                //if (filtered_graph) { sound_graph[anzahl].LineStyle = LineStyle.Automatic; filtered_graph = false; }
-                //else { sound_graph[anzahl].LineStyle = LineStyle.None; }
-                sound_graph[anzahl].LineStyle = LineStyle.None;
-                sound_graph[anzahl].MarkerType = MarkerType.Diamond;
-
-                //Graph einfügen
-                PlotAudio.Series.Add(sound_graph[anzahl]);
-            }
         }
 
         /// <summary>

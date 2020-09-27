@@ -32,7 +32,7 @@
                                VerticalOptions="Center"
                                Elevation="3"
                                HeightRequest="200"
-                               WidthRequest="250"
+                               WidthRequest="300"
                                BackgroundColor="{Binding Path=SpeedBackColor, Mode=TwoWay}">
 
             <Grid>

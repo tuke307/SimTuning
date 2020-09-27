@@ -36,11 +36,6 @@
         protected readonly ResourceManager rm;
         private DynoModel _dyno;
 
-        public static PlotModel PlotBeschleunigung
-        {
-            get => DynoLogic.PlotBeschleunigung;
-        }
-
         /// <summary>
         /// Gets or sets the dyno.
         /// </summary>
@@ -49,6 +44,11 @@
         {
             get => _dyno;
             set => SetProperty(ref _dyno, value);
+        }
+
+        public PlotModel PlotBeschleunigung
+        {
+            get => DynoLogic.PlotBeschleunigung;
         }
 
         public MvxAsyncCommand RefreshPlotCommand { get; set; }
@@ -88,12 +88,12 @@
                 using (var db = new DatabaseContext())
                 {
                     this.Dyno = db.Dyno.Single(d => d.Active == true);
-                    db.Entry(this.Dyno).Collection(d => d.Ausrollen).Load();
+                    db.Entry(this.Dyno).Collection(d => d.Beschleunigung).Load();
                 }
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
+                this.Log.ErrorException("Fehler bei ReloadData: ", exc);
             }
         }
 
@@ -103,9 +103,16 @@
         /// <returns></returns>
         protected virtual async Task RefreshPlot()
         {
-            await Task.Run(() => DynoLogic.BerechneBeschleunigungsGraph(this.Dyno?.Beschleunigung.ToList())).ConfigureAwait(true);
+            try
+            {
+                DynoLogic.BerechneBeschleunigungsGraph(this.Dyno?.Beschleunigung.ToList());
 
-            await this.RaisePropertyChanged(() => PlotBeschleunigung).ConfigureAwait(true);
+                await this.RaisePropertyChanged(() => PlotBeschleunigung).ConfigureAwait(true);
+            }
+            catch (Exception exc)
+            {
+                this.Log.ErrorException("Fehler bei RefreshPlot: ", exc);
+            }
         }
 
         #endregion Methods

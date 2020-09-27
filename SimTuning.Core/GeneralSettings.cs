@@ -120,6 +120,35 @@ namespace SimTuning.Core
             }
         }
 
+        /// <summary>
+        /// Gets or sets the release notes file.
+        /// </summary>
+        /// <value>The release notes file.</value>
+        public static string ReleaseNotesFile
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(nameof(ReleaseNotesFile), "releasenotes.txt");
+            }
+
+            set
+            {
+                AppSettings.AddOrUpdateValue(nameof(ReleaseNotesFile), value);
+            }
+        }
+
+        /// <summary>
+        /// Gets the release notes file path.
+        /// </summary>
+        /// <value>The release notes file path.</value>
+        public static string ReleaseNotesFilePath
+        {
+            get
+            {
+                return Path.Combine(FileDirectory, ReleaseNotesFile);
+            }
+        }
+
         private static ISettings AppSettings => CrossSettings.Current;
     }
 }

@@ -5,6 +5,7 @@
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Location;
     using MvvmCross.Plugin.Messenger;
+    using SimTuning.Core.Models;
     using SimTuning.Forms.UI.Business;
     using System.Globalization;
     using System.Threading.Tasks;
@@ -24,8 +25,8 @@
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="locationWatcher">The location watcher.</param>
         /// <param name="messenger"></param>
-        public DynoRuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxLocationWatcher locationWatcher, IMvxMessenger messenger)
-            : base(logProvider, navigationService, locationWatcher, messenger)
+        public DynoRuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, ILocationService locationService, IMvxMessenger messenger)
+            : base(logProvider, navigationService, locationService, messenger)
         {
             this.ShowSpectrogramCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoSpectrogramViewModel>());
             //this.CloseCommand = new MvxAsyncCommand(async () => await this.NavigationService.Close(this));
