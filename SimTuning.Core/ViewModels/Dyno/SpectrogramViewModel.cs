@@ -137,7 +137,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                DynoLogic.BerechneDrehzahlGraph(true);
+                DynoLogic.BerechneDrehzahlGraph(areas: true);
 
                 await this.RaisePropertyChanged(() => this.Graphs).ConfigureAwait(true);
 
@@ -263,7 +263,8 @@ namespace SimTuning.Core.ViewModels.Dyno
 
             try
             {
-                DynoLogic.Regression(this.Graphs.IndexOf(this.Graph));
+                DynoLogic.Graphauswahl = this.Graphs.IndexOf(this.Graph);
+                DynoLogic.BerechneDrehzahlGraph(fitted: true);
                 this.Dyno.Drehzahl = DynoLogic.Dyno.Drehzahl;
 
                 using (var db = new DatabaseContext())

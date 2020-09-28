@@ -27,24 +27,18 @@ namespace SimTuning.Core.ModuleLogic
         /// </summary>
         private static readonly List<float[]> specData = new List<float[]>();
 
-        /// <summary>
-        /// TODO: nutzer soll dies einstellen können.
-        /// </summary>
-        private static double abstand;
-
         private static double fftBeginn;
 
         private static double fftEnde;
 
-        /// <summary>
-        /// Punkte für die Polynomfunktion.
-        /// </summary>
-        private static List<double> function = new List<double>();
+        private static Func<double, double> function;
 
         /// <summary>
         /// FFT-Array-elements pro 1 Hertz.
         /// </summary>
         private static double hzPerFFT;
+
+        private static int regressionsAnzahl = 5;
 
         /// <summary>
         /// wieviel reihen ein Herz wiederspiegeln. HORIZONTAL; anzahl spalten pro
@@ -62,6 +56,8 @@ namespace SimTuning.Core.ModuleLogic
         /// </summary>
         /// <value>The dyno.</value>
         public static DynoModel Dyno { get; private set; }
+
+        public static int Graphauswahl { get; set; }
 
         /// <summary>
         /// Gets or sets the plot audio.
@@ -87,6 +83,11 @@ namespace SimTuning.Core.ModuleLogic
         /// <value>The plot strength.</value>
         public static PlotModel PlotStrength { get; private set; }
 
+        /// <summary>
+        /// TODO: nutzer soll dies einstellen können.
+        /// </summary>
+        public static double PunktAbstand { get; set; }
+
         #endregion variables
 
         /// <summary>
@@ -105,6 +106,8 @@ namespace SimTuning.Core.ModuleLogic
         public static void BerechneBeschleunigungsGraph(List<BeschleunigungModel> beschleunigungModels = null)
         {
             DefiniereBeschleunigungsPlot();
+
+            // MathNet.Numerics.Interpolation.CubicSpline.InterpolateAkima();
         }
 
         /// <summary>
@@ -112,45 +115,73 @@ namespace SimTuning.Core.ModuleLogic
         /// Audio-Spectrogram der Audio bereits einmal berechnet sein mit
         /// AudioLogic.GetSpectrogram().
         /// </summary>
-        /// <param name="filter">
+        /// <param name="areas">
         /// if set to <c>true</c> [filter] Punkte werden zu Bereichen zugeordnet.
         /// </param>
-        public static void BerechneDrehzahlGraph(bool filter = false)
+        /// <param name="fitted">
+        /// if set to <c>true</c> [fitted] Punkte eines Graphen werden mithilfe der spline
+        /// Interpolation interpoliert.
+        /// </param>
+        public static void BerechneDrehzahlGraph(bool areas = false, bool fitted = false)
         {
-            specData.Clear();
-            plotData.Clear();
-
-            #region SpectrogramData
-
-            // Daten verarbeiten
-            specData.AddRange(AudioLogic.SpectrogramAudio?.FftList);
-            hzPerFFT = AudioLogic.SpectrogramAudio.FftSettings.fftResolution;
-            segmentsPerSecond = AudioLogic.SpectrogramAudio.FftSettings.segmentsPerSecond;
-            fftBeginn = Math.Round(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqLow) / hzPerFFT);
-            fftEnde = Math.Round(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh) / hzPerFFT);
-
-            // TODO: muss besser werden
-            strongPoint = 350 / AudioLogic.SpectrogramAudio.DisplaySettings.brightness;
-            abstand = Math.Round(Math.Sqrt(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh - AudioLogic.SpectrogramAudio.DisplaySettings.freqLow)) / 2); // Hälfte der wurzel des Frequenzbereichs
-
-            #endregion SpectrogramData
-
-            HotPoints();
-
-            if (filter)
-            {
-                PointAreas();
-            }
-
-            PointsToRotionalSpeed();
-
             DefiniereAudioPlot();
 
-            LadeAudioPlot();
+            if (fitted)
+            {
+                // Regressions-Punkte bilden
+                function = Fit.PolynomialFunc(plotData[Graphauswahl].Select(x => x.X).ToArray(), plotData[Graphauswahl].Select(x => x.Y).ToArray(), regressionsAnzahl);
+                // MathNet.Numerics.Interpolation.CubicSpline.InterpolateAkima();
+
+                Dyno = new DynoModel();
+                Dyno.Drehzahl = new List<DrehzahlModel>();
+
+                // Audio Werte (X, Y) hinzufügen
+                for (int count = 0; count < plotData[0].Count; count++)
+                {
+                    Dyno.Drehzahl.Add(new DrehzahlModel()
+                    {
+                        Zeit = plotData[0][count].X,
+                        Drehzahl = plotData[0][count].Y,
+                    });
+                }
+
+                LadeDrehzahlGraph(fitted: true);
+            }
+            else
+            {
+                specData.Clear();
+                plotData.Clear();
+
+                #region SpectrogramData
+
+                // Daten verarbeiten
+                specData.AddRange(AudioLogic.SpectrogramAudio?.FftList);
+                hzPerFFT = AudioLogic.SpectrogramAudio.FftSettings.fftResolution;
+                segmentsPerSecond = AudioLogic.SpectrogramAudio.FftSettings.segmentsPerSecond;
+                fftBeginn = Math.Round(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqLow) / hzPerFFT);
+                fftEnde = Math.Round(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh) / hzPerFFT);
+
+                // TODO: muss besser werden
+                strongPoint = 350 / AudioLogic.SpectrogramAudio.DisplaySettings.brightness;
+                PunktAbstand = Math.Round(Math.Sqrt(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh - AudioLogic.SpectrogramAudio.DisplaySettings.freqLow)) / 2); // Hälfte der wurzel des Frequenzbereichs
+
+                #endregion SpectrogramData
+
+                HotPoints();
+
+                if (areas)
+                {
+                    PointsToAreas();
+                }
+
+                PointsToRotionalSpeed();
+
+                LadeDrehzahlGraph(fitted: false);
+            }
         }
 
         /// <summary>
-        /// Berechnet.
+        /// Berechnet die Leistung(PS) aus Beschleunigung, Drehzahl und Ausrollen.
         /// </summary>
         /// <param name="dyno">The dyno.</param>
         /// <param name="plot">The plot.</param>
@@ -231,42 +262,15 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Bildet eine Regression aus Punkten.
-        /// </summary>
-        /// <param name="choice">Der zu filternde Graph.</param>
-        public static void Regression(int choice)
-        {
-            Dyno = new DynoModel();
-            Dyno.Drehzahl = new List<DrehzahlModel>();
-
-            // Regressions-Punkte bilden
-            function = Fit.Polynomial(plotData[choice].Select(x => x.X).ToArray(), plotData[choice].Select(x => x.Y).ToArray(), 4).ToList();  // 5 Punkte
-
-            PlotAreaRegression(choice);
-
-            // Audio Werte (X, Y) hinzufügen
-            for (int count = 0; count < plotData[0].Count; count++)
-            {
-                Dyno.Drehzahl.Add(new DrehzahlModel()
-                {
-                    Zeit = plotData[0][count].X,
-                    Drehzahl = plotData[0][count].Y,
-                });
-            }
-        }
-
-        /// <summary>
-        /// SplineInterpolation.
-        /// </summary>
-        public static void SplineInterpolation()
-        {
-        }
-
-        /// <summary>
         /// Initialisierung des Graphen.
         /// </summary>
         private static void DefiniereAudioPlot()
         {
+            if (PlotAudio != null)
+            {
+                return;
+            }
+
             PlotAudio = new PlotModel();
 
             // Achsen
@@ -282,11 +286,16 @@ namespace SimTuning.Core.ModuleLogic
         /// </summary>
         private static void DefiniereAusrollPlot()
         {
+            if (PlotAusrollen != null)
+            {
+                return;
+            }
+
             PlotAusrollen = new PlotModel();
 
             // Achsen
             PlotAusrollen.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
-            PlotAusrollen.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            PlotAusrollen.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Geschwindigkeit in km/h", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
 
             PlotAusrollen.IsLegendVisible = true;
             PlotAusrollen.LegendPosition = LegendPosition.RightTop;
@@ -297,11 +306,16 @@ namespace SimTuning.Core.ModuleLogic
         /// </summary>
         private static void DefiniereBeschleunigungsPlot()
         {
+            if (PlotBeschleunigung != null)
+            {
+                return;
+            }
+
             PlotBeschleunigung = new PlotModel();
 
             // Achsen
             PlotBeschleunigung.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
-            PlotBeschleunigung.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            PlotBeschleunigung.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Geschwindigkeit in km/h", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
 
             PlotBeschleunigung.IsLegendVisible = true;
             PlotBeschleunigung.LegendPosition = LegendPosition.RightTop;
@@ -360,58 +374,49 @@ namespace SimTuning.Core.ModuleLogic
         /// <summary>
         /// Definiert Graph für alle Punkte und den Areas.
         /// </summary>
-        private static void LadeAudioPlot()
+        private static void LadeDrehzahlGraph(bool fitted = false)
         {
             PlotAudio.Series.Clear();
 
-            // graph
-            List<OxyPlot.Series.LineSeries> audioLine = new List<OxyPlot.Series.LineSeries>();
-
-            // spalte einfügen
-            for (int anzahl = 0; anzahl < plotData.Count; anzahl++)
+            if (fitted)
             {
-                audioLine.Add(new OxyPlot.Series.LineSeries { });
-                audioLine[anzahl].Points.AddRange(plotData[anzahl]);
+                // Graph
+                OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(
+                    function,
+                    plotData[Graphauswahl].Select(x => x.X).Min(),
+                    plotData[Graphauswahl].Select(x => x.X).Max(),
+                    100);
 
-                // Style
-                audioLine[anzahl].Title = "Graph " + (anzahl + 1);
-                //if (filtered_graph) { sound_graph[anzahl].LineStyle = LineStyle.Automatic; filtered_graph = false; }
-                //else { sound_graph[anzahl].LineStyle = LineStyle.None; }
-                audioLine[anzahl].LineStyle = LineStyle.None;
-                audioLine[anzahl].MarkerType = MarkerType.Diamond;
-
-                //Graph einfügen
-                PlotAudio.Series.Add(audioLine[anzahl]);
+                PlotAudio.Series.Add(functionSeries);
             }
-        }
+            else
+            {
+                // graph
+                List<OxyPlot.Series.LineSeries> audioLine = new List<OxyPlot.Series.LineSeries>();
 
-        /// <summary>
-        /// Definiert den Graph für den Graph der Regression eines Bereichs.
-        /// TODO: keine neuerstellung des plots.
-        /// </summary>
-        private static void PlotAreaRegression(int choice)
-        {
-            PlotAudio = new PlotModel();
+                // spalte einfügen
+                for (int anzahl = 0; anzahl < plotData.Count; anzahl++)
+                {
+                    audioLine.Add(new OxyPlot.Series.LineSeries { });
+                    audioLine[anzahl].Points.AddRange(plotData[anzahl]);
 
-            // Achsen
-            PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Zeit in s", Position = OxyPlot.Axes.AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
-            PlotAudio.Axes.Add(new OxyPlot.Axes.LinearAxis { Title = "Drehzahl in 1/min", Position = OxyPlot.Axes.AxisPosition.Left, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
-            // PlotAudio.Series.Clear();
-            PlotAudio.IsLegendVisible = false;
-            // PlotAudio.InvalidatePlot(true);
+                    // Style
+                    audioLine[anzahl].Title = "Graph " + (anzahl + 1);
+                    //if (filtered_graph) { sound_graph[anzahl].LineStyle = LineStyle.Automatic; filtered_graph = false; }
+                    //else { sound_graph[anzahl].LineStyle = LineStyle.None; }
+                    audioLine[anzahl].LineStyle = LineStyle.None;
+                    audioLine[anzahl].MarkerType = MarkerType.Diamond;
 
-            Func<double, double> polyF = (x) => (function[0] * Math.Pow(x, 0)) + (function[1] * Math.Pow(x, 1)) + (function[2] * Math.Pow(x, 2)) + ((function[3] * Math.Pow(x, 3)) + (function[4] * Math.Pow(x, 4)));
-
-            // Graph
-            OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(polyF, plotData[choice].Select(x => x.X).Min(), plotData[choice].Select(x => x.X).Max(), 100);
-
-            PlotAudio.Series.Add(functionSeries);
+                    //Graph einfügen
+                    PlotAudio.Series.Add(audioLine[anzahl]);
+                }
+            }
         }
 
         /// <summary>
         /// Definieren von Bereichen aus Gesamtpunkten.
         /// </summary>
-        private static void PointAreas()
+        private static void PointsToAreas()
         {
             List<DataPoint> unfiltered_data = new List<DataPoint>();
             unfiltered_data.AddRange(plotData[0]);
@@ -444,7 +449,7 @@ namespace SimTuning.Core.ModuleLogic
                             differenz_vertikal = Math.Abs(col_points[row].Y - plotData[area][plotData[area].Count - 1].Y);
 
                             // vorhandenem graphen hinzufügen
-                            if (differenz_vertikal <= abstand && differenz_horizontal <= 50)
+                            if (differenz_vertikal <= PunktAbstand && differenz_horizontal <= 50)
                             {
                                 plotData[area].Add(col_points[row]);
                                 break;
