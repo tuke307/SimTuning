@@ -74,9 +74,8 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                DynoLogic.BerechneLeistungsGraph(this.Dyno, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/);
+                DynoLogic.GetLeistungsGraph(this.Dyno.Vehicle.Gewicht.Value, out List<DynoPsModel> ps/*, out List<DynoNmModel> nm*/);
                 this.Dyno.DynoPS = ps;
-                //this.Dyno.DynoNm = nm;
 
                 using (var db = new DatabaseContext())
                 {

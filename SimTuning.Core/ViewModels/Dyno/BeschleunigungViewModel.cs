@@ -105,7 +105,7 @@
         {
             try
             {
-                DynoLogic.BerechneBeschleunigungsGraph(this.Dyno?.Beschleunigung.ToList());
+                DynoLogic.GetFittedBeschleunigungsGraph(this.Dyno?.Beschleunigung.ToList());
 
                 await this.RaisePropertyChanged(() => PlotBeschleunigung).ConfigureAwait(true);
             }

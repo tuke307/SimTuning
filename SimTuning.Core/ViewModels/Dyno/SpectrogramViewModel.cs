@@ -137,7 +137,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                DynoLogic.BerechneDrehzahlGraph(areas: true);
+                DynoLogic.GetDrehzahlGraph(true);
 
                 await this.RaisePropertyChanged(() => this.Graphs).ConfigureAwait(true);
 
@@ -173,7 +173,7 @@ namespace SimTuning.Core.ViewModels.Dyno
                 //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
 
                 //await this.MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
-                this.StopCommand.Execute();
+                //this.StopCommand.Execute();
 
                 //stream.Dispose();
 
@@ -212,7 +212,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                DynoLogic.BerechneDrehzahlGraph();
+                DynoLogic.GetDrehzahlGraph();
 
                 await this.RaisePropertyChanged(() => this.PlotAudio).ConfigureAwait(true);
             }
@@ -264,8 +264,8 @@ namespace SimTuning.Core.ViewModels.Dyno
             try
             {
                 DynoLogic.Graphauswahl = this.Graphs.IndexOf(this.Graph);
-                DynoLogic.BerechneDrehzahlGraph(fitted: true);
-                this.Dyno.Drehzahl = DynoLogic.Dyno.Drehzahl;
+                DynoLogic.GetFittedDrehzahlGraph(out var drehzahlModels);
+                this.Dyno.Drehzahl = drehzahlModels;
 
                 using (var db = new DatabaseContext())
                 {
