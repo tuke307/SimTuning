@@ -38,9 +38,9 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             // override Commands
             this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);
-            //this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
             this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
             this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
+            this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
 
             this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
             this.CutBeginnCommand = new MvxAsyncCommand(this.CutBeginn);
@@ -139,7 +139,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             {
                 Application.Current.Dispatcher.Invoke(async () =>
                 {
-                    await base.OpenFileDialog(fileData).ConfigureAwait(true);
+                    await base.OpenFileDialog(fileData.FileName, fileData.GetStream()).ConfigureAwait(true);
                     args.Session.Close();
                 });
             }).ConfigureAwait(true);
@@ -181,11 +181,16 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             {
                 Task.Run(() =>
                 {
-                    Stream stream = base.ReloadImageAudioSpectrogram();
-                    PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                    this.DisplayedImage = decoder.Frames[0];
-
-                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Stream stream = base.ReloadImageAudioSpectrogram();
+                        PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                        this.DisplayedImage = decoder.Frames[0];
+                    });
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        args.Session.Close();
+                    });
                 });
             }).ConfigureAwait(true);
         }

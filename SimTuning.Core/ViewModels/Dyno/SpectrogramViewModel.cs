@@ -23,6 +23,7 @@ namespace SimTuning.Core.ViewModels.Dyno
     using System.Linq;
     using System.Net;
     using System.Resources;
+    using System.Runtime.InteropServices;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -161,27 +162,14 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                // only for testing
-                //File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
-
-                using (WebClient webClient = new WebClient())
-                {
-                    webClient.DownloadFile(new Uri(samplewaveLink), SimTuning.Core.GeneralSettings.AudioFilePath);
-                }
-
-                // initialisieren
-                //var stream = File.OpenRead(SimTuning.Core.Constants.AudioFilePath);
-
-                //await this.MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
-                //this.StopCommand.Execute();
-
-                //stream.Dispose();
+                await this.MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
+                this.StopCommand.Execute();
 
                 await this.RaisePropertyChanged(() => this.AudioMaximum).ConfigureAwait(true);
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei CutEnd: ", exc);
+                this.Log.ErrorException("Fehler bei OpenFileAsync: ", exc);
             }
         }
 
@@ -192,10 +180,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected virtual async Task OpenFileDialog(FileData fileData)
+        protected virtual async Task OpenFileDialog(string fileName, Stream stream)
         {
             // wenn Datei ausgewählt
-            if (SimTuning.Core.Business.AudioUtils.AudioCopy(fileData.FileName, fileData.GetStream()))
+            if (SimTuning.Core.Business.AudioUtils.AudioCopy(fileName, stream))
             {
                 await this.OpenFileAsync().ConfigureAwait(true);
             }
@@ -212,7 +200,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                DynoLogic.GetDrehzahlGraph();
+                DynoLogic.GetDrehzahlGraph(intensity: this.Intensity);
 
                 await this.RaisePropertyChanged(() => this.PlotAudio).ConfigureAwait(true);
             }
@@ -231,14 +219,38 @@ namespace SimTuning.Core.ViewModels.Dyno
             try
             {
                 // Normal_Refresh = true; Badge_Refresh = false;
+                int _fftSize;
+                switch (this.Quality)
+                {
+                    case "schlecht":
+                        _fftSize = 4096; //2^12
+                        break;
+
+                    case "mittel":
+                        _fftSize = 8192; //2^13
+                        break;
+
+                    case "gut":
+                        _fftSize = 16384; //2^14
+                        break;
+
+                    case "sehr gut":
+                        _fftSize = 32768;//2^15
+                        break;
+
+                    default:
+                        _fftSize = 8192;
+                        break;
+                }
 
                 SKBitmap spec = AudioLogic.GetSpectrogram(
-                    SimTuning.Core.GeneralSettings.AudioFilePath,
-                    this.Quality,
-                    this.Intensity,
-                    this.Colormap,
-                    this.Frequenzbeginn / 60,
-                    this.Frequenzende / 60);
+                    audioFile: SimTuning.Core.GeneralSettings.AudioFilePath,
+                    fftSize: _fftSize,
+                    intensity: this.Intensity,
+                    colormap: this.Colormap,
+                    minFreq: this.Frequenzbeginn / 60,
+                    maxFreq: this.Frequenzende / 60,
+                    targetWidthPx: (int)this.AudioMaximum / 10);
 
                 Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(spec);
 
@@ -457,7 +469,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <value>The audio maximum.</value>
         public double? AudioMaximum
         {
-            get => this.MediaManager?.Duration.TotalSeconds == 0 ? 100 : this.MediaManager.Duration.TotalSeconds;
+            get => this.MediaManager.Duration.TotalMilliseconds == 0 ? 100 : this.MediaManager.Duration.TotalMilliseconds;
         }
 
         /// <summary>
@@ -466,13 +478,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <value>The audio position.</value>
         public double? AudioPosition
         {
-            get => this.MediaManager?.Position.TotalSeconds ?? 0;
+            get => this.MediaManager?.Position.Milliseconds ?? 0;
             set
             {
-                if (MediaManager.MediaPlayer != null)
-                {
-                    MediaManager.SeekTo(TimeSpan.FromSeconds(value.Value));
-                }
+                this.MediaManager.SeekTo(TimeSpan.FromMilliseconds(value.Value));
             }
         }
 

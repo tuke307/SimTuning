@@ -1,55 +1,89 @@
 ﻿using System;
+using System.Linq;
 
 namespace Spectrogram
 {
     public static class Tools
     {
-        //private static string FindFile(string filePath)
-        //{
-        //    // look for it in this folder
-        //    string pathFileHere = System.IO.Path.GetFullPath(filePath);
-        //    if (System.IO.File.Exists(pathFileHere))
-        //        return pathFileHere;
-        //    else
-        //        Console.WriteLine($"File not found in same folder: {pathFileHere}");
-
-        // // look for it in the package data folder string fileName =
-        // System.IO.Path.GetFileName(filePath); string pathDataFolder =
-        // System.IO.Path.GetFullPath("../../../../data/"); string pathInDataFolder =
-        // System.IO.Path.Combine(pathDataFolder, fileName); if
-        // (System.IO.File.Exists(pathInDataFolder)) return pathInDataFolder; else
-        // Console.WriteLine($"File not found in data folder: {pathInDataFolder}");
-
-        //    throw new ArgumentException($"Could not locate {filePath}");
-        //}
-
-        public static float[] FloatsFromBytesINT16(byte[] bytes, int skipFirstBytes = 0)
+        public static int GetMidiNote(double frequencyHz)
         {
-            float[] pcm = new float[(bytes.Length - skipFirstBytes) / 2];
-            for (int i = skipFirstBytes; i < bytes.Length - 2; i += 2)
-            {
-                if (i / 2 >= pcm.Length)
-                    break;
-                pcm[i / 2] = BitConverter.ToInt16(bytes, i);
-            }
-            return pcm;
+            return GetPianoKey(frequencyHz) + 20;
         }
 
-        public static float[] ReadWav(string wavFilePath)
+        public static double GetPeakFrequency(SFF sff, bool firstFftOnly = false)
         {
-            // quick and drity WAV file reader (only for 16-bit signed mono files)
-            if (wavFilePath == null || !System.IO.File.Exists(wavFilePath))
+            double[] freqs = firstFftOnly ? sff.Ffts[0] : SffMeanFFT(sff, false);
+
+            int peakIndex = 0;
+            double peakPower = 0;
+            for (int i = 0; i < freqs.Length; i++)
             {
-                throw new ArgumentException("file not found: " + wavFilePath);
-            }
-            if (!wavFilePath.EndsWith(".wav"))
-            {
-                throw new ArgumentException("file not supported: " + wavFilePath);
+                if (freqs[i] > peakPower)
+                {
+                    peakPower = freqs[i];
+                    peakIndex = i;
+                }
             }
 
-            byte[] bytes = System.IO.File.ReadAllBytes(wavFilePath);
+            double maxFreq = sff.SampleRate / 2;
+            double frac = peakIndex / (double)sff.ImageHeight;
 
-            return FloatsFromBytesINT16(bytes, skipFirstBytes: 44);
+            if (sff.MelBinCount > 0)
+            {
+                double maxMel = FftSharp.Transform.MelFromFreq(maxFreq);
+                return FftSharp.Transform.MelToFreq(frac * maxMel);
+            }
+            else
+            {
+                return frac * maxFreq;
+            }
+        }
+
+        public static int GetPianoKey(double frequencyHz)
+        {
+            double pianoKey = (39.86 * Math.Log10(frequencyHz / 440)) + 49;
+            return (int)Math.Round(pianoKey);
+        }
+
+        /// <summary>
+        /// Collapse the 2D spectrogram into a 1D array (mean power of each frequency)
+        /// </summary>
+        public static double[] SffMeanFFT(SFF sff, bool dB = false)
+        {
+            double[] mean = new double[sff.Ffts[0].Length];
+
+            foreach (var fft in sff.Ffts)
+                for (int y = 0; y < fft.Length; y++)
+                    mean[y] += fft[y];
+
+            for (int i = 0; i < mean.Length; i++)
+                mean[i] /= sff.Ffts.Count();
+
+            if (dB)
+                for (int i = 0; i < mean.Length; i++)
+                    mean[i] = 20 * Math.Log10(mean[i]);
+
+            if (mean[mean.Length - 1] <= 0)
+                mean[mean.Length - 1] = mean[mean.Length - 2];
+
+            return mean;
+        }
+
+        /// <summary>
+        /// Collapse the 2D spectrogram into a 1D array (mean power of each time point)
+        /// </summary>
+        public static double[] SffMeanPower(SFF sff, bool dB = false)
+        {
+            double[] power = new double[sff.Ffts.Count];
+
+            for (int i = 0; i < sff.Ffts.Count; i++)
+                power[i] = (double)sff.Ffts[i].Sum() / sff.Ffts[i].Length;
+
+            if (dB)
+                for (int i = 0; i < power.Length; i++)
+                    power[i] = 20 * Math.Log10(power[i]);
+
+            return power;
         }
     }
 }

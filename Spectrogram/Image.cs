@@ -1,8 +1,11 @@
 ﻿using SciColorMaps.Portable;
 using SkiaSharp;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Spectrogram
 {
@@ -10,108 +13,129 @@ namespace Spectrogram
     {
         public static SKBitmap ApplyColormap(SKBitmap bmp, Colormap colormap)
         {
-            //farbtabellen erstellen
+            // Farbtabellen erstellen
             byte[] atable = new byte[256];
             byte[] rtable = new byte[256];
             byte[] gtable = new byte[256];
             byte[] btable = new byte[256];
 
-            //Map erstellen
+            // Farben der ColorMap holen
             ColorMap colorMap = new ColorMap(colormap.ToString());
+            var mapColors = colorMap.Colors().ToList();
 
-            //farben zuweisen
-            var colors = colorMap.Colors().ToList();
-
-            //farbtabellen zuweisen
+            // Farbtabellen zuweisen
             for (int i = 0; i < 256; i++)
             {
                 atable[i] = (byte)255;
-                rtable[i] = colors[i][0];
-                gtable[i] = colors[i][1];
-                btable[i] = colors[i][2];
+                rtable[i] = mapColors[i][0];
+                gtable[i] = mapColors[i][1];
+                btable[i] = mapColors[i][2];
             }
 
-            //Colormap anwenden
-            var coloredBitmap = new SKBitmap(bmp.Width, bmp.Height);
+            SKBitmap colorBitmap = new SKBitmap(bmp.Width, bmp.Height);
+            SKCanvas sKCanvas = new SKCanvas(colorBitmap);
 
-            var surface = new SKCanvas(coloredBitmap);
             SKPaint paint = new SKPaint();
-            paint.ColorFilter = SKColorFilter.CreateTable(rtable, rtable, gtable, btable);
+            paint.ColorFilter = SKColorFilter.CreateTable(atable, rtable, gtable, btable);
 
-            surface.Translate(coloredBitmap.Width / 2, coloredBitmap.Height / 2);
-            surface.DrawBitmap(bmp, bmp.Width, bmp.Height, paint: paint);
+            sKCanvas.DrawBitmap(colorBitmap, 0, 0, paint: paint);
 
-            return coloredBitmap;
-
-            //using (var image = SKImage.FromBitmap(bmp))
-            //using (var data = image.Encode())
-            //{
-            //    // save the data to a stream
-            //    using (var stream = File.OpenWrite("C:\\Users\\Tony\\Desktop\\image.png"))
-            //    {
-            //        data.SaveTo(stream);
-            //    }
-            //}
+            return colorBitmap;
         }
 
-        public static SKBitmap BitmapFromFFTs(float[][] ffts, Settings.DisplaySettings displaySettings)
+        public static SKBitmap GetBitmap(List<double[]> ffts, Colormap cmap, double intensity = 1, bool dB = false, bool roll = false, int rollOffset = 0)
         {
-            if (ffts == null || ffts.Length == 0)
-                throw new ArgumentException("ffts must contain float arrays");
+            if (ffts.Count == 0)
+                throw new ArgumentException("This Spectrogram contains no FFTs (likely because no signal was added)");
 
-            SKBitmap bmp = new SKBitmap(ffts.Length, displaySettings.height, SKColorType.Alpha8, SKAlphaType.Opaque);//8-bit alpha-only color
+            int Width = ffts.Count;
+            int Height = ffts[0].Length;
 
-            byte[] pixels = bmp.Bytes;
+            //8-bit alpha-only color
+            SKBitmap bmp = new SKBitmap(Width, Height, SKColorType.Alpha8, SKAlphaType.Opaque);
 
-            //jede Spalte durchgehen
-            for (int col = 0; col < bmp.Width; col++)
+            //Bitmap bmp = new Bitmap(Width, Height, PixelFormat.Format8bppIndexed);
+            //cmap.Apply(bmp);
+
+            //var lockRect = new Rectangle(0, 0, Width, Height);
+            //BitmapData bitmapData = bmp.LockBits(lockRect, ImageLockMode.ReadOnly, bmp.PixelFormat);
+
+            // SKBitmap.RowBytes == BitmapData.Stride
+            //int stride = bmp.RowBytes;
+
+            //byte[] bytes = new byte[bitmapData.Stride * bmp.Height];
+            //byte[] bytes = new byte[stride * bmp.Height];
+
+            Parallel.For(0, Width, col =>
             {
-                if (col >= bmp.Width)
-                    continue;
-
-                //Spalte hervorheben
-                if (col == displaySettings.highlightColumn)
+                int sourceCol = col;
+                if (roll)
                 {
-                    //Zeilen durchgehen
-                    for (int row = 0; row < bmp.Height; row++)
-                    {
-                        int bytePosition = (bmp.Height - 1 - row) * bmp.Width + col;
-
-                        //bmp.SetPixel(col, row, (byte)(255));
-                        pixels[bytePosition] = (byte)(255);
-                    }
-                    continue;
+                    sourceCol += Width - rollOffset % Width;
+                    if (sourceCol >= Width)
+                        sourceCol -= Width;
                 }
 
-                if (ffts[col] == null)
-                    continue;
-
-                //Zeilen durchgehen
-                for (int row = 0; row < bmp.Height; row++)
+                for (int row = 0; row < Height; row++)
                 {
-                    int bytePosition = (bmp.Height - 1 - row) * bmp.Width + col;
+                    //var test = bmp.GetPixel(col, row);
+                    double value = ffts[sourceCol][row];
+                    if (dB)
+                        value = 20 * Math.Log10(value + 1);
+                    value *= intensity;
+                    value = Math.Min(value, 255);
 
-                    float pixelValue;
-                    pixelValue = ffts[col][row + displaySettings.pixelLower];
-                    if (displaySettings.decibels)
-                        pixelValue = (float)(Math.Log10(pixelValue) * 20);
-                    pixelValue = (pixelValue * displaySettings.brightness);
-                    pixelValue = Math.Max(0, pixelValue);
-                    pixelValue = Math.Min(255, pixelValue);
+                    //int bytePosition = (Height - 1 - row) * stride + col;
+                    //bytes[bytePosition] = (byte)value;
 
-                    pixels[bytePosition] = (byte)(pixelValue);
-                    //bmp.SetPixel(col, row, (byte)(pixelValue));
+                    var color = new SKColor(255, 255, 255, (byte)value);
+                    bmp.SetPixel(col, row, color);
+                }
+            });
+
+            //IntPtr pix = bmp.GetPixels();
+            //Marshal.Copy(bytes, 0, pix, bytes.Length);
+            //bmp.SetPixels(pix);
+
+            using (var image = SKImage.FromBitmap(bmp))
+            using (var data = image.Encode())
+            {
+                // save the data to a stream
+                using (var stream = File.OpenWrite(@"C:\\Users\\Tony\\Desktop\\finish.png"))
+                {
+                    data.SaveTo(stream);
                 }
             }
 
-            IntPtr pix = bmp.GetPixels();
-            Marshal.Copy(pixels, 0, pix, pixels.Length);
-            bmp.SetPixels(pix);
+            #region Rotate&Flip
 
-            //Colormap
-            //bmp = ApplyColormap(bmp, displaySettings.colormap);
+            SKBitmap rotated = new SKBitmap(bmp.Width, bmp.Height);
 
-            return bmp;
+            var surface = new SKCanvas(rotated);
+
+            surface.Translate(rotated.Width, 0);
+            surface.Scale(-1, 1, 0, 0);
+            surface.Translate(rotated.Width / 2, rotated.Height / 2);
+            surface.RotateDegrees(180);
+            surface.Translate(-rotated.Width / 2, -rotated.Height / 2);
+            surface.DrawBitmap(bmp, 0, 0);
+
+            using (var image = SKImage.FromBitmap(rotated))
+            using (var data = image.Encode())
+            {
+                // save the data to a stream
+                using (var stream = File.OpenWrite(@"C:\\Users\\Tony\\Desktop\\rotated.png"))
+                {
+                    data.SaveTo(stream);
+                }
+            }
+
+            #endregion Rotate&Flip
+
+            //Marshal.Copy(bytes, 0, bitmapData.Scan0, bytes.Length);
+            //bmp.UnlockBits(bitmapData);
+
+            return ApplyColormap(rotated, cmap);
         }
     }
 }

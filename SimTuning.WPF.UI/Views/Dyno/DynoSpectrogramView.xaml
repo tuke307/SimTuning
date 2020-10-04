@@ -56,7 +56,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                 </Grid.RowDefinitions>
 
                 <!--1. Group box-->
-                <GroupBox MinWidth="725"
+                <GroupBox Width="725"
+                          Height="520"
                           Grid.Row="0"
                           Grid.Column="0"
                           Header="Spectrogram"
@@ -288,7 +289,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <!--1. Group box Plot-->
-                <GroupBox MinWidth="725"
+                <GroupBox Width="725"
+                          Height="520"
                           Margin="10"
                           Grid.Column="0"
                           Grid.Row="0"
