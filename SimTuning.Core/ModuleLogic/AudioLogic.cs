@@ -16,6 +16,13 @@ namespace SimTuning.Core.ModuleLogic
     {
         #region variables
 
+        /// <summary>
+        /// Gets or sets tODO: nutzer soll dies einstellen können.
+        /// Math.Round(Math.Sqrt(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh
+        /// - AudioLogic.SpectrogramAudio.DisplaySettings.freqLow)) / 2);
+        /// </summary>
+        private static double _areaAbstand;
+
         private static string _audioFile;
         private static Spectrogram.Colormap _colormap;
         private static int _fftSize;
@@ -25,14 +32,6 @@ namespace SimTuning.Core.ModuleLogic
         private static int _stepSize;
         private static int _targetWidthPx;
         private static SKBitmap bmp;
-
-        /// <summary>
-        /// Gets or sets tODO: nutzer soll dies einstellen können.
-        /// Math.Round(Math.Sqrt(Convert.ToDouble(AudioLogic.SpectrogramAudio.DisplaySettings.freqHigh
-        /// - AudioLogic.SpectrogramAudio.DisplaySettings.freqLow)) / 2);
-        /// </summary>
-        private static double punktAbstand = 8;
-
         //private static int sampleRate;
 
         /// <summary>
@@ -95,9 +94,10 @@ namespace SimTuning.Core.ModuleLogic
         /// Bildet aus den Spectrogram Daten X-Y Punkte.
         /// </summary>
         /// <param name="areas">if set to <c>true</c> [areas].</param>
-        public static void GetDrehzahlGraph(bool areas = false, double intensity = 0.75)
+        public static void GetDrehzahlGraph(bool areas = false, double intensity = 0.75, double areaAbstand = 8)
         {
             _intensity = intensity;
+            _areaAbstand = areaAbstand;
 
             HotPoints();
 
@@ -112,13 +112,14 @@ namespace SimTuning.Core.ModuleLogic
         /// <summary>
         /// Definieren des Frequenz-Spectrogram mit bestimmten Parametern.
         /// </summary>
-        /// <param name="_audioFile">The audio file.</param>
-        /// <param name="_Quality">The quality.</param>
-        /// <param name="_Intensity">The intensity.</param>
-        /// <param name="_Hintergrundfarbe">The hintergrundfarbe.</param>
-        /// <param name="_Frequenzbeginn">The frequenzbeginn.</param>
-        /// <param name="_Frequenzende">The frequenzende.</param>
-        /// <returns>Spectrogram.</returns>
+        /// <param name="audioFile"></param>
+        /// <param name="fftSize"></param>
+        /// <param name="minFreq"></param>
+        /// <param name="maxFreq"></param>
+        /// <param name="intensity"></param>
+        /// <param name="colormap"></param>
+        /// <param name="targetWidthPx"></param>
+        /// <returns>Bild des Spectrograms.</returns>
         public static SKBitmap GetSpectrogram(
             string audioFile,
             int fftSize = 16384,
@@ -227,7 +228,7 @@ namespace SimTuning.Core.ModuleLogic
                         double differenz_vertikal = Math.Abs(col_points[row].Y - DrehzahlPoints[area][DrehzahlPoints[area].Count - 1].Y);
 
                         // in vorhandene area hinzufügen
-                        if (differenz_vertikal <= punktAbstand && differenz_horizontal <= punktAbstand)
+                        if (differenz_vertikal <= _areaAbstand && differenz_horizontal <= _areaAbstand)
                         {
                             DrehzahlPoints[area].Add(col_points[row]);
 
@@ -269,7 +270,9 @@ namespace SimTuning.Core.ModuleLogic
                 // Punkt in graphen
                 for (int col = 0; col < DrehzahlPoints[area].Count; col++)
                 {
-                    temp_list.Add(new DataPoint(Math.Round(DrehzahlPoints[area][col].X / 100 / SegmentsPerSecond, 2), Math.Round(DrehzahlPoints[area][col].Y * HzPerFFT * 60)));
+                    // Y(vertikal) = 1U/min; 1Hz = 60 U/min bei Einzylider Motoren
+                    // X(horizontal) = 1s
+                    temp_list.Add(new DataPoint(Math.Round(DrehzahlPoints[area][col].X * SegmentsPerSecond, 4), Math.Round(DrehzahlPoints[area][col].Y * HzPerFFT * 60, 4)));
                 }
 
                 temp_plot_data.Add(temp_list);

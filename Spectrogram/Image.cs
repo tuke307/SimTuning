@@ -38,7 +38,17 @@ namespace Spectrogram
             SKPaint paint = new SKPaint();
             paint.ColorFilter = SKColorFilter.CreateTable(atable, rtable, gtable, btable);
 
-            sKCanvas.DrawBitmap(colorBitmap, 0, 0, paint: paint);
+            sKCanvas.DrawBitmap(bmp, 0, 0, paint: paint);
+
+            using (var image = SKImage.FromBitmap(colorBitmap))
+            using (var data = image.Encode())
+            {
+                // save the data to a stream
+                using (var stream = File.OpenWrite(@"C:\\Users\\Tony\\Desktop\\colormap.png"))
+                {
+                    data.SaveTo(stream);
+                }
+            }
 
             return colorBitmap;
         }
@@ -135,7 +145,7 @@ namespace Spectrogram
             //Marshal.Copy(bytes, 0, bitmapData.Scan0, bytes.Length);
             //bmp.UnlockBits(bitmapData);
 
-            return ApplyColormap(rotated, cmap);
+            return rotated;//ApplyColormap(rotated, cmap);
         }
     }
 }

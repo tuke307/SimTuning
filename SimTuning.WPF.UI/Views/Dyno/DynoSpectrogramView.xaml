@@ -321,14 +321,27 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
                         <Button HorizontalAlignment="Center"
                                 Grid.Column="0"
-                                Grid.Row="0"
+                                Grid.Row="2"
                                 Content="{materialDesign:PackIcon Filter}"
                                 Command="{Binding FilterPlotCommand}"
                                 ToolTip="Vertikal" />
+
+                        <!--Intensität-->
+                        <ComboBox Grid.Row="0"
+                                  Grid.Column="0"
+                                  materialDesign:HintAssist.Hint="Intensität"
+                                  IsEditable="True"
+                                  ToolTip="Stelle die Intensität so ein, dass fast nur noch die Punkte der Drehzhahlkurven zu sehen sind"
+                                  ItemsSource="{Binding Mode=OneTime, Path=Intensitys}"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Intensity}"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  VerticalAlignment="Center">
+                        </ComboBox>
 
                         <!--Refresh-->
                         <Button HorizontalAlignment="Center"
@@ -339,10 +352,17 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                 ToolTip="Aktualisiere das Spectrogram mit den vorgenommen Änderungen">
                         </Button>
 
-                        <!--Graph-->
+                        <Slider Minimum="0"
+                                Maximum="25"
+                                Value="{Binding Mode=TwoWay, Path=FilterValue}"
+                                VerticalAlignment="Center"
+                                Grid.Column="0"
+                                Grid.Row="3" />
+
+                        <!--Graphen-->
                         <ComboBox Grid.Column="0"
-                                  Grid.Row="2"
-                                  VerticalAlignment="Bottom"
+                                  Grid.Row="4"
+                                  VerticalAlignment="Center"
                                   materialDesign:HintAssist.Hint="Graphauswahl"
                                   ToolTip="Wähle den Graphen aus, der am besten passt"
                                   SelectedItem="{Binding Mode=TwoWay, Path=Graph}"

@@ -138,7 +138,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                DynoLogic.GetDrehzahlGraph(true);
+                DynoLogic.GetDrehzahlGraph(areas: true, areaAbstand: this.FilterValue);
 
                 await this.RaisePropertyChanged(() => this.Graphs).ConfigureAwait(true);
 
@@ -152,7 +152,6 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         /// <summary>
         /// Opens the file.
-        /// TODO: play funktioniert nicht, stream anstatt uri.
         /// </summary>
         /// <returns>
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
@@ -447,6 +446,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         private List<Spectrogram.Colormap> _colormaps = Enum.GetValues(typeof(Spectrogram.Colormap)).Cast<Spectrogram.Colormap>().ToList();
         private DynoModel _dyno;
 
+        private int _filterValue;
         private int _frequenzbeginn;
 
         private int _frequenzende;
@@ -554,6 +554,16 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             get => _dyno;
             set => SetProperty(ref _dyno, value);
+        }
+
+        /// <summary>
+        /// Wert für den Abstand, um einen Punkt herum. Dieser Wert wird bei der Funktion
+        /// der Areas verwendet.
+        /// </summary>
+        public int FilterValue
+        {
+            get => this._filterValue;
+            set => this.SetProperty(ref this._filterValue, value);
         }
 
         /// <summary>

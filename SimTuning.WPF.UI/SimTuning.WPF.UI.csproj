@@ -85,99 +85,103 @@
     <None Remove="Views\Tuning\TuningMainView.xaml" />
 
 
-
+     <None Remove="Views\Dyno\DynoAusrollenView.xaml" />
+    <None Remove="Views\Dyno\DynoBeschleunigungView.xaml" />
     <Page Include="Dialog\DialogLoadingView.xaml" />
     <Page Include="Dialog\DialogSnackbarView.xaml" />
-    <Page Include="Views\Auslass\AuslassAnwendungView.xaml">
+    <Page Include="Views\Auslass\AuslassAnwendungView.xaml" />
+   
+    <Page Include="Views\Auslass\AuslassMainView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Auslass\AuslassMainView.xaml">
+   
+    <Page Include="Views\Auslass\AuslassTheorieView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Auslass\AuslassTheorieView.xaml">
+   
+    <Page Include="Views\Demo\BuyProView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Demo\BuyProView.xaml">
+   
+    <Page Include="Views\Dyno\DynoDataView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Dyno\DynoDataView.xaml">
+   
+    <Page Include="Views\Dyno\DynoDiagnosisView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Dyno\DynoDiagnosisView.xaml">
+   
+    <Page Include="Views\Dyno\DynoMainView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Dyno\DynoMainView.xaml">
+   
+    <Page Include="Views\Dyno\DynoSpectrogramView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Dyno\DynoSpectrogramView.xaml">
+   
+    <Page Include="Views\Einlass\EinlassKanalView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Einlass\EinlassKanalView.xaml">
+   
+    <Page Include="Views\Einlass\EinlassMainView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Einlass\EinlassMainView.xaml">
+   
+    <Page Include="Views\Einlass\EinlassVergaserView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Einlass\EinlassVergaserView.xaml">
+   
+    <Page Include="Views\Einstellungen\EinstellungenApplicationView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Einstellungen\EinstellungenApplicationView.xaml">
+   
+    <Page Include="Views\Einstellungen\EinstellungenAussehenView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Einstellungen\EinstellungenAussehenView.xaml">
+   
+    <Page Include="Views\Einstellungen\EinstellungenKontoView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Einstellungen\EinstellungenKontoView.xaml">
+   
+    <Page Include="Views\Einstellungen\EinstellungenMainView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Einstellungen\EinstellungenMainView.xaml">
+   
+    <Page Include="Views\Einstellungen\EinstellungenUpdateView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Einstellungen\EinstellungenUpdateView.xaml">
+   
+    <Page Include="Views\Einstellungen\EinstellungenVehiclesView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Einstellungen\EinstellungenVehiclesView.xaml">
+   
+    <Page Include="Views\Home\HomeMainView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Home\HomeMainView.xaml">
+   
+    <Page Include="Views\MainView.xaml"/>
       
-    </Page>
-    <Page Include="Views\MainView.xaml">
+   
+    <Page Include="Views\MainWindow.xaml"/>
       
-    </Page>
-    <Page Include="Views\MainWindow.xaml">
+   
+    <Page Include="Views\MenuView.xaml"/>
       
-    </Page>
-    <Page Include="Views\MenuView.xaml">
+   
+    <Page Include="Views\Motor\MotorHubraumView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Motor\MotorHubraumView.xaml">
+   
+    <Page Include="Views\Motor\MotorMainView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Motor\MotorMainView.xaml">
+   
+    <Page Include="Views\Motor\MotorSteuerdiagrammView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Motor\MotorSteuerdiagrammView.xaml">
+   
+    <Page Include="Views\Motor\MotorUmrechnungenView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Motor\MotorUmrechnungenView.xaml">
+   
+    <Page Include="Views\Motor\MotorVerdichtungView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Motor\MotorVerdichtungView.xaml">
+   
+    <Page Include="Views\Tuning\TuningDataView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Tuning\TuningDataView.xaml">
+   
+    <Page Include="Views\Tuning\TuningDiagnosisView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Tuning\TuningDiagnosisView.xaml">
+   
+    <Page Include="Views\Tuning\TuningInputView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Tuning\TuningInputView.xaml">
+   
+    <Page Include="Views\Tuning\TuningMainView.xaml"/>
       
-    </Page>
-    <Page Include="Views\Tuning\TuningMainView.xaml">
-      
-    </Page>
+      <Page Include="Views\Dyno\DynoAusrollenView.xaml"/>
+ 
+    <Page Include="Views\Dyno\DynoBeschleunigungView.xaml"/>
+
+   
   </ItemGroup>
 
 

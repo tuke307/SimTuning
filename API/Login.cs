@@ -29,9 +29,11 @@ namespace API
             List<string> messages = new List<string>();
 
             // admin start
-            if (email == "admin123")
+            if (email == "admin")
             {
                 messages.Add("ADMIN LOGIN");
+                user = new WordPressPCL.Models.User();
+                order = new WooCommerceNET.WooCommerce.Legacy.Order();
                 goto Finish;
             }
 
@@ -39,6 +41,15 @@ namespace API
             if (email == null && password == null)
             {
                 SimTuning.Core.Business.Functions.GetLoginCredentials(out email, out password);
+
+                // admin start
+                if (email == "admin")
+                {
+                    messages.Add("ADMIN LOGIN");
+                    user = new WordPressPCL.Models.User();
+                    order = new WooCommerceNET.WooCommerce.Legacy.Order();
+                    goto Finish;
+                }
 
                 // wenn keine Anmeldedaten hinterlegt wurden
                 if (email == null || password == null)
@@ -85,10 +96,10 @@ namespace API
                 messages.Add("FREE Version");
             }
 
+        Finish:
             // Speichern der daten
             SimTuning.Core.Business.Functions.SaveLoginCredentials(email, password);
 
-        Finish:
             return (user, order, messages);
         }
     }

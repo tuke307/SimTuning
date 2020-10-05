@@ -76,11 +76,11 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="areas">
         /// if set to <c>true</c> [filter] Punkte werden zu Bereichen zugeordnet.
         /// </param>
-        public static void GetDrehzahlGraph(bool areas = false, double intensity = 0.75)
+        public static void GetDrehzahlGraph(bool areas = false, double intensity = 0.75, double areaAbstand = 8)
         {
             DefiniereDrehzahlGraph();
 
-            AudioLogic.GetDrehzahlGraph(areas, intensity);
+            AudioLogic.GetDrehzahlGraph(areas: areas, intensity: intensity, areaAbstand: areaAbstand);
 
             LadeDrehzahlGraph(fitted: false);
         }
