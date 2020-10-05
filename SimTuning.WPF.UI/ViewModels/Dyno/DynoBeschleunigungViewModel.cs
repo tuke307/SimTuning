@@ -1,13 +1,16 @@
-﻿using MvvmCross.Commands;
+﻿using MaterialDesignThemes.Wpf;
+using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Business;
 using SimTuning.Core.ViewModels.Dyno;
+using SimTuning.WPF.UI.Dialog;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SimTuning.WPF.UI.ViewModels.Dyno
 {
@@ -17,8 +20,6 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             : base(logProvider, navigationService, messenger)
         {
             this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
-
-            //this.ShowAusrollenCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoAusrollenViewModel>());
         }
 
         /// <summary>
@@ -48,25 +49,29 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return;
             }
 
-            //var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
+            {
+                Task.Run(async () =>
+                {
+                    await base.RefreshPlot().ConfigureAwait(true);
 
-            await base.RefreshPlot().ConfigureAwait(true);
-
-            //await loadingDialog.DismissAsync().ConfigureAwait(false);
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
+            }).ConfigureAwait(true);
         }
 
         private bool CheckDynoData()
         {
             if (this.Dyno == null)
             {
-                //Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                WPF.UI.Business.Functions.ShowSnackbarDialog(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
 
                 return false;
             }
 
             if (this.Dyno.Beschleunigung == null)
             {
-                //Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                WPF.UI.Business.Functions.ShowSnackbarDialog(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
 
                 return false;
             }

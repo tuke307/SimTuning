@@ -29,11 +29,9 @@ Copyright (c) 2020 tuke productions. All rights reserved.
         </ResourceDictionary>
     </views:MvxWpfView.Resources>
 
-    <!--4. Modul-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -50,7 +48,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   materialDesign:ShadowAssist.ShadowDepth="Depth3"
                   BorderThickness="0.3">
             <Grid>
-                <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotStrength}"
+                <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotAusrollen}"
                               Background="{DynamicResource MaterialDesignPaper}" />
             </Grid>
         </GroupBox>
@@ -58,138 +56,17 @@ Copyright (c) 2020 tuke productions. All rights reserved.
         <!--2. group box-->
         <GroupBox Grid.Row="0"
                   Grid.Column="1"
+                  VerticalAlignment="Top"
                   Margin="10"
                   Header="Graph-Einstellungen">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <!--<RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />-->
+
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-
-                <!--<TextBox Grid.Row="0"
-                             Grid.Column="0"
-                             materialDesign:HintAssist.Hint="Gesamtübersetzung"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoVehicleUebersetzung, ConverterCulture='de-DE', StringFormat=N}"
-                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             TextWrapping="Wrap"
-                             Width="120">
-                    </TextBox>-->
-
-                <TextBox Grid.Row="0"
-                         Grid.Column="0"
-                         materialDesign:HintAssist.Hint="Gewicht"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding Mode=TwoWay, Path=DynoVehicleGewicht, ConverterCulture='de-DE', StringFormat=N}"
-                         behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         TextWrapping="Wrap"
-                         Width="120">
-                </TextBox>
-
-                <ComboBox VerticalAlignment="Bottom"
-                          Grid.Row="1"
-                          Grid.Column="1"
-                          Margin="5 0 0 0"
-                          IsSynchronizedWithCurrentItem="True"
-                          IsEditable="False"
-                          DisplayMemberPath="Abbreviation"
-                          SelectedItem="{Binding Mode=TwoWay, Path=DynoVehicleGewichtUnit}"
-                          ItemsSource="{Binding Path=MassQuantityUnits, Mode=OneTime}">
-                </ComboBox>
-
-                <!--<TextBox Grid.Row="2"
-                             Grid.Column="0"
-                             materialDesign:HintAssist.Hint="Frontfläche"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoVehicleFrontA, ConverterCulture='de-DE', StringFormat=N}"
-                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             TextWrapping="Wrap"
-                             Width="120">
-                    </TextBox>
-
-                    <ComboBox VerticalAlignment="Bottom"
-                              Grid.Row="2"
-                              Grid.Column="1"
-                              Margin="5 0 0 0"
-                              IsSynchronizedWithCurrentItem="True"
-                              IsEditable="False"
-                              DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding Mode=TwoWay, Path=DynoVehicleFrontAUnit}"
-                              ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
-                    </ComboBox>
-
-                    <TextBox Grid.Row="3"
-                             Grid.Column="0"
-                             materialDesign:HintAssist.Hint="cw"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoVehicleCw, ConverterCulture='de-DE', StringFormat=N}"
-                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             TextWrapping="Wrap"
-                             Width="120">
-                    </TextBox>
-
-                    <TextBox Grid.Row="4"
-                             Grid.Column="0"
-                             materialDesign:HintAssist.Hint="Temperatur"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoEnvironmentTemperaturT, ConverterCulture='de-DE', StringFormat=N}"
-                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             TextWrapping="Wrap"
-                             Width="120">
-                    </TextBox>
-
-                    <ComboBox VerticalAlignment="Bottom"
-                              Grid.Row="4"
-                              Grid.Column="1"
-                              Margin="5 0 0 0"
-                              IsSynchronizedWithCurrentItem="True"
-                              IsEditable="False"
-                              DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding Mode=TwoWay, Path=DynoEnvironmentTemperaturTUnit}"
-                              ItemsSource="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}">
-                    </ComboBox>
-
-                    <TextBox Grid.Row="5"
-                             Grid.Column="0"
-                             materialDesign:HintAssist.Hint="Luftdruck"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoEnvironmentLuftdruckP, ConverterCulture='de-DE', StringFormat=N}"
-                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             TextWrapping="Wrap"
-                             Width="120">
-                    </TextBox>
-
-                    <ComboBox VerticalAlignment="Bottom"
-                              Grid.Row="5"
-                              Grid.Column="1"
-                              Margin="5 0 0 0"
-                              IsSynchronizedWithCurrentItem="True"
-                              IsEditable="False"
-                              DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding Mode=TwoWay, Path=DynoEnvironmentLuftdruckPUnit}"
-                              ItemsSource="{Binding Path=PressureQuantityUnits, Mode=OneTime}">
-                    </ComboBox>-->
 
                 <!--Refresh-->
                 <Button Grid.Row="1"
@@ -198,189 +75,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         Content="{materialDesign:PackIcon Refresh}"
                         Command="{Binding RefreshPlotCommand}">
                 </Button>
-            </Grid>
-        </GroupBox>
-
-        <GroupBox Grid.Row="0"
-                  Grid.Column="2"
-                  Header="Hilfe"
-                  Margin="10">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="0.2*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <!--<Label Content="Gesamtübersetzung"
-                               Grid.Row="1"
-                               Grid.Column="0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal" />-->
-                    <Label Content="Gewicht"
-                           Grid.Row="2"
-                           Grid.Column="0"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"
-                           FontWeight="Normal" />
-                    <!--<Label Content="Frontfläche"
-                               Grid.Row="3"
-                               Grid.Column="0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal" />-->
-                    <!--<Label Content="cw-Wert"
-                               Grid.Row="4"
-                               Grid.Column="0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal" />-->
-
-                    <!--<Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Uebersetzung}"
-                               Grid.Row="1"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal"
-                               Margin="10 0 0 0" />-->
-                    <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Gewicht}"
-                           Grid.Row="2"
-                           Grid.Column="1"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           FontWeight="Normal"
-                           Margin="10 0 0 0" />
-                    <!--<Label Content="{Binding Mode=OneWay, Path= HelperVehicle.FrontA}"
-                               Grid.Row="3"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal"
-                               Margin="10 0 0 0" />
-                        <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Cw}"
-                               Grid.Row="4"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal"
-                               Margin="10 0 0 0" />-->
-
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="2"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               Margin="10 0 0 0">
-                        <Run>kg</Run>
-                    </TextBlock>
-
-                    <!--<TextBlock Grid.Row="3"
-                                   Grid.Column="2"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Margin="10 0 0 0">
-                        cm<Run Text="&#x00B2;" />
-                        </TextBlock>-->
-
-                    <ComboBox Grid.Row="0"
-                              Grid.ColumnSpan="3"
-                              Margin="10"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Center"
-                              materialDesign:HintAssist.Hint="Fahrzeug"
-                              IsEditable="False"
-                              SelectedItem="{Binding Mode=TwoWay, Path=HelperVehicle}"
-                              ItemsSource="{Binding Mode=OneTime, Path=HelperVehicles}"
-                              DisplayMemberPath="Name"
-                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                              Width="100" />
-
-                    <Button Content="{materialDesign:PackIcon ChevronRightCircleOutline}"
-                            Command="{Binding InsertVehicleCommand}"
-                            ToolTip="einfügen"
-                            Grid.Row="5"
-                            Grid.ColumnSpan="3"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Width="60" />
-                </Grid>
-
-                <!--<Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <Label Content="Temperatur"
-                               Grid.Row="1"
-                               Grid.Column="0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal" />
-                        <Label Content="Luftdruck"
-                               Grid.Row="2"
-                               Grid.Column="0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal" />
-                        <Label Content="{Binding Mode=OneWay, Path= HelperEnvironment.TemperaturT}"
-                               Grid.Row="1"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal" />
-                        <Label Content="{Binding Mode=OneWay, Path= HelperEnvironment.LuftdruckP}"
-                               Grid.Row="2"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal" />
-
-                        <ComboBox Grid.Row="0"
-                                  Grid.Column="0"
-                                  Grid.ColumnSpan="3"
-                                  Margin="10"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  materialDesign:HintAssist.Hint="Jahreszeit"
-                                  IsEditable="False"
-                                  SelectedItem="{Binding  Mode=TwoWay, Path=HelperEnvironment}"
-                                  ItemsSource="{Binding  Mode=OneTime, Path=HelperEnvironments}"
-                                  DisplayMemberPath="Name"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  Width="100" />
-
-                        <Button Content="{materialDesign:PackIcon ChevronRightCircleOutline}"
-                                Command="{Binding InsertEnvironmentCommand}"
-                                ToolTip="einfügen"
-                                Grid.Row="5"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Width="60" />
-                    </Grid>-->
             </Grid>
         </GroupBox>
     </Grid>

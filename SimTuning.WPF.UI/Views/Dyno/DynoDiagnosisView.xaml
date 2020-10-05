@@ -59,27 +59,35 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                 </Grid>
             </GroupBox>
 
-            <!--2. group box-->
-            <GroupBox Grid.Row="0"
-                      Grid.Column="1"
-                      Margin="10"
-                      Header="Graph-Einstellungen">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <!--<RowDefinition Height="auto" />
+            <Grid  Grid.Row="0"
+                   Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <GroupBox Grid.Row="0"
+                          Margin="10"
+                          Header="Graph-Einstellungen">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <!--<RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />-->
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                    <!--<TextBox Grid.Row="0"
+                        <!--<TextBox Grid.Row="0"
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Gesamtübersetzung"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -91,30 +99,30 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                              Width="120">
                     </TextBox>-->
 
-                    <TextBox Grid.Row="0"
-                             Grid.Column="0"
-                             materialDesign:HintAssist.Hint="Gewicht"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=DynoVehicleGewicht, ConverterCulture='de-DE', StringFormat=N}"
-                             behaviours:NumberOnlyBehaviour.IsEnabled="True"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             TextWrapping="Wrap"
-                             Width="120">
-                    </TextBox>
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="0"
+                                 materialDesign:HintAssist.Hint="Gewicht"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding Mode=TwoWay, Path=DynoVehicleGewicht, ConverterCulture='de-DE', StringFormat=N}"
+                                 behaviours:NumberOnlyBehaviour.IsEnabled="True"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 TextWrapping="Wrap"
+                                 Width="120">
+                        </TextBox>
 
-                    <ComboBox VerticalAlignment="Bottom"
-                              Grid.Row="1"
-                              Grid.Column="1"
-                              Margin="5 0 0 0"
-                              IsSynchronizedWithCurrentItem="True"
-                              IsEditable="False"
-                              DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding Mode=TwoWay, Path=DynoVehicleGewichtUnit}"
-                              ItemsSource="{Binding Path=MassQuantityUnits, Mode=OneTime}">
-                    </ComboBox>
+                        <ComboBox VerticalAlignment="Bottom"
+                                  Grid.Row="0"
+                                  Grid.Column="1"
+                                  Margin="5 0 0 0"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  IsEditable="False"
+                                  DisplayMemberPath="Abbreviation"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=DynoVehicleGewichtUnit}"
+                                  ItemsSource="{Binding Path=MassQuantityUnits, Mode=OneTime}">
+                        </ComboBox>
 
-                    <!--<TextBox Grid.Row="2"
+                        <!--<TextBox Grid.Row="2"
                              Grid.Column="0"
                              materialDesign:HintAssist.Hint="Frontfläche"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -195,82 +203,81 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               ItemsSource="{Binding Path=PressureQuantityUnits, Mode=OneTime}">
                     </ComboBox>-->
 
-                    <!--Refresh-->
-                    <Button Grid.Row="1"
-                            Grid.ColumnSpan="2"
-                            Width="75"
-                            Content="{materialDesign:PackIcon Refresh}"
-                            Command="{Binding RefreshPlotCommand}">
-                    </Button>
-                </Grid>
-            </GroupBox>
+                        <!--Refresh-->
+                        <Button Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Width="75"
+                                Content="{materialDesign:PackIcon Refresh}"
+                                Command="{Binding RefreshPlotCommand}">
+                        </Button>
+                    </Grid>
+                </GroupBox>
 
-            <GroupBox Grid.Row="0"
-                      Grid.Column="2"
-                      Header="Hilfe"
-                      Margin="10">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="0.2*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
+                <GroupBox Grid.Row="1"
+                          Header="Hilfe"
+                          Margin="10">
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
                             <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="0.2*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <!--<Label Content="Gesamtübersetzung"
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <!--<Label Content="Gesamtübersetzung"
                                Grid.Row="1"
                                Grid.Column="0"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"
                                FontWeight="Normal" />-->
-                        <Label Content="Gewicht"
-                               Grid.Row="2"
-                               Grid.Column="0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal" />
-                        <!--<Label Content="Frontfläche"
+                            <Label Content="Gewicht"
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   FontWeight="Normal" />
+                            <!--<Label Content="Frontfläche"
                                Grid.Row="3"
                                Grid.Column="0"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"
                                FontWeight="Normal" />-->
-                        <!--<Label Content="cw-Wert"
+                            <!--<Label Content="cw-Wert"
                                Grid.Row="4"
                                Grid.Column="0"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"
                                FontWeight="Normal" />-->
 
-                        <!--<Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Uebersetzung}"
+                            <!--<Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Uebersetzung}"
                                Grid.Row="1"
                                Grid.Column="1"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                FontWeight="Normal"
                                Margin="10 0 0 0" />-->
-                        <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Gewicht}"
-                               Grid.Row="2"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontWeight="Normal"
-                               Margin="10 0 0 0" />
-                        <!--<Label Content="{Binding Mode=OneWay, Path= HelperVehicle.FrontA}"
+                            <Label Content="{Binding Mode=OneWay, Path= HelperVehicle.Gewicht}"
+                                   Grid.Row="2"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   FontWeight="Normal"
+                                   Margin="10 0 0 0" />
+                            <!--<Label Content="{Binding Mode=OneWay, Path= HelperVehicle.FrontA}"
                                Grid.Row="3"
                                Grid.Column="1"
                                HorizontalAlignment="Left"
@@ -285,15 +292,15 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                FontWeight="Normal"
                                Margin="10 0 0 0" />-->
 
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="2"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Margin="10 0 0 0">
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="2"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="10 0 0 0">
                         <Run>kg</Run>
-                        </TextBlock>
+                            </TextBlock>
 
-                        <!--<TextBlock Grid.Row="3"
+                            <!--<TextBlock Grid.Row="3"
                                    Grid.Column="2"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
@@ -301,30 +308,30 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         cm<Run Text="&#x00B2;" />
                         </TextBlock>-->
 
-                        <ComboBox Grid.Row="0"
-                                  Grid.ColumnSpan="3"
-                                  Margin="10"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  materialDesign:HintAssist.Hint="Fahrzeug"
-                                  IsEditable="False"
-                                  SelectedItem="{Binding Mode=TwoWay, Path=HelperVehicle}"
-                                  ItemsSource="{Binding Mode=OneTime, Path=HelperVehicles}"
-                                  DisplayMemberPath="Name"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  Width="100" />
+                            <ComboBox Grid.Row="0"
+                                      Grid.ColumnSpan="3"
+                                      Margin="10"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      materialDesign:HintAssist.Hint="Fahrzeug"
+                                      IsEditable="False"
+                                      SelectedItem="{Binding Mode=TwoWay, Path=HelperVehicle}"
+                                      ItemsSource="{Binding Mode=OneTime, Path=HelperVehicles}"
+                                      DisplayMemberPath="Name"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                      Width="100" />
 
-                        <Button Content="{materialDesign:PackIcon ChevronRightCircleOutline}"
-                                Command="{Binding InsertVehicleCommand}"
-                                ToolTip="einfügen"
-                                Grid.Row="5"
-                                Grid.ColumnSpan="3"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Width="60" />
-                    </Grid>
+                            <Button Content="{materialDesign:PackIcon ChevronRightCircleOutline}"
+                                    Command="{Binding InsertVehicleCommand}"
+                                    ToolTip="einfügen"
+                                    Grid.Row="5"
+                                    Grid.ColumnSpan="3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="60" />
+                        </Grid>
 
-                    <!--<Grid Grid.Row="2">
+                        <!--<Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -385,8 +392,9 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                 VerticalAlignment="Center"
                                 Width="60" />
                     </Grid>-->
-                </Grid>
-            </GroupBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
         </Grid>
     </ScrollViewer>
 </views:MvxWpfView>

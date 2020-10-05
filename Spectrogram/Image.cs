@@ -50,7 +50,8 @@ namespace Spectrogram
                 }
             }
 
-            return colorBitmap;
+            //return colorBitmap;
+            return bmp;
         }
 
         public static SKBitmap GetBitmap(List<double[]> ffts, Colormap cmap, double intensity = 1, bool dB = false, bool roll = false, int rollOffset = 0)
@@ -145,7 +146,7 @@ namespace Spectrogram
             //Marshal.Copy(bytes, 0, bitmapData.Scan0, bytes.Length);
             //bmp.UnlockBits(bitmapData);
 
-            return rotated;//ApplyColormap(rotated, cmap);
+            return ApplyColormap(rotated, cmap);
         }
     }
 }
