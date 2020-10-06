@@ -108,7 +108,7 @@
         {
             try
             {
-                DynoLogic.GetFittedAusrollGraph(this.Dyno?.Ausrollen.ToList());
+                DynoLogic.GetAusrollGraphFitted(this.Dyno?.Ausrollen.ToList());
 
                 await this.RaisePropertyChanged(() => PlotAusrollen).ConfigureAwait(true);
             }

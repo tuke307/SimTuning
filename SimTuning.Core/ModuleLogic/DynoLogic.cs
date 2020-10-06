@@ -69,27 +69,10 @@ namespace SimTuning.Core.ModuleLogic
         #endregion variables
 
         /// <summary>
-        /// Gibt das Diagramm aus den Spectogram Daten zurück. vorher muss
-        /// Audio-Spectrogram der Audio bereits einmal berechnet sein mit
-        /// AudioLogic.GetSpectrogram().
-        /// </summary>
-        /// <param name="areas">
-        /// if set to <c>true</c> [filter] Punkte werden zu Bereichen zugeordnet.
-        /// </param>
-        public static void GetDrehzahlGraph(bool areas = false, double intensity = 0.75, double areaAbstand = 8)
-        {
-            DefiniereDrehzahlGraph();
-
-            AudioLogic.GetDrehzahlGraph(areas: areas, intensity: intensity, areaAbstand: areaAbstand);
-
-            LadeDrehzahlGraph(fitted: false);
-        }
-
-        /// <summary>
         /// Berechnet.
         /// TODO: vervollständigen.
         /// </summary>
-        public static void GetFittedAusrollGraph(List<AusrollenModel> ausrollenModels)
+        public static void GetAusrollGraphFitted(List<AusrollenModel> ausrollenModels)
         {
             DefiniereAusrollGraph();
 
@@ -115,7 +98,7 @@ namespace SimTuning.Core.ModuleLogic
         /// Berechnet.
         /// TODO: vervollständigen.
         /// </summary>
-        public static void GetFittedBeschleunigungsGraph(List<BeschleunigungModel> beschleunigungModels)
+        public static void GetBeschleunigungsGraphFitted(List<BeschleunigungModel> beschleunigungModels)
         {
             DefiniereBeschleunigungsGraph();
 
@@ -138,10 +121,27 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
+        /// Gibt das Diagramm aus den Spectogram Daten zurück. vorher muss
+        /// Audio-Spectrogram der Audio bereits einmal berechnet sein mit
+        /// AudioLogic.GetSpectrogram().
+        /// </summary>
+        /// <param name="areas">
+        /// if set to <c>true</c> [filter] Punkte werden zu Bereichen zugeordnet.
+        /// </param>
+        public static void GetDrehzahlGraph(bool areas = false, double intensity = 0.75, double areaAbstand = 8)
+        {
+            DefiniereDrehzahlGraph();
+
+            AudioLogic.GetDrehzahlGraph(areas: areas, intensity: intensity, areaAbstand: areaAbstand);
+
+            LadeDrehzahlGraph(fitted: false);
+        }
+
+        /// <summary>
         /// Gets the fitted drehzahl graph.
         /// </summary>
         /// <param name="drehzahlModels">The drehzahl models.</param>
-        public static void GetFittedDrehzahlGraph(out List<DrehzahlModel> drehzahlModels)
+        public static void GetDrehzahlGraphFitted(out List<DrehzahlModel> drehzahlModels)
         {
             DefiniereDrehzahlGraph();
 
@@ -270,29 +270,41 @@ namespace SimTuning.Core.ModuleLogic
         /// <summary>
         /// Lades the ausroll graph.
         /// </summary>
-        private static void LadeAusrollGraph()
+        private static void LadeAusrollGraph(bool fitted = false)
         {
-            OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(
+            if (fitted)
+            {
+                OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(
                    ausrollFunction,
                    DrehzahlPoints.Select(x => x.X).Min(),
                    DrehzahlPoints.Select(x => x.X).Max(),
                    100);
 
             PlotAusrollen.Series.Add(functionSeries);
+            }
+            else
+            {
+            }
         }
 
         /// <summary>
         /// Lades the beschleunigungs graph.
         /// </summary>
-        private static void LadeBeschleunigungsGraph()
+        private static void LadeBeschleunigungsGraph(bool fitted = false)
         {
-            OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(
+            if (fitted)
+            {
+                OxyPlot.Series.FunctionSeries functionSeries = new OxyPlot.Series.FunctionSeries(
                    beschleunigungsFunction,
                    DrehzahlPoints.Select(x => x.X).Min(),
                    DrehzahlPoints.Select(x => x.X).Max(),
                    100);
 
-            PlotBeschleunigung.Series.Add(functionSeries);
+                PlotBeschleunigung.Series.Add(functionSeries);
+            }
+            else
+            {
+            }
         }
 
         /// <summary>

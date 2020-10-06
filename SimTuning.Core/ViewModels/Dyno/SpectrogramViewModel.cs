@@ -275,7 +275,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             try
             {
                 DynoLogic.Graphauswahl = this.Graphs.IndexOf(this.Graph);
-                DynoLogic.GetFittedDrehzahlGraph(out var drehzahlModels);
+                DynoLogic.GetDrehzahlGraphFitted(out var drehzahlModels);
                 this.Dyno.Drehzahl = drehzahlModels;
 
                 using (var db = new DatabaseContext())
