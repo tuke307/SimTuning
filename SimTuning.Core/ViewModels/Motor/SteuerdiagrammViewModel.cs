@@ -148,7 +148,7 @@ namespace SimTuning.Core.ViewModels.Motor
 
             if (this.SteuerzeitEinlass.HasValue && this.SteuerzeitUeberstroemer.HasValue && this.SteuerzeitAuslass.HasValue)
             {
-                Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(bitmap: EngineLogic.GetPortTimingCircle(this.SteuerzeitEinlass.Value, this.SteuerzeitAuslass.Value, this.SteuerzeitUeberstroemer.Value));
+                Stream stream = SimTuning.Core.Business.Converts.SKBitmapToStream(bitmap: EngineLogic.GetSteuerdiagramm(this.SteuerzeitEinlass.Value, this.SteuerzeitAuslass.Value, this.SteuerzeitUeberstroemer.Value));
                 return stream;
             }
             else

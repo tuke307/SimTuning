@@ -165,6 +165,32 @@ namespace SimTuning.Core.Business
         }
 
         /// <summary>
+        /// Berechnet den Punkt auf einem beliebigen Kreis.
+        /// </summary>
+        /// <param name="angle">The angle.</param>
+        /// <param name="radius">The radius.</param>
+        /// <returns>Punkt auf dem Kreis.</returns>
+        public static SKPoint GetPointOnCircle(double angle, double radius)
+        {
+            SKPoint coordinates = new SKPoint();
+
+            double x_richtung = radius * Math.Cos(angle * Math.PI / 180);
+            coordinates.X = Convert.ToInt32(radius + x_richtung);
+
+            double y_richtung = radius * Math.Sin(angle * Math.PI / 180);
+            if (y_richtung >= 0)
+            {
+                coordinates.Y = Convert.ToInt32(radius - y_richtung);
+            }
+            else if (y_richtung <= 0)
+            {
+                coordinates.Y = Convert.ToInt32(radius + Math.Abs(y_richtung));
+            }
+
+            return coordinates;
+        }
+
+        /// <summary>
         /// Rotiert die SKBitmap.
         /// </summary>
         /// <param name="bitmap">The bitmap.</param>

@@ -105,13 +105,8 @@ namespace SimTuning.Core.ViewModels.Motor
         {
             if (this.SteuerzeitVorher.HasValue && this.SteuerzeitNachher.HasValue && this.VehicleMotorPleulL.HasValue && this.VehicleMotorHubR.HasValue && this.VehicleMotorDeachsierungL.HasValue && (KolbenoberkanteChecked || KolbenunterkanteChecked))
             {
-                List<double> steuerwinkel = new List<double>();
-                steuerwinkel.AddRange(EngineLogic.GetSteuerwinkel(this.SteuerzeitVorher.Value, this.SteuerzeitNachher.Value, this.KolbenoberkanteChecked, this.KolbenunterkanteChecked));
-
-                this.SteuerwinkelVorherOeffnet = steuerwinkel[0];
-                this.SteuerwinkelVorherSchließt = steuerwinkel[1];
-                this.SteuerwinkelNachherOeffnet = steuerwinkel[2];
-                this.NachherSteuerwinkelSchließt = steuerwinkel[3];
+                (this.SteuerwinkelVorherOeffnet, this.SteuerwinkelVorherSchließt, this.SteuerwinkelNachherOeffnet, this.NachherSteuerwinkelSchließt) =
+                EngineLogic.GetSteuerwinkel(this.SteuerzeitVorher.Value, this.SteuerzeitNachher.Value, this.KolbenoberkanteChecked, this.KolbenunterkanteChecked);
 
                 this.DifferenceDegree = EngineLogic.GetPortTimingDifference(false, this.SteuerzeitVorher.Value, this.SteuerzeitNachher.Value);
 
@@ -166,7 +161,7 @@ namespace SimTuning.Core.ViewModels.Motor
         {
             if (this.VehicleMotorHubL.HasValue && this.VehicleMotorPleulL.HasValue && this.VehicleMotorDeachsierungL.HasValue)
             {
-                this.VehicleMotorHubR = EngineLogic.GetStrokeRadius(
+                this.VehicleMotorHubR = EngineLogic.GetHubRadius(
                      UnitsNet.UnitConverter.Convert(
                          this.VehicleMotorHubL.Value,
                          this.VehicleMotorHubLUnit.UnitEnumValue,

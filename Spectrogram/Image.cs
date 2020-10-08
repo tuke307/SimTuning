@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Spectrogram
@@ -39,16 +38,6 @@ namespace Spectrogram
             paint.ColorFilter = SKColorFilter.CreateTable(atable, rtable, gtable, btable);
 
             sKCanvas.DrawBitmap(bmp, 0, 0, paint: paint);
-
-            using (var image = SKImage.FromBitmap(colorBitmap))
-            using (var data = image.Encode())
-            {
-                // save the data to a stream
-                using (var stream = File.OpenWrite(@"C:\\Users\\Tony\\Desktop\\colormap.png"))
-                {
-                    data.SaveTo(stream);
-                }
-            }
 
             //return colorBitmap;
             return bmp;
@@ -108,16 +97,6 @@ namespace Spectrogram
             //Marshal.Copy(bytes, 0, pix, bytes.Length);
             //bmp.SetPixels(pix);
 
-            using (var image = SKImage.FromBitmap(bmp))
-            using (var data = image.Encode())
-            {
-                // save the data to a stream
-                using (var stream = File.OpenWrite(@"C:\\Users\\Tony\\Desktop\\finish.png"))
-                {
-                    data.SaveTo(stream);
-                }
-            }
-
             #region Rotate&Flip
 
             SKBitmap rotated = new SKBitmap(bmp.Width, bmp.Height);
@@ -146,7 +125,7 @@ namespace Spectrogram
             //Marshal.Copy(bytes, 0, bitmapData.Scan0, bytes.Length);
             //bmp.UnlockBits(bitmapData);
 
-            return ApplyColormap(rotated, cmap);
+            return rotated;//ApplyColormap(rotated, cmap);
         }
     }
 }

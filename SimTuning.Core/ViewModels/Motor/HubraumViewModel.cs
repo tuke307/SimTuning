@@ -82,7 +82,7 @@ namespace SimTuning.Core.ViewModels.Motor
                     UnitHub.UnitEnumValue,
                     LengthUnit.Centimeter));
 
-                KolbenD = EngineLogic.GetPistonDiameter(
+                KolbenD = EngineLogic.GetKolbenDurchmesser(
                     UnitsNet.UnitConverter.Convert(
                     BohrungD.Value,
                     UnitBohrungD.UnitEnumValue,

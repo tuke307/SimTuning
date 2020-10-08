@@ -6,7 +6,6 @@ using OxyPlot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace SimTuning.Core.ModuleLogic
 {
@@ -280,7 +279,7 @@ namespace SimTuning.Core.ModuleLogic
                    DrehzahlPoints.Select(x => x.X).Max(),
                    100);
 
-            PlotAusrollen.Series.Add(functionSeries);
+                PlotAusrollen.Series.Add(functionSeries);
             }
             else
             {

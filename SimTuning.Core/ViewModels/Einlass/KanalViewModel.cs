@@ -122,7 +122,7 @@ namespace SimTuning.Core.ViewModels.Einlass
         {
             if (this.EinlassA.HasValue && Einlasssteuerwinkel.HasValue && KurbelgehauseV.HasValue && Resonanzdrehzahl.HasValue && AnsaugleitungD.HasValue)
             {
-                Resonanzlaenge = EinlassLogic.GetResonanceLength(
+                Resonanzlaenge = EinlassLogic.GetResonanzLaenge(
                     UnitsNet.UnitConverter.Convert(EinlassA.Value, UnitEinlassA.UnitEnumValue, AreaUnit.SquareCentimeter),
                     Einlasssteuerwinkel.Value,
                     UnitsNet.UnitConverter.Convert(KurbelgehauseV.Value, UnitKurbelgehauseV.UnitEnumValue, VolumeUnit.CubicCentimeter),

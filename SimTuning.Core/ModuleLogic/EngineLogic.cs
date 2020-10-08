@@ -116,12 +116,30 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
+        /// Berechnet den halben Radius.
+        /// </summary>
+        /// <param name="hub">The hub.</param>
+        /// <param name="pleullaenge">The pleullaenge.</param>
+        /// <param name="deachsierung">The deachsierung.</param>
+        /// <returns>Hubradius in mm.</returns>
+        public static double GetHubRadius(double hub, double pleullaenge, double deachsierung)
+        {
+            double hubradius = hub *
+                        Math.Sqrt(Math.Abs(Math.Pow(4 * deachsierung, 2) + Math.Pow(hub, 2) - (4 * Math.Pow(pleullaenge, 2)))) /
+                        Math.Sqrt(Math.Abs((4 * Math.Pow(hub, 2)) - (16 * Math.Pow(pleullaenge, 2))));
+
+            hubradius = Math.Round(hubradius, 2);
+
+            return hubradius;
+        }
+
+        /// <summary>
         /// Berechnet den Kolben-Durchmesser.
         /// </summary>
         /// <param name="bohrungsdurchmesser">The bohrungsdurchmesser.</param>
         /// <param name="einbauspiel">The einbauspiel.</param>
         /// <returns>Kolbendurchmesser in mm.</returns>
-        public static double GetPistonDiameter(double bohrungsdurchmesser, double einbauspiel)
+        public static double GetKolbenDurchmesser(double bohrungsdurchmesser, double einbauspiel)
         {
             double durchmesser = 0;
 
@@ -136,7 +154,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="hub">The hub.</param>
         /// <param name="drehzahl">The drehzahl.</param>
         /// <returns>Kolbengeschwindigkeit in m/s.</returns>
-        public static double GetPistonSpeed(double hub, double drehzahl)
+        public static double GetKolbenGeschwindigkeit(double hub, double drehzahl)
         {
             double kolbengeschwindigkeit = 0;
 
@@ -147,29 +165,30 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Berechnet den Punkt auf einem beliebigen Kreis.
+        /// Berechnet die Differenz von zwei Steuerwinkeln .
         /// </summary>
-        /// <param name="angle">The angle.</param>
-        /// <param name="radius">The radius.</param>
-        /// <returns>Punkt auf dem Kreis.</returns>
-        public static SKPoint GetPointOnCircle(double angle, double radius)
+        /// <param name="inmm">Rückgabeeinheit.</param>
+        /// <param name="vorher">The vorher.</param>
+        /// <param name="nachher">The nachher.</param>
+        /// <param name="pleullaenge">The pleullaenge.</param>
+        /// <param name="hubradius">The hubradius.</param>
+        /// <param name="deachsierung">The deachsierung.</param>
+        /// <returns>Differenz in Grad oder mm.</returns>
+        public static double GetPortTimingDifference(bool inmm, double vorher, double nachher, double pleullaenge = 0, double hubradius = 0, double deachsierung = 0)
         {
-            SKPoint coordinates = new SKPoint();
-
-            double x_richtung = radius * Math.Cos(angle * Math.PI / 180);
-            coordinates.X = Convert.ToInt32(radius + x_richtung);
-
-            double y_richtung = radius * Math.Sin(angle * Math.PI / 180);
-            if (y_richtung >= 0)
+            // umrechnen in mm
+            if (inmm)
             {
-                coordinates.Y = Convert.ToInt32(radius - y_richtung);
-            }
-            else if (y_richtung <= 0)
-            {
-                coordinates.Y = Convert.ToInt32(radius + Math.Abs(y_richtung));
+                vorher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, vorher);
+                nachher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, nachher);
             }
 
-            return coordinates;
+            double differenz = nachher - vorher;
+            differenz = Math.Abs(differenz);
+
+            differenz = Math.Round(differenz, 2);
+
+            return differenz;
         }
 
         /// <summary>
@@ -179,7 +198,7 @@ namespace SimTuning.Core.ModuleLogic
         /// <param name="auslass">Auslass-Steuerzeit.</param>
         /// <param name="ueberstroemer">Überstroemer-Steuerzeit.</param>
         /// <returns>Bild des Steuerdiagramms.</returns>
-        public static SKBitmap GetPortTimingCircle(double einlass, double auslass, double ueberstroemer)
+        public static SKBitmap GetSteuerdiagramm(double einlass, double auslass, double ueberstroemer)
         {
             int radMaß = 500; // quadratisch
             int radius = radMaß / 2;
@@ -243,37 +262,37 @@ namespace SimTuning.Core.ModuleLogic
                                  new SKPoint(bmp_rad.Width, mitte), blackPen);
 
             //Einlass öffnet
-            koordinaten = GetPointOnCircle(GetSteuerwinkelOeffnet(steuerzeit_einlass: einlass), radius);
+            koordinaten = Functions.GetPointOnCircle(GetSteuerwinkelOeffnet(steuerzeitEinlass: einlass), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  redPen);
 
             //Einlass schließt
-            koordinaten = GetPointOnCircle(GetSteuerwinkelSchließt(steuerzeit_einlass: einlass), radius);
+            koordinaten = Functions.GetPointOnCircle(GetSteuerwinkelSchließt(steuerzeitEinlass: einlass), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  redPen);
 
             //Auslass öffnet
-            koordinaten = GetPointOnCircle(GetSteuerwinkelOeffnet(steuerzeit_auslass: auslass), radius);
+            koordinaten = Functions.GetPointOnCircle(GetSteuerwinkelOeffnet(steuerzeitAuslass: auslass), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  bluePen);
 
             //Auslass schließt
-            koordinaten = GetPointOnCircle(GetSteuerwinkelSchließt(steuerzeit_auslass: auslass), radius);
+            koordinaten = Functions.GetPointOnCircle(GetSteuerwinkelSchließt(steuerzeitAuslass: auslass), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  bluePen);
 
             //Überströmer öffnet
-            koordinaten = GetPointOnCircle(GetSteuerwinkelOeffnet(steuerzeit_ueberstroemer: ueberstroemer), radius);
+            koordinaten = Functions.GetPointOnCircle(GetSteuerwinkelOeffnet(steuerzeitUeberstroemer: ueberstroemer), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  greenPen);
 
             //Überströmer schließt
-            koordinaten = GetPointOnCircle(GetSteuerwinkelSchließt(steuerzeit_ueberstroemer: ueberstroemer), radius);
+            koordinaten = Functions.GetPointOnCircle(GetSteuerwinkelSchließt(steuerzeitUeberstroemer: ueberstroemer), radius);
             graphic_rad.DrawLine(new SKPoint(mitte, mitte),
                                  new SKPoint(koordinaten.X + rand, koordinaten.Y + rand),
                                  greenPen);
@@ -293,104 +312,80 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Berechnet die Differenz von zwei Steuerwinkeln .
-        /// </summary>
-        /// <param name="inmm">Rückgabeeinheit.</param>
-        /// <param name="vorher">The vorher.</param>
-        /// <param name="nachher">The nachher.</param>
-        /// <param name="pleullaenge">The pleullaenge.</param>
-        /// <param name="hubradius">The hubradius.</param>
-        /// <param name="deachsierung">The deachsierung.</param>
-        /// <returns>Differenz in Grad oder mm.</returns>
-        public static double GetPortTimingDifference(bool inmm, double vorher, double nachher, double pleullaenge = 0, double hubradius = 0, double deachsierung = 0)
-        {
-            // umrechnen in mm
-            if (inmm)
-            {
-                vorher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, vorher);
-                nachher = GetDistanceToOT(pleullaenge, hubradius, deachsierung, nachher);
-            }
-
-            double differenz = nachher - vorher;
-            differenz = Math.Abs(differenz);
-
-            differenz = Math.Round(differenz, 2);
-
-            return differenz;
-        }
-
-        /// <summary>
         /// Berechnet die Steuerwinkel.
         /// </summary>
-        /// <param name="vorher_steuerzeit">The vorher steuerzeit.</param>
-        /// <param name="nachher_steuerzeit">The nachher steuerzeit.</param>
-        /// <param name="kolbenoberkantekante_checked">
+        /// <param name="vorherSteuerzeit">The vorher steuerzeit.</param>
+        /// <param name="nachherSteuerzeit">The nachher steuerzeit.</param>
+        /// <param name="kolbenoberkantekante">
         /// if set to <c>true</c> [kolbenoberkantekante checked].
         /// </param>
-        /// <param name="kolbenunterkante_checked">
+        /// <param name="kolbenunterkante">
         /// if set to <c>true</c> [kolbenunterkante checked].
         /// </param>
         /// <returns></returns>
-        public static List<double> GetSteuerwinkel(double vorher_steuerzeit, double nachher_steuerzeit, bool kolbenoberkantekante_checked, bool kolbenunterkante_checked)
+        public static (double, double, double, double) GetSteuerwinkel(double vorherSteuerzeit, double nachherSteuerzeit, bool kolbenoberkante, bool kolbenunterkante)
         {
-            List<double> steuerwinkel = new List<double>();
+            double steuerwinkelOeffnetVorher = 0;
+            double steuerwinkelSchließtVorher = 0;
+            double steuerwinkelOeffnetNachher = 0;
+            double steuerwinkelSchließtNachher = 0;
 
             //auslass, überströmer
-            if (kolbenunterkante_checked)
+            if (kolbenunterkante)
             {
                 //öffnet vorher
-                steuerwinkel.Add(180 - (vorher_steuerzeit / 2));
+                steuerwinkelOeffnetVorher = 180 - (vorherSteuerzeit / 2);
 
                 //schließt vorher
-                steuerwinkel.Add(180 + (vorher_steuerzeit / 2));
+                steuerwinkelSchließtVorher = 180 + (vorherSteuerzeit / 2);
 
                 //öffnet vorher
-                steuerwinkel.Add(180 - (nachher_steuerzeit / 2));
+                steuerwinkelOeffnetNachher = 180 - (nachherSteuerzeit / 2);
 
                 //schließt vorher
-                steuerwinkel.Add(180 + (nachher_steuerzeit / 2));
+                steuerwinkelSchließtNachher = 180 + (nachherSteuerzeit / 2);
             }
             //einlass
-            else if (kolbenoberkantekante_checked)
+            else if (kolbenoberkante)
             {
                 //öffnet nachher
-                steuerwinkel.Add(360 - (vorher_steuerzeit / 2));
+                steuerwinkelOeffnetVorher = 360 - (vorherSteuerzeit / 2);
 
                 //schließt nachher
-                steuerwinkel.Add(0 + (vorher_steuerzeit / 2));
+                steuerwinkelSchließtVorher = 0 + (vorherSteuerzeit / 2);
 
                 //öffnet nachher
-                steuerwinkel.Add(360 - (nachher_steuerzeit / 2));
+                steuerwinkelOeffnetNachher = 360 - (nachherSteuerzeit / 2);
 
                 //schließt nachher
-                steuerwinkel.Add(0 + (nachher_steuerzeit / 2));
+                steuerwinkelSchließtNachher = 0 + (nachherSteuerzeit / 2);
             }
 
-            return steuerwinkel;
+            return (steuerwinkelOeffnetVorher, steuerwinkelSchließtVorher, steuerwinkelOeffnetNachher, steuerwinkelSchließtNachher);
         }
 
         /// <summary>
-        /// Steuerwinkels öffnet.
+        /// Berechnet den Öffnungs-Steuerwinkel.
         /// </summary>
-        /// <param name="steuerzeit_einlass">The steuerzeit einlass.</param>
-        /// <param name="steuerzeit_auslass">The steuerzeit auslass.</param>
-        /// <param name="steuerzeit_ueberstroemer">The steuerzeit ueberstroemer.</param>
-        /// <returns></returns>
-        public static double GetSteuerwinkelOeffnet(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
+        /// <param name="steuerzeitEinlass">Einlass Steuerzeit.</param>
+        /// <param name="steuerzeitAuslass">Auslass steuerzeit.</param>
+        /// <param name="steuerzeitUeberstroemer">Überströmer Steuerzeit.</param>
+        /// <returns>Steuerwinkel.</returns>
+        public static double GetSteuerwinkelOeffnet(double steuerzeitEinlass = 0, double steuerzeitAuslass = 0, double steuerzeitUeberstroemer = 0)
         {
             double steuerwinkel_oeffnet = 0;
 
-            if (steuerzeit_einlass != 0)
+            if (steuerzeitEinlass != 0)
             {
-                steuerwinkel_oeffnet = 360 - (steuerzeit_einlass / 2);
+                steuerwinkel_oeffnet = 360 - (steuerzeitEinlass / 2);
             }
-            else if (steuerzeit_auslass != 0)
+            else if (steuerzeitAuslass != 0)
             {
-                steuerwinkel_oeffnet = 180 - (steuerzeit_auslass / 2);
+                steuerwinkel_oeffnet = 180 - (steuerzeitAuslass / 2);
             }
-            else if (steuerzeit_ueberstroemer != 0)
+            else if (steuerzeitUeberstroemer != 0)
             {
-                steuerwinkel_oeffnet = 180 - (steuerzeit_ueberstroemer / 2);
+                steuerwinkel_oeffnet = 180 - (steuerzeitUeberstroemer / 2);
             }
 
             steuerwinkel_oeffnet = Math.Round(steuerwinkel_oeffnet, 2);
@@ -399,50 +394,32 @@ namespace SimTuning.Core.ModuleLogic
         }
 
         /// <summary>
-        /// Steuerwinkels schließt.
+        /// Berechnet den Schließungs-Steuerwinkel.
         /// </summary>
-        /// <param name="steuerzeit_einlass">The steuerzeit einlass.</param>
-        /// <param name="steuerzeit_auslass">The steuerzeit auslass.</param>
-        /// <param name="steuerzeit_ueberstroemer">The steuerzeit ueberstroemer.</param>
+        /// <param name="steuerzeitEinlass">The steuerzeit einlass.</param>
+        /// <param name="steuerzeitAuslass">The steuerzeit auslass.</param>
+        /// <param name="steuerzeitUeberstroemer">The steuerzeit ueberstroemer.</param>
         /// <returns></returns>
-        public static double GetSteuerwinkelSchließt(double steuerzeit_einlass = 0, double steuerzeit_auslass = 0, double steuerzeit_ueberstroemer = 0)
+        public static double GetSteuerwinkelSchließt(double steuerzeitEinlass = 0, double steuerzeitAuslass = 0, double steuerzeitUeberstroemer = 0)
         {
             double steuerwinkel_schließt = 0;
 
-            if (steuerzeit_einlass != 0)
+            if (steuerzeitEinlass != 0)
             {
-                steuerwinkel_schließt = steuerzeit_einlass / 2;
+                steuerwinkel_schließt = steuerzeitEinlass / 2;
             }
-            else if (steuerzeit_auslass != 0)
+            else if (steuerzeitAuslass != 0)
             {
-                steuerwinkel_schließt = 180 + (steuerzeit_auslass / 2);
+                steuerwinkel_schließt = 180 + (steuerzeitAuslass / 2);
             }
-            else if (steuerzeit_ueberstroemer != 0)
+            else if (steuerzeitUeberstroemer != 0)
             {
-                steuerwinkel_schließt = 180 + (steuerzeit_ueberstroemer / 2);
+                steuerwinkel_schließt = 180 + (steuerzeitUeberstroemer / 2);
             }
 
             steuerwinkel_schließt = Math.Round(steuerwinkel_schließt, 2);
 
             return steuerwinkel_schließt;
-        }
-
-        /// <summary>
-        /// Berechnet den halben Radius.
-        /// </summary>
-        /// <param name="hub">The hub.</param>
-        /// <param name="pleullaenge">The pleullaenge.</param>
-        /// <param name="deachsierung">The deachsierung.</param>
-        /// <returns>Hubradius in mm.</returns>
-        public static double GetStrokeRadius(double hub, double pleullaenge, double deachsierung)
-        {
-            double hubradius = hub *
-                        Math.Sqrt(Math.Abs(Math.Pow(4 * deachsierung, 2) + Math.Pow(hub, 2) - (4 * Math.Pow(pleullaenge, 2)))) /
-                        Math.Sqrt(Math.Abs((4 * Math.Pow(hub, 2)) - (16 * Math.Pow(pleullaenge, 2))));
-
-            hubradius = Math.Round(hubradius, 2);
-
-            return hubradius;
         }
 
         /// <summary>

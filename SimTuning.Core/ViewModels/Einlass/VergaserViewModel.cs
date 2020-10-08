@@ -77,7 +77,7 @@ namespace SimTuning.Core.ViewModels.Einlass
         {
             if (Hubvolumen.HasValue && Resonanzdrehzahl.HasValue)
             {
-                Vergasergroeße = EinlassLogic.GetCarburetorSize(
+                Vergasergroeße = EinlassLogic.GetVergaserDurchmesser(
                     UnitsNet.UnitConverter.Convert(Hubvolumen.Value,
                     UnitHubvolumen.UnitEnumValue,
                     VolumeUnit.CubicCentimeter),
@@ -89,7 +89,7 @@ namespace SimTuning.Core.ViewModels.Einlass
         {
             if (Vergasergroeße.HasValue)
             {
-                HauptdueseD = EinlassLogic.GetCarburetorMainNozzleDiameter(
+                HauptdueseD = EinlassLogic.GetVergaserHauptduesenDurchmesser(
                     UnitsNet.UnitConverter.Convert(Vergasergroeße.Value,
                     UnitVergasergroeße.UnitEnumValue,
                     LengthUnit.Millimeter));

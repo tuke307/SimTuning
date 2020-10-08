@@ -108,7 +108,7 @@ namespace SimTuning.Core.ViewModels.Auslass
         {
             if (this.ModAuspuffAbgasT.HasValue)
             {
-                this.ModAuspuffAbgasV = AuslassLogic.GetGasVelocity(this.ModAuspuffAbgasT.Value);
+                this.ModAuspuffAbgasV = AuslassLogic.GetGasGeschwindigkeit(this.ModAuspuffAbgasT.Value);
                 this.RaisePropertyChanged(() => this.ModAuspuffAbgasV);
             }
         }
@@ -121,7 +121,7 @@ namespace SimTuning.Core.ViewModels.Auslass
             if (this.VehicleMotorAuslassFlaecheA.HasValue)
             {
                 this.KruemmerSpannneD =
-                    AuslassLogic.GetManifoldDiameter(
+                    AuslassLogic.GetKruemmerDurchmesser(
                     UnitsNet.UnitConverter.Convert(
                         this.VehicleMotorAuslassFlaecheA.Value,
                         this.VehicleMotorAuslassFlaecheAUnit.UnitEnumValue,
@@ -129,7 +129,7 @@ namespace SimTuning.Core.ViewModels.Auslass
                     +
                     " - "
                     +
-                    AuslassLogic.GetManifoldDiameter(
+                    AuslassLogic.GetKruemmerDurchmesser(
                     UnitsNet.UnitConverter.Convert(
                         this.VehicleMotorAuslassFlaecheA.Value,
                         this.VehicleMotorAuslassFlaecheAUnit.UnitEnumValue,
@@ -144,7 +144,7 @@ namespace SimTuning.Core.ViewModels.Auslass
         {
             if (this.VehicleMotorAuslassAuspuffKruemmerD.HasValue && this.VehicleMotorAuslassAuspuffKruemmerF.HasValue)
             {
-                this.VehicleMotorAuslassAuspuffKruemmerL = AuslassLogic.GetManifoldLength(
+                this.VehicleMotorAuslassAuspuffKruemmerL = AuslassLogic.GetKruemmerLaenge(
                      UnitsNet.UnitConverter.Convert(
                          this.VehicleMotorAuslassAuspuffKruemmerD.Value,
                          this.VehicleMotorAuslassAuspuffKruemmerDUnit.UnitEnumValue,
@@ -163,7 +163,7 @@ namespace SimTuning.Core.ViewModels.Auslass
         {
             if (this.VehicleMotorAuslassSteuerzeitSZ.HasValue && this.VehicleMotorAuslassAuspuffAbgasT.HasValue && this.VehicleMotorResonanzU.HasValue)
             {
-                this.VehicleMotorAuslassAuspuffResonanzL = AuslassLogic.GetResonanceLength(this.VehicleMotorAuslassSteuerzeitSZ.Value, this.VehicleMotorAuslassAuspuffAbgasT.Value, this.VehicleMotorResonanzU.Value);
+                this.VehicleMotorAuslassAuspuffResonanzL = AuslassLogic.GetResonanzLaenge(this.VehicleMotorAuslassSteuerzeitSZ.Value, this.VehicleMotorAuslassAuspuffAbgasT.Value, this.VehicleMotorResonanzU.Value);
                 this.RaisePropertyChanged(() => this.VehicleMotorAuslassAuspuffResonanzL);
             }
         }

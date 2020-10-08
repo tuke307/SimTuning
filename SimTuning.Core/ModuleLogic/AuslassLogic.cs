@@ -1,91 +1,15 @@
-﻿// project=SimTuning.Core, file=AuslassLogic.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=AuslassLogic.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 namespace SimTuning.Core.ModuleLogic
 {
-    using System;
     using SkiaSharp;
+    using System;
 
     /// <summary>
     /// Auslass Logik.
     /// </summary>
     public static class AuslassLogic
     {
-        /// <summary>
-        /// Berechnet Abgasgeschwindigkeit.
-        /// </summary>
-        /// <param name="abgastemperatur">The abgastemperatur.</param>
-        /// <returns>Abasgeschwindigkeit in m/s.</returns>
-        public static double GetGasVelocity(double abgastemperatur)
-        {
-            double abgasgeschwindigkeit = 331 + (0.6 * abgastemperatur);
-            abgasgeschwindigkeit = Math.Round(abgasgeschwindigkeit, 2);
-
-            return abgasgeschwindigkeit;
-        }
-
-        /// <summary>
-        /// Berechnet Resonanzlänge.
-        /// </summary>
-        /// <param name="vehicleSteuerwinkel">The vehicle steuerwinkel.</param>
-        /// <param name="abgasTemperatur">The abgas temperatur.</param>
-        /// <param name="resonanzDrehzahl">The resonanz drehzahl.</param>
-        /// <returns>Resonanzlänge in cm.</returns>
-        public static double GetResonanceLength(double vehicleSteuerwinkel, double abgasTemperatur, double resonanzDrehzahl)
-        {
-            // von mm in cm /10
-            double resonanzlaenge = vehicleSteuerwinkel * abgasTemperatur / (360 * 2 * resonanzDrehzahl / 60) * 1000;
-            resonanzlaenge = Math.Round(resonanzlaenge, 2);
-
-            return resonanzlaenge;
-        }
-
-        /// <summary>
-        /// Berechnet wie lange der Fahrzeug-Kanal offen ist.
-        /// </summary>
-        /// <param name="vehicleSteuerzeit">The vehicle steuerzeit.</param>
-        /// <param name="drehzahl">The drehzahl.</param>
-        /// <returns>Zeit in s.</returns>
-        public static double GetVehiclePortDuration(double vehicleSteuerzeit, double drehzahl)
-        {
-            double zeit = 60 * vehicleSteuerzeit / drehzahl * 360;
-
-            return zeit;
-        }
-
-        /// <summary>
-        /// Berechnet die Krümmerlänge.
-        /// </summary>
-        /// <param name="kruemmerdurchmesser">The kruemmerdurchmesser.</param>
-        /// <param name="drehmomentfaktor">The drehmomentfaktor.</param>
-        /// <param name="vehicleLaenge">The vehicle laenge.</param>
-        /// <returns>KrümmerLänge in cm.</returns>
-        public static double GetManifoldLength(double kruemmerdurchmesser, double drehmomentfaktor, double vehicleLaenge)
-        {
-            // von mm in cm /10
-            double kruemmerlaenge = (drehmomentfaktor * kruemmerdurchmesser) - vehicleLaenge /*/ 10*/;
-            kruemmerlaenge = Math.Round(kruemmerlaenge, 2);
-
-            return kruemmerlaenge;
-        }
-
-        /// <summary>
-        /// Berechnet den Krümmer Durchmesser.
-        /// </summary>
-        /// <param name="vehicleflaeche">vehiclefläche in cm².</param>
-        /// <param name="percentage">Flächenvergrößerung in %, normalerweise im Bereich von 10% bis 20%.</param>
-        /// <returns>Krümmerdurchmesser in cm.</returns>
-        public static double GetManifoldDiameter(double vehicleflaeche, int percentage = 10)
-        {
-            // Vergrößerung um mehr als 100%
-            double factor = 1 + (percentage / 100);
-
-            // radius mal 2
-            double durchmesser = Math.Sqrt(vehicleflaeche * factor) / Math.Sqrt(Math.PI) * 2;
-            durchmesser = Math.Round(durchmesser, 2);
-
-            return durchmesser;
-        }
-
         /// <summary>
         /// Berechnet einen Auspuff.
         /// </summary>
@@ -95,11 +19,11 @@ namespace SimTuning.Core.ModuleLogic
         {
             #region Berechnung
 
-            vehicle.Motor.Auslass.Auspuff.ResonanzL = GetResonanceLength(vehicle.Motor.Auslass.SteuerzeitSZ.Value, vehicle.Motor.Auslass.Auspuff.AbgasT.Value, vehicle.Motor.ResonanzU.Value);
+            vehicle.Motor.Auslass.Auspuff.ResonanzL = GetResonanzLaenge(vehicle.Motor.Auslass.SteuerzeitSZ.Value, vehicle.Motor.Auslass.Auspuff.AbgasT.Value, vehicle.Motor.ResonanzU.Value);
 
             // KRÜMMER
             vehicle.Motor.Auslass.Auspuff.KruemmerD = vehicle.Motor.Auslass.DurchmesserD.Value; /*Get_KruemmerDurchmesser(vehicleflaeche);*/
-            vehicle.Motor.Auslass.Auspuff.KruemmerL = GetManifoldLength(vehicle.Motor.Auslass.DurchmesserD.Value, vehicle.Motor.Auslass.Auspuff.KruemmerF.Value, vehicle.Motor.Auslass.LaengeL.Value);
+            vehicle.Motor.Auslass.Auspuff.KruemmerL = GetKruemmerLaenge(vehicle.Motor.Auslass.DurchmesserD.Value, vehicle.Motor.Auslass.Auspuff.KruemmerF.Value, vehicle.Motor.Auslass.LaengeL.Value);
 
             // MITTELTEIL
             vehicle.Motor.Auslass.Auspuff.MittelteilD = Math.Round(Math.Sqrt(vehicle.Motor.Auslass.FlaecheA.Value * 4 / Math.PI) * vehicle.Motor.Auslass.Auspuff.MittelteilF.Value, 2);
@@ -531,6 +455,84 @@ namespace SimTuning.Core.ModuleLogic
             #endregion TeilBezeichnung
 
             return bmp_auspuff;
+        }
+
+        /// <summary>
+        /// Berechnet Abgasgeschwindigkeit.
+        /// </summary>
+        /// <param name="abgastemperatur">Die Abgastemperatur in °C.</param>
+        /// <returns>Abasgeschwindigkeit in m/s.</returns>
+        public static double GetGasGeschwindigkeit(double abgastemperatur)
+        {
+            double abgasgeschwindigkeit = 331 + (0.6 * abgastemperatur);
+            abgasgeschwindigkeit = Math.Round(abgasgeschwindigkeit, 2);
+
+            return abgasgeschwindigkeit;
+        }
+
+        /// <summary>
+        /// Berechnet den Krümmer Durchmesser.
+        /// </summary>
+        /// <param name="auslassflaeche">Auslassfläche in cm².</param>
+        /// <param name="percentage">
+        /// Flächenvergrößerung in %, normalerweise im Bereich von 10% bis 20%.
+        /// </param>
+        /// <returns>Krümmerdurchmesser in cm.</returns>
+        public static double GetKruemmerDurchmesser(double auslassflaeche, int percentage = 10)
+        {
+            // Vergrößerung um mehr als 100%
+            double factor = 1 + (percentage / 100);
+
+            // radius mal 2
+            double durchmesser = Math.Sqrt(auslassflaeche * factor) / Math.Sqrt(Math.PI) * 2;
+            durchmesser = Math.Round(durchmesser, 2);
+
+            return durchmesser;
+        }
+
+        /// <summary>
+        /// Berechnet die Krümmerlänge.
+        /// </summary>
+        /// <param name="kruemmerdurchmesser">The kruemmerdurchmesser.</param>
+        /// <param name="drehmomentfaktor">The drehmomentfaktor.</param>
+        /// <param name="auslassLaenge">The auslass laenge.</param>
+        /// <returns>KrümmerLänge in cm.</returns>
+        public static double GetKruemmerLaenge(double kruemmerdurchmesser, double drehmomentfaktor, double auslassLaenge)
+        {
+            // von mm in cm /10
+            double kruemmerlaenge = (drehmomentfaktor * kruemmerdurchmesser) - auslassLaenge /*/ 10*/;
+            kruemmerlaenge = Math.Round(kruemmerlaenge, 2);
+
+            return kruemmerlaenge;
+        }
+
+        /// <summary>
+        /// Berechnet Resonanzlänge.
+        /// </summary>
+        /// <param name="auslassSteuerwinkel">The auslass steuerwinkel.</param>
+        /// <param name="abgasTemperatur">The abgas temperatur.</param>
+        /// <param name="resonanzDrehzahl">The resonanz drehzahl.</param>
+        /// <returns>Resonanzlänge in cm.</returns>
+        public static double GetResonanzLaenge(double auslassSteuerwinkel, double abgasTemperatur, double resonanzDrehzahl)
+        {
+            // von mm in cm /10
+            double resonanzlaenge = auslassSteuerwinkel * abgasTemperatur / (360 * 2 * resonanzDrehzahl / 60) * 1000;
+            resonanzlaenge = Math.Round(resonanzlaenge, 2);
+
+            return resonanzlaenge;
+        }
+
+        /// <summary>
+        /// Berechnet wie lange der Fahrzeug-Kanal offen ist.
+        /// </summary>
+        /// <param name="auslassSteuerzeit">The auslass steuerzeit.</param>
+        /// <param name="drehzahl">The drehzahl.</param>
+        /// <returns>Zeit in s.</returns>
+        public static double GetVehiclePortDuration(double auslassSteuerzeit, double drehzahl)
+        {
+            double zeit = 60 * auslassSteuerzeit / drehzahl * 360;
+
+            return zeit;
         }
     }
 }
