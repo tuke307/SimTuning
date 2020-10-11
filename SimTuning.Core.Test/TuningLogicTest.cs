@@ -1,11 +1,11 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace SimTuning.Core.Test
 {
-    [TestClass]
+    [TestFixture]
     public class TuningLogicTest
     {
-        [TestMethod]
+        [Test]
         public void TestMethod1()
         {
         }

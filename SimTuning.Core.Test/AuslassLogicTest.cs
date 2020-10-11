@@ -1,15 +1,15 @@
 ﻿using Data.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using SimTuning.Core.ModuleLogic;
 using SkiaSharp;
 using System.IO;
 
 namespace SimTuning.Core.Test
 {
-    [TestClass]
+    [TestFixture]
     public class AuslassLogicTest
     {
-        [TestMethod]
+        [Test]
         public void AuspuffTest()
         {
             SKBitmap auspuff;
@@ -24,7 +24,7 @@ namespace SimTuning.Core.Test
             _vehicle.Motor.Auslass.Auspuff = new AuspuffModel();
 
             _fileName = "Auspuff.png";
-            _filePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, SimTuning.Test.Constants.UnitTestPath, _fileName);
+            _filePath = Path.Combine(SimTuning.Test.Constants.Directory, _fileName);
 
             VehiclesModel _vehicle2 = _vehicle;
             auspuff = AuslassLogic.Auspuff(ref _vehicle2);
@@ -41,7 +41,7 @@ namespace SimTuning.Core.Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void GasVelocityTest()
         {
             double value;
@@ -52,7 +52,7 @@ namespace SimTuning.Core.Test
             value = AuslassLogic.GetGasGeschwindigkeit(abgasT);
         }
 
-        [TestMethod]
+        [Test]
         public void ManifoldDiameterTest()
         {
             double value;
@@ -65,7 +65,7 @@ namespace SimTuning.Core.Test
             value = AuslassLogic.GetKruemmerDurchmesser(auslassA, percentage);
         }
 
-        [TestMethod]
+        [Test]
         public void ManifoldLengthTest()
         {
             double value;
@@ -80,7 +80,7 @@ namespace SimTuning.Core.Test
             value = AuslassLogic.GetKruemmerLaenge(kruemerdurchmesser, drehmomentfaktor, auslassLaenge);
         }
 
-        [TestMethod]
+        [Test]
         public void ResonanceLengthTest()
         {
             double value;
@@ -95,7 +95,7 @@ namespace SimTuning.Core.Test
             value = AuslassLogic.GetResonanzLaenge(auslassSteuerwinkel, abgasTemperatur, resonanzDrehzahl);
         }
 
-        [TestMethod]
+        [Test]
         public void VehiclePortDurationTest()
         {
             double value;

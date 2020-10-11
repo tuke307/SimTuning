@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using SimTuning.Core.ModuleLogic;
 
 namespace SimTuning.Core.Test
 {
-    [TestClass]
+    [TestFixture]
     public class EinlassLogicTest
     {
-        [TestMethod]
+        [Test]
         public void ResonanzLaengeTest()
         {
             double value;
@@ -29,7 +29,7 @@ namespace SimTuning.Core.Test
             ansaugleitungsdurchmesser);
         }
 
-        [TestMethod]
+        [Test]
         public void VergaserDurchmesserTest()
         {
             double value;
@@ -44,7 +44,7 @@ namespace SimTuning.Core.Test
             value = EinlassLogic.GetVergaserDurchmesser(hubvolumen, resonanzdrehzahl, widerstandsFaktor);
         }
 
-        [TestMethod]
+        [Test]
         public void VergaserHauptduesenDurchmesserTest()
         {
             double value;

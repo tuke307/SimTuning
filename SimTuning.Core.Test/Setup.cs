@@ -1,16 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MvvmCross.Tests;
+using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
 
 namespace SimTuning.Test
 {
-    [TestClass]
-    public class Setup
+    [SetUpFixture]
+    public class Setup : MvxIoCSupportingTest
     {
-        //[TestInitialize]
-        //public void Setup()
-        //{
-        //}
+        [OneTimeSetUp]
+        public void RunBeforeAnyTests()
+        {
+            if (Directory.Exists(Constants.Directory))
+            {
+                Directory.Delete(Constants.Directory);
+            }
+
+            Directory.CreateDirectory(Constants.Directory);
+        }
     }
 }

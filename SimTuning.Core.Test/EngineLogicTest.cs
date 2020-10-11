@@ -1,20 +1,16 @@
-﻿using Data.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using SimTuning.Core.Models;
 using SimTuning.Core.ModuleLogic;
 using SkiaSharp;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace SimTuning.Core.Test
 {
-    [TestClass]
+    [TestFixture]
     public class EngineLogicTest
 
     {
-        [TestMethod]
+        [Test]
         public void CompressionTest()
         {
             double value;
@@ -31,7 +27,7 @@ namespace SimTuning.Core.Test
              durchmesser);
         }
 
-        [TestMethod]
+        [Test]
         public void CylinderHoleDiameterTest()
         {
             double value;
@@ -44,7 +40,7 @@ namespace SimTuning.Core.Test
             value = EngineLogic.GetCylinderHoleDiameter(hubraum, hub);
         }
 
-        [TestMethod]
+        [Test]
         public void DisplacementTest()
         {
             double value;
@@ -57,7 +53,7 @@ namespace SimTuning.Core.Test
             value = EngineLogic.GetDisplacement(bohrungsdurchmesser, hub);
         }
 
-        [TestMethod]
+        [Test]
         public void DistanceToOTTest()
         {
             double value;
@@ -74,7 +70,7 @@ namespace SimTuning.Core.Test
             value = EngineLogic.GetDistanceToOT(pleullaenge, hubradius, deachsierung, kwgrad);
         }
 
-        [TestMethod]
+        [Test]
         public void GrindingDiametersTest()
         {
             GrindingDiametersModel value;
@@ -85,7 +81,7 @@ namespace SimTuning.Core.Test
             value = EngineLogic.GetGrindingDiameters(durchmesser);
         }
 
-        [TestMethod]
+        [Test]
         public void HubRadiusTest()
         {
             double value;
@@ -100,7 +96,7 @@ namespace SimTuning.Core.Test
             value = EngineLogic.GetHubRadius(hub, pleullaenge, deachsierung);
         }
 
-        [TestMethod]
+        [Test]
         public void KolbenDurchmesserTest()
         {
             double value;
@@ -113,7 +109,7 @@ namespace SimTuning.Core.Test
             value = EngineLogic.GetKolbenDurchmesser(bohrungsdurchmesser, einbauspiel);
         }
 
-        [TestMethod]
+        [Test]
         public void KolbenGeschwindigkeitTest()
         {
             double value;
@@ -126,7 +122,7 @@ namespace SimTuning.Core.Test
             value = EngineLogic.GetKolbenGeschwindigkeit(hub, drehzahl);
         }
 
-        [TestMethod]
+        [Test]
         public void SteuerdiagrammTest()
         {
             SKBitmap value;
@@ -137,7 +133,7 @@ namespace SimTuning.Core.Test
             string _filePath;
 
             _fileName = "Steuerdiagramm.png";
-            _filePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, SimTuning.Test.Constants.UnitTestPath, _fileName);
+            _filePath = Path.Combine(SimTuning.Test.Constants.Directory, _fileName);
             einlass = 120;
             auslass = 120;
             ueberstroemer = 120;
@@ -155,7 +151,7 @@ namespace SimTuning.Core.Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void SteuerwinkelTest()
         {
             double value;
@@ -174,7 +170,7 @@ namespace SimTuning.Core.Test
             value = EngineLogic.GetSteuerwinkelSchließt();
         }
 
-        [TestMethod]
+        [Test]
         public void ToDecreasingLengthTest()
         {
             double value;
@@ -191,7 +187,7 @@ namespace SimTuning.Core.Test
             value = EngineLogic.GetToDecreasingLength(hubraum, brennraum, durchmesser, zielVerdichtung);
         }
 
-        [TestMethod]
+        [Test]
         public void VorauslassTest()
         {
             double value;
