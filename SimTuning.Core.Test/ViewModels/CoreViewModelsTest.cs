@@ -1,26 +1,49 @@
 ﻿using MvvmCross.Tests;
 using NUnit.Framework;
 using SimTuning.Core.ViewModels;
-using SimTuning.Core.ViewModels.Auslass;
 
 namespace SimTuning.Test
 {
     public class CoreViewModelsTest : MvxTestFixture
     {
         [Test]
-        public void MainPageViewModelCanExecuteTest()
+        public void AuslassAnwendungViewModelTest()
         {
-            var mainPage = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<MainPage>();
-            mainPage.ShowHomeViewModelCommand.ListenForRaiseCanExecuteChanged();
-            mainPage.ShowMenuViewModelCommand.ListenForRaiseCanExecuteChanged();
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Auslass.AnwendungViewModel>();
         }
 
         [Test]
-        public void MenuViewModelCanExecuteTest()
+        public void AuslassMainViewModelTest()
         {
-            var menu = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Menu>();
-            menu.ButtonCloseMenu.ListenForRaiseCanExecuteChanged();
-            menu.ButtonOpenMenu.ListenForRaiseCanExecuteChanged();
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Auslass.MainViewModel>();
+        }
+
+        [Test]
+        public void AuslassTheorieViewModelTest()
+        {
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Auslass.TheorieViewModel>();
+        }
+
+        [Test]
+        public void DemoMainViewModelTest()
+        {
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Demo.DemoMainViewModel>();
+        }
+
+        [Test]
+        public void MainPageViewModelTest()
+        {
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<MainPage>();
+            vm.ShowHomeViewModelCommand.ListenForRaiseCanExecuteChanged();
+            vm.ShowMenuViewModelCommand.ListenForRaiseCanExecuteChanged();
+        }
+
+        [Test]
+        public void MenuViewModelTest()
+        {
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Menu>();
+            vm.ButtonCloseMenu.ListenForRaiseCanExecuteChanged();
+            vm.ButtonOpenMenu.ListenForRaiseCanExecuteChanged();
         }
     }
 }

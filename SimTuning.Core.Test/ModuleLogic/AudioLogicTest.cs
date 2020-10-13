@@ -9,10 +9,10 @@ namespace SimTuning.Core.Test
     [TestFixture]
     public class AudioLogicTest : MvxTestFixture
     {
-        [TestCase(4096)] //2^12
         [TestCase(8192)] //2^13
         [TestCase(16384)] //2^14
         [TestCase(32768)] //2^15
+        [TestCase(65536)] //2^16
         public void SpectrogramCreationTest(int fftSize)
         {
             int _fftSize = fftSize;

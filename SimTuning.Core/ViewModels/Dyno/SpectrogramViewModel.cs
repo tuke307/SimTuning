@@ -222,23 +222,23 @@ namespace SimTuning.Core.ViewModels.Dyno
                 switch (this.Quality)
                 {
                     case "schlecht":
-                        _fftSize = 4096; //2^12
-                        break;
-
-                    case "mittel":
                         _fftSize = 8192; //2^13
                         break;
 
-                    case "gut":
+                    case "mittel":
                         _fftSize = 16384; //2^14
                         break;
 
+                    case "gut":
+                        _fftSize = 32768; //2^15
+                        break;
+
                     case "sehr gut":
-                        _fftSize = 32768;//2^15
+                        _fftSize = 65536;//2^16
                         break;
 
                     default:
-                        _fftSize = 8192;
+                        _fftSize = 16384;
                         break;
                 }
 

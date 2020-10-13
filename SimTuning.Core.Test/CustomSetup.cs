@@ -16,6 +16,12 @@ namespace SimTuning.Test
             private set;
         }
 
+        [OneTimeTearDown]
+        public void RunAfterAnyTests()
+        {
+            // ...
+        }
+
         [OneTimeSetUp]
         //[SetUp]
         public void RunBeforeAnyTests()
@@ -24,7 +30,7 @@ namespace SimTuning.Test
 
             if (Directory.Exists(Constants.Directory))
             {
-                Directory.Delete(Constants.Directory);
+                Directory.Delete(Constants.Directory, true);
             }
 
             Directory.CreateDirectory(Constants.Directory);
