@@ -3,7 +3,6 @@
     using Data;
     using Data.Models;
     using MvvmCross.Commands;
-    using MvvmCross.IoC;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Location;
@@ -182,6 +181,7 @@
                 this.CurrentState = firstState;
                 this.PageBackColor = darkSeaGreen;
                 this.SpeedBackColor = seaGreen;
+                this.StopAccelerationButtonVis = true;
 
                 this.CountdownVis = true;
                 this._timer = new System.Timers.Timer();
@@ -251,7 +251,19 @@
 
             if (this.CurrentState == firstState)
             {
-                // TODO: bei keiner Veränderung der Maximalgeschwindigkeit StartAusrollen() beginnen.
+                // TODO: verbessern bei keiner Veränderung der Maximalgeschwindigkeit
+                // StartAusrollen() beginnen.
+                using (var db = new Data.DatabaseContext())
+                {
+                    var lastValues = db.Beschleunigung.Select(x => x.Speed.Value).Take(10);
+                    var max = lastValues.Max();
+                    var min = lastValues.Min();
+
+                    if ((max - min) <= 2)
+                    {
+                        StartAusrollen();
+                    }
+                }
 
                 Task.Run(async () =>
                 {

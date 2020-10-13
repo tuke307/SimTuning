@@ -26,7 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="UnitsNet" Version="4.70.1" />
+    <PackageReference Include="UnitsNet" Version="4.72.0" />
     <PackageReference Include="WooCommerceNET" Version="0.8.2" />
     <PackageReference Include="WordPressPCL" Version="1.7.2" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />

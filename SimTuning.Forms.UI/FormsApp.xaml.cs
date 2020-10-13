@@ -16,9 +16,11 @@ namespace SimTuning.Forms.UI
         /// </summary>
         public FormsApp()
         {
+            XF.Material.Forms.Material.Init(this);
+
             this.InitializeComponent();
 
-            XF.Material.Forms.Material.Init(this, "Material.Configuration");
+            XF.Material.Forms.Material.Use("Material.Configuration");
         }
 
         protected override void OnResume()
