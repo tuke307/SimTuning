@@ -1,12 +1,12 @@
-﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                       x:Class="SimTuning.Forms.UI.Views.Einlass.EinlassKanalView"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       Title="Kanal"
-                       x:TypeArguments="viewModels:EinlassKanalViewModel"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einlass"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Einlass.EinlassKanalView"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einlass"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      Title="Kanal"
+                      x:TypeArguments="viewModels:EinlassKanalViewModel"
+                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <ScrollView>
         <StackLayout>
 
@@ -23,7 +23,7 @@
 
                         <StackLayout Orientation="Horizontal">
                             <material:MaterialTextField Placeholder="Einlass-Fläche"
-                                                        Text="{Binding Mode=OneWay, Path=EinlassA}"
+                                                        Text="{Binding Mode=OneWay, Path=VehicleMotorEinlassFlaecheA}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -31,9 +31,11 @@
                             <material:MaterialTextField InputType="Choice"
                                                         FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
-                                                        VerticalOptions="FillAndExpand"
+                                                        LeadingIcon="chevron_down"
                                                         Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
-                                                        SelectedChoice="{Binding UnitEinlassA}"
+                                                        HorizontalOptions="StartAndExpand"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        SelectedChoice="{Binding VehicleMotorEinlassFlaecheAUnit}"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
                             <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -70,7 +72,7 @@
 
                         <StackLayout Orientation="Horizontal">
                             <material:MaterialTextField Placeholder="Kurbelgehäusevolumen"
-                                                        Text="{Binding Mode=OneWay, Path=KurbelgehauseV}"
+                                                        Text="{Binding Mode=OneWay, Path=VehicleMotorKurbelgehaeuseV}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -78,8 +80,11 @@
                             <material:MaterialTextField InputType="Choice"
                                                         FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
+                                                        LeadingIcon="chevron_down"
                                                         Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
-                                                        SelectedChoice="{Binding UnitKurbelgehauseV}"
+                                                        HorizontalOptions="StartAndExpand"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        SelectedChoice="{Binding VehicleMotorKurbelgehaeuseVUnit}"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
                             <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -90,7 +95,7 @@
 
                         <StackLayout Orientation="Horizontal">
                             <material:MaterialTextField Placeholder="Ø Ansaugleitung"
-                                                        Text="{Binding Mode=OneWay, Path=Ansaugleitungsdurchmesser}"
+                                                        Text="{Binding Mode=OneWay, Path=VehicleMotorEinlassDurchmesserD}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -98,8 +103,11 @@
                             <material:MaterialTextField InputType="Choice"
                                                         FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
+                                                        LeadingIcon="chevron_down"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                        SelectedChoice="{Binding UnitAnsaugleitungD}"
+                                                        HorizontalOptions="StartAndExpand"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        SelectedChoice="{Binding VehicleMotorEinlassDurchmesserDUnit}"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
                             <!--<material:MaterialLabel Margin="5, 0, 0, 0"
@@ -120,7 +128,10 @@
                             <material:MaterialTextField InputType="Choice"
                                                         FloatingPlaceholderEnabled="False"
                                                         Margin="5, 0, 0, 0"
+                                                        LeadingIcon="chevron_down"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                        HorizontalOptions="StartAndExpand"
+                                                        VerticalOptions="CenterAndExpand"
                                                         SelectedChoice="{Binding UnitResonanzlaenge}"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
@@ -147,6 +158,7 @@
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
                                                 Choices="{Binding HelperVehicles, Mode=OneTime}"
+                                                LeadingIcon="chevron_down"
                                                 SelectedChoice="{Binding HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>

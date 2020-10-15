@@ -1,12 +1,12 @@
-﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                       x:Class="SimTuning.Forms.UI.Views.Einlass.EinlassVergaserView"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       Title="Vergaser"
-                       x:TypeArguments="viewModels:EinlassVergaserViewModel"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einlass"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Einlass.EinlassVergaserView"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einlass"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      Title="Vergaser"
+                      x:TypeArguments="viewModels:EinlassVergaserViewModel"
+                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
 
     <ScrollView>
         <StackLayout>
@@ -32,7 +32,10 @@
                         <material:MaterialTextField InputType="Choice"
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
+                                                    LeadingIcon="chevron_down"
                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitHubvolumen}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -66,7 +69,10 @@
                         <material:MaterialTextField InputType="Choice"
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
+                                                    LeadingIcon="chevron_down"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitVergasergroeße}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -99,7 +105,10 @@
                         <material:MaterialTextField InputType="Choice"
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
+                                                    LeadingIcon="chevron_down"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitVergasergroeße}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -120,7 +129,10 @@
                         <material:MaterialTextField InputType="Choice"
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
+                                                    LeadingIcon="chevron_down"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitHauptdueseD}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -147,6 +159,7 @@
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
                                                 Choices="{Binding HelperVehicles}"
+                                                LeadingIcon="chevron_down"
                                                 SelectedChoice="{Binding HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>

@@ -132,8 +132,9 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=MassQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleGewichtUnit}"
-                                                                    VerticalOptions="EndAndExpand"
                                                                     LeadingIcon="chevron_down"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
@@ -150,6 +151,8 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleFrontAUnit}"
                                                                     LeadingIcon="chevron_down"
                                                                     ChoicesBindingName="Abbreviation">
@@ -220,6 +223,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorHubLUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -237,6 +242,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorPleulLUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -254,6 +261,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorKolbenGUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -271,6 +280,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungLUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -288,6 +299,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorBohrungDUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -417,6 +430,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheHUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -434,6 +449,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteBUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -451,6 +468,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserDUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -468,6 +487,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheAUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -492,6 +513,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeLUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -528,6 +551,8 @@
                                                                                                     FloatingPlaceholderEnabled="False"
                                                                                                     Margin="5, 0, 0, 0"
                                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                                    VerticalOptions="CenterAndExpand"
                                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserDUnit}"
                                                                                                     LeadingIcon="chevron_down"
                                                                                                     ChoicesBindingName="Abbreviation">
@@ -572,6 +597,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheHUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -589,6 +616,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteBUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -611,6 +640,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheAUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -633,6 +664,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeLUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -690,6 +723,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheHUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -707,6 +742,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteBUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">
@@ -724,6 +761,8 @@
                                                                                     FloatingPlaceholderEnabled="False"
                                                                                     Margin="5, 0, 0, 0"
                                                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                                                    HorizontalOptions="StartAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheAUnit}"
                                                                                     LeadingIcon="chevron_down"
                                                                                     ChoicesBindingName="Abbreviation">

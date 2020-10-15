@@ -181,7 +181,8 @@
                 this.CurrentState = firstState;
                 this.PageBackColor = darkSeaGreen;
                 this.SpeedBackColor = seaGreen;
-                this.StopAccelerationButtonVis = true;
+
+                this.StartAccelerationButtonVis = false;
 
                 this.CountdownVis = true;
                 this._timer = new System.Timers.Timer();
@@ -227,12 +228,9 @@
             {
                 this._timer.Stop();
                 this._timer.Dispose();
-                this.CountdownVis = false;
 
-                if (this.StartAccelerationButtonVis)
-                {
-                    this.StartAccelerationButtonVis = false;
-                }
+                this.CountdownVis = false;
+                //this.StopAccelerationButtonVis = true;
 
                 this._stopwatch = new Stopwatch();
                 this._stopwatch.Reset();
@@ -253,15 +251,20 @@
             {
                 // TODO: verbessern bei keiner Veränderung der Maximalgeschwindigkeit
                 // StartAusrollen() beginnen.
+
                 using (var db = new Data.DatabaseContext())
                 {
-                    var lastValues = db.Beschleunigung.Select(x => x.Speed.Value).Take(10);
-                    var max = lastValues.Max();
-                    var min = lastValues.Min();
+                    var lastValues = db.Beschleunigung.Select(x => x.Speed.Value).Take(10).ToList();
 
-                    if ((max - min) <= 2)
+                    if (lastValues != null && lastValues.Count > 0)
                     {
-                        StartAusrollen();
+                        var max = lastValues.Max();
+                        var min = lastValues.Min();
+
+                        if ((max - min) <= 2)
+                        {
+                            StartAusrollen();
+                        }
                     }
                 }
 

@@ -236,6 +236,14 @@
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
 
+                    <!--Intensität-->
+                    <material:MaterialTextField InputType="Choice"
+                                                Placeholder="Intensität"
+                                                LeadingIcon="ic_chevron_down_black_18dp"
+                                                Choices="{Binding Mode=OneTime, Path=Intensitys}"
+                                                SelectedChoice="{Binding Mode=TwoWay, Path=Intensity}">
+                    </material:MaterialTextField>
+
                     <material:MaterialButton ImageSource="ic_filter_outline_black_18dp"
                                              WidthRequest="90"
                                              Command="{Binding FilterPlotCommand}" />
@@ -245,6 +253,11 @@
                                              ImageSource="ic_refresh_black_18dp"
                                              Command="{Binding RefreshPlotCommand}">
                     </material:MaterialButton>
+
+                    <material:MaterialSlider MinValue="0"
+                                             MaxValue="25"
+                                             Value="{Binding Mode=TwoWay, Path=FilterValue}"
+                                             VerticalOptions="CenterAndExpand" />
 
                     <!--Graph-->
                     <material:MaterialTextField InputType="Choice"

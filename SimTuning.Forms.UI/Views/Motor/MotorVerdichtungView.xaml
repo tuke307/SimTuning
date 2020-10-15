@@ -35,6 +35,8 @@
                                                     WidthRequest="100"
                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding VehicleMotorBrennraumVUnit}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -51,7 +53,10 @@
                                                     Margin="5, 0, 0, 0"
                                                     WidthRequest="100"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                
                                                     SelectedChoice="{Binding VehicleMotorBohrungDUnit}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -156,6 +161,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding AbdrehenLengthUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -184,6 +191,7 @@
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
                                                 Choices="{Binding HelperVehicles}"
+                                                LeadingIcon="chevron_down"
                                                 SelectedChoice="{Binding HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>

@@ -1,12 +1,12 @@
-﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                       x:Class="SimTuning.Forms.UI.Views.Motor.MotorHubraumView"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       x:TypeArguments="viewModels:MotorHubraumViewModel"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       Title="Hubraum"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Motor.MotorHubraumView"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      x:TypeArguments="viewModels:MotorHubraumViewModel"
+                      Title="Hubraum"
+                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <ScrollView>
         <StackLayout>
 
@@ -33,6 +33,9 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    LeadingIcon="chevron_down"
                                                     SelectedChoice="{Binding UnitHub}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -53,6 +56,9 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
+                                                    LeadingIcon="chevron_down"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitHubraumV}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -88,6 +94,9 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    LeadingIcon="chevron_down"
                                                     SelectedChoice="{Binding UnitBohrungD}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -125,6 +134,9 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    LeadingIcon="chevron_down"
                                                     SelectedChoice="{Binding UnitEinbauspiel}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -145,6 +157,9 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    LeadingIcon="chevron_down"
                                                     SelectedChoice="{Binding UnitKolbenD}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -171,6 +186,7 @@
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
                                                 Choices="{Binding HelperVehicles}"
+                                                LeadingIcon="chevron_down"
                                                 SelectedChoice="{Binding HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>

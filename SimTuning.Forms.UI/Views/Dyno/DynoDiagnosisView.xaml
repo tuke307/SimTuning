@@ -54,10 +54,11 @@
                         </material:MaterialTextField>
 
                         <material:MaterialTextField InputType="Choice"
-                                                    VerticalOptions="Center"
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=MassQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=DynoVehicleGewichtUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -75,7 +76,7 @@
                                                     VerticalOptions="Center"
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
-                                                    Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                    Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=DynoVehicleFrontAUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">

@@ -33,6 +33,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         {
             this._navigationService.Navigate<EinstellungenVehiclesViewModel>();
             this._navigationService.Navigate<EinstellungenKontoViewModel>();
+            this._navigationService.Navigate<EinstellungenApplicationViewModel>();
         }
     }
 }

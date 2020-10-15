@@ -95,7 +95,7 @@
                                      ButtonType="Elevated"
                                      VerticalOptions="Center"
                                      WidthRequest="125"
-                                     Image="ic_refresh_black_18dp.png"
+                                     Image="ic_stop_black_18dp.png"
                                      Command="{Binding StopAccelerationCommand}" />
         </StackLayout>
 

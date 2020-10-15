@@ -36,6 +36,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitKolbenG}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -52,6 +54,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitHubraumV}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -68,6 +72,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitZylinderkopfV}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -100,6 +106,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitAuspuffResonanzD}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -116,6 +124,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitEinlassResonanzD}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -132,6 +142,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding UnitMotorMaxD}"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -160,6 +172,8 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding UnitEinlassD}"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
@@ -174,7 +188,7 @@
 
                                         <material:MaterialTextField InputType="Choice" FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
-                                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding UnitVenturiVergaserD}"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
@@ -191,6 +205,8 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding UnitVergaserD}"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
@@ -207,6 +223,8 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding UnitEinlassA}"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
@@ -239,6 +257,8 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding UnitVorauslass}"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
@@ -255,6 +275,8 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding UnitUeberstroemerD}"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
@@ -271,6 +293,8 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding UnitUeberstroemerA}"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
@@ -303,6 +327,8 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding UnitAuslassD}"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
@@ -319,6 +345,8 @@
                                                                     FloatingPlaceholderEnabled="False"
                                                                     Margin="5, 0, 0, 0"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     SelectedChoice="{Binding UnitAuslassA}"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>

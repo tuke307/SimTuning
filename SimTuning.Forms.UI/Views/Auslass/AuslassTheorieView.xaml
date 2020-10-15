@@ -39,6 +39,8 @@
                                                         Margin="5, 0, 0, 0"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                         SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffKruemmerDUnit}"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        HorizontalOptions="StartAndExpand"
                                                         LeadingIcon="chevron_down"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
@@ -89,6 +91,8 @@
                                                         Margin="5, 0, 0, 0"
                                                         Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                         SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffKruemmerLUnit}"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        HorizontalOptions="StartAndExpand"
                                                         LeadingIcon="chevron_down"
                                                         ChoicesBindingName="Abbreviation">
                             </material:MaterialTextField>
@@ -126,6 +130,8 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding VehicleMotorAuslassFlaecheAUnit}"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    HorizontalOptions="StartAndExpand"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -169,16 +175,18 @@
                                                     WidthRequest="250"
                                                     InputType="Numeric" />
 
-                        <material:MaterialLabel Margin="5, 0, 0, 0"
+                        <!--<material:MaterialLabel Margin="5, 0, 0, 0"
                                                 VerticalOptions="Center">
                             °C
-                        </material:MaterialLabel>
+                        </material:MaterialLabel>-->
 
                         <material:MaterialTextField InputType="Choice"
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Path=ModAuspuffAbgasTUnit}"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    HorizontalOptions="StartAndExpand"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -197,6 +205,8 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding ModAuspuffAbgasVUnit}"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    HorizontalOptions="StartAndExpand"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -244,6 +254,8 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=TemperatureQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffAbgasTUnit}"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    HorizontalOptions="StartAndExpand"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -274,6 +286,8 @@
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
                                                     SelectedChoice="{Binding Path=VehicleMotorAuslassAuspuffResonanzLUnit}"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    HorizontalOptions="StartAndExpand"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
@@ -299,6 +313,7 @@
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
                                                 Choices="{Binding  HelperVehicles}"
+                                                LeadingIcon="chevron_down"
                                                 SelectedChoice="{Binding HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>

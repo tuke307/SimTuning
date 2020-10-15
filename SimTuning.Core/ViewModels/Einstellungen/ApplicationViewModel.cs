@@ -24,6 +24,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         {
         }
 
+        #region Methods
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -36,5 +38,39 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         public override void Prepare()
         {
         }
+
+        #endregion Methods
+
+        #region Values
+
+        /// <summary>
+        /// Gets or sets the rounding accuracy.
+        /// </summary>
+        /// <value>The rounding accuracy.</value>
+        public int RoundingAccuracy
+        {
+            get => Data.UnitSettings.RoundingAccuracy;
+            set
+            {
+                Data.UnitSettings.RoundingAccuracy = value;
+                this.RaisePropertyChanged(() => this.RoundingAccuracy);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [round on unit change].
+        /// </summary>
+        /// <value><c>true</c> if [round on unit change]; otherwise, <c>false</c>.</value>
+        public bool RoundOnUnitChange
+        {
+            get => Data.UnitSettings.RoundOnUnitChange;
+            set
+            {
+                Data.UnitSettings.RoundOnUnitChange = value;
+                this.RaisePropertyChanged(() => this.RoundOnUnitChange);
+            }
+        }
+
+        #endregion Values
     }
 }

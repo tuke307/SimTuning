@@ -1,27 +1,33 @@
-﻿// project=SimTuning.Core, file=VergaserViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using Data;
-using Data.Models;
-using Microsoft.EntityFrameworkCore;
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using SimTuning.Core.Models;
-using SimTuning.Core.ModuleLogic;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using UnitsNet.Units;
-
+﻿// project=SimTuning.Core, file=VergaserViewModel.cs, creation=2020:7:31 Copyright (c)
+// 2020 tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Einlass
 {
+    using Data;
+    using Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using SimTuning.Core.Models;
+    using SimTuning.Core.ModuleLogic;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using UnitsNet.Units;
+
+    /// <summary>
+    /// VergaserViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class VergaserViewModel : MvxNavigationViewModel
     {
-        public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
-        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VergaserViewModel" /> class.
+        /// </summary>
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
         public VergaserViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
         {
             VolumeQuantityUnits = new VolumeQuantity();
@@ -43,16 +49,6 @@ namespace SimTuning.Core.ViewModels.Einlass
             InsertDataCommand = new MvxCommand(InsertData);
         }
 
-        public IMvxCommand InsertDataCommand { get; set; }
-
-        /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
-        /// </summary>
-        public override void Prepare()
-        {
-        }
-
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -60,6 +56,13 @@ namespace SimTuning.Core.ViewModels.Einlass
         public override Task Initialize()
         {
             return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
         }
 
         #region Commands
@@ -71,6 +74,17 @@ namespace SimTuning.Core.ViewModels.Einlass
 
             if (HelperVehicle.Motor.ResonanzU.HasValue)
                 Resonanzdrehzahl = HelperVehicle.Motor.ResonanzU;
+        }
+
+        private void Refresh_Hauptduesendurchmesser()
+        {
+            if (Vergasergroeße.HasValue)
+            {
+                HauptdueseD = EinlassLogic.GetVergaserHauptduesenDurchmesser(
+                    UnitsNet.UnitConverter.Convert(Vergasergroeße.Value,
+                    UnitVergasergroeße.UnitEnumValue,
+                    LengthUnit.Millimeter));
+            }
         }
 
         private void Refresh_Vergasergroeße()
@@ -85,30 +99,33 @@ namespace SimTuning.Core.ViewModels.Einlass
             }
         }
 
-        private void Refresh_Hauptduesendurchmesser()
-        {
-            if (Vergasergroeße.HasValue)
-            {
-                HauptdueseD = EinlassLogic.GetVergaserHauptduesenDurchmesser(
-                    UnitsNet.UnitConverter.Convert(Vergasergroeße.Value,
-                    UnitVergasergroeße.UnitEnumValue,
-                    LengthUnit.Millimeter));
-            }
-        }
-
         #endregion Commands
 
         #region Values
 
-        private ObservableCollection<VehiclesModel> _helperVehicles;
-
-        public ObservableCollection<VehiclesModel> HelperVehicles
-        {
-            get => _helperVehicles;
-            set { SetProperty(ref _helperVehicles, value); }
-        }
+        private double? _hauptdueseD;
 
         private VehiclesModel _helperVehicle;
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        private double? _hubvolumen;
+
+        private double? _resonanzdrehzahl;
+
+        private UnitListItem _unitHauptdueseD;
+
+        private UnitListItem _unitHubvolumen;
+
+        private UnitListItem _unitVergasergroeße;
+
+        private double? _vergasergroeße;
+
+        public double? HauptdueseD
+        {
+            get => _hauptdueseD;
+            set { SetProperty(ref _hauptdueseD, value); }
+        }
 
         public VehiclesModel HelperVehicle
         {
@@ -116,7 +133,35 @@ namespace SimTuning.Core.ViewModels.Einlass
             set { SetProperty(ref _helperVehicle, value); }
         }
 
-        private UnitListItem _unitHauptdueseD;
+        public ObservableCollection<VehiclesModel> HelperVehicles
+        {
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
+        }
+
+        public double? Hubvolumen
+        {
+            get => _hubvolumen;
+            set
+            {
+                SetProperty(ref _hubvolumen, value);
+                Refresh_Vergasergroeße();
+            }
+        }
+
+        public IMvxCommand InsertDataCommand { get; set; }
+
+        public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
+
+        public double? Resonanzdrehzahl
+        {
+            get => _resonanzdrehzahl;
+            set
+            {
+                SetProperty(ref _resonanzdrehzahl, value);
+                Refresh_Vergasergroeße();
+            }
+        }
 
         public UnitListItem UnitHauptdueseD
         {
@@ -129,28 +174,6 @@ namespace SimTuning.Core.ViewModels.Einlass
             }
         }
 
-        private double? _hauptdueseD;
-
-        public double? HauptdueseD
-        {
-            get => _hauptdueseD;
-            set { SetProperty(ref _hauptdueseD, value); }
-        }
-
-        private double? _resonanzdrehzahl;
-
-        public double? Resonanzdrehzahl
-        {
-            get => _resonanzdrehzahl;
-            set
-            {
-                SetProperty(ref _resonanzdrehzahl, value);
-                Refresh_Vergasergroeße();
-            }
-        }
-
-        private UnitListItem _unitHubvolumen;
-
         public UnitListItem UnitHubvolumen
         {
             get => _unitHubvolumen;
@@ -161,20 +184,6 @@ namespace SimTuning.Core.ViewModels.Einlass
                 SetProperty(ref _unitHubvolumen, value);
             }
         }
-
-        private double? _hubvolumen;
-
-        public double? Hubvolumen
-        {
-            get => _hubvolumen;
-            set
-            {
-                SetProperty(ref _hubvolumen, value);
-                Refresh_Vergasergroeße();
-            }
-        }
-
-        private UnitListItem _unitVergasergroeße;
 
         public UnitListItem UnitVergasergroeße
         {
@@ -187,8 +196,6 @@ namespace SimTuning.Core.ViewModels.Einlass
             }
         }
 
-        private double? _vergasergroeße;
-
         public double? Vergasergroeße
         {
             get => _vergasergroeße;
@@ -198,6 +205,8 @@ namespace SimTuning.Core.ViewModels.Einlass
                 Refresh_Hauptduesendurchmesser();
             }
         }
+
+        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
 
         #endregion Values
     }

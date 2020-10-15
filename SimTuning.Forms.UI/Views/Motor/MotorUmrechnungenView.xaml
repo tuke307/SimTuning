@@ -34,6 +34,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding Path=VehicleMotorHubLUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -55,6 +57,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding Path=VehicleMotorPleulLUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -76,6 +80,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding Path=VehicleMotorDeachsierungLUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -98,6 +104,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding Path=VehicleMotorHubRUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -148,6 +156,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding Path=LengthDifferenceToOTUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -307,6 +317,7 @@
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
                                                 Choices="{Binding Mode=OneTime, Path=HelperVehicles}"
+                                                LeadingIcon="chevron_down"
                                                 SelectedChoice="{Binding Mode=TwoWay, Path=HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>

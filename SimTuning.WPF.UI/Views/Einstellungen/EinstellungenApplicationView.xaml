@@ -25,8 +25,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <local:UnitSettings x:Key="unitSettings" />
         </ResourceDictionary>
     </views:MvxWpfView.Resources>
     <Grid>
@@ -40,7 +38,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
             <StackPanel Orientation="Horizontal">
                 <CheckBox Margin="10"
                           Style="{StaticResource MaterialDesignCheckBox}"
-                          IsChecked="{Binding Source={StaticResource unitSettings}, Path=RoundOnUnitChange, Mode=TwoWay}">
+                          IsChecked="{Binding Path=RoundOnUnitChange, Mode=TwoWay}">
                 </CheckBox>
 
                 <Label VerticalAlignment="Center">
@@ -50,7 +48,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
             <TextBox Margin="10"
                      Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                     Text="{Binding Source={StaticResource unitSettings}, Path=RoundingAccuracy, Mode=TwoWay}"
+                     Text="{Binding Path=RoundingAccuracy, Mode=TwoWay}"
+                     IsEnabled="{Binding Path=RoundOnUnitChange, Mode=OneWay}"
                      materialDesign:HintAssist.Hint="Kommastellen beim Runden"
                      IsManipulationEnabled="False" />
 

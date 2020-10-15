@@ -161,6 +161,7 @@
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
                                                 Choices="{Binding HelperVehicles}"
+                                                LeadingIcon="chevron_down"
                                                 SelectedChoice="{Binding HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>
@@ -261,6 +262,7 @@
                                                 Placeholder="Konfiguration"
                                                 Choices="{Binding MotorSteuerzeiten}"
                                                 SelectedChoice="{Binding MotorSteuerzeit}"
+                                                LeadingIcon="chevron_down"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>
 

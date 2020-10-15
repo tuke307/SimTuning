@@ -6,16 +6,16 @@
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       x:TypeArguments="viewModels:EinstellungenApplicationViewModel"
+                      Title="Allgemein"
                       x:Class="SimTuning.Forms.UI.Views.Einstellungen.EinstellungenApplicationView">
-    <views:MvxContentPage.Resources>
-        <ResourceDictionary>
-            <local:UnitSettings x:Key="unitSettings" />
-        </ResourceDictionary>
-    </views:MvxContentPage.Resources>
-    <Grid>
+    <StackLayout>
         <material:MaterialCheckbox Text="Runden beim Einheiten Wechsel"
-                                   IsSelected="{Binding Source={StaticResource unitSettings}, Path=RoundOnUnitChange, Mode=TwoWay}" />
+                                   Margin="10"
+                                   IsSelected="{Binding Path=RoundOnUnitChange, Mode=TwoWay}" />
 
-        <material:MaterialTextField Text="{Binding Source={StaticResource unitSettings}, Path=RoundingAccuracy, Mode=TwoWay}" />
-    </Grid>
+        <material:MaterialTextField  Margin="10"
+                                     IsEnabled="{Binding Path=RoundOnUnitChange, Mode=OneWay}"
+                                     Text="{Binding Path=RoundingAccuracy, Mode=TwoWay}"
+                                     Placeholder="Kommastellen" />
+    </StackLayout>
 </views:MvxContentPage>

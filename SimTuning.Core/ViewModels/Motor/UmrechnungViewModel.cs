@@ -36,9 +36,9 @@ namespace SimTuning.Core.ViewModels.Motor
 
             // vordefinieren der nicht model werte
             // TODO: den rest der unmodelt.units definieren!
-            this.DifferenceLengthUnit = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
             this.UnitAbstandOTlength = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
             this.VehicleMotorHubRUnit = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            this.LengthDifferenceToOTUnit = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
 
             using (var db = new DatabaseContext())
             {
@@ -191,6 +191,7 @@ namespace SimTuning.Core.ViewModels.Motor
         private bool _kolbenoberkanteChecked;
         private bool _kolbenunterkanteChecked;
         private double? _lengthDifferenceToOT;
+        private UnitListItem _lengthDifferenceToOTUnit;
         private double? _nachherSteuerwinkelSchließt;
         private double? _steuerwinkelNachherOeffnet;
         private double? _steuerwinkelVorherOeffnet;
@@ -237,8 +238,6 @@ namespace SimTuning.Core.ViewModels.Motor
             get => this._differenceLength;
             set => this.SetProperty(ref this._differenceLength, value);
         }
-
-        public UnitListItem DifferenceLengthUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the helper vehicle.
@@ -308,7 +307,16 @@ namespace SimTuning.Core.ViewModels.Motor
             set => this.SetProperty(ref this._lengthDifferenceToOT, value);
         }
 
-        public UnitListItem LengthDifferenceToOTUnit { get; set; }
+        public UnitListItem LengthDifferenceToOTUnit
+        {
+            get => this._lengthDifferenceToOTUnit;
+            set
+            {
+                this.LengthDifferenceToOT = Business.Functions.UpdateValue(this.LengthDifferenceToOT, this._lengthDifferenceToOTUnit, value);
+
+                SetProperty(ref this._lengthDifferenceToOTUnit, value);
+            }
+        }
 
         /// <summary>
         /// Gets the length quantity units.

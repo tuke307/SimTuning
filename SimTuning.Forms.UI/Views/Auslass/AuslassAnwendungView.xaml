@@ -40,6 +40,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding VehicleMotorAuslassAuspuffAbgasVUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -74,6 +76,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding VehicleMotorAuslassDurchmesserDUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -95,6 +99,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding VehicleMotorAuslassLaengeLUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -129,6 +135,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding VehicleMotorAuslassFlaecheAUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -284,6 +292,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding VehicleMotorAuslassAuspuffEndrohrDUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -305,6 +315,8 @@
                                                     FloatingPlaceholderEnabled="False"
                                                     Margin="5, 0, 0, 0"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     SelectedChoice="{Binding VehicleMotorAuslassAuspuffEndrohrLUnit}"
                                                     LeadingIcon="chevron_down"
                                                     ChoicesBindingName="Abbreviation">
@@ -752,6 +764,7 @@
                     <material:MaterialTextField InputType="Choice"
                                                 Placeholder="Fahrzeug"
                                                 Choices="{Binding Mode=OneTime, Path=HelperVehicles}"
+                                                LeadingIcon="chevron_down"
                                                 SelectedChoice="{Binding  HelperVehicle}"
                                                 ChoicesBindingName="Name">
                     </material:MaterialTextField>

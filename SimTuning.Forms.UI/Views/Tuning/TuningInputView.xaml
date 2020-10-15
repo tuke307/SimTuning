@@ -42,6 +42,8 @@
                                                     Margin="5, 0, 0, 0"
                                                     SelectedChoice="{Binding UnitHubL}"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -58,6 +60,8 @@
                                                     Margin="5, 0, 0, 0"
                                                     SelectedChoice="{Binding UnitBohrungD}"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -74,6 +78,8 @@
                                                     Margin="5, 0, 0, 0"
                                                     SelectedChoice="{Binding UnitPleulL}"
                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
                                                     ChoicesBindingName="Abbreviation">
                         </material:MaterialTextField>
                     </StackLayout>
@@ -150,6 +156,8 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     SelectedChoice="{Binding UnitKanalL}"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
@@ -166,6 +174,8 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     SelectedChoice="{Binding UnitVergaserD}"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
@@ -190,6 +200,8 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     SelectedChoice="{Binding UnitAbgasV}"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
@@ -246,6 +258,8 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     SelectedChoice="{Binding UnitAuspuffL}"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
@@ -262,6 +276,8 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     SelectedChoice="{Binding UnitAbgasT}"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
@@ -286,6 +302,8 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     SelectedChoice="{Binding UnitAuslassD}"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>
@@ -302,6 +320,8 @@
                                                                     Margin="5, 0, 0, 0"
                                                                     SelectedChoice="{Binding UnitAuslassResoD}"
                                                                     Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    VerticalOptions="CenterAndExpand"
                                                                     ChoicesBindingName="Abbreviation">
                                         </material:MaterialTextField>
                                     </StackLayout>

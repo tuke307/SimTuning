@@ -142,7 +142,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <TextBox materialDesign:HintAssist.Hint="Einlass-Fläche"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=EinlassA, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheA, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              MinWidth="150">
                     </TextBox>
 
@@ -150,7 +150,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               Margin="5 0 0 0"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitEinlassA}"
+                              SelectedItem="{Binding VehicleMotorEinlassFlaecheAUnit}"
                               ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}">
                     </ComboBox>
 
@@ -209,7 +209,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Margin="50 0 0 0">
                     <TextBox materialDesign:HintAssist.Hint="Kurbelgehäusevolumen"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=KurbelgehauseV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseV, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="150">
                     </TextBox>
@@ -219,7 +219,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               IsSynchronizedWithCurrentItem="True"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitKurbelgehauseV}"
+                              SelectedItem="{Binding VehicleMotorKurbelgehaeuseVUnit}"
                               ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}">
                     </ComboBox>
 
@@ -242,7 +242,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Margin="50 0 0 0">
                     <TextBox materialDesign:HintAssist.Hint="Ansaugleitungsdurchmesser"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=AnsaugleitungD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="150">
                     </TextBox>
@@ -252,7 +252,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               IsSynchronizedWithCurrentItem="True"
                               IsEditable="False"
                               DisplayMemberPath="Abbreviation"
-                              SelectedItem="{Binding UnitAnsaugleitungsD}"
+                              SelectedItem="{Binding VehicleMotorEinlassDurchmesserDUnit}"
                               ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}">
                     </ComboBox>
                     <!--<TextBlock HorizontalAlignment="Left"
