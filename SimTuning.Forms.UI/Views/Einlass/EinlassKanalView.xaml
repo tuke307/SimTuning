@@ -23,7 +23,7 @@
 
                         <StackLayout Orientation="Horizontal">
                             <material:MaterialTextField Placeholder="Einlass-Fläche"
-                                                        Text="{Binding Mode=OneWay, Path=VehicleMotorEinlassFlaecheA}"
+                                                        Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheA}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -46,7 +46,7 @@
 
                         <StackLayout Orientation="Horizontal">
                             <material:MaterialTextField Placeholder="Einlass-Steuerwinkel"
-                                                        Text="{Binding Mode=OneWay, Path=Einlasssteuerwinkel}"
+                                                        Text="{Binding Mode=TwoWay, Path=Einlasssteuerwinkel}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -59,7 +59,7 @@
 
                         <StackLayout Orientation="Horizontal">
                             <material:MaterialTextField Placeholder="Resonanzdrehzahl"
-                                                        Text="{Binding Mode=OneWay, Path=Resonanzdrehzahl}"
+                                                        Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -72,7 +72,7 @@
 
                         <StackLayout Orientation="Horizontal">
                             <material:MaterialTextField Placeholder="Kurbelgehäusevolumen"
-                                                        Text="{Binding Mode=OneWay, Path=VehicleMotorKurbelgehaeuseV}"
+                                                        Text="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseV}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -95,7 +95,7 @@
 
                         <StackLayout Orientation="Horizontal">
                             <material:MaterialTextField Placeholder="Ø Ansaugleitung"
-                                                        Text="{Binding Mode=OneWay, Path=VehicleMotorEinlassDurchmesserD}"
+                                                        Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD}"
                                                         WidthRequest="250"
                                                         InputType="Numeric">
                             </material:MaterialTextField>
@@ -270,7 +270,7 @@
                                      Grid.Row="4"
                                      Grid.Column="1">
 
-                            <material:MaterialTextField  Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Einlass.LaengeL}"
+                            <material:MaterialTextField  Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Einlass.DurchmesserD}"
                                                          IsEnabled="False"
                                                          Placeholder=" "
                                                          FloatingPlaceholderEnabled="False"

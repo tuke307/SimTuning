@@ -185,7 +185,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             HorizontalAlignment="Left"
                             Margin="30 30 0 20">
                     <TextBox materialDesign:HintAssist.Hint="Abstand vom OT"
-                             materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding Mode=TwoWay, Path=DegreeDifferenceToOT, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
@@ -204,7 +203,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             HorizontalAlignment="Left"
                             Margin="30 20 0 30">
                     <TextBox materialDesign:HintAssist.Hint="Abstand vom OT"
-                             materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding Mode=OneWay, Path=LengthDifferenceToOT}"
                              IsEnabled="false" />
@@ -355,14 +353,12 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <Label HorizontalAlignment="Left"
                            Content="Steuerzeit:"></Label>
                     <TextBox materialDesign:HintAssist.Hint="vorher"
-                             materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding Mode=TwoWay, Path=SteuerzeitVorher, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              TextWrapping="Wrap" />
 
                     <TextBox materialDesign:HintAssist.Hint="nachher"
-                             materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding Mode=TwoWay, Path=SteuerzeitNachher, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
@@ -406,7 +402,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                     <StackPanel Orientation="Horizontal">
                         <TextBox materialDesign:HintAssist.Hint="vorher"
-                                 materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Mode=OneWay, Path=SteuerwinkelVorherOeffnet}"
                                  IsEnabled="False"
@@ -415,7 +410,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         </TextBox>
 
                         <TextBox materialDesign:HintAssist.Hint="vorher"
-                                 materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Mode=OneWay, Path=SteuerwinkelVorherSchließt}"
                                  IsEnabled="False"
@@ -426,7 +420,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                     <StackPanel Orientation="Horizontal">
                         <TextBox materialDesign:HintAssist.Hint="nachher"
-                                 materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Mode=OneWay, Path=SteuerwinkelNachherOeffnet}"
                                  IsEnabled="False"
@@ -435,7 +428,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         </TextBox>
 
                         <TextBox materialDesign:HintAssist.Hint="nachher"
-                                 materialDesign:HintAssist.FloatingScale="1.1"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Mode=OneWay, Path=SteuerwinkelNachherSchließt}"
                                  IsEnabled="False"
@@ -454,7 +446,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             HorizontalAlignment="Center"
                             Margin="30">
                     <TextBox materialDesign:HintAssist.Hint="Unterschied"
-                             materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding Mode=OneWay, Path=DifferenceDegree}"
                              IsEnabled="false" />
@@ -474,7 +465,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             HorizontalAlignment="Center"
                             Margin="30">
                     <TextBox materialDesign:HintAssist.Hint="Unterschied"
-                             materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding Mode=OneWay, Path=DifferenceLength}"
                              IsEnabled="false" />

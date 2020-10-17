@@ -189,7 +189,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             Margin="50 0 0 0">
                     <TextBox materialDesign:HintAssist.Hint="Resonanzdrehzahl"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Mode=TwoWay, Path=Resonanzdrehzahl, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
+                             Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                              MinWidth="150">
                     </TextBox>
@@ -240,7 +240,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="50 0 0 0">
-                    <TextBox materialDesign:HintAssist.Hint="Ansaugleitungsdurchmesser"
+                    <TextBox materialDesign:HintAssist.Hint="Ø Ansaugleitung"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE', StringFormat=N}"
                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
@@ -269,7 +269,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                             HorizontalAlignment="Left"
                             Margin="50 0 0 0">
                     <TextBox materialDesign:HintAssist.Hint="Einlass-Resonanzlänge"
-                             materialDesign:HintAssist.FloatingScale="1.1"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsEnabled="False"
                              Text="{Binding Mode=TwoWay, Path=Resonanzlaenge}"
@@ -355,7 +354,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                     <TextBox  Grid.Row="1"
                               Grid.Column="1"
-                              Text="{Binding Mode=TwoWay, Path= HelperVehicle.Motor.Einlass.SteuerzeitSZ}"
+                              Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Einlass.SteuerzeitSZ}"
                               IsEnabled="False" />
 
                     <Label Grid.Row="1"
@@ -376,7 +375,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
-                             Text="{Binding Mode=TwoWay, Path= HelperVehicle.Motor.ResonanzU}"
+                             Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.ResonanzU}"
                              IsEnabled="False" />
 
                     <Label Grid.Row="2"
@@ -397,7 +396,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                     <TextBox  Grid.Row="3"
                               Grid.Column="1"
-                              Text="{Binding Mode=TwoWay, Path= HelperVehicle.Motor.KurbelgehaeuseV}"
+                              Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.KurbelgehaeuseV}"
                               IsEnabled="False" />
 
                     <Label  Grid.Row="3"
@@ -412,12 +411,12 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                            HorizontalAlignment="Left"
                            VerticalAlignment="Bottom"
                            Margin="5 0 0 0">
-                        Ansaugleitungslänge
+                        Ansaugleitungdurchmesser
                     </Label>
 
                     <TextBox  Grid.Row="4"
                               Grid.Column="1"
-                              Text="{Binding Mode=TwoWay, Path= HelperVehicle.Ansaugleitungslaenge}"
+                              Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Einlass.DurchmesserD}"
                               IsEnabled="False" />
 
                     <Label Grid.Row="4"

@@ -36,7 +36,8 @@ namespace SimTuning.Core.ViewModels.Motor
 
             // vordefinieren der nicht model werte
             // TODO: den rest der unmodelt.units definieren!
-            this.UnitAbstandOTlength = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            //this.UnitAbstandOTlength = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
+            this.DifferenceLengthUnit = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
             this.VehicleMotorHubRUnit = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
             this.LengthDifferenceToOTUnit = this.LengthQuantityUnits.Where(x => x.UnitEnumValue.Equals(LengthUnit.Millimeter)).First();
 
@@ -105,7 +106,7 @@ namespace SimTuning.Core.ViewModels.Motor
         {
             if (this.SteuerzeitVorher.HasValue && this.SteuerzeitNachher.HasValue && this.VehicleMotorPleulL.HasValue && this.VehicleMotorHubR.HasValue && this.VehicleMotorDeachsierungL.HasValue && (KolbenoberkanteChecked || KolbenunterkanteChecked))
             {
-                (this.SteuerwinkelVorherOeffnet, this.SteuerwinkelVorherSchließt, this.SteuerwinkelNachherOeffnet, this.NachherSteuerwinkelSchließt) =
+                (this.SteuerwinkelVorherOeffnet, this.SteuerwinkelVorherSchließt, this.SteuerwinkelNachherOeffnet, this.SteuerwinkelNachherSchließt) =
                 EngineLogic.GetSteuerwinkel(this.SteuerzeitVorher.Value, this.SteuerzeitNachher.Value, this.KolbenoberkanteChecked, this.KolbenunterkanteChecked);
 
                 this.DifferenceDegree = EngineLogic.GetPortTimingDifference(false, this.SteuerzeitVorher.Value, this.SteuerzeitNachher.Value);
@@ -186,13 +187,14 @@ namespace SimTuning.Core.ViewModels.Motor
         private double? _degreeDifferenceToOT;
         private double? _differenceDegree;
         private double? _differenceLength;
+        private UnitListItem _differenceLengthUnit;
         private VehiclesModel _helperVehicle;
         private ObservableCollection<VehiclesModel> _helperVehicles;
         private bool _kolbenoberkanteChecked;
         private bool _kolbenunterkanteChecked;
         private double? _lengthDifferenceToOT;
         private UnitListItem _lengthDifferenceToOTUnit;
-        private double? _nachherSteuerwinkelSchließt;
+        private double? _steuerwinkelNachherSchließt;
         private double? _steuerwinkelNachherOeffnet;
         private double? _steuerwinkelVorherOeffnet;
         private double? _steuerwinkelVorherSchließt;
@@ -237,6 +239,21 @@ namespace SimTuning.Core.ViewModels.Motor
         {
             get => this._differenceLength;
             set => this.SetProperty(ref this._differenceLength, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the unit hub r.
+        /// </summary>
+        /// <value>The unit hub r.</value>
+        public UnitListItem DifferenceLengthUnit
+        {
+            get => this._differenceLengthUnit;
+            set
+            {
+                this.DifferenceLength = Business.Functions.UpdateValue(this.DifferenceLength, this._differenceLengthUnit, value);
+
+                SetProperty(ref this._differenceLengthUnit, value);
+            }
         }
 
         /// <summary>
@@ -328,10 +345,10 @@ namespace SimTuning.Core.ViewModels.Motor
         /// Gets or sets the nachher steuerwinkel schließt.
         /// </summary>
         /// <value>The nachher steuerwinkel schließt.</value>
-        public double? NachherSteuerwinkelSchließt
+        public double? SteuerwinkelNachherSchließt
         {
-            get => this._nachherSteuerwinkelSchließt;
-            set => this.SetProperty(ref this._nachherSteuerwinkelSchließt, value);
+            get => this._steuerwinkelNachherSchließt;
+            set => this.SetProperty(ref this._steuerwinkelNachherSchließt, value);
         }
 
         /// <summary>

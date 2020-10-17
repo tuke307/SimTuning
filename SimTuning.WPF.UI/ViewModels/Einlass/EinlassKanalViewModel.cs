@@ -5,6 +5,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einlass
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// WPF-spezifisches Einlass-Kanal-ViewModel.
@@ -20,6 +21,23 @@ namespace SimTuning.WPF.UI.ViewModels.Einlass
         public EinlassKanalViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
             : base(logProvider, navigationService)
         {
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
         }
     }
 }

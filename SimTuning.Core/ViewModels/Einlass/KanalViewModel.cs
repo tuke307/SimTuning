@@ -78,39 +78,44 @@ namespace SimTuning.Core.ViewModels.Einlass
             if (this.HelperVehicle.Motor.Einlass.FlaecheA.HasValue)
             {
                 this.VehicleMotorEinlassFlaecheA = this.HelperVehicle.Motor.Einlass.FlaecheA;
+                this.RaisePropertyChanged(() => this.VehicleMotorEinlassFlaecheA);
             }
 
             if (this.HelperVehicle.Motor.Einlass.SteuerzeitSZ.HasValue)
             {
                 this.Einlasssteuerwinkel = this.HelperVehicle.Motor.Einlass.SteuerzeitSZ;
+                this.RaisePropertyChanged(() => this.Einlasssteuerwinkel);
             }
 
             if (this.HelperVehicle.Motor.ResonanzU.HasValue)
             {
-                this.Resonanzdrehzahl = this.HelperVehicle.Motor.ResonanzU;
+                this.VehicleMotorResonanzU = this.HelperVehicle.Motor.ResonanzU;
+                this.RaisePropertyChanged(() => this.VehicleMotorResonanzU);
             }
 
             if (this.HelperVehicle.Motor.KurbelgehaeuseV.HasValue)
             {
                 this.VehicleMotorKurbelgehaeuseV = this.HelperVehicle.Motor.KurbelgehaeuseV;
+                this.RaisePropertyChanged(() => this.VehicleMotorKurbelgehaeuseV);
             }
 
-            if (this.HelperVehicle.Motor.Einlass.LaengeL.HasValue)
+            if (this.HelperVehicle.Motor.Einlass.DurchmesserD.HasValue)
             {
-                this.VehicleMotorEinlassDurchmesserD = this.HelperVehicle.Motor.Einlass.LaengeL;
+                this.VehicleMotorEinlassDurchmesserD = this.HelperVehicle.Motor.Einlass.DurchmesserD;
+                this.RaisePropertyChanged(() => this.VehicleMotorEinlassDurchmesserD);
             }
         }
 
         private void RefreshResonanzlaenge()
         {
-            if (this.VehicleMotorEinlassFlaecheA.HasValue && this.Einlasssteuerwinkel.HasValue && this.VehicleMotorKurbelgehaeuseV.HasValue && this.Resonanzdrehzahl.HasValue && VehicleMotorEinlassDurchmesserD.HasValue)
+            if (this.VehicleMotorEinlassFlaecheA.HasValue && this.Einlasssteuerwinkel.HasValue && this.VehicleMotorKurbelgehaeuseV.HasValue && this.VehicleMotorResonanzU.HasValue && this.VehicleMotorEinlassDurchmesserD.HasValue)
             {
-                Resonanzlaenge = EinlassLogic.GetResonanzLaenge(
-                    UnitsNet.UnitConverter.Convert(VehicleMotorEinlassFlaecheA.Value, VehicleMotorEinlassFlaecheAUnit.UnitEnumValue, AreaUnit.SquareCentimeter),
-                    Einlasssteuerwinkel.Value,
-                    UnitsNet.UnitConverter.Convert(VehicleMotorKurbelgehaeuseV.Value, VehicleMotorKurbelgehaeuseVUnit.UnitEnumValue, VolumeUnit.CubicCentimeter),
-                    Resonanzdrehzahl.Value,
-                    UnitsNet.UnitConverter.Convert(VehicleMotorEinlassDurchmesserD.Value, VehicleMotorEinlassDurchmesserDUnit.UnitEnumValue, LengthUnit.Centimeter));
+                this.Resonanzlaenge = EinlassLogic.GetResonanzLaenge(
+                    UnitsNet.UnitConverter.Convert(this.VehicleMotorEinlassFlaecheA.Value, this.VehicleMotorEinlassFlaecheAUnit.UnitEnumValue, AreaUnit.SquareCentimeter),
+                    this.Einlasssteuerwinkel.Value,
+                    UnitsNet.UnitConverter.Convert(this.VehicleMotorKurbelgehaeuseV.Value, this.VehicleMotorKurbelgehaeuseVUnit.UnitEnumValue, VolumeUnit.CubicCentimeter),
+                    this.VehicleMotorResonanzU.Value,
+                    UnitsNet.UnitConverter.Convert(this.VehicleMotorEinlassDurchmesserD.Value, this.VehicleMotorEinlassDurchmesserDUnit.UnitEnumValue, LengthUnit.Centimeter));
             }
         }
 
@@ -123,8 +128,6 @@ namespace SimTuning.Core.ViewModels.Einlass
         private VehiclesModel _helperVehicle;
 
         private ObservableCollection<VehiclesModel> _helperVehicles;
-
-        private double? _resonanzdrehzahl;
 
         private double? _resonanzlaenge;
 
@@ -171,16 +174,6 @@ namespace SimTuning.Core.ViewModels.Einlass
         /// </summary>
         /// <value>The length quantity units.</value>
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
-
-        public double? Resonanzdrehzahl
-        {
-            get => _resonanzdrehzahl;
-            set
-            {
-                SetProperty(ref _resonanzdrehzahl, value);
-                RefreshResonanzlaenge();
-            }
-        }
 
         public double? Resonanzlaenge
         {
@@ -296,6 +289,21 @@ namespace SimTuning.Core.ViewModels.Einlass
 
                 this.Vehicle.Motor.KurbelgehaeuseVUnit = (UnitsNet.Units.VolumeUnit)value?.UnitEnumValue;
                 this.RaisePropertyChanged(() => this.VehicleMotorKurbelgehaeuseV);
+            }
+        }
+
+        public double? VehicleMotorResonanzU
+        {
+            get => this.Vehicle?.Motor?.ResonanzU;
+            set
+            {
+                if (this.Vehicle?.Motor == null)
+                {
+                    return;
+                }
+
+                this.Vehicle.Motor.ResonanzU = value;
+                RefreshResonanzlaenge();
             }
         }
 

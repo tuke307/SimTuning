@@ -57,6 +57,9 @@ namespace SimTuning.Core.ViewModels.Auslass
 
             // Commands
             this.InsertDataCommand = new MvxCommand(this.InsertData);
+
+            // andere unit vorbelegen
+            VehicleMotorAuslassFlaecheAUnit = this.AreaQuantityUnits.SingleOrDefault(x => x.UnitEnumValue.Equals(AreaUnit.SquareCentimeter));
         }
 
         #region Methods

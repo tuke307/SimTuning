@@ -3,15 +3,15 @@
 project=SimTuning.Forms.Droid, file=AndroidManifest.xml, creation=2020:6:30
 Copyright (c) 2020 tuke productions. All rights reserved.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="3" android:versionName="1.1.0" package="com.tuke_productions.simtuning" android:installLocation="auto">
-  <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
-  <application android:allowBackup="true" android:label="SimTuning" android:supportsRtl="true" android:icon="@mipmap/logo"></application>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-  <uses-permission android:name="android.permission.RECORD_AUDIO" />
-  <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="4" android:versionName="1.1.1" package="com.tuke_productions.simtuning" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
+	<application android:allowBackup="true" android:label="SimTuning" android:supportsRtl="true" android:icon="@mipmap/logo"></application>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 </manifest>
