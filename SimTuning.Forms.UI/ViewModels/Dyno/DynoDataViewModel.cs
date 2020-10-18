@@ -5,9 +5,11 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using SimTuning.Core;
     using SimTuning.Forms.UI.Business;
     using System;
     using System.Threading.Tasks;
+    using Xamarin.Essentials;
 
     /// <summary>
     /// DynoDataViewModel.
@@ -71,6 +73,26 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             catch (Exception)
             {
                 Functions.ShowSnackbarDialog("Fehler beim löschen");
+            }
+        }
+
+        /// <summary>
+        /// Exports the dyno.
+        /// </summary>
+        protected override async void ExportDyno()
+        {
+            try
+            {
+                base.ExportDyno();
+
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    File = new ShareFile(GeneralSettings.DataExportArchivePath),
+                }).ConfigureAwait(true);
+            }
+            catch (Exception)
+            {
+                Functions.ShowSnackbarDialog("Fehler beim exportieren");
             }
         }
 

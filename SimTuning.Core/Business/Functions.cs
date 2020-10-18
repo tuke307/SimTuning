@@ -35,6 +35,11 @@ namespace SimTuning.Core.Business
         /// <param name="files">The list of files to be added.</param>
         public static void CreateZipFile(string fileName, IEnumerable<string> files)
         {
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+
             // Create and open a new ZIP file
             var zip = ZipFile.Open(fileName, ZipArchiveMode.Create);
             foreach (var file in files)

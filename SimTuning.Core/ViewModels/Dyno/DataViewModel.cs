@@ -118,14 +118,20 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         /// <summary>
         /// Exports the dyno.
-        /// TODO: test and implement location chooseer
         /// </summary>
         protected virtual void ExportDyno()
         {
             try
             {
-                // erstellen der json
-                string json = JsonConvert.SerializeObject(this.Dyno);
+                // erstellen der json.
+                // TODO: reference test check
+                string json = JsonConvert.SerializeObject(this.Dyno, Formatting.Indented,
+                new JsonSerializerSettings()
+                {
+                    //ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    //ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+                    PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                });
 
                 File.WriteAllText(GeneralSettings.DataExportFilePath, json);
 

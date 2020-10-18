@@ -110,16 +110,6 @@ namespace Spectrogram
             surface.Translate(-rotated.Width / 2, -rotated.Height / 2);
             surface.DrawBitmap(bmp, 0, 0);
 
-            using (var image = SKImage.FromBitmap(rotated))
-            using (var data = image.Encode())
-            {
-                // save the data to a stream
-                using (var stream = File.OpenWrite(@"C:\\Users\\Tony\\Desktop\\rotated.png"))
-                {
-                    data.SaveTo(stream);
-                }
-            }
-
             #endregion Rotate&Flip
 
             //Marshal.Copy(bytes, 0, bitmapData.Scan0, bytes.Length);

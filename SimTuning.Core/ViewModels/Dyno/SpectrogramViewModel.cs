@@ -45,6 +45,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
             this.Frequenzbeginn = 3000;
             this.Frequenzende = 12000;
+            this.FilterValue = 2;
 
             this.Quality = this.Qualitys[1]; // mittel
             this.Colormap = this.Colormaps[0]; // viridis

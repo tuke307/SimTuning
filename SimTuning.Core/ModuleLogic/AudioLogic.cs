@@ -197,62 +197,49 @@ namespace SimTuning.Core.ModuleLogic
             unfiltered_data.AddRange(DrehzahlPoints[0]);
             DrehzahlPoints.Clear();
 
-            // Dummy hinzufügen
+            // erste area hinzufügen
             DrehzahlPoints.Add(new List<DataPoint>());
+            // Dummy punkt hinzufügen
             DrehzahlPoints[0].Add(new DataPoint(0, 0));
 
-            var maxcol = unfiltered_data.Max(i => i.X);
-
-            // X
-            for (int col = 0; col <= maxcol; col++)
+            foreach (var point in unfiltered_data)
             {
-                // Punkte einer Spalte
-                List<DataPoint> col_points = new List<DataPoint>();
-                col_points.AddRange(unfiltered_data.Where(x => x.X == col));
-
-                if (col_points.Count == 0)
+                // punkt vergleichen mit vorhandenen punkten in areas
+                for (int area = 0; area < DrehzahlPoints.Count; area++)
                 {
-                    continue;
-                }
-
-                // Y
-                for (int row = 0; row < col_points.Count; row++)
-                {
-                    // vergleichen mit vorhandenen areas
-                    for (int area = 0; area < DrehzahlPoints.Count; area++)
+                    // jeder punkt in area
+                    foreach (var areaPoint in DrehzahlPoints[area])
                     {
                         // Horizontal
-                        double differenz_horizontal = Math.Abs(col_points[row].X - DrehzahlPoints[area][DrehzahlPoints[area].Count - 1].X);
+                        double differenz_horizontal = Math.Abs(point.X - areaPoint.X);
 
                         // Vertikal
-                        double differenz_vertikal = Math.Abs(col_points[row].Y - DrehzahlPoints[area][DrehzahlPoints[area].Count - 1].Y);
+                        double differenz_vertikal = Math.Abs(point.Y - areaPoint.Y);
 
                         // in vorhandene area hinzufügen
                         if (differenz_vertikal <= _areaAbstand && differenz_horizontal <= _areaAbstand)
                         {
-                            DrehzahlPoints[area].Add(col_points[row]);
+                            DrehzahlPoints[area].Add(point);
 
-                            // area für punkt wurde gefunden
-                            break;
+                            goto nextPoint;
                         }
-                        else
+                        // wenn auch in letzter Area nichts gefunden werden konnte
+                        else if (area == DrehzahlPoints.Count - 1)
                         {
-                            // neue area beginnen, wenn es keine passende vorhandene area
-                            // gibt
-                            if (area == DrehzahlPoints.Count - 1)
-                            {
-                                DrehzahlPoints.Add(new List<DataPoint>() { col_points[row] });
+                            // neue area beginnen
+                            DrehzahlPoints.Add(new List<DataPoint>() { point });
 
-                                // area für punkt wurde gefunden
-                                break;
-                            }
+                            goto nextPoint;
                         }
                     }
                 }
+
+            nextPoint:
+                continue;
             }
 
-            //dummy löschen
-            DrehzahlPoints.Remove(DrehzahlPoints[0]);
+            // Dummy punkt löschen
+            DrehzahlPoints[0].Remove(DrehzahlPoints[0][0]);
         }
 
         /// <summary>
