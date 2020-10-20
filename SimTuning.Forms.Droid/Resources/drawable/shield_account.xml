@@ -1,3 +1,8 @@
+<!--
+project=SimTuning.Forms.Droid, file=shield_account.xml, creation=2020:9:26
+Copyright (c) 2020 tuke productions. All rights reserved.
+-->
+
 <!-- drawable/shield-account.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="24dp"

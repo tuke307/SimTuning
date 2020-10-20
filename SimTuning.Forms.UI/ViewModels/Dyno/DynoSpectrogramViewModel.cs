@@ -10,6 +10,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
     using SimTuning.Forms.UI.Business;
     using System.Globalization;
     using System.IO;
+    using System.Net;
     using System.Threading.Tasks;
     using Xamarin.Forms;
     using XF.Material.Forms.UI.Dialogs;
@@ -32,7 +33,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             // override Commands
             this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);
             this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
-            this.RefreshAudioFileCommand = new MvxAsyncCommand(this.OpenFileAsync);
+            this.RefreshAudioFileCommand = new MvxAsyncCommand(this.PlayFileAsync);
             this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
             this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
 
@@ -78,56 +79,6 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         }
 
         /// <summary>
-        /// Cuts the beginn.
-        /// </summary>
-        /// <returns>
-        /// <placeholder>A <see cref="Task" /> representing the asynchronous
-        /// operation.</placeholder>
-        /// </returns>
-        protected new async Task CutBeginn()
-        {
-            var check = this.CheckDynoData();
-            if (!check)
-            {
-                return;
-            }
-
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
-            this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
-
-            await base.CutBeginn().ConfigureAwait(true);
-
-            await loadingDialog.DismissAsync().ConfigureAwait(false);
-
-            await this.ReloadImageAudioSpectrogram().ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Cuts the end.
-        /// </summary>
-        /// <returns>
-        /// <placeholder>A <see cref="Task" /> representing the asynchronous
-        /// operation.</placeholder>
-        /// </returns>
-        protected new async Task CutEnd()
-        {
-            var check = this.CheckDynoData();
-            if (!check)
-            {
-                return;
-            }
-
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
-            this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
-
-            await base.CutEnd().ConfigureAwait(true);
-
-            await loadingDialog.DismissAsync().ConfigureAwait(false);
-
-            await this.ReloadImageAudioSpectrogram().ConfigureAwait(false);
-        }
-
-        /// <summary>
         /// Filters the plot.
         /// </summary>
         /// <returns>
@@ -151,13 +102,12 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
         /// <summary>
         /// Opens the file.
-        /// TODO: play funktioniert nicht, stream anstatt uri.
         /// </summary>
         /// <returns>
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected new async Task OpenFileAsync()
+        protected new async Task PlayFileAsync()
         {
             var check = this.CheckDynoData();
             if (!check)
@@ -167,7 +117,12 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await base.OpenFileAsync().ConfigureAwait(true);
+            using (var client = new WebClient())
+            {
+                client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioFilePath);
+            }
+
+            await base.PlayFileAsync().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
 

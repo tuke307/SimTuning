@@ -282,7 +282,7 @@
             <material:MaterialButton Margin="15"
                                      VerticalOptions="Center"
                                      HorizontalOptions="End"
-                                     ImageSource="ic_play_arrow_black_18dp.png"
+                                     ImageSource="chevron_right"
                                      Command="{Binding ShowSettingsCommand}"
                                      WidthRequest="100"
                                      HeightRequest="60">

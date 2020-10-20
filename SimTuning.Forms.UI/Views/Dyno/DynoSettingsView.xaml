@@ -115,7 +115,7 @@
                                  ButtonType="Elevated"
                                  HorizontalOptions="End"
                                  VerticalOptions="Center"
-                                 Image="ic_play_arrow_black_18dp.png"
+                                 Image="chevron_right"
                                  Command="{Binding ShowAccelerationCommand}" />
     </Grid>
 </views:MvxContentPage>

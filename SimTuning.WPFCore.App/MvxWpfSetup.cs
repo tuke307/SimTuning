@@ -1,5 +1,5 @@
-﻿// project=SimTuning.WPF.UI, file=MvxWpfSetup.cs, creation=2020:7:30 Copyright (c) 2020
-// tuke productions. All rights reserved.
+﻿// project=SimTuning.WPFCore.App, file=MvxWpfSetup.cs, creation=2020:9:6
+// Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.WPFCore.App
 {
     using MvvmCross.IoC;

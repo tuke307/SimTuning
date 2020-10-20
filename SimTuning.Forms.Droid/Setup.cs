@@ -1,10 +1,8 @@
-﻿using MvvmCross.Forms.Platforms.Android.Core;
-using MvvmCross.Platforms.Android.Core;
+﻿// project=SimTuning.Forms.Droid, file=Setup.cs, creation=2020:9:20 Copyright (c) 2020
+// tuke productions. All rights reserved.
+using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.Plugin;
-using MvvmCross.ViewModels;
 using SimTuning.Forms.UI;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace SimTuning.Droid
 {

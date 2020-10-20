@@ -1,4 +1,6 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿// project=SimTuning.WPF.UI, file=DynoBeschleunigungViewModel.cs, creation=2020:10:5
+// Copyright (c) 2020 tuke productions. All rights reserved.
+using MaterialDesignThemes.Wpf;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;

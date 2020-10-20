@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-project=SimTuning.Forms.Droid, file=styles.xml, creation=2020:6:30
+project=SimTuning.Forms.Droid, file=styles.xml, creation=2020:7:7
 Copyright (c) 2020 tuke productions. All rights reserved.
 -->
 <resources>
@@ -10,26 +10,22 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
   <!-- Base application theme. -->
   <style name="AppTheme.Base"
-         parent="Theme.AppCompat.Light.DarkActionBar">
-    <!--If you are using revision 22.1 please use just windowNoTitle. Without android:-->
+         parent="Theme.AppCompat.Light.NoActionBar">
+
     <item name="windowNoTitle">true</item>
-    <!--We will be using the toolbar so no need to show ActionBar-->
     <item name="windowActionBar">false</item>
+    <item name="windowActionModeOverlay">false</item>
 
-    <!-- You can also set colorControlNormal, colorControlActivated
-         colorControlHighlight and colorSwitchThumbNormal. -->
-    <item name="windowActionModeOverlay">true</item>
-
-    <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
   <style name="AppTheme.Splash"
-        parent="AppTheme">
-    <item name="android:windowBackground">@color/splash_background</item>
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowFullscreen">true</item>
+        parent="AppTheme.Base">
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <item name="android:windowTranslucentStatus">false</item>
+    <item name="android:windowTranslucentNavigation">false</item>
   </style>
 </resources>

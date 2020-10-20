@@ -43,59 +43,11 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
 
             this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
-            this.CutBeginnCommand = new MvxAsyncCommand(this.CutBeginn);
-            this.CutEndCommand = new MvxAsyncCommand(this.CutEnd);
 
             // datensatz checken CheckDynoData();
         }
 
         #region Methods
-
-        /// <summary>
-        /// Cuts the beginn.
-        /// </summary>
-        protected new async Task CutBeginn()
-        {
-            if (this.MediaManager.MediaPlayer == null)
-            {
-                return;
-            }
-
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
-            {
-                Task.Run(async () =>
-                {
-                    await base.CutBeginn().ConfigureAwait(true);
-
-                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
-                });
-            }).ConfigureAwait(true);
-
-            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
-        }
-
-        /// <summary>
-        /// Cuts the end.
-        /// </summary>
-        protected new async Task CutEnd()
-        {
-            if (this.MediaManager.MediaPlayer == null)
-            {
-                return;
-            }
-
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
-            {
-                _ = Task.Run(async () =>
-                {
-                    await base.CutEnd().ConfigureAwait(true);
-
-                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
-                });
-            }).ConfigureAwait(true);
-
-            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
-        }
 
         /// <summary>
         /// Filters the plot.

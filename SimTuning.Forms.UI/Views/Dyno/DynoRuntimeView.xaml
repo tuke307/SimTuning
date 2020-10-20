@@ -87,7 +87,7 @@
                                      ButtonType="Elevated"
                                      VerticalOptions="Center"
                                      WidthRequest="125"
-                                     Image="ic_play_arrow_black_18dp.png"
+                                     Image="chevron_right"
                                      Command="{Binding StartAccelerationCommand}" />
 
             <material:MaterialButton Text="Stop"
@@ -114,7 +114,7 @@
                                      ButtonType="Elevated"
                                      HorizontalOptions="End"
                                      VerticalOptions="Center"
-                                     Image="ic_play_arrow_black_18dp.png"
+                                     Image="chevron_right"
                                      Command="{Binding ShowSpectrogramCommand}" />
         <!--IsVisible="{Binding ShowAudioButtonVis}"-->
     </Grid>

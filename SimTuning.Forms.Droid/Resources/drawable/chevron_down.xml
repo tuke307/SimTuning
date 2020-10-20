@@ -1,3 +1,8 @@
+<!--
+project=SimTuning.Forms.Droid, file=chevron_down.xml, creation=2020:9:15
+Copyright (c) 2020 tuke productions. All rights reserved.
+-->
+
 <!-- drawable/chevron-down.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="24dp"

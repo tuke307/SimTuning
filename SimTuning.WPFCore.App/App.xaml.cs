@@ -1,5 +1,5 @@
-﻿// project=SimTuning.WPF.UI, file=App.xaml.cs, creation=2020:7:7 Copyright (c) 2020 tuke
-// productions. All rights reserved.
+﻿// project=SimTuning.WPFCore.App, file=App.xaml.cs, creation=2020:9:2
+// Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.WPFCore.App
 {
     using MvvmCross.Core;

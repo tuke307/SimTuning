@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-project=SimTuning.Forms.Droid, file=colors.xml, creation=2020:7:1
+project=SimTuning.Forms.Droid, file=colors.xml, creation=2020:7:7
 Copyright (c) 2020 tuke productions. All rights reserved.
 -->
 <resources>
   <color name="colorPrimary">#3F51B5</color>
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#FF4081</color>
-
-  <color name="splash_background">#FFFFFF</color>
 </resources>

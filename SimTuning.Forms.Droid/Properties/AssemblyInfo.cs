@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.Droid, file=AssemblyInfo.cs, creation=2020:6:30 Copyright (c)
+﻿// project=SimTuning.Forms.Droid, file=AssemblyInfo.cs, creation=2020:7:7 Copyright (c)
 // 2020 tuke productions. All rights reserved.
 
 // General Information about an assembly is controlled through the following set of

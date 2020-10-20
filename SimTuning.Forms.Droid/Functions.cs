@@ -1,4 +1,7 @@
-﻿//using Android.App;
+﻿// project=SimTuning.Forms.Droid, file=Functions.cs, creation=2020:9:20 Copyright (c) 2020
+// tuke productions. All rights reserved.
+
+//using Android.App;
 //using Android.Content;
 //using Android.Gms.Common.Apis;
 //using Android.Gms.Location;

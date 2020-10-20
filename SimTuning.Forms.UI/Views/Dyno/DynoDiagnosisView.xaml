@@ -161,18 +161,18 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
+                            <!--<RowDefinition Height="auto" />-->
                             <!--<RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />-->
                         </Grid.RowDefinitions>
 
-                        <material:MaterialLabel Text="Gesamtübersetzung"
+                        <!--<material:MaterialLabel Text="Gesamtübersetzung"
                                                 VerticalOptions="Center"
                                                 Grid.Row="0"
-                                                Grid.Column="0" />
+                                                Grid.Column="0" />-->
                         <material:MaterialLabel Text="Gewicht"
                                                 VerticalOptions="Center"
-                                                Grid.Row="1"
+                                                Grid.Row="0"
                                                 Grid.Column="0" />
                         <!--<material:MaterialLabel Text="Frontfläche"
                                                 VerticalOptions="Center"
@@ -183,16 +183,16 @@
                                                 Grid.Row="3"
                                                 Grid.Column="0" />-->
 
-                        <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Uebersetzung}"
+                        <!--<material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Uebersetzung}"
                                                     Grid.Row="0"
                                                     Grid.Column="1"
                                                     Placeholder=" "
                                                     IsEnabled="False"
                                                     FloatingPlaceholderEnabled="False"
                                                     WidthRequest="100"
-                                                    Margin="10, 0, 0, 0" />
+                                                    Margin="10, 0, 0, 0" />-->
                         <material:MaterialTextField Text="{Binding Mode=OneWay, Path=HelperVehicle.Gewicht}"
-                                                    Grid.Row="1"
+                                                    Grid.Row="0"
                                                     Grid.Column="1"
                                                     Placeholder=" "
                                                     FloatingPlaceholderEnabled="False"
@@ -222,11 +222,11 @@
                             kg
                         </material:MaterialLabel>
 
-                        <material:MaterialLabel Grid.Row="2"
+                        <!--<material:MaterialLabel Grid.Row="2"
                                                 Grid.Column="2"
                                                 Margin="10, 0, 0, 0">
                             cm²
-                        </material:MaterialLabel>
+                        </material:MaterialLabel>-->
                     </Grid>
 
                     <material:MaterialButton ImageSource="ic_chevron_right_black_18dp.png"
@@ -236,7 +236,7 @@
             </material:MaterialCard>
 
             <!--Hilfe-Environment-->
-            <material:MaterialCard Margin="10">
+            <!--<material:MaterialCard Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"
@@ -307,7 +307,7 @@
                                              Command="{Binding InsertEnvironmentCommand}"
                                              WidthRequest="90" />
                 </StackLayout>
-            </material:MaterialCard>
+            </material:MaterialCard>-->
         </StackLayout>
     </ScrollView>
 </views:MvxContentPage>

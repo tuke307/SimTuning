@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.Droid, file=MainActivity.cs, creation=2020:7:1 Copyright (c)
+﻿// project=SimTuning.Forms.Droid, file=MainActivity.cs, creation=2020:7:7 Copyright (c)
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.Droid
 {
@@ -6,9 +6,7 @@ namespace SimTuning.Forms.Droid
     using Android.Content.PM;
     using Android.OS;
     using MediaManager;
-    using MvvmCross.Forms.Platforms.Android.Core;
     using MvvmCross.Forms.Platforms.Android.Views;
-    using SimTuning.Forms.UI;
 
     /// <summary>
     /// MainActivity.
@@ -16,9 +14,9 @@ namespace SimTuning.Forms.Droid
     /// <seealso cref="MvvmCross.Forms.Platforms.Android.Views.MvxFormsAppCompatActivity" />
     [Activity(
         Label = "SimTuning",
-        Theme = "@style/AppTheme",
         Icon = "@mipmap/logo",
-        //MainLauncher = true, for splashscreen
+        Theme = "@style/AppTheme",
+        MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         LaunchMode = LaunchMode.SingleTask)]
     public class MainActivity : MvxFormsAppCompatActivity
@@ -60,10 +58,7 @@ namespace SimTuning.Forms.Droid
 
             base.OnCreate(bundle);
 
-            // Permission
             Xamarin.Essentials.Platform.Init(this, bundle);
-
-            // zusätzliche Controls
             XF.Material.Droid.Material.Init(this, bundle);
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
             CrossMediaManager.Current.Init(this);

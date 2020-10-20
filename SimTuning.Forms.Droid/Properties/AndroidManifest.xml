@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-project=SimTuning.Forms.Droid, file=AndroidManifest.xml, creation=2020:6:30
+project=SimTuning.Forms.Droid, file=AndroidManifest.xml, creation=2020:7:7
 Copyright (c) 2020 tuke productions. All rights reserved.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="4" android:versionName="1.1.1" package="com.tuke_productions.simtuning" android:installLocation="auto">

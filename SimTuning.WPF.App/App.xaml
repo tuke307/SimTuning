@@ -1,5 +1,5 @@
 ﻿<!--
-project=SimTuning.WPF.UI, file=App.xaml, creation=2020:7:7
+project=SimTuning.WPF.App, file=App.xaml, creation=2020:9:2
 Copyright (c) 2020 tuke productions. All rights reserved.
 -->
 <views:MvxApplication xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

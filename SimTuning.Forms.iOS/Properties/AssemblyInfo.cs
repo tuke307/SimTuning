@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.iOS, file=AssemblyInfo.cs, creation=2020:7:1 Copyright (c) 2020
+﻿// project=SimTuning.Forms.iOS, file=AssemblyInfo.cs, creation=2020:7:7 Copyright (c) 2020
 // tuke productions. All rights reserved.
 using System.Reflection;
 using System.Resources;
