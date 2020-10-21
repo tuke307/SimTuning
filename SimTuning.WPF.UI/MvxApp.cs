@@ -20,10 +20,8 @@ namespace SimTuning.WPF.UI
         {
             MvxIoCProvider.Instance.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
 
-#if NET472
             MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
             CrossMediaManager.Current.Init();
-#endif
             this.RegisterAppStart<SimTuning.WPF.UI.ViewModels.MainViewModel>();
 
             base.Initialize();

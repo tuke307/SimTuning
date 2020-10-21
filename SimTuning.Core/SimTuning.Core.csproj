@@ -16,17 +16,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.Targets" Version="3.1.0" />
-    <PackageReference Include="MvvmCross" Version="7.0.1" />
-    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="7.0.1" />
+    <PackageReference Include="MvvmCross" Version="7.1.1" />
+    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="7.1.1" />
     <PackageReference Include="NAudio" Version="1.10.0" />
     <PackageReference Include="OxyPlot.Core" Version="2.0.0" />
     <PackageReference Include="Plugin.AudioRecorder" Version="1.1.0" />
-    <PackageReference Include="Plugin.MediaManager" Version="1.0.3" />
+    <PackageReference Include="Plugin.MediaManager" Version="1.0.4" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="UnitsNet" Version="4.72.0" />
+    <PackageReference Include="UnitsNet" Version="4.73.0" />
     <PackageReference Include="WooCommerceNET" Version="0.8.2" />
     <PackageReference Include="WordPressPCL" Version="1.7.2" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />

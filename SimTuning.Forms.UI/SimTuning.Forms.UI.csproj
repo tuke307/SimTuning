@@ -18,12 +18,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MvvmCross.Forms" Version="7.0.1" />
-    <PackageReference Include="MvvmCross.Plugin.Location" Version="7.0.1" />
-    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="7.0.1" />
+    <PackageReference Include="MvvmCross.Forms" Version="7.1.1" />
+    <PackageReference Include="MvvmCross.Plugin.Location" Version="7.1.1" />
+    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="7.1.1" />
     <PackageReference Include="OxyPlot.Xamarin.Forms" Version="1.0.0" />
     <PackageReference Include="Plugin.AudioRecorder" Version="1.1.0" />
-    <PackageReference Include="Plugin.MediaManager.Forms" Version="1.0.3" />
+    <PackageReference Include="Plugin.MediaManager.Forms" Version="1.0.4" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
