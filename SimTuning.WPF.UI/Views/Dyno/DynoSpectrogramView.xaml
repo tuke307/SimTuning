@@ -13,7 +13,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
                   xmlns:region="clr-namespace:SimTuning.WPF.UI.Region"
                   xmlns:viewModels="clr-namespace:SimTuning.WPF.UI.ViewModels.Dyno"
-                  xmlns:views1="clr-namespace:SimTuning.WPF.UI.Views.Dyno"
                   x:TypeArguments="viewModels:DynoSpectrogramViewModel"
                   mc:Ignorable="d"
                   region:MvxContainer.Header="Spectrogram"
@@ -73,8 +72,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                               materialDesign:ShadowAssist.ShadowDepth="Depth3"
                               BorderThickness="0.3">
                         <Grid>
-                            <Image
-                                   Source="{Binding Mode=OneWay, Path=DisplayedImage}"
+                            <Image Source="{Binding Mode=OneWay, Path=DisplayedImage}"
                                    Stretch="Fill">
                             </Image>
                         </Grid>
@@ -376,6 +374,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
             </Grid>
         </ScrollViewer>
 
-        <views1:DynoAudioPlayerView Grid.Row="1" />
+        <ItemsControl Grid.Row="1"
+                      MinHeight="60"
+                      region:MvxContainer.Id="DynoAudioRegion"></ItemsControl>
     </Grid>
 </views:MvxWpfView>

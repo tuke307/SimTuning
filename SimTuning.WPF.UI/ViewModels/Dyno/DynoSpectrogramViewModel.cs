@@ -50,6 +50,23 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         #region Methods
 
         /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        /// <summary>
         /// Filters the plot.
         /// </summary>
         protected new async Task FilterPlot()
@@ -80,18 +97,22 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return;
             }
 
-            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "WAVE Audio (*.wav)|*.wav", "MP3 Audio (*.mp3)|*.mp3" }).ConfigureAwait(true);
+            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "Zip Datei (*.zip)|*.zip" }).ConfigureAwait(true);
 
+            // user canceled file picking
             if (fileData == null)
             {
                 return;
             }
 
+            string filepath = fileData.FilePath;
+            fileData.Dispose();
+
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
                 Application.Current.Dispatcher.Invoke(async () =>
                 {
-                    await base.OpenFileDialog(fileData.FileName, fileData.GetStream()).ConfigureAwait(true);
+                    await base.OpenFileDialog(filepath).ConfigureAwait(true);
                     args.Session.Close();
                 });
             }).ConfigureAwait(true);

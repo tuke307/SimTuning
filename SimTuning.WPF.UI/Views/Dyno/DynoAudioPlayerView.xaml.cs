@@ -7,8 +7,8 @@
     using SimTuning.WPF.UI.Region;
     using SimTuning.WPF.UI.ViewModels.Dyno;
 
-    //[MvxWpfPresenter("DynoAudioRegion", mvxViewPosition.NewOrHistoryExsist)]
-    [MvxContentPresentation]
+    [MvxWpfPresenter("DynoAudioRegion", mvxViewPosition.NewOrHistoryExsist)]
+    //[MvxContentPresentation]
     public partial class DynoAudioPlayerView : MvxWpfView<DynoAudioPlayerViewModel>
     {
         public DynoAudioPlayerView()

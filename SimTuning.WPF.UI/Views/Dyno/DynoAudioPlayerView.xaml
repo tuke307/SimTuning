@@ -6,7 +6,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
                   xmlns:local="clr-namespace:SimTuning.Core.Converters;assembly=SimTuning.Core"

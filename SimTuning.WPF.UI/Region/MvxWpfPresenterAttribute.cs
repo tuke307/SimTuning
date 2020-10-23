@@ -71,7 +71,8 @@ namespace SimTuning.WPF.UI.Region
         /// <param name="containerId">The container identifier.</param>
         /// <param name="viewPosition">The view position.</param>
         /// <param name="viewId">The view identifier.</param>
-        public MvxWpfPresenterAttribute(string containerId, mvxViewPosition viewPosition, Func<object, string> viewId) : this(containerId, viewPosition)
+        public MvxWpfPresenterAttribute(string containerId, mvxViewPosition viewPosition, Func<object, string> viewId)
+            : this(containerId, viewPosition)
         {
             ViewId = viewId;
         }
@@ -92,7 +93,13 @@ namespace SimTuning.WPF.UI.Region
         public static MvxWpfPresenterAttribute GetAttribute(FrameworkElement view, MvxViewModelRequest request)
         {
             if (view is MvvmCross.Presenters.IMvxOverridePresentationAttribute mvxView)
-                if (mvxView.PresentationAttribute(request) is MvxWpfPresenterAttribute attr) return attr;
+            {
+                if (mvxView.PresentationAttribute(request) is MvxWpfPresenterAttribute attr)
+                {
+                    return attr;
+                }
+            }
+
             return view.GetType().GetCustomAttributes(typeof(MvxWpfPresenterAttribute), true).FirstOrDefault() as MvxWpfPresenterAttribute;
         }
 
@@ -115,7 +122,10 @@ namespace SimTuning.WPF.UI.Region
         public string GetViewId(FrameworkElement view)
         {
             if (view is MvvmCross.Views.IMvxView mvxView)
+            {
                 return ViewId(mvxView?.ViewModel ?? mvxView?.DataContext ?? view?.DataContext);
+            }
+
             return ViewId(view?.DataContext);
         }
     }

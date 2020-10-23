@@ -15,36 +15,100 @@ namespace Data
     {
         #region DataSets
 
+        /// <summary>
+        /// Gets or sets the auspuff.
+        /// </summary>
+        /// <value>The auspuff.</value>
         public DbSet<AuspuffModel> Auspuff { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ausrollen.
+        /// </summary>
+        /// <value>The ausrollen.</value>
         public DbSet<AusrollenModel> Ausrollen { get; set; }
 
+        /// <summary>
+        /// Gets or sets the beschleunigung.
+        /// </summary>
+        /// <value>The beschleunigung.</value>
         public DbSet<BeschleunigungModel> Beschleunigung { get; set; }
 
+        /// <summary>
+        /// Gets or sets the dyno.
+        /// </summary>
+        /// <value>The dyno.</value>
         public DbSet<DynoModel> Dyno { get; set; }
 
+        /// <summary>
+        /// Gets or sets the dyno audio.
+        /// </summary>
+        /// <value>The dyno audio.</value>
         public DbSet<DrehzahlModel> DynoAudio { get; set; }
 
+        /// <summary>
+        /// Gets or sets the dyno nm.
+        /// </summary>
+        /// <value>The dyno nm.</value>
         public DbSet<DynoNmModel> DynoNm { get; set; }
 
+        /// <summary>
+        /// Gets or sets the dyno ps.
+        /// </summary>
+        /// <value>The dyno ps.</value>
         public DbSet<DynoPsModel> DynoPs { get; set; }
 
+        /// <summary>
+        /// Gets or sets the environment.
+        /// </summary>
+        /// <value>The environment.</value>
         public DbSet<EnvironmentModel> Environment { get; set; }
 
+        /// <summary>
+        /// Gets or sets the motor.
+        /// </summary>
+        /// <value>The motor.</value>
         public DbSet<MotorModel> Motor { get; set; }
 
+        /// <summary>
+        /// Gets or sets the motor auslass.
+        /// </summary>
+        /// <value>The motor auslass.</value>
         public DbSet<AuslassModel> MotorAuslass { get; set; }
 
+        /// <summary>
+        /// Gets or sets the motor einlass.
+        /// </summary>
+        /// <value>The motor einlass.</value>
         public DbSet<EinlassModel> MotorEinlass { get; set; }
 
+        /// <summary>
+        /// Gets or sets the motor ueberstroemer.
+        /// </summary>
+        /// <value>The motor ueberstroemer.</value>
         public DbSet<UeberstroemerModel> MotorUeberstroemer { get; set; }
 
+        /// <summary>
+        /// Gets or sets the tuning.
+        /// </summary>
+        /// <value>The tuning.</value>
         public DbSet<TuningModel> Tuning { get; set; }
 
+        /// <summary>
+        /// Gets or sets the tuning ps.
+        /// </summary>
+        /// <value>The tuning ps.</value>
         public DbSet<TuningPSModel> TuningPs { get; set; }
 
+        /// <summary>
+        /// Gets or sets the vehicles.
+        /// </summary>
+        /// <value>The vehicles.</value>
         public DbSet<VehiclesModel> Vehicles { get; set; }
 
+        /// <summary>
+        /// Gets or sets the vergaser.
+        /// </summary>
+        /// <value>The vergaser.</value>
         public DbSet<VergaserModel> Vergaser { get; set; }
 
         #endregion DataSets

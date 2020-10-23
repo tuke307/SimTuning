@@ -34,7 +34,7 @@ namespace SimTuning.WPFCore.App
         public override void LoadPlugins(IMvxPluginManager pluginManager)
         {
             pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
-            //pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.WebBrowser.Wpf.Plugin>();
+            // pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.WebBrowser.Wpf.Plugin>();
 
             base.LoadPlugins(pluginManager);
         }

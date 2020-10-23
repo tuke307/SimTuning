@@ -20,6 +20,7 @@ namespace SimTuning.Core.ViewModels.Dyno
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.IO.Compression;
     using System.Linq;
     using System.Net;
     using System.Resources;
@@ -121,14 +122,21 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Opens the file dialog.
         /// </summary>
-        /// <returns>
-        /// <placeholder>A <see cref="Task" /> representing the asynchronous
-        /// operation.</placeholder>
-        /// </returns>
-        protected virtual async Task OpenFileDialog(string fileName, Stream stream)
+        /// <param name="fileName">Name of the file.</param>
+        protected virtual async Task OpenFileDialog(string fileName)
         {
+            bool status = false;
+
+            // zip extrahieren
+            ZipFile.ExtractToDirectory(fileName, SimTuning.Core.GeneralSettings.FileDirectory);
+
             // wenn Datei ausgewählt
-            if (SimTuning.Core.Business.AudioUtils.AudioCopy(fileName, stream))
+            using (FileStream sourceStream = File.Open(fileName, FileMode.OpenOrCreate))
+            {
+                status = SimTuning.Core.Business.AudioUtils.AudioCopy(SimTuning.Core.GeneralSettings.AudioFile, sourceStream);
+            }
+
+            if (status)
             {
                 await this.PlayFileAsync().ConfigureAwait(true);
             }
