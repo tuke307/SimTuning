@@ -4,6 +4,7 @@ namespace SimTuning.WPF.App
 {
     using MvvmCross.IoC;
     using MvvmCross.Platforms.Wpf.Presenters;
+    using MvvmCross.Plugin;
     using MvvmCross.ViewModels;
     using SimTuning.WPF.UI.Region;
     using System.Collections.Generic;
@@ -28,6 +29,14 @@ namespace SimTuning.WPF.App
             list.AddRange(base.GetViewAssemblies());
             list.Add(typeof(SimTuning.WPF.UI.Views.MainWindow).Assembly);
             return list.ToArray();
+        }
+
+        public override void LoadPlugins(IMvxPluginManager pluginManager)
+        {
+            pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
+            pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.WebBrowser.Platforms.Wpf.Plugin>();
+
+            base.LoadPlugins(pluginManager);
         }
 
         /// <summary>

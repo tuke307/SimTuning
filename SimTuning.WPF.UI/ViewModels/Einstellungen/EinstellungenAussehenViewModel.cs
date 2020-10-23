@@ -21,8 +21,6 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
     /// <seealso cref="SimTuning.Core.ViewModels.Einstellungen.AussehenViewModel" />
     public class EinstellungenAussehenViewModel : SimTuning.Core.ViewModels.Einstellungen.AussehenViewModel
     {
-        private bool firstTime = true;
-
         public IEnumerable<Swatch> Swatches { get; }
 
         /// <summary>
@@ -39,6 +37,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
             this.ApplyAccentCommand = new MvxCommand<Swatch>(ApplyAccent, CanExecute);
 
             this.ToogleDarkmode = ApplicationChanges.IsDarkTheme();
+            ShowSnackbar();
         }
 
         #region Methods
@@ -53,21 +52,22 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         }
 
         /// <summary>
-        /// Prepares the specified user.
+        /// Prepares this instance.
         /// </summary>
-        /// <param name="">The user.</param>
         public override void Prepare()
         {
             base.Prepare();
         }
 
         /// <summary>
-        /// Views the appeared.
+        /// Shows the snackbar.
         /// </summary>
-        public override void ViewAppeared()
+        public void ShowSnackbar()
         {
-            base.ViewAppeared();
-            firstTime = false;
+            if (!UserSettings.LicenseValid)
+            {
+                Functions.ShowSnackbarDialog(rm.GetString("MES_PRO", CultureInfo.CurrentCulture));
+            }
         }
 
         /// <summary>
@@ -96,25 +96,9 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
             ApplicationChanges.SetPrimary(parameter);
         }
 
-        /// <summary>
-        /// Determines whether this instance can execute the specified parameter.
-        /// </summary>
-        /// <param name="parameter">The parameter.</param>
-        /// <returns>
-        /// <c>true</c> if this instance can execute the specified parameter; otherwise,
-        /// <c>false</c>.
-        /// </returns>
         private bool CanExecute(object parameter)
         {
-            if (!UserSettings.LicenseValid)
-            {
-                if (!this.firstTime)
-                {
-                    Functions.ShowSnackbarDialog(rm.GetString("MES_PRO", CultureInfo.CurrentCulture));
-                }
-            }
-
-            return UserSettings.LicenseValid;
+            return LicenseValid;
         }
 
         #endregion Methods
@@ -122,6 +106,12 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         #region Values
 
         private bool _toogleDarkmode;
+        private bool firstTime = true;
+
+        public bool LicenseValid
+        {
+            get => UserSettings.LicenseValid;
+        }
 
         public bool ToogleDarkmode
         {

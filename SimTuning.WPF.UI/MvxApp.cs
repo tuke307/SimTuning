@@ -31,12 +31,12 @@ namespace SimTuning.WPF.UI
         /// Loads the plugins.
         /// </summary>
         /// <param name="pluginManager">The plugin manager.</param>
-        public override void LoadPlugins(IMvxPluginManager pluginManager)
-        {
-            pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
-            //pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Location.Platforms.Wpf.Plugin>();
+        //public override void LoadPlugins(IMvxPluginManager pluginManager)
+        //{
+        //    pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
+        //    //pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Location.Platforms.Wpf.Plugin>();
 
-            base.LoadPlugins(pluginManager);
-        }
+        //    base.LoadPlugins(pluginManager);
+        //}
     }
 }

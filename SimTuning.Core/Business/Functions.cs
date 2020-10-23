@@ -1,6 +1,8 @@
 ﻿// project=SimTuning.Core, file=Functions.cs, creation=2020:7:31 Copyright (c) 2020 tuke
 // productions. All rights reserved.
 using Data;
+using MvvmCross;
+using MvvmCross.Plugin.WebBrowser;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -193,6 +195,12 @@ namespace SimTuning.Core.Business
             }
 
             return coordinates;
+        }
+
+        public static void OpenSite(string url)
+        {
+            var task = Mvx.IoCProvider.Resolve<IMvxWebBrowserTask>();
+            task.ShowWebPage(url);
         }
 
         /// <summary>

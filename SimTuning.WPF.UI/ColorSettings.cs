@@ -19,7 +19,7 @@
         {
             get
             {
-                return /*AppSettings.GetValueOrDefault(nameof(Primary),*/ (int)MaterialDesignColors.PrimaryColor.Teal/*, userFile)*/;
+                return AppSettings.GetValueOrDefault(nameof(Primary), (int)MaterialDesignColors.PrimaryColor.Teal, userFile);
             }
 
             set

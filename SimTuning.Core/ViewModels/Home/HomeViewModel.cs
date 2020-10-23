@@ -1,33 +1,36 @@
-﻿// project=SimTuning.Core, file=HomeViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
-using MvvmCross.Commands;
-using MvvmCross.Logging;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using System.Threading.Tasks;
-
+﻿// project=SimTuning.Core, file=HomeViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Home
 {
+    using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
+    using MvvmCross.ViewModels;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// HomeViewModel.
+    /// </summary>
+    /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class HomeViewModel : MvxNavigationViewModel
     {
-        public HomeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
-        {
-        }
-
-        public IMvxCommand OpenInstagramCommand { get; set; }
-        public IMvxCommand OpenWebsiteCommand { get; set; }
-        public IMvxCommand OpenTwitterCommand { get; set; }
-        public IMvxCommand OpenEmailCommand { get; set; }
-        public IMvxCommand OpenDonateCommand { get; set; }
-        public MvxCommand OpenTutorialCommand { get; set; }
-
         /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
+        /// Initializes a new instance of the <see cref="HomeViewModel" /> class.
         /// </summary>
-        public override void Prepare()
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public HomeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
+            this.OpenInstagramCommand = new MvxCommand(() => SimTuning.Core.Business.Functions.OpenSite(SimTuning.Core.WebsiteConstants.MyInstagram));
+            this.OpenWebsiteCommand = new MvxCommand(() => SimTuning.Core.Business.Functions.OpenSite(SimTuning.Core.WebsiteConstants.MyWebsite));
+            this.OpenTwitterCommand = new MvxCommand(() => SimTuning.Core.Business.Functions.OpenSite(SimTuning.Core.WebsiteConstants.MyTwitter));
+            this.OpenEmailCommand = new MvxCommand(() => SimTuning.Core.Business.Functions.OpenSite(SimTuning.Core.WebsiteConstants.MailLink));
+            this.OpenDonateCommand = new MvxCommand(() => SimTuning.Core.Business.Functions.OpenSite(SimTuning.Core.WebsiteConstants.Paypaldonation));
+            this.OpenTutorialCommand = new MvxCommand(() => SimTuning.Core.Business.Functions.OpenSite(SimTuning.Core.WebsiteConstants.TutorialWebsite));
         }
+
+        #region Commands
 
         /// <summary>
         /// Initializes this instance.
@@ -38,32 +41,30 @@ namespace SimTuning.Core.ViewModels.Home
             return base.Initialize();
         }
 
-        #region Commands
-
-        protected virtual void OpenInstagram()
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
         {
-        }
-
-        protected virtual void OpenWebsite()
-        {
-        }
-
-        protected virtual void OpenTwitter()
-        {
-        }
-
-        protected virtual void OpenEmail()
-        {
-        }
-
-        protected virtual void OpenDonate()
-        {
-        }
-
-        protected virtual void OpenTutorial()
-        {
+            base.Prepare();
         }
 
         #endregion Commands
+
+        #region Values
+
+        public IMvxCommand OpenDonateCommand { get; set; }
+
+        public IMvxCommand OpenEmailCommand { get; set; }
+
+        public IMvxCommand OpenInstagramCommand { get; set; }
+
+        public MvxCommand OpenTutorialCommand { get; set; }
+
+        public IMvxCommand OpenTwitterCommand { get; set; }
+
+        public IMvxCommand OpenWebsiteCommand { get; set; }
+
+        #endregion Values
     }
 }

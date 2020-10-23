@@ -81,7 +81,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                 <SolidColorBrush Color="{Binding ExemplarHue.Color, Mode=OneTime}" />
                             </Border.Background>
                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:EinstellungenAussehenView}}, Path=DataContext.ApplyPrimaryCommand, Mode=OneTime}"
-                                    CommandParameter="{Binding}">
+                                    CommandParameter="{Binding}"
+                                    Click="Button_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Primär" />
                                     <Viewbox Width="16"
@@ -104,7 +105,8 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                 <SolidColorBrush Color="{Binding AccentExemplarHue.Color, Mode=OneTime}" />
                             </Border.Background>
                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:EinstellungenAussehenView}}, Path=DataContext.ApplyAccentCommand, Mode=OneTime}"
-                                    CommandParameter="{Binding}">
+                                    CommandParameter="{Binding}"
+                                    Click="Button_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Akzent" />
                                     <Viewbox Width="16"
@@ -170,7 +172,9 @@ Copyright (c) 2020 tuke productions. All rights reserved.
             <!--Base Theme-->
             <Label VerticalAlignment="Top">Light Mode</Label>
             <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                          IsChecked="{Binding ToogleDarkmode}" />
+                          IsChecked="{Binding ToogleDarkmode}"
+                          IsEnabled="{Binding LicenseValid}"
+                          Click="ToggleButton_Click" />
             <Label VerticalAlignment="Top">Dark Mode</Label>
         </StackPanel>
 

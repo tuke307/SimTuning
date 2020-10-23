@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=DemoMainViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=DemoMainViewModel.cs, creation=2020:7:31 Copyright (c)
+// 2020 tuke productions. All rights reserved.
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
@@ -10,19 +10,20 @@ namespace SimTuning.Core.ViewModels.Demo
 {
     public class DemoMainViewModel : MvxNavigationViewModel
     {
-        public DemoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
-        {
-        }
-
         public IMvxCommand OpenWebsiteCommand { get; set; }
 
         /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
+        /// Initializes a new instance of the <see cref="DemoMainViewModel" /> class.
         /// </summary>
-        public override void Prepare()
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public DemoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
+            this.OpenWebsiteCommand = new MvxCommand(() => SimTuning.Core.Business.Functions.OpenSite(SimTuning.Core.WebsiteConstants.RegisterWebsite));
         }
+
+        #region Commands
 
         /// <summary>
         /// Initializes this instance.
@@ -33,11 +34,12 @@ namespace SimTuning.Core.ViewModels.Demo
             return base.Initialize();
         }
 
-        #region Commands
-
-        protected virtual void OpenWebsite()
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
         {
-            //Business.Functions.GoToSite("https://www.tuke-productions.de");
+            base.Prepare();
         }
 
         #endregion Commands

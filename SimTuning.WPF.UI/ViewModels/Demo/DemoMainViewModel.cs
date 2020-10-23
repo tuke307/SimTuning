@@ -22,8 +22,6 @@ namespace SimTuning.WPF.UI.ViewModels.Demo
         public DemoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
             : base(logProvider, navigationService)
         {
-            // override commands
-            this.OpenWebsiteCommand = new MvxCommand(this.OpenWebsite);
         }
 
         #region Methods
@@ -43,14 +41,6 @@ namespace SimTuning.WPF.UI.ViewModels.Demo
         public override void Prepare()
         {
             base.Prepare();
-        }
-
-        /// <summary>
-        /// Opens the website.
-        /// </summary>
-        protected override void OpenWebsite()
-        {
-            Functions.GoToSite("https://www.tuke-productions.de");
         }
 
         #endregion Methods

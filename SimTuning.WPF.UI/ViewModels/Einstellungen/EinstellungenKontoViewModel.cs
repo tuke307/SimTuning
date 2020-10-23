@@ -31,7 +31,6 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         {
             // override Commands
             this.ConnectUserCommand = new MvxAsyncCommand(ConnectUser);
-            this.RegisterSiteCommand = new MvxCommand(RegisterSite);
 
             this.PasswordChangedCommand = new MvxCommand<object>(PasswordChanged);
         }
@@ -80,14 +79,6 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
             {
                 this.Password = passwordBox.SecurePassword;
             }
-        }
-
-        /// <summary>
-        /// Registers the site.
-        /// </summary>
-        protected override void RegisterSite()
-        {
-            Functions.GoToSite("https://tuke-productions.de/mein-konto/");
         }
 
         #endregion Methods

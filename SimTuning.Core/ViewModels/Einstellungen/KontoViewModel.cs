@@ -26,6 +26,8 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             : base(logProvider, navigationService)
         {
             this._messenger = messenger;
+
+            this.RegisterSiteCommand = new MvxCommand(() => SimTuning.Core.Business.Functions.OpenSite(SimTuning.Core.WebsiteConstants.MyWebsite));
         }
 
         #region Methods
@@ -48,6 +50,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <param name="">The user.</param>
         public override void Prepare()
         {
+            base.Prepare();
         }
 
         protected virtual void ConnectUser()
@@ -57,15 +60,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             this._messenger.Publish(message);
         }
 
-        protected virtual void LoginSite(object parameter)
-        {
-        }
-
         protected virtual void PasswordChanged(object parameter)
-        {
-        }
-
-        protected virtual void RegisterSite()
         {
         }
 

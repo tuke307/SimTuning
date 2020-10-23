@@ -16,5 +16,15 @@ namespace SimTuning.WPF.UI.Views.Einstellungen
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.ViewModel.ShowSnackbar();
+        }
+
+        private void ToggleButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.ViewModel.ShowSnackbar();
+        }
     }
 }

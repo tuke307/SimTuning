@@ -44,6 +44,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
 
         public override void Prepare()
         {
+            base.Prepare();
         }
     }
 }

@@ -26,14 +26,6 @@ namespace SimTuning.Forms.UI.ViewModels.Home
             : base(logProvider, navigationService)
         {
             this._navigationService = navigationService;
-
-            // override commands
-            this.OpenInstagramCommand = new MvxCommand(this.OpenInstagram);
-            this.OpenWebsiteCommand = new MvxCommand(this.OpenWebsite);
-            this.OpenTwitterCommand = new MvxCommand(this.OpenTwitter);
-            this.OpenEmailCommand = new MvxCommand(this.OpenEmail);
-            this.OpenDonateCommand = new MvxCommand(this.OpenDonate);
-            this.OpenTutorialCommand = new MvxCommand(this.OpenTutorial);
         }
 
         /// <summary>
@@ -51,54 +43,6 @@ namespace SimTuning.Forms.UI.ViewModels.Home
         public override void Prepare()
         {
             base.Prepare();
-        }
-
-        /// <summary>
-        /// Opens the donate.
-        /// </summary>
-        protected override void OpenDonate()
-        {
-            Launcher.OpenAsync(new Uri("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PZ5GBAFYMBPWS&source=url"));
-        }
-
-        /// <summary>
-        /// Opens the email.
-        /// </summary>
-        protected override void OpenEmail()
-        {
-            Launcher.OpenAsync(new Uri("mailto:tonymeissner70@gmail.com"));
-        }
-
-        /// <summary>
-        /// Opens the instagram.
-        /// </summary>
-        protected override void OpenInstagram()
-        {
-            Launcher.OpenAsync(new Uri("https://www.instagram.com/tony.pbt/"));
-        }
-
-        /// <summary>
-        /// Opens the tutorial.
-        /// </summary>
-        protected override void OpenTutorial()
-        {
-            Launcher.OpenAsync(new Uri("https://simtuning.tuke-productions.de/anleitung/"));
-        }
-
-        /// <summary>
-        /// Opens the twitter.
-        /// </summary>
-        protected override void OpenTwitter()
-        {
-            Launcher.OpenAsync(new Uri("https://twitter.com/tonxy_"));
-        }
-
-        /// <summary>
-        /// Opens the website.
-        /// </summary>
-        protected override void OpenWebsite()
-        {
-            Launcher.OpenAsync(new Uri("https://www.tuke-productions.de"));
         }
     }
 }

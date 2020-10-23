@@ -13,6 +13,7 @@ namespace SimTuning.Droid
         {
             base.LoadPlugins(pluginManager);
 
+            pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.WebBrowser.Platforms.Android.Plugin>();
             pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
             pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Location.Fused.Plugin>();
         }
