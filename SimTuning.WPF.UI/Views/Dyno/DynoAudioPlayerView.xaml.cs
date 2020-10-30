@@ -7,7 +7,7 @@
     using SimTuning.WPF.UI.Region;
     using SimTuning.WPF.UI.ViewModels.Dyno;
 
-    [MvxWpfPresenter("DynoAudioRegion", mvxViewPosition.NewOrHistoryExsist)]
+    [MvxWpfPresenter("DynoAudioRegion", mvxViewPosition.NewOrExsist)]
     //[MvxContentPresentation]
     public partial class DynoAudioPlayerView : MvxWpfView<DynoAudioPlayerViewModel>
     {
@@ -15,21 +15,22 @@
         {
             this.InitializeComponent();
 
-            if (!(ViewModel is DynoAudioPlayerViewModel))
-            {
-                if (Mvx.IoCProvider.TryResolve<DynoAudioPlayerViewModel>(out var miniPlayerViewModel))
-                {
-                    ViewModel = miniPlayerViewModel;
-                    return;
-                }
+            //if (!(ViewModel is DynoAudioPlayerViewModel))
+            //{
+            //    if (Mvx.IoCProvider.TryResolve<DynoAudioPlayerViewModel>(out var miniPlayerViewModel))
+            //    {
+            //        ViewModel = miniPlayerViewModel;
+            //        return;
+            //    }
 
-                var _viewModelLoader = Mvx.IoCProvider.Resolve<IMvxViewModelLoader>();
-                var request = new MvxViewModelInstanceRequest(typeof(DynoAudioPlayerViewModel));
-                request.ViewModelInstance = _viewModelLoader.LoadViewModel(request, null);
-                ViewModel = request.ViewModelInstance as DynoAudioPlayerViewModel;
+            // var _viewModelLoader = Mvx.IoCProvider.Resolve<IMvxViewModelLoader>(); var
+            // request = new
+            // MvxViewModelInstanceRequest(typeof(DynoAudioPlayerViewModel));
+            // request.ViewModelInstance = _viewModelLoader.LoadViewModel(request, null);
+            // ViewModel = request.ViewModelInstance as DynoAudioPlayerViewModel;
 
-                Mvx.IoCProvider.RegisterSingleton<DynoAudioPlayerViewModel>(ViewModel);
-            }
+            //    Mvx.IoCProvider.RegisterSingleton<DynoAudioPlayerViewModel>(ViewModel);
+            //}
         }
 
         private void Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)

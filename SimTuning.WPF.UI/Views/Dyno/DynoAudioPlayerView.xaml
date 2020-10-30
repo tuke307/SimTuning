@@ -127,6 +127,31 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     Command="{Binding SkipForwardCommand}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center" />
+
+            <materialDesign:PopupBox PopupMode="Click"
+                                     Grid.Column="4"
+                                     Margin="0, 0, 10, 0"
+                                     HorizontalAlignment="Right"
+                                     VerticalAlignment="Center">
+                <materialDesign:PopupBox.PopupContent>
+                    <Menu>
+                        <Menu.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </Menu.ItemsPanel>
+
+                        <MenuItem Header="Zuschneiden">
+                            <MenuItem Header="links wegschneiden"
+                                      Icon="{materialDesign:PackIcon Scissors}"
+                                      Command="{Binding CutBeginnCommand }" />
+                            <MenuItem Header="rechts wegschneiden"
+                                      Icon="{materialDesign:PackIcon Scissors}"
+                                      Command="{Binding CutEndCommand }" />
+                        </MenuItem>
+                    </Menu>
+                </materialDesign:PopupBox.PopupContent>
+            </materialDesign:PopupBox>
         </Grid>
     </Grid>
 </views:MvxWpfView>

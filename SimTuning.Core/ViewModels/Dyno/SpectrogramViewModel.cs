@@ -6,15 +6,13 @@ namespace SimTuning.Core.ViewModels.Dyno
     using Data.Models;
     using MediaManager;
     using MediaManager.Library;
-    using MediaManager.Playback;
-    using MediaManager.Player;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
+    using Newtonsoft.Json;
     using OxyPlot;
-    using Plugin.FilePicker.Abstractions;
     using SimTuning.Core.ModuleLogic;
     using SkiaSharp;
     using System;
@@ -22,9 +20,7 @@ namespace SimTuning.Core.ViewModels.Dyno
     using System.IO;
     using System.IO.Compression;
     using System.Linq;
-    using System.Net;
     using System.Resources;
-    using System.Runtime.InteropServices;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -125,20 +121,35 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <param name="fileName">Name of the file.</param>
         protected virtual async Task OpenFileDialog(string fileName)
         {
-            bool status = false;
+            //bool status = false;
 
             // zip extrahieren
+            if (File.Exists(SimTuning.Core.GeneralSettings.DataExportFilePath))
+            {
+                File.Delete(SimTuning.Core.GeneralSettings.DataExportFilePath);
+            }
+            if (File.Exists(SimTuning.Core.GeneralSettings.AudioFilePath))
+            {
+                File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
+            }
             ZipFile.ExtractToDirectory(fileName, SimTuning.Core.GeneralSettings.FileDirectory);
 
             // wenn Datei ausgewählt
-            using (FileStream sourceStream = File.Open(fileName, FileMode.OpenOrCreate))
-            {
-                status = SimTuning.Core.Business.AudioUtils.AudioCopy(SimTuning.Core.GeneralSettings.AudioFile, sourceStream);
-            }
+            //using (FileStream sourceStream = File.Open(fileName, FileMode.OpenOrCreate))
+            //{
+            //    status = SimTuning.Core.Business.AudioUtils.AudioCopy(SimTuning.Core.GeneralSettings.AudioFile, sourceStream);
+            //}
 
-            if (status)
+            //if (status)
+            //{
+            await this.PlayFileAsync().ConfigureAwait(true);
+            //}
+
+            // TODO: only for testing
+            if (File.Exists(SimTuning.Core.GeneralSettings.DataExportFilePath))
             {
-                await this.PlayFileAsync().ConfigureAwait(true);
+                string json = File.ReadAllText(SimTuning.Core.GeneralSettings.DataExportFilePath);
+                DynoModel _dyno = JsonConvert.DeserializeObject<DynoModel>(json);
             }
         }
 
@@ -153,8 +164,8 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                await this.NavigationService.Navigate<AudioPlayerViewModel>().ConfigureAwait(true);
-                await CrossMediaManager.Current.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
+                var generatedMediaItem = await MediaManager.Extractor.CreateMediaItem(GeneralSettings.AudioFilePath).ConfigureAwait(true);
+                MediaManager.Queue.Add(generatedMediaItem);
             }
             catch (Exception exc)
             {

@@ -49,13 +49,10 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         private int _dynoTabIndex;
 
-        public int DynoTabIndex
+        public virtual int DynoTabIndex
         {
             get => _dynoTabIndex;
-            set
-            {
-                SetProperty(ref _dynoTabIndex, value);
-            }
+            set => SetProperty(ref _dynoTabIndex, value);
         }
 
         #endregion Values

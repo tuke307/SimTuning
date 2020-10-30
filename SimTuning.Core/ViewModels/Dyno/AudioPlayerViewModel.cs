@@ -11,8 +11,37 @@ using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
 {
+    /// <summary>
+    /// AudioPlayerViewModel.
+    /// </summary>
     public class AudioPlayerViewModel : MvxNavigationViewModel
     {
+        /// <summary>
+        /// AudioPlayerViewModel.
+        /// </summary>
+        /// <param name="logProvider"></param>
+        /// <param name="navigationService"></param>
+        /// <param name="mediaManager"></param>
+        public AudioPlayerViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMediaManager mediaManager)
+             : base(logProvider, navigationService)
+        {
+            MediaManager = mediaManager;
+
+            this.PlayPauseCommand = new MvxAsyncCommand(() => this.PlayPause());
+            this.SkipBackwardsCommand = new MvxAsyncCommand(() => this.MediaManager.StepBackward());
+            this.SkipForwardCommand = new MvxAsyncCommand(() => this.MediaManager.StepForward());
+            this.DragCompletedCommand = new MvxAsyncCommand(() =>
+            {
+                this.DragStarted = false;
+                return this.MediaManager.SeekTo(TimeSpan.FromSeconds(this.Position));
+            });
+            this.DragStartedCommand = new MvxCommand(() => this.DragStarted = true);
+        }
+
+        #region Values
+
+        protected readonly ResourceManager rm;
+        private static readonly string samplewaveLink = "https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav" /*"https://simtuning.tuke-productions.de/download/575/"*/ ;
         private bool _dragStarted = false;
 
         private double _duration = 100;
@@ -25,6 +54,23 @@ namespace SimTuning.Core.ViewModels.Dyno
         private TimeSpan _timeSpanDuration = TimeSpan.Zero;
 
         private TimeSpan _timeSpanPosition = TimeSpan.Zero;
+
+        /// <summary>
+        /// Gets or sets the cut beginn command.
+        /// </summary>
+        /// <value>The cut beginn command.</value>
+        public IMvxAsyncCommand CutBeginnCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pause command.
+        /// </summary>
+        /// <value>The pause command.</value>
+        //public IMvxAsyncCommand PauseCommand { get; set; }
+        /// <summary>
+        /// Gets or sets the cut end command.
+        /// </summary>
+        /// <value>The cut end command.</value>
+        public IMvxAsyncCommand CutEndCommand { get; set; }
 
         public IMvxAsyncCommand DragCompletedCommand { get; set; }
 
@@ -41,6 +87,18 @@ namespace SimTuning.Core.ViewModels.Dyno
             get => _duration;
             set => SetProperty(ref _duration, value);
         }
+
+        public bool IsPlaying
+        {
+            get => this._isPlaying;
+            private set => this.SetProperty(ref _isPlaying, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the play command.
+        /// </summary>
+        /// <value>The play command.</value>
+        public IMvxAsyncCommand PlayPauseCommand { get; set; }
 
         public double Position
         {
@@ -70,78 +128,45 @@ namespace SimTuning.Core.ViewModels.Dyno
             set => this.SetProperty(ref _timeSpanPosition, value);
         }
 
-        public AudioPlayerViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMediaManager mediaManager)
-             : base(logProvider, navigationService)
-        {
-            MediaManager = mediaManager;
+        protected IMediaManager MediaManager { get; }/*= CrossMediaManager.Current*/
 
-            this.PlayPauseCommand = new MvxAsyncCommand(() => this.PlayPause());
-            this.SkipBackwardsCommand = new MvxAsyncCommand(() => this.MediaManager.StepBackward());
-            this.SkipForwardCommand = new MvxAsyncCommand(() => this.MediaManager.StepForward());
-            this.DragCompletedCommand = new MvxAsyncCommand(() =>
-            {
-                this.DragStarted = false;
-                return this.MediaManager.SeekTo(TimeSpan.FromSeconds(this.Position));
-            });
-            this.DragStartedCommand = new MvxCommand(() => this.DragStarted = true);
+        #endregion Values
 
-            //this.MediaManager.MediaPlayer.PropertyChanged += this.MediaPlayer_PropertyChanged;
-            mediaManager.MediaItemChanged += this.MediaManager_MediaItemChanged;
-        }
-
-        #region private
-
-        protected readonly IMediaManager MediaManager /*= CrossMediaManager.Current*/;
-        protected readonly ResourceManager rm;
-
-        private static readonly string samplewaveLink = "https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav" /*"https://simtuning.tuke-productions.de/download/575/"*/ ;
-        /// <summary>
-        /// Gets or sets the pause command.
-        /// </summary>
-        /// <value>The pause command.</value>
-        //public IMvxAsyncCommand PauseCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the cut beginn command.
-        /// </summary>
-        /// <value>The cut beginn command.</value>
-        public IMvxAsyncCommand CutBeginnCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the cut end command.
-        /// </summary>
-        /// <value>The cut end command.</value>
-        public IMvxAsyncCommand CutEndCommand { get; set; }
-
-        public bool IsPlaying
-        {
-            get => this._isPlaying;
-            private set => this.SetProperty(ref _isPlaying, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the play command.
-        /// </summary>
-        /// <value>The play command.</value>
-        public IMvxAsyncCommand PlayPauseCommand { get; set; }
-
-        #endregion private
+        #region Methods
 
         public override void ViewAppeared()
         {
             base.ViewAppeared();
+
+            // MediaItem von Quee holen, falls bereits Play ausgelöst wurde
             Source = MediaManager.Queue.Current;
-            TimeSpanPosition = MediaManager.Position;
-            Position = MediaManager.Position.TotalSeconds;
-            TimeSpanDuration = MediaManager.Duration;
-            Duration = MediaManager.Duration.TotalSeconds;
-            MediaManager.PositionChanged += MediaManager_PositionChanged;
+
+            if (Source != null)
+            {
+                TimeSpanPosition = MediaManager.Position;
+                Position = MediaManager.Position.TotalSeconds;
+                TimeSpanDuration = MediaManager.Duration;
+                Duration = MediaManager.Duration.TotalSeconds;
+            }
+
+            MediaManager.MediaItemChanged += this.MediaManager_MediaItemChanged;
+            MediaManager.PositionChanged += this.MediaManager_PositionChanged;
+            MediaManager.StateChanged += this.MediaManager_StateChanged;
+            MediaManager.MediaItemFailed += this.Current_MediaItemFailed;
+            MediaManager.MediaItemFinished += this.Current_MediaItemFinished;
+            MediaManager.BufferedChanged += this.Current_BufferingChanged;
         }
 
         public override void ViewDisappeared()
         {
             base.ViewDisappeared();
-            MediaManager.PositionChanged -= MediaManager_PositionChanged;
+
+            MediaManager.MediaItemChanged -= this.MediaManager_MediaItemChanged;
+            MediaManager.PositionChanged -= this.MediaManager_PositionChanged;
+            MediaManager.StateChanged -= this.MediaManager_StateChanged;
+            MediaManager.MediaItemFailed -= this.Current_MediaItemFailed;
+            MediaManager.MediaItemFinished -= this.Current_MediaItemFinished;
+            MediaManager.BufferedChanged -= this.Current_BufferingChanged;
         }
 
         /// <summary>
@@ -153,12 +178,13 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </returns>
         protected virtual async Task CutBeginn()
         {
-            this.MediaManager.Stop();
-            this.MediaManager.Dispose();
+            await MediaManager.Stop().ConfigureAwait(true);
+            this.MediaManager.Queue.Clear();
+            //this.MediaManager.Dispose();
 
             this.TrimAudio(this.Position, 0);
 
-            await CrossMediaManager.Current.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
+            await PlayFileAsync().ConfigureAwait(true);
         }
 
         /// <summary>
@@ -170,26 +196,26 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </returns>
         protected virtual async Task CutEnd()
         {
-            this.MediaManager.Stop();
-            this.MediaManager.Dispose();
+            await MediaManager.Stop().ConfigureAwait(true);
+            this.MediaManager.Queue.Clear();
+            // this.MediaManager.Dispose();
 
             this.TrimAudio(0, Position);
 
-            await CrossMediaManager.Current.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
+            await PlayFileAsync().ConfigureAwait(true);
         }
 
         /// <summary>
         /// Opens the file.
         /// </summary>
         /// <returns>
-        /// <placeholder>A <see cref="Task" /> representing the asynchronous
-        /// operation.</placeholder>
+        /// A <see cref="Task" /> representing the asynchronous operation.
         /// </returns>
         protected virtual async Task PlayFileAsync()
         {
             try
             {
-                await CrossMediaManager.Current.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
+                Source = await MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
             }
             catch (Exception exc)
             {
@@ -234,6 +260,21 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
+        private void Current_BufferingChanged(object sender, MediaManager.Playback.BufferedChangedEventArgs e)
+        {
+            Log.Debug($"Total buffered time is {e.Buffered};");
+        }
+
+        private void Current_MediaItemFailed(object sender, MediaManager.Media.MediaItemFailedEventArgs e)
+        {
+            Log.Debug($"Media item failed: {e.MediaItem.Title}, Message: {e.Message}, Exception: {e.Exeption?.ToString()};");
+        }
+
+        private void Current_MediaItemFinished(object sender, MediaManager.Media.MediaItemEventArgs e)
+        {
+            Log.Debug($"Media item finished: {e.MediaItem.Title};");
+        }
+
         private void MediaManager_MediaItemChanged(object sender, MediaManager.Media.MediaItemEventArgs e)
         {
             this.Source = e.MediaItem;
@@ -252,19 +293,30 @@ namespace SimTuning.Core.ViewModels.Dyno
             this.Log.Debug($"Current position is {e.Position};");
         }
 
+        private void MediaManager_StateChanged(object sender, MediaManager.Playback.StateChangedEventArgs e)
+        {
+            Log.Debug($"Status changed: {System.Enum.GetName(typeof(MediaManager.Player.MediaPlayerState), e.State)};");
+        }
+
         private async Task PlayPause()
         {
-            if (MediaManager.Queue.Count == 0)
+            if (Source == null)
             {
-                await PlayFileAsync();
+                await PlayFileAsync().ConfigureAwait(true);
+            }
+            else
+            {
+                await MediaManager.PlayPause().ConfigureAwait(true);
             }
 
-            await MediaManager.PlayPause();
-
             if (this.MediaManager.IsPlaying())
+            {
                 this.IsPlaying = true;
+            }
             else
+            {
                 this.IsPlaying = false;
+            }
         }
 
         ///// <summary>
@@ -288,5 +340,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         //        this.MediaManager.SeekTo(TimeSpan.FromMilliseconds(value.Value));
         //    }
         //}
+
+        #endregion Methods
     }
 }

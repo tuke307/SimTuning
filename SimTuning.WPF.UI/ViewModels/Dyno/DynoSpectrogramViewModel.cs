@@ -43,11 +43,20 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
 
             this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
-
             // datensatz checken CheckDynoData();
         }
 
         #region Methods
+
+        //private IMvxCommand _navigateCommand;
+        //public IMvxCommand NavigateCommand
+        //{
+        //    get
+        //    {
+        //        _navigateCommand = _navigateCommand ?? new MvxCommand(() => ShowViewModel<TViewModel>());
+        //        return _navigateCommand;
+        //    }
+        //}
 
         /// <summary>
         /// Initializes this instance.
@@ -108,16 +117,53 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             string filepath = fileData.FilePath;
             fileData.Dispose();
 
+            //await DialogHost.Show(new DialogLoadingView(), "DialogLoading").ConfigureAwait(false);
+
+            //await base.OpenFileDialog(filepath).ConfigureAwait(true);
+
+            // This is not a static method so you will need to get an instances of the Dispatcher
+            //var dispatcher = Application.Current.Dispatcher;
+            //dispatcher.BeginInvoke(DoStuffMethod);
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                Application.Current.Dispatcher.Invoke(async () =>
-                {
-                    await base.OpenFileDialog(filepath).ConfigureAwait(true);
-                    args.Session.Close();
-                });
+                //Task.Run(() =>
+                //{
+                var dispatcher = Application.Current.Dispatcher;
+                dispatcher.Invoke(async () =>
+        {
+            await base.OpenFileDialog(filepath).ConfigureAwait(true);
+            args.Session.Close(false);
+        });
+                // });
             }).ConfigureAwait(true);
 
             await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Opens the file.
+        /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
+        protected new async Task PlayFileAsync()
+        {
+            var check = this.CheckDynoData();
+            if (!check)
+            {
+                return;
+            }
+
+            //using (var client = new WebClient())
+            //{
+            //    client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioFilePath);
+            //}
+            await base.PlayFileAsync().ConfigureAwait(true);
+
+            await this.NavigationService.Navigate<DynoAudioPlayerViewModel>().ConfigureAwait(true);
+
+            //await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
         /// <summary>
@@ -132,10 +178,13 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                Application.Current.Dispatcher.Invoke(async () =>
+                Task.Run(() =>
+                {
+                    Application.Current.Dispatcher.Invoke(async () =>
                 {
                     await base.RefreshPlot().ConfigureAwait(true);
-                    args.Session.Close();
+                    args.Session.Close(false);
+                });
                 });
             }).ConfigureAwait(true);
         }
@@ -155,15 +204,13 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 Task.Run(() =>
                 {
                     Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        Stream stream = base.ReloadImageAudioSpectrogram();
-                        PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                        this.DisplayedImage = decoder.Frames[0];
-                    });
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        args.Session.Close();
-                    });
+                {
+                    Stream stream = base.ReloadImageAudioSpectrogram();
+                    PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                    this.DisplayedImage = decoder.Frames[0];
+
+                    args.Session.Close();
+                });
                 });
             }).ConfigureAwait(true);
         }

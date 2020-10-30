@@ -117,10 +117,11 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            using (var client = new WebClient())
-            {
-                client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioFilePath);
-            }
+            //using (var client = new WebClient())
+            //{
+            //    client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioFilePath);
+            //}
+            await this.NavigationService.Navigate<DynoAudioPlayerViewModel>().ConfigureAwait(true);
 
             await base.PlayFileAsync().ConfigureAwait(true);
 

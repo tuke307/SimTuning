@@ -18,10 +18,10 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   region:MvxContainer.Header="Spectrogram"
                   Name="DynoSpectrogram"
                   Background="{DynamicResource MaterialDesignPaper}"
-                  d:DesignWidth="2020"
-                  d:DesignHeight="550"
+                  d:DesignWidth="2048"
+                  d:DesignHeight="490"
                   MinWidth="1024"
-                  MinHeight="550">
+                  MinHeight="490">
     <views:MvxWpfView.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -29,353 +29,265 @@ Copyright (c) 2020 tuke productions. All rights reserved.
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </views:MvxWpfView.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
 
-        <ScrollViewer  Grid.Row="0"
-                       Style="{DynamicResource MaterialDesignScrollViewer}"
-                       HorizontalScrollBarVisibility="Visible"
-                       VerticalScrollBarVisibility="Disabled">
+    <ScrollViewer  Grid.Row="0"
+                   Style="{DynamicResource MaterialDesignScrollViewer}"
+                   HorizontalScrollBarVisibility="Visible"
+                   VerticalScrollBarVisibility="Disabled">
 
-            <!--Seitengrid-->
-            <Grid>
+        <!--Seitengrid-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--Grid 1. Modul-->
+            <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!--Grid 1. Modul-->
-                <Grid Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                <!--1. Group box-->
+                <GroupBox Width="825"
+                          Height="450"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          Header="Spectrogram"
+                          Margin="10"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                          BorderThickness="0.3">
+                    <Grid>
+                        <Image Source="{Binding Mode=OneWay, Path=DisplayedImage}"
+                               Stretch="Fill">
+                        </Image>
+                    </Grid>
+                </GroupBox>
 
-                    <!--1. Group box-->
-                    <GroupBox Width="725"
-                              Height="450"
-                              Grid.Row="0"
-                              Grid.Column="0"
-                              Header="Spectrogram"
-                              Margin="10"
-                              Style="{DynamicResource MaterialDesignGroupBox}"
-                              materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                              BorderThickness="0.3">
-                        <Grid>
-                            <Image Source="{Binding Mode=OneWay, Path=DisplayedImage}"
-                                   Stretch="Fill">
-                            </Image>
-                        </Grid>
-                    </GroupBox>
+                <materialDesign:Badged x:Name="badge_open"
+                                       Visibility="{Binding Mode=OneWay, Path=BadgeFileOpen, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                       Badge="{materialDesign:PackIcon CheckboxMarkedCircleOutline}"
+                                       BadgeColorZoneMode="Accent"
+                                       Grid.Column="0"
+                                       HorizontalAlignment="Left"
+                                       Margin="10, 0, 0, 0"
+                                       VerticalAlignment="Center">
+                    <Button Content="{materialDesign:PackIcon Kind=File}"
+                            Command="{Binding OpenFileCommand}"
+                            ToolTip="Wähle eine Datei auf deiner Festplatte">
+                    </Button>
+                </materialDesign:Badged>
 
-                    <GroupBox HorizontalAlignment="Center"
-                              Grid.Column="1"
-                              Margin="10"
-                              Header="Audio-Einstellungen">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="2*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+                <Button Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Margin="10, 0, 0, 0"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding Path=IsVisible, ElementName=badge_open, Converter={StaticResource InverseBoolToVisConverter}}"
+                        Content="{materialDesign:PackIcon Kind=File}"
+                        Command="{Binding OpenFileCommand}"
+                        ToolTip="Wähle eine Datei auf deiner Festplatte">
+                </Button>
 
-                            <Grid Grid.Row="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
+                <!--2. group box-->
+                <GroupBox Grid.Row="0"
+                          Grid.Column="2"
+                          MinWidth="150"
+                          Header="Spectrogram-Einstellungen"
+                          Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                                <materialDesign:Badged x:Name="badge_open"
-                                                       Visibility="{Binding Mode=OneWay, Path=BadgeFileOpen, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                       Badge="{materialDesign:PackIcon CheckboxMarkedCircleOutline}"
-                                                       BadgeColorZoneMode="Accent"
-                                                       Grid.Row="0"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">
-                                    <Button Content="Datei auswählen"
-                                            Command="{Binding OpenFileCommand}"
-                                            ToolTip="Wähle eine Datei auf deiner Festplatte">
-                                    </Button>
-                                </materialDesign:Badged>
+                        <!--Colormap-->
+                        <ComboBox Grid.Row="0"
+                                  materialDesign:HintAssist.Hint="Colormap"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Colormap}"
+                                  ItemsSource="{Binding Mode=OneTime, Path=Colormaps}"
+                                  VerticalAlignment="Center">
+                        </ComboBox>
 
-                                <Button Grid.Row="0"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Visibility="{Binding Path=IsVisible, ElementName=badge_open, Converter={StaticResource InverseBoolToVisConverter}}"
-                                        Content="Datei auswählen"
-                                        Command="{Binding OpenFileCommand}"
-                                        ToolTip="Wähle eine Datei auf deiner Festplatte">
-                                </Button>
+                        <!--Intensität-->
+                        <ComboBox Grid.Row="1"
+                                  materialDesign:HintAssist.Hint="Intensität"
+                                  IsEditable="True"
+                                  ToolTip="Stelle die Intensität so ein, dass fast nur noch die Punkte der Drehzhahlkurven zu sehen sind"
+                                  ItemsSource="{Binding Mode=OneTime, Path=Intensitys}"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Intensity}"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  VerticalAlignment="Center">
+                        </ComboBox>
 
-                                <!--<StackPanel Grid.Row="1"
-                                        Orientation="Horizontal"
-                                        VerticalAlignment="Top"
+                        <!--Auflösungsqualität-->
+                        <ComboBox Grid.Row="2"
+                                  materialDesign:HintAssist.Hint="Qualität"
+                                  ToolTip="Auflösungsqaulität des Spektrums"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Quality}"
+                                  ItemsSource="{Binding Mode=OneTime, Path=Qualitys}"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  VerticalAlignment="Center">
+                        </ComboBox>
+
+                        <!--Frequenzbereich-->
+                        <StackPanel Grid.Row="3"
+                                    VerticalAlignment="Center">
+                            <Label ToolTip="Stelle die den Frequenzbereich so ein, dass deine gewünschte Drehzahlkurve ganz auf das Bild passt &#x0a; Zur hilfe: 3000RPM = 50Hz, 12000RPM= 200Hz">
+                                Drehzahl
+                            </Label>
+
+                            <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Center">
-                                <Button Content="{materialDesign:PackIcon Stop}"
-                                        Command="{Binding StopCommand}"
-                                        Margin="2"
-                                        ToolTip="Stop" />
-                                <Button Content="{materialDesign:PackIcon Pause}"
-                                        Command="{Binding PauseCommand}"
-                                        Margin="2"
-                                        ToolTip="Pause" />
-                                <Button Content="{materialDesign:PackIcon Play}"
-                                        Command="{Binding PlayCommand}"
-                                        Margin="2"
-                                        ToolTip="Play" />
-                            </StackPanel>-->
-                            </Grid>
-
-                            <Grid Grid.Row="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-
-                                <Label Content="Wegschneiden vom;"
-                                       Grid.Row="0"
-                                       Grid.ColumnSpan="2"
-                                       VerticalContentAlignment="Bottom"></Label>
-
-                                <Label Content="anfang"
-                                       Grid.Row="1"
-                                       Grid.Column="0"
-                                       VerticalAlignment="Center"></Label>
-
-                                <Button Grid.Row="1"
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="{materialDesign:PackIcon Scissors}"
-                                        Command="{Binding CutBeginnCommand }">
-                                </Button>
-
-                                <Label Content="ende"
-                                       Grid.Row="2"
-                                       Grid.Column="0"
-                                       VerticalAlignment="Center"></Label>
-
-                                <Button Grid.Row="2"
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="{materialDesign:PackIcon Scissors}"
-                                        Command="{Binding CutEndCommand }">
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </GroupBox>
-
-                    <!--2. group box-->
-                    <GroupBox Grid.Row="0"
-                              Grid.Column="2"
-                              Header="Spectrogram-Einstellungen"
-                              Margin="10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
-                            <!--Colormap-->
-                            <ComboBox Grid.Row="0"
-                                      materialDesign:HintAssist.Hint="Colormap"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                      SelectedItem="{Binding Mode=TwoWay, Path=Colormap}"
-                                      ItemsSource="{Binding Mode=OneTime, Path=Colormaps}"
-                                      VerticalAlignment="Center">
-                            </ComboBox>
-
-                            <!--Intensität-->
-                            <ComboBox Grid.Row="1"
-                                      materialDesign:HintAssist.Hint="Intensität"
-                                      IsEditable="True"
-                                      ToolTip="Stelle die Intensität so ein, dass fast nur noch die Punkte der Drehzhahlkurven zu sehen sind"
-                                      ItemsSource="{Binding Mode=OneTime, Path=Intensitys}"
-                                      SelectedItem="{Binding Mode=TwoWay, Path=Intensity}"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                      VerticalAlignment="Center">
-                            </ComboBox>
-
-                            <!--Auflösungsqualität-->
-                            <ComboBox Grid.Row="2"
-                                      materialDesign:HintAssist.Hint="Qualität"
-                                      ToolTip="Auflösungsqaulität des Spektrums"
-                                      SelectedItem="{Binding Mode=TwoWay, Path=Quality}"
-                                      ItemsSource="{Binding Mode=OneTime, Path=Qualitys}"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                      VerticalAlignment="Center">
-                            </ComboBox>
-
-                            <!--Frequenzbereich-->
-                            <StackPanel Grid.Row="3"
-                                        VerticalAlignment="Center">
-                                <Label ToolTip="Stelle die den Frequenzbereich so ein, dass deine gewünschte Drehzahlkurve ganz auf das Bild passt &#x0a; Zur hilfe: 3000RPM = 50Hz, 12000RPM= 200Hz">
-                                    Drehzahl
-                                </Label>
-
-                                <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Center">
-                                    <TextBox Text="{Binding Mode=TwoWay, Path=Frequenzbeginn}"
-                                             MinWidth="50" />
-                                    <Label Content="-"
-                                           Margin="10 0 10 0" />
-                                    <TextBox Text="{Binding Mode=TwoWay, Path=Frequenzende}"
-                                             VerticalAlignment="Top"
-                                             MinWidth="50" />
-                                </StackPanel>
+                                <TextBox Text="{Binding Mode=TwoWay, Path=Frequenzbeginn}"
+                                         MinWidth="50" />
+                                <Label Content="-"
+                                       Margin="10 0 10 0" />
+                                <TextBox Text="{Binding Mode=TwoWay, Path=Frequenzende}"
+                                         VerticalAlignment="Top"
+                                         MinWidth="50" />
                             </StackPanel>
+                        </StackPanel>
 
-                            <!--Refresh-->
-                            <materialDesign:Badged Grid.Row="5"
-                                                   Visibility="{Binding Badge_Refresh}"
-                                                   Badge="{materialDesign:PackIcon ShieldWarning}"
-                                                   BadgeColorZoneMode="Accent"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center">
-                                <Button Width="60"
-                                        Height="35"
-                                        Content="{materialDesign:PackIcon Refresh}"
-                                        Command="{Binding RefreshSpectrogramCommand}"
-                                        ToolTip="Aktualisiere das Spectrogram mit den vorgenommen Änderungen">
-                                </Button>
-                            </materialDesign:Badged>
-
-                            <Button Grid.Row="5"
-                                    Width="60"
+                        <!--Refresh-->
+                        <materialDesign:Badged Grid.Row="5"
+                                               Visibility="{Binding Badge_Refresh}"
+                                               Badge="{materialDesign:PackIcon ShieldWarning}"
+                                               BadgeColorZoneMode="Accent"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center">
+                            <Button Width="60"
                                     Height="35"
-                                    Visibility="{Binding Normal_Refresh}"
                                     Content="{materialDesign:PackIcon Refresh}"
                                     Command="{Binding RefreshSpectrogramCommand}"
                                     ToolTip="Aktualisiere das Spectrogram mit den vorgenommen Änderungen">
                             </Button>
-                        </Grid>
-                    </GroupBox>
-                </Grid>
+                        </materialDesign:Badged>
 
-                <!--Grid 2. Modul-->
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <!--1. Group box Plot-->
-                    <GroupBox Width="725"
-                              Height="450"
-                              Margin="10"
-                              Grid.Column="0"
-                              Grid.Row="0"
-                              Grid.RowSpan="2"
-                              Header="Graph"
-                              Style="{DynamicResource MaterialDesignGroupBox}"
-                              materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                              BorderThickness="0.3">
-                        <Grid>
-                            <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotAudio}"
-                                          Background="{DynamicResource MaterialDesignPaper}" />
-                        </Grid>
-                    </GroupBox>
+                        <Button Grid.Row="5"
+                                Width="60"
+                                Height="35"
+                                Visibility="{Binding Normal_Refresh}"
+                                Content="{materialDesign:PackIcon Refresh}"
+                                Command="{Binding RefreshSpectrogramCommand}"
+                                ToolTip="Aktualisiere das Spectrogram mit den vorgenommen Änderungen">
+                        </Button>
+                    </Grid>
+                </GroupBox>
+            </Grid>
 
-                    <!--2. group box-->
-                    <GroupBox Header="Graph-Einstellungen"
-                              Grid.Row="0"
-                              Grid.Column="1"
-                              Grid.RowSpan="2"
-                              HorizontalAlignment="Stretch"
-                              Margin="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+            <!--Grid 2. Modul-->
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <!--1. Group box Plot-->
+                <GroupBox Width="825"
+                          Height="450"
+                          Margin="10"
+                          Grid.Column="0"
+                          Grid.Row="0"
+                          Grid.RowSpan="2"
+                          Header="Graph"
+                          Style="{DynamicResource MaterialDesignGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                          BorderThickness="0.3">
+                    <Grid>
+                        <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotAudio}"
+                                      Background="{DynamicResource MaterialDesignPaper}" />
+                    </Grid>
+                </GroupBox>
 
-                            <Button HorizontalAlignment="Center"
-                                    Grid.Column="0"
-                                    Grid.Row="2"
-                                    Content="{materialDesign:PackIcon Filter}"
-                                    Command="{Binding FilterPlotCommand}"
-                                    ToolTip="Vertikal" />
+                <!--2. group box-->
+                <GroupBox Header="Graph-Einstellungen"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          Grid.RowSpan="2"
+                          MinWidth="150"
+                          HorizontalAlignment="Stretch"
+                          Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                            <!--Intensität-->
-                            <ComboBox Grid.Row="0"
-                                      Grid.Column="0"
-                                      materialDesign:HintAssist.Hint="Intensität"
-                                      IsEditable="True"
-                                      ToolTip="Stelle die Intensität so ein, dass fast nur noch die Punkte der Drehzhahlkurven zu sehen sind"
-                                      ItemsSource="{Binding Mode=OneTime, Path=Intensitys}"
-                                      SelectedItem="{Binding Mode=TwoWay, Path=Intensity}"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                      VerticalAlignment="Center">
-                            </ComboBox>
+                        <Button HorizontalAlignment="Center"
+                                Grid.Column="0"
+                                Grid.Row="2"
+                                Content="{materialDesign:PackIcon Filter}"
+                                Command="{Binding FilterPlotCommand}"
+                                ToolTip="Vertikal" />
 
-                            <!--Refresh-->
-                            <Button HorizontalAlignment="Center"
-                                    Grid.Column="0"
-                                    Grid.Row="1"
-                                    Content="{materialDesign:PackIcon Refresh}"
-                                    Command="{Binding RefreshPlotCommand}"
-                                    ToolTip="Aktualisiere das Spectrogram mit den vorgenommen Änderungen">
-                            </Button>
+                        <!--Intensität-->
+                        <ComboBox Grid.Row="0"
+                                  Grid.Column="0"
+                                  materialDesign:HintAssist.Hint="Intensität"
+                                  IsEditable="True"
+                                  ToolTip="Stelle die Intensität so ein, dass fast nur noch die Punkte der Drehzhahlkurven zu sehen sind"
+                                  ItemsSource="{Binding Mode=OneTime, Path=Intensitys}"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Intensity}"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  VerticalAlignment="Center">
+                        </ComboBox>
 
-                            <Slider Minimum="0"
-                                    Maximum="25"
-                                    Value="{Binding Mode=TwoWay, Path=FilterValue}"
-                                    VerticalAlignment="Center"
-                                    Grid.Column="0"
-                                    Grid.Row="3" />
+                        <!--Refresh-->
+                        <Button HorizontalAlignment="Center"
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Content="{materialDesign:PackIcon Refresh}"
+                                Command="{Binding RefreshPlotCommand}"
+                                ToolTip="Aktualisiere das Spectrogram mit den vorgenommen Änderungen">
+                        </Button>
 
-                            <!--Graphen-->
-                            <ComboBox Grid.Column="0"
-                                      Grid.Row="4"
-                                      VerticalAlignment="Center"
-                                      materialDesign:HintAssist.Hint="Graphauswahl"
-                                      ToolTip="Wähle den Graphen aus, der am besten passt"
-                                      SelectedItem="{Binding Mode=TwoWay, Path=Graph}"
-                                      ItemsSource="{Binding Mode=OneWay, Path=Graphs}"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                                <!--<i:Interaction.Triggers>
+                        <Slider Minimum="0"
+                                Maximum="25"
+                                Value="{Binding Mode=TwoWay, Path=FilterValue}"
+                                VerticalAlignment="Center"
+                                Grid.Column="0"
+                                Grid.Row="3" />
+
+                        <!--Graphen-->
+                        <ComboBox Grid.Column="0"
+                                  Grid.Row="4"
+                                  VerticalAlignment="Center"
+                                  materialDesign:HintAssist.Hint="Graphauswahl"
+                                  ToolTip="Wähle den Graphen aus, der am besten passt"
+                                  SelectedItem="{Binding Mode=TwoWay, Path=Graph}"
+                                  ItemsSource="{Binding Mode=OneWay, Path=Graphs}"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding SpecificGraphCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>-->
-                            </ComboBox>
-                        </Grid>
-                    </GroupBox>
-                </Grid>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
             </Grid>
-        </ScrollViewer>
-
-        <ItemsControl Grid.Row="1"
-                      MinHeight="60"
-                      region:MvxContainer.Id="DynoAudioRegion"></ItemsControl>
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </views:MvxWpfView>

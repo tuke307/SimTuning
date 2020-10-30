@@ -45,7 +45,8 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// </summary>
         protected new async Task CutBeginn()
         {
-            if (this.MediaManager.MediaPlayer == null)
+            var check = this.CheckDynoData();
+            if (!check)
             {
                 return;
             }
@@ -68,7 +69,8 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// </summary>
         protected new async Task CutEnd()
         {
-            if (this.MediaManager.MediaPlayer == null)
+            var check = this.CheckDynoData();
+            if (!check)
             {
                 return;
             }
@@ -103,16 +105,13 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    using (var client = new WebClient())
+                    Application.Current.Dispatcher.Invoke(async () =>
                     {
-                        client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioFilePath);
-                    }
-
-                    await base.PlayFileAsync().ConfigureAwait(true);
-
-                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                        await base.PlayFileAsync().ConfigureAwait(true);
+                        args.Session.Close();
+                    });
                 });
             }).ConfigureAwait(true);
         }

@@ -27,11 +27,21 @@ Copyright (c) 2020 tuke productions. All rights reserved.
         </ResourceDictionary>
     </views:MvxWpfView.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <dragablz:TabablzControl region:MvxContainer.Id="DynoRegion"
                                  SelectedIndex="{Binding Mode=TwoWay, Path=DynoTabIndex}">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
         </dragablz:TabablzControl>
+
+        <ItemsControl Grid.Row="1"
+                      MinHeight="60"
+                      Visibility="{Binding Mode=OneWay, Path=AudioPlayerVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                      region:MvxContainer.Id="DynoAudioRegion"></ItemsControl>
     </Grid>
 </views:MvxWpfView>

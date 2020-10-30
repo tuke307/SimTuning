@@ -29,9 +29,36 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         {
             this._navigationService = navigationService;
             this.ShowInitialViewModelsCommand = new MvxAsyncCommand(this.ShowInitialViewModels);
+            AudioPlayerVisibility = false;
         }
 
         #region Methods
+
+        private bool _AudioPlayerVisibility;
+
+        public bool AudioPlayerVisibility
+        {
+            get => _AudioPlayerVisibility;
+            set => this.SetProperty(ref _AudioPlayerVisibility, value);
+        }
+
+        public override int DynoTabIndex
+        {
+            get => base.DynoTabIndex;
+            set
+            {
+                base.DynoTabIndex = value;
+
+                if (value == 1)
+                {
+                    AudioPlayerVisibility = true;
+                }
+                else
+                {
+                    AudioPlayerVisibility = false;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the show initial view models command.
@@ -74,6 +101,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             tasks.Add(this._navigationService.Navigate<DynoDataViewModel>());
             //tasks.Add(this._navigationService.Navigate<DynoAudioViewModel>());
             tasks.Add(this._navigationService.Navigate<DynoSpectrogramViewModel>());
+            tasks.Add(this._navigationService.Navigate<DynoAudioPlayerViewModel>());
             tasks.Add(this._navigationService.Navigate<DynoBeschleunigungViewModel>());
             tasks.Add(this._navigationService.Navigate<DynoAusrollenViewModel>());
             tasks.Add(this._navigationService.Navigate<DynoDiagnosisViewModel>());

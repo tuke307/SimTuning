@@ -19,6 +19,7 @@ namespace SimTuning.Forms.iOS
             var result = base.FinishedLaunching(application, launchOptions);
 
             XF.Material.iOS.Material.Init();
+            MediaManager.CrossMediaManager.Current.Init();
             OxyPlot.Xamarin.Forms.Platform.iOS.PlotViewRenderer.Init();
 
             return result;

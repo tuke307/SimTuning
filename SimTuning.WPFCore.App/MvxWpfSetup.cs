@@ -2,6 +2,7 @@
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.WPFCore.App
 {
+    using MediaManager;
     using MvvmCross.IoC;
     using MvvmCross.Platforms.Wpf.Presenters;
     using MvvmCross.Plugin;
@@ -55,6 +56,7 @@ namespace SimTuning.WPFCore.App
         protected override void InitializeFirstChance()
         {
             MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
+            CrossMediaManager.Current.Init();
 
             base.InitializeFirstChance();
         }
