@@ -22,16 +22,6 @@ namespace SimTuning.Forms.UI.ViewModels.Demo
         public DemoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
             : base(logProvider, navigationService)
         {
-            //override commands
-            this.OpenWebsiteCommand = new MvxCommand(this.OpenWebsite);
-        }
-
-        /// <summary>
-        /// Opens the website.
-        /// </summary>
-        protected override void OpenWebsite()
-        {
-            Launcher.OpenAsync(new Uri("https://tuke-productions.de"));
         }
     }
 }

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout
+<!--ImageView: https://guides.codepath.com/android/Working-with-the-ImageView-->
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_bg"
-    android:rowCount="2">
-    <ImageView
-        android:src="@drawable/logo"
-        android:layout_row="0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView1"
-        android:scaleType="center" />
-    <TextView
-        android:text="Loading..."
-        android:layout_row="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:id="@+id/textView1" />
-</GridLayout >
+    android:background="@drawable/splash_bg">
+  <ImageView
+      android:src="@mipmap/logo"
+      android:layout_width="match_parent"
+      android:layout_height="500dp"
+      android:id="@+id/imageView1"
+      android:scaleType="fitCenter"
+      android:layout_margin="10dp" />
+  <TextView
+      android:text="Loading..."
+      android:gravity="center_horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:minWidth="25px"
+      android:minHeight="25px"
+      android:id="@+id/textView1" />
+</LinearLayout   >

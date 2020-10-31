@@ -37,7 +37,6 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         {
             // override commands
             this.ConnectUserCommand = new MvxAsyncCommand(this.ConnectUser);
-            this.RegisterSiteCommand = new MvxCommand(this.RegisterSite);
         }
 
         /// <summary>
@@ -70,14 +69,6 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             Functions.ShowSnackbarDialog(result.Item3);
 
             base.ConnectUser();
-        }
-
-        /// <summary>
-        /// Registers the site.
-        /// </summary>
-        protected override void RegisterSite()
-        {
-            Launcher.OpenAsync(new Uri("https://tuke-productions.de/mein-konto/"));
         }
     }
 }
