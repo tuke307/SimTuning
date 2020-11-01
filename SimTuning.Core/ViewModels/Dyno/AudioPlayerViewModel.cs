@@ -215,7 +215,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                Source = await MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
+                Source = await CrossMediaManager.Current.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
             }
             catch (Exception exc)
             {

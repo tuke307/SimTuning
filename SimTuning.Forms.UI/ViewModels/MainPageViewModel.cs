@@ -5,7 +5,9 @@ namespace SimTuning.Forms.UI.ViewModels
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
+    using SimTuning.Forms.UI.Business;
     using SimTuning.Forms.UI.ViewModels.Home;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// MainPage.
@@ -30,6 +32,23 @@ namespace SimTuning.Forms.UI.ViewModels
         }
 
         /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initialisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        /// <summary>
         /// Views the appeared.
         /// </summary>
         public override void ViewAppeared()
@@ -38,6 +57,9 @@ namespace SimTuning.Forms.UI.ViewModels
 
             this.ShowMenuViewModelCommand.Execute();
             this.ShowHomeViewModelCommand.Execute();
+
+            // TODO: nicht der richtige platz
+            ApplicationChanges.LoadColors();
         }
     }
 }

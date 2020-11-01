@@ -165,7 +165,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             try
             {
                 var generatedMediaItem = await MediaManager.Extractor.CreateMediaItem(GeneralSettings.AudioFilePath).ConfigureAwait(true);
-                MediaManager.Queue.Add(generatedMediaItem);
+                CrossMediaManager.Current.Queue.Add(generatedMediaItem);
             }
             catch (Exception exc)
             {

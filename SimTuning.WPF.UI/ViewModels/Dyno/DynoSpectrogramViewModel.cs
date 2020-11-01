@@ -159,10 +159,9 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             //{
             //    client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioFilePath);
             //}
-            await base.PlayFileAsync().ConfigureAwait(true);
 
             await this.NavigationService.Navigate<DynoAudioPlayerViewModel>().ConfigureAwait(true);
-
+            await base.PlayFileAsync().ConfigureAwait(true);
             //await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 

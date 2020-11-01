@@ -1,12 +1,12 @@
-﻿// project=SimTuning.Core, file=MainPage.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=MainPage.cs, creation=2020:7:31 Copyright (c) 2020 tuke
+// productions. All rights reserved.
 namespace SimTuning.Core.ViewModels
 {
-    using System.Threading.Tasks;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// MainPage-ViewModel.
@@ -15,36 +15,24 @@ namespace SimTuning.Core.ViewModels
     public class MainPage : MvxNavigationViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainPage"/> class.
-        /// </summary>
-        /// <param name="logProvider">The log provider.</param>
-        /// <param name="navigationService">The navigation service.</param>
-        public MainPage(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
-        {
-        }
-
-        /// <summary>
         /// Gets or sets the show home view model command.
         /// </summary>
-        /// <value>
-        /// The show home view model command.
-        /// </value>
+        /// <value>The show home view model command.</value>
         public IMvxAsyncCommand ShowHomeViewModelCommand { get; protected set; }
 
         /// <summary>
         /// Gets or sets the show menu view model command.
         /// </summary>
-        /// <value>
-        /// The show menu view model command.
-        /// </value>
+        /// <value>The show menu view model command.</value>
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; protected set; }
 
         /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
+        /// Initializes a new instance of the <see cref="MainPage" /> class.
         /// </summary>
-        public override void Prepare()
+        /// <param name="logProvider">The log provider.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        public MainPage(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+            : base(logProvider, navigationService)
         {
         }
 
@@ -55,6 +43,14 @@ namespace SimTuning.Core.ViewModels
         public override Task Initialize()
         {
             return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
         }
     }
 }
