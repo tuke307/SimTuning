@@ -3,6 +3,10 @@ using NUnit.Framework;
 
 namespace SimTuning.Core.Test
 {
+    /// <summary>
+    /// TuningLogicTest.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
     public class TuningLogicTest : MvxTestFixture
     {

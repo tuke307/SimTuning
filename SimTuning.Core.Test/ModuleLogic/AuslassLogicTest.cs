@@ -1,15 +1,22 @@
-﻿using Data.Models;
-using MvvmCross.Tests;
-using NUnit.Framework;
-using SimTuning.Core.ModuleLogic;
-using SkiaSharp;
-using System.IO;
-
-namespace SimTuning.Core.Test
+﻿namespace SimTuning.Core.Test
 {
+    using Data.Models;
+    using MvvmCross.Tests;
+    using NUnit.Framework;
+    using SimTuning.Core.ModuleLogic;
+    using SkiaSharp;
+    using System.IO;
+
+    /// <summary>
+    /// AuslassLogicTest.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
     public class AuslassLogicTest : MvxTestFixture
     {
+        /// <summary>
+        /// Auspuffs the test.
+        /// </summary>
         [Test]
         public void AuspuffTest()
         {
@@ -27,6 +34,35 @@ namespace SimTuning.Core.Test
             _fileName = "Auspuff.png";
             _filePath = Path.Combine(SimTuning.Test.Constants.Directory, _fileName);
 
+            #region Daten
+
+            _vehicle.Motor.Auslass.Auspuff.AbgasV = 548.69;
+            _vehicle.Motor.Auslass.LaengeL = 100;
+            _vehicle.Motor.Auslass.SteuerzeitSZ = 190;
+            _vehicle.Motor.ResonanzU = 8000;
+            _vehicle.Motor.Auslass.DurchmesserD = 45.83;
+            _vehicle.Motor.Auslass.FlaecheA = 20;
+            _vehicle.Motor.Auslass.Auspuff.DiffusorW1 = 7.5;
+
+            // 6 bis 12
+            _vehicle.Motor.Auslass.Auspuff.KruemmerF = 10;
+
+            // 2 bis 3
+            _vehicle.Motor.Auslass.Auspuff.MittelteilF = 2.9;
+
+            //_vehicle.Motor.Auslass.Auspuff.GegenKonusW = 7.5;
+
+            _vehicle.Motor.Auslass.Auspuff.DiffusorStage = 1;
+            _vehicle.Motor.Auslass.Auspuff.DiffusorW = 4;
+            // _vehicle.Motor.Auslass.Auspuff.DiffusorW1 = 0;
+            // _vehicle.Motor.Auslass.Auspuff.DiffusorW2 = 0;
+            // _vehicle.Motor.Auslass.Auspuff.DiffusorW3 = 0;
+
+            _vehicle.Motor.Auslass.Auspuff.EndrohrL = 295;
+            _vehicle.Motor.Auslass.Auspuff.EndrohrD = 27;
+
+            #endregion Daten
+
             VehiclesModel _vehicle2 = _vehicle;
             auspuff = AuslassLogic.Auspuff(ref _vehicle2);
             _vehicle = _vehicle2;
@@ -42,6 +78,9 @@ namespace SimTuning.Core.Test
             }
         }
 
+        /// <summary>
+        /// Gases the velocity test.
+        /// </summary>
         [Test]
         public void GasVelocityTest()
         {
@@ -53,6 +92,9 @@ namespace SimTuning.Core.Test
             value = AuslassLogic.GetGasGeschwindigkeit(abgasT);
         }
 
+        /// <summary>
+        /// Manifolds the diameter test.
+        /// </summary>
         [Test]
         public void ManifoldDiameterTest()
         {
@@ -66,6 +108,9 @@ namespace SimTuning.Core.Test
             value = AuslassLogic.GetKruemmerDurchmesser(auslassA, percentage);
         }
 
+        /// <summary>
+        /// Manifolds the length test.
+        /// </summary>
         [Test]
         public void ManifoldLengthTest()
         {
@@ -81,6 +126,9 @@ namespace SimTuning.Core.Test
             value = AuslassLogic.GetKruemmerLaenge(kruemerdurchmesser, drehmomentfaktor, auslassLaenge);
         }
 
+        /// <summary>
+        /// Resonances the length test.
+        /// </summary>
         [Test]
         public void ResonanceLengthTest()
         {
@@ -96,6 +144,9 @@ namespace SimTuning.Core.Test
             value = AuslassLogic.GetResonanzLaenge(auslassSteuerwinkel, abgasTemperatur, resonanzDrehzahl);
         }
 
+        /// <summary>
+        /// Vehicles the port duration test.
+        /// </summary>
         [Test]
         public void VehiclePortDurationTest()
         {

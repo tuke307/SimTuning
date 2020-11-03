@@ -4,9 +4,16 @@ using SimTuning.Core.ModuleLogic;
 
 namespace SimTuning.Core.Test
 {
+    /// <summary>
+    /// EinlassLogicTest.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
     public class EinlassLogicTest : MvxTestFixture
     {
+        /// <summary>
+        /// Resonanzs the laenge test.
+        /// </summary>
         [Test]
         public void ResonanzLaengeTest()
         {
@@ -30,6 +37,9 @@ namespace SimTuning.Core.Test
             ansaugleitungsdurchmesser);
         }
 
+        /// <summary>
+        /// Vergasers the durchmesser test.
+        /// </summary>
         [Test]
         public void VergaserDurchmesserTest()
         {
@@ -45,6 +55,9 @@ namespace SimTuning.Core.Test
             value = EinlassLogic.GetVergaserDurchmesser(hubvolumen, resonanzdrehzahl, widerstandsFaktor);
         }
 
+        /// <summary>
+        /// Vergasers the hauptduesen durchmesser test.
+        /// </summary>
         [Test]
         public void VergaserHauptduesenDurchmesserTest()
         {

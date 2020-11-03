@@ -1,14 +1,22 @@
-﻿using MvvmCross.Tests;
-using NUnit.Framework;
-using SimTuning.Core.ModuleLogic;
-using SkiaSharp;
-using System.IO;
-
-namespace SimTuning.Core.Test
+﻿namespace SimTuning.Core.Test
 {
+    using MvvmCross.Tests;
+    using NUnit.Framework;
+    using SimTuning.Core.ModuleLogic;
+    using SkiaSharp;
+    using System.IO;
+
+    /// <summary>
+    /// AudioLogicTest.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
     public class AudioLogicTest : MvxTestFixture
     {
+        /// <summary>
+        /// Spectrograms the creation test.
+        /// </summary>
+        /// <param name="fftSize">Size of the FFT.</param>
         [TestCase(8192)] //2^13
         [TestCase(16384)] //2^14
         [TestCase(32768)] //2^15

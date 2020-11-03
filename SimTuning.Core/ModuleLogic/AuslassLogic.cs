@@ -12,6 +12,7 @@ namespace SimTuning.Core.ModuleLogic
     {
         /// <summary>
         /// Berechnet einen Auspuff.
+        /// TODO: diffusors
         /// </summary>
         /// <param name="vehicle">Die Daten für die Auspuffberechnung.</param>
         /// <returns>Bild des Auspuffs.</returns>

@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-
+    <LangVersion>latest</LangVersion>
+    <CodeAnalysisRuleSet>$(SolutionDir)Code Rules.ruleset</CodeAnalysisRuleSet>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

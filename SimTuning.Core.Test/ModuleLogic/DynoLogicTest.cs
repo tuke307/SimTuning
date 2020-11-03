@@ -1,15 +1,22 @@
-﻿using MvvmCross.Tests;
-using NUnit.Framework;
-using OxyPlot;
-using OxyPlot.Wpf;
-using SimTuning.Core.ModuleLogic;
-using System.IO;
-
-namespace SimTuning.Core.Test
+﻿namespace SimTuning.Core.Test
 {
+    using MvvmCross.Tests;
+    using NUnit.Framework;
+    using OxyPlot;
+    using OxyPlot.Wpf;
+    using SimTuning.Core.ModuleLogic;
+    using System.IO;
+
+    /// <summary>
+    /// DynoLogicTest.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
     public class DynoLogicTest : MvxTestFixture
     {
+        /// <summary>
+        /// Plots the creation test.
+        /// </summary>
         [Test]
         public void PlotCreationTest()
         {
