@@ -201,18 +201,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         #region Commands
 
         /// <summary>
-        /// Gets or sets the cut beginn command.
-        /// </summary>
-        /// <value>The cut beginn command.</value>
-        public IMvxAsyncCommand CutBeginnCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the cut end command.
-        /// </summary>
-        /// <value>The cut end command.</value>
-        public IMvxAsyncCommand CutEndCommand { get; set; }
-
-        /// <summary>
         /// Gets or sets the open file command.
         /// </summary>
         /// <value>The open file command.</value>
