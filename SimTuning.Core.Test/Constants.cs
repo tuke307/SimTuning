@@ -1,15 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
-namespace SimTuning.Test
+﻿namespace SimTuning.Test
 {
+    using System;
+    using System.IO;
+
+    /// <summary>
+    /// Constants.
+    /// </summary>
     public static class Constants
     {
+        /// <summary>
+        /// The dyno audio file.
+        /// </summary>
         public static readonly string DynoAudioFile = @"C:\Users\Tony\AppData\Roaming\SimTuning\DynoAudio.wav";
-        private static readonly string DirectoryName = "UnitTests";
 
+        private const string DirectoryName = "UnitTests";
+
+        /// <summary>
+        /// Gets the directory.
+        /// </summary>
+        /// <value>The directory.</value>
         public static string Directory
         {
             get
@@ -18,6 +27,10 @@ namespace SimTuning.Test
             }
         }
 
+        /// <summary>
+        /// Gets the root directory.
+        /// </summary>
+        /// <value>The root directory.</value>
         public static string RootDirectory
         {
             get

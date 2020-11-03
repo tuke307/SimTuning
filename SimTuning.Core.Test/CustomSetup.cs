@@ -1,12 +1,16 @@
-﻿using MvvmCross.Base;
-using MvvmCross.Commands;
-using MvvmCross.Tests;
-using MvvmCross.Views;
-using NUnit.Framework;
-using System.IO;
-
-namespace SimTuning.Test
+﻿namespace SimTuning.Test
 {
+    using MvvmCross.Base;
+    using MvvmCross.Commands;
+    using MvvmCross.Tests;
+    using MvvmCross.Views;
+    using NUnit.Framework;
+    using System.IO;
+
+    /// <summary>
+    /// CustomSetup.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Tests.MvxIoCSupportingTest" />
     [SetUpFixture]
     public class CustomSetup : MvxIoCSupportingTest
     {
@@ -16,14 +20,20 @@ namespace SimTuning.Test
             private set;
         }
 
+        /// <summary>
+        /// Runs the after any tests.
+        /// </summary>
         [OneTimeTearDown]
         public void RunAfterAnyTests()
         {
             // ...
         }
 
+        /// <summary>
+        /// Runs the before any tests.
+        /// </summary>
         [OneTimeSetUp]
-        //[SetUp]
+        // [SetUp]
         public void RunBeforeAnyTests()
         {
             base.Setup(); // from MvxIoCSupportingTest
@@ -36,20 +46,23 @@ namespace SimTuning.Test
             Directory.CreateDirectory(Constants.Directory);
         }
 
+        /// <summary>
+        /// Additionals the setup.
+        /// </summary>
         protected override void AdditionalSetup()
         {
-            Ioc.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
-            Ioc.RegisterSingleton(MediaManager.CrossMediaManager.Current);
+            this.Ioc.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
+            this.Ioc.RegisterSingleton(MediaManager.CrossMediaManager.Current);
 
-            MockDispatcher = new MockDispatcher();
-            Ioc.RegisterSingleton<IMvxViewDispatcher>(MockDispatcher);
-            Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(MockDispatcher);
+            this.MockDispatcher = new MockDispatcher();
+            this.Ioc.RegisterSingleton<IMvxViewDispatcher>(MockDispatcher);
+            this.Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(MockDispatcher);
 
             // MvvmCross.Core.MvxSingletonCache.Instance.Settings.AlwaysRaiseInpcOnUserInterfaceThread
             // = false;
 
             var helper = new MvxUnitTestCommandHelper();
-            Ioc.RegisterSingleton<IMvxCommandHelper>(helper);
+            this.Ioc.RegisterSingleton<IMvxCommandHelper>(helper);
         }
     }
 }

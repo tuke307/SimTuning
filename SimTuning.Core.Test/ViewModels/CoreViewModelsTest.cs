@@ -1,17 +1,8 @@
-﻿using MvvmCross.Tests;
-using NUnit.Framework;
-using SimTuning.Core.ViewModels;
-using SimTuning.Core.ViewModels.Auslass;
-using SimTuning.Core.ViewModels.Demo;
-using SimTuning.Core.ViewModels.Dyno;
-using SimTuning.Core.ViewModels.Einlass;
-using SimTuning.Core.ViewModels.Einstellungen;
-using SimTuning.Core.ViewModels.Home;
-using SimTuning.Core.ViewModels.Motor;
-using SimTuning.Core.ViewModels.Tuning;
-
-namespace SimTuning.Test
+﻿namespace SimTuning.Test
 {
+    using MvvmCross.Tests;
+    using NUnit.Framework;
+
     /// <summary>
     /// CoreViewModelsTest.
     /// </summary>
@@ -73,19 +64,6 @@ namespace SimTuning.Test
             vm.PlayPauseCommand.ListenForRaiseCanExecuteChanged();
             vm.SkipForwardCommand.ListenForRaiseCanExecuteChanged();
             vm.SkipBackwardsCommand.ListenForRaiseCanExecuteChanged();
-        }
-
-        /// <summary>
-        /// Dynoes the audio view model test.
-        /// </summary>
-        [Test]
-        public void DynoAudioViewModelTest()
-        {
-            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Dyno.AudioViewModel>();
-            vm.OpenFileCommand.ListenForRaiseCanExecuteChanged();
-            vm.PauseCommand.ListenForRaiseCanExecuteChanged();
-            vm.PlayCommand.ListenForRaiseCanExecuteChanged();
-            vm.StopCommand.ListenForRaiseCanExecuteChanged();
         }
 
         [Test]
@@ -284,7 +262,7 @@ namespace SimTuning.Test
         [Test]
         public void MainPageViewModelTest()
         {
-            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<MainPage>();
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<SimTuning.Core.ViewModels.MainPage>();
             vm.ShowHomeViewModelCommand.ListenForRaiseCanExecuteChanged();
             vm.ShowMenuViewModelCommand.ListenForRaiseCanExecuteChanged();
         }
@@ -295,7 +273,7 @@ namespace SimTuning.Test
         [Test]
         public void MenuViewModelTest()
         {
-            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Menu>();
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<SimTuning.Core.ViewModels.Menu>();
             vm.ButtonCloseMenu.ListenForRaiseCanExecuteChanged();
             vm.ButtonOpenMenu.ListenForRaiseCanExecuteChanged();
         }
