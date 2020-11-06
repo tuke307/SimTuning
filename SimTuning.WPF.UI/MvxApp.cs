@@ -18,9 +18,9 @@ namespace SimTuning.WPF.UI
         /// </summary>
         public override void Initialize()
         {
-            MvxIoCProvider.Instance.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
+            //MvxIoCProvider.Instance.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
 
-            MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
+            //MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
             CrossMediaManager.Current.Init();
             this.RegisterAppStart<SimTuning.WPF.UI.ViewModels.MainViewModel>();
 

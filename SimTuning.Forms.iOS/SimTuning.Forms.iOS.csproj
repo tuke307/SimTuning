@@ -357,21 +357,21 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
-      <Version>3.3.0</Version>
+      <Version>3.3.1</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="MvvmCross">
-      <Version>7.1.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Location">
-      <Version>7.1.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Messenger">
-      <Version>7.1.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.WebBrowser">
-      <Version>7.1.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Plugin.AudioRecorder">
       <Version>1.1.0</Version>

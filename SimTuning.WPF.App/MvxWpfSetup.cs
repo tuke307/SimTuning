@@ -57,6 +57,7 @@ namespace SimTuning.WPF.App
         {
             MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
             CrossMediaManager.Current.Init();
+            MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
 
             base.InitializeFirstChance();
         }

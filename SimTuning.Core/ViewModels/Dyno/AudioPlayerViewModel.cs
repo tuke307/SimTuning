@@ -169,6 +169,21 @@ namespace SimTuning.Core.ViewModels.Dyno
             MediaManager.BufferedChanged -= this.Current_BufferingChanged;
         }
 
+        protected void Current_BufferingChanged(object sender, MediaManager.Playback.BufferedChangedEventArgs e)
+        {
+            Log.Debug($"Total buffered time is {e.Buffered};");
+        }
+
+        protected void Current_MediaItemFailed(object sender, MediaManager.Media.MediaItemFailedEventArgs e)
+        {
+            Log.Debug($"Media item failed: {e.MediaItem.Title}, Message: {e.Message}, Exception: {e.Exeption?.ToString()};");
+        }
+
+        protected void Current_MediaItemFinished(object sender, MediaManager.Media.MediaItemEventArgs e)
+        {
+            Log.Debug($"Media item finished: {e.MediaItem.Title};");
+        }
+
         /// <summary>
         /// Cuts the beginn.
         /// </summary>
@@ -205,6 +220,29 @@ namespace SimTuning.Core.ViewModels.Dyno
             await PlayFileAsync().ConfigureAwait(true);
         }
 
+        protected void MediaManager_MediaItemChanged(object sender, MediaManager.Media.MediaItemEventArgs e)
+        {
+            this.Source = e.MediaItem;
+        }
+
+        protected void MediaManager_PositionChanged(object sender, MediaManager.Playback.PositionChangedEventArgs e)
+        {
+            if (!this.DragStarted)
+            {
+                this.TimeSpanPosition = e.Position;
+                this.Position = e.Position.TotalSeconds;
+            }
+            this.TimeSpanDuration = this.MediaManager.Duration;
+            this.Duration = this.MediaManager.Duration.TotalSeconds;
+
+            this.Log.Debug($"Current position is {e.Position};");
+        }
+
+        protected void MediaManager_StateChanged(object sender, MediaManager.Playback.StateChangedEventArgs e)
+        {
+            Log.Debug($"Status changed: {System.Enum.GetName(typeof(MediaManager.Player.MediaPlayerState), e.State)};");
+        }
+
         /// <summary>
         /// Opens the file.
         /// </summary>
@@ -215,7 +253,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                Source = await CrossMediaManager.Current.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
+                Source = await MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
             }
             catch (Exception exc)
             {
@@ -258,44 +296,6 @@ namespace SimTuning.Core.ViewModels.Dyno
             {
                 this.Log.ErrorException("Fehler bei TrimAudio: ", exc);
             }
-        }
-
-        private void Current_BufferingChanged(object sender, MediaManager.Playback.BufferedChangedEventArgs e)
-        {
-            Log.Debug($"Total buffered time is {e.Buffered};");
-        }
-
-        private void Current_MediaItemFailed(object sender, MediaManager.Media.MediaItemFailedEventArgs e)
-        {
-            Log.Debug($"Media item failed: {e.MediaItem.Title}, Message: {e.Message}, Exception: {e.Exeption?.ToString()};");
-        }
-
-        private void Current_MediaItemFinished(object sender, MediaManager.Media.MediaItemEventArgs e)
-        {
-            Log.Debug($"Media item finished: {e.MediaItem.Title};");
-        }
-
-        private void MediaManager_MediaItemChanged(object sender, MediaManager.Media.MediaItemEventArgs e)
-        {
-            this.Source = e.MediaItem;
-        }
-
-        private void MediaManager_PositionChanged(object sender, MediaManager.Playback.PositionChangedEventArgs e)
-        {
-            if (!this.DragStarted)
-            {
-                this.TimeSpanPosition = e.Position;
-                this.Position = e.Position.TotalSeconds;
-            }
-            this.TimeSpanDuration = this.MediaManager.Duration;
-            this.Duration = this.MediaManager.Duration.TotalSeconds;
-
-            this.Log.Debug($"Current position is {e.Position};");
-        }
-
-        private void MediaManager_StateChanged(object sender, MediaManager.Playback.StateChangedEventArgs e)
-        {
-            Log.Debug($"Status changed: {System.Enum.GetName(typeof(MediaManager.Player.MediaPlayerState), e.State)};");
         }
 
         private async Task PlayPause()

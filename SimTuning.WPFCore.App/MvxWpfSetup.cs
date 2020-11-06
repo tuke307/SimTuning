@@ -32,9 +32,14 @@ namespace SimTuning.WPFCore.App
             return list.ToArray();
         }
 
+        /// <summary>
+        /// Loads the plugins.
+        /// </summary>
+        /// <param name="pluginManager">The plugin manager.</param>
         public override void LoadPlugins(IMvxPluginManager pluginManager)
         {
             pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
+            // TODO: when webbrowser plugin updated; uncomment next
             // pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.WebBrowser.Wpf.Plugin>();
 
             base.LoadPlugins(pluginManager);
@@ -57,6 +62,7 @@ namespace SimTuning.WPFCore.App
         {
             MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
             CrossMediaManager.Current.Init();
+            MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
 
             base.InitializeFirstChance();
         }

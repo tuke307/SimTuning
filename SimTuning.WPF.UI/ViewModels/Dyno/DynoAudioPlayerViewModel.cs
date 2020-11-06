@@ -95,14 +95,13 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected new async Task PlayFileAsync()
+        protected override async Task PlayFileAsync()
         {
             var check = this.CheckDynoData();
             if (!check)
             {
                 return;
             }
-
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
                 Task.Run(() =>
