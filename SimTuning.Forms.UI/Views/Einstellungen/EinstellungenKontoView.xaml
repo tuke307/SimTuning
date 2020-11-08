@@ -1,12 +1,12 @@
-﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                       x:Class="SimTuning.Forms.UI.Views.Einstellungen.EinstellungenKontoView"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       x:TypeArguments="viewModels:EinstellungenKontoViewModel"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       Title="Konto"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+﻿<views:MvxContentPage BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                      x:Class="SimTuning.Forms.UI.Views.Einstellungen.EinstellungenKontoView"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      x:TypeArguments="viewModels:EinstellungenKontoViewModel"
+                      Title="Konto">
     <StackLayout>
 
         <material:MaterialCard Margin="10">
@@ -14,7 +14,7 @@
                 <material:MaterialLabel Text="Anmelden"
                                         FontSize="Medium"
                                         FontAttributes="Bold" />
-                <BoxView Color="Gray"
+                <BoxView Color="{DynamicResource MaterialDesignDivider}"
                          HeightRequest="2"
                          HorizontalOptions="Fill"
                          Margin="0, 0, 0, 5" />

@@ -25,11 +25,9 @@
 
     <SolidColorBrush x:Key="MaterialDesignTextBoxBorder"
                      Color="#89000000"
-                     po:Freeze="True" />
-    <SolidColorBrush x:Key="MaterialDesignDivider"
-                     Color="#1F000000"
-                     po:Freeze="True" />
-    -->
+                     po:Freeze="True" />-->
+    <Color x:Key="MaterialDesignDivider">#1f000000</Color>
+
     <!-- 12% -->
     <!--
     <SolidColorBrush x:Key="MaterialDesignSelection"

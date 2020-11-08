@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+project=SimTuning.Forms.Droid, file=colors.xml, creation=2020:7:7
+Copyright (c) 2020 tuke productions. All rights reserved.
+-->
+<resources>
+  <color name="launcher_background">#FF000000</color>
+  <color name="colorPrimary">#26c6da</color>
+  <color name="colorPrimaryDark">#006064</color>
+  <color name="colorAccent">#1de9b6</color>
+</resources>

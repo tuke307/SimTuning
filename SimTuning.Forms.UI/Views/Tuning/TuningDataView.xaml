@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Tuning.TuningDataView"
+<views:MvxContentPage BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                      x:Class="SimTuning.Forms.UI.Views.Tuning.TuningDataView"
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,8 +11,7 @@
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       x:TypeArguments="viewModels:TuningDataViewModel"
                       mc:Ignorable="d"
-                       Title="Datensatz"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}">
+                      Title="Datensatz">
     <ScrollView>
         <StackLayout>
 
@@ -22,7 +22,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -110,7 +110,7 @@
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />

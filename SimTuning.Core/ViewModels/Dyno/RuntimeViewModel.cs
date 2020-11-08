@@ -31,18 +31,19 @@
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        /// <param name="locationWatcher">The location watcher.</param>
+        /// <param name="locationService">The location service.</param>
         /// <param name="messenger">The messenger.</param>
         public RuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, ILocationService locationService, IMvxMessenger messenger)
                                     : base(logProvider, navigationService)
         {
             this._token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
             this._token = messenger.Subscribe<MvxLocationMessage>(this.OnLocationUpdated);
-            //this._token = messenger.SubscribeOnMainThread<MvxLocationMessage>(this.OnLocationUpdated);
+            // this._token =
+            // messenger.SubscribeOnMainThread<MvxLocationMessage>(this.OnLocationUpdated);
 
             this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
-            //this._locationWatcher = locationWatcher;
+            this._locationService = locationService;
 
             // Commands
             this.StartAccelerationCommand = new MvxAsyncCommand(this.StartBeschleunigung);
@@ -63,8 +64,6 @@
             // Anfahren
             this.CurrentState = preState;
             this.StartAccelerationButtonVis = true;
-
-            //var test = MvxIoCProvider.Instance.Resolve<ILocationService>();
         }
 
         #region Methods
@@ -130,7 +129,7 @@
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler beim Reset: ", exc);
+                this.Log.ErrorException("Fehler bei ResetBeschleunigung: ", exc);
             }
         }
 
@@ -150,19 +149,20 @@
                 this.PageBackColor = deepSkyBlue;
                 this.SpeedBackColor = skyBlue;
 
-                _timer = new System.Timers.Timer();
-                //Trigger event every second
-                _timer.Interval = 100;
-                _timer.Elapsed += OnCountdownTimedEvent;
+                timer = new System.Timers.Timer();
 
-                //count down 5000 ms
-                Countdown = 5000;
+                // trigger bei jeder 1/100 sekunde
+                timer.Interval = 10;
+                timer.Elapsed += OnCountdownTimedEvent;
 
-                _timer.Enabled = true;
+                // count down from 5000 ms
+                this.countdownMilliseconds = 5000;
+
+                timer.Start();
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
+                this.Log.ErrorException("Fehler bei StartAusrollen: ", exc);
             }
         }
 
@@ -185,20 +185,20 @@
                 this.StartAccelerationButtonVis = false;
 
                 this.CountdownVis = true;
-                this._timer = new System.Timers.Timer();
+                this.timer = new System.Timers.Timer();
 
-                // Trigger event every 100 ms
-                this._timer.Interval = 100;
-                this._timer.Elapsed += this.OnCountdownTimedEvent;
+                // trigger bei jeder 1/100 sekunde
+                timer.Interval = 10;
+                timer.Elapsed += OnCountdownTimedEvent;
 
                 // count down from 5000 ms
-                this.Countdown = 5000;
+                this.countdownMilliseconds = 5000;
 
-                this._timer.Enabled = true;
+                timer.Start();
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
+                this.Log.ErrorException("Fehler bei StartBeschleunigung: ", exc);
             }
         }
 
@@ -221,20 +221,20 @@
 
         private void OnCountdownTimedEvent(object sender, ElapsedEventArgs e)
         {
-            // 100ms immer abziehen
-            this.Countdown -= 100;
+            countdownMilliseconds -= 10;
+            this.RaisePropertyChanged(() => this.Countdown);
 
-            if (this.Countdown == 0)
+            if (this.countdownMilliseconds == 0)
             {
-                this._timer.Stop();
-                this._timer.Dispose();
-
+                // Timer löschen und verbergen
+                this.timer.Stop();
+                this.timer.Dispose();
                 this.CountdownVis = false;
-                //this.StopAccelerationButtonVis = true;
 
+                // this.StopAccelerationButtonVis = true;
+
+                // Stopwatch initialisieren
                 this._stopwatch = new Stopwatch();
-                this._stopwatch.Reset();
-
                 this.StartStopwatch();
             }
         }
@@ -315,8 +315,8 @@
         {
             if (!this._stopwatch.IsRunning)
             {
-                this._timer.Stop();
-                this._timer.Dispose();
+                this.timer.Stop();
+                this.timer.Dispose();
             }
             else
             {
@@ -335,9 +335,10 @@
             }
 
             // start recording audio
-            var audioRecordTask = await this.recorder.StartRecording().ConfigureAwait(true);
+            /*var audioRecordTask = */
+            await this.recorder.StartRecording().ConfigureAwait(true);
 
-            await audioRecordTask.ConfigureAwait(true);
+            //await audioRecordTask.ConfigureAwait(true);
         }
 
         private void StartStopwatch()
@@ -347,12 +348,13 @@
                 this.StopwatchVis = true;
                 this._stopwatch.Start();
 
-                this._timer = new System.Timers.Timer();
+                this.timer = new System.Timers.Timer();
 
-                // Trigger event every 100 ms
-                this._timer.Interval = 100;
-                this._timer.Elapsed += this.OnStopwatchTimedEvent;
-                this._timer.Enabled = true;
+                // Trigger nei 1/10 s bzw aller 100 ms
+                this.timer.Interval = 100;
+                this.timer.Elapsed += this.OnStopwatchTimedEvent;
+
+                this.timer.Start();
             }
         }
 
@@ -430,10 +432,9 @@
         private static System.Drawing.Color seaGreen = System.Drawing.Color.SeaGreen;
         private static System.Drawing.Color skyBlue = System.Drawing.Color.SkyBlue;
 
-        //private readonly IMvxLocationWatcher _locationWatcher;
+        private readonly ILocationService _locationService;
         private readonly MvxSubscriptionToken _token;
 
-        private int _countdown;
         private bool _countdownVis;
         private string _currentState;
         private DynoModel _dyno;
@@ -446,13 +447,18 @@
         private bool _stopAccelerationButtonVis;
         private System.Diagnostics.Stopwatch _stopwatch;
         private bool _stopwatchVis;
-        private System.Timers.Timer _timer;
+        private double countdownMilliseconds;
         private AudioRecorderService recorder;
+        private System.Timers.Timer timer;
 
-        public int Countdown
+        public string Countdown
         {
-            get => this._countdown;
-            set => this.SetProperty(ref this._countdown, value);
+            get => string.Format("{0:D2}:{1:D2}", CountdownTimeSpan.Seconds, CountdownTimeSpan.Milliseconds);
+        }
+
+        public TimeSpan CountdownTimeSpan
+        {
+            get => TimeSpan.FromMilliseconds(countdownMilliseconds);
         }
 
         public bool CountdownVis
@@ -495,7 +501,17 @@
 
         public double? Speed
         {
-            get => this._speed ?? 0.0;
+            get
+            {
+                if (this._speed == null)
+                {
+                    return 0.0;
+                }
+                else
+                {
+                    return Math.Round((double)this._speed, 2);
+                }
+            }
             set => this.SetProperty(ref this._speed, value);
         }
 
@@ -519,7 +535,7 @@
 
         public string? Stopwatch
         {
-            get => this._stopwatch?.Elapsed.ToString(@":mm\:ss\:ff");
+            get => string.Format("{0:D2}:{1:D2}:{2:D2}", this._stopwatch?.Elapsed.Minutes, this._stopwatch?.Elapsed.Seconds, this._stopwatch?.Elapsed.Milliseconds);
         }
 
         public bool StopwatchVis

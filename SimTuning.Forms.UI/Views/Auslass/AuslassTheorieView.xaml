@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:MvxContentPage x:TypeArguments="viewModels:AuslassTheorieViewModel"
+<views:MvxContentPage BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                      x:TypeArguments="viewModels:AuslassTheorieViewModel"
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Auslass;assembly=SimTuning.Forms.UI"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                      BackgroundColor="{DynamicResource MaterialDesignPaper}"
                       Title="Theorie"
                       x:Class="SimTuning.Forms.UI.Views.Auslass.AuslassTheorieView">
     <ScrollView>
@@ -19,7 +19,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -113,7 +113,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -163,7 +163,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -225,7 +225,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -305,7 +305,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />

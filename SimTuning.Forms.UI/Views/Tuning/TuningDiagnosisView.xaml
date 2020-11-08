@@ -1,14 +1,14 @@
-﻿<views:MvxContentPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                       x:Class="SimTuning.Forms.UI.Views.Tuning.TuningDiagnosisView"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       x:TypeArguments="viewModels:TuningDiagnosisViewModel"
-                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Tuning;assembly=SimTuning.Forms.UI"
-                       xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
-                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                       xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
-                       BackgroundColor="{DynamicResource MaterialDesignPaper}"
-                       Title="Diagnose">
+﻿<views:MvxContentPage BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                      x:Class="SimTuning.Forms.UI.Views.Tuning.TuningDiagnosisView"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
+                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Tuning;assembly=SimTuning.Forms.UI"
+                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+                      x:TypeArguments="viewModels:TuningDiagnosisViewModel"
+                      Title="Diagnose">
     <ScrollView>
 
         <StackLayout>
@@ -20,7 +20,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -364,7 +364,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />

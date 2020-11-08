@@ -7,7 +7,7 @@
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       x:TypeArguments="viewModels:DynoAudioPlayerViewModel"
-                      BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                      BackgroundColor="{DynamicResource MaterialDesignPaper}"
                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoAudioPlayerView">
     <views:MvxContentView.Resources>
         <!--CONVERTER-->
@@ -25,14 +25,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
-        <!--<Grid.GestureRecognizers>
-            <TapGestureRecognizer mvx:Bi.nd="Command OpenPlayerCommand" />
-        </Grid.GestureRecognizers>-->
-        <!--<ProgressBar Grid.ColumnSpan="7"
-                     HorizontalOptions="FillAndExpand"
-                     ProgressColor="#FFF14431"
-                     mvx:Bi.nd="Progress Progress" />-->
 
         <Slider x:Name="Slider"
                 Grid.Row="1"

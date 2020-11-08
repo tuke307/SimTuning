@@ -22,21 +22,21 @@
 
                 <!--BASE THEME-->
                 <!--<theme:Light />-->
-                <ResourceDictionary Source="Themes/Base/Dark.xaml" />
+                <ResourceDictionary Source="Themes/Base/Light.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <mtrl:MaterialColorConfiguration x:Key="Theme"
                                              OnBackground="{StaticResource MaterialDesignBody}"
-                                             OnError="{StaticResource ValidationErrorColor}"
-                                             OnPrimary="{StaticResource MaterialDesignBody}"
-                                             OnSecondary="{StaticResource MaterialDesignBody}"
+                                             OnError="{StaticResource MaterialDesignBody}"
+                                             OnPrimary="{StaticResource Primary700Foreground}"
+                                             OnSecondary="{StaticResource Accent700Foreground}"
                                              OnSurface="{StaticResource MaterialDesignBody}"
-                                             Background="{StaticResource MaterialDesignBackground}"
+                                             Background="{StaticResource MaterialDesignPaper}"
                                              Error="{StaticResource ValidationErrorColor}"
-                                             Primary="{StaticResource Primary500}"
-                                             PrimaryVariant="{StaticResource Primary500Foreground}"
-                                             Secondary="{StaticResource Accent700}"
-                                             SecondaryVariant="{StaticResource Accent700Foreground}"
+                                             Primary="{StaticResource Primary200}"
+                                             PrimaryVariant="{StaticResource Primary700}"
+                                             Secondary="{StaticResource Accent200}"
+                                             SecondaryVariant="{StaticResource Accent700}"
                                              Surface="{StaticResource MaterialDesignCardBackground}" />
         </ResourceDictionary>
 
@@ -66,5 +66,14 @@
                                             Overline="{StaticResource FontFamily.RobotoRegular}"
                                             Subtitle1="{StaticResource FontFamily.RobotoRegular}"
                                             Subtitle2="{StaticResource FontFamily.RobotoMedium}" />-->
+
+        <!--<Style TargetType="ContentView">
+            <Setter Property="BackgroundColor"
+                    Value="{DynamicResource MaterialDesignPaper}" />
+        </Style>
+        <Style TargetType="ContentPage">
+            <Setter Property="BackgroundColor"
+                    Value="{DynamicResource MaterialDesignPaper}" />
+        </Style>-->
     </Application.Resources>
 </Application>

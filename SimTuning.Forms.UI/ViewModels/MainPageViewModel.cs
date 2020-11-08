@@ -37,6 +37,9 @@ namespace SimTuning.Forms.UI.ViewModels
         /// <returns>Initialisierung.</returns>
         public override Task Initialize()
         {
+            // TODO: nicht der richtige platz
+            ApplicationChanges.LoadColors();
+
             return base.Initialize();
         }
 
@@ -57,9 +60,6 @@ namespace SimTuning.Forms.UI.ViewModels
 
             this.ShowMenuViewModelCommand.Execute();
             this.ShowHomeViewModelCommand.Execute();
-
-            // TODO: nicht der richtige platz
-            ApplicationChanges.LoadColors();
         }
     }
 }

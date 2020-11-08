@@ -1,12 +1,12 @@
-﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Einlass.EinlassKanalView"
+﻿<views:MvxContentPage BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                      x:Class="SimTuning.Forms.UI.Views.Einlass.EinlassKanalView"
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einlass"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       Title="Kanal"
-                      x:TypeArguments="viewModels:EinlassKanalViewModel"
-                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
+                      x:TypeArguments="viewModels:EinlassKanalViewModel">
     <ScrollView>
         <StackLayout>
 
@@ -15,7 +15,7 @@
                 <StackLayout>
                     <material:MaterialLabel Text="Einlass-Resonanzlänge"
                                             TypeScale="H5" />
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -150,7 +150,7 @@
                     <material:MaterialLabel Text="Hilfe"
                                             TypeScale="H5" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />

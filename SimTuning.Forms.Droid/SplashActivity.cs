@@ -23,7 +23,7 @@ namespace SimTuning.Droid
          MainLauncher = true,
          NoHistory = true,
          ScreenOrientation = ScreenOrientation.Portrait)]
-    public class SplashActivity : MvxFormsSplashScreenActivity<Setup, App, FormsApp>
+    public class SplashActivity : MvxFormsSplashScreenActivity<Setup, MvxApp, FormsApp>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SplashScreen" /> class.

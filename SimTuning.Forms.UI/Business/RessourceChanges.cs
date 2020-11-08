@@ -10,37 +10,30 @@ namespace SimTuning.Forms.UI.Business
     {
         /// <summary>
         /// Colorses the specified primary color.
+        /// TODO: add ResourceDictionary to the mergedDictionaries did not work.
         /// </summary>
         /// <param name="primaryColor">Color of the primary.</param>
         /// <param name="secondaryColor">Color of the secondary.</param>
         /// <param name="baseTheme">The base theme.</param>
         public void Colors(PrimaryColor? primaryColor = null, SecondaryColor? secondaryColor = null, BaseTheme? baseTheme = null)
         {
-            Uri changes = null;
+            //Uri changes = null;
 
-            //if (primaryColor != null)
-            //{
-            //    changes = new Uri($"Themes/Primary/" + primaryColor + ".xaml");
-            //}
+            //var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
 
-            //if (secondaryColor != null)
-            //{
-            //    changes = new Uri($"Themes/Accent/" + secondaryColor + ".xaml");
-            //}
+            //mergedDictionaries.Clear();
 
-            if (baseTheme != null)
-            {
-                changes = new Uri($"Themes/Base/" + baseTheme + ".xaml");
-            }
+            //changes = new Uri($"Themes/Primary/" + primaryColor + ".xaml", UriKind.Relative);
+            //mergedDictionaries.Add(new ResourceDictionary() { Source = changes });
+            //// mergedDictionaries.ElementAt(0).Source = changes;
 
-            if (changes != null)
-            {
-                ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
-                mergedDictionaries.Remove(mergedDictionaries.Last());
-                mergedDictionaries.Add(new ResourceDictionary() { Source = changes });
+            //changes = new Uri($"Themes/Accent/" + secondaryColor + ".xaml", UriKind.Relative);
+            //mergedDictionaries.Add(new ResourceDictionary() { Source = changes });
+            //// mergedDictionaries.ElementAt(1).Source = changes;
 
-                XF.Material.Forms.Material.Use("Material.Configuration");
-            }
+            //changes = new Uri($"Themes/Base/" + baseTheme + ".xaml", UriKind.Relative);
+            //mergedDictionaries.Add(new ResourceDictionary() { Source = changes });
+            //// mergedDictionaries.ElementAt(2).Source = changes;
         }
     }
 }

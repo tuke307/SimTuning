@@ -283,7 +283,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                            HorizontalAlignment="Left"
                            VerticalAlignment="Bottom" />
 
-                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.Bohrung}"
+                    <TextBox Text="{Binding Mode=OneWay, Path= HelperVehicle.Motor.BohrungD}"
                              Grid.Row="0"
                              Grid.Column="1"
                              IsEnabled="False" />

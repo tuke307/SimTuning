@@ -7,10 +7,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash_bg">
   <ImageView
-      android:src="@mipmap/logo"
+      android:src="@drawable/logo"
       android:layout_width="match_parent"
       android:layout_height="500dp"
-      android:id="@+id/imageView1"
       android:scaleType="fitCenter"
       android:layout_margin="10dp" />
   <TextView
@@ -19,6 +18,5 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:minWidth="25px"
-      android:minHeight="25px"
-      android:id="@+id/textView1" />
+      android:minHeight="25px" />
 </LinearLayout   >

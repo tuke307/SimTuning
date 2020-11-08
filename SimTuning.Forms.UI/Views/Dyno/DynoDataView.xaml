@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:MvxContentPage BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -10,8 +11,7 @@
                       x:TypeArguments="viewModels:DynoDataViewModel"
                       mc:Ignorable="d"
                       Title="Datensatz"
-                      x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDataView"
-                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
+                      x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDataView">
     <ScrollView>
         <StackLayout>
             <material:MaterialButton Margin="15"
@@ -30,7 +30,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -126,7 +126,7 @@
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />

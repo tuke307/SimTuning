@@ -4,9 +4,9 @@ using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.Plugin;
 using SimTuning.Forms.UI;
 
-namespace SimTuning.Droid
+namespace SimTuning.Forms.Droid
 {
-    public class Setup : MvxFormsAndroidSetup<App, FormsApp>
+    public class Setup : MvxFormsAndroidSetup<MvxApp, FormsApp>
     // No Splash Screen with this; MvxAndroidSetup<App>
     {
         public override void LoadPlugins(IMvxPluginManager pluginManager)

@@ -10,9 +10,9 @@ namespace SimTuning.Forms.iOS
     /// <summary>
     /// AppDelegate.
     /// </summary>
-    /// <seealso cref="MvvmCross.Forms.Platforms.Ios.Core.MvxFormsApplicationDelegate{MvvmCross.Forms.Platforms.Ios.Core.MvxFormsIosSetup{SimTuning.Forms.UI.App, SimTuning.Forms.UI.FormsApp}, SimTuning.Forms.UI.App, SimTuning.Forms.UI.FormsApp}" />
+    /// <seealso cref="MvvmCross.Forms.Platforms.Ios.Core.MvxFormsApplicationDelegate{MvvmCross.Forms.Platforms.Ios.Core.MvxFormsIosSetup{SimTuning.Forms.UI.MvxApp, SimTuning.Forms.UI.FormsApp}, SimTuning.Forms.UI.MvxApp, SimTuning.Forms.UI.FormsApp}" />
     [Register(nameof(AppDelegate))]
-    public class AppDelegate : MvxFormsApplicationDelegate<MvxFormsIosSetup<App, FormsApp>, App, FormsApp>
+    public class AppDelegate : MvxFormsApplicationDelegate<MvxFormsIosSetup<MvxApp, FormsApp>, MvxApp, FormsApp>
     {
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {

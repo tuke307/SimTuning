@@ -1,4 +1,5 @@
-﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Einstellungen.EinstellungenVehiclesView"
+﻿<views:MvxContentPage BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                      x:Class="SimTuning.Forms.UI.Views.Einstellungen.EinstellungenVehiclesView"
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
@@ -7,8 +8,7 @@
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       Title="Fahrzeuge"
-                      x:TypeArguments="viewModels:EinstellungenVehiclesViewModel"
-                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
+                      x:TypeArguments="viewModels:EinstellungenVehiclesViewModel">
     <ScrollView>
         <StackLayout>
 
@@ -19,7 +19,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -61,7 +61,7 @@
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />

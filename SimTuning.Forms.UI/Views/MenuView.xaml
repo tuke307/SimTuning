@@ -12,7 +12,8 @@
                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                      mc:Ignorable="d"
                      Title="Menu"
-                     x:Class="SimTuning.Forms.UI.Views.MenuView">
+                     x:Class="SimTuning.Forms.UI.Views.MenuView"
+                     BackgroundColor="{DynamicResource MaterialDesignPaper}">
     <view:MvxContentPage.Resources>
         <!--CONVERTER-->
         <behaviors:InvertedBoolConverter x:Key="Inverter" />
@@ -25,7 +26,7 @@
         </Grid.RowDefinitions>
 
         <!--USER-->
-        <Grid BackgroundColor="{DynamicResource Primary100}"
+        <Grid BackgroundColor="{DynamicResource Primary700}"
               Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
@@ -75,8 +76,7 @@
         </Grid>
 
         <!--MENÜ-Items-->
-        <Grid Grid.Row="1"
-              BackgroundColor="{DynamicResource MaterialDesignBackground}">
+        <Grid Grid.Row="1">
 
             <StackLayout HorizontalOptions="FillAndExpand"
                          VerticalOptions="StartAndExpand"
@@ -95,7 +95,7 @@
                 <BoxView HorizontalOptions="FillAndExpand"
                          HeightRequest="1"
                          Margin="5"
-                         Color="Gray" />
+                         Color="{DynamicResource MaterialDesignDivider}" />
 
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"
@@ -130,7 +130,7 @@
                 <BoxView HorizontalOptions="FillAndExpand"
                          HeightRequest="1"
                          Margin="5"
-                         Color="Gray" />
+                         Color="{DynamicResource MaterialDesignDivider}" />
 
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"
@@ -155,7 +155,7 @@
                 <BoxView HorizontalOptions="FillAndExpand"
                          HeightRequest="1"
                          Margin="5"
-                         Color="Gray" />
+                         Color="{DynamicResource MaterialDesignDivider}" />
 
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"

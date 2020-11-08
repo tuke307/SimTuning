@@ -28,8 +28,13 @@
         public DynoRuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, ILocationService locationService, IMvxMessenger messenger)
             : base(logProvider, navigationService, locationService, messenger)
         {
-            this.ShowSpectrogramCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoSpectrogramViewModel>());
-            //this.CloseCommand = new MvxAsyncCommand(async () => await this.NavigationService.Close(this));
+            this.ShowSpectrogramCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoSpectrogramViewModel>().ConfigureAwait(true));
+            // this.CloseCommand = new MvxAsyncCommand(async () => await
+            // this.NavigationService.Close(this));
+
+            // Farben vorbelegen
+            this.PageBackColor = XF.Material.Forms.Material.Color.Background;
+            this.SpeedBackColor = XF.Material.Forms.Material.Color.Surface;
         }
 
         #region Methods

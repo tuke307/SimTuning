@@ -1,9 +1,9 @@
-﻿<views:MvxTabbedPage  xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                      x:Class="SimTuning.Forms.UI.Views.Motor.MotorMainView"
-                      xmlns="http://xamarin.com/schemas/2014/forms"
-                      x:TypeArguments="viewModels:MotorMainViewModel"
-                      TabIndex="{Binding Mode=TwoWay, Path=MotorTabIndex}"
-                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
+﻿<views:MvxTabbedPage x:Class="SimTuning.Forms.UI.Views.Motor.MotorMainView"
+                     xmlns="http://xamarin.com/schemas/2014/forms"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                     xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor"
+                     x:TypeArguments="viewModels:MotorMainViewModel"
+                     BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                     TabIndex="{Binding Mode=TwoWay, Path=MotorTabIndex}">
 </views:MvxTabbedPage>

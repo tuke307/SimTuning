@@ -7,7 +7,7 @@
                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoRuntimeView"
                       x:TypeArguments="viewModels:DynoRuntimeViewModel"
                       Title="Runtime"
-                      BackgroundColor="{Binding Path=PageBackColor, Mode=TwoWay}">
+                      BackgroundColor="{Binding Path=PageBackColor, Mode=OneWay}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*" />
@@ -28,12 +28,12 @@
                                      Command="{Binding CloseCommand}" />-->
 
         <material:MaterialCard Grid.Row="1"
-                               HorizontalOptions="Center"
+                               HorizontalOptions="FillAndExpand"
                                VerticalOptions="Center"
                                Elevation="3"
                                HeightRequest="200"
-                               WidthRequest="300"
-                               BackgroundColor="{Binding Path=SpeedBackColor, Mode=TwoWay}">
+                               Margin="10, 0, 10, 0"
+                               BackgroundColor="{Binding Path=SpeedBackColor, Mode=OneWay}">
 
             <Grid>
                 <StackLayout Orientation="Horizontal"
@@ -45,6 +45,7 @@
 
                     <material:MaterialLabel Text="km/h"
                                             TypeScale="H4"
+                                            Margin="0, 40, 0, 0"
                                             VerticalOptions="Center" />
                 </StackLayout>
             </Grid>

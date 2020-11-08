@@ -13,7 +13,7 @@ namespace SimTuning.WPF.App
     using System.Windows.Controls;
 
     /// <summary>
-    /// MvxWpfSetup.
+    /// WPF dotnetframework app start.
     /// </summary>
     /// <typeparam name="TApplication">The type of the application.</typeparam>
     /// <seealso cref="MvvmCross.Platforms.Wpf.Core.MvxWpfSetup{TApplication}" />
@@ -55,9 +55,9 @@ namespace SimTuning.WPF.App
         /// </summary>
         protected override void InitializeFirstChance()
         {
-            MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
+            //MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
             CrossMediaManager.Current.Init();
-            MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
+            //MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
 
             base.InitializeFirstChance();
         }

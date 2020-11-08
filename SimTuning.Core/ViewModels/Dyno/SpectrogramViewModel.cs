@@ -165,7 +165,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             try
             {
                 var generatedMediaItem = await MediaManager.Extractor.CreateMediaItem(GeneralSettings.AudioFilePath).ConfigureAwait(true);
-                CrossMediaManager.Current.Queue.Add(generatedMediaItem);
+                MediaManager.Queue.Add(generatedMediaItem);
             }
             catch (Exception exc)
             {
@@ -331,17 +331,19 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region private
 
-        protected readonly IMediaManager MediaManager /*= CrossMediaManager.Current*/;
         protected readonly ResourceManager rm;
         private static readonly List<string> _qualitys = new List<string>() { "schlecht", "mittel", "gut", "sehr gut" };
+
         private bool _badge_Refresh;
 
         private Spectrogram.Colormap _colormap;
 
         private List<Spectrogram.Colormap> _colormaps = Enum.GetValues(typeof(Spectrogram.Colormap)).Cast<Spectrogram.Colormap>().ToList();
+
         private DynoModel _dyno;
 
         private int _filterValue;
+
         private int _frequenzbeginn;
 
         private int _frequenzende;
@@ -355,6 +357,8 @@ namespace SimTuning.Core.ViewModels.Dyno
         private bool _normal_Refresh;
 
         private string _quality;
+
+        protected IMediaManager MediaManager { get; } /*= CrossMediaManager.Current;*/
 
         #endregion private
 

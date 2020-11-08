@@ -3,7 +3,6 @@
 namespace SimTuning.WPFCore.App
 {
     using MediaManager;
-    using MvvmCross.IoC;
     using MvvmCross.Platforms.Wpf.Presenters;
     using MvvmCross.Plugin;
     using MvvmCross.ViewModels;
@@ -13,7 +12,7 @@ namespace SimTuning.WPFCore.App
     using System.Windows.Controls;
 
     /// <summary>
-    /// MvxWpfSetup.
+    /// WPF dotnetcore app start.
     /// </summary>
     /// <typeparam name="TApplication">The type of the application.</typeparam>
     /// <seealso cref="MvvmCross.Platforms.Wpf.Core.MvxWpfSetup{TApplication}" />
@@ -60,9 +59,9 @@ namespace SimTuning.WPFCore.App
         /// </summary>
         protected override void InitializeFirstChance()
         {
-            MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
+            //MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
             CrossMediaManager.Current.Init();
-            MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
+            //MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
 
             base.InitializeFirstChance();
         }

@@ -36,6 +36,7 @@
 
             #region Daten
 
+            _vehicle.Motor.Auslass.Auspuff.AbgasT = 548.69;
             _vehicle.Motor.Auslass.Auspuff.AbgasV = 548.69;
             _vehicle.Motor.Auslass.LaengeL = 100;
             _vehicle.Motor.Auslass.SteuerzeitSZ = 190;
@@ -46,11 +47,13 @@
 
             // 6 bis 12
             _vehicle.Motor.Auslass.Auspuff.KruemmerF = 10;
+            _vehicle.Motor.Auslass.Auspuff.KruemmerW = 0;
 
             // 2 bis 3
             _vehicle.Motor.Auslass.Auspuff.MittelteilF = 2.9;
 
-            //_vehicle.Motor.Auslass.Auspuff.GegenKonusW = 7.5;
+            _vehicle.Motor.Auslass.Auspuff.GegenKonusW = 0;
+            // _vehicle.Motor.Auslass.Auspuff.GegenkonusL = 0;
 
             _vehicle.Motor.Auslass.Auspuff.DiffusorStage = 1;
             _vehicle.Motor.Auslass.Auspuff.DiffusorW = 4;

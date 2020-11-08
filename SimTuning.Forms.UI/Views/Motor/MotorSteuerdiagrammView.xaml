@@ -1,12 +1,12 @@
-﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Motor.MotorSteuerdiagrammView"
+﻿<views:MvxContentPage BackgroundColor="{DynamicResource MaterialDesignPaper}"
+                      x:Class="SimTuning.Forms.UI.Views.Motor.MotorSteuerdiagrammView"
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor;assembly=SimTuning.Forms.UI"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       Title="Steuerdiagramm"
-                      x:TypeArguments="viewModels:MotorSteuerdiagrammViewModel"
-                      BackgroundColor="{DynamicResource MaterialDesignPaper}">
+                      x:TypeArguments="viewModels:MotorSteuerdiagrammViewModel">
 
     <ScrollView>
         <StackLayout>
@@ -18,7 +18,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -153,7 +153,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
@@ -253,7 +253,7 @@
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
-                    <BoxView Color="Gray"
+                    <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
                              Margin="0, 0, 0, 5" />
