@@ -139,7 +139,8 @@ namespace SimTuning.Core.ViewModels.Dyno
                 var list = new List<string>()
                 {
                     GeneralSettings.DataExportFilePath,
-                    GeneralSettings.AudioFilePath,
+                    GeneralSettings.AudioAccelerationFilePath,
+                    GeneralSettings.AudioRolloutFilePath,
                 };
 
                 // ZIP archiv erstellen

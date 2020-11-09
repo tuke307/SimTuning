@@ -189,7 +189,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <returns></returns>
         private bool CheckDynoData()
         {
-            if (!File.Exists(SimTuning.Core.GeneralSettings.AudioFilePath))
+            if (!File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
             {
                 Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NOAUDIOFILE", CultureInfo.CurrentCulture));
 

@@ -128,9 +128,9 @@ namespace SimTuning.Core.ViewModels.Dyno
             {
                 File.Delete(SimTuning.Core.GeneralSettings.DataExportFilePath);
             }
-            if (File.Exists(SimTuning.Core.GeneralSettings.AudioFilePath))
+            if (File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
             {
-                File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
+                File.Delete(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
             }
             ZipFile.ExtractToDirectory(fileName, SimTuning.Core.GeneralSettings.FileDirectory);
 
@@ -164,7 +164,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                var generatedMediaItem = await MediaManager.Extractor.CreateMediaItem(GeneralSettings.AudioFilePath).ConfigureAwait(true);
+                var generatedMediaItem = await MediaManager.Extractor.CreateMediaItem(GeneralSettings.AudioAccelerationFilePath).ConfigureAwait(true);
                 MediaManager.Queue.Add(generatedMediaItem);
             }
             catch (Exception exc)
@@ -229,7 +229,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
                 // TODO: duration from audio
                 SKBitmap spec = AudioLogic.GetSpectrogram(
-                    audioFile: SimTuning.Core.GeneralSettings.AudioFilePath,
+                    audioFile: SimTuning.Core.GeneralSettings.AudioAccelerationFilePath,
                     fftSize: _fftSize,
                     intensity: this.Intensity,
                     colormap: this.Colormap,

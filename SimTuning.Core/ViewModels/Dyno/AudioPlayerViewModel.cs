@@ -253,7 +253,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             try
             {
-                Source = await MediaManager.Play(SimTuning.Core.GeneralSettings.AudioFilePath).ConfigureAwait(true);
+                Source = await MediaManager.Play(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath).ConfigureAwait(true);
             }
             catch (Exception exc)
             {
@@ -275,18 +275,18 @@ namespace SimTuning.Core.ViewModels.Dyno
 
                 if (cutStart > 0)
                 {
-                    SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(cutStart), TimeSpan.FromSeconds(0), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioFilePath);
+                    SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(cutStart), TimeSpan.FromSeconds(0), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
                 }
                 else if (cutEnd > 0)
                 {
-                    SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(cutEnd), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioFilePath);
+                    SimTuning.Core.Business.AudioUtils.TrimWavFile(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(cutEnd), outStream: ref cuttedFileStream, inPath: SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
                 }
 
                 // löscht alte Datei
-                File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
+                File.Delete(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
 
                 // neue gecuttete temp-Datei für alte Datei ersetzen
-                using (var fileStream = File.Create(SimTuning.Core.GeneralSettings.AudioFilePath))
+                using (var fileStream = File.Create(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
                 {
                     cuttedFileStream.Seek(0, SeekOrigin.Begin);
                     cuttedFileStream.CopyTo(fileStream);

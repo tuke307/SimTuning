@@ -121,7 +121,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// <returns></returns>
         private bool CheckDynoData()
         {
-            if (!File.Exists(SimTuning.Core.GeneralSettings.AudioFilePath))
+            if (!File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
             {
                 Functions.ShowSnackbarDialog(rm.GetString("ERR_NOAUDIOFILE", CultureInfo.CurrentCulture));
 

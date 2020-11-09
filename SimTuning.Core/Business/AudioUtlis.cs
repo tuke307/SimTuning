@@ -72,9 +72,9 @@ namespace SimTuning.Core.Business
             try
             {
                 //alte Dyno Audio löschen
-                if (File.Exists(SimTuning.Core.GeneralSettings.AudioFilePath))
+                if (File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
                 {
-                    File.Delete(SimTuning.Core.GeneralSettings.AudioFilePath);
+                    File.Delete(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
                 }
 
                 string localFile = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, fileName);
@@ -89,12 +89,12 @@ namespace SimTuning.Core.Business
                 //in lokales Verzeichnis kopieren
                 if (fileName.EndsWith(".mp3"))
                 {
-                    Mp3ToWav(fileName, SimTuning.Core.GeneralSettings.AudioFilePath);
+                    Mp3ToWav(fileName, SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
                     File.Delete(localFile);
                 }
                 else if (fileName.EndsWith(".wav"))
                 {
-                    File.Move(localFile, SimTuning.Core.GeneralSettings.AudioFilePath);
+                    File.Move(localFile, SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
                 }
             }
             catch

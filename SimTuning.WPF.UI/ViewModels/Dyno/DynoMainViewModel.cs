@@ -49,7 +49,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             {
                 base.DynoTabIndex = value;
 
-                if (value == 1)
+                if (value == 1 || value == 4)
                 {
                     AudioPlayerVisibility = true;
                 }

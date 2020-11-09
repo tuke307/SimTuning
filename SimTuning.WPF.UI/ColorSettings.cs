@@ -12,7 +12,6 @@
 
         /// <summary>
         /// Gets or sets the MaterialDesignColors.PrimaryColor.
-        /// TODO: getter geht nicht.
         /// </summary>
         /// <value>The primary.</value>
         public static int Primary

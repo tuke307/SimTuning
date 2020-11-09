@@ -106,7 +106,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 
             using (var client = new WebClient())
             {
-                client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioFilePath);
+                client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
             }
 
             await base.PlayFileAsync().ConfigureAwait(true);
@@ -120,7 +120,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <returns></returns>
         private bool CheckDynoData()
         {
-            if (!File.Exists(SimTuning.Core.GeneralSettings.AudioFilePath))
+            if (!File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
             {
                 Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NOAUDIOFILE", CultureInfo.CurrentCulture));
 

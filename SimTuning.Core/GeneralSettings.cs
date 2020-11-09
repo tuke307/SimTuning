@@ -20,16 +20,16 @@ namespace SimTuning.Core
         /// Gets or sets the audio file.
         /// </summary>
         /// <value>The audio file.</value>
-        public static string AudioFile
+        public static string AudioAccelerationFile
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(AudioFile), "DynoAudio.wav");
+                return AppSettings.GetValueOrDefault(nameof(AudioAccelerationFile), "DynoAccelerationAudio.wav");
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(AudioFile), value);
+                AppSettings.AddOrUpdateValue(nameof(AudioAccelerationFile), value);
             }
         }
 
@@ -37,11 +37,40 @@ namespace SimTuning.Core
         /// Gets the audio file path.
         /// </summary>
         /// <value>The audio file path.</value>
-        public static string AudioFilePath
+        public static string AudioAccelerationFilePath
         {
             get
             {
-                return Path.Combine(FileDirectory, AudioFile);
+                return Path.Combine(FileDirectory, AudioAccelerationFile);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the audio file.
+        /// </summary>
+        /// <value>The audio file.</value>
+        public static string AudioRolloutFile
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(nameof(AudioRolloutFile), "DynoAusrollenAudio.wav");
+            }
+
+            set
+            {
+                AppSettings.AddOrUpdateValue(nameof(AudioRolloutFile), value);
+            }
+        }
+
+        /// <summary>
+        /// Gets the audio file path.
+        /// </summary>
+        /// <value>The audio file path.</value>
+        public static string AudioRolloutFilePath
+        {
+            get
+            {
+                return Path.Combine(FileDirectory, AudioRolloutFile);
             }
         }
 
