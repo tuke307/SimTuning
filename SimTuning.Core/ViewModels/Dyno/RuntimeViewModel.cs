@@ -47,11 +47,11 @@
             // Commands
             this.StartAccelerationCommand = new MvxAsyncCommand(this.StartBeschleunigung);
             this.ResetAccelerationCommand = new MvxAsyncCommand(this.ResetRun);
-            this.StopAccelerationCommand = new MvxAsyncCommand(this.StopRun);
+            //this.StopAccelerationCommand = new MvxAsyncCommand(this.StopRun);
 
             // Visibility
-            this.StopAccelerationButtonVis = false;
-            this.ShowAudioButtonVis = false;
+            //this.StopAccelerationButtonVis = false;
+            this.ShowAudioButtonVis = true;
             this.StopwatchVis = false;
             this.CountdownVis = false;
 
@@ -107,12 +107,38 @@
         {
             try
             {
-                await this.StopRun().ConfigureAwait(true);
+                // Timer und Stopwatch stoppen
+                if (this.stopwatch != null)
+                {
+                    this.stopwatch.Stop();
+                    this.stopwatch.Reset();
+                }
+                if (this.timer != null)
+                {
+                    this.timer.Stop();
+                    this.timer.Dispose();
+                }
 
+                // tracking und recording stoppen
+                this.StopTracking();
+                await StopRecording().ConfigureAwait(true);
+
+                //using (var db = new Data.DatabaseContext())
+                //{
+                //    db.Dyno.Update(this.Dyno);
+
+                //    await db.SaveChangesAsync().ConfigureAwait(true);
+                //}
+
+                // UI aktualisieren
+                await RaisePropertyChanged(() => Stopwatch).ConfigureAwait(true);
                 this.PageBackColor = System.Drawing.Color.White;
                 this.SpeedBackColor = System.Drawing.Color.White;
                 this.CurrentState = PreState;
+                this.StopwatchVis = false;
+                this.CountdownVis = false;
                 this.StartAccelerationButtonVis = true;
+                this.ShowAudioButtonVis = true;
 
                 // zuletzt probieren die Audio-Aufnahme zu löschen
                 File.Delete(GeneralSettings.AudioAccelerationFilePath);
@@ -173,6 +199,9 @@
                 this.SpeedBackColor = seaGreen;
                 this.trackingStarted = true;
 
+                // es kann nun nicht mehr weiter navigiert werden
+                this.ShowAudioButtonVis = false;
+
                 await this.StartRecording().ConfigureAwait(true);
                 //await this.StartTracking().ConfigureAwait(true);
 
@@ -194,25 +223,6 @@
             {
                 this.Log.ErrorException("Fehler bei StartBeschleunigung: ", exc);
             }
-        }
-
-        /// <summary>
-        /// Stops the acceleration.
-        /// </summary>
-        protected virtual Task StopRun()
-        {
-            this.stopwatch.Stop();
-            this.stopwatch.Reset();
-
-            this.StopTracking();
-            return this.StopRecording();
-
-            //using (var db = new Data.DatabaseContext())
-            //{
-            //    db.Dyno.Update(this.Dyno);
-
-            //    await db.SaveChangesAsync().ConfigureAwait(true);
-            //}
         }
 
         private void OnCountdownTimedEvent(object sender, ElapsedEventArgs e)
@@ -254,7 +264,7 @@
 
                 using (var db = new Data.DatabaseContext())
                 {
-                    var lastValues = db.Beschleunigung.Select(x => x.Speed.Value).Take(10).ToList();
+                    var lastValues = db.Beschleunigung.OrderBy(x => x.CreatedDate).Select(x => x.Speed.Value).Take(10).ToList();
 
                     if (lastValues != null && lastValues.Count > 0)
                     {
@@ -466,8 +476,10 @@
         private double? _speed;
         private Color _speedBackColor;
         private bool _startRunButtonVis;
-        private bool _stopRunButtonVis;
+
+        //private bool _stopRunButtonVis;
         private bool _stopwatchVis;
+
         private double countdownMilliseconds;
         private AudioRecorderService recorder;
         private System.Diagnostics.Stopwatch stopwatch;
@@ -590,11 +602,11 @@
         /// <value>
         /// <c>true</c> if [stop acceleration button vis]; otherwise, <c>false</c>.
         /// </value>
-        public bool StopAccelerationButtonVis
-        {
-            get => this._stopRunButtonVis;
-            set => this.SetProperty(ref this._stopRunButtonVis, value);
-        }
+        //public bool StopAccelerationButtonVis
+        //{
+        //    get => this._stopRunButtonVis;
+        //    set => this.SetProperty(ref this._stopRunButtonVis, value);
+        //}
 
         /// <summary>
         /// Gets the stopwatch.

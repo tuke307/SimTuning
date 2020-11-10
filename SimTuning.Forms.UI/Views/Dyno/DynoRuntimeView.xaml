@@ -75,9 +75,9 @@
                                      TypeScale="H2"
                                      VerticalOptions="End" />
 
-            <material:MaterialLabel Text="ms"
+            <!--<material:MaterialLabel Text="ms"
                                     TypeScale="H4"
-                                    VerticalOptions="End" />
+                                    VerticalOptions="End" />-->
         </StackLayout>
 
         <StackLayout  Grid.Row="4"
@@ -91,13 +91,13 @@
                                      Image="chevron_right"
                                      Command="{Binding StartAccelerationCommand}" />
 
-            <material:MaterialButton Text="Stop"
+            <!--<material:MaterialButton Text="Stop"
                                      IsVisible="{Binding StopAccelerationButtonVis}"
                                      ButtonType="Elevated"
                                      VerticalOptions="Center"
                                      WidthRequest="125"
                                      Image="ic_stop_black_18dp.png"
-                                     Command="{Binding StopAccelerationCommand}" />
+                                     Command="{Binding StopAccelerationCommand}" />-->
         </StackLayout>
 
         <material:MaterialIconButton Grid.Row="5"
@@ -116,7 +116,7 @@
                                      HorizontalOptions="End"
                                      VerticalOptions="Center"
                                      Image="chevron_right"
-                                     Command="{Binding ShowSpectrogramCommand}" />
-        <!--IsVisible="{Binding ShowAudioButtonVis}"-->
+                                     Command="{Binding ShowSpectrogramCommand}"
+                                     IsVisible="{Binding ShowAudioButtonVis}" />
     </Grid>
 </views:MvxContentPage>

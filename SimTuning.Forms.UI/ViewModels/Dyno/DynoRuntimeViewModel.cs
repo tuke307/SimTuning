@@ -100,14 +100,14 @@
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected override async Task StopRun()
-        {
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+        //protected override async Task StopRun()
+        //{
+        //    var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
 
-            await base.StopRun().ConfigureAwait(true);
+        // await base.StopRun().ConfigureAwait(true);
 
-            await loadingDialog.DismissAsync().ConfigureAwait(false);
-        }
+        //    await loadingDialog.DismissAsync().ConfigureAwait(false);
+        //}
 
         /// <summary>
         /// Checks the dyno data.

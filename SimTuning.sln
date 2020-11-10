@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimTuning.Forms.UI", "SimTuning.Forms.UI\SimTuning.Forms.UI.csproj", "{7F86B3F8-6608-4FE8-97E2-B30EB8BE2C87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimTuning.Forms.iOS", "SimTuning.Forms.iOS\SimTuning.Forms.iOS.csproj", "{1FAC1238-B1E4-42BD-A4A1-2B0E05A33CAC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1F341BE0-50CC-483F-B3BE-03245F6E6CFC} = {1F341BE0-50CC-483F-B3BE-03245F6E6CFC}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimTuning.Core", "SimTuning.Core\SimTuning.Core.csproj", "{1F341BE0-50CC-483F-B3BE-03245F6E6CFC}"
 EndProject
