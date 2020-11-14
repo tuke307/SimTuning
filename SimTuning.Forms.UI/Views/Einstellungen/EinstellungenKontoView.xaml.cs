@@ -6,9 +6,16 @@ using SimTuning.Forms.UI.ViewModels.Einstellungen;
 
 namespace SimTuning.Forms.UI.Views.Einstellungen
 {
-    [MvxTabbedPagePresentation(TabbedPosition.Tab)]
+    /// <summary>
+    /// EinstellungenKontoView.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Einstellungen.EinstellungenKontoViewModel}" />
+    [MvxContentPagePresentation(WrapInNavigationPage = true, NoHistory = false)]
     public partial class EinstellungenKontoView : MvxContentPage<EinstellungenKontoViewModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EinstellungenKontoView" /> class.
+        /// </summary>
         public EinstellungenKontoView()
         {
             InitializeComponent();

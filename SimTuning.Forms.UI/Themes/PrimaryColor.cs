@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SimTuning.Forms.UI
+namespace SimTuning.Forms.UI.Themes
 {
-    public enum BaseTheme
-    {
-        Inherit = 0,
-        Light = 1,
-        Dark = 2
-    }
-
     public enum PrimaryColor
     {
         Red = 5,
@@ -32,25 +25,5 @@ namespace SimTuning.Forms.UI
         Brown = 229,
         Grey = 239,
         BlueGrey = 249
-    }
-
-    public enum SecondaryColor
-    {
-        Red = 13,
-        Pink = 27,
-        Purple = 41,
-        DeepPurple = 55,
-        Indigo = 69,
-        Blue = 83,
-        LightBlue = 97,
-        Cyan = 111,
-        Teal = 125,
-        Green = 139,
-        LightGreen = 153,
-        Lime = 167,
-        Yellow = 181,
-        Amber = 195,
-        Orange = 209,
-        DeepOrange = 223
     }
 }

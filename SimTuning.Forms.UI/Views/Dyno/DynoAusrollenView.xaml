@@ -7,6 +7,7 @@
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       x:TypeArguments="viewModels:DynoAusrollenViewModel"
+                      Title="Auswertung-Ausrollen"
                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoAusrollenView">
     <Grid>
         <Grid.RowDefinitions>
@@ -51,7 +52,7 @@
                                      ButtonType="Elevated"
                                      HorizontalOptions="End"
                                      VerticalOptions="Center"
-                                     Image="ic_play_arrow_black_18dp"
+                                     Image="chevron_right"
                                      Command="{Binding ShowDiagnosisCommand}" />
     </Grid>
 </views:MvxContentPage>

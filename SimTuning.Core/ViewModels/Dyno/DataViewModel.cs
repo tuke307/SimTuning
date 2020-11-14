@@ -380,14 +380,34 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region Commands
 
+        /// <summary>
+        /// Gets or sets the delete dyno command.
+        /// </summary>
+        /// <value>The delete dyno command.</value>
         public IMvxCommand DeleteDynoCommand { get; set; }
 
+        /// <summary>
+        /// Gets or sets the export dyno command.
+        /// </summary>
+        /// <value>The export dyno command.</value>
         public IMvxCommand ExportDynoCommand { get; set; }
 
+        /// <summary>
+        /// Creates new dynocommand.
+        /// </summary>
+        /// <value>The new dyno command.</value>
         public IMvxCommand NewDynoCommand { get; set; }
 
+        /// <summary>
+        /// Gets or sets the save dyno command.
+        /// </summary>
+        /// <value>The save dyno command.</value>
         public IMvxCommand SaveDynoCommand { get; set; }
 
+        /// <summary>
+        /// Gets or sets the show save button command.
+        /// </summary>
+        /// <value>The show save button command.</value>
         public IMvxCommand ShowSaveButtonCommand { get; set; }
 
         #endregion Commands

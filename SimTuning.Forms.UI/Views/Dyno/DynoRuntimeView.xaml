@@ -6,7 +6,7 @@
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoRuntimeView"
                       x:TypeArguments="viewModels:DynoRuntimeViewModel"
-                      Title="Runtime"
+                      Title="Messung"
                       BackgroundColor="{Binding Path=PageBackColor, Mode=OneWay}">
     <Grid>
         <Grid.RowDefinitions>

@@ -11,7 +11,7 @@ namespace SimTuning.WPF.UI.Views.Einstellungen
     /// </summary>
     /// <seealso cref="MvvmCross.Platforms.Wpf.Views.MvxWpfView" />
     /// <seealso cref="System.Windows.Markup.IComponentConnector" />
-    [MvxWpfPresenter("EinstellungenRegion", mvxViewPosition.NewOrExsist)]
+    [MvxWpfPresenter("PageContent", mvxViewPosition.NewOrExsist)]
     public partial class EinstellungenApplicationView : MvxWpfView<EinstellungenApplicationViewModel>
     {
         /// <summary>

@@ -38,7 +38,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="">The user.</param>
+
         public override void Prepare()
         {
         }

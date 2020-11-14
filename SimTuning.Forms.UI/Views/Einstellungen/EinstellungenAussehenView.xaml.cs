@@ -5,17 +5,17 @@ using SimTuning.Forms.UI.ViewModels.Einstellungen;
 namespace SimTuning.Forms.UI.Views.Einstellungen
 {
     /// <summary>
-    /// EinstellungenApplicationView.
+    /// EinstellungenAussehenView.
     /// </summary>
-    /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Einstellungen.EinstellungenApplicationViewModel}" />
+    /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Einstellungen.EinstellungenAussehenViewModel}" />
     [MvxContentPagePresentation(WrapInNavigationPage = true, NoHistory = false)]
-    public partial class EinstellungenApplicationView : MvxContentPage<EinstellungenApplicationViewModel>
+    public partial class EinstellungenAussehenView : MvxContentPage<EinstellungenAussehenViewModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EinstellungenApplicationView" />
+        /// Initializes a new instance of the <see cref="EinstellungenAussehenView" />
         /// class.
         /// </summary>
-        public EinstellungenApplicationView()
+        public EinstellungenAussehenView()
         {
             InitializeComponent();
         }

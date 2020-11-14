@@ -2,25 +2,18 @@
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Einstellungen
 {
-    using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
-    using SimTuning.Core.Models;
     using System.Resources;
     using System.Threading.Tasks;
 
     /// <summary>
     /// AussehenViewModel.
     /// </summary>
-
     public class AussehenViewModel : MvxNavigationViewModel
     {
         protected ResourceManager rm;
-
-        public IMvxCommand ApplyAccentCommand { get; set; }
-
-        public IMvxCommand ApplyPrimaryCommand { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AussehenViewModel" /> class.
@@ -42,6 +35,9 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             return base.Initialize();
         }
 
+        /// <summary>
+        /// Prepares this instance.
+        /// </summary>
         public override void Prepare()
         {
             base.Prepare();

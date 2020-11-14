@@ -124,7 +124,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     <Separator Margin="10, 0, 10, 0"
                                HorizontalAlignment="Stretch"></Separator>
 
-                    <MenuItem Header="Tuning"
+                    <!--<MenuItem Header="Tuning"
                               Command="{Binding ShowTuningCommand}">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="TuneVertical" />
@@ -137,7 +137,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                 </i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                    </MenuItem>
+                    </MenuItem>-->
 
                     <MenuItem Header="Dyno"
                               Command="{Binding ShowDynoCommand}">

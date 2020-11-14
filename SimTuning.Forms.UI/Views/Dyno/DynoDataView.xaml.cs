@@ -10,7 +10,7 @@ namespace SimTuning.Forms.UI.Views.Dyno
     /// DynoDataView.
     /// </summary>
     /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Dyno.DynoDataViewModel}" />
-    [MvxModalPresentation]
+    [MvxContentPagePresentation(WrapInNavigationPage = true, NoHistory = false)]
     public partial class DynoDataView : MvxContentPage<DynoDataViewModel>
     {
         /// <summary>

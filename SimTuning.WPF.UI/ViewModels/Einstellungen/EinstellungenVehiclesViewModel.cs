@@ -18,6 +18,8 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
     {
         private bool firstTime = true;
 
+        public MvxAsyncCommand OpenMenuCommand { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EinstellungenVehiclesViewModel"
         /// /> class.
@@ -30,6 +32,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
             this.NewVehicleCommand = new MvxCommand(NewVehicle, CanExecute);
             this.DeleteVehicleCommand = new MvxCommand(DeleteVehicle, CanExecute);
             this.SaveVehicleCommand = new MvxCommand(SaveVehicle, CanExecute);
+            OpenMenuCommand = new MvxAsyncCommand(() => NavigationService.Navigate<EinstellungenMenuViewModel>());
         }
 
         #region Methods
@@ -46,7 +49,6 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="">The user.</param>
         public override void Prepare()
         {
             base.Prepare();

@@ -13,7 +13,7 @@
       android:scaleType="fitCenter"
       android:layout_margin="10dp" />
   <TextView
-      android:text="Loading..."
+      android:text="SimTuning"
       android:gravity="center_horizontal"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

@@ -3,6 +3,7 @@
 namespace SimTuning.WPF.UI.Business
 {
     using MaterialDesignColors;
+    using MaterialDesignThemes.Wpf;
     using System;
 
     /// <summary>
@@ -11,49 +12,18 @@ namespace SimTuning.WPF.UI.Business
     public static class ApplicationChanges
     {
         /// <summary>
-        /// Bools to base theme.
-        /// </summary>
-        /// <param name="value">if set to <c>true</c> [value].</param>
-        /// <returns></returns>
-        public static MaterialDesignThemes.Wpf.BaseTheme BoolToBaseTheme(bool value)
-        {
-            if (value)
-            {
-                return MaterialDesignThemes.Wpf.BaseTheme.Dark;
-            }
-            else
-            {
-                return MaterialDesignThemes.Wpf.BaseTheme.Light;
-            }
-        }
-
-        /// <summary>
-        /// Determines whether [is dark theme].
-        /// </summary>
-        /// <returns><c>true</c> if [is dark theme]; otherwise, <c>false</c>.</returns>
-        public static bool IsDarkTheme()
-        {
-            if (ColorSettings.Theme == (int)MaterialDesignThemes.Wpf.BaseTheme.Dark)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
         /// Loads the colors.
         /// </summary>
         public static void LoadColors()
         {
+            SetBaseTheme((MaterialDesignThemes.Wpf.BaseTheme)ColorSettings.Theme);
+
             var appChanges = new RessourceChanges();
 
             appChanges.Colors(
                 primaryColor: (MaterialDesignColors.PrimaryColor)ColorSettings.Primary,
-                secondaryColor: (MaterialDesignColors.SecondaryColor)ColorSettings.Secondary,
-                baseTheme: (MaterialDesignThemes.Wpf.BaseTheme)ColorSettings.Theme);
+                secondaryColor: (MaterialDesignColors.SecondaryColor)ColorSettings.Secondary
+                /*baseTheme: (MaterialDesignThemes.Wpf.BaseTheme)ColorSettings.Theme*/);
         }
 
         /// <summary>
@@ -73,13 +43,43 @@ namespace SimTuning.WPF.UI.Business
         /// Sets the base theme.
         /// </summary>
         /// <param name="base_color">if set to <c>true</c> [base color].</param>
-        public static void SetBaseTheme(bool base_color)
+        public static void SetBaseTheme(MaterialDesignThemes.Wpf.BaseTheme baseTheme)
         {
-            ColorSettings.Theme = (int)ApplicationChanges.BoolToBaseTheme(base_color);
+            ColorSettings.Theme = (int)baseTheme;
 
-            var appChanges = new RessourceChanges();
+            if (baseTheme == (int)MaterialDesignThemes.Wpf.BaseTheme.Inherit)
+            {
+                baseTheme = Theme.GetSystemTheme().Value;
+            }
 
-            appChanges.Colors(baseTheme: (MaterialDesignThemes.Wpf.BaseTheme)ColorSettings.Theme);
+            var paletteHelper = new PaletteHelper();
+
+            //Retrieve the app's existing theme
+            ITheme theme = paletteHelper.GetTheme();
+
+            switch (baseTheme)
+            {
+                case BaseTheme.Inherit:
+                    break;
+
+                case BaseTheme.Light:
+                    theme.SetBaseTheme(Theme.Light);
+                    break;
+
+                case BaseTheme.Dark:
+                    theme.SetBaseTheme(Theme.Dark);
+                    break;
+
+                default:
+                    break;
+            }
+
+            //Change the app's current theme
+            paletteHelper.SetTheme(theme);
+
+            //var appChanges = new RessourceChanges();
+
+            //appChanges.Colors(baseTheme: (MaterialDesignThemes.Wpf.BaseTheme)ColorSettings.Theme);
         }
 
         /// <summary>

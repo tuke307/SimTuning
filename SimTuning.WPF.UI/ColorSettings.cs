@@ -52,7 +52,7 @@
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(Theme), (int)MaterialDesignThemes.Wpf.BaseTheme.Light, userFile);
+                return AppSettings.GetValueOrDefault(nameof(Theme), (int)MaterialDesignThemes.Wpf.BaseTheme.Inherit, userFile);
             }
 
             set

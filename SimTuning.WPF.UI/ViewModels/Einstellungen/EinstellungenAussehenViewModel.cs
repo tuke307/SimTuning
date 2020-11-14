@@ -2,14 +2,14 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.ViewModels.Einstellungen
 {
-    using Data;
     using MaterialDesignColors;
+    using MaterialDesignThemes.Wpf;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.Core;
-    using SimTuning.Core.Models;
     using SimTuning.WPF.UI.Business;
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
@@ -21,8 +21,6 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
     /// <seealso cref="SimTuning.Core.ViewModels.Einstellungen.AussehenViewModel" />
     public class EinstellungenAussehenViewModel : SimTuning.Core.ViewModels.Einstellungen.AussehenViewModel
     {
-        public IEnumerable<Swatch> Swatches { get; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EinstellungenAussehenViewModel"
         /// /> class.
@@ -36,8 +34,9 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
             this.ApplyPrimaryCommand = new MvxCommand<Swatch>(ApplyPrimary, CanExecute);
             this.ApplyAccentCommand = new MvxCommand<Swatch>(ApplyAccent, CanExecute);
 
-            this.ToogleDarkmode = ApplicationChanges.IsDarkTheme();
+            BaseThemeValue = (MaterialDesignThemes.Wpf.BaseTheme)ColorSettings.Theme;
             ShowSnackbar();
+            OpenMenuCommand = new MvxAsyncCommand(() => NavigationService.Navigate<EinstellungenMenuViewModel>());
         }
 
         #region Methods
@@ -80,14 +79,6 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         }
 
         /// <summary>
-        /// Applies the base theme.
-        /// </summary>
-        protected void ApplyBaseTheme()
-        {
-            ApplicationChanges.SetBaseTheme(ToogleDarkmode);
-        }
-
-        /// <summary>
         /// Applies the primary.
         /// </summary>
         /// <param name="parameter">The parameter.</param>
@@ -96,6 +87,14 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
             ApplicationChanges.SetPrimary(parameter);
         }
 
+        /// <summary>
+        /// Determines whether this instance can execute the specified parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>
+        /// <c>true</c> if this instance can execute the specified parameter; otherwise,
+        /// <c>false</c>.
+        /// </returns>
         private bool CanExecute(object parameter)
         {
             return LicenseValid;
@@ -105,23 +104,61 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
 
         #region Values
 
-        private bool _toogleDarkmode;
-        private bool firstTime = true;
+        private Array _baseTheme = Enum.GetValues(typeof(MaterialDesignThemes.Wpf.BaseTheme));
 
+        private BaseTheme _baseThemeValue;
+
+        /// <summary>
+        /// Gets or sets the apply accent command.
+        /// </summary>
+        /// <value>The apply accent command.</value>
+        public IMvxCommand ApplyAccentCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the apply primary command.
+        /// </summary>
+        /// <value>The apply primary command.</value>
+        public IMvxCommand ApplyPrimaryCommand { get; set; }
+
+        public List<MaterialDesignThemes.Wpf.BaseTheme> BaseThemeList
+        {
+            get => _baseTheme.OfType<MaterialDesignThemes.Wpf.BaseTheme>().ToList();
+        }
+
+        /// <summary>
+        /// Gets or sets the base theme value.
+        /// </summary>
+        /// <value>The base theme value.</value>
+        public MaterialDesignThemes.Wpf.BaseTheme BaseThemeValue
+        {
+            get => _baseThemeValue;
+            set
+            {
+                SetProperty(ref _baseThemeValue, value);
+                ApplicationChanges.SetBaseTheme(value);
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [license valid].
+        /// </summary>
+        /// <value><c>true</c> if [license valid]; otherwise, <c>false</c>.</value>
         public bool LicenseValid
         {
             get => UserSettings.LicenseValid;
         }
 
-        public bool ToogleDarkmode
-        {
-            get => _toogleDarkmode;
-            set
-            {
-                SetProperty(ref _toogleDarkmode, value);
-                ApplyBaseTheme();
-            }
-        }
+        /// <summary>
+        /// Gets or sets the open menu command.
+        /// </summary>
+        /// <value>The open menu command.</value>
+        public MvxAsyncCommand OpenMenuCommand { get; set; }
+
+        /// <summary>
+        /// Gets the swatches.
+        /// </summary>
+        /// <value>The swatches.</value>
+        public IEnumerable<Swatch> Swatches { get; }
 
         #endregion Values
     }

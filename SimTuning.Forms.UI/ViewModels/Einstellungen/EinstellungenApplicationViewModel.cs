@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Navigation;
+using System.Threading.Tasks;
 
 namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 {
@@ -9,5 +10,26 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             : base(logProvider, navigationService)
         {
         }
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>Initilisierung.</returns>
+        public override Task Initialize()
+        {
+            return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance.
+        /// </summary>
+        public override void Prepare()
+        {
+            base.Prepare();
+        }
+
+        #endregion Methods
     }
 }

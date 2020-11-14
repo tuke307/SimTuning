@@ -37,7 +37,7 @@ namespace SimTuning.Core.ViewModels.Auslass
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="">The user.</param>
+
         public override void Prepare()
         {
         }

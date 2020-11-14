@@ -48,7 +48,7 @@ namespace SimTuning.Forms.UI.ViewModels
             this.ShowMotorCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<MotorMainViewModel>());
             this.ShowDynoCommand = new MvxAsyncCommand(this.ShowDyno);
             this.ShowTuningCommand = new MvxAsyncCommand(this.ShowTuning);
-            this.ShowEinstellungenCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinstellungenMainViewModel>());
+            this.ShowEinstellungenCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinstellungenMenuViewModel>());
             this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
             this.InitializeDatabase = new MvxAsyncCommand(this.InitializeDatabaseAsync);
         }

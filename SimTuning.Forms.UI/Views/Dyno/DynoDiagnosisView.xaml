@@ -7,7 +7,7 @@
                       xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                      Title="Diagnose">
+                      Title="Ergebnis">
     <ScrollView>
         <StackLayout>
 

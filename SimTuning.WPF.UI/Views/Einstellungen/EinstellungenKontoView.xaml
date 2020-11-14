@@ -29,113 +29,119 @@ Copyright (c) 2020 tuke productions. All rights reserved.
         </ResourceDictionary>
     </views:MvxWpfView.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <GroupBox Header="Anmelden"
-                  Grid.Column="0"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  Margin="100 0 0 0"
-                  MinHeight="150">
-            <Grid Margin="0 10 0 10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
 
-                <StackPanel Orientation="Horizontal"
-                            Grid.Row="0"
-                            Grid.Column="0">
-                    <materialDesign:PackIcon Kind="EmailTickOutline"
-                                             VerticalAlignment="Center"
-                                             Foreground="{Binding ElementName=EMailTextBox, Path=BorderBrush}"
-                                             Margin="40 0 0 0" />
+            <Button Style="{StaticResource MaterialDesignIconButton}"
+                    Width="25"
+                    Height="25"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="10 0 0 0"
+                    Command="{Binding OpenMenuCommand}">
+                <materialDesign:PackIcon Kind="ArrowBack"
+                                         Width="22"
+                                         Height="22" />
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
+                                               CommandParameter="PageContent">
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
 
-                    <TextBox x:Name="EMailTextBox"
-                             materialDesign:HintAssist.Foreground="{StaticResource SecondaryHueMidBrush}"
-                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource SecondaryHueMidBrush}"
-                             materialDesign:HintAssist.Hint="E-Mail"
-                             Text="{Binding Mode=TwoWay, Path=Email, UpdateSourceTrigger=PropertyChanged}"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             TextWrapping="Wrap"
-                             MinWidth="300"
-                             MinHeight="30"
-                             Margin="10 0 0 0">
-                    </TextBox>
-                </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal"
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Margin="0 15 0 0">
-                    <materialDesign:PackIcon Kind="Key"
-                                             VerticalAlignment="Center"
-                                             Foreground="{Binding ElementName=PasswordTextBox, Path=BorderBrush}"
-                                             Margin="40 0 0 0">
-                    </materialDesign:PackIcon>
+            <materialDesign:Card Grid.Column="0"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center">
+                <StackPanel Margin="20">
 
-                    <PasswordBox x:Name="PasswordTextBox"
+                    <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                               HorizontalAlignment="Left"
+                               Text="Bitte gib hier deine Anmeldedaten ein;"
+                               Margin="10">
+                    </TextBlock>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10">
+                        <materialDesign:PackIcon Kind="EmailTickOutline"
+                                                 VerticalAlignment="Center"
+                                                 Foreground="{Binding ElementName=EMailTextBox, Path=BorderBrush}" />
+
+                        <TextBox x:Name="EMailTextBox"
                                  materialDesign:HintAssist.Foreground="{StaticResource SecondaryHueMidBrush}"
                                  materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource SecondaryHueMidBrush}"
-                                 materialDesign:HintAssist.Hint="Passwort"
+                                 materialDesign:HintAssist.Hint="E-Mail"
+                                 Text="{Binding Mode=TwoWay, Path=Email, UpdateSourceTrigger=PropertyChanged}"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
+                                 TextWrapping="Wrap"
                                  MinWidth="300"
                                  MinHeight="30"
                                  Margin="10 0 0 0">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PasswordChanged">
-                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
-                                                       CommandParameter="{Binding ElementName=PasswordTextBox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </PasswordBox>
+                        </TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="10">
+                        <materialDesign:PackIcon Kind="Key"
+                                                 VerticalAlignment="Center"
+                                                 Foreground="{Binding ElementName=PasswordTextBox, Path=BorderBrush}">
+                        </materialDesign:PackIcon>
+
+                        <PasswordBox x:Name="PasswordTextBox"
+                                     materialDesign:HintAssist.Foreground="{StaticResource SecondaryHueMidBrush}"
+                                     materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource SecondaryHueMidBrush}"
+                                     materialDesign:HintAssist.Hint="Passwort"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     MinWidth="300"
+                                     MinHeight="30"
+                                     Margin="10 0 0 0">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PasswordChanged">
+                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                                           CommandParameter="{Binding ElementName=PasswordTextBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </PasswordBox>
+                    </StackPanel>
+
+                    <Button HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="25 0 25 10"
+                            Command="{Binding ConnectUserCommand}"
+                            MinWidth="140"
+                            Content="Login"
+                            MinHeight="40" />
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <Label Content="oder"
+                               Margin="0 0 0 0" />
+                        <Button Margin="-15 -5 0 0"
+                                Command="{Binding RegisterSiteCommand}"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="MaterialDesignFlatButton"
+                                Content="Registriere" />
+                        <Label Content="dich."
+                               Margin="0 0 0 0" />
+                    </StackPanel>
                 </StackPanel>
-
-                <Button Grid.Row="0"
-                        Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="25 0 25 10"
-                        Command="{Binding ConnectUserCommand}"
-                        materialDesign:ButtonAssist.CornerRadius="5"
-                        MinWidth="140"
-                        MinHeight="40">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Height="25"
-                                                 Width="25"
-                                                 Kind="LoginVariant">
-                        </materialDesign:PackIcon>
-                        <Label>Login</Label>
-                    </StackPanel>
-                </Button>
-
-                <Button Grid.Row="1"
-                        Grid.Column="1"
-                        Style="{StaticResource MaterialDesignRaisedLightButton}"
-                        Margin="25 10 25 0"
-                        Command="{Binding RegisterSiteCommand}"
-                        materialDesign:ButtonAssist.CornerRadius="5"
-                        MinWidth="140"
-                        MinHeight="40">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Height="25"
-                                                 Width="25"
-                                                 Kind="Register">
-                        </materialDesign:PackIcon>
-                        <Label>Registrieren</Label>
-                    </StackPanel>
-                </Button>
-            </Grid>
-        </GroupBox>
+            </materialDesign:Card>
+        </Grid>
     </Grid>
 </views:MvxWpfView>

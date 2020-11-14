@@ -22,7 +22,7 @@ namespace SimTuning.Forms.UI
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(Primary), (int)PrimaryColor.Cyan, userFile);
+                return AppSettings.GetValueOrDefault(nameof(Primary), (int)Themes.PrimaryColor.Cyan, userFile);
             }
 
             set
@@ -39,7 +39,7 @@ namespace SimTuning.Forms.UI
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(Secondary), (int)SecondaryColor.Teal, userFile);
+                return AppSettings.GetValueOrDefault(nameof(Secondary), (int)Themes.SecondaryColor.Teal, userFile);
             }
 
             set
@@ -56,7 +56,7 @@ namespace SimTuning.Forms.UI
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(Theme), (int)BaseTheme.Inherit, userFile);
+                return AppSettings.GetValueOrDefault(nameof(Theme), (int)Themes.BaseTheme.Inherit, userFile);
             }
 
             set

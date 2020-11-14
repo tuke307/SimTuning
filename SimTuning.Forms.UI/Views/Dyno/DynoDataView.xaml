@@ -14,14 +14,14 @@
                       x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDataView">
     <ScrollView>
         <StackLayout>
-            <material:MaterialButton Margin="15"
+            <!--<material:MaterialButton Margin="15"
                                      VerticalOptions="Center"
                                      HorizontalOptions="Start"
                                      ImageSource="ic_arrow_back_black_18dp.png"
                                      Command="{Binding CloseCommand}"
                                      WidthRequest="100"
                                      HeightRequest="60">
-            </material:MaterialButton>
+            </material:MaterialButton>-->
 
             <material:MaterialCard Margin="10"
                                    VerticalOptions="Center">

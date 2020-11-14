@@ -8,46 +8,14 @@ namespace SimTuning.Forms.UI.Business
     public static class ApplicationChanges
     {
         /// <summary>
-        /// Bools to base theme.
-        /// </summary>
-        /// <param name="value">if set to <c>true</c> [value].</param>
-        /// <returns></returns>
-        public static BaseTheme BoolToBaseTheme(bool value)
-        {
-            if (value)
-            {
-                return BaseTheme.Dark;
-            }
-            else
-            {
-                return BaseTheme.Light;
-            }
-        }
-
-        /// <summary>
-        /// Determines whether [is dark theme].
-        /// </summary>
-        /// <returns><c>true</c> if [is dark theme]; otherwise, <c>false</c>.</returns>
-        public static bool IsDarkTheme()
-        {
-            if (ColorSettings.Theme == (int)BaseTheme.Dark)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
         /// Loads the colors.
+        /// TODO: improve color
         /// </summary>
         public static void LoadColors()
         {
-            BaseTheme? baseTheme = null;
+            Themes.BaseTheme? baseTheme = null;
 
-            if (ColorSettings.Theme == (int)BaseTheme.Inherit)
+            if (ColorSettings.Theme == (int)Themes.BaseTheme.Inherit)
             {
                 OSAppTheme currentTheme = Application.Current.RequestedTheme;
 
@@ -58,25 +26,25 @@ namespace SimTuning.Forms.UI.Business
 
                     case OSAppTheme.Light:
                         Application.Current.UserAppTheme = OSAppTheme.Light;
-                        baseTheme = BaseTheme.Light;
+                        baseTheme = Themes.BaseTheme.Light;
                         break;
 
                     case OSAppTheme.Dark:
                         Application.Current.UserAppTheme = OSAppTheme.Dark;
-                        baseTheme = BaseTheme.Dark;
+                        baseTheme = Themes.BaseTheme.Dark;
                         break;
                 }
             }
             else
             {
-                baseTheme = (BaseTheme)ColorSettings.Theme;
+                baseTheme = (Themes.BaseTheme)ColorSettings.Theme;
             }
 
             var appChanges = new RessourceChanges();
 
             appChanges.Colors(
-                primaryColor: (PrimaryColor)ColorSettings.Primary,
-                secondaryColor: (SecondaryColor)ColorSettings.Secondary,
+                primaryColor: (Themes.PrimaryColor)ColorSettings.Primary,
+                secondaryColor: (Themes.SecondaryColor)ColorSettings.Secondary,
                 baseTheme: baseTheme);
         }
 
@@ -84,39 +52,40 @@ namespace SimTuning.Forms.UI.Business
         /// Sets the accent.
         /// </summary>
         /// <param name="acccent_color">Color of the acccent.</param>
-        public static void SetAccent(SecondaryColor acccent_color)
+        public static void SetAccent(Themes.SecondaryColor acccent_color)
         {
             ColorSettings.Secondary = (int)acccent_color;
 
             var appChanges = new RessourceChanges();
 
-            appChanges.Colors(secondaryColor: (SecondaryColor)ColorSettings.Secondary);
+            appChanges.Colors(secondaryColor: (Themes.SecondaryColor)ColorSettings.Secondary);
         }
 
         /// <summary>
         /// Sets the base theme.
+        /// TODO: improve color
         /// </summary>
         /// <param name="base_color">if set to <c>true</c> [base color].</param>
-        public static void SetBaseTheme(BaseTheme base_color)
+        public static void SetBaseTheme(Themes.BaseTheme base_color)
         {
             ColorSettings.Theme = (int)base_color;
 
             var appChanges = new RessourceChanges();
 
-            appChanges.Colors(baseTheme: (BaseTheme)ColorSettings.Theme);
+            appChanges.Colors(baseTheme: (Themes.BaseTheme)ColorSettings.Theme);
         }
 
         /// <summary>
         /// Sets the primary.
         /// </summary>
         /// <param name="primary_color">Color of the primary.</param>
-        public static void SetPrimary(PrimaryColor primary_color)
+        public static void SetPrimary(Themes.PrimaryColor primary_color)
         {
             ColorSettings.Primary = (int)primary_color;
 
             var appChanges = new RessourceChanges();
 
-            appChanges.Colors(primaryColor: (PrimaryColor)ColorSettings.Primary);
+            appChanges.Colors(primaryColor: (Themes.PrimaryColor)ColorSettings.Primary);
         }
     }
 }

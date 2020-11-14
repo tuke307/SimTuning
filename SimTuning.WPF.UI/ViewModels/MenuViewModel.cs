@@ -52,7 +52,7 @@ namespace SimTuning.WPF.UI.ViewModels
 
             this.ShowTuningCommand = new MvxAsyncCommand(this.ShowTuning);
 
-            this.ShowEinstellungenCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinstellungenMainViewModel>());
+            this.ShowEinstellungenCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<EinstellungenMenuViewModel>());
 
             this.LoginUserCommand = new MvxAsyncCommand(this.LoginUser);
 

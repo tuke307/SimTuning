@@ -394,6 +394,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SimTuning.Core\SimTuning.Core.csproj">
+      <Project>{1f341be0-50cc-483f-b3be-03245f6e6cfc}</Project>
+      <Name>SimTuning.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimTuning.Forms.UI\SimTuning.Forms.UI.csproj">
       <Project>{7F86B3F8-6608-4FE8-97E2-B30EB8BE2C87}</Project>
       <Name>SimTuning.Forms.UI</Name>

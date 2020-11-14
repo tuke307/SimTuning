@@ -32,6 +32,8 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             this.SaveVehicleCommand = new MvxCommand(this.SaveVehicle, this.CanExecute);
         }
 
+        #region Methods
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -44,7 +46,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="">The user.</param>
+
         public override void Prepare()
         {
             base.Prepare();
@@ -110,5 +112,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 
             return UserSettings.LicenseValid;
         }
+
+        #endregion Methods
     }
 }

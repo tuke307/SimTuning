@@ -7,9 +7,7 @@ using SimTuning.WPF.UI.ViewModels.Einstellungen;
 
 namespace SimTuning.WPF.UI.Views.Einstellungen
 {
-    [MvxWpfPresenter("EinstellungenRegion", mvxViewPosition.NewOrExsist)]
-    //[MvxRegionPresentation(RegionName = "AussehenRegion", WindowIdentifier = nameof(EinstellungenMainView))]
-    //[MvxContentPresentation(WindowIdentifier = nameof(MainWindow), StackNavigation = false)]
+    [MvxWpfPresenter("PageContent", mvxViewPosition.NewOrExsist)]
     public partial class EinstellungenAussehenView : MvxWpfView<EinstellungenAussehenViewModel>
     {
         public EinstellungenAussehenView()
@@ -22,7 +20,7 @@ namespace SimTuning.WPF.UI.Views.Einstellungen
             this.ViewModel.ShowSnackbar();
         }
 
-        private void ToggleButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             this.ViewModel.ShowSnackbar();
         }

@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\Einstellungen\EinstellungenMenuView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official" Version="1.6.4" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.7" />
     <PackageReference Include="MaterialDesignThemes" Version="3.2.0" />
@@ -65,9 +69,9 @@
     <None Remove="Views\Einstellungen\EinstellungenApplicationView.xaml" />
     <None Remove="Views\Einstellungen\EinstellungenAussehenView.xaml" />
     <None Remove="Views\Einstellungen\EinstellungenKontoView.xaml" />
-    <None Remove="Views\Einstellungen\EinstellungenMainView.xaml" />
     <None Remove="Views\Einstellungen\EinstellungenUpdateView.xaml" />
     <None Remove="Views\Einstellungen\EinstellungenVehiclesView.xaml" />
+    <Page Remove="Views\Einstellungen\EinstellungenMenuView.xaml" />
     <None Remove="Views\Home\HomeMainView.xaml" />
     <None Remove="Views\MainView.xaml" />
     <None Remove="Views\MainWindow.xaml" />
@@ -101,9 +105,9 @@
     <Page Include="Views\Einstellungen\EinstellungenApplicationView.xaml" />
     <Page Include="Views\Einstellungen\EinstellungenAussehenView.xaml" />
     <Page Include="Views\Einstellungen\EinstellungenKontoView.xaml" />
-    <Page Include="Views\Einstellungen\EinstellungenMainView.xaml" />
     <Page Include="Views\Einstellungen\EinstellungenUpdateView.xaml" />
     <Page Include="Views\Einstellungen\EinstellungenVehiclesView.xaml" />
+    <Page Include="Views\Einstellungen\EinstellungenMenuView.xaml" />
     <Page Include="Views\Home\HomeMainView.xaml" />
     <Page Include="Views\MainView.xaml" />
     <Page Include="Views\MainWindow.xaml" />

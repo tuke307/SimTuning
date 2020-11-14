@@ -20,6 +20,8 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
     {
         private SecureString Password;
 
+        public MvxAsyncCommand OpenMenuCommand { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EinstellungenKontoViewModel" />
         /// class.
@@ -33,6 +35,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
             this.ConnectUserCommand = new MvxAsyncCommand(ConnectUser);
 
             this.PasswordChangedCommand = new MvxCommand<object>(PasswordChanged);
+            OpenMenuCommand = new MvxAsyncCommand(() => NavigationService.Navigate<EinstellungenMenuViewModel>());
         }
 
         #region Methods
@@ -49,7 +52,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="">The user.</param>
+
         public override void Prepare()
         {
             base.Prepare();

@@ -21,7 +21,8 @@ namespace SimTuning.Forms.UI.Business
         /// </summary>
         /// <typeparam name="TPermission">The type of the permission.</typeparam>
         /// <returns></returns>
-        public static async Task<bool> GetPermission<TPermission>() where TPermission : BasePermission, new()
+        public static async Task<bool> GetPermission<TPermission>()
+            where TPermission : BasePermission, new()
         {
             var hasPermission = await CheckStatusAsync<TPermission>().ConfigureAwait(true);
 

@@ -200,9 +200,9 @@
         /// Einstellungens the main view model test.
         /// </summary>
         [Test]
-        public void EinstellungenMainViewModelTest()
+        public void EinstellungenMenuViewModelTest()
         {
-            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<WPF.UI.ViewModels.Einstellungen.EinstellungenMainViewModel>();
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<WPF.UI.ViewModels.Einstellungen.EinstellungenMenuViewModel>();
         }
 
         /// <summary>

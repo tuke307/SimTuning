@@ -4,6 +4,8 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
 {
     using AutoUpdaterDotNET;
     using MvvmCross.Commands;
+    using MvvmCross.Logging;
+    using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using System.IO;
     using System.Net;
@@ -14,19 +16,23 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
     /// WPF-spezifisches Einstellungen-Update-ViewModel.
     /// </summary>
     /// <seealso cref="MvvmCross.ViewModels.MvxViewModel" />
-    public class EinstellungenUpdateViewModel : MvxViewModel
+    public class EinstellungenUpdateViewModel : MvxNavigationViewModel
     {
         private static string releasenotesLink = "https://simtuning.tuke-productions.de/wp-content/uploads/releasenotes.txt";
         private static string updateLink = "https://simtuning.tuke-productions.de/wp-content/uploads/AutoUpdater.xml";
+
+        public MvxAsyncCommand OpenMenuCommand { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EinstellungenUpdateViewModel" />
         /// class.
         /// </summary>
-        public EinstellungenUpdateViewModel()
+        public EinstellungenUpdateViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+                        : base(logProvider, navigationService)
         {
             this.UpdateCheckCommand = new MvxCommand(this.UpdateCheck);
             this.StartUpdateCommand = new MvxCommand(this.StartUpdate);
+            OpenMenuCommand = new MvxAsyncCommand(() => NavigationService.Navigate<EinstellungenMenuViewModel>());
         }
 
         #region Methods

@@ -6,9 +6,17 @@ using SimTuning.Forms.UI.ViewModels.Einstellungen;
 
 namespace SimTuning.Forms.UI.Views.Einstellungen
 {
-    [MvxTabbedPagePresentation(TabbedPosition.Tab)]
+    /// <summary>
+    /// EinstellungenVehiclesView.
+    /// </summary>
+    /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Einstellungen.EinstellungenVehiclesViewModel}" />
+    [MvxContentPagePresentation(WrapInNavigationPage = true, NoHistory = false)]
     public partial class EinstellungenVehiclesView : MvxContentPage<EinstellungenVehiclesViewModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EinstellungenVehiclesView" />
+        /// class.
+        /// </summary>
         public EinstellungenVehiclesView()
         {
             InitializeComponent();

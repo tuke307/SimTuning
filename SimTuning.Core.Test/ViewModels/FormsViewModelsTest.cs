@@ -137,16 +137,6 @@
         }
 
         /// <summary>
-        /// Dynoes the settings view model test.
-        /// </summary>
-        [Test]
-        public void DynoSettingsViewModelTest()
-        {
-            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Forms.UI.ViewModels.Dyno.DynoSettingsViewModel>();
-            vm.ShowAccelerationCommand.ListenForRaiseCanExecuteChanged();
-        }
-
-        /// <summary>
         /// Dynoes the spectrogram view model test.
         /// </summary>
         [Test]
@@ -229,7 +219,7 @@
         [Test]
         public void EinstellungenMainViewModelTest()
         {
-            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Forms.UI.ViewModels.Einstellungen.EinstellungenMainViewModel>();
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Forms.UI.ViewModels.Einstellungen.EinstellungenMenuViewModel>();
         }
 
         /// <summary>

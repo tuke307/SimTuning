@@ -132,7 +132,7 @@
                          Margin="5"
                          Color="{DynamicResource MaterialDesignDivider}" />
 
-                <component:MenuOptionView HorizontalOptions="FillAndExpand"
+                <!--<component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"
                                           Text="Tuning"
                                           Source="ic_tune_vertical_black_18dp">
@@ -140,7 +140,7 @@
                         <TapGestureRecognizer Tapped="ToggleClicked"
                                               Command="{Binding ShowTuningCommand}" />
                     </component:MenuOptionView.GestureRecognizers>
-                </component:MenuOptionView>
+                </component:MenuOptionView>-->
 
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"

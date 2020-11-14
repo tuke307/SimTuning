@@ -27,100 +27,129 @@ Copyright (c) 2020 tuke productions. All rights reserved.
         </ResourceDictionary>
     </views:MvxWpfView.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="2.5*"></RowDefinition>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <GroupBox Header="Version"
-                  Margin="10"
-                  Grid.Row="0"
-                  Grid.ColumnSpan="2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
 
-                <Label Grid.Row="0"
-                       Grid.Column="0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Content="derzeitige Version:">
-                </Label>
-                <Label Grid.Row="1"
-                       Grid.Column="0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Content="aktuellste Version:">
-                </Label>
+            <Button Style="{StaticResource MaterialDesignIconButton}"
+                    Width="25"
+                    Height="25"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="10 0 0 0"
+                    Command="{Binding OpenMenuCommand}">
+                <materialDesign:PackIcon Kind="ArrowBack"
+                                         Width="22"
+                                         Height="22" />
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{x:Static region:MvxWpfPresenter.CloseHolderCommand}"
+                                               CommandParameter="PageContent">
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
 
-                <Label Grid.Row="0"
-                       Grid.Column="1"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Content="{Binding Mode=OneWay, Path=VersionNow}">
-                </Label>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2.5*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-                <Label Grid.Row="1"
-                       Grid.Column="1"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Content="{Binding Mode=OneWay, Path=VersionNew}">
-                </Label>
+            <GroupBox Header="Version"
+                      Margin="10"
+                      Grid.Row="0"
+                      Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <Button Grid.Row="0"
-                        Grid.Column="2"
-                        Grid.RowSpan="2"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                        Margin="8 0 0 0"
-                        Command="{Binding UpdateCheckCommand}">
-                    <materialDesign:PackIcon Height="24"
-                                             Width="24"
-                                             Kind="CloudSync">
-                    </materialDesign:PackIcon>
-                </Button>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Content="derzeitige Version:">
+                    </Label>
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Content="aktuellste Version:">
+                    </Label>
 
-                <Button Grid.Row="0"
-                        Grid.Column="3"
-                        Grid.RowSpan="2"
-                        VerticalAlignment="Center"
-                        Visibility="{Binding Mode=OneWay, Path=UpdateButton, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                        Margin="8 0 0 0"
-                        Command="{Binding StartUpdateCommand}">
-                    <materialDesign:PackIcon Height="24"
-                                             Width="24"
-                                             Kind="Download">
-                    </materialDesign:PackIcon>
-                </Button>
-            </Grid>
-        </GroupBox>
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Content="{Binding Mode=OneWay, Path=VersionNow}">
+                    </Label>
 
-        <GroupBox Header="Neue Version"
-                  Margin="10"
-                  Grid.Row="1"
-                  Grid.ColumnSpan="2">
-            <Grid>
-                <TreeView>
-                    <TreeView.Items>
-                        <TreeViewItem Header="Neue Funktionen">
-                            <TextBox Text="{Binding ReleaseNotes}" />
-                        </TreeViewItem>
-                    </TreeView.Items>
-                </TreeView>
-            </Grid>
-        </GroupBox>
+                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Content="{Binding Mode=OneWay, Path=VersionNew}">
+                    </Label>
+
+                    <Button Grid.Row="0"
+                            Grid.Column="2"
+                            Grid.RowSpan="2"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                            Margin="8 0 0 0"
+                            Command="{Binding UpdateCheckCommand}">
+                        <materialDesign:PackIcon Height="24"
+                                                 Width="24"
+                                                 Kind="CloudSync">
+                        </materialDesign:PackIcon>
+                    </Button>
+
+                    <Button Grid.Row="0"
+                            Grid.Column="3"
+                            Grid.RowSpan="2"
+                            VerticalAlignment="Center"
+                            Visibility="{Binding Mode=OneWay, Path=UpdateButton, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                            Margin="8 0 0 0"
+                            Command="{Binding StartUpdateCommand}">
+                        <materialDesign:PackIcon Height="24"
+                                                 Width="24"
+                                                 Kind="Download">
+                        </materialDesign:PackIcon>
+                    </Button>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Neue Version"
+                      Margin="10"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="2">
+                <Grid>
+                    <TreeView>
+                        <TreeView.Items>
+                            <TreeViewItem Header="Neue Funktionen">
+                                <TextBox Text="{Binding ReleaseNotes}" />
+                            </TreeViewItem>
+                        </TreeView.Items>
+                    </TreeView>
+                </Grid>
+            </GroupBox>
+        </Grid>
     </Grid>
 </views:MvxWpfView>

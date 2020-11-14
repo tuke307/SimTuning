@@ -39,6 +39,8 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
             this.ConnectUserCommand = new MvxAsyncCommand(this.ConnectUser);
         }
 
+        #region Methods
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -51,7 +53,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="">The user.</param>
+
         public override void Prepare()
         {
             base.Prepare();
@@ -70,5 +72,7 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 
             base.ConnectUser();
         }
+
+        #endregion Methods
     }
 }

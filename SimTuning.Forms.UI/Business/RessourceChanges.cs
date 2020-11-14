@@ -15,8 +15,16 @@ namespace SimTuning.Forms.UI.Business
         /// <param name="primaryColor">Color of the primary.</param>
         /// <param name="secondaryColor">Color of the secondary.</param>
         /// <param name="baseTheme">The base theme.</param>
-        public void Colors(PrimaryColor? primaryColor = null, SecondaryColor? secondaryColor = null, BaseTheme? baseTheme = null)
+        public void Colors(Themes.PrimaryColor? primaryColor = null, Themes.SecondaryColor? secondaryColor = null, Themes.BaseTheme? baseTheme = null)
         {
+            //string targetResourceName = "test";
+            //string sourceResourceName = "baseTheme";
+            //if (!Application.Current.Resources.TryGetValue(sourceResourceName, out var value))
+            //{
+            //    throw new InvalidOperationException($"key {sourceResourceName} not found in the resource dictionary");
+            //}
+
+            //Application.Current.Resources[targetResourceName] = value;
             //Uri changes = null;
 
             //var mergedDictionaries = Application.Current.Resources.MergedDictionaries;

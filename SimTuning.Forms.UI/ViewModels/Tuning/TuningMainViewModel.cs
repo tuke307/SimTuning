@@ -40,7 +40,7 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="">The user.</param>
+
         public override void Prepare()
         {
             base.Prepare();

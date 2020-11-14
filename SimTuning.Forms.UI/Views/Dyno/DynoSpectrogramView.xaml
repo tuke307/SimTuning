@@ -9,7 +9,7 @@
                       xmlns:views1="clr-namespace:SimTuning.Forms.UI.Views.Dyno"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       BackgroundColor="{DynamicResource MaterialDesignPaper}"
-                      Title="Spectrogram">
+                      Title="Auswertung-Beschleunigung">
     <views:MvxContentPage.Resources>
         <behavior:InvertedBoolConverter x:Key="inverter" />
     </views:MvxContentPage.Resources>
@@ -151,7 +151,7 @@
                         <!--Colormap-->
                         <material:MaterialTextField InputType="Choice"
                                                     Placeholder="Colormap"
-                                                    LeadingIcon="ic_chevron_down_black_18dp"
+                                                    LeadingIcon="chevron_down"
                                                     Choices="{Binding Mode=OneTime, Path=Colormaps}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=Colormap}">
                         </material:MaterialTextField>
@@ -159,7 +159,7 @@
                         <!--Intensität-->
                         <material:MaterialTextField InputType="Choice"
                                                     Placeholder="Intensität"
-                                                    LeadingIcon="ic_chevron_down_black_18dp"
+                                                    LeadingIcon="chevron_down"
                                                     Choices="{Binding Mode=OneTime, Path=Intensitys}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=Intensity}">
                         </material:MaterialTextField>
@@ -167,7 +167,7 @@
                         <!--Auflösungsqualität-->
                         <material:MaterialTextField InputType="Choice"
                                                     Placeholder="Qualität"
-                                                    LeadingIcon="ic_chevron_down_black_18dp"
+                                                    LeadingIcon="chevron_down"
                                                     Choices="{Binding Mode=OneTime, Path=Qualitys}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=Quality}">
                         </material:MaterialTextField>
@@ -247,7 +247,7 @@
                         <!--Intensität-->
                         <material:MaterialTextField InputType="Choice"
                                                     Placeholder="Intensität"
-                                                    LeadingIcon="ic_chevron_down_black_18dp"
+                                                    LeadingIcon="chevron_down"
                                                     Choices="{Binding Mode=OneTime, Path=Intensitys}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=Intensity}">
                         </material:MaterialTextField>
@@ -271,7 +271,7 @@
                         <material:MaterialTextField InputType="Choice"
                                                     FloatingPlaceholderEnabled="False"
                                                     Placeholder="Graphauswahl"
-                                                    LeadingIcon="ic_chevron_down_black_18dp"
+                                                    LeadingIcon="chevron_down"
                                                     Choices="{Binding Mode=OneWay, Path=Graphs}"
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=Graph}"
                                                     ChoicesBindingName="Name">
@@ -289,7 +289,7 @@
                                              ButtonType="Elevated"
                                              HorizontalOptions="End"
                                              VerticalOptions="Center"
-                                             Image="ic_play_arrow_black_18dp"
+                                             Image="chevron_right"
                                              Command="{Binding ShowBeschleunigungCommand}" />
             </StackLayout>
         </ScrollView>

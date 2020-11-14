@@ -73,8 +73,14 @@
     <Compile Update="Views\Einlass\EinlassMainView.xaml.cs">
       <DependentUpon>EinlassMainView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Einstellungen\EinstellungenAussehenView.xaml.cs">
+      <DependentUpon>EinstellungenAussehenView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Einstellungen\EinstellungenKontoView.xaml.cs">
       <DependentUpon>EinstellungenKontoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Einstellungen\EinstellungenMenuView.xaml.cs">
+      <DependentUpon>EinstellungenMenuView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Einstellungen\EinstellungenVehiclesView.xaml.cs">
       <DependentUpon>EinstellungenVehiclesView.xaml</DependentUpon>
@@ -133,13 +139,10 @@
     <EmbeddedResource Update="Views\Dyno\DynoRuntimeView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Dyno\DynoSettingsView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\Einstellungen\EinstellungenApplicationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Einstellungen\EinstellungenMainView.xaml">
+    <EmbeddedResource Update="Views\Einstellungen\EinstellungenMenuView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MenuView.xaml">

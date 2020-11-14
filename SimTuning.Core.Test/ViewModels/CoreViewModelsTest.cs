@@ -134,16 +134,6 @@
         }
 
         /// <summary>
-        /// Dynoes the settings view model test.
-        /// </summary>
-        [Test]
-        public void DynoSettingsViewModelTest()
-        {
-            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Dyno.SettingsViewModel>();
-            vm.ShowAccelerationCommand.ListenForRaiseCanExecuteChanged();
-        }
-
-        /// <summary>
         /// Dynoes the spectrogram view model test.
         /// </summary>
         [Test]
@@ -203,8 +193,6 @@
         public void EinstellungenAussehenViewModelTest()
         {
             var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Einstellungen.AussehenViewModel>();
-            vm.ApplyAccentCommand.ListenForRaiseCanExecuteChanged();
-            vm.ApplyPrimaryCommand.ListenForRaiseCanExecuteChanged();
         }
 
         /// <summary>
@@ -220,12 +208,12 @@
         }
 
         /// <summary>
-        /// Einstellungens the main view model test.
+        /// Einstellungens the menu view model test.
         /// </summary>
         [Test]
-        public void EinstellungenMainViewModelTest()
+        public void EinstellungenMenuViewModelTest()
         {
-            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Einstellungen.MainViewModel>();
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Einstellungen.MenuViewModel>();
         }
 
         /// <summary>

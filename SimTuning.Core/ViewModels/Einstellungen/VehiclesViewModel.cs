@@ -57,7 +57,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <summary>
         /// Prepares the specified user.
         /// </summary>
-        /// <param name="">The user.</param>
+
         public override void Prepare()
         {
             base.Prepare();
