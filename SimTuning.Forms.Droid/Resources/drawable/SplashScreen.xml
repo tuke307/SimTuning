@@ -4,10 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/splash_bg">
+    android:layout_height="match_parent">
   <ImageView
-      android:src="@drawable/logo"
+      android:src="@mipmap/logo"
       android:layout_width="match_parent"
       android:layout_height="500dp"
       android:scaleType="fitCenter"
