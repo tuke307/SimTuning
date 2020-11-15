@@ -27,29 +27,28 @@
 
                 <material:MaterialTextField InputType="Password"
                                             Placeholder="Passwort"
-                                            LeadingIcon=""
+                                            LeadingIcon="key"
                                             Text="{Binding Mode=OneWayToSource, Path=Password}">
                 </material:MaterialTextField>
 
                 <material:MaterialButton HorizontalOptions="FillAndExpand"
                                          VerticalOptions="Center"
                                          Text="Login"
-                                         ImageSource="ic_login_variant_black_18dp.png"
                                          Command="{Binding ConnectUserCommand}">
                 </material:MaterialButton>
 
-                <StackLayout Orientation="Horizontal">
-                    <material:MaterialLabel>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <material:MaterialLabel VerticalOptions="Center">
                         oder
                     </material:MaterialLabel>
-                    <material:MaterialButton HorizontalOptions="FillAndExpand"
+                    <material:MaterialButton HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Text="Registriere"
-                                             ButtonType="Outlined"
+                                             ButtonType="Text"
                                              Command="{Binding RegisterSiteCommand}">
                     </material:MaterialButton>
 
-                    <material:MaterialLabel>
+                    <material:MaterialLabel VerticalOptions="Center">
                         dich
                     </material:MaterialLabel>
                 </StackLayout>
