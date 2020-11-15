@@ -117,27 +117,16 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             string filepath = fileData.FilePath;
             fileData.Dispose();
 
-            //await DialogHost.Show(new DialogLoadingView(), "DialogLoading").ConfigureAwait(false);
-
-            //await base.OpenFileDialog(filepath).ConfigureAwait(true);
-
-            // This is not a static method so you will need to get an instances of the Dispatcher
-            //var dispatcher = Application.Current.Dispatcher;
-            //dispatcher.BeginInvoke(DoStuffMethod);
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                //Task.Run(() =>
-                //{
-                var dispatcher = Application.Current.Dispatcher;
-                dispatcher.Invoke(async () =>
-        {
-            await base.OpenFileDialog(filepath).ConfigureAwait(true);
-            args.Session.Close(false);
-        });
-                // });
+                Task.Run(async () =>
+                {
+                    await base.OpenFileDialog(filepath).ConfigureAwait(true);
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
             }).ConfigureAwait(true);
 
-            await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
+            await ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
         /// <summary>
@@ -177,13 +166,11 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                Task.Run(() =>
-                {
-                    Application.Current.Dispatcher.Invoke(async () =>
+                Task.Run(async () =>
                 {
                     await base.RefreshPlot().ConfigureAwait(true);
-                    args.Session.Close(false);
-                });
+
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
                 });
             }).ConfigureAwait(true);
         }
@@ -200,16 +187,13 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                Task.Run(() =>
-                {
-                    Application.Current.Dispatcher.Invoke(() =>
+                Task.Run(async () =>
                 {
                     Stream stream = base.ReloadImageAudioSpectrogram();
                     PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
                     this.DisplayedImage = decoder.Frames[0];
 
-                    args.Session.Close();
-                });
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
                 });
             }).ConfigureAwait(true);
         }
@@ -221,13 +205,11 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         {
             return DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
              {
-                 Task.Run(() =>
-                 {
-                     Application.Current.Dispatcher.Invoke(() =>
+                 Task.Run(async () =>
                  {
                      base.SpecificGraph();
-                     args.Session.Close();
-                 });
+
+                     Application.Current.Dispatcher.Invoke(() => args.Session.Close());
                  });
              });
         }

@@ -47,7 +47,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                Task.Run(() =>
+                Task.Run(async () =>
                 {
                     base.RefreshPlot();
 

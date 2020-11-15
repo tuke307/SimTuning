@@ -77,7 +77,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                _ = Task.Run(async () =>
+                Task.Run(async () =>
                 {
                     await base.CutEnd().ConfigureAwait(true);
 
@@ -104,13 +104,10 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             }
             await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
             {
-                Task.Run(() =>
+                Task.Run(async () =>
                 {
-                    Application.Current.Dispatcher.Invoke(async () =>
-                    {
-                        await base.PlayFileAsync().ConfigureAwait(true);
-                        args.Session.Close();
-                    });
+                    await base.PlayFileAsync().ConfigureAwait(true);
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
                 });
             }).ConfigureAwait(true);
         }
