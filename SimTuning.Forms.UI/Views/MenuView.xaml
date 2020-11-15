@@ -100,7 +100,7 @@
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"
                                           Text="Einlass"
-                                          Source="ic_arrow_forward_black_18dp">
+                                          Source="arrow_right">
                     <component:MenuOptionView.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ToggleClicked"
                                               Command="{Binding ShowEinlassCommand}" />
@@ -110,7 +110,7 @@
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"
                                           Text="Auslass"
-                                          Source="ic_arrow_back_black_18dp">
+                                          Source="arrow_left">
                     <component:MenuOptionView.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ToggleClicked"
                                               Command="{Binding ShowAuslassCommand}" />
@@ -120,7 +120,7 @@
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"
                                           Text="Motor"
-                                          Source="ic_engine_black_18dp">
+                                          Source="engine">
                     <component:MenuOptionView.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ToggleClicked"
                                               Command="{Binding ShowMotorCommand}" />
@@ -160,7 +160,7 @@
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"
                                           Text="Einstellungen"
-                                          Source="ic_settings_black_18dp">
+                                          Source="cog">
                     <component:MenuOptionView.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ToggleClicked"
                                               Command="{Binding ShowEinstellungenCommand}" />

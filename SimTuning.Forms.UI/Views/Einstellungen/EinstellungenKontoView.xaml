@@ -21,37 +21,38 @@
 
                 <material:MaterialTextField Placeholder="E-Mail"
                                             InputType="Email"
+                                            LeadingIcon="email"
                                             Text="{Binding Mode=TwoWay, Path=Email}">
                 </material:MaterialTextField>
 
                 <material:MaterialTextField InputType="Password"
                                             Placeholder="Passwort"
+                                            LeadingIcon=""
                                             Text="{Binding Mode=OneWayToSource, Path=Password}">
                 </material:MaterialTextField>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.25*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                <material:MaterialButton HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="Center"
+                                         Text="Login"
+                                         ImageSource="ic_login_variant_black_18dp.png"
+                                         Command="{Binding ConnectUserCommand}">
+                </material:MaterialButton>
 
-                    <material:MaterialButton Grid.Column="0"
-                                             HorizontalOptions="FillAndExpand"
+                <StackLayout Orientation="Horizontal">
+                    <material:MaterialLabel>
+                        oder
+                    </material:MaterialLabel>
+                    <material:MaterialButton HorizontalOptions="FillAndExpand"
                                              VerticalOptions="Center"
-                                             Text="Registrieren"
-                                             ImageSource="ic_account_plus_outline_black_18dp.png"
+                                             Text="Registriere"
                                              ButtonType="Outlined"
                                              Command="{Binding RegisterSiteCommand}">
                     </material:MaterialButton>
 
-                    <material:MaterialButton Grid.Column="1"
-                                             HorizontalOptions="FillAndExpand"
-                                             VerticalOptions="Center"
-                                             Text="Login"
-                                             ImageSource="ic_login_variant_black_18dp.png"
-                                             Command="{Binding ConnectUserCommand}">
-                    </material:MaterialButton>
-                </Grid>
+                    <material:MaterialLabel>
+                        dich
+                    </material:MaterialLabel>
+                </StackLayout>
             </StackLayout>
         </material:MaterialCard>
     </StackLayout>

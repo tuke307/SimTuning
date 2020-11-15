@@ -66,7 +66,7 @@
 
                     <material:MaterialButton Elevation="4"
                                              Grid.Column="0"
-                                             Image="ic_email_black_18dp.png"
+                                             Image="web"
                                              ButtonType="Outlined"
                                              Text="Website"
                                              CornerRadius="5"
@@ -76,7 +76,7 @@
                     </material:MaterialButton>
 
                     <material:MaterialButton Grid.Column="1"
-                                             ImageSource="ic_twitter_black_18dp.png"
+                                             ImageSource="twitter"
                                              Text="Twitter"
                                              ButtonType="Outlined"
                                              CornerRadius="5"
@@ -93,7 +93,7 @@
                     </Grid.ColumnDefinitions>
 
                     <material:MaterialButton Grid.Column="0"
-                                             ImageSource="ic_instagram_black_18dp.png"
+                                             ImageSource="instagram"
                                              Text="Instagram"
                                              ButtonType="Outlined"
                                              CornerRadius="5"
@@ -103,7 +103,7 @@
                     </material:MaterialButton>
 
                     <material:MaterialButton Grid.Column="1"
-                                             ImageSource="ic_at_black_18dp.png"
+                                             ImageSource="email"
                                              Text="Email"
                                              ButtonType="Outlined"
                                              CornerRadius="5"
