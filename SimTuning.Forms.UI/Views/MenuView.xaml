@@ -87,8 +87,7 @@
                                           Text="Home"
                                           Source="ic_dashboard_black_18dp">
                     <component:MenuOptionView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ToggleClicked"
-                                              Command="{Binding ShowHomeCommand}" />
+                        <TapGestureRecognizer Command="{Binding ShowHomeCommand}" />
                     </component:MenuOptionView.GestureRecognizers>
                 </component:MenuOptionView>
 
@@ -102,8 +101,7 @@
                                           Text="Einlass"
                                           Source="arrow_right">
                     <component:MenuOptionView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ToggleClicked"
-                                              Command="{Binding ShowEinlassCommand}" />
+                        <TapGestureRecognizer Command="{Binding ShowEinlassCommand}" />
                     </component:MenuOptionView.GestureRecognizers>
                 </component:MenuOptionView>
 
@@ -112,8 +110,7 @@
                                           Text="Auslass"
                                           Source="arrow_left">
                     <component:MenuOptionView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ToggleClicked"
-                                              Command="{Binding ShowAuslassCommand}" />
+                        <TapGestureRecognizer Command="{Binding ShowAuslassCommand}" />
                     </component:MenuOptionView.GestureRecognizers>
                 </component:MenuOptionView>
 
@@ -122,8 +119,7 @@
                                           Text="Motor"
                                           Source="engine">
                     <component:MenuOptionView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ToggleClicked"
-                                              Command="{Binding ShowMotorCommand}" />
+                        <TapGestureRecognizer Command="{Binding ShowMotorCommand}" />
                     </component:MenuOptionView.GestureRecognizers>
                 </component:MenuOptionView>
 
@@ -137,7 +133,7 @@
                                           Text="Tuning"
                                           Source="ic_tune_vertical_black_18dp">
                     <component:MenuOptionView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ToggleClicked"
+                        <TapGestureRecognizer
                                               Command="{Binding ShowTuningCommand}" />
                     </component:MenuOptionView.GestureRecognizers>
                 </component:MenuOptionView>-->
@@ -147,8 +143,7 @@
                                           Text="Dyno"
                                           Source="ic_chart_scatter_plot_black_18dp">
                     <component:MenuOptionView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ToggleClicked"
-                                              Command="{Binding ShowDynoCommand}" />
+                        <TapGestureRecognizer Command="{Binding ShowDynoCommand}" />
                     </component:MenuOptionView.GestureRecognizers>
                 </component:MenuOptionView>
 
@@ -162,8 +157,7 @@
                                           Text="Einstellungen"
                                           Source="cog">
                     <component:MenuOptionView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ToggleClicked"
-                                              Command="{Binding ShowEinstellungenCommand}" />
+                        <TapGestureRecognizer Command="{Binding ShowEinstellungenCommand}" />
                     </component:MenuOptionView.GestureRecognizers>
                 </component:MenuOptionView>
             </StackLayout>
