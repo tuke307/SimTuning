@@ -16,8 +16,6 @@ namespace SimTuning.Core.ViewModels.Tuning
 {
     public class InputViewModel : MvxNavigationViewModel
     {
-        protected ResourceManager rm;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="InputViewModel" /> class.
         /// </summary>
@@ -48,7 +46,6 @@ namespace SimTuning.Core.ViewModels.Tuning
         public override Task Initialize()
         {
             //messages
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             return base.Initialize();
         }

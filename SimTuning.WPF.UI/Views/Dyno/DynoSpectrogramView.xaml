@@ -73,7 +73,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                     </Grid>
                 </GroupBox>
 
-                <materialDesign:Badged x:Name="badge_open"
+                <!--<materialDesign:Badged x:Name="badge_open"
                                        Visibility="{Binding Mode=OneWay, Path=BadgeFileOpen, Converter={StaticResource BooleanToVisibilityConverter}}"
                                        Badge="{materialDesign:PackIcon CheckboxMarkedCircleOutline}"
                                        BadgeColorZoneMode="Accent"
@@ -95,7 +95,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         Content="{materialDesign:PackIcon Kind=File}"
                         Command="{Binding OpenFileCommand}"
                         ToolTip="Wähle eine Datei auf deiner Festplatte">
-                </Button>
+                </Button>-->
 
                 <!--2. group box-->
                 <GroupBox Grid.Row="0"

@@ -33,7 +33,6 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         public override Task Initialize()
         {
             // messages
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             return base.Initialize();
         }
@@ -53,7 +52,7 @@ namespace SimTuning.Forms.UI.ViewModels.Tuning
         {
             if (this.Tuning == null)
             {
-                Functions.ShowSnackbarDialog(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NODATA"));
 
                 return false;
             }

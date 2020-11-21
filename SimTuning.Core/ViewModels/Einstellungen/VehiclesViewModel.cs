@@ -47,8 +47,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
-
             this.ReloadData();
 
             return base.Initialize();
@@ -251,8 +249,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         #endregion Methods
 
         #region Values
-
-        protected ResourceManager rm;
 
         private Data.Models.MotorModel _engine;
 

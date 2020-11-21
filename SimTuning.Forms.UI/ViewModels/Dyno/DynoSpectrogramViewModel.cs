@@ -31,10 +31,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             : base(logProvider, navigationService, messenger, mediaManager)
         {
             // override Commands
-            this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);
             this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
-            this.RefreshAudioFileCommand = new MvxAsyncCommand(this.PlayFileAsync);
-            this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
             this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
 
             this.ShowBeschleunigungCommand = new MvxAsyncCommand(() => this.NavigationService.Navigate<DynoBeschleunigungViewModel>());
@@ -85,7 +82,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected new async Task FilterPlot()
+        protected override async Task FilterPlot()
         {
             var check = this.CheckDynoData();
             if (!check)
@@ -93,7 +90,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 return;
             }
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             await base.FilterPlot().ConfigureAwait(true);
 
@@ -107,7 +104,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected new async Task PlayFileAsync()
+        protected override async Task RefreshAudioFileAsync()
         {
             var check = this.CheckDynoData();
             if (!check)
@@ -115,15 +112,15 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 return;
             }
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             //using (var client = new WebClient())
             //{
             //    client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioFilePath);
             //}
-            await this.NavigationService.Navigate<DynoAudioPlayerViewModel>().ConfigureAwait(true);
+            //await this.NavigationService.Navigate<DynoAudioPlayerViewModel>().ConfigureAwait(true);
 
-            await base.PlayFileAsync().ConfigureAwait(true);
+            await base.RefreshAudioFileAsync().ConfigureAwait(true);
 
             await loadingDialog.DismissAsync().ConfigureAwait(false);
 
@@ -137,7 +134,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected new async Task RefreshPlot()
+        protected override async Task RefreshPlot()
         {
             var check = this.CheckDynoData();
             if (!check)
@@ -145,7 +142,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 return;
             }
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             await base.RefreshPlot().ConfigureAwait(true);
 
@@ -155,6 +152,10 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <summary>
         /// Reloads the image audio spectrogram.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected new async Task ReloadImageAudioSpectrogram()
         {
             var check = this.CheckDynoData();
@@ -163,7 +164,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 return;
             }
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             Stream stream = base.ReloadImageAudioSpectrogram();
             this.DisplayedImage = ImageSource.FromStream(() => stream);
@@ -174,9 +175,13 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <summary>
         /// Specifics the graph.
         /// </summary>
+        /// <returns>
+        /// <placeholder>A <see cref="Task" /> representing the asynchronous
+        /// operation.</placeholder>
+        /// </returns>
         protected new async Task SpecificGraph()
         {
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             base.SpecificGraph();
 
@@ -191,14 +196,14 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             if (!File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
             {
-                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NOAUDIOFILE", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NOAUDIOFILE"));
 
                 return false;
             }
 
             if (this.Dyno == null)
             {
-                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NODATA"));
 
                 return false;
             }

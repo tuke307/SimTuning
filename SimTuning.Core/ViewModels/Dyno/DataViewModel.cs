@@ -14,6 +14,7 @@ namespace SimTuning.Core.ViewModels.Dyno
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.IO.Compression;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -149,6 +150,44 @@ namespace SimTuning.Core.ViewModels.Dyno
             catch (Exception exc)
             {
                 this.Log.WarnException("Fehler bei ExportDyno: ", exc);
+            }
+        }
+
+        /// <summary>
+        /// Imports the dyno.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        protected virtual async Task ImportDyno(string fileName)
+        {
+            //bool status = false;
+
+            // zip extrahieren
+            if (File.Exists(SimTuning.Core.GeneralSettings.DataExportFilePath))
+            {
+                File.Delete(SimTuning.Core.GeneralSettings.DataExportFilePath);
+            }
+            if (File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
+            {
+                File.Delete(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
+            }
+            ZipFile.ExtractToDirectory(fileName, SimTuning.Core.GeneralSettings.FileDirectory);
+
+            // wenn Datei ausgewählt
+            //using (FileStream sourceStream = File.Open(fileName, FileMode.OpenOrCreate))
+            //{
+            //    status = SimTuning.Core.Business.AudioUtils.AudioCopy(SimTuning.Core.GeneralSettings.AudioFile, sourceStream);
+            //}
+
+            //if (status)
+            //{
+            //await this.RefreshAudioFileAsync().ConfigureAwait(true);
+            //}
+
+            // TODO: only for testing
+            if (File.Exists(SimTuning.Core.GeneralSettings.DataExportFilePath))
+            {
+                string json = File.ReadAllText(SimTuning.Core.GeneralSettings.DataExportFilePath);
+                DynoModel _dyno = JsonConvert.DeserializeObject<DynoModel>(json);
             }
         }
 
@@ -391,6 +430,12 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         /// <value>The export dyno command.</value>
         public IMvxCommand ExportDynoCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the import dyno command.
+        /// </summary>
+        /// <value>The import dyno command.</value>
+        public IMvxAsyncCommand ImportDynoCommand { get; set; }
 
         /// <summary>
         /// Creates new dynocommand.

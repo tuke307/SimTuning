@@ -26,8 +26,9 @@
                     return;
                 }
 
-                var _viewModelLoader = Mvx.IoCProvider.Resolve<IMvxViewModelLoader>();
-                var request = new MvxViewModelInstanceRequest(typeof(DynoAudioPlayerViewModel));
+                var _viewModelLoader = Mvx.IoCProvider.Resolve<IMvxViewModelLoader>(); var
+                request = new
+                MvxViewModelInstanceRequest(typeof(DynoAudioPlayerViewModel));
                 request.ViewModelInstance = _viewModelLoader.LoadViewModel(request, null);
                 ViewModel = request.ViewModelInstance as DynoAudioPlayerViewModel;
 

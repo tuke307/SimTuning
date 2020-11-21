@@ -169,6 +169,15 @@
                                                      WidthRequest="100"
                                                      HeightRequest="60">
                             </material:MaterialButton>
+
+                            <material:MaterialButton Margin="15"
+                                                     VerticalOptions="Center"
+                                                     HorizontalOptions="Center"
+                                                     ImageSource="arrow_left"
+                                                     Command="{Binding ImportDynoCommand}"
+                                                     WidthRequest="100"
+                                                     HeightRequest="60">
+                            </material:MaterialButton>
                         </StackLayout>
                     </Grid>
 

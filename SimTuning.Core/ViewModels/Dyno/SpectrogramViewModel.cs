@@ -13,6 +13,8 @@ namespace SimTuning.Core.ViewModels.Dyno
     using MvvmCross.ViewModels;
     using Newtonsoft.Json;
     using OxyPlot;
+    using OxyPlot.Axes;
+    using OxyPlot.Series;
     using SimTuning.Core.ModuleLogic;
     using SkiaSharp;
     using System;
@@ -51,9 +53,9 @@ namespace SimTuning.Core.ViewModels.Dyno
             this.Normal_Refresh = true;
             this.Badge_Refresh = false;
 
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
-
-            //this.NavigationService.Navigate<AudioPlayerViewModel>().ConfigureAwait(true);
+            this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);
+            this.RefreshAudioFileCommand = new MvxAsyncCommand(this.RefreshAudioFileAsync);
+            this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
         }
 
         #region Methods
@@ -119,39 +121,32 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// Opens the file dialog.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        protected virtual async Task OpenFileDialog(string fileName)
-        {
-            //bool status = false;
+        //protected virtual async Task OpenFileDialog(string fileName)
+        //{
+        //    //bool status = false;
 
-            // zip extrahieren
-            if (File.Exists(SimTuning.Core.GeneralSettings.DataExportFilePath))
-            {
-                File.Delete(SimTuning.Core.GeneralSettings.DataExportFilePath);
-            }
-            if (File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
-            {
-                File.Delete(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
-            }
-            ZipFile.ExtractToDirectory(fileName, SimTuning.Core.GeneralSettings.FileDirectory);
+        // // zip extrahieren if
+        // (File.Exists(SimTuning.Core.GeneralSettings.DataExportFilePath)) {
+        // File.Delete(SimTuning.Core.GeneralSettings.DataExportFilePath); } if
+        // (File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath)) {
+        // File.Delete(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath); }
+        // ZipFile.ExtractToDirectory(fileName,
+        // SimTuning.Core.GeneralSettings.FileDirectory);
 
-            // wenn Datei ausgewählt
-            //using (FileStream sourceStream = File.Open(fileName, FileMode.OpenOrCreate))
-            //{
-            //    status = SimTuning.Core.Business.AudioUtils.AudioCopy(SimTuning.Core.GeneralSettings.AudioFile, sourceStream);
-            //}
+        // // wenn Datei ausgewählt //using (FileStream sourceStream = File.Open(fileName,
+        // FileMode.OpenOrCreate)) //{ // status =
+        // SimTuning.Core.Business.AudioUtils.AudioCopy(SimTuning.Core.GeneralSettings.AudioFile,
+        // sourceStream); //}
 
-            //if (status)
-            //{
-            await this.PlayFileAsync().ConfigureAwait(true);
-            //}
+        // //if (status) //{ await this.RefreshAudioFileAsync().ConfigureAwait(true); //}
 
-            // TODO: only for testing
-            if (File.Exists(SimTuning.Core.GeneralSettings.DataExportFilePath))
-            {
-                string json = File.ReadAllText(SimTuning.Core.GeneralSettings.DataExportFilePath);
-                DynoModel _dyno = JsonConvert.DeserializeObject<DynoModel>(json);
-            }
-        }
+        //    // TODO: only for testing
+        //    if (File.Exists(SimTuning.Core.GeneralSettings.DataExportFilePath))
+        //    {
+        //        string json = File.ReadAllText(SimTuning.Core.GeneralSettings.DataExportFilePath);
+        //        DynoModel _dyno = JsonConvert.DeserializeObject<DynoModel>(json);
+        //    }
+        //}
 
         /// <summary>
         /// Opens the file.
@@ -160,7 +155,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected virtual async Task PlayFileAsync()
+        protected virtual async Task RefreshAudioFileAsync()
         {
             try
             {
@@ -187,6 +182,9 @@ namespace SimTuning.Core.ViewModels.Dyno
                 DynoLogic.GetDrehzahlGraph(intensity: this.Intensity);
 
                 await this.RaisePropertyChanged(() => this.PlotAudio).ConfigureAwait(true);
+
+                // TODO: implement
+                //PlotAudio.MouseDown += PlotAudioMouseDown;
             }
             catch (Exception exc)
             {
@@ -279,6 +277,17 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
         }
 
+        private void PlotAudioMouseDown(object sender, OxyMouseDownEventArgs e)
+        {
+            OxyPlot.ElementCollection<OxyPlot.Axes.Axis> axisList = PlotAudio.Axes;
+
+            Axis xAxis = axisList.FirstOrDefault(ax => ax.Position == AxisPosition.Bottom);
+            Axis yAxis = axisList.FirstOrDefault(ax => ax.Position == AxisPosition.Left);
+
+            DataPoint dataPointp = OxyPlot.Axes.Axis.InverseTransform(e.Position, xAxis, yAxis);
+            DynoLogic.EntfernePunkt(dataPointp);
+        }
+
         #endregion Methods
 
         #region Values
@@ -295,7 +304,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// Gets or sets the open file command.
         /// </summary>
         /// <value>The open file command.</value>
-        public IMvxAsyncCommand OpenFileCommand { get; set; }
+        //public IMvxAsyncCommand OpenFileCommand { get; set; }
 
         /// <summary>
         /// Gets or sets the open file command.
@@ -331,7 +340,8 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         #region private
 
-        protected readonly ResourceManager rm;
+        protected readonly IMediaManager MediaManager;
+
         private static readonly List<string> _qualitys = new List<string>() { "schlecht", "mittel", "gut", "sehr gut" };
 
         private bool _badge_Refresh;
@@ -358,7 +368,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         private string _quality;
 
-        protected IMediaManager MediaManager { get; } /*= CrossMediaManager.Current;*/
+        /*= CrossMediaManager.Current;*/
 
         #endregion private
 

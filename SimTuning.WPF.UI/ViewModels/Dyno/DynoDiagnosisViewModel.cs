@@ -60,7 +60,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         {
             if (Dyno == null)
             {
-                Functions.ShowSnackbarDialog(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NODATA"));
 
                 return false;
             }

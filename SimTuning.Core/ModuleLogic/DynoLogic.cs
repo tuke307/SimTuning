@@ -3,6 +3,7 @@
 using Data.Models;
 using MathNet.Numerics;
 using OxyPlot;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,15 @@ namespace SimTuning.Core.ModuleLogic
         private static List<List<DataPoint>> DrehzahlArrayPoints => AudioLogic.DrehzahlPoints;
 
         #endregion variables
+
+        public static void EntfernePunkt(DataPoint dataPoint)
+        {
+            int count;
+            count = ((LineSeries)PlotAudio.Series[0]).Points.Count();
+            ((LineSeries)PlotAudio.Series[0]).Points.Remove(dataPoint);
+            count = ((LineSeries)PlotAudio.Series[0]).Points.Count();
+            PlotAudio.InvalidatePlot(true);
+        }
 
         /// <summary>
         /// Berechnet.

@@ -120,7 +120,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         {
             if (!File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
             {
-                Functions.ShowSnackbarDialog(rm.GetString("ERR_NOAUDIOFILE", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NOAUDIOFILE"));
 
                 return false;
             }

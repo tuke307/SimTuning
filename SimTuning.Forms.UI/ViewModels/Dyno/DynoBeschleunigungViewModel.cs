@@ -49,7 +49,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 return;
             }
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             await base.RefreshPlot().ConfigureAwait(true);
 
@@ -60,14 +60,14 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             if (this.Dyno == null)
             {
-                Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                Forms.UI.Business.Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NODATA"));
 
                 return false;
             }
 
             if (this.Dyno.Beschleunigung == null)
             {
-                Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                Forms.UI.Business.Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NODATA"));
 
                 return false;
             }

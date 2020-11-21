@@ -8,6 +8,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
     using SimTuning.Core;
     using SimTuning.Forms.UI.Business;
     using System;
+    using System.Net;
     using System.Threading.Tasks;
     using Xamarin.Essentials;
 
@@ -29,6 +30,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             this.NewDynoCommand = new MvxCommand(this.NewDyno);
             this.DeleteDynoCommand = new MvxCommand(this.DeleteDyno);
             this.SaveDynoCommand = new MvxCommand(this.SaveDyno);
+
+            this.ImportDynoCommand = new MvxAsyncCommand(this.ImportDyno);
 
             this.ShowSettingsCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoRuntimeViewModel>());
         }
@@ -95,6 +98,19 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             {
                 Functions.ShowSnackbarDialog("Fehler beim exportieren");
             }
+        }
+
+        /// <summary>
+        /// Imports the dyno.
+        /// </summary>
+        protected new async Task ImportDyno()
+        {
+            using (var client = new WebClient())
+            {
+                client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/DataExport.zip", SimTuning.Core.GeneralSettings.DataExportArchivePath);
+            }
+
+            await base.ImportDyno(SimTuning.Core.GeneralSettings.DataExportArchivePath).ConfigureAwait(true);
         }
 
         /// <summary>

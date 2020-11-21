@@ -28,13 +28,19 @@
         public DynoRuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, ILocationService locationService, IMvxMessenger messenger)
             : base(logProvider, navigationService, locationService, messenger)
         {
-            this.ShowSpectrogramCommand = new MvxAsyncCommand(async () => await this.NavigationService.Navigate<DynoSpectrogramViewModel>().ConfigureAwait(true));
+            this.ShowSpectrogramCommand = new MvxAsyncCommand(async () =>
+            {
+                //await this.NavigationService.Navigate<DynoAudioPlayerViewModel>().ConfigureAwait(true);
+                await this.NavigationService.Navigate<DynoSpectrogramViewModel>().ConfigureAwait(true);
+            });
             // this.CloseCommand = new MvxAsyncCommand(async () => await
             // this.NavigationService.Close(this));
 
             // Farben vorbelegen
-            this.PageBackColor = XF.Material.Forms.Material.Color.Background;
-            this.SpeedBackColor = XF.Material.Forms.Material.Color.Surface;
+            stdBg = XF.Material.Forms.Material.Color.Background;
+            stdSur = XF.Material.Forms.Material.Color.Surface;
+            this.PageBackColor = stdBg;
+            this.SpeedBackColor = stdSur;
         }
 
         #region Methods
@@ -65,7 +71,7 @@
         /// </returns>
         protected override async Task ResetRun()
         {
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             await base.ResetRun().ConfigureAwait(true);
 
@@ -86,7 +92,7 @@
                 return;
             }
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             await base.StartBeschleunigung().ConfigureAwait(true);
 
@@ -102,7 +108,7 @@
         /// </returns>
         //protected override async Task StopRun()
         //{
-        //    var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+        //    var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
         // await base.StopRun().ConfigureAwait(true);
 
@@ -118,7 +124,7 @@
             var location = await Functions.GetPermission<Permissions.LocationWhenInUse>().ConfigureAwait(true);
             if (!location)
             {
-                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_LOCATION", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_LOCATION"));
 
                 return false;
             }
@@ -126,14 +132,14 @@
             var microphone = await Functions.GetPermission<Permissions.Microphone>().ConfigureAwait(true);
             if (!microphone)
             {
-                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_MICROPHONE", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_MICROPHONE"));
 
                 return false;
             }
 
             if (this.Dyno == null)
             {
-                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NODATA"));
 
                 return false;
             }

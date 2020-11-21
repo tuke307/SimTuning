@@ -28,12 +28,10 @@
         public BeschleunigungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
              : base(logProvider, navigationService)
         {
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
         }
 
         #region Values
 
-        protected readonly ResourceManager rm;
         private DynoModel _dyno;
 
         /// <summary>

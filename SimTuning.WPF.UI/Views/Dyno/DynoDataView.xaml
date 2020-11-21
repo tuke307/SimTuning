@@ -295,6 +295,31 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                              Kind="ContentSave">
                     </materialDesign:PackIcon>
                 </Button>
+
+                <!--<materialDesign:Badged x:Name="badge_open"
+                                       Visibility="{Binding Mode=OneWay, Path=BadgeFileOpen, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                       Badge="{materialDesign:PackIcon CheckboxMarkedCircleOutline}"
+                                       BadgeColorZoneMode="Accent"
+                                       Grid.Column="0"
+                                       HorizontalAlignment="Left"
+                                       Margin="10, 0, 0, 0"
+                                       VerticalAlignment="Center">
+                    <Button Content="{materialDesign:PackIcon Kind=File}"
+                            Command="{Binding OpenFileCommand}"
+                            ToolTip="Wähle eine Datei auf deiner Festplatte">
+                    </Button>
+                </materialDesign:Badged>-->
+
+                <Button  Grid.Column="0"
+                         VerticalAlignment="Bottom"
+                         HorizontalAlignment="Right"
+                         Margin="10, 10, 10, 10"
+                         Style="{DynamicResource MaterialDesignFloatingActionMiniDarkButton}"
+                         Visibility="{Binding Path=IsVisible, ElementName=badge_open, Converter={StaticResource InverseBoolToVisConverter}}"
+                         Content="{materialDesign:PackIcon Kind=File}"
+                         Command="{Binding ImportDynoCommand}"
+                         ToolTip="Wähle eine exportierte ZIP-Datei vom Handy auf deiner Festplatte aus">
+                </Button>
             </Grid>
         </GroupBox>
     </Grid>

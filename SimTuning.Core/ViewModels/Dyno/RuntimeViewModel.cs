@@ -40,8 +40,6 @@
             // this._token =
             // messenger.SubscribeOnMainThread<MvxLocationMessage>(this.OnLocationUpdated);
 
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
-
             this._locationService = locationService;
 
             // Commands
@@ -92,12 +90,216 @@
                 using (var db = new DatabaseContext())
                 {
                     this.Dyno = db.Dyno.Single(d => d.Active == true);
+                    db.Entry(this.Dyno).Collection(x => x.Beschleunigung).Load();
+                    db.Entry(this.Dyno).Collection(x => x.Ausrollen).Load();
+
+                    if (this.Dyno.Beschleunigung == null)
+                    {
+                        Dyno.Beschleunigung = new List<BeschleunigungModel>();
+                    }
+
+                    if (this.Dyno.Ausrollen == null)
+                    {
+                        Dyno.Ausrollen = new List<AusrollenModel>();
+                    }
                 }
             }
             catch (Exception exc)
             {
                 this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
             }
+        }
+
+        /// <summary>
+        /// Ends the acceleration asynchronous.
+        /// </summary>
+        protected async Task EndRunAsync()
+        {
+            // tracking und recording stoppen
+            await this.recorder.StopRecording().ConfigureAwait(true);
+            this.trackingStarted = false;
+
+            // UI aktualisieren
+            this.ShowAudioButtonVis = true;
+            this.StopwatchVis = false;
+            this.CurrentState = PostState;
+            this.PageBackColor = stdBg;
+            this.SpeedBackColor = stdSur;
+
+            // Timer und Stopwatch stoppen
+            if (this.stopwatch != null)
+            {
+                this.stopwatch.Stop();
+                this.stopwatch.Reset();
+            }
+            if (this.timer != null)
+            {
+                this.timer.Stop();
+                this.timer.Dispose();
+            }
+        }
+
+        protected void OnCountdownTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            countdownMilliseconds -= 10;
+            this.RaisePropertyChanged(() => this.Countdown);
+
+            if (this.countdownMilliseconds == 0)
+            {
+                // Timer löschen und verbergen
+                this.timer.Stop();
+                this.timer.Dispose();
+                this.CountdownVis = false;
+
+                this.trackingStarted = true;
+
+                // this.StopAccelerationButtonVis = true;
+
+                // Stopwatch starten
+                this.StartStopwatch();
+            }
+        }
+
+        /// <summary>
+        /// Called when [location updated].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        protected void OnLocationUpdated(MvxLocationMessage obj)
+        {
+            this.Speed = obj.Speed;
+
+            if (!this.trackingStarted)
+            {
+                return;
+            }
+
+            List<double?> lastSpeedValues;
+
+            if (this.CurrentState == AccelerationState)
+            {
+                // TODO: verbessern bei keiner Veränderung der Maximalgeschwindigkeit
+                // StartAusrollen() beginnen.
+
+                using (var db = new Data.DatabaseContext())
+                {
+                    lastSpeedValues = db.Beschleunigung.OrderByDescending(x => x.CreatedDate).Select(x => x.Speed).Take(10).ToList();
+                }
+
+                if (lastSpeedValues != null && lastSpeedValues.Count == 10)
+                {
+                    var max = lastSpeedValues.Max();
+                    var min = lastSpeedValues.Min();
+                    var avg = lastSpeedValues.Average();
+
+                    // im Bereich von 2 km/h
+                    if ((avg - min) <= 2 && (max - avg) <= 2)
+                    {
+                        Task.Run(() => StartAusrollen());
+                        return;
+                    }
+                }
+
+                // asynchrones speichern der Beschlenugigungswerte
+                //Task.Run(async () =>
+                //{
+                BeschleunigungModel beschleunigung = new BeschleunigungModel()
+                {
+                    Latitude = obj.Latitude,
+                    Longitude = obj.Longitude,
+                    Altitude = obj.Altitude,
+                    Speed = obj.Speed,
+                };
+
+                using (var db = new Data.DatabaseContext())
+                {
+                    Dyno.Beschleunigung.Add(beschleunigung);
+
+                    db.Update(this.Dyno);
+
+                    db.SaveChanges();
+                }
+                //});
+            }
+
+            if (this.CurrentState == RolloutState)
+            {
+                using (var db = new Data.DatabaseContext())
+                {
+                    lastSpeedValues = db.Ausrollen.OrderByDescending(x => x.CreatedDate).Select(x => x.Speed).Take(5).ToList();
+                }
+
+                if (lastSpeedValues != null && lastSpeedValues.Count == 5)
+                {
+                    //var max = lastSpeedValues.Max();
+                    //var min = lastSpeedValues.Min();
+                    var avg = lastSpeedValues.Average();
+
+                    // im Bereich unter 1 km/h
+                    if (avg < 1)
+                    {
+                        Task.Run(() => EndRunAsync());
+                        return;
+                    }
+                }
+
+                //Task.Run(async () =>
+                //{
+                AusrollenModel ausrollen = new AusrollenModel()
+                {
+                    Latitude = obj.Latitude,
+                    Longitude = obj.Longitude,
+                    Altitude = obj.Altitude,
+                    Speed = obj.Speed,
+                };
+
+                using (var db = new Data.DatabaseContext())
+                {
+                    Dyno.Ausrollen.Add(ausrollen);
+
+                    db.Update(this.Dyno);
+
+                    db.SaveChanges();
+                }
+                //});
+            }
+        }
+
+        /// <summary>
+        /// Called when [stopwatch timed event].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">
+        /// The <see cref="ElapsedEventArgs" /> instance containing the event data.
+        /// </param>
+        protected void OnStopwatchTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            if (!this.stopwatch.IsRunning)
+            {
+                this.timer.Stop();
+                this.timer.Dispose();
+            }
+            else
+            {
+                this.RaisePropertyChanged(() => this.Stopwatch);
+            }
+        }
+
+        /// <summary>
+        /// Resets the dyno data.
+        /// </summary>
+        protected void ResetDynoData()
+        {
+            using (var db = new DatabaseContext())
+            {
+                db.Beschleunigung.RemoveRange(this.Dyno.Beschleunigung);
+                db.Ausrollen.RemoveRange(this.Dyno.Ausrollen);
+                //db.Update(this.Dyno);
+                db.SaveChanges();
+            }
+
+            this.Dyno.Beschleunigung.Clear();
+
+            this.Dyno.Ausrollen.Clear();
         }
 
         /// <summary>
@@ -120,15 +322,8 @@
                 }
 
                 // tracking und recording stoppen
-                this.StopTracking();
-                await StopRecording().ConfigureAwait(true);
-
-                //using (var db = new Data.DatabaseContext())
-                //{
-                //    db.Dyno.Update(this.Dyno);
-
-                //    await db.SaveChangesAsync().ConfigureAwait(true);
-                //}
+                await this.recorder.StopRecording();
+                this.trackingStarted = false;
 
                 // UI aktualisieren
                 await RaisePropertyChanged(() => Stopwatch).ConfigureAwait(true);
@@ -157,7 +352,7 @@
         {
             try
             {
-                this.Dyno.Ausrollen = new List<AusrollenModel>();
+                this.StopwatchVis = false;
 
                 this.CurrentState = RolloutState;
                 this.PageBackColor = deepSkyBlue;
@@ -165,9 +360,7 @@
                 this.trackingStarted = true;
 
                 await this.StartRecording().ConfigureAwait(true);
-                //await this.StartTracking().ConfigureAwait(true);
 
-                this.CountdownVis = true;
                 timer = new System.Timers.Timer();
 
                 // trigger bei jeder 1/100 sekunde
@@ -178,6 +371,7 @@
                 this.countdownMilliseconds = 5000;
 
                 timer.Start();
+                this.CountdownVis = true;
             }
             catch (Exception exc)
             {
@@ -192,32 +386,30 @@
         {
             try
             {
-                this.Dyno.Beschleunigung = new List<BeschleunigungModel>();
+                this.ResetDynoData();
 
                 this.CurrentState = AccelerationState;
                 this.PageBackColor = darkSeaGreen;
                 this.SpeedBackColor = seaGreen;
-                this.trackingStarted = true;
 
                 // es kann nun nicht mehr weiter navigiert werden
                 this.ShowAudioButtonVis = false;
 
                 await this.StartRecording().ConfigureAwait(true);
-                //await this.StartTracking().ConfigureAwait(true);
 
                 this.StartAccelerationButtonVis = false;
 
-                this.CountdownVis = true;
                 this.timer = new System.Timers.Timer();
 
                 // trigger bei jeder 1/100 sekunde
                 timer.Interval = 10;
                 timer.Elapsed += OnCountdownTimedEvent;
 
-                // count down from 5000 ms
-                this.countdownMilliseconds = 5000;
+                // count down from 10000 ms / 10s
+                this.countdownMilliseconds = 10000;
 
                 timer.Start();
+                this.CountdownVis = true;
             }
             catch (Exception exc)
             {
@@ -225,126 +417,10 @@
             }
         }
 
-        private void OnCountdownTimedEvent(object sender, ElapsedEventArgs e)
-        {
-            countdownMilliseconds -= 10;
-            this.RaisePropertyChanged(() => this.Countdown);
-
-            if (this.countdownMilliseconds == 0)
-            {
-                // Timer löschen und verbergen
-                this.timer.Stop();
-                this.timer.Dispose();
-                this.CountdownVis = false;
-
-                // this.StopAccelerationButtonVis = true;
-
-                // Stopwatch starten
-                this.StartStopwatch();
-            }
-        }
-
-        /// <summary>
-        /// Called when [location updated].
-        /// </summary>
-        /// <param name="obj">The object.</param>
-        private void OnLocationUpdated(MvxLocationMessage obj)
-        {
-            this.Speed = obj.Speed;
-
-            if (!this.trackingStarted)
-            {
-                return;
-            }
-
-            if (this.CurrentState == AccelerationState)
-            {
-                // TODO: verbessern bei keiner Veränderung der Maximalgeschwindigkeit
-                // StartAusrollen() beginnen.
-
-                using (var db = new Data.DatabaseContext())
-                {
-                    var lastValues = db.Beschleunigung.OrderBy(x => x.CreatedDate).Select(x => x.Speed.Value).Take(10).ToList();
-
-                    if (lastValues != null && lastValues.Count > 0)
-                    {
-                        var max = lastValues.Max();
-                        var min = lastValues.Min();
-
-                        if ((max - min) <= 2)
-                        {
-                            StartAusrollen();
-                        }
-                    }
-                }
-
-                Task.Run(async () =>
-                {
-                    var beschleunigung = new BeschleunigungModel()
-                    {
-                        Dyno = this.Dyno,
-                        Latitude = obj.Latitude,
-                        Longitude = obj.Longitude,
-                        Altitude = obj.Altitude,
-                        Speed = obj.Speed,
-                    };
-
-                    using (var db = new Data.DatabaseContext())
-                    {
-                        db.Beschleunigung.Add(beschleunigung);
-
-                        await db.SaveChangesAsync().ConfigureAwait(true);
-                    }
-                });
-            }
-
-            if (this.CurrentState == RolloutState)
-            {
-                Task.Run(async () =>
-                {
-                    var ausrollen = new AusrollenModel()
-                    {
-                        Dyno = this.Dyno,
-                        Latitude = obj.Latitude,
-                        Longitude = obj.Longitude,
-                        Altitude = obj.Altitude,
-                        Speed = obj.Speed,
-                    };
-
-                    using (var db = new Data.DatabaseContext())
-                    {
-                        db.Ausrollen.Add(ausrollen);
-
-                        await db.SaveChangesAsync().ConfigureAwait(true);
-                    }
-                });
-            }
-        }
-
-        /// <summary>
-        /// Called when [stopwatch timed event].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">
-        /// The <see cref="ElapsedEventArgs" /> instance containing the event data.
-        /// </param>
-        private void OnStopwatchTimedEvent(object sender, ElapsedEventArgs e)
-        {
-            if (!this.stopwatch.IsRunning)
-            {
-                this.timer.Stop();
-                this.timer.Dispose();
-            }
-            else
-            {
-                this.RaisePropertyChanged(() => this.Stopwatch);
-            }
-        }
-
         /// <summary>
         /// Starts the recording.
         /// </summary>
-        private Task StartRecording()
+        protected Task StartRecording()
         {
             // Recorder
             this.recorder = new AudioRecorderService();
@@ -361,9 +437,6 @@
 
             this.recorder.PreferredSampleRate = 44100;
 
-            // if (this.recorder.IsRecording) { await
-            // this.StopRecording().ConfigureAwait(true); }
-
             // start recording audio
             return this.recorder.StartRecording();
         }
@@ -371,7 +444,7 @@
         /// <summary>
         /// Starts the stopwatch.
         /// </summary>
-        private void StartStopwatch()
+        protected void StartStopwatch()
         {
             this.stopwatch = new Stopwatch();
 
@@ -388,34 +461,6 @@
 
                 this.timer.Start();
             }
-        }
-
-        ///// <summary>
-        ///// Starts the tracking.
-        ///// </summary>
-        //private async Task StartTracking()
-        //{
-        //    if (this._locationWatcher.Started)
-        //    {
-        //        await this.StopBeschleunigung().ConfigureAwait(true);
-        //    }
-        //}
-
-        /// <summary>
-        /// Stops the recording.
-        /// </summary>
-        private Task StopRecording()
-        {
-            return this.recorder.StopRecording();
-        }
-
-        /// <summary>
-        /// Stops the tracking.
-        /// </summary>
-        private void StopTracking()
-        {
-            trackingStarted = false;
-            //this._locationWatcher.Stop();
         }
 
         #endregion Methods
@@ -456,9 +501,11 @@
 
         #endregion Commands
 
-        protected readonly ResourceManager rm;
+        protected static System.Drawing.Color stdBg;
+        protected static System.Drawing.Color stdSur;
 
         private const string AccelerationState = "Vollgas";
+        private const string PostState = "Fertig";
         private const string PreState = "Anfahren";
         private const string RolloutState = "Ausrollen";
         private static System.Drawing.Color darkSeaGreen = System.Drawing.Color.DarkSeaGreen;

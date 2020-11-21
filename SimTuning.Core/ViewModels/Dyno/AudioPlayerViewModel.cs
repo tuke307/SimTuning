@@ -36,12 +36,30 @@ namespace SimTuning.Core.ViewModels.Dyno
                 return this.MediaManager.SeekTo(TimeSpan.FromSeconds(this.Position));
             });
             this.DragStartedCommand = new MvxCommand(() => this.DragStarted = true);
+
+            // MediaItem von Quee holen, falls bereits Play ausgelöst wurde
+            Source = MediaManager.Queue.Current;
+
+            if (Source != null)
+            {
+                TimeSpanPosition = MediaManager.Position;
+                Position = MediaManager.Position.TotalSeconds;
+                TimeSpanDuration = MediaManager.Duration;
+                Duration = MediaManager.Duration.TotalSeconds;
+            }
+
+            MediaManager.MediaItemChanged += this.MediaManager_MediaItemChanged;
+            MediaManager.PositionChanged += this.MediaManager_PositionChanged;
+            MediaManager.StateChanged += this.MediaManager_StateChanged;
+            MediaManager.MediaItemFailed += this.Current_MediaItemFailed;
+            MediaManager.MediaItemFinished += this.Current_MediaItemFinished;
+            MediaManager.BufferedChanged += this.Current_BufferingChanged;
         }
 
         #region Values
 
-        protected readonly ResourceManager rm;
-        private static readonly string samplewaveLink = "https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav" /*"https://simtuning.tuke-productions.de/download/575/"*/ ;
+        protected readonly IMediaManager MediaManager;
+
         private bool _dragStarted = false;
 
         private double _duration = 100;
@@ -128,46 +146,11 @@ namespace SimTuning.Core.ViewModels.Dyno
             set => this.SetProperty(ref _timeSpanPosition, value);
         }
 
-        protected IMediaManager MediaManager { get; }/*= CrossMediaManager.Current*/
+        /*= CrossMediaManager.Current*/
 
         #endregion Values
 
         #region Methods
-
-        public override void ViewAppeared()
-        {
-            base.ViewAppeared();
-
-            // MediaItem von Quee holen, falls bereits Play ausgelöst wurde
-            Source = MediaManager.Queue.Current;
-
-            if (Source != null)
-            {
-                TimeSpanPosition = MediaManager.Position;
-                Position = MediaManager.Position.TotalSeconds;
-                TimeSpanDuration = MediaManager.Duration;
-                Duration = MediaManager.Duration.TotalSeconds;
-            }
-
-            MediaManager.MediaItemChanged += this.MediaManager_MediaItemChanged;
-            MediaManager.PositionChanged += this.MediaManager_PositionChanged;
-            MediaManager.StateChanged += this.MediaManager_StateChanged;
-            MediaManager.MediaItemFailed += this.Current_MediaItemFailed;
-            MediaManager.MediaItemFinished += this.Current_MediaItemFinished;
-            MediaManager.BufferedChanged += this.Current_BufferingChanged;
-        }
-
-        public override void ViewDisappeared()
-        {
-            base.ViewDisappeared();
-
-            MediaManager.MediaItemChanged -= this.MediaManager_MediaItemChanged;
-            MediaManager.PositionChanged -= this.MediaManager_PositionChanged;
-            MediaManager.StateChanged -= this.MediaManager_StateChanged;
-            MediaManager.MediaItemFailed -= this.Current_MediaItemFailed;
-            MediaManager.MediaItemFinished -= this.Current_MediaItemFinished;
-            MediaManager.BufferedChanged -= this.Current_BufferingChanged;
-        }
 
         protected void Current_BufferingChanged(object sender, MediaManager.Playback.BufferedChangedEventArgs e)
         {

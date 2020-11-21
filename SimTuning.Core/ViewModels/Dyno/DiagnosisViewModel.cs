@@ -40,8 +40,6 @@ namespace SimTuning.Core.ViewModels.Dyno
             //this.PressureQuantityUnits = new PressureQuantity();
             this.MassQuantityUnits = new MassQuantity();
 
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
-
             this.InsertVehicleCommand = new MvxCommand(this.InsertVehicle);
             //this.InsertEnvironmentCommand = new MvxCommand(this.InsertEnvironment);
         }
@@ -178,8 +176,6 @@ namespace SimTuning.Core.ViewModels.Dyno
         #endregion Methods
 
         #region Values
-
-        protected readonly ResourceManager rm;
 
         private DynoModel _dyno;
 

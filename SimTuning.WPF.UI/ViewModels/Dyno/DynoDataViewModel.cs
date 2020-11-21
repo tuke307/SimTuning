@@ -2,11 +2,17 @@
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.ViewModels.Dyno
 {
+    using MaterialDesignThemes.Wpf;
     using MvvmCross.Commands;
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
+    using Plugin.FilePicker;
+    using Plugin.FilePicker.Abstractions;
     using SimTuning.WPF.UI.Business;
+    using SimTuning.WPF.UI.Dialog;
+    using System.Threading.Tasks;
+    using System.Windows;
 
     /// <summary>
     /// WPF-spezifisches Dyno-Data-ViewModel.
@@ -26,6 +32,8 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             this.NewDynoCommand = new MvxCommand(this.NewDyno);
             this.DeleteDynoCommand = new MvxCommand(this.DeleteDyno);
             this.SaveDynoCommand = new MvxCommand(this.SaveDyno);
+
+            this.ImportDynoCommand = new MvxAsyncCommand(this.ImportDyno);
         }
 
         #region Methods
@@ -43,6 +51,44 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             {
                 Functions.ShowSnackbarDialog("Fehler beim löschen");
             }
+        }
+
+        /// <summary>
+        /// Imports the dyno.
+        /// </summary>
+        protected new async Task ImportDyno()
+        {
+            //using (var client = new WebClient())
+            //{
+            //    client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/DataExport.zip", SimTuning.Core.GeneralSettings.DataExportFilePath);
+            //}
+
+            //if (!this.CheckDynoData())
+            //{
+            //    return;
+            //}
+
+            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "Zip Datei (*.zip)|*.zip" }).ConfigureAwait(true);
+
+            // user canceled file picking
+            if (fileData == null)
+            {
+                return;
+            }
+
+            string filepath = fileData.FilePath;
+            fileData.Dispose();
+
+            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
+            {
+                Task.Run(async () =>
+                {
+                    await base.ImportDyno(filepath).ConfigureAwait(true);
+                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
+                });
+            }).ConfigureAwait(true);
+
+            //await ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
         /// <summary>

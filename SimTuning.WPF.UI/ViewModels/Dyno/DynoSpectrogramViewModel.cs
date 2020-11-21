@@ -37,12 +37,9 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             this._token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
 
             // override Commands
-            this.FilterPlotCommand = new MvxAsyncCommand(this.FilterPlot);
-            this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
             this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
             this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
-
-            this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
+            //this.OpenFileCommand = new MvxAsyncCommand(this.OpenFileDialog);
             // datensatz checken CheckDynoData();
         }
 
@@ -78,7 +75,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// <summary>
         /// Filters the plot.
         /// </summary>
-        protected new async Task FilterPlot()
+        protected override async Task FilterPlot()
         {
             if (!this.CheckDynoData())
             {
@@ -99,35 +96,28 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// <summary>
         /// Opens the file dialog.
         /// </summary>
-        protected new async Task OpenFileDialog()
-        {
-            if (!this.CheckDynoData())
-            {
-                return;
-            }
+        //protected new async Task OpenFileDialog()
+        //{
+        //    if (!this.CheckDynoData())
+        //    {
+        //        return;
+        //    }
 
-            FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "Zip Datei (*.zip)|*.zip" }).ConfigureAwait(true);
+        // FileData fileData = await CrossFilePicker.Current.PickFile(new string[] { "Zip
+        // Datei (*.zip)|*.zip" }).ConfigureAwait(true);
 
-            // user canceled file picking
-            if (fileData == null)
-            {
-                return;
-            }
+        // // user canceled file picking if (fileData == null) { return; }
 
-            string filepath = fileData.FilePath;
-            fileData.Dispose();
+        // string filepath = fileData.FilePath; fileData.Dispose();
 
-            await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender, DialogOpenedEventArgs args) =>
-            {
-                Task.Run(async () =>
-                {
-                    await base.OpenFileDialog(filepath).ConfigureAwait(true);
-                    Application.Current.Dispatcher.Invoke(() => args.Session.Close());
-                });
-            }).ConfigureAwait(true);
+        // await DialogHost.Show(new DialogLoadingView(), "DialogLoading", (object sender,
+        // DialogOpenedEventArgs args) => { Task.Run(async () => { await
+        // base.OpenFileDialog(filepath).ConfigureAwait(true);
+        // Application.Current.Dispatcher.Invoke(() => args.Session.Close()); });
+        // }).ConfigureAwait(true);
 
-            await ReloadImageAudioSpectrogram().ConfigureAwait(true);
-        }
+        //    await ReloadImageAudioSpectrogram().ConfigureAwait(true);
+        //}
 
         /// <summary>
         /// Opens the file.
@@ -136,7 +126,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected new async Task PlayFileAsync()
+        protected override async Task RefreshAudioFileAsync()
         {
             var check = this.CheckDynoData();
             if (!check)
@@ -150,14 +140,14 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             //}
 
             await this.NavigationService.Navigate<DynoAudioPlayerViewModel>().ConfigureAwait(true);
-            await base.PlayFileAsync().ConfigureAwait(true);
+            await base.RefreshAudioFileAsync().ConfigureAwait(true);
             //await this.ReloadImageAudioSpectrogram().ConfigureAwait(true);
         }
 
         /// <summary>
         /// Refreshes the plot.
         /// </summary>
-        protected new async Task RefreshPlot()
+        protected override async Task RefreshPlot()
         {
             if (!this.CheckDynoData())
             {
@@ -222,7 +212,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         {
             if (this.Dyno == null)
             {
-                Functions.ShowSnackbarDialog(rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NODATA"));
                 return false;
             }
             else

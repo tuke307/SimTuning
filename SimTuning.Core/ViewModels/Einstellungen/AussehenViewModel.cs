@@ -13,8 +13,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
     /// </summary>
     public class AussehenViewModel : MvxNavigationViewModel
     {
-        protected ResourceManager rm;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AussehenViewModel" /> class.
         /// </summary>
@@ -23,7 +21,6 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         public AussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
             : base(logProvider, navigationService)
         {
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
         }
 
         /// <summary>

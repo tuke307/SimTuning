@@ -22,7 +22,6 @@ namespace SimTuning.Core.ViewModels.Tuning
     /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class DiagnosisViewModel : MvxNavigationViewModel
     {
-        protected ResourceManager rm;
         private TuningLogic tunigLogic;
 
         /// <summary>
@@ -61,9 +60,6 @@ namespace SimTuning.Core.ViewModels.Tuning
                 }
                 catch { }
             }
-
-            //messages
-            this.rm = new ResourceManager(typeof(SimTuning.Core.resources));
 
             return base.Initialize();
         }

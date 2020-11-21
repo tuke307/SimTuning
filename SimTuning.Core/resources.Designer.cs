@@ -61,15 +61,6 @@ namespace SimTuning.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        public static System.IO.UnmanagedMemoryStream DynoAudio {
-            get {
-                return ResourceManager.GetStream("DynoAudio", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No acces to GPS.
         /// </summary>
         public static string ERR_LOCATION {

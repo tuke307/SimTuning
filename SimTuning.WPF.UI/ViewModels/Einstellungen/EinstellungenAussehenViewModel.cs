@@ -65,7 +65,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         {
             if (!UserSettings.LicenseValid)
             {
-                Functions.ShowSnackbarDialog(rm.GetString("MES_PRO", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_PRO"));
             }
         }
 

@@ -6,9 +6,11 @@ using MvvmCross.Plugin.WebBrowser;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Resources;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -143,6 +145,24 @@ namespace SimTuning.Core.Business
                     }
                 }
             }
+        }
+
+        public static string GetLocalisedRes(Type resType, string resourceNameKey)
+        {
+            string translate = string.Empty;
+            //string baseName = "SimTuning.Core." + resourceName;
+
+            try
+            {
+                //Type resType = Type.GetType(baseName);
+                ResourceManager rm = new ResourceManager(resType);
+                translate = rm.GetString(resourceNameKey, CultureInfo.CurrentCulture);
+            }
+            catch
+            {
+                translate = string.Empty;
+            }
+            return translate;
         }
 
         /// <summary>

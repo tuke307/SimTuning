@@ -53,7 +53,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             }
 
             var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
-            this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             await base.CutBeginn().ConfigureAwait(true);
 
@@ -77,8 +77,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 return;
             }
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message:
-            this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             await base.CutEnd().ConfigureAwait(true);
 
@@ -94,7 +93,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <placeholder>A <see cref="Task" /> representing the asynchronous
         /// operation.</placeholder>
         /// </returns>
-        protected new async Task PlayFileAsync()
+        protected override async Task PlayFileAsync()
         {
             var check = this.CheckDynoData();
             if (!check)
@@ -102,12 +101,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
                 return;
             }
 
-            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: this.rm.GetString("MES_LOAD", CultureInfo.CurrentCulture)).ConfigureAwait(false);
-
-            using (var client = new WebClient())
-            {
-                client.DownloadFile("https://simtuning.tuke-productions.de/wp-content/uploads/sample.wav", SimTuning.Core.GeneralSettings.AudioAccelerationFilePath);
-            }
+            var loadingDialog = await MaterialDialog.Instance.LoadingDialogAsync(message: SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "MES_LOAD")).ConfigureAwait(false);
 
             await base.PlayFileAsync().ConfigureAwait(true);
 
@@ -122,7 +116,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         {
             if (!File.Exists(SimTuning.Core.GeneralSettings.AudioAccelerationFilePath))
             {
-                Forms.UI.Business.Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NOAUDIOFILE", CultureInfo.CurrentCulture));
+                Forms.UI.Business.Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NOAUDIOFILE"));
 
                 return false;
             }

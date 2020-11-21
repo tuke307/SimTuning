@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Data.Models
@@ -32,7 +33,14 @@ namespace Data.Models
         /// Gets or sets the dyno.
         /// </summary>
         /// <value>The dyno.</value>
+        [ForeignKey(nameof(DynoId))]
         public virtual DynoModel Dyno { get; set; }
+
+        /// <summary>
+        /// Gets or sets the dyno identifier.
+        /// </summary>
+        /// <value>The dyno identifier.</value>
+        public int DynoId { get; set; }
 
         /// <summary>
         /// Gets or sets the heading.

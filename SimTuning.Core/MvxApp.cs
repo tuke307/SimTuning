@@ -1,4 +1,5 @@
 ﻿using MediaManager;
+using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 using System.Threading.Tasks;
@@ -16,9 +17,9 @@ namespace SimTuning.Core
         /// </summary>
         public override void Initialize()
         {
-            MvxIoCProvider.Instance.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
+            Mvx.IoCProvider.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
 
-            MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
+            Mvx.IoCProvider.RegisterSingleton(CrossMediaManager.Current);
 
             base.Initialize();
         }

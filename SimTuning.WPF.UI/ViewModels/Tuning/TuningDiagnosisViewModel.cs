@@ -34,7 +34,7 @@ namespace SimTuning.WPF.UI.ViewModels.Tuning
         {
             if (Tuning == null)
             {
-                Functions.ShowSnackbarDialog(this.rm.GetString("ERR_NODATA", CultureInfo.CurrentCulture));
+                Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NODATA"));
 
                 return false;
             }
