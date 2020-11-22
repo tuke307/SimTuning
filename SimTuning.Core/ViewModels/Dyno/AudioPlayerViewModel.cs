@@ -108,8 +108,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         public bool IsPlaying
         {
-            get => this._isPlaying;
-            private set => this.SetProperty(ref _isPlaying, value);
+            get => this.MediaManager.IsPlaying();
         }
 
         /// <summary>
@@ -285,6 +284,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         {
             if (Source == null)
             {
+                // abspielen zum ersten mal
                 await PlayFileAsync().ConfigureAwait(true);
             }
             else
@@ -292,14 +292,7 @@ namespace SimTuning.Core.ViewModels.Dyno
                 await MediaManager.PlayPause().ConfigureAwait(true);
             }
 
-            if (this.MediaManager.IsPlaying())
-            {
-                this.IsPlaying = true;
-            }
-            else
-            {
-                this.IsPlaying = false;
-            }
+            await this.RaisePropertyChanged(() => this.IsPlaying).ConfigureAwait(true);
         }
 
         ///// <summary>

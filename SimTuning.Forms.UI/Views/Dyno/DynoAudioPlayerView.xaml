@@ -2,8 +2,8 @@
 <views:MvxContentView xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                      xmlns:local="clr-namespace:SimTuning.Core.Converters;assembly=SimTuning.Core"
                       xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
+                      xmlns:converters="clr-namespace:SimTuning.Forms.UI.Converters"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       x:TypeArguments="viewModels:DynoAudioPlayerViewModel"
@@ -13,7 +13,7 @@
         <!--CONVERTER-->
         <behaviors:InvertedBoolConverter x:Key="Inverter" />
 
-        <local:TimeSpanToStringConverter x:Key="TimeSpanToString" />
+        <converters:TimeSpanToStringConverter x:Key="TimeSpanToString" />
     </views:MvxContentView.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -28,7 +28,6 @@
 
         <Slider x:Name="Slider"
                 Grid.Row="1"
-                Margin="{StaticResource MarginPaddingLeftRightLargeTopBottomMedium}"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="End"
                 Value="{Binding Position}"
@@ -36,8 +35,7 @@
                 Maximum="{Binding Mode=OneWay, Path=Duration}"
                 DragStartedCommand="{Binding DragStartedCommand}"
                 DragCompletedCommand="{Binding DragCompletedCommand}"
-                MaximumTrackColor="{DynamicResource TertiaryColor}"
-                MinimumTrackColor="{DynamicResource SecondaryColor}" />
+                MinimumTrackColor="{DynamicResource Key=Primary400}" />
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
@@ -73,38 +71,42 @@
             </Grid.ColumnDefinitions>
 
             <material:MaterialButton Grid.Column="1"
-                                     Padding="{StaticResource MarginPaddingLarge}"
                                      Command="{Binding SkipBackwardsCommand}"
                                      ImageSource="skip_backward"
                                      HorizontalOptions="Center"
                                      VerticalOptions="CenterAndExpand"
-                                     BackgroundColor="Transparent" />
+                                     BackgroundColor="Transparent"
+                                     ButtonType="Text" />
+
+            <!--PLAYPAUSE ANFANG-->
+            <material:MaterialIconButton Grid.Column="2"
+                                         Image="play"
+                                         Command="{Binding PlayPauseCommand}"
+                                         IsVisible="{Binding Path=IsPlaying, Mode=OneWay, Converter={StaticResource Inverter}}"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="CenterAndExpand"
+                                         BackgroundColor="Transparent"
+                                         WidthRequest="75"
+                                         ButtonType="Elevated" />
 
             <material:MaterialButton Grid.Column="2"
-                                     Padding="{StaticResource MarginPaddingLeftRightMedium}"
-                                     ImageSource="play"
-                                     Command="{Binding PlayPauseCommand}"
-                                     IsVisible="{Binding Path=IsPlaying, Mode=OneWay, Converter={StaticResource Inverter}}"
-                                     HorizontalOptions="Center"
-                                     VerticalOptions="CenterAndExpand"
-                                     BackgroundColor="Transparent" />
-
-            <material:MaterialButton Grid.Column="2"
-                                     Padding="{StaticResource MarginPaddingLeftRightMedium}"
                                      ImageSource="pause"
                                      Command="{Binding PlayPauseCommand}"
                                      IsVisible="{Binding Path=IsPlaying, Mode=OneWay}"
                                      HorizontalOptions="Center"
                                      VerticalOptions="CenterAndExpand"
-                                     BackgroundColor="Transparent" />
+                                     BackgroundColor="Transparent"
+                                     WidthRequest="75"
+                                     ButtonType="Elevated" />
+            <!--PLAYPAUSE ENDE-->
 
             <material:MaterialButton Grid.Column="3"
-                                     Padding="{StaticResource MarginPaddingLarge}"
                                      ImageSource="skip_forward"
                                      Command="{Binding SkipForwardCommand}"
                                      HorizontalOptions="Center"
                                      VerticalOptions="CenterAndExpand"
-                                     BackgroundColor="Transparent" />
+                                     BackgroundColor="Transparent"
+                                     ButtonType="Text" />
         </Grid>
     </Grid>
 </views:MvxContentView>
