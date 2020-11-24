@@ -60,7 +60,7 @@
 
                                 -->
                 <!--<material:MaterialButton Grid.Row="0"
-                                                 ImageSource="ic_file_find_outline_black_18dp"
+                                                 ImageSource="file_find_outline"
                                 IsVisible="{Binding Path=IsVisible, Source={x:Reference badge_open}, Converter={StaticResource inverter}}"
                                 Text="Datei auswählen"
                                 Command="{Binding OpenFileCommand}">

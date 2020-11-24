@@ -173,7 +173,7 @@
                             <material:MaterialButton Margin="15"
                                                      VerticalOptions="Center"
                                                      HorizontalOptions="Center"
-                                                     ImageSource="ic_file_find_outline_black_18dp"
+                                                     ImageSource="file_find_outline"
                                                      Command="{Binding ImportDynoCommand}"
                                                      WidthRequest="100"
                                                      HeightRequest="60">
