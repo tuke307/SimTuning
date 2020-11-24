@@ -34,7 +34,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
             this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);
             this.SpecificGraphCommand = new MvxAsyncCommand(this.SpecificGraph);
 
-            this.ShowBeschleunigungCommand = new MvxAsyncCommand(() => this.NavigationService.Navigate<DynoBeschleunigungViewModel>());
+            this.ShowBeschleunigungCommand = new MvxAsyncCommand(() => this.NavigationService.Navigate<DynoGeschwindigkeitViewModel>());
             // datensatz checken CheckDynoData();
         }
 

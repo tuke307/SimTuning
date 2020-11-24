@@ -106,7 +106,8 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             {
                 Task.Run(async () =>
                 {
-                    await base.PlayFileAsync().ConfigureAwait(true);
+                    await Application.Current.Dispatcher.InvokeAsync(() => base.PlayFileAsync());
+                    //await base.PlayFileAsync().ConfigureAwait(true);
                     Application.Current.Dispatcher.Invoke(() => args.Session.Close());
                 });
             }).ConfigureAwait(true);

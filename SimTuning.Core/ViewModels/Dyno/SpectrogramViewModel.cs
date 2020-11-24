@@ -183,8 +183,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
                 await this.RaisePropertyChanged(() => this.PlotAudio).ConfigureAwait(true);
 
-                // TODO: implement
-                //PlotAudio.MouseDown += PlotAudioMouseDown;
+                PlotAudio.MouseDown += PlotAudioMouseDown;
             }
             catch (Exception exc)
             {
@@ -279,13 +278,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         private void PlotAudioMouseDown(object sender, OxyMouseDownEventArgs e)
         {
-            OxyPlot.ElementCollection<OxyPlot.Axes.Axis> axisList = PlotAudio.Axes;
-
-            Axis xAxis = axisList.FirstOrDefault(ax => ax.Position == AxisPosition.Bottom);
-            Axis yAxis = axisList.FirstOrDefault(ax => ax.Position == AxisPosition.Left);
-
-            DataPoint dataPointp = OxyPlot.Axes.Axis.InverseTransform(e.Position, xAxis, yAxis);
-            DynoLogic.EntfernePunkt(dataPointp);
+            PlotAudio.EntfernePunkt(e.Position);
         }
 
         #endregion Methods

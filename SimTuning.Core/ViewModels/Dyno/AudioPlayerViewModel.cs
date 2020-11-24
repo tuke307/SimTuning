@@ -217,6 +217,8 @@ namespace SimTuning.Core.ViewModels.Dyno
             this.TimeSpanDuration = this.MediaManager.Duration;
             this.Duration = this.MediaManager.Duration.TotalSeconds;
 
+            this.RaisePropertyChanged(() => this.IsPlaying);
+
             this.Log.Debug($"Current position is {e.Position};");
         }
 

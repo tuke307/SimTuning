@@ -105,7 +105,7 @@
                                      ButtonType="Flat"
                                      VerticalOptions="End"
                                      HorizontalOptions="Start"
-                                     Image="ic_refresh_black_18dp.png"
+                                     Image="refresh"
                                      Command="{Binding ResetAccelerationCommand}" />
 
         <material:MaterialIconButton Grid.Row="5"

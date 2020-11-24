@@ -56,11 +56,11 @@
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="Center"
                                  Margin="5, 0, 0, 0">
-                        <material:MaterialButton ImageSource="ic_add_circle_outline_black_18dp.png"
+                        <material:MaterialButton ImageSource="plus_circle_outline"
                                                  Command="{Binding NewDynoCommand}">
                         </material:MaterialButton>
 
-                        <material:MaterialButton ImageSource="ic_remove_circle_outline_black_18dp.png"
+                        <material:MaterialButton ImageSource="minus_circle_outline"
                                                  Command="{Binding DeleteDynoCommand}">
                         </material:MaterialButton>
                     </StackLayout>

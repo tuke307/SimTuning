@@ -23,22 +23,23 @@
                                              ButtonType="Elevated"
                                              HorizontalOptions="Center"
                                              VerticalOptions="Center"
-                                             Image="ic_refresh_black_18dp"
+                                             Image="refresh"
                                              Command="{Binding RefreshPlotCommand}" />
             </StackLayout>
         </material:MaterialCard>
 
-        <material:MaterialCard   Margin="10"
-                                 Grid.Row="1">
+        <material:MaterialCard Margin="10"
+                               Grid.Row="1"
+                               VerticalOptions="FillAndExpand">
             <StackLayout>
-                <material:MaterialLabel Text="Ausroll-Experiment"
+                <!--<material:MaterialLabel Text="Ausroll-Experiment"
                                         FontSize="Medium"
                                         FontAttributes="Bold" />
 
                 <BoxView Color="{DynamicResource MaterialDesignDivider}"
                          HeightRequest="2"
                          HorizontalOptions="Fill"
-                         Margin="0, 0, 0, 5" />
+                         Margin="0, 0, 0, 5" />-->
 
                 <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotAusrollen}"
                               HeightRequest="400" />

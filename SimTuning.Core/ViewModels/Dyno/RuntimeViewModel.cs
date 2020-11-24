@@ -90,12 +90,12 @@
                 using (var db = new DatabaseContext())
                 {
                     this.Dyno = db.Dyno.Single(d => d.Active == true);
-                    db.Entry(this.Dyno).Collection(x => x.Beschleunigung).Load();
+                    db.Entry(this.Dyno).Collection(x => x.Geschwindigkeit).Load();
                     db.Entry(this.Dyno).Collection(x => x.Ausrollen).Load();
 
-                    if (this.Dyno.Beschleunigung == null)
+                    if (this.Dyno.Geschwindigkeit == null)
                     {
-                        Dyno.Beschleunigung = new List<BeschleunigungModel>();
+                        Dyno.Geschwindigkeit = new List<GeschwindigkeitModel>();
                     }
 
                     if (this.Dyno.Ausrollen == null)
@@ -182,7 +182,7 @@
 
                 using (var db = new Data.DatabaseContext())
                 {
-                    lastSpeedValues = db.Beschleunigung.OrderByDescending(x => x.CreatedDate).Select(x => x.Speed).Take(10).ToList();
+                    lastSpeedValues = db.Geschwindigkeit.OrderByDescending(x => x.CreatedDate).Select(x => x.Speed).Take(10).ToList();
                 }
 
                 if (lastSpeedValues != null && lastSpeedValues.Count == 10)
@@ -202,7 +202,7 @@
                 // asynchrones speichern der Beschlenugigungswerte
                 //Task.Run(async () =>
                 //{
-                BeschleunigungModel beschleunigung = new BeschleunigungModel()
+                GeschwindigkeitModel beschleunigung = new GeschwindigkeitModel()
                 {
                     Latitude = obj.Latitude,
                     Longitude = obj.Longitude,
@@ -212,7 +212,7 @@
 
                 using (var db = new Data.DatabaseContext())
                 {
-                    Dyno.Beschleunigung.Add(beschleunigung);
+                    Dyno.Geschwindigkeit.Add(beschleunigung);
 
                     db.Update(this.Dyno);
 
@@ -291,13 +291,13 @@
         {
             using (var db = new DatabaseContext())
             {
-                db.Beschleunigung.RemoveRange(this.Dyno.Beschleunigung);
+                db.Geschwindigkeit.RemoveRange(this.Dyno.Geschwindigkeit);
                 db.Ausrollen.RemoveRange(this.Dyno.Ausrollen);
                 //db.Update(this.Dyno);
                 db.SaveChanges();
             }
 
-            this.Dyno.Beschleunigung.Clear();
+            this.Dyno.Geschwindigkeit.Clear();
 
             this.Dyno.Ausrollen.Clear();
         }

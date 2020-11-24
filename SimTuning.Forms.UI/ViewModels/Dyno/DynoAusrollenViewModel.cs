@@ -14,8 +14,6 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         public DynoAusrollenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
               : base(logProvider, navigationService, messenger)
         {
-            this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
-
             this.ShowDiagnosisCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoDiagnosisViewModel>());
         }
 
@@ -39,7 +37,7 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <summary>
         /// Refreshes the plot.
         /// </summary>
-        protected new async Task RefreshPlot()
+        protected override async Task RefreshPlot()
         {
             if (!this.CheckDynoData())
             {

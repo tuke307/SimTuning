@@ -31,7 +31,7 @@ namespace Spectrogram
                 btable[i] = mapColors[i][2];
             }
 
-            SKBitmap colorBitmap = new SKBitmap(bmp.Width, bmp.Height);
+            SKBitmap colorBitmap = new SKBitmap(bmp.Width, bmp.Height, SKColorType.Alpha8, SKAlphaType.Opaque);
             SKCanvas sKCanvas = new SKCanvas(colorBitmap);
 
             SKPaint paint = new SKPaint();
@@ -99,7 +99,7 @@ namespace Spectrogram
 
             #region Rotate&Flip
 
-            SKBitmap rotated = new SKBitmap(bmp.Width, bmp.Height);
+            SKBitmap rotated = new SKBitmap(bmp.Width, bmp.Height, SKColorType.Alpha8, SKAlphaType.Opaque);
 
             var surface = new SKCanvas(rotated);
 
@@ -115,7 +115,7 @@ namespace Spectrogram
             //Marshal.Copy(bytes, 0, bitmapData.Scan0, bytes.Length);
             //bmp.UnlockBits(bitmapData);
 
-            return rotated;//ApplyColormap(rotated, cmap);
+            return ApplyColormap(rotated, cmap);
         }
     }
 }

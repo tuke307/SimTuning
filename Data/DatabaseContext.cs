@@ -28,12 +28,6 @@ namespace Data
         public DbSet<AusrollenModel> Ausrollen { get; set; }
 
         /// <summary>
-        /// Gets or sets the beschleunigung.
-        /// </summary>
-        /// <value>The beschleunigung.</value>
-        public DbSet<BeschleunigungModel> Beschleunigung { get; set; }
-
-        /// <summary>
         /// Gets or sets the dyno.
         /// </summary>
         /// <value>The dyno.</value>
@@ -62,6 +56,12 @@ namespace Data
         /// </summary>
         /// <value>The environment.</value>
         public DbSet<EnvironmentModel> Environment { get; set; }
+
+        /// <summary>
+        /// Gets or sets the beschleunigung.
+        /// </summary>
+        /// <value>The beschleunigung.</value>
+        public DbSet<GeschwindigkeitModel> Geschwindigkeit { get; set; }
 
         /// <summary>
         /// Gets or sets the motor.

@@ -80,7 +80,7 @@
         [Test]
         public void DynoBeschleunigungViewModelTest()
         {
-            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Dyno.BeschleunigungViewModel>();
+            var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Dyno.GeschwindigkeitViewModel>();
             vm.RefreshPlotCommand.ListenForRaiseCanExecuteChanged();
             vm.ShowAusrollenCommand.ListenForRaiseCanExecuteChanged();
         }
@@ -141,7 +141,6 @@
         {
             var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Dyno.SpectrogramViewModel>();
             vm.FilterPlotCommand.ListenForRaiseCanExecuteChanged();
-            vm.OpenFileCommand.ListenForRaiseCanExecuteChanged();
             vm.RefreshAudioFileCommand.ListenForRaiseCanExecuteChanged();
             vm.RefreshPlotCommand.ListenForRaiseCanExecuteChanged();
             vm.RefreshSpectrogramCommand.ListenForRaiseCanExecuteChanged();

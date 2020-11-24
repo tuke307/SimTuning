@@ -28,19 +28,12 @@
         public AusrollenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
                            : base(logProvider, navigationService)
         {
+            this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
         }
 
         #region Values
 
         private DynoModel _dyno;
-
-        /// <summary>
-        /// PlotAusrollen.
-        /// </summary>
-        public static PlotModel PlotAusrollen
-        {
-            get => DynoLogic.PlotAusrollen;
-        }
 
         /// <summary>
         /// Gets or sets the dyno.
@@ -50,6 +43,14 @@
         {
             get => _dyno;
             set => SetProperty(ref _dyno, value);
+        }
+
+        /// <summary>
+        /// PlotAusrollen.
+        /// </summary>
+        public PlotModel PlotAusrollen
+        {
+            get => DynoLogic.PlotAusrollen;
         }
 
         public MvxAsyncCommand RefreshPlotCommand { get; set; }

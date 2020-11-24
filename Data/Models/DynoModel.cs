@@ -25,12 +25,6 @@ namespace Data.Models
         public virtual IList<AusrollenModel> Ausrollen { get; set; }
 
         /// <summary>
-        /// Gets or sets the beschleunigung location.
-        /// </summary>
-        /// <value>The beschleunigung location.</value>
-        public virtual IList<BeschleunigungModel> Beschleunigung { get; set; }
-
-        /// <summary>
         /// Gets or sets the beschreibung.
         /// </summary>
         /// <value>The beschreibung.</value>
@@ -59,6 +53,12 @@ namespace Data.Models
         /// </summary>
         /// <value>The environment.</value>
         public virtual EnvironmentModel Environment { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Geschwindigkeit locations.
+        /// </summary>
+        /// <value>Die Geschwindigkeit location.</value>
+        public virtual IList<GeschwindigkeitModel> Geschwindigkeit { get; set; }
 
         /// <summary>
         /// Gets or sets the name.

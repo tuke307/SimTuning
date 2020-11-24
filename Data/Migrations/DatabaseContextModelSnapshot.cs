@@ -247,52 +247,6 @@ namespace Data.Migrations
                     b.ToTable("Ausrollen");
                 });
 
-            modelBuilder.Entity("Data.Models.BeschleunigungModel", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double?>("Accuracy")
-                        .HasColumnType("REAL");
-
-                    b.Property<double?>("Altitude")
-                        .HasColumnType("REAL");
-
-                    b.Property<double?>("AltitudeAccuracy")
-                        .HasColumnType("REAL");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("DynoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double?>("Heading")
-                        .HasColumnType("REAL");
-
-                    b.Property<double?>("HeadingAccuracy")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("REAL");
-
-                    b.Property<double?>("Speed")
-                        .HasColumnType("REAL");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DynoId");
-
-                    b.ToTable("Beschleunigung");
-                });
-
             modelBuilder.Entity("Data.Models.DrehzahlModel", b =>
                 {
                     b.Property<int?>("Id")
@@ -548,6 +502,52 @@ namespace Data.Migrations
                             Name = "Winter",
                             TemperaturT = 1.0
                         });
+                });
+
+            modelBuilder.Entity("Data.Models.GeschwindigkeitModel", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("Accuracy")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("Altitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("AltitudeAccuracy")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DynoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("Heading")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("HeadingAccuracy")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("Speed")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DynoId");
+
+                    b.ToTable("Geschwindigkeit");
                 });
 
             modelBuilder.Entity("Data.Models.MotorModel", b =>
@@ -969,15 +969,6 @@ Stückzahl: 20.000",
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Data.Models.BeschleunigungModel", b =>
-                {
-                    b.HasOne("Data.Models.DynoModel", "Dyno")
-                        .WithMany("Beschleunigung")
-                        .HasForeignKey("DynoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Data.Models.DrehzahlModel", b =>
                 {
                     b.HasOne("Data.Models.DynoModel", "Dyno")
@@ -1017,6 +1008,15 @@ Stückzahl: 20.000",
                     b.HasOne("Data.Models.MotorModel", "Motor")
                         .WithOne("Einlass")
                         .HasForeignKey("Data.Models.EinlassModel", "MotorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Data.Models.GeschwindigkeitModel", b =>
+                {
+                    b.HasOne("Data.Models.DynoModel", "Dyno")
+                        .WithMany("Geschwindigkeit")
+                        .HasForeignKey("DynoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

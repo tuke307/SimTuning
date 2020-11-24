@@ -52,7 +52,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <material:MaterialButton Grid.Column="0"
-                                                         ImageSource="ic_refresh_black_18dp"
+                                                         ImageSource="refresh"
                                                          Command="{Binding RefreshAudioFileCommand}"
                                                          CommandParameter="true"
                                                          WidthRequest="90">
@@ -200,7 +200,7 @@
                                                BadgeColorZoneMode="Accent">
                             <Button Width="60"
                                     Height="35"
-                                    ImageSource="ressources//ic_refresh_black_18dp"
+                                    ImageSource="ressources//refresh"
                                     Command="{Binding RefreshSpectrogramCommand}"
                                     ToolTip="Aktualisiere das Spectrogram mit den vorgenommen Änderungen">
                             </Button>
@@ -208,7 +208,7 @@
 
                         <material:MaterialButton HorizontalOptions="Center"
                                                  WidthRequest="90"
-                                                 ImageSource="ic_refresh_black_18dp"
+                                                 ImageSource="refresh"
                                                  Command="{Binding RefreshSpectrogramCommand}"
                                                  CommandParameter="false">
                         </material:MaterialButton>
@@ -258,7 +258,7 @@
 
                         <!--Refresh-->
                         <material:MaterialButton WidthRequest="90"
-                                                 ImageSource="ic_refresh_black_18dp"
+                                                 ImageSource="refresh"
                                                  Command="{Binding RefreshPlotCommand}">
                         </material:MaterialButton>
 
@@ -283,7 +283,7 @@
                     </StackLayout>
                 </material:MaterialCard>
 
-                <material:MaterialIconButton WidthRequest="50"
+                <material:MaterialIconButton WidthRequest="75"
                                              HeightRequest="50"
                                              Margin="15"
                                              ButtonType="Elevated"

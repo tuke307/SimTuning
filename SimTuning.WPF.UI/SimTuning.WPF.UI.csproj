@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\Dyno\DynoGeschwindigkeitView.xaml" />
     <None Remove="Views\Einstellungen\EinstellungenMenuView.xaml" />
   </ItemGroup>
 
@@ -86,7 +87,6 @@
     <None Remove="Views\Tuning\TuningInputView.xaml" />
     <None Remove="Views\Tuning\TuningMainView.xaml" />
     <None Remove="Views\Dyno\DynoAusrollenView.xaml" />
-    <None Remove="Views\Dyno\DynoBeschleunigungView.xaml" />
     <None Remove="Views\Dyno\DynoAudioPlayerView.xaml" />
     
     <Page Include="Dialog\DialogLoadingView.xaml" />
@@ -122,7 +122,7 @@
     <Page Include="Views\Tuning\TuningInputView.xaml" />
     <Page Include="Views\Tuning\TuningMainView.xaml" />
     <Page Include="Views\Dyno\DynoAusrollenView.xaml" />
-    <Page Include="Views\Dyno\DynoBeschleunigungView.xaml" />
+    <Page Include="Views\Dyno\DynoGeschwindigkeitView.xaml" />
     <Page Include="Views\Dyno\DynoAudioPlayerView.xaml" />
   </ItemGroup>
 

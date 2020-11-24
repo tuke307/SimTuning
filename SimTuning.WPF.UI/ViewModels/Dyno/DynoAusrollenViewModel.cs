@@ -41,7 +41,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// <summary>
         /// Refreshes the plot.
         /// </summary>
-        protected new async Task RefreshPlot()
+        protected override async Task RefreshPlot()
         {
             if (!this.CheckDynoData())
             {
@@ -67,7 +67,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
                 return false;
             }
 
-            if (this.Dyno.Beschleunigung == null)
+            if (this.Dyno.Geschwindigkeit == null)
             {
                 WPF.UI.Business.Functions.ShowSnackbarDialog(SimTuning.Core.Business.Functions.GetLocalisedRes(typeof(SimTuning.Core.resources), "ERR_NODATA"));
 

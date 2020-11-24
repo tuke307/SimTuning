@@ -45,12 +45,12 @@
 
             DynoLogic.GetAusrollGraphFitted(null/*List < Data.Models.AusrollenModel > ausrollenModels*/);
 
-            _fileName = nameof(DynoLogic.PlotBeschleunigung) + "Fitted" + ".png";
+            _fileName = nameof(DynoLogic.PlotGeschwindigkeit) + "Fitted" + ".png";
             _filePath = Path.Combine(SimTuning.Test.Constants.Directory, _fileName);
 
-            PngExporter.Export(DynoLogic.PlotBeschleunigung, _filePath, 1000, 1000, OxyColors.White);
+            PngExporter.Export(DynoLogic.PlotGeschwindigkeit, _filePath, 1000, 1000, OxyColors.White);
 
-            DynoLogic.GetBeschleunigungsGraphFitted(null/*List < Data.Models.BeschleunigungModel > beschleunigungModels*/);
+            DynoLogic.GetGeschwindigkeitsGraphFitted(null/*List < Data.Models.BeschleunigungModel > beschleunigungModels*/);
 
             _fileName = nameof(DynoLogic.PlotAusrollen) + "Fitted" + ".png";
             _filePath = Path.Combine(SimTuning.Test.Constants.Directory, _fileName);
@@ -59,10 +59,10 @@
 
             DynoLogic.GetLeistungsGraph(200, out var dynoPsModels);
 
-            _fileName = nameof(DynoLogic.PlotStrength) + "Fitted" + ".png";
+            _fileName = nameof(DynoLogic.PlotLeistung) + "Fitted" + ".png";
             _filePath = Path.Combine(SimTuning.Test.Constants.Directory, _fileName);
 
-            PngExporter.Export(DynoLogic.PlotStrength, _filePath, 1000, 1000, OxyColors.White);
+            PngExporter.Export(DynoLogic.PlotLeistung, _filePath, 1000, 1000, OxyColors.White);
         }
     }
 }

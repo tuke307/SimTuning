@@ -347,7 +347,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         public PlotModel PlotStrength
         {
-            get => DynoLogic.PlotStrength;
+            get => DynoLogic.PlotLeistung;
         }
 
         //public ObservableCollection<UnitListItem> PressureQuantityUnits { get; }

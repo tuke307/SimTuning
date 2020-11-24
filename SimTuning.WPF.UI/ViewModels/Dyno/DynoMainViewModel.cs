@@ -102,7 +102,7 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
             //tasks.Add(this._navigationService.Navigate<DynoAudioViewModel>());
             tasks.Add(this._navigationService.Navigate<DynoSpectrogramViewModel>());
             tasks.Add(this._navigationService.Navigate<DynoAudioPlayerViewModel>());
-            tasks.Add(this._navigationService.Navigate<DynoBeschleunigungViewModel>());
+            tasks.Add(this._navigationService.Navigate<DynoGeschwindigkeitViewModel>());
             tasks.Add(this._navigationService.Navigate<DynoAusrollenViewModel>());
             tasks.Add(this._navigationService.Navigate<DynoDiagnosisViewModel>());
             return Task.WhenAll(tasks);

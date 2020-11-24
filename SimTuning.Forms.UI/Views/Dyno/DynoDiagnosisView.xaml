@@ -14,17 +14,17 @@
             <!--Plot-->
             <material:MaterialCard Margin="10">
                 <StackLayout>
-                    <material:MaterialLabel Text="Graph"
+                    <!--<material:MaterialLabel Text="Graph"
                                             FontSize="Medium"
                                             FontAttributes="Bold" />
 
                     <BoxView Color="{DynamicResource MaterialDesignDivider}"
                              HeightRequest="2"
                              HorizontalOptions="Fill"
-                             Margin="0, 0, 0, 5" />
+                             Margin="0, 0, 0, 5" />-->
 
                     <oxy:PlotView Model="{Binding PlotStrength}"
-                                  HeightRequest="300" />
+                                  HeightRequest="400" />
                 </StackLayout>
             </material:MaterialCard>
 
@@ -127,7 +127,7 @@
 
                     <!--Refresh-->
                     <material:MaterialButton WidthRequest="75"
-                                             ImageSource="ic_refresh_black_18dp"
+                                             ImageSource="refresh"
                                              Command="{Binding RefreshPlotCommand}">
                     </material:MaterialButton>
                 </StackLayout>
@@ -216,7 +216,7 @@
                                                     IsEnabled="False"
                                                     Margin="10, 0, 0, 0" />-->
 
-                        <material:MaterialLabel Grid.Row="1"
+                        <material:MaterialLabel Grid.Row="0"
                                                 Grid.Column="2"
                                                 Margin="10, 0, 0, 0">
                             kg
