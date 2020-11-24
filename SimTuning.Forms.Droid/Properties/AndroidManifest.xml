@@ -3,7 +3,7 @@
 project=SimTuning.Forms.Droid, file=AndroidManifest.xml, creation=2020:7:7
 Copyright (c) 2020 tuke productions. All rights reserved.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="8" android:versionName="1.1.5" package="com.tuke_productions.simtuning" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="9" android:versionName="1.1.6" package="com.tuke_productions.simtuning" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
 	<application android:allowBackup="true" android:label="SimTuning" android:supportsRtl="true" android:icon="@mipmap/logo" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
