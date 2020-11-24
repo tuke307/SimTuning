@@ -130,7 +130,7 @@
 
                 <material:MaterialLabel LineBreakMode="CharacterWrap">Dieses Projekt wurde von mir allein ins Leben gerufen. Ich hatte keinen Sponsor oder ähnliches. Ich würde mich sehr über eine kleine Spende freuen</material:MaterialLabel>
 
-                <material:MaterialButton ImageSource="ic_card_giftcard_black_18dp.png"
+                <material:MaterialButton ImageSource="wallet_giftcard"
                                          Text="Unterstützen"
                                          CornerRadius="5"
                                          WidthRequest="125"

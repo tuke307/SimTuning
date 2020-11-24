@@ -186,7 +186,7 @@
                         <expandable:ExpandableView.PrimaryView>
                             <material:MaterialCard>
                                 <material:MaterialLabel>
-                                    Audio
+                                    Drehzahl
                                 </material:MaterialLabel>
                             </material:MaterialCard>
                         </expandable:ExpandableView.PrimaryView>
@@ -252,7 +252,7 @@
                     </expandable:ExpandableView>
 
                     <!--Nm-->
-                    <expandable:ExpandableView>
+                    <!--<expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
                             <material:MaterialCard>
                                 <material:MaterialLabel>
@@ -284,7 +284,7 @@
                                 </StackLayout>
                             </DataTemplate>
                         </expandable:ExpandableView.SecondaryViewTemplate>
-                    </expandable:ExpandableView>
+                    </expandable:ExpandableView>-->
                 </StackLayout>
             </material:MaterialCard>
 

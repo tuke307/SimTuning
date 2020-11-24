@@ -85,7 +85,7 @@
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"
                                           Text="Home"
-                                          Source="ic_dashboard_black_18dp">
+                                          Source="view_dashboard">
                     <component:MenuOptionView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ShowHomeCommand}" />
                     </component:MenuOptionView.GestureRecognizers>
@@ -141,7 +141,7 @@
                 <component:MenuOptionView HorizontalOptions="FillAndExpand"
                                           VerticalOptions="StartAndExpand"
                                           Text="Dyno"
-                                          Source="ic_chart_scatter_plot_black_18dp">
+                                          Source="chart_bell_curve_cumulative">
                     <component:MenuOptionView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ShowDynoCommand}" />
                     </component:MenuOptionView.GestureRecognizers>

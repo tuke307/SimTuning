@@ -43,6 +43,7 @@ namespace Data
         /// Gets or sets the dyno nm.
         /// </summary>
         /// <value>The dyno nm.</value>
+        [Obsolete("obsolete", true)]
         public DbSet<DynoNmModel> DynoNm { get; set; }
 
         /// <summary>

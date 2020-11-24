@@ -35,8 +35,6 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                                            Converter1="{StaticResource Inverter}"
                                            Converter2="{StaticResource BoolToVis}">
             </behaviours:CombiningConverter>
-
-            <local:UserSettings x:Key="userSettings" />
         </ResourceDictionary>
     </views:MvxWpfView.Resources>
 

@@ -16,12 +16,12 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <material:MaterialCard   Margin="10"
-                                 Grid.Row="0">
+        <material:MaterialCard Margin="10"
+                               Grid.Row="0">
             <StackLayout>
                 <material:MaterialIconButton Margin="5"
                                              ButtonType="Elevated"
-                                             HorizontalOptions="Center"
+                                             HorizontalOptions="FillAndExpand"
                                              VerticalOptions="Center"
                                              Image="refresh"
                                              Command="{Binding RefreshPlotCommand}" />
@@ -46,14 +46,13 @@
             </StackLayout>
         </material:MaterialCard>
 
-        <material:MaterialIconButton WidthRequest="75"
-                                     HeightRequest="50"
-                                     Margin="15"
-                                     Grid.Row="2"
-                                     ButtonType="Elevated"
-                                     HorizontalOptions="End"
-                                     VerticalOptions="Center"
-                                     Image="chevron_right"
-                                     Command="{Binding ShowDiagnosisCommand}" />
+        <material:MaterialButton WidthRequest="75"
+                                 Margin="15"
+                                 Grid.Row="2"
+                                 ButtonType="Elevated"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="Center"
+                                 Image="chevron_right"
+                                 Command="{Binding ShowDiagnosisCommand}" />
     </Grid>
 </views:MvxContentPage>

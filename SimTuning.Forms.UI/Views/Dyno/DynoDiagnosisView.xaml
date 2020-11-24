@@ -126,7 +126,7 @@
                     </StackLayout>-->
 
                     <!--Refresh-->
-                    <material:MaterialButton WidthRequest="75"
+                    <material:MaterialButton HorizontalOptions="FillAndExpand"
                                              ImageSource="refresh"
                                              Command="{Binding RefreshPlotCommand}">
                     </material:MaterialButton>
@@ -231,7 +231,7 @@
 
                     <material:MaterialButton ImageSource="ic_chevron_right_black_18dp.png"
                                              Command="{Binding InsertVehicleCommand}"
-                                             WidthRequest="90" />
+                                             HorizontalOptions="FillAndExpand" />
                 </StackLayout>
             </material:MaterialCard>
 

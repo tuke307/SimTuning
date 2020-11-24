@@ -98,7 +98,7 @@
                                                             Margin="10, 0, 0, 0"></material:MaterialLabel>
 
                                     <material:MaterialButton Command="{Binding CutBeginnCommand }"
-                                                             ImageSource="ic_content_cut_black_18dp"
+                                                             ImageSource="content_cut"
                                                              WidthRequest="70">
                                     </material:MaterialButton>
                                 </StackLayout>
@@ -108,7 +108,7 @@
                                                             Margin="10, 0, 0, 0"></material:MaterialLabel>
 
                                     <material:MaterialButton Command="{Binding CutEndCommand }"
-                                                             ImageSource="ic_content_cut_black_18dp"
+                                                             ImageSource="content_cut"
                                                              WidthRequest="70">
                                     </material:MaterialButton>
                                 </StackLayout>
@@ -252,7 +252,7 @@
                                                     SelectedChoice="{Binding Mode=TwoWay, Path=Intensity}">
                         </material:MaterialTextField>
 
-                        <material:MaterialButton ImageSource="ic_filter_outline_black_18dp"
+                        <material:MaterialButton ImageSource="filter_outline"
                                                  WidthRequest="90"
                                                  Command="{Binding FilterPlotCommand}" />
 

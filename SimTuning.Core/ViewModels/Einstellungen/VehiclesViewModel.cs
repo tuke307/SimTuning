@@ -171,7 +171,7 @@ namespace SimTuning.Core.ViewModels.Einstellungen
             // this.RaisePropertyChanged(() => VehicleCw);
             this.RaisePropertyChanged(() => VehicleDynoAudio);
             this.RaisePropertyChanged(() => VehicleDynoBeschreibung);
-            this.RaisePropertyChanged(() => VehicleDynoDynoNm);
+            //this.RaisePropertyChanged(() => VehicleDynoDynoNm);
             this.RaisePropertyChanged(() => VehicleDynoDynoPS);
             this.RaisePropertyChanged(() => VehicleDynoName);
             //this.RaisePropertyChanged(() => VehicleFrontA);
@@ -462,10 +462,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// Gets the vehicle dyno dyno nm.
         /// </summary>
         /// <value>The vehicle dyno dyno nm.</value>
-        public ObservableCollection<Data.Models.DynoNmModel> VehicleDynoDynoNm
-        {
-            get => this.Vehicle?.Dyno?.DynoNm == null ? new ObservableCollection<Data.Models.DynoNmModel>() : new ObservableCollection<Data.Models.DynoNmModel>(this.Vehicle?.Dyno?.DynoNm);
-        }
+        //public ObservableCollection<Data.Models.DynoNmModel> VehicleDynoDynoNm
+        //{
+        //    get => this.Vehicle?.Dyno?.DynoNm == null ? new ObservableCollection<Data.Models.DynoNmModel>() : new ObservableCollection<Data.Models.DynoNmModel>(this.Vehicle?.Dyno?.DynoNm);
+        //}
 
         /// <summary>
         /// Gets the vehicle dyno dyno ps.

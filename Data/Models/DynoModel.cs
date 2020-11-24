@@ -2,6 +2,7 @@
 // productions. All rights reserved.
 namespace Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -40,6 +41,7 @@ namespace Data.Models
         /// Gets or sets the dyno nm.
         /// </summary>
         /// <value>The dyno nm.</value>
+        [Obsolete("obsolete", true)]
         public virtual IList<DynoNmModel> DynoNm { get; set; }
 
         /// <summary>

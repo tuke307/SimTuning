@@ -212,7 +212,7 @@ namespace SimTuning.Core.ViewModels.Dyno
 
                     db.Entry(_dyno).Reference(v => v.Vehicle).Load();
                     db.Entry(_dyno).Collection(v => v.Drehzahl).Load();
-                    db.Entry(_dyno).Collection(v => v.DynoNm).Load();
+                    db.Entry(_dyno).Collection(v => v.Geschwindigkeit).Load();
                     db.Entry(_dyno).Collection(v => v.DynoPS).Load();
 
                     return _dyno;
