@@ -7,6 +7,7 @@
                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
                       xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:customcomponents="clr-namespace:SimTuning.Forms.UI.Components"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Tuning"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       x:TypeArguments="viewModels:TuningDataViewModel"
@@ -34,14 +35,14 @@
                               RowHeight="40">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ViewCell>
+                                <customcomponents:CustomViewCell SelectedBackgroundColor="{DynamicResource MaterialDesignSelection}">
                                     <StackLayout>
                                         <material:MaterialLabel Text="{Binding Name}"
                                                                 FontAttributes="Bold"
                                                                 Margin="0, 0, 0, -5" />
                                         <material:MaterialLabel Text="{Binding Beschreibung}" />
                                     </StackLayout>
-                                </ViewCell>
+                                </customcomponents:CustomViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
