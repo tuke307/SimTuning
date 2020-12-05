@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Forms.UI.Business;
+using SimTuning.Forms.UI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IThemeService themeService)
                                           : base(logProvider, navigationService)
         {
+            this._themeService = themeService;
             BaseThemeValue = (Themes.BaseTheme)ColorSettings.Theme;
         }
 
@@ -50,9 +52,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 
         #region Values
 
+        private readonly IThemeService _themeService;
         private Array _baseTheme = Enum.GetValues(typeof(Themes.BaseTheme));
 
-        private Themes.BaseTheme _baseThemeValue;
+        private Themes.BaseTheme? _baseThemeValue;
 
         public List<Themes.BaseTheme> BaseThemeList
         {
@@ -63,13 +66,21 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// Gets or sets the base theme value.
         /// </summary>
         /// <value>The base theme value.</value>
-        public Themes.BaseTheme BaseThemeValue
+        public Themes.BaseTheme? BaseThemeValue
         {
             get => _baseThemeValue;
             set
             {
-                SetProperty(ref _baseThemeValue, value);
-                ApplicationChanges.SetBaseTheme(value);
+                if (_baseThemeValue != null)
+                {
+                    if (ColorSettings.Theme != (int)value.Value)
+                    {
+                        ColorSettings.Theme = (int)value.Value;
+                        _themeService.UpdateTheme(value.Value);
+                    }
+                }
+
+                this.SetProperty(ref _baseThemeValue, value);
             }
         }
 

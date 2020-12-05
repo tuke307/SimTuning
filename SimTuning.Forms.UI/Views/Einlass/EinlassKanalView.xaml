@@ -11,7 +11,8 @@
         <StackLayout>
 
             <!--Einlass Resonanzlänge-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Einlass-Resonanzlänge"
                                             TypeScale="H5" />
@@ -145,7 +146,8 @@
             </material:MaterialCard>
 
             <!--Hilfe-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             TypeScale="H5" />

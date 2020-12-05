@@ -12,7 +12,8 @@
         <StackLayout>
 
             <!--Steuerzeiten Rad-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Diagramm"
                                             FontSize="Medium"
@@ -147,7 +148,8 @@
             </material:MaterialCard>
 
             <!--Fahrzeug-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Fahrzeg Steuerzeiten"
                                             FontSize="Medium"
@@ -247,7 +249,8 @@
             </material:MaterialCard>
 
             <!--Tuning Presets-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Richtwerte Steuerzeiten"
                                             FontSize="Medium"

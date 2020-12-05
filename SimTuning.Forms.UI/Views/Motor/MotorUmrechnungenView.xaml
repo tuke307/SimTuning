@@ -12,7 +12,8 @@
         <StackLayout>
 
             <!--GRUNDLEGENDES-->
-            <material:MaterialCard  Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Grundlegende Daten"
                                             FontSize="Medium"
@@ -119,7 +120,8 @@
             </material:MaterialCard>
 
             <!--UMRECHNUNG-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Umrechnung"
                                             FontSize="Medium"
@@ -171,7 +173,8 @@
             </material:MaterialCard>
 
             <!--STEUERZEIT-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Steuerzeit erhöhen"
                                             FontSize="Medium"
@@ -302,7 +305,8 @@
             </material:MaterialCard>
 
             <!--HILFSDATEN-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
 
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfswerte"

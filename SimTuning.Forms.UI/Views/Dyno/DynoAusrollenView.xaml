@@ -16,7 +16,8 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <material:MaterialCard Margin="10"
+        <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                               Margin="10"
                                Grid.Row="0">
             <StackLayout>
                 <material:MaterialIconButton Margin="5"
@@ -28,7 +29,8 @@
             </StackLayout>
         </material:MaterialCard>
 
-        <material:MaterialCard Margin="10"
+        <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                               Margin="10"
                                Grid.Row="1"
                                VerticalOptions="FillAndExpand">
             <StackLayout>

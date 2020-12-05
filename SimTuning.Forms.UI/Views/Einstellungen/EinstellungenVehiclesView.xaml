@@ -5,6 +5,7 @@
                       xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
                       xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                       xmlns:local="clr-namespace:SimTuning.Forms.UI.Behaviors"
+                      xmlns:customcomponents="clr-namespace:SimTuning.Forms.UI.Components"
                       xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
                       xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
                       Title="Fahrzeuge"
@@ -12,7 +13,8 @@
     <ScrollView>
         <StackLayout>
 
-            <material:MaterialCard Margin="10"
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10"
                                    VerticalOptions="CenterAndExpand">
                 <StackLayout>
                     <material:MaterialLabel Text="Auswahl"
@@ -30,14 +32,14 @@
                               RowHeight="50">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ViewCell>
+                                <customcomponents:CustomViewCell SelectedBackgroundColor="{DynamicResource MaterialDesignSelection}">
                                     <StackLayout>
                                         <material:MaterialLabel Text="{Binding Name}"
                                                                 FontAttributes="Bold"
                                                                 Margin="0, 0, 0, -5" />
                                         <material:MaterialLabel Text="{Binding Beschreibung}" />
                                     </StackLayout>
-                                </ViewCell>
+                                </customcomponents:CustomViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -56,7 +58,8 @@
                 </StackLayout>
             </material:MaterialCard>
 
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
@@ -104,7 +107,7 @@
                     <!--Allgemein-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard>
+                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                 <material:MaterialLabel>
                                     Allgemein
                                 </material:MaterialLabel>
@@ -174,7 +177,7 @@
                     <!--Motor-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard>
+                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                 <material:MaterialLabel>
                                     Motor
                                 </material:MaterialLabel>
@@ -202,7 +205,7 @@
                                     <!--Daten-->
                                     <expandable:ExpandableView>
                                         <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard>
+                                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                                 <material:MaterialLabel>
                                                     Daten
                                                 </material:MaterialLabel>
@@ -410,7 +413,7 @@
                                     <!--Einlass-->
                                     <expandable:ExpandableView>
                                         <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard>
+                                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                                 <material:MaterialLabel>
                                                     Einlass
                                                 </material:MaterialLabel>
@@ -531,7 +534,7 @@
                                                     <!--Vergaser-->
                                                     <expandable:ExpandableView>
                                                         <expandable:ExpandableView.PrimaryView>
-                                                            <material:MaterialCard>
+                                                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                                                 <material:MaterialLabel>
                                                                     Vergaser
                                                                 </material:MaterialLabel>
@@ -577,7 +580,7 @@
                                     <!--Auslass-->
                                     <expandable:ExpandableView>
                                         <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard>
+                                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                                 <material:MaterialLabel>
                                                     Auslass
                                                 </material:MaterialLabel>
@@ -682,7 +685,7 @@
                                                     <!--Auspuff-->
                                                     <expandable:ExpandableView>
                                                         <expandable:ExpandableView.PrimaryView>
-                                                            <material:MaterialCard>
+                                                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                                                 <material:MaterialLabel>
                                                                     Auspuff
                                                                 </material:MaterialLabel>
@@ -703,7 +706,7 @@
                                     <!--Ueberstroemer-->
                                     <expandable:ExpandableView>
                                         <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard>
+                                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                                 <material:MaterialLabel>
                                                     Ueberstroemer
                                                 </material:MaterialLabel>
@@ -794,7 +797,7 @@
                     <!--Dyno-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard>
+                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                 <material:MaterialLabel>
                                     Dyno
                                 </material:MaterialLabel>
@@ -823,7 +826,7 @@
                                     <!--Audio-->
                                     <expandable:ExpandableView>
                                         <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard>
+                                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                                 <material:MaterialLabel>
                                                     Audio
                                                 </material:MaterialLabel>
@@ -854,7 +857,7 @@
                                     <!--PS-->
                                     <expandable:ExpandableView>
                                         <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard>
+                                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                                 <material:MaterialLabel>
                                                     PS
                                                 </material:MaterialLabel>
@@ -885,7 +888,7 @@
                                     <!--Nm-->
                                     <expandable:ExpandableView>
                                         <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard>
+                                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                                 <material:MaterialLabel>
                                                     Nm
                                                 </material:MaterialLabel>

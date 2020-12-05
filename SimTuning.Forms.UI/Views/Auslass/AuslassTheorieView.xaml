@@ -12,7 +12,8 @@
         <StackLayout>
 
             <!--LÄNGE-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Krümmer-Länge"
@@ -106,7 +107,8 @@
             </material:MaterialCard>
 
             <!--DURCHMESSER-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Krümmer-Durchmesser"
@@ -156,7 +158,8 @@
                 </StackLayout>
             </material:MaterialCard>
 
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Abgastemperatur"
@@ -218,7 +221,8 @@
                 </StackLayout>
             </material:MaterialCard>
 
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Resonanzlänge"
@@ -299,7 +303,8 @@
                 </StackLayout>
             </material:MaterialCard>
 
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"

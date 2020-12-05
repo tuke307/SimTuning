@@ -9,6 +9,7 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
     using MvvmCross.Navigation;
     using SimTuning.Core;
     using SimTuning.WPF.UI.Business;
+    using SimTuning.WPF.UI.Models;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -27,9 +28,10 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IThemeService themeService)
             : base(logProvider, navigationService)
         {
+            this._themeService = themeService;
             this.Swatches = new SwatchesProvider().Swatches;
             this.ApplyPrimaryCommand = new MvxCommand<Swatch>(ApplyPrimary, CanExecute);
             this.ApplyAccentCommand = new MvxCommand<Swatch>(ApplyAccent, CanExecute);
@@ -75,7 +77,12 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// <param name="parameter">The parameter.</param>
         protected void ApplyAccent(Swatch parameter)
         {
-            ApplicationChanges.SetAccent(parameter);
+            MaterialDesignColors.SecondaryColor secondaryColor = (MaterialDesignColors.SecondaryColor)Enum.Parse(typeof(MaterialDesignColors.SecondaryColor), parameter.Name);
+
+            ColorSettings.Secondary = (int)secondaryColor;
+            _themeService.UpdateSecondary(secondaryColor);
+
+            //ApplicationChanges.SetAccent(parameter);
         }
 
         /// <summary>
@@ -84,7 +91,12 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// <param name="parameter">The parameter.</param>
         protected void ApplyPrimary(Swatch parameter)
         {
-            ApplicationChanges.SetPrimary(parameter);
+            MaterialDesignColors.PrimaryColor primaryColor = (MaterialDesignColors.PrimaryColor)Enum.Parse(typeof(MaterialDesignColors.PrimaryColor), parameter.ToString(), true);
+
+            ColorSettings.Primary = (int)primaryColor;
+            _themeService.UpdatePrimary(primaryColor);
+
+            //ApplicationChanges.SetPrimary(parameter);
         }
 
         /// <summary>
@@ -104,9 +116,10 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
 
         #region Values
 
+        private readonly IThemeService _themeService;
         private Array _baseTheme = Enum.GetValues(typeof(MaterialDesignThemes.Wpf.BaseTheme));
 
-        private BaseTheme _baseThemeValue;
+        private BaseTheme? _baseThemeValue;
 
         /// <summary>
         /// Gets or sets the apply accent command.
@@ -129,13 +142,18 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// Gets or sets the base theme value.
         /// </summary>
         /// <value>The base theme value.</value>
-        public MaterialDesignThemes.Wpf.BaseTheme BaseThemeValue
+        public MaterialDesignThemes.Wpf.BaseTheme? BaseThemeValue
         {
             get => _baseThemeValue;
             set
             {
+                // nur wenn eine Änderung gewünscht ist
+                if (_baseThemeValue != null)
+                {
+                    _themeService.UpdateTheme(value.Value);
+                }
+
                 SetProperty(ref _baseThemeValue, value);
-                ApplicationChanges.SetBaseTheme(value);
             }
         }
 

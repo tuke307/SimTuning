@@ -9,7 +9,8 @@
                       Title="Konto">
     <StackLayout>
 
-        <material:MaterialCard Margin="10">
+        <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                               Margin="10">
             <StackLayout>
                 <material:MaterialLabel Text="Anmelden"
                                         FontSize="Medium"
@@ -37,7 +38,8 @@
                                          Command="{Binding ConnectUserCommand}">
                 </material:MaterialButton>
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center">
                     <material:MaterialLabel VerticalOptions="Center">
                         oder
                     </material:MaterialLabel>

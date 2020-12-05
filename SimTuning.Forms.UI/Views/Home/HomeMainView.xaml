@@ -41,11 +41,12 @@
         </material:MaterialButton>-->
 
         <!--GRID ROW 3-->
-        <material:MaterialCard CornerRadius="2"
-                               Elevation="3"
-                               Grid.Row="0"
-                               Margin="5"
-                               VerticalOptions="CenterAndExpand">
+        <material:MaterialCard  CornerRadius="2"
+                                Elevation="3"
+                                Grid.Row="0"
+                                Margin="5"
+                                VerticalOptions="CenterAndExpand"
+                                BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
             <StackLayout>
                 <material:MaterialLabel FontSize="Title">Bleib auf dem Laufenden</material:MaterialLabel>
 
@@ -115,7 +116,8 @@
             </StackLayout>
         </material:MaterialCard>
 
-        <material:MaterialCard CornerRadius="2"
+        <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                               CornerRadius="2"
                                Elevation="3"
                                Grid.Row="1"
                                Margin="5"

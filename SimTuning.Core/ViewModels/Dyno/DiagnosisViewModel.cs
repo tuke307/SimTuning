@@ -139,7 +139,7 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// </summary>
         private void InsertVehicle()
         {
-            if (this.HelperVehicle.Gewicht.HasValue)
+            if (this.HelperVehicle?.Gewicht != null)
             {
                 this.DynoVehicleGewicht = this.HelperVehicle.Gewicht;
                 this.RaisePropertyChanged(() => this.DynoVehicleGewicht);

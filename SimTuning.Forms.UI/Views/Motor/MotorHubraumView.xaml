@@ -11,7 +11,8 @@
         <StackLayout>
 
             <!--GRUNDLEGENDES-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Grundlegende Daten"
                                             FontSize="Medium"
@@ -71,7 +72,8 @@
             </material:MaterialCard>
 
             <!--BOHRUNG-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Bohrung"
                                             FontSize="Medium"
@@ -109,7 +111,8 @@
             </material:MaterialCard>
 
             <!--KOLBEN-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Kolben"
                                             FontSize="Medium"
@@ -172,7 +175,8 @@
             </material:MaterialCard>
 
             <!--HILFE-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfswerte"
                                             FontSize="Medium"

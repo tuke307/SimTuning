@@ -15,7 +15,8 @@
     <ScrollView>
         <StackLayout>
 
-            <material:MaterialCard Margin="10"
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10"
                                    VerticalOptions="CenterAndExpand">
                 <StackLayout>
                     <material:MaterialLabel Text="Auswahl"
@@ -105,7 +106,8 @@
                 </StackLayout>
             </material:MaterialCard>
 
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
@@ -148,7 +150,7 @@
                     <!--Audio-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard>
+                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                 <material:MaterialLabel>
                                     Audio
                                 </material:MaterialLabel>
@@ -179,7 +181,7 @@
                     <!--PS-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard>
+                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                 <material:MaterialLabel>
                                     PS
                                 </material:MaterialLabel>
@@ -210,7 +212,7 @@
                     <!--Nm-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard>
+                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                 <material:MaterialLabel>
                                     Nm
                                 </material:MaterialLabel>

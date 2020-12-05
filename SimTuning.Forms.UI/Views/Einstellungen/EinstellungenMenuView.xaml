@@ -16,144 +16,81 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <material:MaterialCard Grid.Row="0"
+        <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                               Grid.Row="0"
                                CornerRadius="2"
                                Elevation="2"
-                               MinimumHeightRequest="70"
+                               HeightRequest="70"
                                Margin="20, 10, 20, 10"
                                HorizontalOptions="FillAndExpand"
                                IsClickable="true"
                                ClickCommand="{Binding OpenKontoCommand}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <!--<material:MaterialIconButton Grid.Row="0"
-                                             Grid.Column="0"
-                                             Margin="0, 0, 10, 0"
-                                             Image=""
-                                             Width="22"
-                                             Height="22" />-->
-                <material:MaterialLabel Grid.Row="0"
-                                        Grid.Column="1"
-                                        TypeScale="H5">
+            <StackLayout>
+                <material:MaterialLabel TypeScale="H5">
                     Konto
                 </material:MaterialLabel>
-                <material:MaterialLabel Grid.Row="1"
-                                        Grid.Column="1">
+                <material:MaterialLabel>
                     Login, Passwort
                 </material:MaterialLabel>
-            </Grid>
+            </StackLayout>
         </material:MaterialCard>
 
-        <material:MaterialCard Grid.Row="1"
+        <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                               Grid.Row="1"
                                CornerRadius="2"
                                Elevation="2"
-                               MinimumHeightRequest="70"
+                               HeightRequest="70"
                                Margin="20, 10, 20, 10"
                                HorizontalOptions="FillAndExpand"
                                IsClickable="true"
                                ClickCommand="{Binding OpenApplicationCommand}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <!--<material:MaterialIconButton Grid.Row="0"
-                                             Grid.Column="0"
-                                             Margin="0, 0, 10, 0"
-                                             Image=""
-                                             Width="22"
-                                             Height="22" />-->
-                <material:MaterialLabel Grid.Row="0"
-                                        Grid.Column="1"
-                                        TypeScale="H5">
-                    Allgemeine Einstellungen
+            <StackLayout>
+
+                <material:MaterialLabel TypeScale="H5">
+                    Allgemein
                 </material:MaterialLabel>
-                <material:MaterialLabel Grid.Row="1"
-                                        Grid.Column="1">
+                <material:MaterialLabel>
                     Einheiten, Runden, Sprache
                 </material:MaterialLabel>
-            </Grid>
+            </StackLayout>
         </material:MaterialCard>
 
-        <material:MaterialCard Grid.Row="2"
+        <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                               Grid.Row="2"
                                CornerRadius="2"
                                Elevation="2"
-                               MinimumHeightRequest="70"
+                               HeightRequest="70"
                                Margin="20, 10, 20, 10"
                                HorizontalOptions="FillAndExpand"
                                IsClickable="true"
                                ClickCommand="{Binding OpenVehiclesCommand}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <!--<material:MaterialIconButton Grid.Row="0"
-                                             Grid.Column="0"
-                                             Margin="0, 0, 10, 0"
-                                             Image=""
-                                             Width="22"
-                                             Height="22" />-->
-                <material:MaterialLabel Grid.Row="0"
-                                        Grid.Column="1"
-                                        TypeScale="H5">
+            <StackLayout>
+                <material:MaterialLabel TypeScale="H5">
                     Fahrzeuge
                 </material:MaterialLabel>
-                <material:MaterialLabel Grid.Row="1"
-                                        Grid.Column="1">
+                <material:MaterialLabel>
                     Datensätze, Modelle, Dyno, Motor
                 </material:MaterialLabel>
-            </Grid>
+            </StackLayout>
         </material:MaterialCard>
 
-        <material:MaterialCard Grid.Row="3"
+        <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                               Grid.Row="3"
                                CornerRadius="2"
                                Elevation="2"
-                               MinimumHeightRequest="70"
+                               HeightRequest="70"
                                Margin="20, 10, 20, 10"
                                HorizontalOptions="FillAndExpand"
                                IsClickable="true"
                                ClickCommand="{Binding OpenAussehenCommand}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <!--<material:MaterialIconButton Grid.Row="0"
-                                             Grid.Column="0"
-                                             Margin="0, 0, 10, 0"
-                                             Image=""
-                                             Width="22"
-                                             Height="22" />-->
-                <material:MaterialLabel Grid.Row="0"
-                                        Grid.Column="1"
-                                        TypeScale="H5">
+            <StackLayout>
+                <material:MaterialLabel TypeScale="H5">
                     Aussehen
                 </material:MaterialLabel>
-                <material:MaterialLabel Grid.Row="1"
-                                        Grid.Column="1">
+                <material:MaterialLabel>
                     Primär - und Sekundärfarbe, Light - und Darkmode
                 </material:MaterialLabel>
-            </Grid>
+            </StackLayout>
         </material:MaterialCard>
     </Grid>
 </views:MvxContentPage>

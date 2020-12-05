@@ -12,7 +12,8 @@
         <StackLayout>
 
             <!--GRUNDLEGENDES-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Grundlegendes"
                                             FontSize="Medium"
@@ -81,7 +82,8 @@
             </material:MaterialCard>
 
             <!--VERHÄLTNIS-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Verdichtungsverhältnis"
                                             FontSize="Medium"
@@ -110,7 +112,8 @@
             </material:MaterialCard>
 
             <!--ERHÖHEN-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Verdichtung erhöhen"
                                             FontSize="Medium"
@@ -176,7 +179,8 @@
             </material:MaterialCard>
 
             <!---->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfswerte"
                                             FontSize="Medium"

@@ -3,6 +3,7 @@
 using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Forms.Views;
 using SimTuning.Forms.UI.ViewModels.Einstellungen;
+using Xamarin.Forms;
 
 namespace SimTuning.Forms.UI.Views.Einstellungen
 {

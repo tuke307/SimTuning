@@ -12,7 +12,8 @@
         <StackLayout>
 
             <!--Vergasergröße-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Vergasergröße"
                                             FontSize="Medium"
@@ -85,7 +86,8 @@
             </material:MaterialCard>
 
             <!--Hauptdüsendurchmesser-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hauptdüsendurchmesser"
                                             FontSize="Medium"
@@ -145,7 +147,8 @@
             </material:MaterialCard>
 
             <!--Hilfe-->
-            <material:MaterialCard Margin="10,10,10,10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10,10,10,10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"

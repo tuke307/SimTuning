@@ -12,7 +12,8 @@
         <StackLayout>
 
             <!--Plot-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <!--<material:MaterialLabel Text="Graph"
                                             FontSize="Medium"
@@ -29,7 +30,8 @@
             </material:MaterialCard>
 
             <!--Einstellungen-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Einstellungen"
                                             FontSize="Medium"
@@ -134,7 +136,8 @@
             </material:MaterialCard>
 
             <!--Hilfe-Fahrzeug-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"
@@ -236,7 +239,7 @@
             </material:MaterialCard>
 
             <!--Hilfe-Environment-->
-            <!--<material:MaterialCard Margin="10">
+            <!--<material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}" Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"

@@ -32,7 +32,7 @@
                     -->
                 <!--EINSTELLUNGEN-->
                 <!--
-                    <material:MaterialCard Margin="10"
+                    <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}" Margin="10"
                                            Grid.Row="0">
 
                         <StackLayout>
@@ -116,7 +116,8 @@
                         </StackLayout>
                     </material:MaterialCard>
                 </Grid>-->
-                <material:MaterialCard Margin="10">
+                <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                       Margin="10">
                     <StackLayout>
                         <material:MaterialLabel Text="Spectrogram"
                                                 FontSize="Medium"
@@ -137,7 +138,8 @@
                 </material:MaterialCard>
 
                 <!--EINSTELLUNGEN-->
-                <material:MaterialCard Margin="10">
+                <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                       Margin="10">
                     <StackLayout>
                         <material:MaterialLabel Text="Spectrogram-Einstellungen"
                                                 FontSize="Medium"
@@ -216,7 +218,8 @@
                 </material:MaterialCard>
 
                 <!--1. Group box Plot-->
-                <material:MaterialCard   Margin="10">
+                <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                       Margin="10">
                     <StackLayout>
                         <material:MaterialLabel Text="Graph"
                                                 FontSize="Medium"
@@ -233,7 +236,8 @@
                 </material:MaterialCard>
 
                 <!--2. group box-->
-                <material:MaterialCard Margin="10">
+                <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                       Margin="10">
                     <StackLayout>
                         <material:MaterialLabel Text="Graph-Einstellungen"
                                                 FontSize="Medium"

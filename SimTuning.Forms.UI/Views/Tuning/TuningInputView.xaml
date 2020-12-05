@@ -11,7 +11,8 @@
     <ScrollView>
         <StackLayout>
             <!--MOTOR-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Motor"
                                             FontSize="Medium"
@@ -111,7 +112,7 @@
                     <!--ÜBERSTRÖMER-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard>
+                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                 <material:MaterialLabel>
                                     Überströmer
                                 </material:MaterialLabel>
@@ -135,7 +136,7 @@
                     <!--Einlass-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard>
+                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                 <material:MaterialLabel>
                                     Einlass
                                 </material:MaterialLabel>
@@ -237,7 +238,7 @@
                     <!--AUSLASS-->
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard>
+                            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}">
                                 <material:MaterialLabel>
                                     Auslass
                                 </material:MaterialLabel>
@@ -333,7 +334,8 @@
             </material:MaterialCard>
 
             <!--WEITERES-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Weiteres"
                                             FontSize="Medium"

@@ -38,7 +38,7 @@ namespace SimTuning.Forms.UI.ViewModels
         public override Task Initialize()
         {
             // TODO: nicht der richtige platz
-            ApplicationChanges.LoadColors();
+            //ApplicationChanges.LoadColors();
 
             return base.Initialize();
         }

@@ -6,6 +6,7 @@ namespace SimTuning.WPF.UI.ViewModels
     using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.WPF.UI.Business;
+    using SimTuning.WPF.UI.Models;
     using SimTuning.WPF.UI.ViewModels.Home;
     using System.Threading.Tasks;
 
@@ -17,14 +18,17 @@ namespace SimTuning.WPF.UI.ViewModels
     {
         private readonly IMvxNavigationService _navigationService;
 
+        private readonly IThemeService _themeService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel" /> class.
         /// </summary>
         /// <param name="logProvider">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
+        public MainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IThemeService themeService)
             : base(logProvider, navigationService)
         {
+            this._themeService = themeService;
             this._navigationService = navigationService;
 
             this.ShowHomeViewModelCommand = new MvxAsyncCommand(() => this._navigationService.Navigate<HomeMainViewModel>());
@@ -39,7 +43,9 @@ namespace SimTuning.WPF.UI.ViewModels
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
-            ApplicationChanges.LoadColors();
+            _themeService.UpdateTheme((MaterialDesignThemes.Wpf.BaseTheme)ColorSettings.Theme);
+            _themeService.UpdatePrimary((MaterialDesignColors.PrimaryColor)ColorSettings.Primary);
+            _themeService.UpdateSecondary((MaterialDesignColors.SecondaryColor)ColorSettings.Secondary);
 
             return base.Initialize();
         }

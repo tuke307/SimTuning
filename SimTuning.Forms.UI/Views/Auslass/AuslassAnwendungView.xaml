@@ -18,7 +18,8 @@
         <StackLayout>
 
             <!--DATEN-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Daten"
                                             FontSize="Medium"
@@ -150,7 +151,8 @@
             </material:MaterialCard>
 
             <!--Krümmer-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Krümmer"
                                             FontSize="Medium"
@@ -203,7 +205,8 @@
             </material:MaterialCard>
 
             <!--Mittelteil-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Mittelteil"
                                             FontSize="Medium"
@@ -243,7 +246,8 @@
             </material:MaterialCard>
 
             <!--Gegenkonus-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Gegenkonus"
                                             FontSize="Medium"
@@ -270,7 +274,8 @@
             </material:MaterialCard>
 
             <!--Endrohr-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Winkel"
                                             FontSize="Medium"
@@ -330,7 +335,8 @@
             </material:MaterialCard>
 
             <!--DIFFUSOR-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Diffusor"
@@ -573,7 +579,8 @@
             </material:MaterialCard>
 
             <!--ERGEBNIS-->
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
 
                     <material:MaterialLabel Text="Ergebnis"
@@ -750,7 +757,8 @@
                 </StackLayout>
             </material:MaterialCard>
 
-            <material:MaterialCard Margin="10">
+            <material:MaterialCard BackgroundColor="{DynamicResource MaterialDesignCardBackground}"
+                                   Margin="10">
                 <StackLayout>
                     <material:MaterialLabel Text="Hilfe"
                                             FontSize="Medium"

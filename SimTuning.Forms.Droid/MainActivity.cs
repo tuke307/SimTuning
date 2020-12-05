@@ -4,9 +4,15 @@ namespace SimTuning.Forms.Droid
 {
     using Android.App;
     using Android.Content.PM;
+    using Android.Content.Res;
     using Android.OS;
+    using Android.Support.V7.App;
     using MediaManager;
+    using MvvmCross;
     using MvvmCross.Forms.Platforms.Android.Views;
+    using SimTuning.Forms.UI.Services;
+    using SimTuning.Forms.UI.Themes;
+    using System;
 
     /// <summary>
     /// MainActivity.
@@ -24,6 +30,16 @@ namespace SimTuning.Forms.Droid
     // No Splash Screen with this; MvxFormsAppCompatActivity<MvxFormsAndroidSetup<App,
     // FormsApp>, App, FormsApp>
     {
+        /// <summary>
+        /// Called when [configuration changed].
+        /// </summary>
+        /// <param name="newConfig">The new configuration.</param>
+        public override void OnConfigurationChanged(Configuration newConfig)
+        {
+            base.OnConfigurationChanged(newConfig);
+            this.UpdateTheme(newConfig);
+        }
+
         /// <summary>
         /// To be added.
         /// </summary>
@@ -62,6 +78,45 @@ namespace SimTuning.Forms.Droid
             XF.Material.Droid.Material.Init(this, bundle);
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
             CrossMediaManager.Current.Init(this);
+        }
+
+        /// <summary>
+        /// Called when [resume].
+        /// </summary>
+        protected override void OnResume()
+        {
+            base.OnResume();
+            UpdateTheme(Resources.Configuration);
+        }
+
+        /// <summary>
+        /// Called when [start].
+        /// </summary>
+        protected override void OnStart()
+        {
+            base.OnStart();
+            this.UpdateTheme(Resources.Configuration);
+        }
+
+        private void UpdateTheme(Configuration newConfig)
+        {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Froyo)
+            {
+                var uiModeFlags = newConfig.UiMode & UiMode.NightMask;
+                switch (uiModeFlags)
+                {
+                    case UiMode.NightYes:
+                        Mvx.IoCProvider.Resolve<IThemeService>().UpdateTheme(BaseTheme.Dark);
+                        break;
+
+                    case UiMode.NightNo:
+                        Mvx.IoCProvider.Resolve<IThemeService>().UpdateTheme(BaseTheme.Light);
+                        break;
+
+                    default:
+                        throw new NotSupportedException($"UiMode {uiModeFlags} not supported");
+                }
+            }
         }
     }
 }
