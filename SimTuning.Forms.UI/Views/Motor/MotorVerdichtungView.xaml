@@ -273,15 +273,12 @@
                                 mm³
                             </material:MaterialLabel>
                         </StackLayout>
-
-                        <material:MaterialButton ImageSource="ic_chevron_right_black_18dp.png"
-                                                 HorizontalOptions="Center"
-                                                 Command="{Binding InsertDataCommand}"
-                                                 Grid.Row="4"
-                                                 Grid.Column="0"
-                                                 Grid.ColumnSpan="2"
-                                                 WidthRequest="90" />
                     </Grid>
+                    
+                    <material:MaterialButton ImageSource="chevron_right"
+                                             HorizontalOptions="Center"
+                                             Command="{Binding InsertDataCommand}"
+                                             WidthRequest="90" />
                 </StackLayout>
             </material:MaterialCard>
         </StackLayout>

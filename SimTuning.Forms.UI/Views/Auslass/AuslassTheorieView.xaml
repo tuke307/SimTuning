@@ -400,7 +400,7 @@
                         </StackLayout>
                     </Grid>
 
-                    <material:MaterialButton ImageSource="ic_chevron_right_black_18dp.png"
+                    <material:MaterialButton ImageSource="chevron_right"
                                              Command="{Binding InsertDataCommand}"
                                              WidthRequest="100"
                                              HeightRequest="70"

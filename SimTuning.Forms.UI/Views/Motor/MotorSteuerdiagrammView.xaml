@@ -241,7 +241,7 @@
                         </StackLayout>
                     </Grid>
 
-                    <material:MaterialButton ImageSource="ic_chevron_right_black_18dp.png"
+                    <material:MaterialButton ImageSource="chevron_right"
                                              Command="{Binding InsertVehicleCommand}"
                                              HorizontalOptions="Center"
                                              WidthRequest="90" />
@@ -341,7 +341,7 @@
                         </StackLayout>
                     </Grid>
 
-                    <material:MaterialButton ImageSource="ic_chevron_right_black_18dp"
+                    <material:MaterialButton ImageSource="chevron_right"
                                              Command="{Binding InsertReferenceCommand}"
                                              HorizontalOptions="Center"
                                              WidthRequest="90" />

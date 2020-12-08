@@ -65,8 +65,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <material:MaterialButton Elevation="4"
-                                             Grid.Column="0"
+                    <material:MaterialButton Grid.Column="0"
                                              Image="web"
                                              ButtonType="Outlined"
                                              Text="Website"

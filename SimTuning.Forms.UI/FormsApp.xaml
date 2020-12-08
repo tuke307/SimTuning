@@ -77,5 +77,10 @@
             <Setter Property="TextColor"
                     Value="{DynamicResource MaterialDesignBody}" />
         </Style>
+
+        <!--<Style TargetType="{x:Type Editor}">
+            <Setter Property="BackgroundColor"
+                    Value="{DynamicResource MaterialDesignBody}" />
+        </Style>-->
     </Application.Resources>
 </Application>
