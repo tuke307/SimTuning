@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <CodeAnalysisRuleSet>..\Solution Items\Code Rules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>$(SolutionDir)Code Rules.ruleset</CodeAnalysisRuleSet>
     <OldToolsVersion>Current</OldToolsVersion>
   </PropertyGroup>
 
@@ -24,7 +24,7 @@
     <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="7.1.2" />
     <PackageReference Include="OxyPlot.Xamarin.Forms" Version="1.0.0" />
     <PackageReference Include="Plugin.AudioRecorder" Version="1.1.0" />
-    <PackageReference Include="Plugin.MediaManager.Forms" Version="1.0.4" />
+    <PackageReference Include="Plugin.MediaManager.Forms" Version="1.0.6" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -35,7 +35,7 @@
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.43-beta" />
-    <PackageReference Include="XF.Material" Version="1.7.6" />
+    <PackageReference Include="XF.Material" Version="1.7.7" />
   </ItemGroup>
 
   <ItemGroup>
