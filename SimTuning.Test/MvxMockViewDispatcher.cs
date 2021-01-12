@@ -38,7 +38,7 @@
         /// </summary>
         /// <param name="hint">The hint.</param>
         /// <returns></returns>
-        Task<bool> IMvxViewDispatcher.ChangePresentation(MvxPresentationHint hint)
+        public Task<bool> ChangePresentation(MvxPresentationHint hint)
         {
             Hints.Add(hint);
             return Task.FromResult(true);
@@ -85,7 +85,7 @@
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        Task<bool> IMvxViewDispatcher.ShowViewModel(MvxViewModelRequest request)
+        public Task<bool> ShowViewModel(MvxViewModelRequest request)
         {
             Requests.Add(request);
             return Task.FromResult(true);

@@ -8,7 +8,7 @@
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
-    public class CoreViewModelsTest : ViewModelBase
+    public class CoreViewModelsTest : ViewModelBase, IViewModelTest
     {
         /// <summary>
         /// AuslassAnwendungViewModelTest.
@@ -318,6 +318,10 @@
         protected override void AdditionalSetup()
         {
             base.AdditionalSetup();
+
+            // for theme
+            var themeService = new WPF.UI.Models.ThemeServiceBase();
+            Ioc.RegisterSingleton<WPF.UI.Models.IThemeService>(themeService);
         }
     }
 }

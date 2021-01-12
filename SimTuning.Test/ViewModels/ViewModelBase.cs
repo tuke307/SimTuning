@@ -2,6 +2,7 @@
 using MvvmCross.Core;
 using MvvmCross.Navigation;
 using MvvmCross.Tests;
+using NUnit.Framework;
 
 namespace SimTuning.Test
 {
@@ -20,16 +21,12 @@ namespace SimTuning.Test
                 ViewDispatcher = MockDispatcher,
             }
             ;
-            navigationService.LoadRoutes(new[] { typeof(WPF.UI.ViewModels.MenuViewModel).Assembly });
+            //navigationService.LoadRoutes(new[] { typeof(WPF.UI.ViewModels.MenuViewModel).Assembly });
             Ioc.RegisterSingleton<IMvxNavigationService>(navigationService);
 
             // for commands
             var commandHelper = new MvxUnitTestCommandHelper();
             Ioc.RegisterSingleton<IMvxCommandHelper>(commandHelper);
-
-            // for theme
-            //var themeService = new WPF.UI.Services.ThemeService();
-            //Ioc.RegisterSingleton<WPF.UI.Services.IThemeService>(themeService);
         }
     }
 }

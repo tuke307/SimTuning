@@ -23,7 +23,7 @@
         /// Runs the before any tests.
         /// </summary>
         [SetUp]
-        public void SetupTest()
+        public virtual void SetupTest()
         {
             Setup();
 
@@ -46,8 +46,8 @@
             Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(MockDispatcher);
             Ioc.RegisterSingleton<IMvxViewDispatcher>(MockDispatcher);
 
-            this.Ioc.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
-            this.Ioc.RegisterSingleton(MediaManager.CrossMediaManager.Current);
+            //this.Ioc.RegisterSingleton(Plugin.Settings.CrossSettings.Current);
+            //this.Ioc.RegisterSingleton(MediaManager.CrossMediaManager.Current);
         }
     }
 }

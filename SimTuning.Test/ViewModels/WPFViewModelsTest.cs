@@ -8,7 +8,7 @@
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
-    public class WPFViewModelsTest : ViewModelBase
+    public class WPFViewModelsTest : ViewModelBase, IViewModelTest
     {
         /// <summary>
         /// AuslassAnwendungViewModelTest.
@@ -119,6 +119,15 @@
         public void DynoMainViewModelTest()
         {
             var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<WPF.UI.ViewModels.Dyno.DynoMainViewModel>();
+        }
+
+        /// <summary>
+        /// Dynoes the runtime view model test.
+        /// </summary>
+        public void DynoRuntimeViewModelTest()
+        {
+            // nicht vorhanden bei windows
+            //throw new System.NotImplementedException();
         }
 
         /// <summary>

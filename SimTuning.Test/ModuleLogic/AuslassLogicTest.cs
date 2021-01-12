@@ -1,4 +1,4 @@
-﻿namespace SimTuning.Core.Test
+﻿namespace SimTuning.Test
 {
     using Data.Models;
     using NUnit.Framework;

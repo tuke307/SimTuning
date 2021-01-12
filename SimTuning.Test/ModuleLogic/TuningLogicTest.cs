@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using SimTuning.Test;
 
-namespace SimTuning.Core.Test
+namespace SimTuning.Test
 {
     /// <summary>
     /// TuningLogicTest.

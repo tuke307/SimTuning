@@ -2,7 +2,7 @@
 using SimTuning.Core.ModuleLogic;
 using SimTuning.Test;
 
-namespace SimTuning.Core.Test
+namespace SimTuning.Test
 {
     /// <summary>
     /// EinlassLogicTest.

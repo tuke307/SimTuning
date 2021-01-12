@@ -8,7 +8,7 @@
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
-    public class FormsViewModelsTest : ViewModelBase
+    public class FormsViewModelsTest : ViewModelBase, IViewModelTest
     {
         /// <summary>
         /// AuslassAnwendungViewModelTest.
@@ -217,7 +217,7 @@
         /// Einstellungens the main view model test.
         /// </summary>
         [Test]
-        public void EinstellungenMainViewModelTest()
+        public void EinstellungenMenuViewModelTest()
         {
             var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Forms.UI.ViewModels.Einstellungen.EinstellungenMenuViewModel>();
         }
@@ -324,6 +324,10 @@
         protected override void AdditionalSetup()
         {
             base.AdditionalSetup();
+
+            // for theme
+            var themeService = new Forms.UI.Services.ThemeServiceBase();
+            Ioc.RegisterSingleton<Forms.UI.Services.IThemeService>(themeService);
         }
     }
 }
