@@ -1,6 +1,6 @@
-﻿using MvvmCross.Tests;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SimTuning.Core.ModuleLogic;
+using SimTuning.Test;
 
 namespace SimTuning.Core.Test
 {
@@ -9,7 +9,7 @@ namespace SimTuning.Core.Test
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
-    public class EinlassLogicTest : MvxTestFixture
+    public class EinlassLogicTest : MvxTest
     {
         /// <summary>
         /// Resonanzs the laenge test.

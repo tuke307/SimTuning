@@ -16,7 +16,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="WooCommerceNET" Version="0.8.2" />
-    <PackageReference Include="WordPressPCL" Version="1.8.2" />
+    <PackageReference Include="WordPressPCL" Version="1.8.5" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
   </ItemGroup>
 

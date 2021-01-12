@@ -1,9 +1,9 @@
 ﻿namespace SimTuning.Core.Test
 {
-    using MvvmCross.Tests;
     using NUnit.Framework;
     using SimTuning.Core.Models;
     using SimTuning.Core.ModuleLogic;
+    using SimTuning.Test;
     using SkiaSharp;
     using System.IO;
 
@@ -12,7 +12,7 @@
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
-    public class EngineLogicTest : MvxTestFixture
+    public class EngineLogicTest : MvxTest
     {
         /// <summary>
         /// Compressions the test.

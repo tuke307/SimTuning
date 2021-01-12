@@ -7,7 +7,8 @@
     /// CoreViewModelsTest.
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
-    public class CoreViewModelsTest : MvxTestFixture
+    [TestFixture]
+    public class CoreViewModelsTest : ViewModelBase
     {
         /// <summary>
         /// AuslassAnwendungViewModelTest.
@@ -312,6 +313,11 @@
         {
             var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Core.ViewModels.Motor.VerdichtungViewModel>();
             vm.InsertDataCommand.ListenForRaiseCanExecuteChanged();
+        }
+
+        protected override void AdditionalSetup()
+        {
+            base.AdditionalSetup();
         }
     }
 }

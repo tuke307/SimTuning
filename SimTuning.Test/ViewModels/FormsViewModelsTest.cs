@@ -7,7 +7,8 @@
     /// FormsViewModelsTest.
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
-    public class FormsViewModelsTest : MvxTestFixture
+    [TestFixture]
+    public class FormsViewModelsTest : ViewModelBase
     {
         /// <summary>
         /// AuslassAnwendungViewModelTest.
@@ -318,6 +319,11 @@
         {
             var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<Forms.UI.ViewModels.Motor.MotorVerdichtungViewModel>();
             vm.InsertDataCommand.ListenForRaiseCanExecuteChanged();
+        }
+
+        protected override void AdditionalSetup()
+        {
+            base.AdditionalSetup();
         }
     }
 }

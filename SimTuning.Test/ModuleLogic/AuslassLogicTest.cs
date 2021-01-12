@@ -1,9 +1,9 @@
 ﻿namespace SimTuning.Core.Test
 {
     using Data.Models;
-    using MvvmCross.Tests;
     using NUnit.Framework;
     using SimTuning.Core.ModuleLogic;
+    using SimTuning.Test;
     using SkiaSharp;
     using System.IO;
 
@@ -12,7 +12,7 @@
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
-    public class AuslassLogicTest : MvxTestFixture
+    public class AuslassLogicTest : MvxTest
     {
         /// <summary>
         /// Auspuffs the test.

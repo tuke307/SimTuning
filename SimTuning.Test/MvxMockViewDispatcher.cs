@@ -8,13 +8,11 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// MockDispatcher.
+    /// MvxMockViewDispatcher.
     /// </summary>
     /// <seealso cref="MvvmCross.Base.MvxMainThreadDispatcher" />
     /// <seealso cref="MvvmCross.Views.IMvxViewDispatcher" />
-    public class MockDispatcher
-     : MvxMainThreadDispatcher
-     , IMvxViewDispatcher
+    public class MvxMockViewDispatcher : MvxMainThreadDispatcher, IMvxViewDispatcher
     {
         /// <summary>
         /// The hints.

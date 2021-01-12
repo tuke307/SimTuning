@@ -1,8 +1,8 @@
 ﻿namespace SimTuning.Core.Test
 {
-    using MvvmCross.Tests;
     using NUnit.Framework;
     using SimTuning.Core.ModuleLogic;
+    using SimTuning.Test;
     using SkiaSharp;
     using System.IO;
 
@@ -11,7 +11,7 @@
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
-    public class AudioLogicTest : MvxTestFixture
+    public class AudioLogicTest : MvxTest
     {
         /// <summary>
         /// Spectrograms the creation test.

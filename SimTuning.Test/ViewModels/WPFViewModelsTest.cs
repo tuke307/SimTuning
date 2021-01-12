@@ -7,7 +7,8 @@
     /// WPFViewModelsTest.
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
-    public class WPFViewModelsTest : MvxTestFixture
+    [TestFixture]
+    public class WPFViewModelsTest : ViewModelBase
     {
         /// <summary>
         /// AuslassAnwendungViewModelTest.
@@ -301,6 +302,11 @@
         {
             var vm = MvvmCross.IoC.MvxIoCProvider.Instance.IoCConstruct<WPF.UI.ViewModels.Motor.MotorVerdichtungViewModel>();
             vm.InsertDataCommand.ListenForRaiseCanExecuteChanged();
+        }
+
+        protected override void AdditionalSetup()
+        {
+            base.AdditionalSetup();
         }
     }
 }

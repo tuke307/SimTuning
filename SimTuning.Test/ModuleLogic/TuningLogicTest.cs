@@ -1,5 +1,5 @@
-using MvvmCross.Tests;
 using NUnit.Framework;
+using SimTuning.Test;
 
 namespace SimTuning.Core.Test
 {
@@ -8,7 +8,7 @@ namespace SimTuning.Core.Test
     /// </summary>
     /// <seealso cref="MvvmCross.Tests.MvxTestFixture" />
     [TestFixture]
-    public class TuningLogicTest : MvxTestFixture
+    public class TuningLogicTest : MvxTest
     {
         [Test]
         public void TestMethod1()
