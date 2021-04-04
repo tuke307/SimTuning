@@ -133,7 +133,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         </Grid.RowDefinitions>
 
                         <TextBox Grid.Row="0"
-                                 Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
                                  materialDesign:HintAssist.Hint="Name"
                                  Text="{Binding Mode=TwoWay, Path=VehicleName, UpdateSourceTrigger=PropertyChanged}"
                                  TextWrapping="Wrap"
@@ -143,7 +143,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                         </TextBox>
 
                         <TextBox Grid.Row="1"
-                                 Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
                                  materialDesign:HintAssist.Hint="Beschreibung"
                                  VerticalScrollBarVisibility="Auto"
                                  AcceptsReturn="True"
@@ -260,7 +260,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
 
                                     <TextBox materialDesign:HintAssist.IsFloating="true"
                                              materialDesign:HintAssist.Hint="Name"
-                                             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                             Style="{StaticResource MaterialDesignFilledTextBox}"
                                              Text="{Binding Mode=TwoWay, Path=VehicleMotorName, UpdateSourceTrigger=PropertyChanged}"
                                              behaviours:NumberOnlyBehaviour.IsEnabled="True"
                                              MinWidth="250">

@@ -18,7 +18,7 @@ namespace SimTuning.WPF.UI.Business
             }
 
             var view = new DialogSnackbarView();
-            view.MySnackbar.MessageQueue.IgnoreDuplicate = true;
+            view.MySnackbar.MessageQueue.DiscardDuplicates = true;
 
             if (content.GetType().IsGenericType && content is IEnumerable)
             {

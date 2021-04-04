@@ -3,7 +3,6 @@
 namespace SimTuning.WPF.App
 {
     using MediaManager;
-    using MvvmCross.IoC;
     using MvvmCross.Platforms.Wpf.Presenters;
     using MvvmCross.Plugin;
     using MvvmCross.ViewModels;
@@ -13,7 +12,7 @@ namespace SimTuning.WPF.App
     using System.Windows.Controls;
 
     /// <summary>
-    /// WPF dotnetframework app start.
+    /// WPF dotnetcore app start.
     /// </summary>
     /// <typeparam name="TApplication">The type of the application.</typeparam>
     /// <seealso cref="MvvmCross.Platforms.Wpf.Core.MvxWpfSetup{TApplication}" />
@@ -32,11 +31,18 @@ namespace SimTuning.WPF.App
             return list.ToArray();
         }
 
+        /// <summary>
+        /// Loads the plugins.
+        /// </summary>
+        /// <param name="pluginManager">The plugin manager.</param>
         public override void LoadPlugins(IMvxPluginManager pluginManager)
         {
             pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
-            pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.WebBrowser.Platforms.Wpf.Plugin>();
 
+            // TODO: when webbrowser plugin updated; uncomment next
+#if NET472
+            pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.WebBrowser.Platforms.Wpf.Plugin>();
+#endif
             base.LoadPlugins(pluginManager);
         }
 
