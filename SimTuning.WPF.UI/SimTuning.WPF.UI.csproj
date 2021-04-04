@@ -1,10 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+     <TargetFrameworks>netcoreapp3.1;net472;net5.0-windows</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>$(SolutionDir)Code Rules.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>SimTuning.WPF.UI</AssemblyName>
+    <AssemblyName>SimTuning.WPF.UI</AssemblyName> 
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
@@ -12,20 +13,21 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
-  <Import Project="$(ProjectDir)netcore.targets" Condition=" $(TargetFramework.StartsWith('netcoreapp3'))" />
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netcoreapp3')) ">
+  <!-- Conditionally obtain references for the .NET 5.0 target -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
   </ItemGroup>
 
+  <!-- Conditionally obtain references for the .NET Core 3.1 target -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
+  </ItemGroup>
+
+    <!-- Conditionally obtain references for the .NET Framework 4.7.2 target -->
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net47')) ">
     <PackageReference Include="Dragablz" Version="0.0.3.223" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Views\Dyno\DynoGeschwindigkeitView.xaml" />
-    <None Remove="Views\Einstellungen\EinstellungenMenuView.xaml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official" Version="1.6.4" />
@@ -52,80 +54,5 @@
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\SimTuning.Core\SimTuning.Core.csproj" />
   </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net47')) ">
-    <None Remove="Dialog\DialogLoadingView.xaml" />
-    <None Remove="Dialog\DialogSnackbarView.xaml" />
-    <None Remove="Views\Auslass\AuslassAnwendungView.xaml" />
-    <None Remove="Views\Auslass\AuslassMainView.xaml" />
-    <None Remove="Views\Auslass\AuslassTheorieView.xaml" />
-    <None Remove="Views\Demo\BuyProView.xaml" />
-    <None Remove="Views\Dyno\DynoDataView.xaml" />
-    <None Remove="Views\Dyno\DynoDiagnosisView.xaml" />
-    <None Remove="Views\Dyno\DynoMainView.xaml" />
-    <None Remove="Views\Dyno\DynoSpectrogramView.xaml" />
-    <None Remove="Views\Einlass\EinlassKanalView.xaml" />
-    <None Remove="Views\Einlass\EinlassMainView.xaml" />
-    <None Remove="Views\Einlass\EinlassVergaserView.xaml" />
-    <None Remove="Views\Einstellungen\EinstellungenApplicationView.xaml" />
-    <None Remove="Views\Einstellungen\EinstellungenAussehenView.xaml" />
-    <None Remove="Views\Einstellungen\EinstellungenKontoView.xaml" />
-    <None Remove="Views\Einstellungen\EinstellungenUpdateView.xaml" />
-    <None Remove="Views\Einstellungen\EinstellungenVehiclesView.xaml" />
-    <Page Remove="Views\Einstellungen\EinstellungenMenuView.xaml" />
-    <None Remove="Views\Home\HomeMainView.xaml" />
-    <None Remove="Views\MainView.xaml" />
-    <None Remove="Views\MainWindow.xaml" />
-    <None Remove="Views\MenuView.xaml" />
-    <None Remove="Views\Motor\MotorHubraumView.xaml" />
-    <None Remove="Views\Motor\MotorMainView.xaml" />
-    <None Remove="Views\Motor\MotorSteuerdiagrammView.xaml" />
-    <None Remove="Views\Motor\MotorUmrechnungenView.xaml" />
-    <None Remove="Views\Motor\MotorVerdichtungView.xaml" />
-    <None Remove="Views\Tuning\TuningDataView.xaml" />
-    <None Remove="Views\Tuning\TuningDiagnosisView.xaml" />
-    <None Remove="Views\Tuning\TuningInputView.xaml" />
-    <None Remove="Views\Tuning\TuningMainView.xaml" />
-    <None Remove="Views\Dyno\DynoAusrollenView.xaml" />
-    <None Remove="Views\Dyno\DynoAudioPlayerView.xaml" />
-    
-    <Page Include="Dialog\DialogLoadingView.xaml" />
-    <Page Include="Dialog\DialogSnackbarView.xaml" />
-    <Page Include="Views\Auslass\AuslassAnwendungView.xaml" />
-    <Page Include="Views\Auslass\AuslassMainView.xaml" />
-    <Page Include="Views\Auslass\AuslassTheorieView.xaml" />
-    <Page Include="Views\Demo\BuyProView.xaml" />
-    <Page Include="Views\Dyno\DynoDataView.xaml" />
-    <Page Include="Views\Dyno\DynoDiagnosisView.xaml" />
-    <Page Include="Views\Dyno\DynoMainView.xaml" />
-    <Page Include="Views\Dyno\DynoSpectrogramView.xaml" />
-    <Page Include="Views\Einlass\EinlassKanalView.xaml" />
-    <Page Include="Views\Einlass\EinlassMainView.xaml" />
-    <Page Include="Views\Einlass\EinlassVergaserView.xaml" />
-    <Page Include="Views\Einstellungen\EinstellungenApplicationView.xaml" />
-    <Page Include="Views\Einstellungen\EinstellungenAussehenView.xaml" />
-    <Page Include="Views\Einstellungen\EinstellungenKontoView.xaml" />
-    <Page Include="Views\Einstellungen\EinstellungenUpdateView.xaml" />
-    <Page Include="Views\Einstellungen\EinstellungenVehiclesView.xaml" />
-    <Page Include="Views\Einstellungen\EinstellungenMenuView.xaml" />
-    <Page Include="Views\Home\HomeMainView.xaml" />
-    <Page Include="Views\MainView.xaml" />
-    <Page Include="Views\MainWindow.xaml" />
-    <Page Include="Views\MenuView.xaml" />
-    <Page Include="Views\Motor\MotorHubraumView.xaml" />
-    <Page Include="Views\Motor\MotorMainView.xaml" />
-    <Page Include="Views\Motor\MotorSteuerdiagrammView.xaml" />
-    <Page Include="Views\Motor\MotorUmrechnungenView.xaml" />
-    <Page Include="Views\Motor\MotorVerdichtungView.xaml" />
-    <Page Include="Views\Tuning\TuningDataView.xaml" />
-    <Page Include="Views\Tuning\TuningDiagnosisView.xaml" />
-    <Page Include="Views\Tuning\TuningInputView.xaml" />
-    <Page Include="Views\Tuning\TuningMainView.xaml" />
-    <Page Include="Views\Dyno\DynoAusrollenView.xaml" />
-    <Page Include="Views\Dyno\DynoGeschwindigkeitView.xaml" />
-    <Page Include="Views\Dyno\DynoAudioPlayerView.xaml" />
-  </ItemGroup>
-
-
 
 </Project>

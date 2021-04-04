@@ -39,6 +39,11 @@
     <Page Remove="Views\**" />
   </ItemGroup>
 
+  <!-- Conditionally obtain references for the .NET 5.0 target -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+    <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
+  </ItemGroup>
+
   <!-- Conditionally obtain references for the .NET Core 3.1 target -->
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
     <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
