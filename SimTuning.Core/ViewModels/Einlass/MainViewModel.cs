@@ -1,6 +1,6 @@
 ﻿// project=SimTuning.Core, file=MainViewModel.cs, creation=2020:7:31 Copyright (c) 2020
 // tuke productions. All rights reserved.
-using MvvmCross.Logging;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System.Threading.Tasks;
@@ -13,8 +13,8 @@ namespace SimTuning.Core.ViewModels.Einlass
 
     public class MainViewModel : MvxNavigationViewModel
     {
-        public MainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public MainViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
 

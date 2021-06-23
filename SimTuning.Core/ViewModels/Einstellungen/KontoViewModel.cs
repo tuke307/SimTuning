@@ -1,8 +1,7 @@
 ﻿// project=SimTuning.Core, file=KontoViewModel.cs, creation=2020:7:31 Copyright (c) 2020
 // tuke productions. All rights reserved.
-using Data.Models;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -20,10 +19,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <summary>
         /// Initializes a new instance of the <see cref="KontoViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public KontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService)
+        public KontoViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService)
         {
             this._messenger = messenger;
 

@@ -2,14 +2,11 @@
 // tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.ViewModels
 {
-    using Data;
-    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using SimTuning.Core;
-    using SimTuning.Core.Models;
     using SimTuning.WPF.UI.ViewModels.Auslass;
     using SimTuning.WPF.UI.ViewModels.Demo;
     using SimTuning.WPF.UI.ViewModels.Dyno;
@@ -33,10 +30,10 @@ namespace SimTuning.WPF.UI.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public MenuViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService, messenger)
         {
             this._navigationService = navigationService;
 
@@ -87,20 +84,6 @@ namespace SimTuning.WPF.UI.ViewModels
         /// </summary>
         protected override async Task InitializeDatabaseAsync()
         {
-            // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
-            SimTuning.Core.GeneralSettings.FileDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning"); // appdata-local-simtuning
-
-            if (string.IsNullOrEmpty(Data.DatabaseSettings.DatabasePath))
-            {
-                Data.DatabaseSettings.DatabasePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, Data.DatabaseSettings.DatabaseName);
-            }
-
-            // appdata-local-simtuning ist anfangs nicht da
-            if (!Directory.Exists(SimTuning.Core.GeneralSettings.FileDirectory))
-            {
-                Directory.CreateDirectory(SimTuning.Core.GeneralSettings.FileDirectory);
-            }
-
             await base.InitializeDatabaseAsync().ConfigureAwait(true);
         }
 

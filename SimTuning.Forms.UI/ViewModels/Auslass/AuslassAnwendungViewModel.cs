@@ -2,8 +2,8 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Auslass
 {
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using System.IO;
     using System.Threading.Tasks;
@@ -26,10 +26,10 @@ namespace SimTuning.Forms.UI.ViewModels.Auslass
         /// Initializes a new instance of the <see cref="AuslassAnwendungViewModel" />
         /// class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public AuslassAnwendungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public AuslassAnwendungViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             //override command
             this.CalculateCommand = new MvxAsyncCommand(this.Calculate);

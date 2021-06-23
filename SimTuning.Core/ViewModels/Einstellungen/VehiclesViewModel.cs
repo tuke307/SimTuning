@@ -1,20 +1,15 @@
 ﻿// project=SimTuning.Core, file=VehiclesViewModel.cs, creation=2020:7:31 Copyright (c)
 // 2020 tuke productions. All rights reserved.
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
-using System.Resources;
 using System.Threading.Tasks;
-using UnitsNet.Units;
-using WordPressPCL.Models;
 
 namespace SimTuning.Core.ViewModels.Einstellungen
 {
@@ -27,10 +22,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <summary>
         /// Initializes a new instance of the <see cref="VehiclesViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public VehiclesViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public VehiclesViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this.AreaQuantityUnits = new AreaQuantity();
             this.VolumeQuantityUnits = new VolumeQuantity();

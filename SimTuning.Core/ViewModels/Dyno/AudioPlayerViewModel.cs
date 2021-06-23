@@ -1,12 +1,11 @@
 ﻿using MediaManager;
 using MediaManager.Library;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
 using System.IO;
-using System.Resources;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Dyno
@@ -19,11 +18,11 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// AudioPlayerViewModel.
         /// </summary>
-        /// <param name="logProvider"></param>
+        /// <param name="logFactory"></param>
         /// <param name="navigationService"></param>
         /// <param name="mediaManager"></param>
-        public AudioPlayerViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMediaManager mediaManager)
-             : base(logProvider, navigationService)
+        public AudioPlayerViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMediaManager mediaManager)
+             : base(logFactory, navigationService)
         {
             MediaManager = mediaManager;
 
@@ -153,17 +152,17 @@ namespace SimTuning.Core.ViewModels.Dyno
 
         protected void Current_BufferingChanged(object sender, MediaManager.Playback.BufferedChangedEventArgs e)
         {
-            Log.Debug($"Total buffered time is {e.Buffered};");
+            Log.LogDebug($"Total buffered time is {e.Buffered};");
         }
 
         protected void Current_MediaItemFailed(object sender, MediaManager.Media.MediaItemFailedEventArgs e)
         {
-            Log.Debug($"Media item failed: {e.MediaItem.Title}, Message: {e.Message}, Exception: {e.Exeption?.ToString()};");
+            Log.LogDebug($"Media item failed: {e.MediaItem.Title}, Message: {e.Message}, Exception: {e.Exeption?.ToString()};");
         }
 
         protected void Current_MediaItemFinished(object sender, MediaManager.Media.MediaItemEventArgs e)
         {
-            Log.Debug($"Media item finished: {e.MediaItem.Title};");
+            Log.LogDebug($"Media item finished: {e.MediaItem.Title};");
         }
 
         /// <summary>
@@ -219,12 +218,12 @@ namespace SimTuning.Core.ViewModels.Dyno
 
             this.RaisePropertyChanged(() => this.IsPlaying);
 
-            this.Log.Debug($"Current position is {e.Position};");
+            this.Log.LogDebug($"Current position is {e.Position};");
         }
 
         protected void MediaManager_StateChanged(object sender, MediaManager.Playback.StateChangedEventArgs e)
         {
-            Log.Debug($"Status changed: {System.Enum.GetName(typeof(MediaManager.Player.MediaPlayerState), e.State)};");
+            Log.LogDebug($"Status changed: {System.Enum.GetName(typeof(MediaManager.Player.MediaPlayerState), e.State)};");
         }
 
         /// <summary>
@@ -241,7 +240,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei PlayFileAsync: ", exc);
+                this.Log.LogError("Fehler bei PlayFileAsync: ", exc);
             }
         }
 
@@ -278,7 +277,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei TrimAudio: ", exc);
+                this.Log.LogError("Fehler bei TrimAudio: ", exc);
             }
         }
 

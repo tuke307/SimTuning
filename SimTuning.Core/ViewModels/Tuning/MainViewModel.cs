@@ -1,6 +1,6 @@
 ﻿// project=SimTuning.Core, file=MainViewModel.cs, creation=2020:7:31 Copyright (c) 2020
 // tuke productions. All rights reserved.
-using MvvmCross.Logging;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System.Threading.Tasks;
@@ -16,10 +16,10 @@ namespace SimTuning.Core.ViewModels.Tuning
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public MainViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
 

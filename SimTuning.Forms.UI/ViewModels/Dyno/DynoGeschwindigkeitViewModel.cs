@@ -1,12 +1,8 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Logging;
+﻿using Microsoft.Extensions.Logging;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
-using MvvmCross.ViewModels;
-using SimTuning.Core.Business;
 using SimTuning.Core.ViewModels.Dyno;
-using System;
-using System.Globalization;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -14,8 +10,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     public class DynoGeschwindigkeitViewModel : GeschwindigkeitViewModel
     {
-        public DynoGeschwindigkeitViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public DynoGeschwindigkeitViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService, messenger)
         {
             this.ShowAusrollenCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoAusrollenViewModel>());
         }

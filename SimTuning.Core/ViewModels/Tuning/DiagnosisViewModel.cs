@@ -3,15 +3,14 @@
 using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using MvvmCross.Logging;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using OxyPlot;
 using SimTuning.Core.ModuleLogic;
 using System;
 using System.Linq;
-using System.Reflection;
-using System.Resources;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Tuning
@@ -27,10 +26,10 @@ namespace SimTuning.Core.ViewModels.Tuning
         /// <summary>
         /// Initializes a new instance of the <see cref="DiagnosisViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
-            : base(logProvider, navigationService)
+        public DiagnosisViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService)
         {
         }
 

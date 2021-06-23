@@ -3,8 +3,8 @@
 namespace SimTuning.WPF.UI.ViewModels.Einstellungen
 {
     using API;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using SimTuning.WPF.UI.Business;
@@ -26,10 +26,10 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// Initializes a new instance of the <see cref="EinstellungenKontoViewModel" />
         /// class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public EinstellungenKontoViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService, messenger)
         {
             // override Commands
             this.ConnectUserCommand = new MvxAsyncCommand(ConnectUser);

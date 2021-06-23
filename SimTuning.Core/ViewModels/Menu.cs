@@ -4,8 +4,8 @@ namespace SimTuning.Core.ViewModels
 {
     using Data;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
@@ -21,11 +21,11 @@ namespace SimTuning.Core.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="Menu" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="messenger">The messenger.</param>
-        public Menu(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService)
+        public Menu(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService)
         {
             this._token = messenger.Subscribe<MvxUserReloadMessage>(this.ReloadUserAsync);
         }

@@ -4,16 +4,13 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 {
     using MaterialDesignThemes.Wpf;
     using MediaManager;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
-    using Plugin.FilePicker;
-    using Plugin.FilePicker.Abstractions;
     using SimTuning.Core.Models;
     using SimTuning.WPF.UI.Business;
     using SimTuning.WPF.UI.Dialog;
-    using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
     using System.Windows;
@@ -29,10 +26,10 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// Initializes a new instance of the <see cref="DynoSpectrogramViewModel" />
         /// class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger, IMediaManager mediaManager)
-            : base(logProvider, navigationService, messenger, mediaManager)
+        public DynoSpectrogramViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger, IMediaManager mediaManager)
+            : base(logFactory, navigationService, messenger, mediaManager)
         {
             this._token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
 

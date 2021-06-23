@@ -2,7 +2,7 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.ViewModels.Motor
 {
-    using MvvmCross.Logging;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Navigation;
     using System.IO;
     using System.Windows.Media.Imaging;
@@ -17,10 +17,10 @@ namespace SimTuning.WPF.UI.ViewModels.Motor
         /// Initializes a new instance of the <see cref="MotorSteuerdiagrammViewModel" />
         /// class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MotorSteuerdiagrammViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public MotorSteuerdiagrammViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
 

@@ -4,20 +4,17 @@ namespace SimTuning.Core.ViewModels.Dyno
 {
     using Data;
     using Data.Models;
-    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using OxyPlot;
     using SimTuning.Core.Models;
-    using SimTuning.Core.Models.Quantity;
     using SimTuning.Core.ModuleLogic;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Resources;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -29,11 +26,11 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Initializes a new instance of the <see cref="DiagnosisViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="messenger">The messenger.</param>
-        public DiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
-                                            : base(logProvider, navigationService)
+        public DiagnosisViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+                                            : base(logFactory, navigationService)
         {
             //this.AreaQuantityUnits = new AreaQuantity();
             //this.TemperatureQuantityUnits = new TemperatureQuantity();
@@ -86,7 +83,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei RefreshPlot: ", exc);
+                this.Log.LogError("Fehler bei RefreshPlot: ", exc);
             }
         }
 
@@ -112,7 +109,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei ReloadData: ", exc);
+                this.Log.LogError("Fehler bei ReloadData: ", exc);
             }
         }
 

@@ -2,14 +2,12 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 {
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.Core;
-    using SimTuning.Core.Models;
     using SimTuning.Forms.UI.Business;
     using System;
-    using System.Globalization;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -22,10 +20,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// Initializes a new instance of the <see cref="EinstellungenVehiclesViewModel"
         /// /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public EinstellungenVehiclesViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public EinstellungenVehiclesViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this.NewVehicleCommand = new MvxCommand(this.NewVehicle, this.CanExecute);
             this.DeleteVehicleCommand = new MvxCommand(this.DeleteVehicle, this.CanExecute);

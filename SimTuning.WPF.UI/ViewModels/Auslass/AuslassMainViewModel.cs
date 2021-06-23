@@ -2,13 +2,9 @@
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.ViewModels.Auslass
 {
-    using MvvmCross.Commands;
-    using MvvmCross.Logging;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Navigation;
-    using MvvmCross.ViewModels;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
-    using System.Windows.Input;
 
     /// <summary>
     /// WPF-spezifisches Auslass-Main-ViewModel.
@@ -21,10 +17,10 @@ namespace SimTuning.WPF.UI.ViewModels.Auslass
         /// <summary>
         /// Initializes a new instance of the <see cref="AuslassMainViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public AuslassMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public AuslassMainViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this._navigationService = navigationService;
         }

@@ -3,13 +3,11 @@
 using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using MvvmCross.Logging;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
 using System.Linq;
-using System.Reflection;
-using System.Resources;
 using System.Threading.Tasks;
 
 namespace SimTuning.Core.ViewModels.Tuning
@@ -19,11 +17,11 @@ namespace SimTuning.Core.ViewModels.Tuning
         /// <summary>
         /// Initializes a new instance of the <see cref="InputViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="messenger">The messenger.</param>
-        public InputViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
-            : base(logProvider, navigationService)
+        public InputViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+            : base(logFactory, navigationService)
         {
             using (var db = new DatabaseContext())
             {

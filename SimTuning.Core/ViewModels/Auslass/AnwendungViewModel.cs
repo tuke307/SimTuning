@@ -3,8 +3,8 @@
 using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
@@ -14,7 +14,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using UnitsNet.Units;
 
 namespace SimTuning.Core.ViewModels.Auslass
 {
@@ -25,10 +24,10 @@ namespace SimTuning.Core.ViewModels.Auslass
     public class AnwendungViewModel : MvxNavigationViewModel
     {
         /// Initializes a new instance of the <see cref="AnwendungViewModel" /> class.
-        /// </summary> <param name="logProvider">The log provider.</param> <param
+        /// </summary> <param name="logFactory">The log provider.</param> <param
         /// name="navigationService">The navigation service.</param>
-        public AnwendungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public AnwendungViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
 

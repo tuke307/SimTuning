@@ -6,23 +6,18 @@ namespace SimTuning.Core.ViewModels.Dyno
     using Data.Models;
     using MediaManager;
     using MediaManager.Library;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
-    using Newtonsoft.Json;
     using OxyPlot;
-    using OxyPlot.Axes;
-    using OxyPlot.Series;
     using SimTuning.Core.ModuleLogic;
     using SkiaSharp;
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.IO.Compression;
     using System.Linq;
-    using System.Resources;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -34,11 +29,11 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Initializes a new instance of the <see cref="SpectrogramViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="messenger">The messenger.</param>
-        public SpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger, IMediaManager mediaManager)
-            : base(logProvider, navigationService)
+        public SpectrogramViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger, IMediaManager mediaManager)
+            : base(logFactory, navigationService)
         {
             this.MediaManager = mediaManager;
 
@@ -94,7 +89,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
+                this.Log.LogError("Fehler beim Laden des Dyno-Datensatz: ", exc);
             }
         }
 
@@ -113,7 +108,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei FilterPlot: ", exc);
+                this.Log.LogError("Fehler bei FilterPlot: ", exc);
             }
         }
 
@@ -164,7 +159,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei OpenFileAsync: ", exc);
+                this.Log.LogError("Fehler bei OpenFileAsync: ", exc);
             }
         }
 
@@ -187,7 +182,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei RefreshPlot: ", exc);
+                this.Log.LogError("Fehler bei RefreshPlot: ", exc);
             }
         }
 
@@ -240,7 +235,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei ReloadImageAudioSpectrogram: ", exc);
+                this.Log.LogError("Fehler bei ReloadImageAudioSpectrogram: ", exc);
                 return null;
             }
         }
@@ -272,7 +267,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei SpecificGraph: ", exc);
+                this.Log.LogError("Fehler bei SpecificGraph: ", exc);
             }
         }
 

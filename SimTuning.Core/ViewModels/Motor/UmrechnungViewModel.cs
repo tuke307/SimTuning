@@ -5,8 +5,8 @@ namespace SimTuning.Core.ViewModels.Motor
     using Data;
     using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using SimTuning.Core.Models;
@@ -26,10 +26,10 @@ namespace SimTuning.Core.ViewModels.Motor
         /// <summary>
         /// Initializes a new instance of the <see cref="UmrechnungViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public UmrechnungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public UmrechnungViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this.VolumeQuantityUnits = new VolumeQuantity();
             this.LengthQuantityUnits = new LengthQuantity();
@@ -194,8 +194,8 @@ namespace SimTuning.Core.ViewModels.Motor
         private bool _kolbenunterkanteChecked;
         private double? _lengthDifferenceToOT;
         private UnitListItem _lengthDifferenceToOTUnit;
-        private double? _steuerwinkelNachherSchließt;
         private double? _steuerwinkelNachherOeffnet;
+        private double? _steuerwinkelNachherSchließt;
         private double? _steuerwinkelVorherOeffnet;
         private double? _steuerwinkelVorherSchließt;
         private double? _steuerzeitNachher;
@@ -342,16 +342,6 @@ namespace SimTuning.Core.ViewModels.Motor
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
         /// <summary>
-        /// Gets or sets the nachher steuerwinkel schließt.
-        /// </summary>
-        /// <value>The nachher steuerwinkel schließt.</value>
-        public double? SteuerwinkelNachherSchließt
-        {
-            get => this._steuerwinkelNachherSchließt;
-            set => this.SetProperty(ref this._steuerwinkelNachherSchließt, value);
-        }
-
-        /// <summary>
         /// Gets or sets the nachher steuerwinkel oeffnet.
         /// </summary>
         /// <value>The nachher steuerwinkel oeffnet.</value>
@@ -359,6 +349,16 @@ namespace SimTuning.Core.ViewModels.Motor
         {
             get => this._steuerwinkelNachherOeffnet;
             set => this.SetProperty(ref this._steuerwinkelNachherOeffnet, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the nachher steuerwinkel schließt.
+        /// </summary>
+        /// <value>The nachher steuerwinkel schließt.</value>
+        public double? SteuerwinkelNachherSchließt
+        {
+            get => this._steuerwinkelNachherSchließt;
+            set => this.SetProperty(ref this._steuerwinkelNachherSchließt, value);
         }
 
         /// <summary>

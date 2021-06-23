@@ -5,8 +5,8 @@ namespace SimTuning.Core.ViewModels.Einlass
     using Data;
     using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using SimTuning.Core.Models;
@@ -23,8 +23,8 @@ namespace SimTuning.Core.ViewModels.Einlass
     /// <seealso cref="MvvmCross.ViewModels.MvxNavigationViewModel" />
     public class KanalViewModel : MvxNavigationViewModel
     {
-        public KanalViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public KanalViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this.AreaQuantityUnits = new AreaQuantity();
             this.VolumeQuantityUnits = new VolumeQuantity();

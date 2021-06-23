@@ -2,11 +2,8 @@
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Demo
 {
-    using MvvmCross.Commands;
-    using MvvmCross.Logging;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Navigation;
-    using System;
-    using Xamarin.Essentials;
 
     /// <summary>
     /// DemoMainViewModel.
@@ -17,10 +14,10 @@ namespace SimTuning.Forms.UI.ViewModels.Demo
         /// <summary>
         /// Initializes a new instance of the <see cref="DemoMainViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DemoMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public DemoMainViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
     }

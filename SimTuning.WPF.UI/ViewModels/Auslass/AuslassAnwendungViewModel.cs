@@ -3,8 +3,8 @@
 namespace SimTuning.WPF.UI.ViewModels.Auslass
 {
     using MaterialDesignThemes.Wpf;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.WPF.UI.Dialog;
     using System.IO;
@@ -21,10 +21,10 @@ namespace SimTuning.WPF.UI.ViewModels.Auslass
         /// Initializes a new instance of the <see cref="AuslassAnwendungViewModel" />
         /// class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public AuslassAnwendungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public AuslassAnwendungViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
 

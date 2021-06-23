@@ -1,16 +1,12 @@
 ﻿// project=SimTuning.WPF.UI, file=DynoBeschleunigungViewModel.cs, creation=2020:10:5
 // Copyright (c) 2020 tuke productions. All rights reserved.
 using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
-using MvvmCross.ViewModels;
-using SimTuning.Core.Business;
 using SimTuning.Core.ViewModels.Dyno;
 using SimTuning.WPF.UI.Dialog;
-using System;
-using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -18,8 +14,8 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 {
     public class DynoGeschwindigkeitViewModel : GeschwindigkeitViewModel
     {
-        public DynoGeschwindigkeitViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public DynoGeschwindigkeitViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService, messenger)
         {
             this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
         }

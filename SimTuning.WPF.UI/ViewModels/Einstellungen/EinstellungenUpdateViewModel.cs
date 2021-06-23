@@ -3,13 +3,12 @@
 namespace SimTuning.WPF.UI.ViewModels.Einstellungen
 {
     using AutoUpdaterDotNET;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using System.IO;
     using System.Net;
-    using System.Windows;
     using System.Windows.Input;
 
     /// <summary>
@@ -27,8 +26,8 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// Initializes a new instance of the <see cref="EinstellungenUpdateViewModel" />
         /// class.
         /// </summary>
-        public EinstellungenUpdateViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-                        : base(logProvider, navigationService)
+        public EinstellungenUpdateViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+                        : base(logFactory, navigationService)
         {
             this.UpdateCheckCommand = new MvxCommand(this.UpdateCheck);
             this.StartUpdateCommand = new MvxCommand(this.StartUpdate);

@@ -2,8 +2,8 @@
 // tuke productions. All rights reserved.
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
@@ -25,8 +25,8 @@ namespace SimTuning.Core.ViewModels.Tuning
 
         public IMvxCommand ShowSaveButtonCommand { get; set; }
 
-        public DataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService)
+        public DataViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService)
         {
             this.ShowSaveButtonCommand = new MvxCommand(() => this.SaveButton = true);
         }

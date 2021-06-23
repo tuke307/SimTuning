@@ -5,8 +5,8 @@ namespace SimTuning.Core.ViewModels.Auslass
     using Data;
     using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using SimTuning.Core.Models;
@@ -27,10 +27,10 @@ namespace SimTuning.Core.ViewModels.Auslass
         /// <summary>
         /// Initializes a new instance of the <see cref="TheorieViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public TheorieViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public TheorieViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this.AreaQuantityUnits = new AreaQuantity();
             this.LengthQuantityUnits = new LengthQuantity();

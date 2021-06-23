@@ -1,14 +1,12 @@
 ﻿using MaterialDesignThemes.Wpf;
 using MediaManager;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Core.ViewModels.Dyno;
 using SimTuning.WPF.UI.Business;
 using SimTuning.WPF.UI.Dialog;
-using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -16,8 +14,8 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
 {
     public class DynoAudioPlayerViewModel : AudioPlayerViewModel
     {
-        public DynoAudioPlayerViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMediaManager mediaManager)
-              : base(logProvider, navigationService, mediaManager)
+        public DynoAudioPlayerViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMediaManager mediaManager)
+              : base(logFactory, navigationService, mediaManager)
         {
             this.CutBeginnCommand = new MvxAsyncCommand(this.CutBeginn);
             this.CutEndCommand = new MvxAsyncCommand(this.CutEnd);

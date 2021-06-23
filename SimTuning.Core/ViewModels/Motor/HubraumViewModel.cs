@@ -1,9 +1,9 @@
-﻿// project=SimTuning.Core, file=HubraumViewModel.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=HubraumViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+// tuke productions. All rights reserved.
 using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using MvvmCross.Logging;
+using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimTuning.Core.Models;
@@ -18,10 +18,12 @@ namespace SimTuning.Core.ViewModels.Motor
 {
     public class HubraumViewModel : MvxNavigationViewModel
     {
-        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
         public ObservableCollection<UnitListItem> LengthQuantityUnits { get; }
 
-        public HubraumViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService) : base(logProvider, navigationService)
+        public ObservableCollection<UnitListItem> VolumeQuantityUnits { get; }
+
+        public HubraumViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             VolumeQuantityUnits = new VolumeQuantity();
             LengthQuantityUnits = new LengthQuantity();
@@ -46,20 +48,19 @@ namespace SimTuning.Core.ViewModels.Motor
         }
 
         /// <summary>
-        /// Prepares this instance.
-        /// called after construction.
-        /// </summary>
-        public override void Prepare()
-        {
-        }
-
-        /// <summary>
         /// Initializes this instance.
         /// </summary>
         /// <returns>Initilisierung.</returns>
         public override Task Initialize()
         {
             return base.Initialize();
+        }
+
+        /// <summary>
+        /// Prepares this instance. called after construction.
+        /// </summary>
+        public override void Prepare()
+        {
         }
 
         #region Commands
@@ -99,23 +100,51 @@ namespace SimTuning.Core.ViewModels.Motor
 
         #region Values
 
+        private double? _bohrungD;
+        private double? _einbauspiel;
         private GrindingDiametersModel _grindingDiameters;
+
+        private VehiclesModel _helperVehicle;
+
+        private ObservableCollection<VehiclesModel> _helperVehicles;
+
+        private double? _hub;
+
+        private double? _hubraumV;
+
+        private double? _kolbenD;
+
+        private UnitListItem _unitBohrungD;
+
+        private UnitListItem _unitEinbauspiel;
+
+        private UnitListItem _unitHub;
+
+        private UnitListItem _unitHubraumV;
+
+        private UnitListItem _unitKolbenD;
+
+        public double? BohrungD
+        {
+            get => _bohrungD;
+            set { SetProperty(ref _bohrungD, value); }
+        }
+
+        public double? Einbauspiel
+        {
+            get => _einbauspiel;
+            set
+            {
+                SetProperty(ref _einbauspiel, value);
+                Refresh_all();
+            }
+        }
 
         public GrindingDiametersModel GrindingDiameters
         {
             get => _grindingDiameters;
             set { SetProperty(ref _grindingDiameters, value); }
         }
-
-        private ObservableCollection<VehiclesModel> _helperVehicles;
-
-        public ObservableCollection<VehiclesModel> HelperVehicles
-        {
-            get => _helperVehicles;
-            set { SetProperty(ref _helperVehicles, value); }
-        }
-
-        private VehiclesModel _helperVehicle;
 
         public VehiclesModel HelperVehicle
         {
@@ -129,53 +158,37 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
-        private UnitListItem _unitEinbauspiel;
-
-        public UnitListItem UnitEinbauspiel
+        public ObservableCollection<VehiclesModel> HelperVehicles
         {
-            get => _unitEinbauspiel;
-            set
-            {
-                Einbauspiel = Business.Functions.UpdateValue(Einbauspiel, _unitEinbauspiel, value);
-
-                SetProperty(ref _unitEinbauspiel, value);
-            }
+            get => _helperVehicles;
+            set { SetProperty(ref _helperVehicles, value); }
         }
 
-        private double? _einbauspiel;
-
-        public double? Einbauspiel
+        public double? Hub
         {
-            get => _einbauspiel;
+            get => _hub;
             set
             {
-                SetProperty(ref _einbauspiel, value);
+                SetProperty(ref _hub, value);
                 Refresh_all();
             }
         }
 
-        private UnitListItem _unitKolbenD;
-
-        public UnitListItem UnitKolbenD
+        public double? HubraumV
         {
-            get => _unitKolbenD;
+            get => _hubraumV;
             set
             {
-                KolbenD = Business.Functions.UpdateValue(KolbenD, UnitKolbenD, value);
-
-                SetProperty(ref _unitKolbenD, value);
+                SetProperty(ref _hubraumV, value);
+                Refresh_all();
             }
         }
-
-        private double? _kolbenD;
 
         public double? KolbenD
         {
             get => _kolbenD;
             set { SetProperty(ref _kolbenD, value); }
         }
-
-        private UnitListItem _unitBohrungD;
 
         public UnitListItem UnitBohrungD
         {
@@ -188,15 +201,16 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
-        private double? _bohrungD;
-
-        public double? BohrungD
+        public UnitListItem UnitEinbauspiel
         {
-            get => _bohrungD;
-            set { SetProperty(ref _bohrungD, value); }
-        }
+            get => _unitEinbauspiel;
+            set
+            {
+                Einbauspiel = Business.Functions.UpdateValue(Einbauspiel, _unitEinbauspiel, value);
 
-        private UnitListItem _unitHub;
+                SetProperty(ref _unitEinbauspiel, value);
+            }
+        }
 
         public UnitListItem UnitHub
         {
@@ -209,20 +223,6 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
-        private double? _hub;
-
-        public double? Hub
-        {
-            get => _hub;
-            set
-            {
-                SetProperty(ref _hub, value);
-                Refresh_all();
-            }
-        }
-
-        private UnitListItem _unitHubraumV;
-
         public UnitListItem UnitHubraumV
         {
             get => _unitHubraumV;
@@ -234,15 +234,14 @@ namespace SimTuning.Core.ViewModels.Motor
             }
         }
 
-        private double? _hubraumV;
-
-        public double? HubraumV
+        public UnitListItem UnitKolbenD
         {
-            get => _hubraumV;
+            get => _unitKolbenD;
             set
             {
-                SetProperty(ref _hubraumV, value);
-                Refresh_all();
+                KolbenD = Business.Functions.UpdateValue(KolbenD, UnitKolbenD, value);
+
+                SetProperty(ref _unitKolbenD, value);
             }
         }
 

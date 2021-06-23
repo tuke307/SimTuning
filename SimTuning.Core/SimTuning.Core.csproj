@@ -16,22 +16,25 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.Targets" Version="5.0.0" />
-    <PackageReference Include="MvvmCross" Version="7.1.2" />
-    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="7.1.2" />
-    <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="7.1.2" />
-    <PackageReference Include="NAudio" Version="2.0.0" />
+    <PackageReference Include="MvvmCross" Version="8.0.1" />
+    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="8.0.1" />
+    <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="8.0.1" />
+    <PackageReference Include="NAudio" Version="1.10.0" />
     <PackageReference Include="OxyPlot.Core" Version="2.0.0" />
     <PackageReference Include="Plugin.AudioRecorder" Version="1.1.0" />
-    <PackageReference Include="Plugin.MediaManager" Version="1.0.8" />
+    <PackageReference Include="Plugin.MediaManager" Version="1.0.9" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="UnitsNet" Version="4.87.0" />
+    <PackageReference Include="UnitsNet" Version="4.95.0" />
     <PackageReference Include="WooCommerceNET" Version="0.8.3" />
-    <PackageReference Include="WordPressPCL" Version="1.8.5" />
+    <PackageReference Include="WordPressPCL" Version="1.9.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.43-beta" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />

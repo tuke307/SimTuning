@@ -1,4 +1,4 @@
-﻿using MvvmCross.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using System.Threading.Tasks;
 
@@ -6,8 +6,8 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 {
     public class EinstellungenApplicationViewModel : SimTuning.Core.ViewModels.Einstellungen.ApplicationViewModel
     {
-        public EinstellungenApplicationViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public EinstellungenApplicationViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
 

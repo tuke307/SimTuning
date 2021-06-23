@@ -1,13 +1,11 @@
 ﻿namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
-    using MvvmCross.Plugin.Location;
     using MvvmCross.Plugin.Messenger;
     using SimTuning.Core.Models;
     using SimTuning.Forms.UI.Business;
-    using System.Globalization;
     using System.Threading.Tasks;
     using Xamarin.Essentials;
     using XF.Material.Forms.UI.Dialogs;
@@ -21,12 +19,12 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="DynoRuntimeViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="locationWatcher">The location watcher.</param>
         /// <param name="messenger"></param>
-        public DynoRuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, ILocationService locationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, locationService, messenger)
+        public DynoRuntimeViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, ILocationService locationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService, locationService, messenger)
         {
             this.ShowSpectrogramCommand = new MvxAsyncCommand(async () =>
             {

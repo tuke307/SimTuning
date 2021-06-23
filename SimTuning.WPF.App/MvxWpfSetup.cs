@@ -3,11 +3,18 @@
 namespace SimTuning.WPF.App
 {
     using MediaManager;
+    using Microsoft.Extensions.Logging;
+    using MvvmCross.IoC;
     using MvvmCross.Platforms.Wpf.Presenters;
     using MvvmCross.Plugin;
     using MvvmCross.ViewModels;
+    using Serilog;
+    using Serilog.Extensions.Logging;
+    using SimTuning.Core;
     using SimTuning.WPF.UI.Region;
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Reflection;
     using System.Windows.Controls;
 
@@ -19,10 +26,7 @@ namespace SimTuning.WPF.App
     public class MvxWpfSetup<TApplication> : MvvmCross.Platforms.Wpf.Core.MvxWpfSetup<TApplication>
         where TApplication : class, IMvxApplication, new()
     {
-        /// <summary>
-        /// Gets the view assemblies.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public override IEnumerable<Assembly> GetViewAssemblies()
         {
             var list = new List<Assembly>();
@@ -31,10 +35,7 @@ namespace SimTuning.WPF.App
             return list.ToArray();
         }
 
-        /// <summary>
-        /// Loads the plugins.
-        /// </summary>
-        /// <param name="pluginManager">The plugin manager.</param>
+        /// <inheritdoc />
         public override void LoadPlugins(IMvxPluginManager pluginManager)
         {
             pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.Messenger.Plugin>();
@@ -46,26 +47,52 @@ namespace SimTuning.WPF.App
             base.LoadPlugins(pluginManager);
         }
 
-        /// <summary>
-        /// Creates the view presenter.
-        /// </summary>
-        /// <param name="root">The root.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            // TODO: eigentlich nicht die richtige stelle-
+            // android: "/data/user/0/com.tuke_productions.SimTuning/files/"
+            SimTuning.Core.GeneralSettings.FileDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimTuning"); // appdata-local-simtuning
+
+            if (string.IsNullOrEmpty(Data.DatabaseSettings.DatabasePath))
+            {
+                Data.DatabaseSettings.DatabasePath = Path.Combine(SimTuning.Core.GeneralSettings.FileDirectory, Data.DatabaseSettings.DatabaseName);
+            }
+
+            // appdata-local-simtuning ist anfangs nicht da
+            if (!Directory.Exists(SimTuning.Core.GeneralSettings.FileDirectory))
+            {
+                Directory.CreateDirectory(SimTuning.Core.GeneralSettings.FileDirectory);
+            }
+
+            // serilog configuration
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.File(GeneralSettings.LogFilePath)
+                .CreateLogger();
+
+            return new SerilogLoggerFactory();
+        }
+
+        protected override ILoggerProvider CreateLogProvider()
+        {
+            return new SerilogLoggerProvider();
+        }
+
+        /// <inheritdoc />
         protected override IMvxWpfViewPresenter CreateViewPresenter(ContentControl root)
         {
             return new MvxWpfPresenter(root);
         }
 
-        /// <summary>
-        /// Initializes the first chance.
-        /// </summary>
-        protected override void InitializeFirstChance()
+        /// <inheritdoc />
+        protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
         {
             //MvxIoCProvider.Instance.RegisterSingleton<Plugin.Settings.Abstractions.ISettings>(Plugin.Settings.CrossSettings.Current);
             CrossMediaManager.Current.Init();
             //MvxIoCProvider.Instance.RegisterSingleton(CrossMediaManager.Current);
 
-            base.InitializeFirstChance();
+            base.InitializeFirstChance(iocProvider);
         }
     }
 }

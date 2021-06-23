@@ -5,8 +5,8 @@ namespace SimTuning.Core.ViewModels.Motor
     using Data;
     using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using SimTuning.Core.ModuleLogic;
@@ -38,10 +38,10 @@ namespace SimTuning.Core.ViewModels.Motor
         /// Initializes a new instance of the <see cref="SteuerdiagrammViewModel" />
         /// class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public SteuerdiagrammViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public SteuerdiagrammViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             // lokale liste kreieren
             this.MotorSteuerzeiten = new ObservableCollection<MotorModel>()

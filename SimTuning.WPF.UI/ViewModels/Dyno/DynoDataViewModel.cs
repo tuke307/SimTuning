@@ -3,8 +3,8 @@
 namespace SimTuning.WPF.UI.ViewModels.Dyno
 {
     using MaterialDesignThemes.Wpf;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using Plugin.FilePicker;
@@ -23,11 +23,11 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// <summary>
         /// Initializes a new instance of the <see cref="DynoDataViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="messenger">The messenger.</param>
-        public DynoDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public DynoDataViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService, messenger)
         {
             this.NewDynoCommand = new MvxCommand(this.NewDyno);
             this.DeleteDynoCommand = new MvxCommand(this.DeleteDyno);

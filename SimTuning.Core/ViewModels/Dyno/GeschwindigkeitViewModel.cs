@@ -2,8 +2,8 @@
 {
     using Data;
     using Data.Models;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
@@ -11,7 +11,6 @@
     using SimTuning.Core.ModuleLogic;
     using System;
     using System.Linq;
-    using System.Resources;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -22,11 +21,11 @@
         /// <summary>
         /// BeschleunigungViewModel.
         /// </summary>
-        /// <param name="logProvider"></param>
+        /// <param name="logFactory"></param>
         /// <param name="navigationService"></param>
         /// <param name="messenger"></param>
-        public GeschwindigkeitViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-             : base(logProvider, navigationService)
+        public GeschwindigkeitViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+             : base(logFactory, navigationService)
         {
             this.RefreshPlotCommand = new MvxAsyncCommand(this.RefreshPlot);
         }
@@ -92,7 +91,7 @@
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei ReloadData: ", exc);
+                this.Log.LogError("Fehler bei ReloadData: ", exc);
             }
         }
 
@@ -110,7 +109,7 @@
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei RefreshPlot: ", exc);
+                this.Log.LogError("Fehler bei RefreshPlot: ", exc);
             }
         }
 

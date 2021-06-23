@@ -1,11 +1,9 @@
-﻿using MvvmCross.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
-using SimTuning.Forms.UI.Business;
 using SimTuning.Forms.UI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SimTuning.Forms.UI.ViewModels.Einstellungen
@@ -20,10 +18,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// Initializes a new instance of the <see cref="EinstellungenAussehenViewModel"
         /// /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IThemeService themeService)
-                                          : base(logProvider, navigationService)
+        public EinstellungenAussehenViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IThemeService themeService)
+             : base(logFactory, navigationService)
         {
             this._themeService = themeService;
             BaseThemeValue = (Themes.BaseTheme)ColorSettings.Theme;

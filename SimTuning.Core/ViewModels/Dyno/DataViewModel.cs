@@ -3,8 +3,8 @@
 namespace SimTuning.Core.ViewModels.Dyno
 {
     using Data.Models;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
@@ -27,11 +27,11 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Initializes a new instance of the <see cref="DataViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="messenger">The messenger.</param>
-        public DataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService)
+        public DataViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService)
         {
             this._messenger = messenger;
 
@@ -80,7 +80,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler bei ReloadData: ", exc);
+                this.Log.LogError("Fehler bei ReloadData: ", exc);
             }
         }
 
@@ -113,7 +113,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler bei DeleteDyno: ", exc);
+                this.Log.LogError("Fehler bei DeleteDyno: ", exc);
             }
         }
 
@@ -149,7 +149,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler bei ExportDyno: ", exc);
+                this.Log.LogError("Fehler bei ExportDyno: ", exc);
             }
         }
 
@@ -220,7 +220,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler bei LoadDyno: ", exc);
+                this.Log.LogWarning("Fehler bei LoadDyno: ", exc);
                 return dyno;
             }
         }
@@ -252,7 +252,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler bei NewDyno: ", exc);
+                this.Log.LogError("Fehler bei NewDyno: ", exc);
             }
         }
 
@@ -329,7 +329,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler bei SaveDyno: ", exc);
+                this.Log.LogError("Fehler bei SaveDyno: ", exc);
 
                 return false;
             }
@@ -366,7 +366,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler bei SetActiveDyno: ", exc);
+                this.Log.LogWarning("Fehler bei SetActiveDyno: ", exc);
 
                 // z.B. kein Dyno aktiv z.B. nicht in datenbank
             }
@@ -407,7 +407,7 @@ namespace SimTuning.Core.ViewModels.Dyno
             }
             catch (Exception exc)
             {
-                this.Log.WarnException("Fehler bei SetInactiveDyno: ", exc);
+                this.Log.LogWarning("Fehler bei SetInactiveDyno: ", exc);
 
                 // z.B. keine Werte in Dynos z.B. kein Dyno aktiv z.B. nicht in datenbank
             }

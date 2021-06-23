@@ -4,15 +4,14 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
 {
     using MaterialDesignColors;
     using MaterialDesignThemes.Wpf;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.Core;
     using SimTuning.WPF.UI.Business;
     using SimTuning.WPF.UI.Models;
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -26,10 +25,10 @@ namespace SimTuning.WPF.UI.ViewModels.Einstellungen
         /// Initializes a new instance of the <see cref="EinstellungenAussehenViewModel"
         /// /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public EinstellungenAussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IThemeService themeService)
-            : base(logProvider, navigationService)
+        public EinstellungenAussehenViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IThemeService themeService)
+            : base(logFactory, navigationService)
         {
             this._themeService = themeService;
             this.Swatches = new SwatchesProvider().Swatches;

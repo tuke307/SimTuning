@@ -3,14 +3,12 @@
 namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     using MediaManager;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using SimTuning.Forms.UI.Business;
-    using System.Globalization;
     using System.IO;
-    using System.Net;
     using System.Threading.Tasks;
     using Xamarin.Forms;
     using XF.Material.Forms.UI.Dialogs;
@@ -25,10 +23,10 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// Initializes a new instance of the <see cref="DynoSpectrogramViewModel" />
         /// class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoSpectrogramViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger, IMediaManager mediaManager)
-            : base(logProvider, navigationService, messenger, mediaManager)
+        public DynoSpectrogramViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger, IMediaManager mediaManager)
+            : base(logFactory, navigationService, messenger, mediaManager)
         {
             // override Commands
             this.RefreshSpectrogramCommand = new MvxAsyncCommand(this.ReloadImageAudioSpectrogram);

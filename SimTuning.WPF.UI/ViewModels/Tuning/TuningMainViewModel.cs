@@ -2,7 +2,7 @@
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.ViewModels.Tuning
 {
-    using MvvmCross.Logging;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Navigation;
     using System.Threading.Tasks;
 
@@ -17,10 +17,10 @@ namespace SimTuning.WPF.UI.ViewModels.Tuning
         /// <summary>
         /// Initializes a new instance of the <see cref="TuningMainViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public TuningMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public TuningMainViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this._navigationService = navigationService;
         }

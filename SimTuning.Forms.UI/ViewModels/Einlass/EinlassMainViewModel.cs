@@ -2,7 +2,7 @@
 // (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Einlass
 {
-    using MvvmCross.Logging;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Navigation;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -19,10 +19,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einlass
         /// <summary>
         /// Initializes a new instance of the <see cref="EinlassMainViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public EinlassMainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public EinlassMainViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this._navigationService = navigationService;
         }

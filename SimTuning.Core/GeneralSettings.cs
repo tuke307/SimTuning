@@ -150,6 +150,35 @@ namespace SimTuning.Core
         }
 
         /// <summary>
+        /// Gets or sets the log file.
+        /// </summary>
+        /// <value>The log file.</value>
+        public static string LogFile
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(nameof(LogFile), "simtuning_log_{Date}.txt");
+            }
+
+            set
+            {
+                AppSettings.AddOrUpdateValue(nameof(LogFile), value);
+            }
+        }
+
+        /// <summary>
+        /// Gets the log file path.
+        /// </summary>
+        /// <value>The log file path.</value>
+        public static string LogFilePath
+        {
+            get
+            {
+                return Path.Combine(FileDirectory, LogFile);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the release notes file.
         /// </summary>
         /// <value>The release notes file.</value>

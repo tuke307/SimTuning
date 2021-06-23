@@ -5,8 +5,8 @@ namespace SimTuning.Core.ViewModels.Motor
     using Data;
     using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using SimTuning.Core.Models;
@@ -26,10 +26,10 @@ namespace SimTuning.Core.ViewModels.Motor
         /// <summary>
         /// Initializes a new instance of the <see cref="VerdichtungViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public VerdichtungViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public VerdichtungViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this.VolumeQuantityUnits = new VolumeQuantity();
             this.LengthQuantityUnits = new LengthQuantity();

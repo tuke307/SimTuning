@@ -2,8 +2,8 @@
 // productions. All rights reserved.
 namespace SimTuning.Core.ViewModels
 {
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using System.Threading.Tasks;
@@ -29,10 +29,10 @@ namespace SimTuning.Core.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MainPage(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public MainPage(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
 

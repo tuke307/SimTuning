@@ -12,7 +12,7 @@ namespace SimTuning.WPF.UI
     public class MvxApp : SimTuning.Core.MvxApp
     {
         /// <summary>
-        /// Any initialization steps that can be done in the background
+        /// Any initialization steps that can be done in the background.
         /// </summary>
         public override void Initialize()
         {

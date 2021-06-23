@@ -2,8 +2,8 @@
 {
     using Data;
     using Data.Models;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using MvvmCross.ViewModels;
@@ -15,7 +15,6 @@
     using System.Drawing;
     using System.IO;
     using System.Linq;
-    using System.Resources;
     using System.Threading.Tasks;
     using System.Timers;
 
@@ -28,12 +27,12 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="RuntimeViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
         /// <param name="locationService">The location service.</param>
         /// <param name="messenger">The messenger.</param>
-        public RuntimeViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, ILocationService locationService, IMvxMessenger messenger)
-                                    : base(logProvider, navigationService)
+        public RuntimeViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, ILocationService locationService, IMvxMessenger messenger)
+                                    : base(logFactory, navigationService)
         {
             this._token = messenger.Subscribe<MvxReloaderMessage>(this.ReloadData);
             this._token = messenger.Subscribe<MvxLocationMessage>(this.OnLocationUpdated);
@@ -106,7 +105,7 @@
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler beim Laden des Dyno-Datensatz: ", exc);
+                this.Log.LogError("Fehler beim Laden des Dyno-Datensatz: ", exc);
             }
         }
 
@@ -341,7 +340,7 @@
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei ResetBeschleunigung: ", exc);
+                this.Log.LogError("Fehler bei ResetBeschleunigung: ", exc);
             }
         }
 
@@ -375,7 +374,7 @@
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei StartAusrollen: ", exc);
+                this.Log.LogError("Fehler bei StartAusrollen: ", exc);
             }
         }
 
@@ -413,7 +412,7 @@
             }
             catch (Exception exc)
             {
-                this.Log.ErrorException("Fehler bei StartBeschleunigung: ", exc);
+                this.Log.LogError("Fehler bei StartBeschleunigung: ", exc);
             }
         }
 

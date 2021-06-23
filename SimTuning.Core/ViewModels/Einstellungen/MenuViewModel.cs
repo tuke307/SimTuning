@@ -1,11 +1,9 @@
 ﻿namespace SimTuning.Core.ViewModels.Einstellungen
 {
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
-    using SimTuning.Core.Models;
-    using System.Threading.Tasks;
 
     public class MenuViewModel : MvxNavigationViewModel
     {
@@ -22,10 +20,10 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MenuViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public MenuViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
             this._navigationService = navigationService;
         }

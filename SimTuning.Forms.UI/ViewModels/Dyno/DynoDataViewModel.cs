@@ -2,8 +2,8 @@
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using SimTuning.Core;
     using SimTuning.Forms.UI.Business;
@@ -21,10 +21,10 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
         /// <summary>
         /// Initializes a new instance of the <see cref="DynoDataViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoDataViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public DynoDataViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, MvvmCross.Plugin.Messenger.IMvxMessenger messenger)
+            : base(logFactory, navigationService, messenger)
         {
             // Commands
             this.NewDynoCommand = new MvxCommand(this.NewDyno);

@@ -3,14 +3,13 @@
 namespace SimTuning.WPF.UI.ViewModels.Dyno
 {
     using MaterialDesignThemes.Wpf;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
     using SimTuning.Core.Models;
     using SimTuning.WPF.UI.Business;
     using SimTuning.WPF.UI.Dialog;
-    using System.Globalization;
     using System.Threading.Tasks;
     using System.Windows;
 
@@ -25,10 +24,10 @@ namespace SimTuning.WPF.UI.ViewModels.Dyno
         /// <summary>
         /// Initializes a new instance of the <see cref="DynoDiagnosisViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public DynoDiagnosisViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public DynoDiagnosisViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService, messenger)
         {
             this.RefreshPlotCommand = new MvxAsyncCommand(RefreshPlot);
 

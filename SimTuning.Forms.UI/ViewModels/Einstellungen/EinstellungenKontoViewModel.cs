@@ -2,15 +2,12 @@
 // Copyright (c) 2020 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Einstellungen
 {
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;
-    using MvvmCross.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.Plugin.Messenger;
-    using SimTuning.Core.Models;
     using SimTuning.Forms.UI.Business;
-    using System;
     using System.Threading.Tasks;
-    using Xamarin.Essentials;
 
     /// <summary>
     /// EinstellungenKontoViewModel.
@@ -30,10 +27,10 @@ namespace SimTuning.Forms.UI.ViewModels.Einstellungen
         /// Initializes a new instance of the <see cref="EinstellungenKontoViewModel" />
         /// class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public EinstellungenKontoViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-            : base(logProvider, navigationService, messenger)
+        public EinstellungenKontoViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+            : base(logFactory, navigationService, messenger)
         {
             // override commands
             this.ConnectUserCommand = new MvxAsyncCommand(this.ConnectUser);

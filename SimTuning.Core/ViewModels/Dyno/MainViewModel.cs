@@ -2,8 +2,7 @@
 // tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Dyno
 {
-    using MvvmCross;
-    using MvvmCross.Logging;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using System.Threading.Tasks;
@@ -17,10 +16,10 @@ namespace SimTuning.Core.ViewModels.Dyno
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public MainViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public MainViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
 

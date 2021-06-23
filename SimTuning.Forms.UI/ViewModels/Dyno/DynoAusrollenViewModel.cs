@@ -1,9 +1,8 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Logging;
+﻿using Microsoft.Extensions.Logging;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
 using SimTuning.Core.ViewModels.Dyno;
-using System.Globalization;
 using System.Threading.Tasks;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -11,8 +10,8 @@ namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     public class DynoAusrollenViewModel : AusrollenViewModel
     {
-        public DynoAusrollenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService, IMvxMessenger messenger)
-              : base(logProvider, navigationService, messenger)
+        public DynoAusrollenViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService, IMvxMessenger messenger)
+              : base(logFactory, navigationService, messenger)
         {
             this.ShowDiagnosisCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<DynoDiagnosisViewModel>());
         }

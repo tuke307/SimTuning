@@ -2,10 +2,9 @@
 // 2020 tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Einstellungen
 {
-    using MvvmCross.Logging;
+    using Microsoft.Extensions.Logging;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
-    using System.Resources;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -16,10 +15,10 @@ namespace SimTuning.Core.ViewModels.Einstellungen
         /// <summary>
         /// Initializes a new instance of the <see cref="AussehenViewModel" /> class.
         /// </summary>
-        /// <param name="logProvider">The log provider.</param>
+        /// <param name="logFactory">The log provider.</param>
         /// <param name="navigationService">The navigation service.</param>
-        public AussehenViewModel(IMvxLogProvider logProvider, IMvxNavigationService navigationService)
-            : base(logProvider, navigationService)
+        public AussehenViewModel(ILoggerFactory logFactory, IMvxNavigationService navigationService)
+            : base(logFactory, navigationService)
         {
         }
 
