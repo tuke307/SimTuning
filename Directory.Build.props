@@ -1,0 +1,77 @@
+﻿<Project>
+  <!-- global configuration -->
+  <PropertyGroup>
+    <Copyright>Copyright (c) tuke productions</Copyright>
+    <Company>tuke productions</Company>
+    <Authors>Tony Meißner</Authors>
+    <Owners>Tony Meißner</Owners>
+    <Description>Ein Tool, um Simson-Begeisterte etwas unter die Arme zu greifen und zu helfen.</Description>
+    <PackageTags>powerbuilder, powerscript</PackageTags>
+    <NeutralLanguage>de-DE</NeutralLanguage>
+    <RepositoryUrl>https://github.com/tuke307/SimTuning</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/tuke307/SimTuning/releases</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <!-- version configuration -->
+  <PropertyGroup>
+    <Version>1.2.0.0</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+  </PropertyGroup>
+
+  <!-- execution configuration -->
+  <PropertyGroup>
+    <!--<Nullable>enable</Nullable>
+    <NoWarn>$(NoWarn);1591;1701;1702;1705;VSX1000;NU1603</NoWarn>-->
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <!-- style configuration -->
+  <ItemGroup>
+    <!-- Ruleset configuration -->
+    <!--<CodeAnalysisRuleSet>$(SolutionDir)\Code Rules.ruleset</CodeAnalysisRuleSet>-->
+  </ItemGroup>
+
+  <!-- release configuration -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <!--<SymbolPackageFormat>snupkg</SymbolPackageFormat>-->
+    <IncludeSymbols>true</IncludeSymbols>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <DesignTimeBuild>false</DesignTimeBuild>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild Condition=" '$(IsTestProject)' != 'true'">true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <!-- debug configuration -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>DEBUG</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <!-- nuget configuration -->
+  <ItemGroup>
+    <!-- Analyzers -->
+    <PackageReference Include="AsyncFixer" Version="1.5.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="Roslynator.Analyzers" Version="3.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

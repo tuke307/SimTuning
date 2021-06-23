@@ -6,14 +6,8 @@
     <AssemblyName>SimTuning</AssemblyName>
     <UseWPF>true</UseWPF>
     <OutputType>WinExe</OutputType>
-    <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>..\Solution Items\Code Rules.ruleset</CodeAnalysisRuleSet>
-    <Authors>Tony Meißner</Authors>
-    <Company>tuke productions</Company>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Copyright>tuke productions</Copyright>
-    <Description>Ein Tool, um Simson-Begeisterte etwas unter die Arme zu greifen und zu helfen.</Description>
-    <NeutralLanguage>de-DE</NeutralLanguage>
     <SignAssembly>false</SignAssembly>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <OldToolsVersion>Current</OldToolsVersion>
@@ -21,23 +15,7 @@
     <PackageIcon>logo_win.png</PackageIcon>
     <Product>SimTuning</Product>
     <ApplicationIcon>logo_win.ico</ApplicationIcon>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <Version>1.1.0</Version>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Views\**" />
-    <EmbeddedResource Remove="Views\**" />
-    <None Remove="Views\**" />
-    <Page Remove="Views\**" />
-  </ItemGroup>
 
   <!-- Conditionally obtain references for the .NET 5.0 target -->
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
@@ -62,9 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    
-    <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -74,16 +49,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
-    <PackageReference Include="MvvmCross" Version="8.0.1" />
-    <PackageReference Include="MvvmCross.Platforms.Wpf" Version="8.0.1" />
-    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="8.0.1" />
-    <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="8.0.1" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
     <PackageReference Include="System.Core" Version="3.5.21022.801" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Xml.Linq" Version="3.5.21022.801" />
-    <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
-    
   </ItemGroup>
 
   <ItemGroup>
