@@ -1,5 +1,5 @@
-﻿// project=SimTuning.WPF.UI, file=DynoDiagnosisView.xaml.cs, creation=2020:7:7 Copyright
-// (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.WPF.UI, file=DynoGeschwindigkeitView.xaml.cs, creation=2020:12:14
+// Copyright (c) 2021 tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.Views.Dyno
 {
     using MvvmCross.Platforms.Wpf.Views;

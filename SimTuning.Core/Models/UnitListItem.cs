@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Core, file=UnitListItem.cs, creation=2020:9:7 Copyright (c) 2020 tuke
+﻿// project=SimTuning.Core, file=UnitListItem.cs, creation=2020:9:7 Copyright (c) 2021 tuke
 // productions. All rights reserved.
 namespace SimTuning.Core
 {

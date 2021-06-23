@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.UI, file=BehaviorBase.cs, creation=2020:7:27
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.UI, file=BehaviorBase.cs, creation=2020:7:31 Copyright (c) 2021
+// tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.Behaviors
 {
     using System;
@@ -27,6 +27,12 @@ namespace SimTuning.Forms.UI.Behaviors
             bindable.BindingContextChanged += OnBindingContextChanged;
         }
 
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            BindingContext = AssociatedObject.BindingContext;
+        }
+
         protected override void OnDetachingFrom(T bindable)
         {
             base.OnDetachingFrom(bindable);
@@ -37,12 +43,6 @@ namespace SimTuning.Forms.UI.Behaviors
         private void OnBindingContextChanged(object sender, EventArgs e)
         {
             OnBindingContextChanged();
-        }
-
-        protected override void OnBindingContextChanged()
-        {
-            base.OnBindingContextChanged();
-            BindingContext = AssociatedObject.BindingContext;
         }
     }
 }

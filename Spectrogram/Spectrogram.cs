@@ -1,4 +1,6 @@
-﻿using SkiaSharp;
+﻿// project=Spectrogram, file=Spectrogram.cs, creation=2020:6:28 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

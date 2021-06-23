@@ -1,5 +1,5 @@
 ﻿// project=SimTuning.Forms.UI, file=DemoMainViewModel.cs, creation=2020:6:30 Copyright (c)
-// 2020 tuke productions. All rights reserved.
+// 2021 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels.Demo
 {
     using Microsoft.Extensions.Logging;

@@ -1,4 +1,6 @@
-﻿namespace SimTuning.Forms.UI.Views.Dyno
+﻿// project=SimTuning.Forms.UI, file=DynoAudioPlayerView.xaml.cs, creation=2020:10:21
+// Copyright (c) 2021 tuke productions. All rights reserved.
+namespace SimTuning.Forms.UI.Views.Dyno
 {
     using MvvmCross;
     using MvvmCross.Forms.Views;

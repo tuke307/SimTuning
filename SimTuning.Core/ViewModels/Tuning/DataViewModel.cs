@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Core, file=DataViewModel.cs, creation=2020:7:31 Copyright (c) 2020
+﻿// project=SimTuning.Core, file=DataViewModel.cs, creation=2020:7:31 Copyright (c) 2021
 // tuke productions. All rights reserved.
 using Data.Models;
 using Microsoft.EntityFrameworkCore;

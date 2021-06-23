@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.Droid, file=Functions.cs, creation=2020:9:20 Copyright (c) 2020
-// tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.Droid, file=Functions.cs, creation=2020:10:19 Copyright (c)
+// 2021 tuke productions. All rights reserved.
 
 //using Android.App;
 //using Android.Content;

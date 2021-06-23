@@ -1,4 +1,6 @@
-﻿using MediaManager;
+﻿// project=SimTuning.Core, file=AudioPlayerViewModel.cs, creation=2020:10:21 Copyright (c)
+// 2021 tuke productions. All rights reserved.
+using MediaManager;
 using MediaManager.Library;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;

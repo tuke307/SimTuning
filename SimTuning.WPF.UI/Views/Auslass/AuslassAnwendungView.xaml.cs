@@ -1,5 +1,5 @@
 ﻿// project=SimTuning.WPF.UI, file=AuslassAnwendungView.xaml.cs, creation=2020:9:7
-// Copyright (c) 2020 tuke productions. All rights reserved.
+// Copyright (c) 2021 tuke productions. All rights reserved.
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using SimTuning.WPF.UI.Region;

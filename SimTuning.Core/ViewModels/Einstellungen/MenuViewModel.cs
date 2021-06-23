@@ -1,4 +1,6 @@
-﻿namespace SimTuning.Core.ViewModels.Einstellungen
+﻿// project=SimTuning.Core, file=MenuViewModel.cs, creation=2020:12:14 Copyright (c) 2021
+// tuke productions. All rights reserved.
+namespace SimTuning.Core.ViewModels.Einstellungen
 {
     using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;

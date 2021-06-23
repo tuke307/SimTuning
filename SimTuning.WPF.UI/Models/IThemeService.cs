@@ -1,4 +1,6 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿// project=SimTuning.WPF.UI, file=IThemeService.cs, creation=2020:12:14 Copyright (c) 2021
+// tuke productions. All rights reserved.
+using MaterialDesignThemes.Wpf;
 
 namespace SimTuning.WPF.UI.Models
 {

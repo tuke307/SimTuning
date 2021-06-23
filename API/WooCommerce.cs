@@ -1,4 +1,4 @@
-﻿// project=API, file=WooCommerce.cs, creation=2020:6:28 Copyright (c) 2020 tuke
+﻿// project=API, file=WooCommerce.cs, creation=2020:6:28 Copyright (c) 2021 tuke
 // productions. All rights reserved.
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.UI, file=App.cs, creation=2020:6:30 Copyright (c) 2020 tuke
+﻿// project=SimTuning.Forms.UI, file=MvxApp.cs, creation=2020:12:14 Copyright (c) 2021 tuke
 // productions. All rights reserved.
 namespace SimTuning.Forms.UI
 {

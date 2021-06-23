@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.iOS, file=Main.cs, creation=2020:7:7 Copyright (c) 2020 tuke
+﻿// project=SimTuning.Forms.iOS, file=Main.cs, creation=2020:7:1 Copyright (c) 2021 tuke
 // productions. All rights reserved.
 namespace SimTuning.Forms.iOS
 {

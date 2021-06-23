@@ -1,4 +1,6 @@
-﻿using MvvmCross.Forms.Converters;
+﻿// project=SimTuning.Forms.UI, file=TimeSpanToDoubleValueConverter.cs, creation=2020:12:14
+// Copyright (c) 2021 tuke productions. All rights reserved.
+using MvvmCross.Forms.Converters;
 using System;
 using System.Globalization;
 

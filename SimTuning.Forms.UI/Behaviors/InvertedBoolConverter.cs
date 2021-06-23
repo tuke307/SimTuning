@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.UI, file=InvertedBoolConverter.cs, creation=2020:8:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.UI, file=InvertedBoolConverter.cs, creation=2020:9:2 Copyright
+// (c) 2021 tuke productions. All rights reserved.
 using System;
 using System.Globalization;
 using Xamarin.Forms;

@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿// project=SimTuning.Forms.UI, file=LightTheme.cs, creation=2020:12:14 Copyright (c) 2021
+// tuke productions. All rights reserved.
+using Xamarin.Forms;
 
 namespace SimTuning.Forms.UI.Themes.Base
 {

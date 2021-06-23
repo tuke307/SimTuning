@@ -1,5 +1,5 @@
-﻿// project=SimTuning.WPF.UI, file=MotorMainView.xaml.cs, creation=2020:7:7 Copyright (c)
-// 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.WPF.UI, file=MotorMainView.xaml.cs, creation=2020:9:7 Copyright (c)
+// 2021 tuke productions. All rights reserved.
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using SimTuning.WPF.UI.Region;

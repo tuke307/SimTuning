@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+project=SimTuning.Forms.Droid, file=SplashScreen.xml, creation=2020:10:21
+Copyright (c) 2021 tuke productions. All rights reserved.
+-->
+
 <!--ImageView: https://guides.codepath.com/android/Working-with-the-ImageView-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,4 +1,6 @@
-﻿namespace SimTuning.Core.ViewModels.Dyno
+﻿// project=SimTuning.Core, file=GeschwindigkeitViewModel.cs, creation=2020:12:14 Copyright
+// (c) 2021 tuke productions. All rights reserved.
+namespace SimTuning.Core.ViewModels.Dyno
 {
     using Data;
     using Data.Models;

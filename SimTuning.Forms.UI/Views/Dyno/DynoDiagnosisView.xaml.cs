@@ -1,5 +1,5 @@
 ﻿// project=SimTuning.Forms.UI, file=DynoDiagnosisView.xaml.cs, creation=2020:6:28
-// Copyright (c) 2020 tuke productions. All rights reserved.
+// Copyright (c) 2021 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.Views.Dyno
 {
     using MvvmCross.Forms.Presenters.Attributes;

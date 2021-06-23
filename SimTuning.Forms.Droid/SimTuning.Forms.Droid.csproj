@@ -93,7 +93,6 @@
     <Compile Include="ThemeService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimTuning.Forms.Droid.licenseheader" />
     <ProguardConfiguration Include="proguard.cfg">
       <SubType>Designer</SubType>
     </ProguardConfiguration>
@@ -1116,7 +1115,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarSimTuningFormsDroidHideInfoBar="True" TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionSimTuningFormsDroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionSimTuningFormsDroidHideInfoBar="True" TriggeredFromHotReload="False" XamarinHotReloadWrongLinkerErrorInfoBarSimTuningFormsDroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

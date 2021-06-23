@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.UI, file=MenuViewModel.cs, creation=2020:7:2 Copyright (c) 2020
+﻿// project=SimTuning.Forms.UI, file=MenuViewModel.cs, creation=2020:7:2 Copyright (c) 2021
 // tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.ViewModels
 {

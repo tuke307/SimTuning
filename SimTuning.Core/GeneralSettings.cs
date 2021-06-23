@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=Constants.cs, creation=2020:9:7 Copyright (c) 2020 tuke
-// productions. All rights reserved.
+﻿// project=SimTuning.Core, file=GeneralSettings.cs, creation=2020:10:19 Copyright (c) 2021
+// tuke productions. All rights reserved.
 namespace SimTuning.Core
 {
     using Plugin.Settings;

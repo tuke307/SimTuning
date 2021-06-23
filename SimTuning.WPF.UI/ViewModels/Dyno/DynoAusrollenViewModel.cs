@@ -1,5 +1,5 @@
-﻿// project=SimTuning.WPF.UI, file=DynoAusrollenViewModel.cs, creation=2020:10:5 Copyright
-// (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.WPF.UI, file=DynoAusrollenViewModel.cs, creation=2020:10:19 Copyright
+// (c) 2021 tuke productions. All rights reserved.
 using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;

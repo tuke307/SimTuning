@@ -1,4 +1,6 @@
-﻿using MvvmCross.Converters;
+﻿// project=SimTuning.Core, file=TimeSpanToDoubleValueConverter.cs, creation=2020:10:21
+// Copyright (c) 2021 tuke productions. All rights reserved.
+using MvvmCross.Converters;
 using System;
 using System.Globalization;
 

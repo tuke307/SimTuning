@@ -1,6 +1,6 @@
 <!--
-project=SimTuning.Forms.Droid, file=Toolbar.xml, creation=2020:7:7
-Copyright (c) 2020 tuke productions. All rights reserved.
+project=SimTuning.Forms.Droid, file=Toolbar.xml, creation=2020:6:30
+Copyright (c) 2021 tuke productions. All rights reserved.
 -->
 <android.support.v7.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"

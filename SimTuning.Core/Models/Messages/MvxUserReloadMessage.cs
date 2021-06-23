@@ -1,4 +1,6 @@
-﻿using MvvmCross.Plugin.Messenger;
+﻿// project=SimTuning.Core, file=MvxUserReloadMessage.cs, creation=2020:12:14 Copyright (c)
+// 2021 tuke productions. All rights reserved.
+using MvvmCross.Plugin.Messenger;
 using System;
 using System.Collections.Generic;
 using System.Text;

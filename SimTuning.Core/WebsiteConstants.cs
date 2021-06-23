@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=SimTuning.Core, file=WebsiteConstants.cs, creation=2020:10:23 Copyright (c)
+// 2021 tuke productions. All rights reserved.
+using System;
 using System.Collections.Generic;
 using System.Text;
 

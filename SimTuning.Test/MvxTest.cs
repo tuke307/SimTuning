@@ -1,4 +1,6 @@
-﻿namespace SimTuning.Test
+﻿// project=SimTuning.Test, file=MvxTest.cs, creation=2021:6:23 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+namespace SimTuning.Test
 {
     using MvvmCross.Base;
     using MvvmCross.Commands;

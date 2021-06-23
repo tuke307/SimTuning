@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿// project=SimTuning.Forms.UI, file=EinstellungenAussehenViewModel.cs, creation=2020:12:14
+// Copyright (c) 2021 tuke productions. All rights reserved.
+using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using SimTuning.Forms.UI.Services;
 using System;

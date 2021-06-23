@@ -1,4 +1,6 @@
-﻿using MvvmCross.Commands;
+﻿// project=SimTuning.Test, file=ViewModelBase.cs, creation=2021:6:23 Copyright (c) 2021
+// tuke productions. All rights reserved.
+using MvvmCross.Commands;
 using MvvmCross.Core;
 using MvvmCross.Navigation;
 using MvvmCross.Tests;

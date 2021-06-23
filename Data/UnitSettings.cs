@@ -1,4 +1,6 @@
-﻿namespace Data
+﻿// project=Data, file=UnitSettings.cs, creation=2020:10:19 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+namespace Data
 {
     using Plugin.Settings;
     using Plugin.Settings.Abstractions;

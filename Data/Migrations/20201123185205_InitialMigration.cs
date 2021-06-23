@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿// project=Data, file=20201123185205_InitialMigration.cs, creation=2020:12:14 Copyright
+// (c) 2021 tuke productions. All rights reserved.
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
 namespace Data.Migrations

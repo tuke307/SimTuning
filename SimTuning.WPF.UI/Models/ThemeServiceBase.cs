@@ -1,4 +1,6 @@
-﻿using MaterialDesignColors;
+﻿// project=SimTuning.WPF.UI, file=ThemeServiceBase.cs, creation=2020:12:14 Copyright (c)
+// 2021 tuke productions. All rights reserved.
+using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows;

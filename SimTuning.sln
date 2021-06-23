@@ -32,6 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Code Rules.ruleset = Code Rules.ruleset
 		CodeMaid.config = CodeMaid.config
+		SimTuning.sln.licenseheader = SimTuning.sln.licenseheader
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimTuning.Test", "SimTuning.Test\SimTuning.Test.csproj", "{B43D8C69-6A7B-42AA-954E-FE43761BA13A}"

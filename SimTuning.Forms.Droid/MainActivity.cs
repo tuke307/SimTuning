@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.Droid, file=MainActivity.cs, creation=2020:7:7 Copyright (c)
-// 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.Droid, file=MainActivity.cs, creation=2020:7:1 Copyright (c)
+// 2021 tuke productions. All rights reserved.
 namespace SimTuning.Forms.Droid
 {
     using Android.App;

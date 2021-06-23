@@ -1,4 +1,6 @@
-﻿using MediaManager;
+﻿// project=SimTuning.Core, file=MvxApp.cs, creation=2020:12:14 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+using MediaManager;
 using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;

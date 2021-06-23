@@ -1,4 +1,6 @@
-﻿using SciColorMaps.Portable;
+﻿// project=Spectrogram, file=Image.cs, creation=2020:6:28 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+using SciColorMaps.Portable;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;

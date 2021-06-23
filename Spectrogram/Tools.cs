@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=Spectrogram, file=Tools.cs, creation=2020:6:28 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+using System;
 using System.Linq;
 
 namespace Spectrogram

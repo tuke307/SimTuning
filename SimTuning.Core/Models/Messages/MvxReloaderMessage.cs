@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=MvxReloaderMessage.cs, creation=2020:8:25 Copyright (c)
-// 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=MvxReloaderMessage.cs, creation=2020:12:14 Copyright (c)
+// 2021 tuke productions. All rights reserved.
 using Data.Models;
 using MvvmCross.Plugin.Messenger;
 

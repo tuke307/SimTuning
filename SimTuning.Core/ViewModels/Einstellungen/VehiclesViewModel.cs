@@ -1,5 +1,5 @@
 ﻿// project=SimTuning.Core, file=VehiclesViewModel.cs, creation=2020:7:31 Copyright (c)
-// 2020 tuke productions. All rights reserved.
+// 2021 tuke productions. All rights reserved.
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;

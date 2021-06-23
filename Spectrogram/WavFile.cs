@@ -1,6 +1,5 @@
-﻿// Simple WAV file reader by Scott Harden released under a MIT license Format here is
-// based on http://soundfile.sapp.org/doc/WaveFormat/
-
+﻿// project=Spectrogram, file=WavFile.cs, creation=2020:10:19 Copyright (c) 2021 tuke
+// productions. All rights reserved.
 using System;
 using System.Diagnostics;
 using System.IO;

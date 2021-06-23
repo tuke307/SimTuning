@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=Spectrogram, file=Settings.cs, creation=2020:10:19 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+using System;
 
 namespace Spectrogram
 {

@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Forms.UI, file=Functions.cs, creation=2020:8:9 Copyright (c) 2020
+﻿// project=SimTuning.Forms.UI, file=Functions.cs, creation=2020:8:9 Copyright (c) 2021
 // tuke productions. All rights reserved.
 using Xamarin.Forms.PlatformConfiguration;
 

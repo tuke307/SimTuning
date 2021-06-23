@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿// project=SimTuning.Forms.UI, file=DynoGeschwindigkeitViewModel.cs, creation=2020:12:14
+// Copyright (c) 2021 tuke productions. All rights reserved.
+using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;

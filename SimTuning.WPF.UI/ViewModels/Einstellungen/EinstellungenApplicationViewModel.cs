@@ -1,5 +1,5 @@
 ﻿// project=SimTuning.WPF.UI, file=EinstellungenApplicationViewModel.cs, creation=2020:9:2
-// Copyright (c) 2020 tuke productions. All rights reserved.
+// Copyright (c) 2021 tuke productions. All rights reserved.
 using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;

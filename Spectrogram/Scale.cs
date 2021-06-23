@@ -1,4 +1,7 @@
-﻿//using SkiaSharp;
+﻿// project=Spectrogram, file=Scale.cs, creation=2020:10:19 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+
+//using SkiaSharp;
 
 //namespace Spectrogram
 //{
@@ -25,9 +28,8 @@
 // //using (var gfx = Graphics.FromImage(bmp)) //using (var pen = new Pen(Color.Black))
 // //using (var brush = new SolidBrush(Color.Black)) //using (var font = new
 // Font(FontFamily.GenericMonospace, 10)) //using (var sf = new StringFormat() {
-// LineAlignment = StringAlignment.Center }) //{ // gfx.Clear(Color.White);
-
-// // List<double> freqs = new List<double>();
+// LineAlignment = StringAlignment.Center }) //{ // gfx.Clear(Color.White); //
+// List<double> freqs = new List<double>();
 
 // // for (double f = settings.FreqMin; f <= settings.FreqMax; f += tickHz) //
 // freqs.Add(f);

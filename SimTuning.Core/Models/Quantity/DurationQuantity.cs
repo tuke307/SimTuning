@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Core, file=DurationQuantity.cs, creation=2020:7:31 Copyright (c) 2020
+﻿// project=SimTuning.Core, file=DurationQuantity.cs, creation=2020:7:31 Copyright (c) 2021
 // tuke productions. All rights reserved.
 namespace SimTuning.Core.Models
 {

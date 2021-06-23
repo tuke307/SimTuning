@@ -1,4 +1,6 @@
-﻿using SimTuning.Forms.UI.Components;
+﻿// project=SimTuning.Forms.iOS, file=CustomViewCellRenderer.cs, creation=2020:12:14
+// Copyright (c) 2021 tuke productions. All rights reserved.
+using SimTuning.Forms.UI.Components;
 using SimTuning.mobile.iOS.CustomRenderers;
 using UIKit;
 using Xamarin.Forms;

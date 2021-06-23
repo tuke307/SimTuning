@@ -1,4 +1,6 @@
-﻿namespace SimTuning.Core
+﻿// project=SimTuning.Core, file=UserSettings.cs, creation=2020:10:19 Copyright (c) 2021
+// tuke productions. All rights reserved.
+namespace SimTuning.Core
 {
     using MvvmCross.ViewModels;
     using Plugin.Settings;

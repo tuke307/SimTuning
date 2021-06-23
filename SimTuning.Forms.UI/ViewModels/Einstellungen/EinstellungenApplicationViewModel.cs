@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿// project=SimTuning.Forms.UI, file=EinstellungenApplicationViewModel.cs,
+// creation=2020:10:19 Copyright (c) 2021 tuke productions. All rights reserved.
+using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using System.Threading.Tasks;
 

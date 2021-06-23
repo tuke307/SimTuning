@@ -1,5 +1,5 @@
 ﻿// project=SimTuning.WPF.UI, file=DemoMainViewModel.cs, creation=2020:9:2 Copyright (c)
-// 2020 tuke productions. All rights reserved.
+// 2021 tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.ViewModels.Demo
 {
     using Microsoft.Extensions.Logging;

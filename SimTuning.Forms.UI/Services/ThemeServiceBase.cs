@@ -1,4 +1,6 @@
-﻿using SimTuning.Forms.UI.Themes;
+﻿// project=SimTuning.Forms.UI, file=ThemeServiceBase.cs, creation=2020:12:14 Copyright (c)
+// 2021 tuke productions. All rights reserved.
+using SimTuning.Forms.UI.Themes;
 using SimTuning.Forms.UI.Themes.Base;
 using System.Linq;
 using Xamarin.Forms;

@@ -1,4 +1,4 @@
-﻿// project=SimTuning.WPF.App, file=MvxWpfSetup.cs, creation=2020:9:6 Copyright (c) 2020
+﻿// project=SimTuning.WPF.App, file=MvxWpfSetup.cs, creation=2020:9:7 Copyright (c) 2021
 // tuke productions. All rights reserved.
 namespace SimTuning.WPF.App
 {

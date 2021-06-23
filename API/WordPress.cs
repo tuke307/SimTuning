@@ -1,4 +1,4 @@
-﻿// project=API, file=WordPress.cs, creation=2020:6:28 Copyright (c) 2020 tuke productions.
+﻿// project=API, file=WordPress.cs, creation=2020:6:28 Copyright (c) 2021 tuke productions.
 // All rights reserved.
 using System;
 using System.Security;

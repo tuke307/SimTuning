@@ -1,4 +1,4 @@
-﻿// project=SimTuning.WPF.UI, file=Functions.cs, creation=2020:9:2 Copyright (c) 2020 tuke
+﻿// project=SimTuning.WPF.UI, file=Functions.cs, creation=2020:9:2 Copyright (c) 2021 tuke
 // productions. All rights reserved.
 using MaterialDesignThemes.Wpf;
 using SimTuning.WPF.UI.Dialog;

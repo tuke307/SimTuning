@@ -1,4 +1,6 @@
-﻿using MediaManager;
+﻿// project=SimTuning.Forms.UI, file=DynoAudioPlayerViewModel.cs, creation=2020:10:21
+// Copyright (c) 2021 tuke productions. All rights reserved.
+using MediaManager;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;

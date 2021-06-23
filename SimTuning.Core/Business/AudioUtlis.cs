@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=AudioUtlis.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=AudioUtlis.cs, creation=2020:7:31 Copyright (c) 2021 tuke
+// productions. All rights reserved.
 using NAudio.Wave;
 using System;
 using System.IO;
@@ -8,59 +8,6 @@ namespace SimTuning.Core.Business
 {
     public static class AudioUtils
     {
-        /// <summary>
-        /// von startpos bis endpos wird die Audio Datei behalten
-        /// start-und endpos in bytes
-        /// </summary>
-        /// <param name="inPath">The in path.</param>
-        /// <param name="outPath">The out path.</param>
-        /// <param name="cutFromStart">The cut from start.</param>
-        /// <param name="cutFromEnd">The cut from end.</param>
-        public static void TrimWavFile(TimeSpan cutFromStart, TimeSpan cutFromEnd, ref Stream outStream, string inPath = null, string outPath = null, Stream inStream = null)
-        {
-            WaveFileReader reader;
-            if (inPath != null) { reader = new WaveFileReader(inPath); }
-            else { reader = new WaveFileReader(inStream); }
-
-            WaveFileWriter writer;
-            if (outPath != null) { writer = new WaveFileWriter(outPath, reader.WaveFormat); }
-            else { writer = new WaveFileWriter(outStream, reader.WaveFormat); }
-
-            int bytesPerMillisecond = reader.WaveFormat.AverageBytesPerSecond / 1000;
-
-            int startPos = (int)cutFromStart.TotalMilliseconds * bytesPerMillisecond;
-            startPos = startPos - startPos % reader.WaveFormat.BlockAlign;
-
-            int endBytes = (int)cutFromEnd.TotalMilliseconds * bytesPerMillisecond;
-            endBytes = endBytes - endBytes % reader.WaveFormat.BlockAlign;
-            int endPos = (int)reader.Length - endBytes;
-
-            TrimWavFile(reader, ref writer, startPos, endPos);
-        }
-
-        /// <summary>
-        /// Konvertiert .mp3 zu .wav
-        /// </summary>
-        /// <param name="mp3File">Pfad Der MP3 Datei</param>
-        /// <param name="outputFile">Pfad wo die .wav Datei gespeichert werden soll</param>
-        public static void Mp3ToWav(string mp3InputFile, string wavOutputFile)
-        {
-            try
-            {
-                using (Mp3FileReader reader = new Mp3FileReader(mp3InputFile))
-                {
-                    using (WaveStream pcmStream = WaveFormatConversionStream.CreatePcmStream(reader))
-                    {
-                        WaveFileWriter.CreateWaveFile(wavOutputFile, pcmStream);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                //MessageBox.Show(e.Message, "Fehler beim konvertieren der Audio Datei");
-            }
-        }
-
         /// <summary>
         /// Erstellt mit übergebenen Stream eine .wav Datei im lokalen Verzeichnis.
         /// </summary>
@@ -104,6 +51,59 @@ namespace SimTuning.Core.Business
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Konvertiert .mp3 zu .wav
+        /// </summary>
+        /// <param name="mp3File">Pfad Der MP3 Datei</param>
+        /// <param name="outputFile">Pfad wo die .wav Datei gespeichert werden soll</param>
+        public static void Mp3ToWav(string mp3InputFile, string wavOutputFile)
+        {
+            try
+            {
+                using (Mp3FileReader reader = new Mp3FileReader(mp3InputFile))
+                {
+                    using (WaveStream pcmStream = WaveFormatConversionStream.CreatePcmStream(reader))
+                    {
+                        WaveFileWriter.CreateWaveFile(wavOutputFile, pcmStream);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //MessageBox.Show(e.Message, "Fehler beim konvertieren der Audio Datei");
+            }
+        }
+
+        /// <summary>
+        /// von startpos bis endpos wird die Audio Datei behalten start-und endpos in
+        /// bytes
+        /// </summary>
+        /// <param name="inPath">The in path.</param>
+        /// <param name="outPath">The out path.</param>
+        /// <param name="cutFromStart">The cut from start.</param>
+        /// <param name="cutFromEnd">The cut from end.</param>
+        public static void TrimWavFile(TimeSpan cutFromStart, TimeSpan cutFromEnd, ref Stream outStream, string inPath = null, string outPath = null, Stream inStream = null)
+        {
+            WaveFileReader reader;
+            if (inPath != null) { reader = new WaveFileReader(inPath); }
+            else { reader = new WaveFileReader(inStream); }
+
+            WaveFileWriter writer;
+            if (outPath != null) { writer = new WaveFileWriter(outPath, reader.WaveFormat); }
+            else { writer = new WaveFileWriter(outStream, reader.WaveFormat); }
+
+            int bytesPerMillisecond = reader.WaveFormat.AverageBytesPerSecond / 1000;
+
+            int startPos = (int)cutFromStart.TotalMilliseconds * bytesPerMillisecond;
+            startPos = startPos - startPos % reader.WaveFormat.BlockAlign;
+
+            int endBytes = (int)cutFromEnd.TotalMilliseconds * bytesPerMillisecond;
+            endBytes = endBytes - endBytes % reader.WaveFormat.BlockAlign;
+            int endPos = (int)reader.Length - endBytes;
+
+            TrimWavFile(reader, ref writer, startPos, endPos);
         }
 
         /// <summary>

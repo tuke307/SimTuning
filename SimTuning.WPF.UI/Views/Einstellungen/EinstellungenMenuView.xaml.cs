@@ -1,4 +1,6 @@
-﻿namespace SimTuning.WPF.UI.Views.Einstellungen
+﻿// project=SimTuning.WPF.UI, file=EinstellungenMenuView.xaml.cs, creation=2020:12:14
+// Copyright (c) 2021 tuke productions. All rights reserved.
+namespace SimTuning.WPF.UI.Views.Einstellungen
 {
     using MvvmCross.Platforms.Wpf.Views;
     using SimTuning.WPF.UI.Region;

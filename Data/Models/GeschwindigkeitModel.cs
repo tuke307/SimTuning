@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=Data, file=GeschwindigkeitModel.cs, creation=2020:12:14 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;

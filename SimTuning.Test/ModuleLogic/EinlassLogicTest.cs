@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿// project=SimTuning.Test, file=EinlassLogicTest.cs, creation=2021:6:23 Copyright (c) 2021
+// tuke productions. All rights reserved.
+using NUnit.Framework;
 using SimTuning.Core.ModuleLogic;
 using SimTuning.Test;
 

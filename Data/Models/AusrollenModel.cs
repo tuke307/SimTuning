@@ -1,4 +1,6 @@
-﻿using System;
+﻿// project=Data, file=AusrollenModel.cs, creation=2020:10:19 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;

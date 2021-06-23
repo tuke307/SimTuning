@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿// project=SimTuning.Forms.Droid, file=ThemeService.cs, creation=2020:12:14 Copyright (c)
+// 2021 tuke productions. All rights reserved.
 using Android.App;
 using Android.Support.V7.App;
 using MvvmCross;

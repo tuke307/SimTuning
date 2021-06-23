@@ -1,5 +1,5 @@
 ﻿// project=SimTuning.Core, file=SteuerdiagrammViewModel.cs, creation=2020:7:31 Copyright
-// (c) 2020 tuke productions. All rights reserved.
+// (c) 2021 tuke productions. All rights reserved.
 namespace SimTuning.Core.ViewModels.Motor
 {
     using Data;

@@ -1,4 +1,4 @@
-﻿// project=SimTuning.Core, file=PressureQuantity.cs, creation=2020:9:7 Copyright (c) 2020
+﻿// project=SimTuning.Core, file=PressureQuantity.cs, creation=2020:9:7 Copyright (c) 2021
 // tuke productions. All rights reserved.
 namespace SimTuning.Core.Models.Quantity
 {

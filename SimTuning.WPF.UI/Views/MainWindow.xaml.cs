@@ -1,4 +1,4 @@
-﻿// project=SimTuning.WPF.UI, file=MainWindow.xaml.cs, creation=2020:7:9 Copyright (c) 2020
+﻿// project=SimTuning.WPF.UI, file=MainWindow.xaml.cs, creation=2020:9:7 Copyright (c) 2021
 // tuke productions. All rights reserved.
 namespace SimTuning.WPF.UI.Views
 {

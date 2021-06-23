@@ -1,4 +1,6 @@
-﻿using Android.Content;
+﻿// project=SimTuning.Forms.Droid, file=CustomViewCellRenderer.cs, creation=2020:12:14
+// Copyright (c) 2021 tuke productions. All rights reserved.
+using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Views;
 using SimTuning.Forms.Droid.CustomRenderers;

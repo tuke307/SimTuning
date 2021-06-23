@@ -1,4 +1,6 @@
-﻿namespace SimTuning.Forms.UI.ViewModels.Dyno
+﻿// project=SimTuning.Forms.UI, file=DynoRuntimeViewModel.cs, creation=2020:10:19 Copyright
+// (c) 2021 tuke productions. All rights reserved.
+namespace SimTuning.Forms.UI.ViewModels.Dyno
 {
     using Microsoft.Extensions.Logging;
     using MvvmCross.Commands;

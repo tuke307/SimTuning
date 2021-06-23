@@ -1,4 +1,6 @@
-﻿using MvvmCross.Forms.Presenters.Attributes;
+﻿// project=SimTuning.Forms.UI, file=EinstellungenAussehenView.xaml.cs, creation=2020:12:14
+// Copyright (c) 2021 tuke productions. All rights reserved.
+using MvvmCross.Forms.Presenters.Attributes;
 using MvvmCross.Forms.Views;
 using SimTuning.Forms.UI.ViewModels.Einstellungen;
 

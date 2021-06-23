@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Forms.UI, file=EventToCommandBehavior.cs, creation=2020:7:27
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Forms.UI, file=EventToCommandBehavior.cs, creation=2020:7:31
+// Copyright (c) 2021 tuke productions. All rights reserved.
 namespace SimTuning.Forms.UI.Behaviors
 {
     using System;
@@ -13,18 +13,11 @@ namespace SimTuning.Forms.UI.Behaviors
     /// <seealso cref="SimTuning.Forms.UI.Behaviors.BehaviorBase{Xamarin.Forms.View}" />
     public class EventToCommandBehavior : BehaviorBase<View>
     {
-        private Delegate eventHandler;
-
-        public static readonly BindableProperty EventNameProperty = BindableProperty.Create("EventName", typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(EventToCommandBehavior), null);
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create("CommandParameter", typeof(object), typeof(EventToCommandBehavior), null);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(EventToCommandBehavior), null);
+        public static readonly BindableProperty EventNameProperty = BindableProperty.Create("EventName", typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
         public static readonly BindableProperty InputConverterProperty = BindableProperty.Create("Converter", typeof(IValueConverter), typeof(EventToCommandBehavior), null);
-
-        public string EventName
-        {
-            get { return (string)GetValue(EventNameProperty); }
-            set { SetValue(EventNameProperty, value); }
-        }
+        private Delegate eventHandler;
 
         public ICommand Command
         {
@@ -44,6 +37,12 @@ namespace SimTuning.Forms.UI.Behaviors
             set { SetValue(InputConverterProperty, value); }
         }
 
+        public string EventName
+        {
+            get { return (string)GetValue(EventNameProperty); }
+            set { SetValue(EventNameProperty, value); }
+        }
+
         protected override void OnAttachedTo(View bindable)
         {
             base.OnAttachedTo(bindable);
@@ -56,21 +55,19 @@ namespace SimTuning.Forms.UI.Behaviors
             base.OnDetachingFrom(bindable);
         }
 
-        private void RegisterEvent(string name)
+        private static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            var behavior = (EventToCommandBehavior)bindable;
+            if (behavior.AssociatedObject == null)
             {
                 return;
             }
 
-            EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
-            if (eventInfo == null)
-            {
-                throw new ArgumentException(string.Format("EventToCommandBehavior: Can't register the '{0}' event.", EventName));
-            }
-            MethodInfo methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod("OnEvent");
-            eventHandler = methodInfo.CreateDelegate(eventInfo.EventHandlerType, this);
-            eventInfo.AddEventHandler(AssociatedObject, eventHandler);
+            string oldEventName = (string)oldValue;
+            string newEventName = (string)newValue;
+
+            behavior.DeregisterEvent(oldEventName);
+            behavior.RegisterEvent(newEventName);
         }
 
         private void DeregisterEvent(string name)
@@ -120,19 +117,21 @@ namespace SimTuning.Forms.UI.Behaviors
             }
         }
 
-        private static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
+        private void RegisterEvent(string name)
         {
-            var behavior = (EventToCommandBehavior)bindable;
-            if (behavior.AssociatedObject == null)
+            if (string.IsNullOrWhiteSpace(name))
             {
                 return;
             }
 
-            string oldEventName = (string)oldValue;
-            string newEventName = (string)newValue;
-
-            behavior.DeregisterEvent(oldEventName);
-            behavior.RegisterEvent(newEventName);
+            EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
+            if (eventInfo == null)
+            {
+                throw new ArgumentException(string.Format("EventToCommandBehavior: Can't register the '{0}' event.", EventName));
+            }
+            MethodInfo methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod("OnEvent");
+            eventHandler = methodInfo.CreateDelegate(eventInfo.EventHandlerType, this);
+            eventInfo.AddEventHandler(AssociatedObject, eventHandler);
         }
     }
 }

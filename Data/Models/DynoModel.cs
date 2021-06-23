@@ -1,4 +1,4 @@
-﻿// project=Data, file=DynoModel.cs, creation=2020:6:28 Copyright (c) 2020 tuke
+﻿// project=Data, file=DynoModel.cs, creation=2020:6:28 Copyright (c) 2021 tuke
 // productions. All rights reserved.
 namespace Data.Models
 {

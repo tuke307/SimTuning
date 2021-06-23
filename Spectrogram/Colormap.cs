@@ -1,4 +1,6 @@
-﻿namespace Spectrogram
+﻿// project=Spectrogram, file=Colormap.cs, creation=2020:6:28 Copyright (c) 2021 tuke
+// productions. All rights reserved.
+namespace Spectrogram
 {
     public enum Colormap
     {

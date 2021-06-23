@@ -1,4 +1,4 @@
-﻿// project=API, file=Login.cs, creation=2020:6:28 Copyright (c) 2020 tuke productions. All
+﻿// project=API, file=Login.cs, creation=2020:6:28 Copyright (c) 2021 tuke productions. All
 // rights reserved.
 namespace API
 {
@@ -96,7 +96,7 @@ namespace API
                 messages.Add("FREE Version");
             }
 
-        Finish:
+            Finish:
             // Speichern der daten
             SimTuning.Core.Business.Functions.SaveLoginCredentials(email, password);
 

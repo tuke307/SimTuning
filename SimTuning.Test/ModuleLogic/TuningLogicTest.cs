@@ -1,3 +1,5 @@
+// project=SimTuning.Test, file=TuningLogicTest.cs, creation=2021:6:23 Copyright (c) 2021
+// tuke productions. All rights reserved.
 using NUnit.Framework;
 using SimTuning.Test;
 

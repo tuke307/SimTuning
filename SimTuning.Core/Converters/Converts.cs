@@ -1,5 +1,5 @@
-﻿// project=SimTuning.Core, file=Converts.cs, creation=2020:7:31
-// Copyright (c) 2020 tuke productions. All rights reserved.
+﻿// project=SimTuning.Core, file=Converts.cs, creation=2020:10:21 Copyright (c) 2021 tuke
+// productions. All rights reserved.
 using SkiaSharp;
 using System;
 using System.IO;
@@ -10,6 +10,25 @@ namespace SimTuning.Core.Business
 {
     public class Converts
     {
+        /// <summary>
+        /// Secures the string to string.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static string SecureStringToString(SecureString value)
+        {
+            IntPtr valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                return Marshal.PtrToStringUni(valuePtr);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
+        }
+
         /// <summary>
         /// Sks the bitmap to stream.
         /// </summary>
@@ -46,25 +65,6 @@ namespace SimTuning.Core.Business
 
             securePassword.MakeReadOnly();
             return securePassword;
-        }
-
-        /// <summary>
-        /// Secures the string to string.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
-        public static string SecureStringToString(SecureString value)
-        {
-            IntPtr valuePtr = IntPtr.Zero;
-            try
-            {
-                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                return Marshal.PtrToStringUni(valuePtr);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
-            }
         }
     }
 }
