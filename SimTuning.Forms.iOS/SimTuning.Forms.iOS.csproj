@@ -356,44 +356,6 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
-      <Version>3.3.2</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="MvvmCross">
-      <Version>7.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="MvvmCross.Plugin.Location">
-      <Version>7.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="MvvmCross.Plugin.Messenger">
-      <Version>7.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="MvvmCross.Plugin.WebBrowser">
-      <Version>7.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="Plugin.AudioRecorder">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Plugin.MediaManager.Forms">
-      <Version>1.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers">
-      <Version>1.1.118</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Xam.Plugins.Settings">
-      <Version>4.1.0-beta</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
-    <PackageReference Include="XF.Material">
-      <Version>1.7.8</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SimTuning.Core\SimTuning.Core.csproj">
       <Project>{1f341be0-50cc-483f-b3be-03245f6e6cfc}</Project>
       <Name>SimTuning.Core</Name>
