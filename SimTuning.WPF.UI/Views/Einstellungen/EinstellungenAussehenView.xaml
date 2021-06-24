@@ -12,7 +12,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   xmlns:materialDesignColors="clr-namespace:MaterialDesignColors;assembly=MaterialDesignColors"
                   xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                   xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
-                  xmlns:region="clr-namespace:SimTuning.WPF.UI.Region"
+                  xmlns:region="clr-namespace:Mvx.Wpf.ItemsPresenter;assembly=Mvx.Wpf.ItemsPresenter"
                   xmlns:viewModels="clr-namespace:SimTuning.WPF.UI.ViewModels.Einstellungen"
                   xmlns:local="clr-namespace:SimTuning.WPF.UI.Views.Einstellungen"
                   x:TypeArguments="viewModels:EinstellungenAussehenViewModel"

@@ -8,10 +8,10 @@ namespace SimTuning.WPF.App
     using MvvmCross.Platforms.Wpf.Presenters;
     using MvvmCross.Plugin;
     using MvvmCross.ViewModels;
+    using Mvx.Wpf.ItemsPresenter;
     using Serilog;
     using Serilog.Extensions.Logging;
     using SimTuning.Core;
-    using SimTuning.WPF.UI.Region;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -23,8 +23,7 @@ namespace SimTuning.WPF.App
     /// </summary>
     /// <typeparam name="TApplication">The type of the application.</typeparam>
     /// <seealso cref="MvvmCross.Platforms.Wpf.Core.MvxWpfSetup{TApplication}" />
-    public class MvxWpfSetup<TApplication> : MvvmCross.Platforms.Wpf.Core.MvxWpfSetup<TApplication>
-        where TApplication : class, IMvxApplication, new()
+    public class MvxWpfSetup<TApplication> : Mvx.Wpf.ItemsPresenter.MvxWpfSetup<SimTuning.WPF.UI.MvxApp>
     {
         /// <inheritdoc />
         public override IEnumerable<Assembly> GetViewAssemblies()

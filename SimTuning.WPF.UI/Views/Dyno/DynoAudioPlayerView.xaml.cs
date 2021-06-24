@@ -6,7 +6,7 @@ namespace SimTuning.WPF.UI.Views.Dyno
     using MvvmCross.Platforms.Wpf.Presenters.Attributes;
     using MvvmCross.Platforms.Wpf.Views;
     using MvvmCross.ViewModels;
-    using SimTuning.WPF.UI.Region;
+    using Mvx.Wpf.ItemsPresenter;
     using SimTuning.WPF.UI.ViewModels.Dyno;
 
     [MvxWpfPresenter("DynoAudioRegion", mvxViewPosition.NewOrExsist)]

@@ -10,7 +10,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
                   xmlns:local="clr-namespace:SimTuning.Core.Converters;assembly=SimTuning.Core"
                   xmlns:behaviours="clr-namespace:SimTuning.WPF.UI.Business"
-                  xmlns:region="clr-namespace:SimTuning.WPF.UI.Region"
+                  xmlns:region="clr-namespace:Mvx.Wpf.ItemsPresenter;assembly=Mvx.Wpf.ItemsPresenter"
                   xmlns:viewModels="clr-namespace:SimTuning.WPF.UI.ViewModels.Dyno"
                   x:TypeArguments="viewModels:DynoAudioPlayerViewModel"
                   mc:Ignorable="d"

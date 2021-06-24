@@ -3,7 +3,7 @@
 namespace SimTuning.WPF.UI.Views
 {
     using MvvmCross.Platforms.Wpf.Views;
-    using SimTuning.WPF.UI.Region;
+    using Mvx.Wpf.ItemsPresenter;
 
     /// <summary>
     /// MainView.

@@ -18,7 +18,7 @@ namespace SimTuning.WPF.UI
         {
             this.RegisterAppStart<SimTuning.WPF.UI.ViewModels.MainViewModel>();
 
-            Mvx.IoCProvider.RegisterSingleton<IThemeService>(() => new ThemeServiceBase());
+            MvvmCross.Mvx.IoCProvider.RegisterSingleton<IThemeService>(() => new ThemeServiceBase());
 
             base.Initialize();
         }

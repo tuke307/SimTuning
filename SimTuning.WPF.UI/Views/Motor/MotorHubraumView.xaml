@@ -10,7 +10,7 @@ Copyright (c) 2020 tuke productions. All rights reserved.
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
                   xmlns:behaviours="clr-namespace:SimTuning.WPF.UI.Business"
-                  xmlns:region="clr-namespace:SimTuning.WPF.UI.Region"
+                  xmlns:region="clr-namespace:Mvx.Wpf.ItemsPresenter;assembly=Mvx.Wpf.ItemsPresenter"
                   xmlns:viewModels="clr-namespace:SimTuning.WPF.UI.ViewModels.Motor"
                   x:TypeArguments="viewModels:MotorHubraumViewModel"
                   mc:Ignorable="d"
