@@ -134,6 +134,7 @@ namespace SimTuning.WPF.UI.Region
             ContentControl holder = null;
             var viewModel = (request as MvxViewModelInstanceRequest)?.ViewModelInstance;
             var viewId = attribute?.ViewId(viewModel);
+
             foreach (var item in container.Items.OfType<ContentControl>())
             {
                 var view = item.Content as FrameworkElement;
@@ -143,6 +144,7 @@ namespace SimTuning.WPF.UI.Region
                     break;
                 }
             }
+
             if (holder != null)
             {
                 if (container is Selector selector) selector.SelectedItem = holder;
@@ -165,6 +167,7 @@ namespace SimTuning.WPF.UI.Region
             ContentControl holder = null;
             var viewModel = (request as MvxViewModelInstanceRequest)?.ViewModelInstance;
             var viewId = attribute?.ViewId(viewModel);
+
             foreach (var item in container.Items.OfType<ContentControl>())
             {
                 var history = MvxContainer.GetHolderHistory(item);
@@ -177,6 +180,7 @@ namespace SimTuning.WPF.UI.Region
                     }
                 }
             }
+
             if (holder != null)
             {
                 if (container is Selector selector) selector.SelectedItem = holder;
@@ -208,10 +212,12 @@ namespace SimTuning.WPF.UI.Region
         /// <exception cref="InvalidOperationException">
         /// You can only close last opened view.
         /// </exception>
-        private bool CloseView(FrameworkElement view)
+        private static bool CloseView(FrameworkElement view)
         {
             if (view == null) throw new ArgumentNullException(nameof(view));
+
             var holder = view.Parent as ContentControl;
+
             if (holder != null)
             {
                 var container = holder.Parent as ItemsControl;
@@ -236,6 +242,7 @@ namespace SimTuning.WPF.UI.Region
                     }
                 }
             }
+
             return false;
         }
 
@@ -247,7 +254,7 @@ namespace SimTuning.WPF.UI.Region
         /// <returns>
         /// True if a view is found and closed, otherwise it will return false.
         /// </returns>
-        private Task<bool> CloseViewModel(IMvxViewModel viewModel)
+        private static Task<bool> CloseViewModel(IMvxViewModel viewModel)
         {
             bool result = false;
             var view = GetView(viewModel);
@@ -260,10 +267,11 @@ namespace SimTuning.WPF.UI.Region
         /// </summary>
         /// <param name="container">The container.</param>
         /// <returns></returns>
-        private ContentControl CreateViewHolder(ItemsControl container)
+        private static ContentControl CreateViewHolder(ItemsControl container)
         {
             var t = MvxContainer.GetHolderType(container);
             ContentControl holder;
+
             if (container is TabControl tabControl)
             {
                 TabItem tabHolder = (t == null) ? new TabItem() : Activator.CreateInstance(t) as TabItem;
@@ -275,6 +283,7 @@ namespace SimTuning.WPF.UI.Region
                 if (t == null) holder = new ContentControl();
                 else holder = Activator.CreateInstance(t) as ContentControl;
             }
+
             return holder;
         }
 
@@ -283,14 +292,16 @@ namespace SimTuning.WPF.UI.Region
         /// </summary>
         /// <param name="holder">The holder.</param>
         /// <returns></returns>
-        private Stack<FrameworkElement> GetHistory(ContentControl holder)
+        private static Stack<FrameworkElement> GetHistory(ContentControl holder)
         {
             var history = MvxContainer.GetHolderHistory(holder);
+
             if (history == null)
             {
                 history = new Stack<FrameworkElement>();
                 MvxContainer.SetHolderHistory(holder, history);
             }
+
             return history;
         }
 
@@ -299,7 +310,7 @@ namespace SimTuning.WPF.UI.Region
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         /// <returns></returns>
-        private FrameworkElement GetView(IMvxViewModel viewModel)
+        private static FrameworkElement GetView(IMvxViewModel viewModel)
         {
             foreach (var container in MvxContainer.GetContainers())
             {
@@ -310,6 +321,7 @@ namespace SimTuning.WPF.UI.Region
                     if (Equals(control.DataContext, viewModel)) return holder;
                 }
             }
+
             return null;
         }
 
@@ -318,9 +330,10 @@ namespace SimTuning.WPF.UI.Region
         /// </summary>
         /// <param name="holder">The holder.</param>
         /// <param name="view">The view.</param>
-        private void SetViewInHolder(ContentControl holder, FrameworkElement view)
+        private static void SetViewInHolder(ContentControl holder, FrameworkElement view)
         {
             holder.Content = view;
+
             if (holder is HeaderedContentControl headered)
             {
                 var binding = new System.Windows.Data.Binding() { Source = view, Mode = BindingMode.TwoWay };
@@ -337,14 +350,17 @@ namespace SimTuning.WPF.UI.Region
         /// <returns></returns>
         private Task<bool> ShowView(MvxWpfPresenterAttribute attribute, MvxViewModelRequest request)
         {
-            //Try to find items container.
+            // Try to find items container.
             ItemsControl container = string.IsNullOrWhiteSpace(attribute?.ContainerId) ?
                 MvxContainer.GetFirstContainer() : MvxContainer.GetContainerById(attribute?.ContainerId);
-            if (container == null)// If no container found the switch to content view.
+
+            // If no container found the switch to content view.
+            if (container == null)
             {
                 ShowViewWithNoContainer(request, new MvxContentPresentationAttribute());
                 return Task.FromResult(true);
             }
+
             switch (attribute.ViewPosition)
             {
                 case mvxViewPosition.Active:
