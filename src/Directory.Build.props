@@ -1,0 +1,88 @@
+﻿<Project>
+  <!-- global configuration -->
+  <PropertyGroup>
+    <Copyright>Copyright (c) tuke productions</Copyright>
+    <Company>tuke productions</Company>
+    <Authors>Tony Meißner</Authors>
+    <Owners>Tony Meißner</Owners>
+    <Product>SimTuning</Product>
+    <Description>Ein Tool, um Simson-Begeisterte etwas unter die Arme zu greifen und zu helfen.</Description>
+    <PackageTags>c#, wpf, xamarin</PackageTags>
+    <NeutralLanguage>de-DE</NeutralLanguage>
+    <RepositoryUrl>https://github.com/tuke307/SimTuning</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/tuke307/SimTuning/releases</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <!-- version configuration -->
+  <PropertyGroup>
+    <Version>1.2.0.0</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+  </PropertyGroup>
+
+  <!-- execution configuration -->
+  <PropertyGroup>
+    <!--<Nullable>enable</Nullable>-->
+    <NoWarn>$(NoWarn);1591;1701;1702;1705;VSX1000;NU1603</NoWarn>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <!-- style configuration -->
+  <PropertyGroup>
+    <!-- Ruleset configuration -->
+    <CodeAnalysisRuleSet>$(SolutionDir)\Code Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <!-- release configuration -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IncludeSymbols>true</IncludeSymbols>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <DesignTimeBuild>false</DesignTimeBuild>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <!-- debug configuration -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>DEBUG</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <!-- Nuget configuration -->
+  <ItemGroup>
+    <!-- Nugets -->
+    <PackageReference Include="MvvmCross" Version="8.0.2" />
+    <PackageReference Include="MvvmCross.Plugin.Location" Version="8.0.2" />
+    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="8.0.2" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
+    <PackageReference Include="UnitsNet" Version="4.126.0" />
+
+    <!-- Analyzers -->
+    <PackageReference Include="AsyncFixer" Version="1.5.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="Roslynator.Analyzers" Version="4.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
