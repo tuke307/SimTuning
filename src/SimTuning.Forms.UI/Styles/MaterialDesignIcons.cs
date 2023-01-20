@@ -1,6 +1,6 @@
 using System;
 
-namespace LapTimer.Forms.UI.Styles
+namespace SimTuning.Maui.UI.Styles
 {
     /// <summary>
     /// The unicode values for all Material Design icons.
@@ -1026,7 +1026,7 @@ namespace LapTimer.Forms.UI.Styles
         /// <para/>
         /// <see href="https://fonts.google.com/icons?selected=Material+Icons:app_settings_alt"/>.
         /// </summary>
-        public const string AppSettingsAlt = "\uef41";
+        public const string PreferencesAlt = "\uef41";
 
         /// <summary>
         /// Unicode value for the 'approval' icon ("\ue982").

@@ -1,8 +1,9 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-namespace SimTuning.Forms.UI.Behaviors
+namespace SimTuning.Maui.UI.Behaviors
 {
     using System;
-    using Xamarin.Forms;
+    using Microsoft.Maui;
+    using Microsoft.Maui.Controls;
 
     /// <summary>
     /// BehaviorBase.

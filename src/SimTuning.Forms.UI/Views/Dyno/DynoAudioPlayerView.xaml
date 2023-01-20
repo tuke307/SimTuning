@@ -1,20 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<views:MvxContentView xmlns="http://xamarin.com/schemas/2014/forms"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                      xmlns:behaviors="clr-namespace:SimTuning.Forms.UI.Behaviors"
-                      xmlns:converters="clr-namespace:SimTuning.Forms.UI.Converters"
-                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
-                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                      x:TypeArguments="viewModels:DynoAudioPlayerViewModel"
-                      Style="{StaticResource MvxContentViewStyle}"
-                      x:Class="SimTuning.Forms.UI.Views.Dyno.DynoAudioPlayerView">
-    <views:MvxContentView.Resources>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:SimTuning.Maui.UI.Behaviors"
+             xmlns:converters="clr-namespace:SimTuning.Core.Converters;assembly=SimTuning.Core"
+             Style="{StaticResource ContentViewStyle}"
+             x:Class="SimTuning.Maui.UI.Views.Dyno.DynoAudioPlayerView"
+             xmlns:vm="clr-namespace:SimTuning.Core.ViewModels.Dyno;assembly=SimTuning.Core"
+             x:DataType="vm:AudioPlayerViewModel">
+    <ContentView.Resources>
         <!--CONVERTER-->
         <behaviors:InvertedBoolConverter x:Key="Inverter" />
 
         <converters:TimeSpanToStringConverter x:Key="TimeSpanToString" />
-    </views:MvxContentView.Resources>
+    </ContentView.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1" />
@@ -46,18 +44,18 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                    Grid.Column="0"
-                                    Text="{Binding TimeSpanPosition, Converter={StaticResource TimeSpanToString}}"
-                                    HorizontalOptions="Start"
-                                    VerticalOptions="Center"
-                                    TextColor="{DynamicResource PrimaryTextColor}" />
-            <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                    Grid.Column="1"
-                                    Text="{Binding TimeSpanDuration, Converter={StaticResource TimeSpanToString}}"
-                                    HorizontalOptions="End"
-                                    VerticalOptions="Center"
-                                    TextColor="{DynamicResource PrimaryTextColor}" />
+            <Label Style="{StaticResource LabelStyle}"
+                   Grid.Column="0"
+                   Text="{Binding TimeSpanPosition, Converter={StaticResource TimeSpanToString}}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   TextColor="{DynamicResource PrimaryTextColor}" />
+            <Label Style="{StaticResource LabelStyle}"
+                   Grid.Column="1"
+                   Text="{Binding TimeSpanDuration, Converter={StaticResource TimeSpanToString}}"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   TextColor="{DynamicResource PrimaryTextColor}" />
         </Grid>
 
         <Grid Grid.Row="3">
@@ -72,47 +70,43 @@
                 <ColumnDefinition Width="1.5*" />
             </Grid.ColumnDefinitions>
 
-            <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                     Grid.Column="1"
-                                     Command="{Binding SkipBackwardsCommand}"
-                                     ImageSource="{StaticResource IconFastRewindMedium}"
-                                     HorizontalOptions="Center"
-                                     VerticalOptions="CenterAndExpand"
-                                     BackgroundColor="Transparent"
-                                     ButtonType="Text" />
+            <Button Style="{StaticResource ButtonMediumStyle}"
+                    Grid.Column="1"
+                    Command="{Binding SkipBackwardsCommand}"
+                    ImageSource="{StaticResource IconFastRewindMedium}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="Transparent" />
 
             <!--PLAYPAUSE ANFANG-->
-            <material:MaterialIconButton Style="{StaticResource MaterialIconButtonMediumStyle}"
-                                         Grid.Column="2"
-                                         Image="{StaticResource IconPlayArrowMedium}"
-                                         Command="{Binding PlayPauseCommand}"
-                                         IsVisible="{Binding Path=IsPlaying, Mode=OneWay, Converter={StaticResource Inverter}}"
-                                         HorizontalOptions="Center"
-                                         VerticalOptions="CenterAndExpand"
-                                         BackgroundColor="Transparent"
-                                         WidthRequest="75"
-                                         ButtonType="Elevated" />
+            <ImageButton Style="{StaticResource IconButtonMediumStyle}"
+                         Grid.Column="2"
+                         Source="{StaticResource IconPlayArrowMedium}"
+                         Command="{Binding PlayPauseCommand}"
+                         IsVisible="{Binding Path=IsPlaying, Mode=OneWay, Converter={StaticResource Inverter}}"
+                         HorizontalOptions="Center"
+                         VerticalOptions="CenterAndExpand"
+                         BackgroundColor="Transparent"
+                         WidthRequest="75" />
 
-            <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                     Grid.Column="2"
-                                     ImageSource="{StaticResource IconPauseMedium}"
-                                     Command="{Binding PlayPauseCommand}"
-                                     IsVisible="{Binding Path=IsPlaying, Mode=OneWay}"
-                                     HorizontalOptions="Center"
-                                     VerticalOptions="CenterAndExpand"
-                                     BackgroundColor="Transparent"
-                                     WidthRequest="75"
-                                     ButtonType="Elevated" />
+            <Button Style="{StaticResource ButtonMediumStyle}"
+                    Grid.Column="2"
+                    ImageSource="{StaticResource IconPauseMedium}"
+                    Command="{Binding PlayPauseCommand}"
+                    IsVisible="{Binding Path=IsPlaying, Mode=OneWay}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="Transparent"
+                    WidthRequest="75" />
             <!--PLAYPAUSE ENDE-->
 
-            <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                     Grid.Column="3"
-                                     ImageSource="{StaticResource IconFastForwardMedium}"
-                                     Command="{Binding SkipForwardCommand}"
-                                     HorizontalOptions="Center"
-                                     VerticalOptions="CenterAndExpand"
-                                     BackgroundColor="Transparent"
-                                     ButtonType="Text" />
+            <Button Style="{StaticResource ButtonMediumStyle}"
+                    Grid.Column="3"
+                    ImageSource="{StaticResource IconFastForwardMedium}"
+                    Command="{Binding SkipForwardCommand}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="Transparent" />
         </Grid>
     </Grid>
-</views:MvxContentView>
+</ContentView>

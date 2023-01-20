@@ -1,11 +1,9 @@
-﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Home.HomeMainView"
-                      xmlns="http://xamarin.com/schemas/2014/forms"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Home"
-                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                      x:TypeArguments="viewModels:HomeMainViewModel"
-                      Style="{StaticResource MvxContentPageStyle}">
+﻿<ContentPage x:Class="SimTuning.Maui.UI.Views.Home.HomeMainView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Style="{StaticResource ContentPageStyle}"
+             xmlns:vm="clr-namespace:SimTuning.Core.ViewModels.Home;assembly=SimTuning.Core"
+             x:DataType="vm:HomeViewModel">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -13,22 +11,21 @@
         </Grid.RowDefinitions>
 
         <!--  GRID ROW 0  -->
-        <material:MaterialCard Grid.Row="0"
-                               Margin="5"
-                               CornerRadius="2"
-                               Elevation="3"
-                               Style="{StaticResource MaterialCardStyle}"
-                               VerticalOptions="CenterAndExpand">
+        <Frame Grid.Row="0"
+               Margin="5"
+               CornerRadius="2"
+               Style="{StaticResource FrameStyle}"
+               VerticalOptions="CenterAndExpand">
             <StackLayout>
-                <material:MaterialLabel FontSize="Title"
-                                        Style="{StaticResource MaterialLabelStyle}">Bleib auf dem Laufenden</material:MaterialLabel>
+                <Label FontSize="Title"
+                       Style="{StaticResource LabelStyle}">Bleib auf dem Laufenden</Label>
 
-                <BoxView Style="{StaticResource Divider}" />
+                <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
-                <material:MaterialLabel LineBreakMode="CharacterWrap"
-                                        Style="{StaticResource MaterialLabelStyle}">
+                <Label LineBreakMode="CharacterWrap"
+                       Style="{StaticResource LabelStyle}">
                     Schreib eine Nachricht, verfolge Updates oder stöber etwas herum, hier findest du alles:
-                </material:MaterialLabel>
+                </Label>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -36,25 +33,23 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                             Grid.Column="0"
-                                             ButtonType="Outlined"
-                                             Command="{Binding OpenWebsiteCommand}"
-                                             CornerRadius="5"
-                                             HeightRequest="50"
-                                             HorizontalOptions="FillAndExpand"
-                                             ImageSource="{StaticResource IconLanguageMedium}"
-                                             Text="Website" />
+                    <Button Style="{StaticResource ButtonMediumStyle}"
+                            Grid.Column="0"
+                            Command="{Binding OpenWebsiteCommand}"
+                            CornerRadius="5"
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            ImageSource="{StaticResource IconLanguageMedium}"
+                            Text="Website" />
 
-                    <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                             Grid.Column="1"
-                                             ButtonType="Outlined"
-                                             Command="{Binding OpenTwitterCommand}"
-                                             CornerRadius="5"
-                                             HeightRequest="50"
-                                             HorizontalOptions="FillAndExpand"
-                                             ImageSource="twitter"
-                                             Text="Twitter" />
+                    <Button Style="{StaticResource ButtonMediumStyle}"
+                            Grid.Column="1"
+                            Command="{Binding OpenTwitterCommand}"
+                            CornerRadius="5"
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            ImageSource="twitter"
+                            Text="Twitter" />
                 </Grid>
 
                 <Grid>
@@ -63,57 +58,54 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                             Grid.Column="0"
-                                             ButtonType="Outlined"
-                                             Command="{Binding OpenInstagramCommand}"
-                                             CornerRadius="5"
-                                             HeightRequest="50"
-                                             HorizontalOptions="FillAndExpand"
-                                             ImageSource="instagram"
-                                             Text="Instagram" />
+                    <Button Style="{StaticResource ButtonMediumStyle}"
+                            Grid.Column="0"
+                            Command="{Binding OpenInstagramCommand}"
+                            CornerRadius="5"
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            ImageSource="instagram"
+                            Text="Instagram" />
 
-                    <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                             Grid.Column="1"
-                                             ButtonType="Outlined"
-                                             Command="{Binding OpenEmailCommand}"
-                                             CornerRadius="5"
-                                             HeightRequest="50"
-                                             HorizontalOptions="FillAndExpand"
-                                             ImageSource="{StaticResource IconEmailMedium}"
-                                             Text="Email" />
+                    <Button Style="{StaticResource ButtonMediumStyle}"
+                            Grid.Column="1"
+                            Command="{Binding OpenEmailCommand}"
+                            CornerRadius="5"
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            ImageSource="{StaticResource IconEmailMedium}"
+                            Text="Email" />
                 </Grid>
             </StackLayout>
-        </material:MaterialCard>
+        </Frame>
 
         <!--  GRID ROW 1  -->
-        <material:MaterialCard Grid.Row="1"
-                               Margin="5"
-                               CornerRadius="2"
-                               Elevation="3"
-                               Style="{StaticResource MaterialCardStyle}"
-                               VerticalOptions="CenterAndExpand">
+        <Frame Grid.Row="1"
+               Margin="5"
+               CornerRadius="2"
+               Style="{StaticResource FrameStyle}"
+               VerticalOptions="CenterAndExpand">
             <StackLayout>
-                <material:MaterialLabel FontSize="Title"
-                                        Style="{StaticResource MaterialLabelStyle}">
+                <Label FontSize="Title"
+                       Style="{StaticResource LabelStyle}">
                     Das Projekt
-                </material:MaterialLabel>
+                </Label>
 
-                <BoxView Style="{StaticResource Divider}" />
+                <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
-                <material:MaterialLabel LineBreakMode="CharacterWrap"
-                                        Style="{StaticResource MaterialLabelStyle}">
+                <Label LineBreakMode="CharacterWrap"
+                       Style="{StaticResource LabelStyle}">
                     Dieses Projekt wurde von mir allein ins Leben gerufen. Ich hatte keinen Sponsor oder ähnliches. Ich würde mich sehr über eine kleine Spende freuen
-                </material:MaterialLabel>
+                </Label>
 
-                <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                         Command="{Binding OpenDonateCommand}"
-                                         CornerRadius="5"
-                                         HeightRequest="70"
-                                         ImageSource="{StaticResource IconWalletGiftcardMedium}"
-                                         Text="Unterstützen"
-                                         WidthRequest="125" />
+                <Button Style="{StaticResource ButtonMediumStyle}"
+                        Command="{Binding OpenDonateCommand}"
+                        CornerRadius="5"
+                        HeightRequest="70"
+                        ImageSource="{StaticResource IconWalletGiftcardMedium}"
+                        Text="Unterstützen"
+                        WidthRequest="125" />
             </StackLayout>
-        </material:MaterialCard>
+        </Frame>
     </Grid>
-</views:MvxContentPage>
+</ContentPage>

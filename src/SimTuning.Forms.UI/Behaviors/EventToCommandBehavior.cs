@@ -1,15 +1,12 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-namespace SimTuning.Forms.UI.Behaviors
+namespace SimTuning.Maui.UI.Behaviors
 {
     using System;
     using System.Reflection;
     using System.Windows.Input;
-    using Xamarin.Forms;
+    using Microsoft.Maui;
+    using Microsoft.Maui.Controls;
 
-    /// <summary>
-    /// EventToCommand.
-    /// </summary>
-    /// <seealso cref="SimTuning.Forms.UI.Behaviors.BehaviorBase{Xamarin.Forms.View}" />
     public class EventToCommandBehavior : BehaviorBase<View>
     {
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create("CommandParameter", typeof(object), typeof(EventToCommandBehavior), null);

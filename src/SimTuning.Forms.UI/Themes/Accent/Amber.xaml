@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ResourceDictionary  xmlns="http://xamarin.com/schemas/2014/forms"
+<ResourceDictionary  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                     x:Class="SimTuning.Forms.UI.Themes.Accent.Amber">
+                     x:Class="SimTuning.Maui.UI.Themes.Accent.Amber">
     <Color x:Key="Accent100">#ffe57f</Color>
     <Color x:Key="Accent100Foreground">#DD000000</Color>
     <Color x:Key="Accent200">#ffd740</Color>

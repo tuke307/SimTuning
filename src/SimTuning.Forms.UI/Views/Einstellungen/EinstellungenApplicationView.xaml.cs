@@ -1,24 +1,18 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels.Einstellungen;
+using SimTuning.Core.ViewModels.Einstellungen;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace SimTuning.Forms.UI.Views.Einstellungen
+namespace SimTuning.Maui.UI.Views.Einstellungen
 {
-    /// <summary>
-    /// EinstellungenApplicationView.
-    /// </summary>
-    /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Einstellungen.EinstellungenApplicationViewModel}" />
-    [MvxContentPagePresentation(WrapInNavigationPage = true, NoHistory = false)]
-    public partial class EinstellungenApplicationView : MvxContentPage<EinstellungenApplicationViewModel>
+    public partial class EinstellungenApplicationView : ContentPage
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EinstellungenApplicationView" />
-        /// class.
-        /// </summary>
         public EinstellungenApplicationView()
         {
             InitializeComponent();
+
+            BindingContext = Ioc.Default.GetRequiredService<ApplicationViewModel>();
         }
+
+        public ApplicationViewModel ViewModel => (ApplicationViewModel)BindingContext;
     }
 }

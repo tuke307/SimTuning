@@ -1,15 +1,18 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
+using SimTuning.Core.ViewModels.Auslass;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace SimTuning.Forms.UI.Views.Auslass
+namespace SimTuning.Maui.UI.Views.Auslass
 {
-    [MvxMasterDetailPagePresentation(MasterDetailPosition.Detail, WrapInNavigationPage = true, NoHistory = true)]
-    public partial class AuslassMainView : MvxContentPage<SimTuning.Forms.UI.ViewModels.Auslass.AuslassMainViewModel>
+    public partial class AuslassMainView : ContentPage
     {
         public AuslassMainView()
         {
             InitializeComponent();
+            
+            BindingContext = Ioc.Default.GetRequiredService<MainViewModel>();
         }
+
+        public MainViewModel ViewModel => (MainViewModel)BindingContext;
     }
 }

@@ -1,16 +1,17 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using SimTuning.Core.ViewModels;
 
-namespace SimTuning.Forms.UI.Views
+namespace SimTuning.Maui.UI.Views;
+
+public partial class MainPage : FlyoutPage
 {
-    [MvxMasterDetailPagePresentation(MasterDetailPosition.Root, WrapInNavigationPage = false, NoHistory = true)]
-    public partial class MainPage : MvxMasterDetailPage<MainPageViewModel>
+    public MainPage()
     {
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+
+        BindingContext = Ioc.Default.GetRequiredService<MainPageViewModel>();
     }
+
+    public MainPageViewModel ViewModel => (MainPageViewModel)BindingContext;
 }

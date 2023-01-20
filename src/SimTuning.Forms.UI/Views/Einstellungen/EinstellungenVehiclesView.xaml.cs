@@ -1,25 +1,18 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels.Einstellungen;
-using Xamarin.Forms;
+using SimTuning.Core.ViewModels.Einstellungen;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace SimTuning.Forms.UI.Views.Einstellungen
+namespace SimTuning.Maui.UI.Views.Einstellungen
 {
-    /// <summary>
-    /// EinstellungenVehiclesView.
-    /// </summary>
-    /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Einstellungen.EinstellungenVehiclesViewModel}" />
-    [MvxContentPagePresentation(WrapInNavigationPage = true, NoHistory = false)]
-    public partial class EinstellungenVehiclesView : MvxContentPage<EinstellungenVehiclesViewModel>
+    public partial class EinstellungenVehiclesView : ContentPage
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EinstellungenVehiclesView" />
-        /// class.
-        /// </summary>
         public EinstellungenVehiclesView()
         {
             InitializeComponent();
+            
+            BindingContext = Ioc.Default.GetRequiredService<VehiclesViewModel>();
         }
+
+        public VehiclesViewModel ViewModel => (VehiclesViewModel)BindingContext;
     }
 }

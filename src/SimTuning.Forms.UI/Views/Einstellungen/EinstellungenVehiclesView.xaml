@@ -1,26 +1,23 @@
-﻿<views:MvxContentPage Style="{StaticResource MvxContentPageStyle}"
-                      x:Class="SimTuning.Forms.UI.Views.Einstellungen.EinstellungenVehiclesView"
-                      xmlns="http://xamarin.com/schemas/2014/forms"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
-                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                      xmlns:local="clr-namespace:SimTuning.Forms.UI.Behaviors"
-                      xmlns:customcomponents="clr-namespace:SimTuning.Forms.UI.Components"
-                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Einstellungen"
-                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                      Title="Fahrzeuge"
-                      x:TypeArguments="viewModels:EinstellungenVehiclesViewModel">
+﻿<ContentPage Style="{StaticResource ContentPageStyle}"
+             x:Class="SimTuning.Maui.UI.Views.Einstellungen.EinstellungenVehiclesView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SimTuning.Maui.UI.Behaviors"
+             xmlns:customcomponents="clr-namespace:SimTuning.Maui.UI.Components"
+             Title="Fahrzeuge"
+             xmlns:vm="clr-namespace:SimTuning.Core.ViewModels.Einstellungen;assembly=SimTuning.Core"
+             x:DataType="vm:VehiclesViewModel">
     <ScrollView>
         <StackLayout>
 
-            <material:MaterialCard Style="{StaticResource MaterialCardStyle}"
-                                   Margin="10"
-                                   VerticalOptions="CenterAndExpand">
+            <Frame Style="{StaticResource FrameStyle}"
+                   Margin="10"
+                   VerticalOptions="CenterAndExpand">
                 <StackLayout>
-                    <material:MaterialLabel Style="{StaticResource MaterialLabelTitleStyle}"
-                                            Text="Auswahl" />
+                    <Label Style="{StaticResource LabelTitleStyle}"
+                           Text="Auswahl" />
 
-                    <BoxView Style="{StaticResource Divider}" />
+                    <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
                     <ListView HeightRequest="200"
                               ItemsSource="{Binding Vehicles}"
@@ -28,14 +25,14 @@
                               RowHeight="50">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <customcomponents:CustomViewCell SelectedBackgroundColor="{DynamicResource MaterialDesignSelection}">
+                                <customcomponents:CustomViewCell SelectedBackgroundColor="{DynamicResource DesignSelection}">
                                     <StackLayout>
-                                        <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                                Text="{Binding Name}"
-                                                                FontAttributes="Bold"
-                                                                Margin="0, 0, 0, -5" />
-                                        <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                                Text="{Binding Beschreibung}" />
+                                        <Label Style="{StaticResource LabelStyle}"
+                                               Text="{Binding VehicleName}"
+                                               FontAttributes="Bold"
+                                               Margin="0, 0, 0, -5" />
+                                        <Label Style="{StaticResource LabelStyle}"
+                                               Text="{Binding VehicleBeschreibung}" />
                                     </StackLayout>
                                 </customcomponents:CustomViewCell>
                             </DataTemplate>
@@ -49,35 +46,35 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        
-                        <material:MaterialButton Grid.Column="1"
-                                                 VerticalOptions="CenterAndExpand"
-                                                 HorizontalOptions="FillAndExpand"
-                                                 HeightRequest="50"
-                                                 Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 ImageSource="{StaticResource IconAddCircleOutlineMedium}"
-                                                 Command="{Binding NewVehicleCommand}">
-                        </material:MaterialButton>
 
-                        <material:MaterialButton Grid.Column="2"
-                                                 VerticalOptions="CenterAndExpand"
-                                                 HorizontalOptions="FillAndExpand"
-                                                 HeightRequest="50"
-                                                 Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 ImageSource="{StaticResource IconRemoveCircleOutlineMedium}"
-                                                 Command="{Binding DeleteVehicleCommand}">
-                        </material:MaterialButton>
+                        <Button Grid.Column="1"
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                                HeightRequest="50"
+                                Style="{StaticResource ButtonMediumStyle}"
+                                ImageSource="{StaticResource IconAddCircleOutlineMedium}"
+                                Command="{Binding NewVehicleCommand}">
+                        </Button>
+
+                        <Button Grid.Column="2"
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                                HeightRequest="50"
+                                Style="{StaticResource ButtonMediumStyle}"
+                                ImageSource="{StaticResource IconRemoveCircleOutlineMedium}"
+                                Command="{Binding DeleteVehicleCommand}">
+                        </Button>
                     </Grid>
                 </StackLayout>
-            </material:MaterialCard>
+            </Frame>
 
-            <material:MaterialCard Style="{StaticResource MaterialCardStyle}"
-                                   Margin="10">
+            <Frame Style="{StaticResource FrameStyle}"
+                   Margin="10">
                 <StackLayout>
-                    <material:MaterialLabel Style="{StaticResource MaterialLabelTitleStyle}"
-                                            Text="Daten" />
+                    <Label Style="{StaticResource LabelTitleStyle}"
+                           Text="Daten" />
 
-                    <BoxView Style="{StaticResource Divider}" />
+                    <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -86,43 +83,43 @@
                         </Grid.ColumnDefinitions>
 
                         <StackLayout Grid.Column="0">
-                            <material:MaterialTextField Placeholder="Name"
-                                                        Text="{Binding Mode=TwoWay, Path=VehicleName}"
-                                                        Margin="5">
-                            </material:MaterialTextField>
+                            <Entry Placeholder="Name"
+                                   Text="{Binding Mode=TwoWay, Path=VehicleName}"
+                                   Margin="5">
+                            </Entry>
 
                             <Editor Placeholder="Beschreibung"
                                     Text="{Binding Mode=TwoWay, Path=VehicleBeschreibung}"
                                     Margin="5"
                                     HeightRequest="150">
                             </Editor>
-                            <!--<material:MaterialTextField Placeholder="Beschreibung"
+                            <!--<Entry Placeholder="Beschreibung"
                                                         Text="{Binding Mode=TwoWay, Path=VehicleBeschreibung}"
                                                         Margin="5">
-                            </material:MaterialTextField>-->
+                            </Entry>-->
                         </StackLayout>
 
-                        <material:MaterialButton Grid.Column="1"
-                                                 Margin="15"
-                                                 VerticalOptions="Center"
-                                                 HorizontalOptions="FillAndExpand"
-                                                 HeightRequest="60"
-                                                 Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 ImageSource="{StaticResource IconSaveMedium}"
-                                                 Command="{Binding SaveVehicleCommand}">
-                        </material:MaterialButton>
+                        <Button Grid.Column="1"
+                                Margin="15"
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                HeightRequest="60"
+                                Style="{StaticResource ButtonMediumStyle}"
+                                ImageSource="{StaticResource IconSaveMedium}"
+                                Command="{Binding SaveVehicleCommand}">
+                        </Button>
                     </Grid>
 
                     <!--#region Allgemein-->
-                    <expandable:ExpandableView>
-                        <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                    <!--<Expander>
+                        <Expander.Header>
+                            <Frame Style="{StaticResource FrameStyle}">
+                                <Label Style="{StaticResource LabelStyle}">
                                     Allgemein
-                                </material:MaterialLabel>
-                            </material:MaterialCard>
-                        </expandable:ExpandableView.PrimaryView>
-                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                </Label>
+                            </Frame>
+                        </Expander.Header>
+                        <HorizontalStackLayout>
                             <DataTemplate>
                                 <Grid Margin="20, 0, 0, 0">
                                     <Grid.ColumnDefinitions>
@@ -130,70 +127,64 @@
                                         <ColumnDefinition Width="100" />
                                     </Grid.ColumnDefinitions>
 
-                                    <material:MaterialTextField Placeholder="Gewicht"
-                                                                Text="{Binding Mode=TwoWay, Path=VehicleGewicht}"
-                                                                InputType="Numeric"
-                                                                Grid.Row="0"
-                                                                Grid.Column="0">
-                                    </material:MaterialTextField>
+                                    <Entry Placeholder="Gewicht"
+                                           Text="{Binding Mode=TwoWay, Path=VehicleGewicht}"
+                                           Keyboard="Numeric"
+                                           Grid.Row="0"
+                                           Grid.Column="0">
+                                    </Entry>
 
-                                    <material:MaterialTextField InputType="Choice"
-                                                                FloatingPlaceholderEnabled="False"
-                                                                Margin="5, 0, 0, 0"
-                                                                Choices="{Binding Path=MassQuantityUnits, Mode=OneTime}"
-                                                                HorizontalOptions="StartAndExpand"
-                                                                VerticalOptions="CenterAndExpand"
-                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleGewichtUnit}"
-                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                ChoicesBindingName="Abbreviation"
-                                                                Grid.Column="1"
-                                                                Grid.Row="0">
-                                    </material:MaterialTextField>
+                                    <Picker Margin="5, 0, 0, 0"
+                                            ItemsSource="{Binding Path=MassQuantityUnits, Mode=OneTime}"
+                                            HorizontalOptions="StartAndExpand"
+                                            VerticalOptions="CenterAndExpand"
+                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleGewichtUnit}"
+                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                            Grid.Column="1"
+                                            Grid.Row="0">
+                                    </Picker>
                                 </Grid>
                             </DataTemplate>
-                        </expandable:ExpandableView.SecondaryViewTemplate>
-                    </expandable:ExpandableView>
+                        </HorizontalStackLayout>
+                    </Expander>-->
                     <!--#endregion Allgemein-->
 
                     <!--#region Motor-->
-                    <expandable:ExpandableView>
-                        <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                    <!--<Expander>
+                        <Expander.Header>
+                            <Frame Style="{StaticResource FrameStyle}">
+                                <Label Style="{StaticResource LabelStyle}">
                                     Motor
-                                </material:MaterialLabel>
-                            </material:MaterialCard>
-                        </expandable:ExpandableView.PrimaryView>
-                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                </Label>
+                            </Frame>
+                        </Expander.Header>
+                        <HorizontalStackLayout>
                             <DataTemplate>
                                 <StackLayout Margin="20, 0, 0, 0">
 
-                                    <!--#region Engine-->
-                                    <material:MaterialTextField InputType="Choice"
-                                                                FloatingPlaceholderEnabled="False"
-                                                                Placeholder="Motor"
-                                                                Choices="{Binding Engines}"
-                                                                SelectedChoice="{Binding Engine}"
-                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                ChoicesBindingName="Name">
-                                    </material:MaterialTextField>
+                                    --><!--#region Engine--><!--
+                                    <Picker Title="Motor"
+                                            ItemsSource="{Binding Engines}"
+                                            SelectedItem="{Binding Engine}"
+                                            ItemDisplayBinding="{Binding Name}">
+                                    </Picker>
 
-                                    <material:MaterialTextField Placeholder="Name"
-                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorName}"
-                                                                InputType="Numeric">
-                                    </material:MaterialTextField>
-                                    <!--#endregion Engine-->
+                                    <Entry Placeholder="Name"
+                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorName}"
+                                           Keyboard="Numeric">
+                                    </Entry>
+                                    --><!--#endregion Engine-->
 
-                                    <!--#region Daten-->
-                                    <expandable:ExpandableView Grid.ColumnSpan="2">
-                                        <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                                    <!--#region Daten--><!--
+                                    <Expander Grid.ColumnSpan="2">
+                                        <Expander.Header>
+                                            <Frame Style="{StaticResource FrameStyle}">
+                                                <Label Style="{StaticResource LabelStyle}">
                                                     Daten
-                                                </material:MaterialLabel>
-                                            </material:MaterialCard>
-                                        </expandable:ExpandableView.PrimaryView>
-                                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                                </Label>
+                                            </Frame>
+                                        </Expander.Header>
+                                        <HorizontalStackLayout>
                                             <DataTemplate>
                                                 <Grid Margin="20, 0, 0, 0">
                                                     <Grid.ColumnDefinitions>
@@ -201,257 +192,233 @@
                                                         <ColumnDefinition Width="100" />
                                                     </Grid.ColumnDefinitions>
 
-                                                    <!--#region VehicleMotorHubL-->
-                                                    <material:MaterialTextField Placeholder="Hub"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorHubL}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="0"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
+                                                    --><!--#region VehicleMotorHubL--><!--
+                                                    <Entry Placeholder="Hub"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorHubL}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="0"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorHubLUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="0">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion Motor-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorHubLUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            Grid.Column="1"
+                                                            Grid.Row="0">
+                                                    </Picker>
+                                                    --><!--#endregion Motor-->
 
-                                                    <!--#region VehicleMotorPleulL-->
-                                                    <material:MaterialTextField Placeholder="Pleuellänge"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorPleulL}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="1"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
+                                                    <!--#region VehicleMotorPleulL--><!--
+                                                    <Entry Placeholder="Pleuellänge"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorPleulL}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="1"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorPleulLUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="1">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorPleulL-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorPleulLUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            Grid.Column="1"
+                                                            Grid.Row="1">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorPleulL-->
 
-                                                    <!--#region VehicleMotorKolbenG-->
-                                                    <material:MaterialTextField Placeholder="Kolben-Geschwindikeit"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorKolbenG}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="2"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
+                                                    <!--#region VehicleMotorKolbenG--><!--
+                                                    <Entry Placeholder="Kolben-Geschwindikeit"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorKolbenG}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="2"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorKolbenGUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="2">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorKolbenG-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=SpeedQuantityUnits, Mode=OneTime}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorKolbenGUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            Grid.Column="1"
+                                                            Grid.Row="2">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorKolbenG-->
 
-                                                    <!--#region VehicleMotorDeachsierungL-->
-                                                    <material:MaterialTextField Placeholder="Deachsierung"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungL}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="3"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
+                                                    <!--#region VehicleMotorDeachsierungL--><!--
+                                                    <Entry Placeholder="Deachsierung"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungL}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="3"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungLUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="3">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorDeachsierungL-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorDeachsierungLUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            Grid.Column="1"
+                                                            Grid.Row="3">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorDeachsierungL-->
 
-                                                    <!--#region VehicleMotorBohrungD-->
-                                                    <material:MaterialTextField Placeholder="Bohrung"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorBohrungD}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="4"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
+                                                    <!--#region VehicleMotorBohrungD--><!--
+                                                    <Entry Placeholder="Bohrung"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorBohrungD}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="4"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorBohrungDUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="4">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorBohrungD-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorBohrungDUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            Grid.Column="1"
+                                                            Grid.Row="4">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorBohrungD-->
 
                                                     <!--#region VehicleMotorResonanzU-->
-                                                    <!--ohne Unit-->
-                                                    <material:MaterialTextField Placeholder="Resonanzdrehzahl"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU}"
-                                                                                Grid.ColumnSpan="2"
-                                                                                Grid.Row="5"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorResonanzU-->
+                                                    <!--ohne Unit--><!--
+                                                    <Entry Placeholder="Resonanzdrehzahl"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorResonanzU}"
+                                                           Grid.ColumnSpan="2"
+                                                           Grid.Row="5"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
+                                                    --><!--#endregion VehicleMotorResonanzU-->
 
-                                                    <!--#region VehicleMotorHubraumV-->
-                                                    <material:MaterialTextField Placeholder="Hubraum Volumen"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorHubraumV}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="6"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
+                                                    <!--#region VehicleMotorHubraumV--><!--
+                                                    <Entry Placeholder="Hubraum Volumen"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorHubraumV}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="6"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
-                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorHubraumVUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="6">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorHubraumV-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
+                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorHubraumVUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            Grid.Column="1"
+                                                            Grid.Row="6">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorHubraumV-->
 
-                                                    <!--#region VehicleMotorBrennraumV-->
-                                                    <material:MaterialTextField Placeholder="Brennraum Volumen"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorBrennraumV}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="7"
-                                                                                InputType="Numeric">
+                                                    <!--#region VehicleMotorBrennraumV--><!--
+                                                    <Entry Placeholder="Brennraum Volumen"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorBrennraumV}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="7"
+                                                           Keyboard="Numeric">
 
-                                                        <material:MaterialTextField.Behaviors>
+                                                        <Entry.Behaviors>
                                                             <local:EventToCommandBehavior EventName="TextChanged"
                                                                                           Command="{Binding ShowSaveButtonCommand}" />
-                                                        </material:MaterialTextField.Behaviors>
-                                                    </material:MaterialTextField>
+                                                        </Entry.Behaviors>
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
-                                                                                SelectedChoice="{Binding VehicleMotorBrennraumVUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="7">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorBrennraumV-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
+                                                            SelectedItem="{Binding VehicleMotorBrennraumVUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            Grid.Column="1"
+                                                            Grid.Row="7">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorBrennraumV-->
 
-                                                    <!--#region VehicleMotorKurbelgehaeuseV-->
-                                                    <material:MaterialTextField Placeholder="Kurbelgehaeuse Volumen"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseV}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="8"
-                                                                                InputType="Numeric">
+                                                    <!--#region VehicleMotorKurbelgehaeuseV--><!--
+                                                    <Entry Placeholder="Kurbelgehaeuse Volumen"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorKurbelgehaeuseV}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="8"
+                                                           Keyboard="Numeric">
 
-                                                        <material:MaterialTextField.Behaviors>
+                                                        <Entry.Behaviors>
                                                             <local:EventToCommandBehavior EventName="TextChanged"
                                                                                           Command="{Binding ShowSaveButtonCommand}" />
-                                                        </material:MaterialTextField.Behaviors>
-                                                    </material:MaterialTextField>
+                                                        </Entry.Behaviors>
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
-                                                                                SelectedChoice="{Binding VehicleMotorKurbelgehaeuseVUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="8">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorKurbelgehaeuseV-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=VolumeQuantityUnits, Mode=OneTime}"
+                                                            SelectedItem="{Binding VehicleMotorKurbelgehaeuseVUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            Grid.Column="1"
+                                                            Grid.Row="8">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorKurbelgehaeuseV-->
 
                                                     <!--#region VehicleMotorVerdichtungV-->
-                                                    <!-- ohne Unit-->
-                                                    <material:MaterialTextField Placeholder="Verdichtungsverhältnis"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorVerdichtungV}"
-                                                                                Grid.ColumnSpan="2"
-                                                                                Grid.Row="9"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorVerdichtungV-->
+                                                    <!-- ohne Unit--><!--
+                                                    <Entry Placeholder="Verdichtungsverhältnis"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorVerdichtungV}"
+                                                           Grid.ColumnSpan="2"
+                                                           Grid.Row="9"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
+                                                    --><!--#endregion VehicleMotorVerdichtungV-->
 
                                                     <!--#region VehicleMotorZylinderAnz-->
-                                                    <!-- ohne Unit-->
-                                                    <material:MaterialTextField Placeholder="Zylinder-Anzahl"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorZylinderAnz}"
-                                                                                Grid.ColumnSpan="2"
-                                                                                Grid.Row="10"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorZylinderAnz-->
+                                                    <!-- ohne Unit--><!--
+                                                    <Entry Placeholder="Zylinder-Anzahl"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorZylinderAnz}"
+                                                           Grid.ColumnSpan="2"
+                                                           Grid.Row="10"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
+                                                    --><!--#endregion VehicleMotorZylinderAnz-->
 
                                                     <!--#region VehicleMotorZuendzeitpunkt-->
-                                                    <!-- ohne Unit-->
-                                                    <material:MaterialTextField Placeholder="Zündzeitpunkt"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorZuendzeitpunkt}"
-                                                                                Grid.ColumnSpan="2"
-                                                                                Grid.Row="11"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorZuendzeitpunkt-->
+                                                    <!-- ohne Unit--><!--
+                                                    <Entry Placeholder="Zündzeitpunkt"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorZuendzeitpunkt}"
+                                                           Grid.ColumnSpan="2"
+                                                           Grid.Row="11"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
+                                                    --><!--#endregion VehicleMotorZuendzeitpunkt-->
 
                                                     <!--#region VehicleMotorHeizwertU-->
-                                                    <!--VehicleMotorHeizwertU ohne Unit-->
-                                                    <material:MaterialTextField Placeholder="Heizwert"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorHeizwertU}"
-                                                                                Grid.ColumnSpan="2"
-                                                                                Grid.Row="12"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorHeizwertU-->
+                                                    <!--VehicleMotorHeizwertU ohne Unit--><!--
+                                                    <Entry Placeholder="Heizwert"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorHeizwertU}"
+                                                           Grid.ColumnSpan="2"
+                                                           Grid.Row="12"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
+                                                    --><!--#endregion VehicleMotorHeizwertU--><!--
                                                 </Grid>
                                             </DataTemplate>
-                                        </expandable:ExpandableView.SecondaryViewTemplate>
-                                    </expandable:ExpandableView>
-                                    <!--#endregion Daten-->
+                                        </HorizontalStackLayout>
+                                    </Expander>
+                                    --><!--#endregion Daten-->
 
-                                    <!--#region Einlass-->
-                                    <expandable:ExpandableView>
-                                        <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                                    <!--#region Einlass--><!--
+                                    <Expander>
+                                        <Expander.Header>
+                                            <Frame Style="{StaticResource FrameStyle}">
+                                                <Label Style="{StaticResource LabelStyle}">
                                                     Einlass
-                                                </material:MaterialLabel>
-                                            </material:MaterialCard>
-                                        </expandable:ExpandableView.PrimaryView>
-                                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                                </Label>
+                                            </Frame>
+                                        </Expander.Header>
+                                        <HorizontalStackLayout>
                                             <DataTemplate>
                                                 <StackLayout>
 
@@ -461,147 +428,132 @@
                                                             <ColumnDefinition Width="100" />
                                                         </Grid.ColumnDefinitions>
 
-                                                        <!--#region VehicleMotorEinlassHoeheH-->
-                                                        <material:MaterialTextField Placeholder="Hoehe"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheH}"
-                                                                                    Grid.Column="0"
-                                                                                    Grid.Row="0"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
+                                                        --><!--#region VehicleMotorEinlassHoeheH--><!--
+                                                        <Entry Placeholder="Hoehe"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheH}"
+                                                               Grid.Column="0"
+                                                               Grid.Row="0"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
 
-                                                        <material:MaterialTextField InputType="Choice"
-                                                                                    FloatingPlaceholderEnabled="False"
-                                                                                    Margin="5, 0, 0, 0"
-                                                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                    HorizontalOptions="StartAndExpand"
-                                                                                    VerticalOptions="CenterAndExpand"
-                                                                                    SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheHUnit}"
-                                                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                    ChoicesBindingName="Abbreviation"
-                                                                                    Grid.Column="1"
-                                                                                    Grid.Row="0">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorEinlassHoeheH-->
+                                                        <Picker Margin="5, 0, 0, 0"
+                                                                ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                HorizontalOptions="StartAndExpand"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassHoeheHUnit}"
+                                                                ItemDisplayBinding="{Binding Abbreviation}"
+                                                                Grid.Column="1"
+                                                                Grid.Row="0">
+                                                        </Picker>
+                                                        --><!--#endregion VehicleMotorEinlassHoeheH-->
 
-                                                        <!--#region VehicleMotorEinlassBreiteB-->
-                                                        <material:MaterialTextField Placeholder="Breite"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteB}"
-                                                                                    Grid.Column="0"
-                                                                                    Grid.Row="1"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
+                                                        <!--#region VehicleMotorEinlassBreiteB--><!--
+                                                        <Entry Placeholder="Breite"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteB}"
+                                                               Grid.Column="0"
+                                                               Grid.Row="1"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
 
-                                                        <material:MaterialTextField InputType="Choice"
-                                                                                    FloatingPlaceholderEnabled="False"
-                                                                                    Margin="5, 0, 0, 0"
-                                                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                    HorizontalOptions="StartAndExpand"
-                                                                                    VerticalOptions="CenterAndExpand"
-                                                                                    SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteBUnit}"
-                                                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                    ChoicesBindingName="Abbreviation"
-                                                                                    Grid.Column="1"
-                                                                                    Grid.Row="1">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorEinlassBreiteB-->
+                                                        <Picker Margin="5, 0, 0, 0"
+                                                                ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                HorizontalOptions="StartAndExpand"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassBreiteBUnit}"
+                                                                ItemDisplayBinding="{Binding Abbreviation}"
+                                                                Grid.Column="1"
+                                                                Grid.Row="1">
+                                                        </Picker>
+                                                        --><!--#endregion VehicleMotorEinlassBreiteB-->
 
-                                                        <!--#region VehicleMotorEinlassDurchmesserD-->
-                                                        <material:MaterialTextField Placeholder="Durchmesser"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD}"
-                                                                                    Grid.Column="0"
-                                                                                    Grid.Row="2"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
+                                                        <!--#region VehicleMotorEinlassDurchmesserD--><!--
+                                                        <Entry Placeholder="Durchmesser"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserD}"
+                                                               Grid.Column="0"
+                                                               Grid.Row="2"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
 
-                                                        <material:MaterialTextField InputType="Choice"
-                                                                                    FloatingPlaceholderEnabled="False"
-                                                                                    Margin="5, 0, 0, 0"
-                                                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                    HorizontalOptions="StartAndExpand"
-                                                                                    VerticalOptions="CenterAndExpand"
-                                                                                    SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserDUnit}"
-                                                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                    ChoicesBindingName="Abbreviation"
-                                                                                    Grid.Column="1"
-                                                                                    Grid.Row="2">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorEinlassDurchmesserD-->
+                                                        <Picker Margin="5, 0, 0, 0"
+                                                                ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                HorizontalOptions="StartAndExpand"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassDurchmesserDUnit}"
+                                                                ItemDisplayBinding="{Binding Abbreviation}"
+                                                                Grid.Column="1"
+                                                                Grid.Row="2">
+                                                        </Picker>
+                                                        --><!--#endregion VehicleMotorEinlassDurchmesserD-->
 
-                                                        <!--#region VehicleMotorEinlassFlaecheA-->
-                                                        <material:MaterialTextField Placeholder="Flaeche"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheA}"
-                                                                                    Grid.Column="0"
-                                                                                    Grid.Row="3"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
+                                                        <!--#region VehicleMotorEinlassFlaecheA--><!--
+                                                        <Entry Placeholder="Flaeche"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheA}"
+                                                               Grid.Column="0"
+                                                               Grid.Row="3"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
 
-                                                        <material:MaterialTextField InputType="Choice"
-                                                                                    FloatingPlaceholderEnabled="False"
-                                                                                    Margin="5, 0, 0, 0"
-                                                                                    Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
-                                                                                    HorizontalOptions="StartAndExpand"
-                                                                                    VerticalOptions="CenterAndExpand"
-                                                                                    SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheAUnit}"
-                                                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                    ChoicesBindingName="Abbreviation"
-                                                                                    Grid.Column="1"
-                                                                                    Grid.Row="3">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorEinlassFlaecheA-->
+                                                        <Picker Margin="5, 0, 0, 0"
+                                                                ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                                HorizontalOptions="StartAndExpand"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassFlaecheAUnit}"
+                                                                ItemDisplayBinding="{Binding Abbreviation}"
+                                                                Grid.Column="1"
+                                                                Grid.Row="3">
+                                                        </Picker>
+                                                        --><!--#endregion VehicleMotorEinlassFlaecheA-->
 
                                                         <!--#region VehicleMotorEinlassSteuerzeitSZ-->
-                                                        <!--ohne Unit-->
-                                                        <material:MaterialTextField Placeholder="Steuerzeit"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassSteuerzeitSZ}"
-                                                                                    Grid.ColumnSpan="2"
-                                                                                    Grid.Row="4"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorEinlassSteuerzeitSZ-->
+                                                        <!--ohne Unit--><!--
+                                                        <Entry Placeholder="Steuerzeit"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassSteuerzeitSZ}"
+                                                               Grid.ColumnSpan="2"
+                                                               Grid.Row="4"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
+                                                        --><!--#endregion VehicleMotorEinlassSteuerzeitSZ-->
 
-                                                        <!--#region VehicleMotorEinlassLaengeL-->
-                                                        <material:MaterialTextField Placeholder="Länge"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeL}"
-                                                                                    Grid.Column="0"
-                                                                                    Grid.Row="5"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
+                                                        <!--#region VehicleMotorEinlassLaengeL--><!--
+                                                        <Entry Placeholder="Länge"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeL}"
+                                                               Grid.Column="0"
+                                                               Grid.Row="5"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
 
-                                                        <material:MaterialTextField InputType="Choice"
-                                                                                    FloatingPlaceholderEnabled="False"
-                                                                                    Margin="5, 0, 0, 0"
-                                                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                    HorizontalOptions="StartAndExpand"
-                                                                                    VerticalOptions="CenterAndExpand"
-                                                                                    SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeLUnit}"
-                                                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                    ChoicesBindingName="Abbreviation"
-                                                                                    Grid.Column="1"
-                                                                                    Grid.Row="5">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorEinlassLaengeL-->
+                                                        <Picker Margin="5, 0, 0, 0"
+                                                                ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                HorizontalOptions="StartAndExpand"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLaengeLUnit}"
+                                                                ItemDisplayBinding="{Binding Abbreviation}"
+                                                                Grid.Column="1"
+                                                                Grid.Row="5">
+                                                        </Picker>
+                                                        --><!--#endregion VehicleMotorEinlassLaengeL-->
 
                                                         <!--#region VehicleMotorEinlassLuftBedarf-->
-                                                        <!--ohne Unit-->
-                                                        <material:MaterialTextField Placeholder="LuftBedarf"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLuftBedarf}"
-                                                                                    Grid.ColumnSpan="2"
-                                                                                    Grid.Row="6"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorEinlassLuftBedarf-->
+                                                        <!--ohne Unit--><!--
+                                                        <Entry Placeholder="LuftBedarf"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassLuftBedarf}"
+                                                               Grid.ColumnSpan="2"
+                                                               Grid.Row="6"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
+                                                        --><!--#endregion VehicleMotorEinlassLuftBedarf--><!--
                                                     </Grid>
 
-                                                    <!--#region Vergaser-->
-                                                    <expandable:ExpandableView>
-                                                        <expandable:ExpandableView.PrimaryView>
-                                                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                                                    --><!--#region Vergaser--><!--
+                                                    <Expander>
+                                                        <Expander.Header>
+                                                            <Frame Style="{StaticResource FrameStyle}">
+                                                                <Label Style="{StaticResource LabelStyle}">
                                                                     Vergaser
-                                                                </material:MaterialLabel>
-                                                            </material:MaterialCard>
-                                                        </expandable:ExpandableView.PrimaryView>
-                                                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                                                </Label>
+                                                            </Frame>
+                                                        </Expander.Header>
+                                                        <HorizontalStackLayout>
                                                             <DataTemplate>
                                                                 <Grid Margin="20, 0, 0, 0">
                                                                     <Grid.ColumnDefinitions>
@@ -609,58 +561,55 @@
                                                                         <ColumnDefinition Width="100" />
                                                                     </Grid.ColumnDefinitions>
 
-                                                                    <!--#region VehicleMotorEinlassVergaserDurchmesserD-->
-                                                                    <material:MaterialTextField Placeholder="Durchmesser"
-                                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserD}"
-                                                                                                Grid.Column="0"
-                                                                                                Grid.Row="0"
-                                                                                                InputType="Numeric">
-                                                                    </material:MaterialTextField>
+                                                                    --><!--#region VehicleMotorEinlassVergaserDurchmesserD--><!--
+                                                                    <Entry Placeholder="Durchmesser"
+                                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserD}"
+                                                                           Grid.Column="0"
+                                                                           Grid.Row="0"
+                                                                           Keyboard="Numeric">
+                                                                    </Entry>
 
-                                                                    <material:MaterialTextField InputType="Choice"
-                                                                                                FloatingPlaceholderEnabled="False"
-                                                                                                Margin="5, 0, 0, 0"
-                                                                                                Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                                HorizontalOptions="StartAndExpand"
-                                                                                                VerticalOptions="CenterAndExpand"
-                                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserDUnit}"
-                                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                                ChoicesBindingName="Abbreviation"
-                                                                                                Grid.Column="1"
-                                                                                                Grid.Row="0">
-                                                                    </material:MaterialTextField>
-                                                                    <!--#endregion VehicleMotorEinlassVergaserDurchmesserD-->
+                                                                    <Picker Margin="5, 0, 0, 0"
+                                                                            ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                            HorizontalOptions="StartAndExpand"
+                                                                            VerticalOptions="CenterAndExpand"
+                                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserDurchmesserDUnit}"
+                                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                                            Grid.Column="1"
+                                                                            Grid.Row="0">
+                                                                    </Picker>
+                                                                    --><!--#endregion VehicleMotorEinlassVergaserDurchmesserD-->
 
                                                                     <!--#region VehicleMotorEinlassVergaserBenzinLuftF-->
-                                                                    <!--ohne Unit-->
-                                                                    <material:MaterialTextField Placeholder="BenzinLuftF"
-                                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserBenzinLuftF}"
-                                                                                                Grid.ColumnSpan="2"
-                                                                                                Grid.Row="1"
-                                                                                                InputType="Numeric">
-                                                                    </material:MaterialTextField>
-                                                                    <!--#endregion VehicleMotorEinlassVergaserBenzinLuftF-->
+                                                                    <!--ohne Unit--><!--
+                                                                    <Entry Placeholder="BenzinLuftF"
+                                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorEinlassVergaserBenzinLuftF}"
+                                                                           Grid.ColumnSpan="2"
+                                                                           Grid.Row="1"
+                                                                           Keyboard="Numeric">
+                                                                    </Entry>
+                                                                    --><!--#endregion VehicleMotorEinlassVergaserBenzinLuftF--><!--
                                                                 </Grid>
                                                             </DataTemplate>
-                                                        </expandable:ExpandableView.SecondaryViewTemplate>
-                                                    </expandable:ExpandableView>
-                                                    <!--#endregion Vergaser-->
+                                                        </HorizontalStackLayout>
+                                                    </Expander>
+                                                    --><!--#endregion Vergaser--><!--
                                                 </StackLayout>
                                             </DataTemplate>
-                                        </expandable:ExpandableView.SecondaryViewTemplate>
-                                    </expandable:ExpandableView>
-                                    <!--#endregion Einlass-->
+                                        </HorizontalStackLayout>
+                                    </Expander>
+                                    --><!--#endregion Einlass-->
 
-                                    <!--#region Auslass-->
-                                    <expandable:ExpandableView>
-                                        <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                                    <!--#region Auslass--><!--
+                                    <Expander>
+                                        <Expander.Header>
+                                            <Frame Style="{StaticResource FrameStyle}">
+                                                <Label Style="{StaticResource LabelStyle}">
                                                     Auslass
-                                                </material:MaterialLabel>
-                                            </material:MaterialCard>
-                                        </expandable:ExpandableView.PrimaryView>
-                                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                                </Label>
+                                            </Frame>
+                                        </Expander.Header>
+                                        <HorizontalStackLayout>
                                             <DataTemplate>
                                                 <StackLayout>
                                                     <Grid Margin="20, 0, 0, 0">
@@ -669,148 +618,136 @@
                                                             <ColumnDefinition Width="100" />
                                                         </Grid.ColumnDefinitions>
 
-                                                        <!--#region VehicleMotorAuslassHoeheH-->
-                                                        <material:MaterialTextField Placeholder="Hoehe"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheH}"
-                                                                                    Grid.Column="0"
-                                                                                    Grid.Row="0"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
+                                                        --><!--#region VehicleMotorAuslassHoeheH--><!--
+                                                        <Entry Placeholder="Hoehe"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheH}"
+                                                               Grid.Column="0"
+                                                               Grid.Row="0"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
 
-                                                        <material:MaterialTextField InputType="Choice"
-                                                                                    FloatingPlaceholderEnabled="False"
-                                                                                    Margin="5, 0, 0, 0"
-                                                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                    HorizontalOptions="StartAndExpand"
-                                                                                    VerticalOptions="CenterAndExpand"
-                                                                                    SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheHUnit}"
-                                                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                    ChoicesBindingName="Abbreviation"
-                                                                                    Grid.Column="1"
-                                                                                    Grid.Row="0">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorAuslassHoeheH-->
+                                                        <Picker Margin="5, 0, 0, 0"
+                                                                ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                HorizontalOptions="StartAndExpand"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorAuslassHoeheHUnit}"
+                                                                ItemDisplayBinding="{Binding Abbreviation}"
+                                                                Grid.Column="1"
+                                                                Grid.Row="0">
+                                                        </Picker>
+                                                        --><!--#endregion VehicleMotorAuslassHoeheH-->
 
-                                                        <!--#region VehicleMotorAuslassBreiteB-->
-                                                        <material:MaterialTextField Placeholder="Breite"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteB}"
-                                                                                    Grid.Column="0"
-                                                                                    Grid.Row="1"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
+                                                        <!--#region VehicleMotorAuslassBreiteB--><!--
+                                                        <Entry Placeholder="Breite"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteB}"
+                                                               Grid.Column="0"
+                                                               Grid.Row="1"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
 
-                                                        <material:MaterialTextField InputType="Choice"
-                                                                                    FloatingPlaceholderEnabled="False"
-                                                                                    Margin="5, 0, 0, 0"
-                                                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                    HorizontalOptions="StartAndExpand"
-                                                                                    VerticalOptions="CenterAndExpand"
-                                                                                    SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteBUnit}"
-                                                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                    ChoicesBindingName="Abbreviation"
-                                                                                    Grid.Column="1"
-                                                                                    Grid.Row="1">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorAuslassBreiteB-->
+                                                        <Picker Margin="5, 0, 0, 0"
+                                                                ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                HorizontalOptions="StartAndExpand"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorAuslassBreiteBUnit}"
+                                                                ItemDisplayBinding="{Binding Abbreviation}"
+                                                                Grid.Column="1"
+                                                                Grid.Row="1">
+                                                        </Picker>
+                                                        --><!--#endregion VehicleMotorAuslassBreiteB-->
 
-                                                        <!--#region VehicleMotorAuslassFlaecheA-->
-                                                        <material:MaterialTextField Placeholder="Flaeche"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheA}"
-                                                                                    Grid.Column="0"
-                                                                                    Grid.Row="2"
-                                                                                    InputType="Numeric">
+                                                        <!--#region VehicleMotorAuslassFlaecheA--><!--
+                                                        <Entry Placeholder="Flaeche"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheA}"
+                                                               Grid.Column="0"
+                                                               Grid.Row="2"
+                                                               Keyboard="Numeric">
 
-                                                            <material:MaterialTextField.Behaviors>
+                                                            <Entry.Behaviors>
                                                                 <local:EventToCommandBehavior EventName="TextChanged"
                                                                                               Command="{Binding ShowSaveButtonCommand}" />
-                                                            </material:MaterialTextField.Behaviors>
-                                                        </material:MaterialTextField>
+                                                            </Entry.Behaviors>
+                                                        </Entry>
 
-                                                        <material:MaterialTextField InputType="Choice"
-                                                                                    FloatingPlaceholderEnabled="False"
-                                                                                    Margin="5, 0, 0, 0"
-                                                                                    Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
-                                                                                    HorizontalOptions="StartAndExpand"
-                                                                                    VerticalOptions="CenterAndExpand"
-                                                                                    SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheAUnit}"
-                                                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                    ChoicesBindingName="Abbreviation"
-                                                                                    Grid.Column="1"
-                                                                                    Grid.Row="2">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorAuslassFlaecheA-->
+                                                        <Picker Margin="5, 0, 0, 0"
+                                                                ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                                HorizontalOptions="StartAndExpand"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorAuslassFlaecheAUnit}"
+                                                                ItemDisplayBinding="{Binding Abbreviation}"
+                                                                Grid.Column="1"
+                                                                Grid.Row="2">
+                                                        </Picker>
+                                                        --><!--#endregion VehicleMotorAuslassFlaecheA-->
 
-                                                        <!--#region VehicleMotorAuslassLaengeL-->
-                                                        <material:MaterialTextField Placeholder="Länge"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeL}"
-                                                                                    Grid.Column="0"
-                                                                                    Grid.Row="3"
-                                                                                    InputType="Numeric">
+                                                        <!--#region VehicleMotorAuslassLaengeL--><!--
+                                                        <Entry Placeholder="Länge"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeL}"
+                                                               Grid.Column="0"
+                                                               Grid.Row="3"
+                                                               Keyboard="Numeric">
 
-                                                            <material:MaterialTextField.Behaviors>
+                                                            <Entry.Behaviors>
                                                                 <local:EventToCommandBehavior EventName="TextChanged"
                                                                                               Command="{Binding ShowSaveButtonCommand}" />
-                                                            </material:MaterialTextField.Behaviors>
-                                                        </material:MaterialTextField>
+                                                            </Entry.Behaviors>
+                                                        </Entry>
 
-                                                        <material:MaterialTextField InputType="Choice"
-                                                                                    FloatingPlaceholderEnabled="False"
-                                                                                    Margin="5, 0, 0, 0"
-                                                                                    Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                    HorizontalOptions="StartAndExpand"
-                                                                                    VerticalOptions="CenterAndExpand"
-                                                                                    SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeLUnit}"
-                                                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                    ChoicesBindingName="Abbreviation"
-                                                                                    Grid.Column="1"
-                                                                                    Grid.Row="3">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorAuslassLaengeL-->
+                                                        <Picker Margin="5, 0, 0, 0"
+                                                                ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                                HorizontalOptions="StartAndExpand"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorAuslassLaengeLUnit}"
+                                                                ItemDisplayBinding="{Binding Abbreviation}"
+                                                                Grid.Column="1"
+                                                                Grid.Row="3">
+                                                        </Picker>
+                                                        --><!--#endregion VehicleMotorAuslassLaengeL-->
 
                                                         <!--#region VehicleMotorAuslassSteuerzeitSZ-->
-                                                        <!--ohne Unit-->
-                                                        <material:MaterialTextField Placeholder="Steuerzeit"
-                                                                                    Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassSteuerzeitSZ}"
-                                                                                    Grid.ColumnSpan="2"
-                                                                                    Grid.Row="4"
-                                                                                    InputType="Numeric">
-                                                        </material:MaterialTextField>
-                                                        <!--#endregion VehicleMotorAuslassSteuerzeitSZ-->
+                                                        <!--ohne Unit--><!--
+                                                        <Entry Placeholder="Steuerzeit"
+                                                               Text="{Binding Mode=TwoWay, Path=VehicleMotorAuslassSteuerzeitSZ}"
+                                                               Grid.ColumnSpan="2"
+                                                               Grid.Row="4"
+                                                               Keyboard="Numeric">
+                                                        </Entry>
+                                                        --><!--#endregion VehicleMotorAuslassSteuerzeitSZ--><!--
                                                     </Grid>
 
-                                                    <!--#region Auspuff-->
-                                                    <expandable:ExpandableView>
-                                                        <expandable:ExpandableView.PrimaryView>
-                                                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                                                    --><!--#region Auspuff--><!--
+                                                    <Expander>
+                                                        <Expander.Header>
+                                                            <Frame Style="{StaticResource FrameStyle}">
+                                                                <Label Style="{StaticResource LabelStyle}">
                                                                     Auspuff
-                                                                </material:MaterialLabel>
-                                                            </material:MaterialCard>
-                                                        </expandable:ExpandableView.PrimaryView>
-                                                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                                                </Label>
+                                                            </Frame>
+                                                        </Expander.Header>
+                                                        <HorizontalStackLayout>
                                                             <DataTemplate>
                                                                 <StackLayout Margin="20, 0, 0, 0">
                                                                 </StackLayout>
                                                             </DataTemplate>
-                                                        </expandable:ExpandableView.SecondaryViewTemplate>
-                                                    </expandable:ExpandableView>
-                                                    <!--#endregion Auspuff-->
+                                                        </HorizontalStackLayout>
+                                                    </Expander>
+                                                    --><!--#endregion Auspuff--><!--
                                                 </StackLayout>
                                             </DataTemplate>
-                                        </expandable:ExpandableView.SecondaryViewTemplate>
-                                    </expandable:ExpandableView>
-                                    <!--#endregion Auslass-->
+                                        </HorizontalStackLayout>
+                                    </Expander>
+                                    --><!--#endregion Auslass-->
 
-                                    <!--#region Ueberströmer-->
-                                    <expandable:ExpandableView>
-                                        <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                                    <!--#region Ueberströmer--><!--
+                                    <Expander>
+                                        <Expander.Header>
+                                            <Frame Style="{StaticResource FrameStyle}">
+                                                <Label Style="{StaticResource LabelStyle}">
                                                     Ueberströmer
-                                                </material:MaterialLabel>
-                                            </material:MaterialCard>
-                                        </expandable:ExpandableView.PrimaryView>
-                                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                                </Label>
+                                            </Frame>
+                                        </Expander.Header>
+                                        <HorizontalStackLayout>
                                             <DataTemplate>
                                                 <Grid Margin="20, 0, 0, 0">
                                                     <Grid.ColumnDefinitions>
@@ -818,229 +755,208 @@
                                                         <ColumnDefinition Width="100" />
                                                     </Grid.ColumnDefinitions>
 
-                                                    <!--#region VehicleMotorUeberstroemerHoeheH-->
-                                                    <material:MaterialTextField Placeholder="Hoehe"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheH}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="0"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
+                                                    --><!--#region VehicleMotorUeberstroemerHoeheH--><!--
+                                                    <Entry Placeholder="Hoehe"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheH}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="0"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheHUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="0">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorUeberstroemerHoeheH-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerHoeheHUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            Grid.Column="1"
+                                                            Grid.Row="0">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorUeberstroemerHoeheH-->
 
-                                                    <!--#region VehicleMotorUeberstroemerBreiteB-->
-                                                    <material:MaterialTextField Placeholder="Breite"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteB}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="1"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
+                                                    <!--#region VehicleMotorUeberstroemerBreiteB--><!--
+                                                    <Entry Placeholder="Breite"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteB}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="1"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteBUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="1">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorUeberstroemerBreiteB-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=LengthQuantityUnits, Mode=OneTime}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerBreiteBUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            Grid.Column="1"
+                                                            Grid.Row="1">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorUeberstroemerBreiteB-->
 
-                                                    <!--#region VehicleMotorUeberstroemerFlaecheA-->
-                                                    <material:MaterialTextField Placeholder="Flaeche"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheA}"
-                                                                                Grid.Column="0"
-                                                                                Grid.Row="2"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
+                                                    <!--#region VehicleMotorUeberstroemerFlaecheA--><!--
+                                                    <Entry Placeholder="Flaeche"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheA}"
+                                                           Grid.Column="0"
+                                                           Grid.Row="2"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Margin="5, 0, 0, 0"
-                                                                                Choices="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
-                                                                                HorizontalOptions="StartAndExpand"
-                                                                                VerticalOptions="CenterAndExpand"
-                                                                                SelectedChoice="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheAUnit}"
-                                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                                ChoicesBindingName="Abbreviation"
-                                                                                Grid.Column="1"
-                                                                                Grid.Row="2">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorUeberstroemerFlaecheA-->
+                                                    <Picker Margin="5, 0, 0, 0"
+                                                            ItemsSource="{Binding Path=AreaQuantityUnits, Mode=OneTime}"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            SelectedItem="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerFlaecheAUnit}"
+                                                            ItemDisplayBinding="{Binding Abbreviation}"
+                                                            Grid.Column="1"
+                                                            Grid.Row="2">
+                                                    </Picker>
+                                                    --><!--#endregion VehicleMotorUeberstroemerFlaecheA-->
 
                                                     <!--#region VehicleMotorUeberstroemerAnzahl-->
-                                                    <!--ohne Unit-->
-                                                    <material:MaterialTextField Placeholder="Anzahl"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerAnzahl}"
-                                                                                Grid.ColumnSpan="2"
-                                                                                Grid.Row="3"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorUeberstroemerAnzahl-->
+                                                    <!--ohne Unit--><!--
+                                                    <Entry Placeholder="Anzahl"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerAnzahl}"
+                                                           Grid.ColumnSpan="2"
+                                                           Grid.Row="3"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
+                                                    --><!--#endregion VehicleMotorUeberstroemerAnzahl-->
 
                                                     <!--#region VehicleMotorUeberstroemerSteuerzeitSZ-->
-                                                    <!--ohne Unit-->
-                                                    <material:MaterialTextField Placeholder="Steuerzeit"
-                                                                                Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerSteuerzeitSZ}"
-                                                                                Grid.ColumnSpan="2"
-                                                                                Grid.Row="4"
-                                                                                InputType="Numeric">
-                                                    </material:MaterialTextField>
-                                                    <!--#endregion VehicleMotorUeberstroemerSteuerzeitSZ-->
+                                                    <!--ohne Unit--><!--
+                                                    <Entry Placeholder="Steuerzeit"
+                                                           Text="{Binding Mode=TwoWay, Path=VehicleMotorUeberstroemerSteuerzeitSZ}"
+                                                           Grid.ColumnSpan="2"
+                                                           Grid.Row="4"
+                                                           Keyboard="Numeric">
+                                                    </Entry>
+                                                    --><!--#endregion VehicleMotorUeberstroemerSteuerzeitSZ--><!--
                                                 </Grid>
                                             </DataTemplate>
-                                        </expandable:ExpandableView.SecondaryViewTemplate>
-                                    </expandable:ExpandableView>
-                                    <!--#endregion Ueberströmer-->
+                                        </HorizontalStackLayout>
+                                    </Expander>
+                                    --><!--#endregion Ueberströmer--><!--
                                 </StackLayout>
                             </DataTemplate>
-                        </expandable:ExpandableView.SecondaryViewTemplate>
-                    </expandable:ExpandableView>
+                        </HorizontalStackLayout>
+                    </Expander>-->
                     <!--#endregion Motor-->
 
                     <!--Dyno-->
-                    <expandable:ExpandableView>
-                        <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                    <!--<Expander>
+                        <Expander.Header>
+                            <Frame Style="{StaticResource FrameStyle}">
+                                <Label Style="{StaticResource LabelStyle}">
                                     Dyno
-                                </material:MaterialLabel>
-                            </material:MaterialCard>
-                        </expandable:ExpandableView.PrimaryView>
-                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                </Label>
+                            </Frame>
+                        </Expander.Header>
+                        <HorizontalStackLayout>
                             <DataTemplate>
                                 <StackLayout Margin="20, 0, 0, 0">
 
-                                    <material:MaterialTextField Placeholder="Name"
-                                                                Text="{Binding Mode=TwoWay, Path=VehicleDynoName}"
-                                                                Grid.Column="0"
-                                                                InputType="Numeric">
-                                    </material:MaterialTextField>
+                                    <Entry Placeholder="Name"
+                                           Text="{Binding Mode=TwoWay, Path=VehicleDynoName}"
+                                           Grid.Column="0"
+                                           Keyboard="Numeric">
+                                    </Entry>
 
                                     <Editor Placeholder="Beschreibung"
                                             Text="{Binding Mode=TwoWay, Path=VehicleDynoBeschreibung}"
                                             Grid.Column="0"
                                             HeightRequest="150">
                                     </Editor>
-                                    <!--<material:MaterialTextField Placeholder="Beschreibung"
+                                    --><!--<Entry Placeholder="Beschreibung"
                                                                 Text="{Binding Mode=TwoWay, Path=VehicleDynoBeschreibung}"
-                                                                Grid.Column="0" InputType="Numeric">
-                                    </material:MaterialTextField>-->
+                                                                Grid.Column="0" Keyboard="Numeric">
+                                    </Entry>-->
 
-                                    <!--Audio-->
-                                    <expandable:ExpandableView>
-                                        <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                                    <!--Audio--><!--
+                                    <Expander>
+                                        <Expander.Header>
+                                            <Frame Style="{StaticResource FrameStyle}">
+                                                <Label Style="{StaticResource LabelStyle}">
                                                     Audio
-                                                </material:MaterialLabel>
-                                            </material:MaterialCard>
-                                        </expandable:ExpandableView.PrimaryView>
-                                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                                </Label>
+                                            </Frame>
+                                        </Expander.Header>
+                                        <HorizontalStackLayout>
                                             <DataTemplate>
                                                 <StackLayout Orientation="Horizontal"
                                                              Margin="20, 0, 0, 0">
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Placeholder="X"
-                                                                                Choices="{Binding Mode=OneTime, Path=VehicleDynoAudio}"
-                                                                                ChoicesBindingName="X">
-                                                    </material:MaterialTextField>
+                                                    <Picker Title="X"
+                                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoAudio}"
+                                                            ItemDisplayBinding="X">
+                                                    </Picker>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Placeholder="Y"
-                                                                                Choices="{Binding Mode=OneTime, Path=VehicleDynoAudio}"
-                                                                                ChoicesBindingName="Y">
-                                                    </material:MaterialTextField>
+                                                    <Picker Title="Y"
+                                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoAudio}"
+                                                            ItemDisplayBinding="Y">
+                                                    </Picker>
                                                 </StackLayout>
                                             </DataTemplate>
-                                        </expandable:ExpandableView.SecondaryViewTemplate>
-                                    </expandable:ExpandableView>
+                                        </HorizontalStackLayout>
+                                    </Expander>
 
-                                    <!--PS-->
-                                    <expandable:ExpandableView>
-                                        <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                                    --><!--PS--><!--
+                                    <Expander>
+                                        <Expander.Header>
+                                            <Frame Style="{StaticResource FrameStyle}">
+                                                <Label Style="{StaticResource LabelStyle}">
                                                     PS
-                                                </material:MaterialLabel>
-                                            </material:MaterialCard>
-                                        </expandable:ExpandableView.PrimaryView>
-                                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                                </Label>
+                                            </Frame>
+                                        </Expander.Header>
+                                        <HorizontalStackLayout>
                                             <DataTemplate>
                                                 <StackLayout Orientation="Horizontal"
                                                              Margin="20, 0, 0, 0">
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Placeholder="X"
-                                                                                Choices="{Binding Mode=OneTime, Path=VehicleDynoDynoPS}"
-                                                                                ChoicesBindingName="X">
-                                                    </material:MaterialTextField>
+                                                    <Picker Title="X"
+                                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoDynoPS}"
+                                                            ItemDisplayBinding="X">
+                                                    </Picker>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Placeholder="Y"
-                                                                                Choices="{Binding Mode=OneTime, Path=VehicleDynoDynoPS}"
-                                                                                ChoicesBindingName="Y">
-                                                    </material:MaterialTextField>
+                                                    <Picker Title="Y"
+                                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoDynoPS}"
+                                                            ItemDisplayBinding="Y">
+                                                    </Picker>
                                                 </StackLayout>
                                             </DataTemplate>
-                                        </expandable:ExpandableView.SecondaryViewTemplate>
-                                    </expandable:ExpandableView>
+                                        </HorizontalStackLayout>
+                                    </Expander>
 
-                                    <!--Nm-->
-                                    <expandable:ExpandableView>
-                                        <expandable:ExpandableView.PrimaryView>
-                                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                                    --><!--Nm--><!--
+                                    <Expander>
+                                        <Expander.Header>
+                                            <Frame Style="{StaticResource FrameStyle}">
+                                                <Label Style="{StaticResource LabelStyle}">
                                                     Nm
-                                                </material:MaterialLabel>
-                                            </material:MaterialCard>
-                                        </expandable:ExpandableView.PrimaryView>
-                                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                                </Label>
+                                            </Frame>
+                                        </Expander.Header>
+                                        <HorizontalStackLayout>
                                             <DataTemplate>
                                                 <StackLayout Orientation="Horizontal"
                                                              Margin="20, 0, 0, 0">
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Placeholder="X"
-                                                                                Choices="{Binding Mode=OneTime, Path=VehicleDynoDynoNm}"
-                                                                                ChoicesBindingName="X">
-                                                    </material:MaterialTextField>
+                                                    <Picker Title="X"
+                                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoDynoNm}"
+                                                            ItemDisplayBinding="X">
+                                                    </Picker>
 
-                                                    <material:MaterialTextField InputType="Choice"
-                                                                                FloatingPlaceholderEnabled="False"
-                                                                                Placeholder="Y"
-                                                                                Choices="{Binding Mode=OneTime, Path=VehicleDynoDynoNm}"
-                                                                                ChoicesBindingName="Y">
-                                                    </material:MaterialTextField>
+                                                    <Picker Title="Y"
+                                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoDynoNm}"
+                                                            ItemDisplayBinding="Y">
+                                                    </Picker>
                                                 </StackLayout>
                                             </DataTemplate>
-                                        </expandable:ExpandableView.SecondaryViewTemplate>
-                                    </expandable:ExpandableView>
+                                        </HorizontalStackLayout>
+                                    </Expander>
                                 </StackLayout>
                             </DataTemplate>
-                        </expandable:ExpandableView.SecondaryViewTemplate>
-                    </expandable:ExpandableView>
+                        </HorizontalStackLayout>
+                    </Expander>-->
                 </StackLayout>
-            </material:MaterialCard>
+            </Frame>
         </StackLayout>
     </ScrollView>
-</views:MvxContentPage>
+</ContentPage>

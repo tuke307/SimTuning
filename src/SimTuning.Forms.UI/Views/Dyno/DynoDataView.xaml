@@ -1,39 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:MvxContentPage Style="{StaticResource MvxContentPageStyle}"
-                      xmlns="http://xamarin.com/schemas/2014/forms"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-                      xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
-                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                      xmlns:customcomponents="clr-namespace:SimTuning.Forms.UI.Components"
-                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
-                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                      x:TypeArguments="viewModels:DynoDataViewModel"
-                      mc:Ignorable="d"
-                      Title="Datensatz"
-                      x:Class="SimTuning.Forms.UI.Views.Dyno.DynoDataView">
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:customcomponents="clr-namespace:SimTuning.Maui.UI.Components"
+             Title="Datensatz"
+             x:Class="SimTuning.Maui.UI.Views.Dyno.DynoDataView"
+             xmlns:vm="clr-namespace:SimTuning.Core.ViewModels.Dyno;assembly=SimTuning.Core"
+             x:DataType="vm:DataViewModel">
     <ScrollView>
         <StackLayout>
-            <!--<material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"  Margin="15"
+            <!--<Button Style="{StaticResource ButtonMediumStyle}"  Margin="15"
                                      VerticalOptions="Center"
                                      HorizontalOptions="Start"
                                      ImageSource="ic_arrow_back_black_18dp.png"
                                      Command="{Binding CloseCommand}"
                                      WidthRequest="100"
                                      HeightRequest="60">
-            </material:MaterialButton>-->
+            </Button>-->
 
-            <material:MaterialCard Style="{StaticResource MaterialCardStyle}"
-                                   Margin="10"
-                                   VerticalOptions="Center">
+            <Frame Style="{StaticResource FrameStyle}"
+                   Margin="10"
+                   VerticalOptions="Center">
                 <StackLayout>
-                    <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                            Text="Auswahl"
-                                            FontSize="Medium"
-                                            FontAttributes="Bold" />
+                    <Label Style="{StaticResource LabelStyle}"
+                           Text="Auswahl"
+                           FontSize="Medium"
+                           FontAttributes="Bold" />
 
-                    <BoxView Style="{StaticResource Divider}" />
+                    <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
                     <ListView HeightRequest="200"
                               ItemsSource="{Binding Mode=TwoWay, Path=Dynos}"
@@ -41,14 +36,14 @@
                               RowHeight="50">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <customcomponents:CustomViewCell SelectedBackgroundColor="{DynamicResource MaterialDesignSelection}">
+                                <customcomponents:CustomViewCell SelectedBackgroundColor="{DynamicResource DesignSelection}">
                                     <StackLayout>
-                                        <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                                Text="{Binding Name}"
-                                                                FontAttributes="Bold"
-                                                                Margin="0, 0, 0, -5" />
-                                        <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                                Text="{Binding Beschreibung}" />
+                                        <Label Style="{StaticResource LabelStyle}"
+                                               Text="{Binding DynoName}"
+                                               FontAttributes="Bold"
+                                               Margin="0, 0, 0, -5" />
+                                        <Label Style="{StaticResource LabelStyle}"
+                                               Text="{Binding DynoBeschreibung}" />
                                     </StackLayout>
                                 </customcomponents:CustomViewCell>
                             </DataTemplate>
@@ -63,23 +58,23 @@
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
 
-                        <material:MaterialButton Grid.Column="1"
-                                                 VerticalOptions="CenterAndExpand"
-                                                 HorizontalOptions="FillAndExpand"
-                                                 HeightRequest="50"
-                                                 Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 ImageSource="{StaticResource IconAddCircleOutlineMedium}"
-                                                 Command="{Binding NewDynoCommand}">
-                        </material:MaterialButton>
+                        <Button Grid.Column="1"
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                                HeightRequest="50"
+                                Style="{StaticResource ButtonMediumStyle}"
+                                ImageSource="{StaticResource IconAddCircleOutlineMedium}"
+                                Command="{Binding NewDynoCommand}">
+                        </Button>
 
-                        <material:MaterialButton Grid.Column="2"
-                                                 VerticalOptions="CenterAndExpand"
-                                                 HorizontalOptions="FillAndExpand"
-                                                 HeightRequest="50"
-                                                 Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 ImageSource="{StaticResource IconRemoveCircleOutlineMedium}"
-                                                 Command="{Binding DeleteDynoCommand}">
-                        </material:MaterialButton>
+                        <Button Grid.Column="2"
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                                HeightRequest="50"
+                                Style="{StaticResource ButtonMediumStyle}"
+                                ImageSource="{StaticResource IconRemoveCircleOutlineMedium}"
+                                Command="{Binding DeleteDynoCommand}">
+                        </Button>
                     </Grid>
 
                     <Grid Margin="0, 20, 0, 0">
@@ -92,62 +87,59 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <material:MaterialRadioButton x:Name="RB1"
-                                                      Grid.Column="0"
-                                                      Grid.Row="0"
-                                                      Text="neues Fahrzeug erstellen"
-                                                      IsSelected="{Binding Mode=TwoWay, Path=CreateNewVehicle}">
-                            <material:MaterialRadioButton.Triggers>
-                                <DataTrigger TargetType="material:MaterialRadioButton"
-                                             Binding="{Binding Source={x:Reference RB2},Path=IsSelected}"
+                        <!--<RadioButton x:Name="RB1"
+                                     Grid.Column="0"
+                                     Grid.Row="0"
+                                     Text="neues Fahrzeug erstellen"
+                                     IsChecked="{Binding Mode=TwoWay, Path=CreateNewVehicle}">
+                            <RadioButton.Triggers>
+                                <DataTrigger TargetType="RadioButton"
+                                             Binding="{Binding Source={x:Reference RB2},Path=IsChecked}"
                                              Value="true">
-                                    <Setter Property="IsSelected"
+                                    <Setter Property="IsChecked"
                                             Value="false" />
                                 </DataTrigger>
-                            </material:MaterialRadioButton.Triggers>
-                        </material:MaterialRadioButton>
+                            </RadioButton.Triggers>
+                        </RadioButton>
 
-                        <material:MaterialRadioButton x:Name="RB2"
-                                                      Grid.Column="0"
-                                                      Grid.Row="1"
-                                                      VerticalOptions="CenterAndExpand"
-                                                      Text="vorhandenes Fahrzeug verknüpfen"
-                                                      IsSelected="{Binding Mode=TwoWay, Path=TakeExistingVehicle}">
-                            <material:MaterialRadioButton.Triggers>
-                                <DataTrigger TargetType="material:MaterialRadioButton"
-                                             Binding="{Binding Source={x:Reference RB1},Path=IsSelected}"
+                        <RadioButton x:Name="RB2"
+                                     Grid.Column="0"
+                                     Grid.Row="1"
+                                     VerticalOptions="CenterAndExpand"
+                                     Text="vorhandenes Fahrzeug verknüpfen"
+                                     IsChecked="{Binding Mode=TwoWay, Path=TakeExistingVehicle}">
+                            <RadioButton.Triggers>
+                                <DataTrigger TargetType="RadioButton"
+                                             Binding="{Binding Source={x:Reference RB1},Path=IsChecked}"
                                              Value="true">
-                                    <Setter Property="IsSelected"
+                                    <Setter Property="IsChecked"
                                             Value="false" />
                                 </DataTrigger>
-                            </material:MaterialRadioButton.Triggers>
-                        </material:MaterialRadioButton>
+                            </RadioButton.Triggers>
+                        </RadioButton>-->
 
-                        <material:MaterialTextField  Grid.Column="1"
-                                                     Grid.Row="1"
-                                                     VerticalOptions="CenterAndExpand"
-                                                     InputType="Choice"
-                                                     FloatingPlaceholderEnabled="False"
-                                                     Placeholder="Fahrzeug"
-                                                     LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                     IsEnabled="{Binding Source={x:Reference Name=RB2}, Path=IsSelected}"
-                                                     Choices="{Binding Mode=TwoWay, Path=Vehicles}"
-                                                     SelectedChoice="{Binding Mode=TwoWay, Path=Vehicle}"
-                                                     ChoicesBindingName="Name">
-                        </material:MaterialTextField>
+                        <Picker  Grid.Column="1"
+                                 Grid.Row="1"
+                                 VerticalOptions="CenterAndExpand"
+                                 Title="Fahrzeug"
+                                 IsEnabled="{Binding Source={x:Reference Name=RB2}, Path=IsChecked}"
+                                 ItemsSource="{Binding Mode=TwoWay, Path=Vehicles}"
+                                 SelectedItem="{Binding Mode=TwoWay, Path=Vehicle}"
+                                 ItemDisplayBinding="{Binding Name}">
+                        </Picker>
                     </Grid>
                 </StackLayout>
-            </material:MaterialCard>
+            </Frame>
 
-            <material:MaterialCard Style="{StaticResource MaterialCardStyle}"
-                                   Margin="10">
+            <Frame Style="{StaticResource FrameStyle}"
+                   Margin="10">
                 <StackLayout>
-                    <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                            Text="Daten"
-                                            FontSize="Medium"
-                                            FontAttributes="Bold" />
+                    <Label Style="{StaticResource LabelStyle}"
+                           Text="Daten"
+                           FontSize="Medium"
+                           FontAttributes="Bold" />
 
-                    <BoxView Style="{StaticResource Divider}" />
+                    <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -162,10 +154,10 @@
 
                         <StackLayout Grid.Column="0"
                                      Grid.RowSpan="3">
-                            <material:MaterialTextField Placeholder="Name"
-                                                        Text="{Binding Mode=TwoWay, Path=DynoName}"
-                                                        Margin="5">
-                            </material:MaterialTextField>
+                            <Entry Placeholder="Name"
+                                   Text="{Binding Mode=TwoWay, Path=DynoName}"
+                                   Margin="5">
+                            </Entry>
 
                             <Editor Placeholder="Beschreibung"
                                     Text="{Binding Mode=TwoWay, Path=DynoBeschreibung}"
@@ -174,157 +166,145 @@
                             </Editor>
                         </StackLayout>
 
-                        <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 Margin="5"
-                                                 Grid.Column="1"
-                                                 Grid.Row="0"
-                                                 VerticalOptions="Center"
-                                                 HorizontalOptions="FillAndExpand"
-                                                 ImageSource="{StaticResource IconSaveMedium}"
-                                                 IsEnabled="{Binding Mode=OneWay, Path=SaveButton}"
-                                                 Command="{Binding SaveDynoCommand}"
-                                                 HeightRequest="60">
-                        </material:MaterialButton>
+                        <Button Style="{StaticResource ButtonMediumStyle}"
+                                Margin="5"
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                ImageSource="{StaticResource IconSaveMedium}"
+                                IsEnabled="{Binding Mode=OneWay, Path=SaveButton}"
+                                Command="{Binding SaveDynoCommand}"
+                                HeightRequest="60">
+                        </Button>
 
-                        <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 Margin="5"
-                                                 Grid.Column="1"
-                                                 Grid.Row="1"
-                                                 VerticalOptions="Center"
-                                                 HorizontalOptions="FillAndExpand"
-                                                 ImageSource="{StaticResource IconBackupMedium}"
-                                                 Command="{Binding ExportDynoCommand}"
-                                                 HeightRequest="60">
-                        </material:MaterialButton>
+                        <Button Style="{StaticResource ButtonMediumStyle}"
+                                Margin="5"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                ImageSource="{StaticResource IconBackupMedium}"
+                                Command="{Binding ExportDynoCommand}"
+                                HeightRequest="60">
+                        </Button>
 
-                        <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 Margin="5"
-                                                 Grid.Column="1"
-                                                 Grid.Row="2"
-                                                 VerticalOptions="Center"
-                                                 HorizontalOptions="FillAndExpand"
-                                                 ImageSource="{StaticResource IconFindInPageMedium}"
-                                                 Command="{Binding ImportDynoCommand}"
-                                                 HeightRequest="60">
-                        </material:MaterialButton>
+                        <Button Style="{StaticResource ButtonMediumStyle}"
+                                Margin="5"
+                                Grid.Column="1"
+                                Grid.Row="2"
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                ImageSource="{StaticResource IconFindInPageMedium}"
+                                Command="{Binding ImportDynoCommand}"
+                                HeightRequest="60">
+                        </Button>
                     </Grid>
 
                     <!--Audio-->
-                    <expandable:ExpandableView>
-                        <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                    <!--<Expander>
+                        <Expander.Header>
+                            <Frame Style="{StaticResource FrameStyle}">
+                                <Label Style="{StaticResource LabelStyle}">
                                     Drehzahl
-                                </material:MaterialLabel>
-                            </material:MaterialCard>
-                        </expandable:ExpandableView.PrimaryView>
-                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                </Label>
+                            </Frame>
+                        </Expander.Header>
+                        <HorizontalStackLayout>
                             <DataTemplate>
                                 <StackLayout Orientation="Horizontal"
                                              Margin="20, 0, 0, 0">
-                                    <material:MaterialTextField InputType="Choice"
-                                                                FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                Placeholder="X"
-                                                                WidthRequest="100"
-                                                                Choices="{Binding Dyno.Drehzahl}"
-                                                                ChoicesBindingName="Zeit">
-                                    </material:MaterialTextField>
+                                    <Picker Title="X"
+                                            WidthRequest="100"
+                                            ItemsSource="{Binding Dyno.Drehzahl}"
+                                            ItemDisplayBinding="Zeit">
+                                    </Picker>
 
-                                    <material:MaterialTextField InputType="Choice"
-                                                                FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                Placeholder="Y"
-                                                                WidthRequest="100"
-                                                                Choices="{Binding Dyno.Drehzahl}"
-                                                                ChoicesBindingName="Drehzahl">
-                                    </material:MaterialTextField>
+                                    <Picker Title="Y"
+                                            WidthRequest="100"
+                                            ItemsSource="{Binding Dyno.Drehzahl}"
+                                            ItemDisplayBinding="Drehzahl">
+                                    </Picker>
                                 </StackLayout>
                             </DataTemplate>
-                        </expandable:ExpandableView.SecondaryViewTemplate>
-                    </expandable:ExpandableView>
+                        </HorizontalStackLayout>
+                    </Expander>
 
-                    <!--PS-->
-                    <expandable:ExpandableView>
-                        <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                    --><!--PS--><!--
+                    <Expander>
+                        <Expander.Header>
+                            <Frame Style="{StaticResource FrameStyle}">
+                                <Label Style="{StaticResource LabelStyle}">
                                     PS
-                                </material:MaterialLabel>
-                            </material:MaterialCard>
-                        </expandable:ExpandableView.PrimaryView>
-                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                </Label>
+                            </Frame>
+                        </Expander.Header>
+                        <HorizontalStackLayout>
                             <DataTemplate>
                                 <StackLayout Orientation="Horizontal"
                                              Margin="20, 0, 0, 0">
-                                    <material:MaterialTextField InputType="Choice"
-                                                                FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                Placeholder="X"
-                                                                WidthRequest="100"
-                                                                Choices="{Binding Dyno.DynoPs}"
-                                                                ChoicesBindingName="Drehzahl">
-                                    </material:MaterialTextField>
+                                    <Picker Title="X"
+                                            WidthRequest="100"
+                                            ItemsSource="{Binding Dyno.DynoPs}"
+                                            ItemDisplayBinding="Drehzahl">
+                                    </Picker>
 
-                                    <material:MaterialTextField InputType="Choice"
-                                                                FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                                Placeholder="Y"
-                                                                WidthRequest="100"
-                                                                Choices="{Binding Dyno.DynoPs}"
-                                                                ChoicesBindingName="Ps">
-                                    </material:MaterialTextField>
+                                    <Picker Title="Y"
+                                            WidthRequest="100"
+                                            ItemsSource="{Binding Dyno.DynoPs}"
+                                            ItemDisplayBinding="Ps">
+                                    </Picker>
                                 </StackLayout>
                             </DataTemplate>
-                        </expandable:ExpandableView.SecondaryViewTemplate>
-                    </expandable:ExpandableView>
+                        </HorizontalStackLayout>
+                    </Expander>-->
 
                     <!--Nm-->
-                    <!--<expandable:ExpandableView>
-                        <expandable:ExpandableView.PrimaryView>
-                            <material:MaterialCard Style="{StaticResource MaterialCardStyle}">
-                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                    <!--<Expander>
+                        <Expander.Header>
+                            <Frame Style="{StaticResource FrameStyle}">
+                                <Label Style="{StaticResource LabelStyle}">
                                     Nm
-                                </material:MaterialLabel>
-                            </material:MaterialCard>
-                        </expandable:ExpandableView.PrimaryView>
-                        <expandable:ExpandableView.SecondaryViewTemplate>
+                                </Label>
+                            </Frame>
+                        </Expander.Header>
+                        <HorizontalStackLayout>
                             <DataTemplate>
                                 <StackLayout Orientation="Horizontal"
                                              Margin="20, 0, 0, 0">
-                                    <material:MaterialTextField InputType="Choice"
-                                                                FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
+                                    <Entry Keyboard="Choice"
+                                                                
+                                                                
                                                                 Placeholder="X"
                                                                 WidthRequest="100"
-                                                                Choices="{Binding Dyno.DynoNm}"
-                                                                ChoicesBindingName="Drehzahl">
-                                    </material:MaterialTextField>
+                                                                ItemsSource="{Binding Dyno.DynoNm}"
+                                                                ItemDisplayBinding="Drehzahl">
+                                    </Entry>
 
-                                    <material:MaterialTextField InputType="Choice"
-                                                                FloatingPlaceholderEnabled="False"
-                                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
+                                    <Entry Keyboard="Choice"
+                                                                
+                                                                
                                                                 Placeholder="Y"
                                                                 WidthRequest="100"
-                                                                Choices="{Binding Dyno.DynoNm}"
-                                                                ChoicesBindingName="Nm">
-                                    </material:MaterialTextField>
+                                                                ItemsSource="{Binding Dyno.DynoNm}"
+                                                                ItemDisplayBinding="Nm">
+                                    </Entry>
                                 </StackLayout>
                             </DataTemplate>
-                        </expandable:ExpandableView.SecondaryViewTemplate>
-                    </expandable:ExpandableView>-->
+                        </HorizontalStackLayout>
+                    </Expander>-->
                 </StackLayout>
-            </material:MaterialCard>
+            </Frame>
 
-            <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                     Margin="15"
-                                     VerticalOptions="Center"
-                                     HorizontalOptions="End"
-                                     ImageSource="{StaticResource IconChevronRightMedium}"
-                                     Command="{Binding ShowSettingsCommand}"
-                                     WidthRequest="100"
-                                     HeightRequest="60">
-            </material:MaterialButton>
+            <!--<Button Style="{StaticResource ButtonMediumStyle}"
+                    Margin="15"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    ImageSource="{StaticResource IconChevronRightMedium}"
+                    Command="{Binding ShowSettingsCommand}"
+                    WidthRequest="100"
+                    HeightRequest="60">
+            </Button>-->
         </StackLayout>
     </ScrollView>
-</views:MvxContentPage>
+</ContentPage>

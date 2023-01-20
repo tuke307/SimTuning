@@ -1,10 +1,10 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
 using System;
 using System.Globalization;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
-namespace SimTuning.Forms.UI.Behaviors
+namespace SimTuning.Maui.UI.Behaviors
 {
     public class InvertedBoolConverter : IValueConverter, IMarkupExtension
     {

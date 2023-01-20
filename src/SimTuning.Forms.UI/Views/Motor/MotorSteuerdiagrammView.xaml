@@ -1,23 +1,21 @@
-﻿<views:MvxContentView x:Class="SimTuning.Forms.UI.Views.Motor.MotorSteuerdiagrammView"
-                      xmlns="http://xamarin.com/schemas/2014/forms"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Motor;assembly=SimTuning.Forms.UI"
-                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                      x:TypeArguments="viewModels:MotorSteuerdiagrammViewModel"
-                      Style="{StaticResource MvxContentPageStyle}">
+﻿<ContentView x:Class="SimTuning.Maui.UI.Views.Motor.MotorSteuerdiagrammView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Style="{StaticResource ContentPageStyle}"
+             xmlns:vm="clr-namespace:SimTuning.Core.ViewModels.Motor;assembly=SimTuning.Core"
+             x:DataType="vm:SteuerdiagrammViewModel">
 
     <ScrollView>
         <StackLayout>
 
             <!--  Steuerzeiten Rad  -->
-            <material:MaterialCard Margin="10"
-                                   Style="{StaticResource MaterialCardStyle}">
+            <Frame Margin="10"
+                   Style="{StaticResource FrameStyle}">
                 <StackLayout>
-                    <material:MaterialLabel Style="{StaticResource MaterialLabelTitleStyle}"
-                                            Text="Diagramm" />
+                    <Label Style="{StaticResource LabelTitleStyle}"
+                           Text="Diagramm" />
 
-                    <BoxView Style="{StaticResource Divider}" />
+                    <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
                     <Image Margin="10"
                            HeightRequest="200"
@@ -37,131 +35,119 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <material:MaterialLabel Grid.Row="1"
-                                                Grid.Column="0"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Einlass (°)"
-                                                VerticalOptions="Center" />
-                        <material:MaterialLabel Grid.Row="2"
-                                                Grid.Column="0"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Auslass (°)"
-                                                VerticalOptions="Center" />
-                        <material:MaterialLabel Grid.Row="3"
-                                                Grid.Column="0"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Überströmer (°)"
-                                                VerticalOptions="Center" />
-                        <material:MaterialTextField Grid.Row="1"
-                                                    Grid.Column="1"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    MinimumWidthRequest="60"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=TwoWay, Path=SteuerzeitEinlass}" />
-                        <material:MaterialTextField Grid.Row="2"
-                                                    Grid.Column="1"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    MinimumWidthRequest="60"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=TwoWay, Path=SteuerzeitAuslass}" />
-                        <material:MaterialTextField Grid.Row="3"
-                                                    Grid.Column="1"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    MinimumWidthRequest="60"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=TwoWay, Path=SteuerzeitUeberstroemer}" />
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Einlass (°)"
+                               VerticalOptions="Center" />
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Auslass (°)"
+                               VerticalOptions="Center" />
+                        <Label Grid.Row="3"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Überströmer (°)"
+                               VerticalOptions="Center" />
+                        <Entry Grid.Row="1"
+                               Grid.Column="1"
+                               Keyboard="Numeric"
+                               MinimumWidthRequest="60"
+                               Placeholder=" "
+                               Text="{Binding Mode=TwoWay, Path=SteuerzeitEinlass}" />
+                        <Entry Grid.Row="2"
+                               Grid.Column="1"
+                               Keyboard="Numeric"
+                               MinimumWidthRequest="60"
+                               Placeholder=" "
+                               Text="{Binding Mode=TwoWay, Path=SteuerzeitAuslass}" />
+                        <Entry Grid.Row="3"
+                               Grid.Column="1"
+                               Keyboard="Numeric"
+                               MinimumWidthRequest="60"
+                               Placeholder=" "
+                               Text="{Binding Mode=TwoWay, Path=SteuerzeitUeberstroemer}" />
 
-                        <material:MaterialLabel Grid.Row="0"
-                                                Grid.Column="2"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="öffnet (°)" />
-                        <material:MaterialTextField Grid.Row="1"
-                                                    Grid.Column="2"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    IsEnabled="False"
-                                                    MinimumWidthRequest="46"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=OneWay, Path=Einlass_Steuerwinkel_oeffnen}" />
-                        <material:MaterialTextField Grid.Row="2"
-                                                    Grid.Column="2"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    IsEnabled="False"
-                                                    MinimumWidthRequest="46"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=OneWay, Path=Auslass_Steuerwinkel_oeffnen}" />
-                        <material:MaterialTextField Grid.Row="3"
-                                                    Grid.Column="2"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    IsEnabled="False"
-                                                    MinimumWidthRequest="46"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=OneWay, Path=Ueberstroemer_Steuerwinkel_oeffnen}" />
+                        <Label Grid.Row="0"
+                               Grid.Column="2"
+                               Style="{StaticResource LabelStyle}"
+                               Text="öffnet (°)" />
+                        <Entry Grid.Row="1"
+                               Grid.Column="2"
+                               Keyboard="Numeric"
+                               IsEnabled="False"
+                               MinimumWidthRequest="46"
+                               Placeholder=" "
+                               Text="{Binding Mode=OneWay, Path=Einlass_Steuerwinkel_oeffnen}" />
+                        <Entry Grid.Row="2"
+                               Grid.Column="2"
+                               Keyboard="Numeric"
+                               IsEnabled="False"
+                               MinimumWidthRequest="46"
+                               Placeholder=" "
+                               Text="{Binding Mode=OneWay, Path=Auslass_Steuerwinkel_oeffnen}" />
+                        <Entry Grid.Row="3"
+                               Grid.Column="2"
+                               Keyboard="Numeric"
+                               IsEnabled="False"
+                               MinimumWidthRequest="46"
+                               Placeholder=" "
+                               Text="{Binding Mode=OneWay, Path=Ueberstroemer_Steuerwinkel_oeffnen}" />
 
-                        <material:MaterialLabel Grid.Row="0"
-                                                Grid.Column="3"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="schließt (°)" />
-                        <material:MaterialTextField Grid.Row="1"
-                                                    Grid.Column="3"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    IsEnabled="False"
-                                                    MinimumWidthRequest="44"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=OneWay, Path=Einlass_Steuerwinkel_schließen}" />
-                        <material:MaterialTextField Grid.Row="2"
-                                                    Grid.Column="3"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    IsEnabled="False"
-                                                    MinimumWidthRequest="44"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=OneWay, Path=Auslass_Steuerwinkel_schließen}" />
-                        <material:MaterialTextField Grid.Row="3"
-                                                    Grid.Column="3"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    IsEnabled="False"
-                                                    MinimumWidthRequest="44"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=OneWay, Path=Ueberstroemer_Steuerwinkel_schließen}" />
+                        <Label Grid.Row="0"
+                               Grid.Column="3"
+                               Style="{StaticResource LabelStyle}"
+                               Text="schließt (°)" />
+                        <Entry Grid.Row="1"
+                               Grid.Column="3"
+                               Keyboard="Numeric"
+                               IsEnabled="False"
+                               MinimumWidthRequest="44"
+                               Placeholder=" "
+                               Text="{Binding Mode=OneWay, Path=Einlass_Steuerwinkel_schließen}" />
+                        <Entry Grid.Row="2"
+                               Grid.Column="3"
+                               Keyboard="Numeric"
+                               IsEnabled="False"
+                               MinimumWidthRequest="44"
+                               Placeholder=" "
+                               Text="{Binding Mode=OneWay, Path=Auslass_Steuerwinkel_schließen}" />
+                        <Entry Grid.Row="3"
+                               Grid.Column="3"
+                               Keyboard="Numeric"
+                               IsEnabled="False"
+                               MinimumWidthRequest="44"
+                               Placeholder=" "
+                               Text="{Binding Mode=OneWay, Path=Ueberstroemer_Steuerwinkel_schließen}" />
                     </Grid>
 
                     <StackLayout Orientation="Horizontal">
-                        <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Vorauslasszeit (°)"
-                                                VerticalOptions="Center" />
-                        <material:MaterialTextField FloatingPlaceholderEnabled="False"
-                                                    InputType="Numeric"
-                                                    IsEnabled="False"
-                                                    Placeholder=" "
-                                                    Text="{Binding Mode=OneWay, Path=SteuerzeitVorauslass}"
-                                                    WidthRequest="100" />
+                        <Label Style="{StaticResource LabelStyle}"
+                               Text="Vorauslasszeit (°)"
+                               VerticalOptions="Center" />
+                        <Entry Keyboard="Numeric"
+                               IsEnabled="False"
+                               Placeholder=" "
+                               Text="{Binding Mode=OneWay, Path=SteuerzeitVorauslass}"
+                               WidthRequest="100" />
                     </StackLayout>
                 </StackLayout>
-            </material:MaterialCard>
+            </Frame>
 
             <!--  Fahrzeug  -->
-            <material:MaterialCard Margin="10"
-                                   Style="{StaticResource MaterialCardStyle}">
+            <Frame Margin="10"
+                   Style="{StaticResource FrameStyle}">
                 <StackLayout>
-                    <material:MaterialLabel Style="{StaticResource MaterialLabelTitleStyle}"
-                                            Text="Fahrzeug Steuerzeiten" />
+                    <Label Style="{StaticResource LabelTitleStyle}"
+                           Text="Fahrzeug Steuerzeiten" />
 
-                    <BoxView Style="{StaticResource Divider}" />
+                    <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
-                    <material:MaterialTextField Choices="{Binding HelperVehicles}"
-                                                ChoicesBindingName="Name"
-                                                InputType="Choice"
-                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                Placeholder="Fahrzeug"
-                                                SelectedChoice="{Binding HelperVehicle}" />
+                    <Picker ItemsSource="{Binding HelperVehicles}"
+                            ItemDisplayBinding="{Binding Name}"
+                            Title="Fahrzeug"
+                            SelectedItem="{Binding HelperVehicle}" />
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -174,97 +160,92 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <material:MaterialLabel Grid.Row="0"
-                                                Grid.Column="0"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Einlass"
-                                                VerticalOptions="Center" />
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Einlass"
+                               VerticalOptions="Center" />
 
                         <StackLayout Grid.Row="0"
                                      Grid.Column="1"
                                      Orientation="Horizontal">
-                            <material:MaterialTextField Margin="10,0,0,0"
-                                                        FloatingPlaceholderEnabled="False"
-                                                        IsEnabled="False"
-                                                        Placeholder=" "
-                                                        Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Einlass.SteuerzeitSZ}"
-                                                        WidthRequest="100" />
+                            <Entry Margin="10,0,0,0"
+                                   IsEnabled="False"
+                                   Placeholder=" "
+                                   Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Einlass.SteuerzeitSZ}"
+                                   WidthRequest="100" />
 
-                            <material:MaterialLabel Margin="5,0,0,0"
-                                                    Style="{StaticResource MaterialLabelStyle}"
-                                                    VerticalOptions="Center">
+                            <Label Margin="5,0,0,0"
+                                   Style="{StaticResource LabelStyle}"
+                                   VerticalOptions="Center">
                                 °
-                            </material:MaterialLabel>
+                            </Label>
                         </StackLayout>
 
-                        <material:MaterialLabel Grid.Row="1"
-                                                Grid.Column="0"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Auslass"
-                                                VerticalOptions="Center" />
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Auslass"
+                               VerticalOptions="Center" />
                         <StackLayout Grid.Row="1"
                                      Grid.Column="1"
                                      Orientation="Horizontal">
-                            <material:MaterialTextField Margin="10,0,0,0"
-                                                        FloatingPlaceholderEnabled="False"
-                                                        IsEnabled="False"
-                                                        Placeholder=" "
-                                                        Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Auslass.SteuerzeitSZ}"
-                                                        WidthRequest="100" />
+                            <Entry Margin="10,0,0,0"
+                                   IsEnabled="False"
+                                   Placeholder=" "
+                                   Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Auslass.SteuerzeitSZ}"
+                                   WidthRequest="100" />
 
-                            <material:MaterialLabel Margin="5,0,0,0"
-                                                    Style="{StaticResource MaterialLabelStyle}"
-                                                    VerticalOptions="Center">
+                            <Label Margin="5,0,0,0"
+                                   Style="{StaticResource LabelStyle}"
+                                   VerticalOptions="Center">
                                 °
-                            </material:MaterialLabel>
+                            </Label>
                         </StackLayout>
 
-                        <material:MaterialLabel Grid.Row="2"
-                                                Grid.Column="0"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Überströmer"
-                                                VerticalOptions="Center" />
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Überströmer"
+                               VerticalOptions="Center" />
                         <StackLayout Grid.Row="2"
                                      Grid.Column="1"
                                      Orientation="Horizontal">
-                            <material:MaterialTextField Margin="10,0,0,0"
-                                                        FloatingPlaceholderEnabled="False"
-                                                        IsEnabled="False"
-                                                        Placeholder=" "
-                                                        Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Ueberstroemer.SteuerzeitSZ}"
-                                                        WidthRequest="100" />
+                            <Entry Margin="10,0,0,0"
+                                   IsEnabled="False"
+                                   Placeholder=" "
+                                   Text="{Binding Mode=OneWay, Path=HelperVehicle.Motor.Ueberstroemer.SteuerzeitSZ}"
+                                   WidthRequest="100" />
 
-                            <material:MaterialLabel Margin="5,0,0,0"
-                                                    Style="{StaticResource MaterialLabelStyle}"
-                                                    VerticalOptions="Center">
+                            <Label Margin="5,0,0,0"
+                                   Style="{StaticResource LabelStyle}"
+                                   VerticalOptions="Center">
                                 °
-                            </material:MaterialLabel>
+                            </Label>
                         </StackLayout>
                     </Grid>
 
-                    <material:MaterialButton Command="{Binding InsertVehicleCommand}"
-                                             HorizontalOptions="Center"
-                                             ImageSource="{StaticResource IconChevronRightMedium}"
-                                             Style="{StaticResource MaterialButtonMediumStyle}"
-                                             WidthRequest="90" />
+                    <Button Command="{Binding InsertVehicleCommand}"
+                            HorizontalOptions="Center"
+                            ImageSource="{StaticResource IconChevronRightMedium}"
+                            Style="{StaticResource ButtonMediumStyle}"
+                            WidthRequest="90" />
                 </StackLayout>
-            </material:MaterialCard>
+            </Frame>
 
             <!--  Tuning Presets  -->
-            <material:MaterialCard Margin="10"
-                                   Style="{StaticResource MaterialCardStyle}">
+            <Frame Margin="10"
+                   Style="{StaticResource FrameStyle}">
                 <StackLayout>
-                    <material:MaterialLabel Style="{StaticResource MaterialLabelTitleStyle}"
-                                            Text="Richtwerte Steuerzeiten" />
+                    <Label Style="{StaticResource LabelTitleStyle}"
+                           Text="Richtwerte Steuerzeiten" />
 
-                    <BoxView Style="{StaticResource Divider}" />
+                    <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
-                    <material:MaterialTextField Choices="{Binding MotorSteuerzeiten}"
-                                                ChoicesBindingName="Name"
-                                                InputType="Choice"
-                                                LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                Placeholder="Konfiguration"
-                                                SelectedChoice="{Binding MotorSteuerzeit}" />
+                    <Picker ItemsSource="{Binding MotorSteuerzeiten}"
+                            ItemDisplayBinding="{Binding Name}"
+                            Title="Konfiguration"
+                            SelectedItem="{Binding MotorSteuerzeit}" />
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -277,80 +258,77 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <material:MaterialLabel Grid.Row="0"
-                                                Grid.Column="0"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Einlass"
-                                                VerticalOptions="Center" />
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Einlass"
+                               VerticalOptions="Center" />
                         <StackLayout Grid.Row="0"
                                      Grid.Column="1"
                                      Orientation="Horizontal">
-                            <material:MaterialTextField Margin="10,0,0,0"
-                                                        FloatingPlaceholderEnabled="False"
-                                                        IsEnabled="False"
-                                                        Placeholder=" "
-                                                        Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Einlass.SteuerzeitSZ}"
-                                                        WidthRequest="100" />
+                            <Entry Margin="10,0,0,0"
+                                   IsEnabled="False"
+                                   Placeholder=" "
+                                   Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Einlass.SteuerzeitSZ}"
+                                   WidthRequest="100" />
 
-                            <material:MaterialLabel Margin="5,0,0,0"
-                                                    Style="{StaticResource MaterialLabelStyle}"
-                                                    VerticalOptions="Center">
+                            <Label Margin="5,0,0,0"
+                                   Style="{StaticResource LabelStyle}"
+                                   VerticalOptions="Center">
                                 °
-                            </material:MaterialLabel>
+                            </Label>
                         </StackLayout>
 
-                        <material:MaterialLabel Grid.Row="1"
-                                                Grid.Column="0"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Auslass"
-                                                VerticalOptions="Center" />
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Auslass"
+                               VerticalOptions="Center" />
                         <StackLayout Grid.Row="1"
                                      Grid.Column="1"
                                      Orientation="Horizontal">
-                            <material:MaterialTextField Margin="10,0,0,0"
-                                                        FloatingPlaceholderEnabled="False"
-                                                        IsEnabled="False"
-                                                        Placeholder=" "
-                                                        Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Auslass.SteuerzeitSZ}"
-                                                        WidthRequest="100" />
+                            <Entry Margin="10,0,0,0"
+                                   IsEnabled="False"
+                                   Placeholder=" "
+                                   Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Auslass.SteuerzeitSZ}"
+                                   WidthRequest="100" />
 
-                            <material:MaterialLabel Margin="5,0,0,0"
-                                                    Style="{StaticResource MaterialLabelStyle}"
-                                                    VerticalOptions="Center">
+                            <Label Margin="5,0,0,0"
+                                   Style="{StaticResource LabelStyle}"
+                                   VerticalOptions="Center">
                                 °
-                            </material:MaterialLabel>
+                            </Label>
                         </StackLayout>
 
-                        <material:MaterialLabel Grid.Row="2"
-                                                Grid.Column="0"
-                                                Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Überströmer"
-                                                VerticalOptions="Center" />
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Überströmer"
+                               VerticalOptions="Center" />
                         <StackLayout Grid.Row="2"
                                      Grid.Column="1"
                                      Orientation="Horizontal">
-                            <material:MaterialTextField Margin="10,0,0,0"
-                                                        FloatingPlaceholderEnabled="False"
-                                                        IsEnabled="False"
-                                                        Placeholder=" "
-                                                        Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Ueberstroemer.SteuerzeitSZ}"
-                                                        WidthRequest="100" />
+                            <Entry Margin="10,0,0,0"
+                                   IsEnabled="False"
+                                   Placeholder=" "
+                                   Text="{Binding Mode=OneWay, Path=MotorSteuerzeit.Ueberstroemer.SteuerzeitSZ}"
+                                   WidthRequest="100" />
 
-                            <material:MaterialLabel Margin="5,0,0,0"
-                                                    Style="{StaticResource MaterialLabelStyle}"
-                                                    VerticalOptions="Center">
+                            <Label Margin="5,0,0,0"
+                                   Style="{StaticResource LabelStyle}"
+                                   VerticalOptions="Center">
                                 °
-                            </material:MaterialLabel>
+                            </Label>
                         </StackLayout>
                     </Grid>
 
-                    <material:MaterialButton Command="{Binding InsertReferenceCommand}"
-                                             HorizontalOptions="Center"
-                                             ImageSource="{StaticResource IconChevronRightMedium}"
-                                             Style="{StaticResource MaterialButtonMediumStyle}"
-                                             WidthRequest="90" />
+                    <Button Command="{Binding InsertReferenceCommand}"
+                            HorizontalOptions="Center"
+                            ImageSource="{StaticResource IconChevronRightMedium}"
+                            Style="{StaticResource ButtonMediumStyle}"
+                            WidthRequest="90" />
                 </StackLayout>
-            </material:MaterialCard>
+            </Frame>
         </StackLayout>
     </ScrollView>
-</views:MvxContentView>
+</ContentView>

@@ -1,23 +1,19 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-namespace SimTuning.Forms.UI.Views.Dyno
-{
-    using MvvmCross.Forms.Presenters.Attributes;
-    using MvvmCross.Forms.Views;
-    using SimTuning.Forms.UI.ViewModels.Dyno;
+using SimTuning.Core.ViewModels.Dyno;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
-    /// <summary>
-    /// DynoDataView.
-    /// </summary>
-    /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Dyno.DynoDataViewModel}" />
-    [MvxContentPagePresentation(WrapInNavigationPage = true, NoHistory = false)]
-    public partial class DynoDataView : MvxContentPage<DynoDataViewModel>
+
+namespace SimTuning.Maui.UI.Views.Dyno
+{
+    public partial class DynoDataView : ContentPage
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DynoDataView" /> class.
-        /// </summary>
         public DynoDataView()
         {
             this.InitializeComponent();
+
+            BindingContext = Ioc.Default.GetRequiredService<DataViewModel>();
         }
+
+        public DataViewModel ViewModel => (DataViewModel)BindingContext;
     }
 }

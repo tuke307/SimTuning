@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ResourceDictionary  xmlns="http://xamarin.com/schemas/2014/forms"
+<ResourceDictionary  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                     x:Class="SimTuning.Forms.UI.Themes.Primary.LightGreen">
+                     x:Class="SimTuning.Maui.UI.Themes.Primary.LightGreen">
     <Color x:Key="Primary50">#f1f8e9</Color>
     <Color x:Key="Primary50Foreground">#DD000000</Color>
     <Color x:Key="Primary100">#dcedc8</Color>

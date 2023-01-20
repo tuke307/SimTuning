@@ -1,24 +1,18 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels.Dyno;
+using SimTuning.Core.ViewModels.Dyno;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace SimTuning.Forms.UI.Views.Dyno
+namespace SimTuning.Maui.UI.Views.Dyno
 {
-    /// <summary>
-    /// DynoGeschwindigkeitView.
-    /// </summary>
-    /// <seealso cref="MvvmCross.Forms.Views.MvxContentPage{SimTuning.Forms.UI.ViewModels.Dyno.DynoGeschwindigkeitViewModel}" />
-    [MvxModalPresentation]
-    public partial class DynoGeschwindigkeitView : MvxContentPage<DynoGeschwindigkeitViewModel>
+    public partial class DynoGeschwindigkeitView : ContentPage
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DynoGeschwindigkeitView" />
-        /// class.
-        /// </summary>
         public DynoGeschwindigkeitView()
         {
             InitializeComponent();
+            
+            BindingContext = Ioc.Default.GetRequiredService<GeschwindigkeitViewModel>();
         }
+
+        public GeschwindigkeitViewModel ViewModel => (GeschwindigkeitViewModel)BindingContext;
     }
 }

@@ -1,16 +1,17 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using SimTuning.Forms.UI.Themes;
-using SimTuning.Forms.UI.Themes.Base;
+using SimTuning.Maui.UI.Themes;
+using SimTuning.Maui.UI.Themes.Base;
 using System.Linq;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
-namespace SimTuning.Forms.UI.Services
+namespace SimTuning.Maui.UI.Services
 {
     public class ThemeServiceBase : IThemeService
     {
         public BaseTheme CurrentRuntimeTheme { get; private set; }
 
-        public virtual void UpdateTheme(BaseTheme themeMode)
+        public void UpdateTheme(BaseTheme themeMode)
         {
             switch (ColorSettings.Theme)
             {

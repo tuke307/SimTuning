@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using SimTuning.Forms.UI.Themes;
+using SimTuning.Maui.UI.Themes;
 
-namespace SimTuning.Forms.UI.Services
+namespace SimTuning.Maui.UI.Services
 {
     public interface IThemeService
     {

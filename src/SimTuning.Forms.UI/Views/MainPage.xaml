@@ -1,9 +1,8 @@
-﻿<view:MvxMasterDetailPage x:Class="SimTuning.Forms.UI.Views.MainPage"
-                          xmlns="http://xamarin.com/schemas/2014/forms"
-                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                          xmlns:view="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                          xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels"
-                          xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                          x:TypeArguments="viewModels:MainPageViewModel"
-                          Title="MainPage">
-</view:MvxMasterDetailPage>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<FlyoutPage x:Class="SimTuning.Maui.UI.Views.MainPage"
+            xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            Title="MainPage"
+            xmlns:vm="clr-namespace:SimTuning.Core.ViewModels;assembly=SimTuning.Core"
+            x:DataType="vm:MainPageViewModel">
+</FlyoutPage>

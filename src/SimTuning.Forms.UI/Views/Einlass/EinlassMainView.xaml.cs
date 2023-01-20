@@ -1,16 +1,18 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels.Einlass;
+using SimTuning.Core.ViewModels.Einlass;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace SimTuning.Forms.UI.Views.Einlass
+namespace SimTuning.Maui.UI.Views.Einlass
 {
-    [MvxMasterDetailPagePresentation(MasterDetailPosition.Detail, WrapInNavigationPage = true, NoHistory = true)]
-    public partial class EinlassMainView : MvxContentPage<EinlassMainViewModel>
+    public partial class EinlassMainView : ContentPage
     {
         public EinlassMainView()
         {
             InitializeComponent();
+            
+            BindingContext = Ioc.Default.GetRequiredService<MainViewModel>();
         }
+
+        public MainViewModel ViewModel => (MainViewModel)BindingContext;
     }
 }

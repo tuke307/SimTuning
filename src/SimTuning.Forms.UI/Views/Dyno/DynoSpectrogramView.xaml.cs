@@ -1,22 +1,18 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels.Dyno;
+using SimTuning.Core.ViewModels.Dyno;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace SimTuning.Forms.UI.Views.Dyno
+namespace SimTuning.Maui.UI.Views.Dyno
 {
-    /// <summary>
-    /// DynoSpectrogramView.
-    /// </summary>
-    [MvxModalPresentation]
-    public partial class DynoSpectrogramView : MvxContentPage<DynoSpectrogramViewModel>
+    public partial class DynoSpectrogramView : ContentPage
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DynoSpectrogramView" /> class.
-        /// </summary>
         public DynoSpectrogramView()
         {
             InitializeComponent();
+            
+            BindingContext = Ioc.Default.GetRequiredService<SpectrogramViewModel>();
         }
+
+        public SpectrogramViewModel ViewModel => (SpectrogramViewModel)BindingContext;
     }
 }

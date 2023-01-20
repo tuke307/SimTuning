@@ -1,21 +1,17 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using Plugin.Settings;
-using Plugin.Settings.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SimTuning.Forms.UI
+namespace SimTuning.Maui.UI
 {
     /// <summary>
     /// ColorSettings.
     /// </summary>
     public static class ColorSettings
     {
-        private const string userFile = "user";
-
         /// <summary>
-        /// Gets or sets the MaterialDesignColors.PrimaryColor.
+        /// Gets or sets the PrimaryColor.
         /// TODO: getter geht nicht.
         /// </summary>
         /// <value>The primary.</value>
@@ -23,49 +19,47 @@ namespace SimTuning.Forms.UI
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(Primary), (int)Themes.PrimaryColor.Cyan, userFile);
+                return Preferences.Default.Get(nameof(Primary), (int)Themes.PrimaryColor.Cyan);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(Primary), value, userFile);
+                Preferences.Default.Set(nameof(Primary), value);
             }
         }
 
         /// <summary>
-        /// Gets or sets the MaterialDesignColors.SecondaryColor.
+        /// Gets or sets the SecondaryColor.
         /// </summary>
         /// <value>The secondary.</value>
         public static int Secondary
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(Secondary), (int)Themes.SecondaryColor.Teal, userFile);
+                return Preferences.Default.Get(nameof(Secondary), (int)Themes.SecondaryColor.Teal);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(Secondary), value, userFile);
+                Preferences.Default.Set(nameof(Secondary), value);
             }
         }
 
         /// <summary>
-        /// Gets or sets the MaterialDesignThemes.Wpf.BaseTheme.
+        /// Gets or sets the BaseTheme.
         /// </summary>
         /// <value>The theme.</value>
         public static int Theme
         {
             get
             {
-                return AppSettings.GetValueOrDefault(nameof(Theme), (int)Themes.BaseTheme.Inherit, userFile);
+                return Preferences.Default.Get(nameof(Theme), (int)Themes.BaseTheme.Inherit);
             }
 
             set
             {
-                AppSettings.AddOrUpdateValue(nameof(Theme), value, userFile);
+                Preferences.Default.Set(nameof(Theme), value);
             }
         }
-
-        private static ISettings AppSettings => CrossSettings.Current;
     }
 }

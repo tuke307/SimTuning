@@ -1,16 +1,18 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels.Dyno;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using SimTuning.Core.ViewModels.Dyno;
 
-namespace SimTuning.Forms.UI.Views.Dyno
+namespace SimTuning.Maui.UI.Views.Dyno
 {
-    [MvxModalPresentation]
-    public partial class DynoAusrollenView : MvxContentPage<DynoAusrollenViewModel>
+    public partial class DynoAusrollenView : ContentPage
     {
         public DynoAusrollenView()
         {
             InitializeComponent();
+            
+            BindingContext = Ioc.Default.GetRequiredService<AusrollenViewModel>();
         }
+
+        public AusrollenViewModel ViewModel => (AusrollenViewModel)BindingContext;
     }
 }

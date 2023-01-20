@@ -1,16 +1,17 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using SimTuning.Core.ViewModels;
 
-namespace SimTuning.Forms.UI.Views
+namespace SimTuning.Maui.UI.Views;
+
+public partial class MenuView : ContentPage
 {
-    [MvxMasterDetailPagePresentation(MasterDetailPosition.Master)]
-    public partial class MenuView : MvxContentPage<MenuViewModel>
+    public MenuView()
     {
-        public MenuView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+
+        BindingContext = Ioc.Default.GetRequiredService<MenuViewModel>();
     }
+
+    public MenuViewModel ViewModel => (MenuViewModel)BindingContext;
 }

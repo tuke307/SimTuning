@@ -1,18 +1,16 @@
-﻿<views:MvxContentPage x:Class="SimTuning.Forms.UI.Views.Dyno.DynoSpectrogramView"
-                      x:TypeArguments="viewModels:DynoSpectrogramViewModel"
-                      xmlns="http://xamarin.com/schemas/2014/forms"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                      xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
-                      xmlns:behavior="clr-namespace:SimTuning.Forms.UI.Behaviors"
-                      xmlns:viewModels="clr-namespace:SimTuning.Forms.UI.ViewModels.Dyno"
-                      xmlns:views1="clr-namespace:SimTuning.Forms.UI.Views.Dyno"
-                      xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-                      Style="{StaticResource MvxContentPageStyle}"
-                      Title="Auswertung-Beschleunigung">
-    <views:MvxContentPage.Resources>
+﻿<ContentPage x:Class="SimTuning.Maui.UI.Views.Dyno.DynoSpectrogramView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behavior="clr-namespace:SimTuning.Maui.UI.Behaviors"
+             xmlns:views1="clr-namespace:SimTuning.Maui.UI.Views.Dyno"
+             Style="{StaticResource ContentPageStyle}"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             Title="Auswertung-Beschleunigung"
+             xmlns:vm="clr-namespace:SimTuning.Core.ViewModels.Dyno;assembly=SimTuning.Core"
+             x:DataType="vm:SpectrogramViewModel">
+    <ContentPage.Resources>
         <behavior:InvertedBoolConverter x:Key="inverter" />
-    </views:MvxContentPage.Resources>
+    </ContentPage.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -32,15 +30,15 @@
                     -->
                 <!--EINSTELLUNGEN-->
                 <!--
-                    <material:MaterialCard Style="{StaticResource MaterialCardStyle}" Margin="10"
+                    <Frame Style="{StaticResource FrameStyle}" Margin="10"
                                            Grid.Row="0">
 
                         <StackLayout>
-                            <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}" Text="Audio"
+                            <Label Style="{StaticResource LabelStyle}" Text="Audio"
                                                     FontSize="Medium"
                                                     FontAttributes="Bold" />
 
-                            <BoxView Color="{DynamicResource MaterialDesignDivider}"
+                            <BoxView Color="{DynamicResource DesignDivider}"
                                      HeightRequest="2"
                                      HorizontalOptions="Fill"
                                      Margin="0, 0, 0, 5" />
@@ -51,41 +49,41 @@
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"  Grid.Column="0"
+                                <Button Style="{StaticResource ButtonMediumStyle}"  Grid.Column="0"
                                                          ImageSource="{StaticResource IconRefreshMedium}"
                                                          Command="{Binding RefreshAudioFileCommand}"
                                                          CommandParameter="true"
                                                          WidthRequest="90">
-                                </material:MaterialButton>
+                                </Button>
 
                                 -->
-                <!--<material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"  Grid.Row="0"
+                <!--<Button Style="{StaticResource ButtonMediumStyle}"  Grid.Row="0"
                                                  ImageSource="{StaticResource IconFindInPageMedium}"
                                 IsVisible="{Binding Path=IsVisible, Source={x:Reference badge_open}, Converter={StaticResource inverter}}"
                                 Text="Datei auswählen"
                                 Command="{Binding OpenFileCommand}">
-                        </material:MaterialButton>-->
+                        </Button>-->
                 <!--
 
                                 <StackLayout Grid.Column="1"
                                              Orientation="Horizontal"
                                              Margin="30, 0, 0, 0">
 
-                                    <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"  ImageSource="ic_pause_black_18dp"
+                                    <Button Style="{StaticResource ButtonMediumStyle}"  ImageSource="ic_pause_black_18dp"
                                                              Command="{Binding PauseCommand}"
                                                              WidthRequest="70"
                                                              Margin="-10, 0, 0, 0" />
-                                    <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"  ImageSource="ic_play_arrow_black_18dp"
+                                    <Button Style="{StaticResource ButtonMediumStyle}"  ImageSource="ic_play_arrow_black_18dp"
                                                              Command="{Binding PlayCommand}"
                                                              WidthRequest="70"
                                                              Margin="-10, 0, 0, 0" />
                                 </StackLayout>
                             </Grid>
 
-                            <material:MaterialSlider Value="{Binding Mode=TwoWay, Path=AudioPosition}"
-                                                     MinValue="0"
-                                                     MaxValue="{Binding Mode=OneWay, Path=AudioMaximum}">
-                            </material:MaterialSlider>
+                            <Slider Value="{Binding Mode=TwoWay, Path=AudioPosition}"
+                                                     Minimum="0"
+                                                     Maximum="{Binding Mode=OneWay, Path=AudioMaximum}">
+                            </Slider>
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -94,37 +92,37 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackLayout Grid.Column="0">
-                                    <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}" Text="links schneiden"
-                                                            Margin="10, 0, 0, 0"></material:MaterialLabel>
+                                    <Label Style="{StaticResource LabelStyle}" Text="links schneiden"
+                                                            Margin="10, 0, 0, 0"></Label>
 
-                                    <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"  Command="{Binding CutBeginnCommand }"
+                                    <Button Style="{StaticResource ButtonMediumStyle}"  Command="{Binding CutBeginnCommand }"
                                                              ImageSource="content_cut"
                                                              WidthRequest="70">
-                                    </material:MaterialButton>
+                                    </Button>
                                 </StackLayout>
 
                                 <StackLayout Grid.Column="1">
-                                    <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}" Text="rechts schneiden"
-                                                            Margin="10, 0, 0, 0"></material:MaterialLabel>
+                                    <Label Style="{StaticResource LabelStyle}" Text="rechts schneiden"
+                                                            Margin="10, 0, 0, 0"></Label>
 
-                                    <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"  Command="{Binding CutEndCommand }"
+                                    <Button Style="{StaticResource ButtonMediumStyle}"  Command="{Binding CutEndCommand }"
                                                              ImageSource="content_cut"
                                                              WidthRequest="70">
-                                    </material:MaterialButton>
+                                    </Button>
                                 </StackLayout>
                             </Grid>
                         </StackLayout>
-                    </material:MaterialCard>
+                    </Frame>
                 </Grid>-->
-                <material:MaterialCard Style="{StaticResource MaterialCardStyle}"
-                                       Margin="10">
+                <Frame Style="{StaticResource FrameStyle}"
+                       Margin="10">
                     <StackLayout>
-                        <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Spectrogram"
-                                                FontSize="Medium"
-                                                FontAttributes="Bold" />
+                        <Label Style="{StaticResource LabelStyle}"
+                               Text="Spectrogram"
+                               FontSize="Medium"
+                               FontAttributes="Bold" />
 
-                        <BoxView Style="{StaticResource Divider}" />
+                        <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
                         <Image Source="{Binding Mode=OneWay, Path=DisplayedImage}"
                                HeightRequest="350"
@@ -133,62 +131,56 @@
                                HorizontalOptions="FillAndExpand">
                         </Image>
                     </StackLayout>
-                </material:MaterialCard>
+                </Frame>
 
                 <!--EINSTELLUNGEN-->
-                <material:MaterialCard Style="{StaticResource MaterialCardStyle}"
-                                       Margin="10">
+                <Frame Style="{StaticResource FrameStyle}"
+                       Margin="10">
                     <StackLayout>
-                        <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Spectrogram-Einstellungen"
-                                                FontSize="Medium"
-                                                FontAttributes="Bold" />
+                        <Label Style="{StaticResource LabelStyle}"
+                               Text="Spectrogram-Einstellungen"
+                               FontSize="Medium"
+                               FontAttributes="Bold" />
 
-                        <BoxView Style="{StaticResource Divider}" />
+                        <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
                         <!--Colormap-->
-                        <material:MaterialTextField InputType="Choice"
-                                                    Placeholder="Colormap"
-                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                    Choices="{Binding Mode=OneTime, Path=Colormaps}"
-                                                    SelectedChoice="{Binding Mode=TwoWay, Path=Colormap}">
-                        </material:MaterialTextField>
+                        <Picker Title="Colormap"
+                                ItemsSource="{Binding Mode=OneTime, Path=Colormaps}"
+                                SelectedItem="{Binding Mode=TwoWay, Path=Colormap}">
+                        </Picker>
 
                         <!--Intensität-->
-                        <material:MaterialTextField InputType="Choice"
-                                                    Placeholder="Intensität"
-                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                    Choices="{Binding Mode=OneTime, Path=Intensitys}"
-                                                    SelectedChoice="{Binding Mode=TwoWay, Path=Intensity}">
-                        </material:MaterialTextField>
+                        <Picker Title="Intensität"
+                                ItemsSource="{Binding Mode=OneTime, Path=Intensitys}"
+                                SelectedItem="{Binding Mode=TwoWay, Path=Intensity}">
+                        </Picker>
 
                         <!--Auflösungsqualität-->
-                        <material:MaterialTextField InputType="Choice"
-                                                    Placeholder="Qualität"
-                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                    Choices="{Binding Mode=OneTime, Path=Qualitys}"
-                                                    SelectedChoice="{Binding Mode=TwoWay, Path=Quality}">
-                        </material:MaterialTextField>
+                        <Picker Title="Qualität"
+                                ItemsSource="{Binding Mode=OneTime, Path=Qualitys}"
+                                SelectedItem="{Binding Mode=TwoWay, Path=Quality}">
+                        </Picker>
 
                         <!--Frequenzbereich-->
                         <StackLayout Margin="0, 10, 0, 0">
-                            <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}">
+                            <Label Style="{StaticResource LabelStyle}">
                                 Drehzahl
-                            </material:MaterialLabel>
+                            </Label>
 
                             <StackLayout Orientation="Horizontal">
-                                <material:MaterialTextField Text="{Binding Mode=TwoWay, Path=Frequenzbeginn}"
-                                                            Placeholder="von"
-                                                            WidthRequest="100"
-                                                            InputType="Numeric" />
-                                <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                        Text="-"
-                                                        Margin="10, 0, 10, 0"
-                                                        VerticalOptions="Center" />
-                                <material:MaterialTextField Text="{Binding Mode=TwoWay, Path=Frequenzende}"
-                                                            Placeholder="bis"
-                                                            WidthRequest="100"
-                                                            InputType="Numeric" />
+                                <Entry Text="{Binding Mode=TwoWay, Path=Frequenzbeginn}"
+                                       Placeholder="von"
+                                       WidthRequest="100"
+                                       Keyboard="Numeric" />
+                                <Label Style="{StaticResource LabelStyle}"
+                                       Text="-"
+                                       Margin="10, 0, 10, 0"
+                                       VerticalOptions="Center" />
+                                <Entry Text="{Binding Mode=TwoWay, Path=Frequenzende}"
+                                       Placeholder="bis"
+                                       WidthRequest="100"
+                                       Keyboard="Numeric" />
                             </StackLayout>
                         </StackLayout>
 
@@ -205,98 +197,92 @@
                             </Button>
                         </materialDesign:Badged>-->
 
-                        <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 HorizontalOptions="Center"
-                                                 WidthRequest="90"
-                                                 ImageSource="{StaticResource IconRefreshMedium}"
-                                                 Command="{Binding RefreshSpectrogramCommand}"
-                                                 CommandParameter="false">
-                        </material:MaterialButton>
+                        <Button Style="{StaticResource ButtonMediumStyle}"
+                                HorizontalOptions="Center"
+                                WidthRequest="90"
+                                ImageSource="{StaticResource IconRefreshMedium}"
+                                Command="{Binding RefreshSpectrogramCommand}"
+                                CommandParameter="false">
+                        </Button>
                     </StackLayout>
-                </material:MaterialCard>
+                </Frame>
 
                 <!--1. Group box Plot-->
-                <material:MaterialCard Style="{StaticResource MaterialCardStyle}"
-                                       Margin="10">
+                <Frame Style="{StaticResource FrameStyle}"
+                       Margin="10">
                     <StackLayout>
-                        <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Graph"
-                                                FontSize="Medium"
-                                                FontAttributes="Bold" />
+                        <Label Style="{StaticResource LabelStyle}"
+                               Text="Graph"
+                               FontSize="Medium"
+                               FontAttributes="Bold" />
 
-                        <BoxView Style="{StaticResource Divider}" />
+                        <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
-                        <oxy:PlotView Model="{Binding Mode=OneWay, Path=PlotAudio}"
-                                      HeightRequest="400" />
+                        <lvc:CartesianChart Series="{Binding Mode=OneWay, Path=PlotAudio}"
+                                            HeightRequest="400" />
                     </StackLayout>
-                </material:MaterialCard>
+                </Frame>
 
                 <!--Graph-Einstellungen-->
-                <material:MaterialCard Style="{StaticResource MaterialCardStyle}"
-                                       Margin="10">
+                <Frame Style="{StaticResource FrameStyle}"
+                       Margin="10">
                     <StackLayout>
-                        <material:MaterialLabel Style="{StaticResource MaterialLabelStyle}"
-                                                Text="Graph-Einstellungen"
-                                                FontSize="Medium"
-                                                FontAttributes="Bold" />
+                        <Label Style="{StaticResource LabelStyle}"
+                               Text="Graph-Einstellungen"
+                               FontSize="Medium"
+                               FontAttributes="Bold" />
 
-                        <BoxView Style="{StaticResource Divider}" />
+                        <BoxView Style="{StaticResource DividerBoxViewStyle}" />
 
                         <!--Intensität-->
-                        <material:MaterialTextField InputType="Choice"
-                                                    Placeholder="Intensität"
-                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                    Choices="{Binding Mode=OneTime, Path=Intensitys}"
-                                                    SelectedChoice="{Binding Mode=TwoWay, Path=Intensity}">
-                        </material:MaterialTextField>
+                        <Picker Title="Intensität"
+                                ItemsSource="{Binding Mode=OneTime, Path=Intensitys}"
+                                SelectedItem="{Binding Mode=TwoWay, Path=Intensity}">
+                        </Picker>
 
                         <!--Filter-->
-                        <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 WidthRequest="90"
-                                                 ImageSource="{StaticResource IconFilterMedium}"
-                                                 Command="{Binding FilterPlotCommand}" />
+                        <Button Style="{StaticResource ButtonMediumStyle}"
+                                WidthRequest="90"
+                                ImageSource="{StaticResource IconFilterMedium}"
+                                Command="{Binding FilterPlotCommand}" />
 
                         <!--Refresh-->
-                        <material:MaterialButton Style="{StaticResource MaterialButtonMediumStyle}"
-                                                 WidthRequest="90"
-                                                 ImageSource="{StaticResource IconRefreshMedium}"
-                                                 Command="{Binding RefreshPlotCommand}">
-                        </material:MaterialButton>
+                        <Button Style="{StaticResource ButtonMediumStyle}"
+                                WidthRequest="90"
+                                ImageSource="{StaticResource IconRefreshMedium}"
+                                Command="{Binding RefreshPlotCommand}">
+                        </Button>
 
                         <!--Filter Intensität-->
-                        <material:MaterialSlider MinValue="0"
-                                                 MaxValue="25"
-                                                 Value="{Binding Mode=TwoWay, Path=FilterValue}"
-                                                 VerticalOptions="CenterAndExpand" />
+                        <Slider Minimum="0"
+                                Maximum="25"
+                                Value="{Binding Mode=TwoWay, Path=FilterValue}"
+                                VerticalOptions="CenterAndExpand" />
 
                         <!--Graph-->
-                        <material:MaterialTextField InputType="Choice"
-                                                    FloatingPlaceholderEnabled="False"
-                                                    Placeholder="Graphauswahl"
-                                                    LeadingIcon="{StaticResource IconKeyboardArrowDownMedium}"
-                                                    Choices="{Binding Mode=OneWay, Path=Graphs}"
-                                                    SelectedChoice="{Binding Mode=TwoWay, Path=Graph}"
-                                                    ChoicesBindingName="Name">
-                            <!--<material:MaterialTextField.Behaviors>
+                        <Picker Title="Graphauswahl"
+                                ItemsSource="{Binding Mode=OneWay, Path=Graphs}"
+                                SelectedItem="{Binding Mode=TwoWay, Path=Graph}"
+                                ItemDisplayBinding="{Binding Name}">
+                            <!--<Entry.Behaviors>
                             <behavior:EventToCommandBehavior EventName="ChoiceSelected"
                                                              Command="{Binding SpecificGraphCommand}" />
-                        </material:MaterialTextField.Behaviors>-->
-                        </material:MaterialTextField>
+                        </Entry.Behaviors>-->
+                        </Picker>
                     </StackLayout>
-                </material:MaterialCard>
+                </Frame>
 
-                <material:MaterialIconButton Style="{StaticResource MaterialIconButtonMediumStyle}"
-                                             WidthRequest="100"
-                                             HeightRequest="60"
-                                             Margin="15"
-                                             ButtonType="Elevated"
-                                             HorizontalOptions="End"
-                                             VerticalOptions="Center"
-                                             Image="{StaticResource IconChevronRightMedium}"
-                                             Command="{Binding ShowBeschleunigungCommand}" />
+                <ImageButton Style="{StaticResource IconButtonMediumStyle}"
+                             WidthRequest="100"
+                             HeightRequest="60"
+                             Margin="15"
+                             HorizontalOptions="End"
+                             VerticalOptions="Center"
+                             Source="{StaticResource IconChevronRightMedium}"
+                             Command="{Binding ShowBeschleunigungCommand}" />
             </StackLayout>
         </ScrollView>
 
         <views1:DynoAudioPlayerView Grid.Row="1" />
     </Grid>
-</views:MvxContentPage>
+</ContentPage>

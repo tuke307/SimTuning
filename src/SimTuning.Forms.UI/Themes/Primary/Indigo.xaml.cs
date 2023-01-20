@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using Xamarin.Forms;
+using Microsoft.Maui;using Microsoft.Maui.Controls;
 
-namespace SimTuning.Forms.UI.Themes.Primary
+namespace SimTuning.Maui.UI.Themes.Primary
 {
     public partial class Indigo : ResourceDictionary
     {

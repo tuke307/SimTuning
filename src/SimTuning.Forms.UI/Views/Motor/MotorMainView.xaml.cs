@@ -1,16 +1,18 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels.Motor;
+using SimTuning.Core.ViewModels.Motor;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace SimTuning.Forms.UI.Views.Motor
+namespace SimTuning.Maui.UI.Views.Motor
 {
-    [MvxMasterDetailPagePresentation(MasterDetailPosition.Detail, WrapInNavigationPage = true, NoHistory = true)]
-    public partial class MotorMainView : MvxContentPage<MotorMainViewModel>
+    public partial class MotorMainView : ContentPage
     {
         public MotorMainView()
         {
             InitializeComponent();
+            
+            BindingContext = Ioc.Default.GetRequiredService<MainViewModel>();
         }
+
+        public MainViewModel ViewModel => (MainViewModel)BindingContext;
     }
 }

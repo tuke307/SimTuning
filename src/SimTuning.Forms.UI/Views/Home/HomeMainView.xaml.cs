@@ -1,16 +1,18 @@
 ﻿// Copyright (c) 2021 tuke productions. All rights reserved.
-using MvvmCross.Forms.Presenters.Attributes;
-using MvvmCross.Forms.Views;
-using SimTuning.Forms.UI.ViewModels.Home;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using SimTuning.Core.ViewModels.Home;
 
-namespace SimTuning.Forms.UI.Views.Home
+namespace SimTuning.Maui.UI.Views.Home
 {
-    [MvxMasterDetailPagePresentation(MasterDetailPosition.Detail, WrapInNavigationPage = true, NoHistory = true)]
-    public partial class HomeMainView : MvxContentPage<HomeMainViewModel>
+    public partial class HomeMainView : ContentPage
     {
         public HomeMainView()
         {
             InitializeComponent();
+            
+            this.BindingContext = Ioc.Default.GetRequiredService<HomeViewModel>();
         }
+
+        public HomeViewModel ViewModel => (HomeViewModel)BindingContext;
     }
 }

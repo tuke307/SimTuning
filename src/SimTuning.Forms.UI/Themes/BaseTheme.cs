@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SimTuning.Forms.UI.Themes
+namespace SimTuning.Maui.UI.Themes
 {
     public enum BaseTheme
     {

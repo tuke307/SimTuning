@@ -2,17 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
-namespace SimTuning.Forms.UI.Components
+namespace SimTuning.Maui.UI.Components
 {
     public partial class MenuOptionView : StackLayout
     {
-        public ImageSource Source
+        public ImageSource ImageSource
         {
             set
             {
-                Icon.Source = value;
+                Icon.ImageSource = value;
             }
         }
 
@@ -26,7 +27,7 @@ namespace SimTuning.Forms.UI.Components
 
         public MenuOptionView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }
