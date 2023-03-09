@@ -1,96 +1,32 @@
-﻿<ContentPage x:Class="SimTuning.Maui.UI.Views.Einstellungen.EinstellungenVehiclesView"
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:SimTuning.Maui.UI.Behaviors"
-             Title="Fahrzeuge"
-             xmlns:vm="clr-namespace:SimTuning.Maui.UI.ViewModels"
-             xmlns:models="clr-namespace:SimTuning.Data.Models;assembly=SimTuning.Data"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:DataType="vm:EinstellungenVehiclesViewModel">
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mct:Popup  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+            x:Class="SimTuning.Maui.UI.Views.Popups.VehiclePopup"
+            xmlns:vm="clr-namespace:SimTuning.Maui.UI.ViewModels"
+            xmlns:models="clr-namespace:SimTuning.Data.Models;assembly=SimTuning.Data"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+            x:DataType="vm:VehiclesViewModel"
+            Color="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}"
+            Size="500, 700">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0">
-            <StackLayout>
-                <Label Style="{StaticResource LabelTitleStyle}"
-                       Text="Auswahl" />
-
-                <BoxView Style="{StaticResource DividerBoxViewStyle}" />
-
-                <ListView HeightRequest="150"
-                          ItemsSource="{Binding Vehicles}"
-                          SelectedItem="{Binding Mode=TwoWay, Path=Vehicle}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:VehiclesModel">
-                            <TextCell Text="{Binding Name}"
-                                      Detail="{Binding Beschreibung}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
-                <Grid Margin="5, 0, 0, 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <ImageButton Grid.Column="0"
-                                 MinimumWidthRequest="50"
-                                 Source="{StaticResource IconPlusCircleMultipleOutlineMedium}"
-                                 Command="{Binding NewVehicleCommand}">
-                    </ImageButton>
-
-                    <ImageButton Grid.Column="2"
-                                 MinimumWidthRequest="50"
-                                 Opacity="0.7"
-                                 BackgroundColor="{AppThemeBinding Light={StaticResource Primary600}, Dark={StaticResource Primary600}}"
-                                 Source="{StaticResource IconDeleteCircleOutlineMedium}"
-                                 Command="{Binding DeleteVehicleCommand}">
-                    </ImageButton>
-                </Grid>
-            </StackLayout>
-        </Border>
+        <Picker Grid.Row="0"
+                ItemsSource="{Binding Vehicles}"
+                SelectedItem="{Binding Mode=TwoWay, Path=Vehicle}"
+                ItemDisplayBinding="{Binding Name}"
+                HorizontalOptions="CenterAndExpand"
+                Margin="5">
+        </Picker>
 
         <ScrollView Grid.Row="1">
             <Border>
                 <StackLayout>
-                    <Label Style="{StaticResource LabelTitleStyle}"
-                           Text="Daten" />
-
-                    <BoxView Style="{StaticResource DividerBoxViewStyle}" />
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <StackLayout Grid.Column="0">
-                            <Entry Placeholder="Name"
-                                   Text="{Binding Mode=TwoWay, Path=VehicleName}"
-                                   Margin="5">
-                            </Entry>
-
-                            <Editor Placeholder="Beschreibung"
-                                    Text="{Binding Mode=TwoWay, Path=VehicleBeschreibung}"
-                                    Margin="5"
-                                    HeightRequest="125">
-                            </Editor>
-                        </StackLayout>
-
-                        <Button Grid.Column="1"
-                                Margin="15"
-                                VerticalOptions="Center"
-                                ImageSource="{StaticResource IconContentSaveMedium}"
-                                Command="{Binding SaveVehicleCommand}">
-                        </Button>
-                    </Grid>
-
                     <!--#region Allgemein-->
 
                     <toolkit:Expander x:Name="AllgemeinExpander">
@@ -140,7 +76,7 @@
                             </Border>
                         </toolkit:Expander.Header>
 
-                        <StackLayout Margin="20, 0, 0, 0">
+                        <StackLayout>
 
                             <!--#region Engine-->
 
@@ -149,11 +85,6 @@
                                     SelectedItem="{Binding Engine}"
                                     ItemDisplayBinding="{Binding Name}">
                             </Picker>
-
-                            <Entry Placeholder="Name"
-                                   Text="{Binding Mode=TwoWay, Path=VehicleMotorName}"
-                                   Keyboard="Numeric">
-                            </Entry>
 
                             <!--#endregion Engine-->
 
@@ -921,111 +852,13 @@
                     </toolkit:Expander>
 
                     <!--#endregion Motor-->
-
-                    <!--#region Dyno-->
-
-                    <toolkit:Expander x:Name="DynoExpander">
-                        <toolkit:Expander.Header>
-                            <Border>
-                                <Label>
-                                    Dyno
-                                </Label>
-                            </Border>
-                        </toolkit:Expander.Header>
-
-                        <StackLayout Margin="20, 0, 0, 0">
-
-                            <Entry Placeholder="Name"
-                                   Text="{Binding Mode=TwoWay, Path=VehicleDynoName}"
-                                   Grid.Column="0"
-                                   Keyboard="Numeric">
-                            </Entry>
-
-                            <Editor Placeholder="Beschreibung"
-                                    Text="{Binding Mode=TwoWay, Path=VehicleDynoBeschreibung}"
-                                    Grid.Column="0"
-                                    HeightRequest="150">
-                            </Editor>
-
-                            <!--Audio-->
-
-                            <!--<toolkit:Expander>
-                                <toolkit:Expander.Header>
-                                    <Border>
-                                        <Label>
-                                            Audio
-                                        </Label>
-                                    </Border>
-                                </toolkit:Expander.Header>
-
-                                <StackLayout Orientation="Horizontal"
-                                             Margin="20, 0, 0, 0">
-                                    <Picker Title="X"
-                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoAudio}"
-                                            ItemDisplayBinding="X">
-                                    </Picker>
-
-                                    <Picker Title="Y"
-                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoAudio}"
-                                            ItemDisplayBinding="Y">
-                                    </Picker>
-                                </StackLayout>
-                            </toolkit:Expander>-->
-
-                            <!--PS-->
-
-                            <!--<toolkit:Expander>
-                                <toolkit:Expander.Header>
-                                    <Border>
-                                        <Label>
-                                            PS
-                                        </Label>
-                                    </Border>
-                                </toolkit:Expander.Header>
-
-                                <StackLayout Orientation="Horizontal"
-                                             Margin="20, 0, 0, 0">
-                                    <Picker Title="X"
-                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoDynoPS}"
-                                            ItemDisplayBinding="X">
-                                    </Picker>
-
-                                    <Picker Title="Y"
-                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoDynoPS}"
-                                            ItemDisplayBinding="Y">
-                                    </Picker>
-                                </StackLayout>
-                            </toolkit:Expander>-->
-
-                            <!--Nm-->
-
-                            <!--<toolkit:Expander>
-                                <toolkit:Expander.Header>
-                                    <Border>
-                                        <Label>
-                                            Nm
-                                        </Label>
-                                    </Border>
-                                </toolkit:Expander.Header>
-
-                                <StackLayout Orientation="Horizontal"
-                                             Margin="20, 0, 0, 0">
-                                    <Picker Title="X"
-                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoDynoNm}"
-                                            ItemDisplayBinding="X">
-                                    </Picker>
-
-                                    <Picker Title="Y"
-                                            ItemsSource="{Binding Mode=OneTime, Path=VehicleDynoDynoNm}"
-                                            ItemDisplayBinding="Y">
-                                    </Picker>
-                                </StackLayout>
-                            </toolkit:Expander>-->
-                        </StackLayout>
-                    </toolkit:Expander>
-                    <!--#endregion Dyno-->
                 </StackLayout>
             </Border>
         </ScrollView>
+
+        <ImageButton Grid.Row="2"
+                     Clicked="Button_Clicked"
+                     Margin="5"
+                     Source="{StaticResource IconChevronRightMedium}" />
     </Grid>
-</ContentPage>
+</mct:Popup>
