@@ -6,6 +6,6 @@
   <ItemGroup>
     <PackageReference Include="ar1st0crat.SciColorMaps.Portable" Version="1.0.2" />
     <PackageReference Include="FftSharp" Version="1.1.5" />
-    <PackageReference Include="SkiaSharp" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp" Version="2.88.6" />
   </ItemGroup>
 </Project>
